@@ -2,16 +2,16 @@ import { ErrorCode, WarningCode } from '../types';
 
 // --- Base error/warning classes
 
-export class FortmaticError extends Error {
+export class MagicSDKError extends Error {
   __proto__ = Error;
 
   constructor(public code: ErrorCode, message: string) {
-    super(`Fortmatic Error: [${code}] ${message}`);
-    Object.setPrototypeOf(this, FortmaticError.prototype);
+    super(`Magic SDK Error: [${code}] ${message}`);
+    Object.setPrototypeOf(this, MagicSDKError.prototype);
   }
 }
 
-export class FortmaticWarning {
+export class MagicSDKWarning {
   public message: string;
 
   constructor(public code: WarningCode, message: string) {
@@ -26,14 +26,14 @@ export class FortmaticWarning {
 // --- SDK error factories
 
 export function createMissingApiKeyError() {
-  return new FortmaticError(
+  return new MagicSDKError(
     ErrorCode.MissingApiKey,
-    'Please provide a Fortmatic API key that you acquired from the developer dashboard.',
+    'Please provide an API key that you acquired from the Magic developer dashboard.',
   );
 }
 
 export function createModalNotReadyError() {
-  return new FortmaticError(ErrorCode.ModalNotReady, 'Modal is not ready.');
+  return new MagicSDKError(ErrorCode.ModalNotReady, 'Modal is not ready.');
 }
 
 export function createInvalidArgumentError(options: {
@@ -52,7 +52,7 @@ export function createInvalidArgumentError(options: {
     return `${iAdjusted}th`;
   };
 
-  return new FortmaticError(
+  return new MagicSDKError(
     ErrorCode.InvalidArgument,
     `Invalid ${ordinalSuffix(options.argIndex)} argument given to \`${options.functionName}\`.\n` +
       `  Expected: \`${options.expected}\`\n` +
@@ -60,11 +60,8 @@ export function createInvalidArgumentError(options: {
   );
 }
 
-// --- SDK warning factories
+// --- SDK Warning factories
 
-export function createSynchronousWeb3MethodWarning() {
-  return new FortmaticWarning(
-    WarningCode.SyncWeb3Method,
-    'Non-async web3 methods will be deprecated in web3 > 1.0 and are not supported by the Fortmatic provider. An async method is to be used instead.',
-  );
+export function createDuplicateIframeWarning() {
+  return new MagicSDKWarning(WarningCode.DuplicateIframe, 'Duplicate iframes found.');
 }

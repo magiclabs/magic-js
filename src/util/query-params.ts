@@ -4,7 +4,6 @@
 export interface QueryParameters {
   API_KEY?: string;
   DOMAIN_ORIGIN?: string;
-  ETH_NETWORK?: string | { rpcUrl: string; chainId?: number };
   host?: string;
   sdk?: string;
   version?: string;

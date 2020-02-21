@@ -1,7 +1,35 @@
 /* eslint-disable no-underscore-dangle */
 
-import { JsonRpcBatchRequestPayload, JsonRpcError, JsonRpcRequestPayload, JsonRpcResponsePayload } from '../types';
+import { JsonRpcRequestPayload, JsonRpcResponsePayload, JsonRpcError } from '../types';
 import { isJsonRpcResponsePayload } from '../util/type-guards';
+import { getPayloadId } from '../util/get-payload-id';
+
+/**
+ * Build a valid JSON RPC payload for emitting to the Magic SDK iframe relayer.
+ */
+export function createJsonRpcRequestPayload(method: string, ...params: any[]): JsonRpcRequestPayload {
+  return {
+    params,
+    method,
+    jsonrpc: '2.0',
+    id: getPayloadId(),
+  };
+}
+
+/**
+ * Wraps JSON RPC Payload errors in a JavaScript `Error` object.
+ */
+export class JsonRpcErrorWrapper extends Error {
+  __proto__ = Error;
+
+  public readonly code: string | number;
+
+  constructor(sourceError?: JsonRpcError | JsonRpcErrorWrapper | null) {
+    super(sourceError?.message);
+    this.code = sourceError?.code ?? -32603;
+    Object.setPrototypeOf(this, JsonRpcErrorWrapper.prototype);
+  }
+}
 
 /**
  * A class which standardizes JSON RPC responses to ensure the correct
@@ -9,20 +37,14 @@ import { isJsonRpcResponsePayload } from '../util/type-guards';
  */
 export class JsonRpcResponse<ResultType = any> {
   private readonly _jsonrpc: string;
-  private readonly _id: string | number;
-  private _result: ResultType | null;
-  private _error: JsonRpcError | null;
+  private readonly _id: string | number | null;
+  private _result?: ResultType | null;
+  private _error?: JsonRpcError | null;
 
   constructor(responsePayload: JsonRpcResponsePayload);
   constructor(response: JsonRpcResponse<ResultType>);
-  constructor(payload: JsonRpcRequestPayload | JsonRpcBatchRequestPayload);
-  constructor(
-    responseOrPayload:
-      | JsonRpcResponsePayload
-      | JsonRpcResponse<ResultType>
-      | JsonRpcRequestPayload
-      | JsonRpcBatchRequestPayload,
-  ) {
+  constructor(requestPayload: JsonRpcRequestPayload);
+  constructor(responseOrPayload: JsonRpcResponsePayload | JsonRpcResponse<ResultType> | JsonRpcRequestPayload) {
     if (responseOrPayload instanceof JsonRpcResponse) {
       this._jsonrpc = responseOrPayload.payload.jsonrpc;
       this._id = responseOrPayload.payload.id;
@@ -41,12 +63,12 @@ export class JsonRpcResponse<ResultType = any> {
     }
   }
 
-  public applyError(error: JsonRpcError | null = null) {
+  public applyError(error?: JsonRpcError | null) {
     this._error = error;
     return this;
   }
 
-  public applyResult(result: ResultType | null = null) {
+  public applyResult(result?: ResultType | null) {
     this._result = result;
     return this;
   }

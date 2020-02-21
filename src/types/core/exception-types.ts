@@ -5,5 +5,5 @@ export enum ErrorCode {
 }
 
 export enum WarningCode {
-  SyncWeb3Method = 'SYNC_WEB3_METHOD',
+  DuplicateIframe = 'DUPLICATE_IFRAME',
 }

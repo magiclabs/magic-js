@@ -1,7 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 
-import { FmIncomingWindowMessage } from '../types';
-import { FmPayloadTransport } from './fm-payload-transport';
+import { MagicIncomingWindowMessage } from '../types';
+import { PayloadTransport } from './payload-transport';
+import { createDuplicateIframeWarning } from './sdk-exceptions';
 
 /**
  * Fortmatic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
@@ -33,8 +34,10 @@ function applyOverlayStyles(elem: HTMLElement) {
 /**
  * Checks if the given query params are associated with an active `<iframe>`
  * instance.
+ *
+ * @param encodedQueryParams - The unique, encoded query parameters to check for
+ * duplicates against.
  */
-/* istanbul ignore next */
 function checkForSameSrcInstances(encodedQueryParams: string) {
   const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.fortmatic-iframe'));
   return Boolean(iframes.find(iframe => iframe.src?.includes(encodedQueryParams)));
@@ -43,14 +46,16 @@ function checkForSameSrcInstances(encodedQueryParams: string) {
 /**
  * View controller for the Fortmatic `<iframe>` overlay.
  */
-export class FmIframeController {
+export class IframeController {
   public readonly iframe: Promise<HTMLIFrameElement>;
   private _overlayReady = false;
-  private payloadTransport: FmPayloadTransport;
 
-  constructor(private readonly endpoint: string, private readonly encodedQueryParams: string) {
+  constructor(
+    private readonly transport: PayloadTransport,
+    private readonly endpoint: string,
+    private readonly encodedQueryParams: string,
+  ) {
     this.iframe = this.init();
-    this.payloadTransport = new FmPayloadTransport(endpoint, encodedQueryParams);
     this.listen();
   }
 
@@ -62,7 +67,7 @@ export class FmIframeController {
   }
 
   /**
-   * The `<iframe>` label inferred from associated endpoint
+   * A unique `<iframe>` label inferred from the associated endpoint
    */
   private get iframeLabel() {
     return new URL(this.endpoint).host;
@@ -75,9 +80,6 @@ export class FmIframeController {
   private init(): Promise<HTMLIFrameElement> {
     return new Promise(resolve => {
       const onload = () => {
-        // Check duplicate instances
-        // TODO: Replace the uncommented `if` statement with the following,
-        // commented-out `if` statement to allow multiple iframes per domain.
         if (!checkForSameSrcInstances(this.encodedQueryParams)) {
           const iframe = document.createElement('iframe');
           iframe.classList.add('fortmatic-iframe');
@@ -92,7 +94,7 @@ export class FmIframeController {
 
           resolve(iframe);
         } else {
-          console.error('Fortmatic: Duplicate instances found.');
+          createDuplicateIframeWarning().log();
         }
       };
 
@@ -126,15 +128,15 @@ export class FmIframeController {
    * Listen for messages sent from the underlying Fortmatic `<iframe>`.
    */
   private listen() {
-    this.payloadTransport.on(FmIncomingWindowMessage.FORTMATIC_OVERLAY_READY, () => {
+    this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
       this._overlayReady = true;
     });
 
-    this.payloadTransport.on(FmIncomingWindowMessage.FORTMATIC_HIDE_OVERLAY, () => {
+    this.transport.on(MagicIncomingWindowMessage.MAGIC_HIDE_OVERLAY, () => {
       this.hideOverlay();
     });
 
-    this.payloadTransport.on(FmIncomingWindowMessage.FORTMATIC_SHOW_OVERLAY, () => {
+    this.transport.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
       this.showOverlay();
     });
   }

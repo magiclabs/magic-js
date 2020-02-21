@@ -1,2 +1,1 @@
-export const WIDGET_URL = process.env.WIDGET_URL || 'https://x2.fortmatic.com/';
-export const PHANTOM_URL = process.env.PHANTOM_URL || 'https://auth.fortmatic.com/';
+export const MAGIC_URL = process.env.MAGIC_URL || 'https://auth.fortmatic.com/';

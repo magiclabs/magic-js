@@ -23,21 +23,21 @@ export interface JsonRpcError {
 
 export interface JsonRpcResponsePayload<ResultType = any> {
   jsonrpc: string;
-  id: string | number;
-  result: ResultType | null;
-  error: JsonRpcError | null;
+  id: string | number | null;
+  result?: ResultType | null;
+  error?: JsonRpcError | null;
 }
 
-// --- Miscellaneous
+// --- Payload methods
 
-export interface JsonRpcRequestCallback {
-  /**
-   * Callback executed upon JSON RPC response.
-   */
-  (err: JsonRpcError | null, result?: JsonRpcResponsePayload | (JsonRpcResponsePayload | null)[] | null): void;
-}
-
-export interface ComposeTransactionConfig {
-  to: string;
-  amount: string;
+/**
+ * Enum of Fortmatic custom JSON RPC methods. These are used for communication
+ * with the Fortmatic provider and as such are not part of the Web3 standard
+ * spec.
+ */
+export enum MagicPayloadMethod {
+  magic_auth_login_with_magic_link = 'fm_auth_login_with_magic_link',
+  magic_auth_get_access_token = 'fm_auth_get_access_token',
+  magic_auth_get_metadata = 'fm_auth_get_metadata',
+  magic_auth_logout = 'fm_auth_logout',
 }
