@@ -12,7 +12,7 @@ import { MAGIC_URL } from '../constants/config';
 /**
  * Base class for Fortmatic SDKs
  */
-export class Magic {
+export class MagicSDK {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
   private readonly overlay: IframeController;
 
@@ -49,13 +49,13 @@ export class Magic {
    * The underlying JSON RPC payload transport.
    */
   private get transport(): PayloadTransport {
-    if (!Magic.__transports__.has(this.encodedQueryParams)) {
-      Magic.__transports__.set(
+    if (!MagicSDK.__transports__.has(this.encodedQueryParams)) {
+      MagicSDK.__transports__.set(
         this.encodedQueryParams,
         new PayloadTransport(this.overlay, this.endpoint, this.encodedQueryParams),
       );
     }
 
-    return Magic.__transports__.get(this.encodedQueryParams)!;
+    return MagicSDK.__transports__.get(this.encodedQueryParams)!;
   }
 }
