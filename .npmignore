@@ -1,0 +1,15 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+# dependencies
+/.circleci
+/.idea
+/scripts
+/webpack
+/node_modules
+/src
+/test
+/.nyc_output
+/coverage
+tsconfig.json
+.prettierrc.js
+.eslintrc
+

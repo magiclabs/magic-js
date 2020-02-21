@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "lib": ["es2018", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "dist/cjs"
+  },
+  "include": [
+    "src", "test.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "lib"
+  ]
+}

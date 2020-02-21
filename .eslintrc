@@ -1,0 +1,29 @@
+{
+  "extends": ["@ikscodes/eslint-config"],
+  "parserOptions": {
+    "project": [
+      "./tsconfig.json",
+      "./webpack/tsconfig.json",
+      "./test/tsconfig.json"
+    ]
+  },
+  "rules": {
+    "import/extensions": 0,
+    "no-alert": 0,
+    "@typescript-eslint/await-thenable": 0,
+    "no-useless-constructor": 0,
+    "@typescript-eslint/no-useless-constructor": 0,
+    "@typescript-eslint/no-empty-function": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "directory": [
+          "./tsconfig.json",
+          "./webpack/tsconfig.json",
+          "./test/tsconfig.json"
+        ]
+      }
+    }
+  }
+}
