@@ -8,6 +8,7 @@ import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { MAGIC_URL } from '../constants/config';
+import { MagicSDKAdditionalConfiguration } from '../types';
 
 export class MagicSDK {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
@@ -28,7 +29,7 @@ export class MagicSDK {
    * @param apiKey
    * @param options.endpoint -
    */
-  constructor(public readonly apiKey: string, options?: { endpoint?: string }) {
+  constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
 
     this.endpoint = options?.endpoint || MAGIC_URL;
