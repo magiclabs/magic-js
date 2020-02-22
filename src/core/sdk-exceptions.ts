@@ -2,20 +2,20 @@ import { ErrorCode, WarningCode } from '../types';
 
 // --- Base error/warning classes
 
-export class MagicSDKError extends Error {
+export class MagicError extends Error {
   __proto__ = Error;
 
   constructor(public code: ErrorCode, message: string) {
     super(`Magic SDK Error: [${code}] ${message}`);
-    Object.setPrototypeOf(this, MagicSDKError.prototype);
+    Object.setPrototypeOf(this, MagicError.prototype);
   }
 }
 
-export class MagicSDKWarning {
+export class MagicWarning {
   public message: string;
 
   constructor(public code: WarningCode, message: string) {
-    this.message = `Fortmatic Warning: [${code}] ${message}`;
+    this.message = `Magic SDK Warning: [${code}] ${message}`;
   }
 
   public log() {
@@ -26,14 +26,14 @@ export class MagicSDKWarning {
 // --- SDK error factories
 
 export function createMissingApiKeyError() {
-  return new MagicSDKError(
+  return new MagicError(
     ErrorCode.MissingApiKey,
     'Please provide an API key that you acquired from the Magic developer dashboard.',
   );
 }
 
 export function createModalNotReadyError() {
-  return new MagicSDKError(ErrorCode.ModalNotReady, 'Modal is not ready.');
+  return new MagicError(ErrorCode.ModalNotReady, 'Modal is not ready.');
 }
 
 export function createInvalidArgumentError(options: {
@@ -52,7 +52,7 @@ export function createInvalidArgumentError(options: {
     return `${iAdjusted}th`;
   };
 
-  return new MagicSDKError(
+  return new MagicError(
     ErrorCode.InvalidArgument,
     `Invalid ${ordinalSuffix(options.argIndex)} argument given to \`${options.functionName}\`.\n` +
       `  Expected: \`${options.expected}\`\n` +
@@ -63,5 +63,5 @@ export function createInvalidArgumentError(options: {
 // --- SDK Warning factories
 
 export function createDuplicateIframeWarning() {
-  return new MagicSDKWarning(WarningCode.DuplicateIframe, 'Duplicate iframes found.');
+  return new MagicWarning(WarningCode.DuplicateIframe, 'Duplicate iframes found.');
 }

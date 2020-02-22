@@ -31,9 +31,8 @@ export interface JsonRpcResponsePayload<ResultType = any> {
 // --- Payload methods
 
 /**
- * Enum of Fortmatic custom JSON RPC methods. These are used for communication
- * with the Fortmatic provider and as such are not part of the Web3 standard
- * spec.
+ * Enum of JSON RPC methods for interacting with the Magic SDK authentication
+ * relayer.
  */
 export enum MagicPayloadMethod {
   magic_auth_login_with_magic_link = 'fm_auth_login_with_magic_link',

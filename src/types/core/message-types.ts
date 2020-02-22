@@ -11,13 +11,13 @@ export enum MagicOutgoingWindowMessage {
   MAGIC_HANDLE_REQUEST = 'MAGIC_HANDLE_REQUEST',
 }
 
-/** The shape of responding window message datas from the Fortmatic modal. */
-export interface MagicResponse<ResultType = any> {
+/** The shape of responding window message datas from the Magic iframe context. */
+export interface MagicMessageResponse<ResultType = any> {
   msgType: string;
   response: Partial<JsonRpcError> & Partial<JsonRpcResponsePayload<ResultType>>;
 }
 
-/** The expected message event returned by the Fortmatic modal. */
+/** The expected message event returned by the Magic iframe context. */
 export interface MagicMessageEvent extends MessageEvent {
-  data: MagicResponse;
+  data: MagicMessageResponse;
 }

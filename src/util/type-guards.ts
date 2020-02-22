@@ -40,7 +40,7 @@ export function isJsonRpcResponsePayload(value: any): value is JsonRpcResponsePa
 }
 
 /**
- * Assert `value` is a Fortmatic payload method identifier.
+ * Assert `value` is a Magic SDK payload method identifier.
  */
 export function isMagicPayloadMethod(value?: any): value is MagicPayloadMethod {
   if (!value) return false;

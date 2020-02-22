@@ -5,7 +5,7 @@ import { PayloadTransport } from './payload-transport';
 import { createDuplicateIframeWarning } from './sdk-exceptions';
 
 /**
- * Fortmatic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
+ * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
  * to render above all other DOM content.
  */
 const overlayStyles: Partial<CSSStyleDeclaration> = {
@@ -39,12 +39,12 @@ function applyOverlayStyles(elem: HTMLElement) {
  * duplicates against.
  */
 function checkForSameSrcInstances(encodedQueryParams: string) {
-  const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.fortmatic-iframe'));
+  const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
   return Boolean(iframes.find(iframe => iframe.src?.includes(encodedQueryParams)));
 }
 
 /**
- * View controller for the Fortmatic `<iframe>` overlay.
+ * View controller for the Magic `<iframe>` overlay.
  */
 export class IframeController {
   public readonly iframe: Promise<HTMLIFrameElement>;
@@ -60,7 +60,7 @@ export class IframeController {
   }
 
   /**
-   * Represents the ready state of the underlying Fortmatic `<iframe>`.
+   * Represents the ready state of the underlying Magic `<iframe>`.
    */
   public get overlayReady() {
     return this._overlayReady;
@@ -74,7 +74,7 @@ export class IframeController {
   }
 
   /**
-   * Initialize the Fortmatic `<iframe>` and pre-load overlay content when DOM
+   * Initialize the Magic `<iframe>` and pre-load overlay content when DOM
    * is ready.
    */
   private init(): Promise<HTMLIFrameElement> {
@@ -82,8 +82,8 @@ export class IframeController {
       const onload = () => {
         if (!checkForSameSrcInstances(this.encodedQueryParams)) {
           const iframe = document.createElement('iframe');
-          iframe.classList.add('fortmatic-iframe');
-          iframe.dataset.fortmaticIframeLabel = this.iframeLabel;
+          iframe.classList.add('magic-iframe');
+          iframe.dataset.magicIframeLabel = this.iframeLabel;
           iframe.src = `${this.endpoint}/send?params=${this.encodedQueryParams}`;
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
@@ -109,7 +109,7 @@ export class IframeController {
   }
 
   /**
-   * Show the Fortmatic `<iframe>` overlay.
+   * Show the Magic `<iframe>` overlay.
    */
   private async showOverlay() {
     const overlayResolved = await this.iframe;
@@ -117,7 +117,7 @@ export class IframeController {
   }
 
   /**
-   * Hide the Fortmatic `<iframe>` overlay.
+   * Hide the Magic `<iframe>` overlay.
    */
   private async hideOverlay() {
     const overlayResolved = await this.iframe;
@@ -125,7 +125,7 @@ export class IframeController {
   }
 
   /**
-   * Listen for messages sent from the underlying Fortmatic `<iframe>`.
+   * Listen for messages sent from the underlying Magic `<iframe>`.
    */
   private listen() {
     this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {

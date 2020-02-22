@@ -9,9 +9,6 @@ import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { MAGIC_URL } from '../constants/config';
 
-/**
- * Base class for Fortmatic SDKs
- */
 export class MagicSDK {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
   private readonly overlay: IframeController;
