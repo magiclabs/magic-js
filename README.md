@@ -8,7 +8,7 @@ See the [developer documentation](https://docs.magic.link) to learn how you can 
 
 ## Installation
 
-Integrating your app with Fortmatic will need our npm package:
+Integrating your app with Magic will require our client-side NPM package:
 
 ```bash
 # Via NPM:
@@ -18,7 +18,7 @@ npm install --save magic-auth
 yarn add magic-auth
 ```
 
-Alternatively you can load via CDN with by adding a script tag to your app’s `<head>`:
+Alternatively, you can load via CDN with by adding a script tag to your app’s `<head>`:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/magic-auth/dist/magic.js"></script>
