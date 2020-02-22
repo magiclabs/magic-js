@@ -12,16 +12,16 @@ Integrating your app with Magic will require our client-side NPM package:
 
 ```bash
 # Via NPM:
-npm install --save magic-auth
+npm install --save magic-sdk
 
 # Via Yarn:
-yarn add magic-auth
+yarn add magic-sdk
 ```
 
 Alternatively, you can load via CDN with by adding a script tag to your app’s `<head>`:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/magic-auth/dist/magic.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/magic-sdk/dist/magic.js"></script>
 ```
 
 ## ⚡️  Quick Start
@@ -31,7 +31,7 @@ Sign up or log in to the [developer dashboard](https://dashboard.magic.link) to 
 Then, you can start authenticating users with _just one method!_ Magic works across all modern desktop, mobile Chrome, Safari and Firefox browsers.
 
 ```ts
-import Magic from 'magic-auth';
+import Magic from 'magic-sdk';
 
 const magic = new Magic('YOUR_API_KEY');
 
