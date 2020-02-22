@@ -1,12 +1,12 @@
-# Magic Authentication JavaScript SDK
+# ✨ Magic Authentication JavaScript SDK
 
 Magic empowers developers to protect their users via an innovative, passwordless authentication flow without the UX compromises that burden traditional OAuth implementations.
 
-## Documentation
+## 📖 Documentation
 
 See the [developer documentation](https://docs.magic.link) to learn how you can master the Magic SDK in a matter of minutes.
 
-## Installation
+## 🔗 Installation
 
 Integrating your app with Magic will require our client-side NPM package:
 
@@ -24,7 +24,7 @@ Alternatively, you can load via CDN with by adding a script tag to your app’s 
 <script src="https://cdn.jsdelivr.net/npm/magic-auth/dist/magic.js"></script>
 ```
 
-## Quick Start
+## ⚡️ Quick Start
 
 Sign up or log in to the [developer dashboard](https://dashboard.magic.link) to receive API keys that will allow your application to interact with the Magic authentication APIs.
 
