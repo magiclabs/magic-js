@@ -26,7 +26,7 @@ Alternatively, you can load via CDN with by adding a script tag to your app’s 
 
 ## ⚡️  Quick Start
 
-Sign up or log in to the [developer dashboard](https://dashboard.magic.link) to receive API keys that will allow your application to interact with the Magic authentication APIs.
+Sign up or log in to the [developer dashboard](https://dashboard.magic.link) to receive API keys that will allow your application to interact with Magic's authentication APIs.
 
 Then, you can start authenticating users with _just one method!_ Magic works across all modern desktop, mobile Chrome, Safari and Firefox browsers.
 
