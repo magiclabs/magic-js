@@ -7,13 +7,6 @@ export interface JsonRpcRequestPayload {
   id: string | number;
 }
 
-export interface JsonRpcBatchRequestPayload {
-  jsonrpc: string;
-  method: string;
-  batch: JsonRpcRequestPayload[];
-  id: string | number;
-}
-
 // --- Response interfaces
 
 export interface JsonRpcError {
