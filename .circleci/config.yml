@@ -1,0 +1,134 @@
+# ---------------------------------------------------------------------------- #
+#                                 CI OVERVIEW                                  #
+#                                 ~~~~~~~~~~~                                  #
+#                                                                              #
+#  1) The following scripts should be preserved in `package.json`:             #
+#                                                                              #
+#        lint -- Run a linter against source files.                            #
+#       build -- Build CJS and UMD bundles for the module.                     #
+#        test -- Run unit tests and build a coverage report using              #
+#                Istanbul/`nyc`.                                               #
+#                                                                              #
+#                                                                              #
+#  2) Ensure the aliases for `&dependency-paths` and `&build-output-paths`     #
+#     below properly reflect the dependency and output directories             #
+#     of the module.                                                           #
+#                                                                              #
+# ---------------------------------------------------------------------------- #
+
+version: 2.1
+
+# --- YAML Aliases ----------------------------------------------------------- #
+
+aliases: [
+  # List of dependency paths that should be persisted to the
+  # CircleCI workspace.
+  &dependency-paths [
+    "node_modules"
+  ],
+
+  # List of build output paths that should be persisted to the
+  # CircleCI workspace.
+  &build-output-paths [
+    "dist",
+    "build"
+  ],
+
+  # NPM lockfile cache key (update "vN" => "vN+1" to cache-bust).
+  &dependency-cache-key "v1-dependency-cache-{{ checksum \"package-lock.json\" }}",
+
+  &workspace-root "/home/circleci/project",
+
+  &attach-workspace {
+    attach_workspace: {
+      at: *workspace-root
+    }
+  },
+]
+
+# --- Executor definitions --------------------------------------------------- #
+
+executors:
+  default:
+    docker:
+      - image: circleci/node:10-browsers
+
+# --- Job definitions -------------------------------------------------------- #
+
+jobs:
+  # Installs Node dependencies via NPM, caches them, then persists
+  # to the workspace.
+  install-dependencies:
+    executor: default
+    steps:
+      - checkout
+      - *attach-workspace
+      - restore_cache:
+          key: *dependency-cache-key
+      - run:
+          name: Install Module Dependencies
+          command: npm install
+      - save_cache:
+          paths: *dependency-paths
+          key: *dependency-cache-key
+      - persist_to_workspace:
+          paths: *dependency-paths
+          root: *workspace-root
+
+  # Runs a linter against relevant source files.
+  lint:
+    executor: default
+    steps:
+      - checkout
+      - *attach-workspace
+      - run:
+          name: Lint source files
+          command: npm run lint
+
+  # Builds modules and persists the build output to the workspace.
+  build:
+    executor: default
+    steps:
+      - checkout
+      - *attach-workspace
+      - run:
+          name: Build modules
+          command: npm run build
+      - persist_to_workspace:
+          paths: *build-output-paths
+          root: *workspace-root
+
+  # Run unit tests and builds a coverage report.
+  test:
+    executor: default
+    steps:
+      - checkout
+      - *attach-workspace
+      - run:
+          name: Run unit tests
+          command: npm run test
+      # For display in CircleCI Artifacts: https://circleci.com/docs/2.0/artifacts/
+      - store_artifacts:
+          path: coverage
+
+# --- Workflow definitions --------------------------------------------------- #
+
+workflows:
+
+  # Builds modules, verifies code with the linter, runs unit tests, and builds a
+  # coverage report.
+  pull-request:
+    jobs:
+      - install-dependencies
+
+      - lint:
+          requires:
+            - install-dependencies
+
+      - build:
+          requires:
+            - lint
+
+      - test:
+          requires:
+            - lint
