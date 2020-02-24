@@ -18,8 +18,3 @@ export interface LoginWithMagicLinkConfiguration {
    */
   showUI?: boolean;
 }
-
-export interface PhantomModeUserMetadata {
-  publicAddress: string | null;
-  email: string | null;
-}
