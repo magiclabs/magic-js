@@ -28,8 +28,8 @@ export interface JsonRpcResponsePayload<ResultType = any> {
  * relayer.
  */
 export enum MagicPayloadMethod {
-  magic_auth_login_with_magic_link = 'magic_auth_login_with_magic_link',
-  magic_auth_get_access_token = 'magic_auth_get_access_token',
-  magic_auth_get_metadata = 'magic_auth_get_metadata',
-  magic_auth_logout = 'magic_auth_logout',
+  LoginWithMagicLink = 'magic_auth_login_with_magic_link',
+  GetAccessToken = 'magic_auth_get_access_token',
+  GetMetadata = 'magic_auth_get_metadata',
+  Logout = 'magic_auth_logout',
 }

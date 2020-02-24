@@ -8,9 +8,7 @@ export class AuthModule extends BaseModule {
    */
   public async loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
     const { email, showUI = true } = configuration;
-    const fmRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.magic_auth_login_with_magic_link, [
-      { email, showUI },
-    ]);
+    const fmRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.LoginWithMagicLink, [{ email, showUI }]);
     return this.request<void>(fmRequestPayload);
   }
 }

@@ -8,27 +8,14 @@
  * https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types
  */
 
-import {
-  JsonRpcBatchRequestPayload,
-  JsonRpcRequestPayload,
-  JsonRpcResponsePayload,
-  MagicPayloadMethod,
-} from '../types';
+import { JsonRpcRequestPayload, JsonRpcResponsePayload, MagicPayloadMethod } from '../types';
 
 /**
  * Assert `value` is a `JsonRpcRequestPayload` object.
  */
-export function isJsonRpcRequestPayload(
-  value?: JsonRpcRequestPayload | JsonRpcBatchRequestPayload,
-): value is JsonRpcRequestPayload {
+export function isJsonRpcRequestPayload(value?: JsonRpcRequestPayload): value is JsonRpcRequestPayload {
   if (!value) return false;
-  return (
-    !!value.jsonrpc &&
-    !!value.id &&
-    !!value.method &&
-    !!(value as JsonRpcRequestPayload).params &&
-    !(value as JsonRpcBatchRequestPayload).batch
-  );
+  return !!value.jsonrpc && !!value.id && !!value.method && !!value.params;
 }
 
 /**
