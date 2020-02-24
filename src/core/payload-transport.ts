@@ -69,7 +69,7 @@ export class PayloadTransport {
         iframe.contentWindow.postMessage({ msgType: `${msgType}-${this.encodedQueryParams}`, payload }, '*');
 
         /** Collect successful RPC responses and resolve. */
-        const acknowledgeHandleResponse = (removeEventListener: RemoveEventListenerFunction) => (
+        const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (
           event: MagicMessageEvent,
         ) => {
           const { id, response } = standardizeResponse(payload, event);
@@ -80,9 +80,9 @@ export class PayloadTransport {
         };
 
         // Listen for and handle responses.
-        const offHandleResponse = this.on(
+        const removeResponseListener = this.on(
           MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE,
-          acknowledgeHandleResponse(() => offHandleResponse()),
+          acknowledgeResponse(() => removeResponseListener()),
         );
       } else {
         reject(createModalNotReadyError());
