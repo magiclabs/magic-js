@@ -1,12 +1,20 @@
 import { PayloadTransport } from '../core/payload-transport';
 import { JsonRpcRequestPayload, MagicOutgoingWindowMessage } from '../types';
 import { JsonRpcErrorWrapper } from '../core/json-rpc';
+import { IframeController } from '../core/iframe-controller';
 
 export class BaseModule {
-  constructor(private readonly transport: PayloadTransport) {}
+  constructor(
+    private readonly getTransport: () => PayloadTransport,
+    private readonly getOverlay: () => IframeController,
+  ) {}
 
   protected async request<ResultType = any>(payload: JsonRpcRequestPayload) {
-    const response = await this.transport.post<ResultType>(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+    const response = await this.getTransport().post<ResultType>(
+      this.getOverlay(),
+      MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
+      payload,
+    );
 
     if (response.hasError) throw new JsonRpcErrorWrapper(response.payload.error);
     else if (response.hasResult) return response.payload.result as ResultType;

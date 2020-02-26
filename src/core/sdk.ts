@@ -12,23 +12,18 @@ import { MagicSDKAdditionalConfiguration } from '../types';
 
 export class MagicSDK {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
-  private readonly overlay: IframeController;
+  private static readonly __overlays__: Map<string, IframeController> = new Map();
 
   public readonly endpoint: string;
   public readonly encodedQueryParams: string;
 
   /** API endpoints for Magic SDK authentication flows. */
-  public readonly auth = new AuthModule(this.transport);
+  public readonly auth: AuthModule;
 
   /** API endpoints for Magic SDK user actions. */
-  public readonly user = new UserModule(this.transport);
+  public readonly user: UserModule;
 
-  /**
-   * Creates an instance of Magic SDK.
-   *
-   * @param apiKey
-   * @param options.endpoint -
-   */
+  /** Creates an instance of Magic SDK. */
   constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
 
@@ -40,20 +35,42 @@ export class MagicSDK {
       sdk: sdkName,
       version: sdkVersion,
     });
-    this.overlay = new IframeController(this.transport, this.endpoint, this.encodedQueryParams);
+
+    this.auth = new AuthModule(
+      () => this.transport,
+      () => this.overlay,
+    );
+    this.user = new UserModule(
+      () => this.transport,
+      () => this.overlay,
+    );
   }
 
   /**
-   * The underlying JSON RPC payload transport.
+   * The JSON RPC payload transport associated with this `MagicSDK` instance.
    */
   private get transport(): PayloadTransport {
     if (!MagicSDK.__transports__.has(this.encodedQueryParams)) {
       MagicSDK.__transports__.set(
         this.encodedQueryParams,
-        new PayloadTransport(this.overlay, this.endpoint, this.encodedQueryParams),
+        new PayloadTransport(this.endpoint, this.encodedQueryParams),
       );
     }
 
     return MagicSDK.__transports__.get(this.encodedQueryParams)!;
+  }
+
+  /**
+   * The iframe controller associated with this `MagicSDK` instance.
+   */
+  private get overlay(): IframeController {
+    if (!MagicSDK.__overlays__.has(this.encodedQueryParams)) {
+      MagicSDK.__overlays__.set(
+        this.encodedQueryParams,
+        new IframeController(this.transport, this.endpoint, this.encodedQueryParams),
+      );
+    }
+
+    return MagicSDK.__overlays__.get(this.encodedQueryParams)!;
   }
 }

@@ -44,11 +44,7 @@ export class PayloadTransport {
    * @param encodedQueryParams - The unique, encoded query parameters for the
    * relevant iframe context.
    */
-  constructor(
-    private readonly overlay: IframeController,
-    private readonly endpoint: string,
-    private readonly encodedQueryParams: string,
-  ) {
+  constructor(private readonly endpoint: string, private readonly encodedQueryParams: string) {
     this.initMessageListener();
   }
 
@@ -60,10 +56,12 @@ export class PayloadTransport {
    * @param payload - The JSON RPC payload to emit via `window.postMessage`.
    */
   public async post<ResultType = any>(
+    overlay: IframeController,
     msgType: MagicOutgoingWindowMessage,
     payload: JsonRpcRequestPayload,
   ): Promise<JsonRpcResponse<ResultType>> {
-    const iframe = await this.overlay.iframe;
+    await overlay.ready;
+    const iframe = await overlay.iframe;
     return new Promise((resolve, reject) => {
       if (iframe.contentWindow) {
         iframe.contentWindow.postMessage({ msgType: `${msgType}-${this.encodedQueryParams}`, payload }, '*');

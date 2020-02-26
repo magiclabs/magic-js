@@ -7,7 +7,7 @@ import { getPayloadId } from '../util/get-payload-id';
 /**
  * Build a valid JSON RPC payload for emitting to the Magic SDK iframe relayer.
  */
-export function createJsonRpcRequestPayload(method: string, ...params: any[]): JsonRpcRequestPayload {
+export function createJsonRpcRequestPayload(method: string, params: any[] = []): JsonRpcRequestPayload {
   return {
     params,
     method,

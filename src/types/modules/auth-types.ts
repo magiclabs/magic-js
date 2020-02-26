@@ -1,10 +1,3 @@
-export interface GetIdTokenConfiguration {
-  /**
-   * The number of seconds until the generated ID token will expire.
-   */
-  lifespan?: number;
-}
-
 export interface LoginWithMagicLinkConfiguration {
   /**
    * The email address of the user attempting to login.
