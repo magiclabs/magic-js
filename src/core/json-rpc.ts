@@ -74,11 +74,11 @@ export class JsonRpcResponse<ResultType = any> {
   }
 
   public get hasError() {
-    return !!this._error;
+    return typeof this._error !== 'undefined' && this._error !== null;
   }
 
   public get hasResult() {
-    return !!this._result;
+    return typeof this._result !== 'undefined' && this._result !== null;
   }
 
   public get payload(): JsonRpcResponsePayload {

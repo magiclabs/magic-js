@@ -2,6 +2,7 @@ import { PayloadTransport } from '../core/payload-transport';
 import { JsonRpcRequestPayload, MagicOutgoingWindowMessage } from '../types';
 import { JsonRpcErrorWrapper } from '../core/json-rpc';
 import { IframeController } from '../core/iframe-controller';
+import { createMalformedResponseError } from '../core/sdk-exceptions';
 
 export class BaseModule {
   constructor(
@@ -18,6 +19,6 @@ export class BaseModule {
 
     if (response.hasError) throw new JsonRpcErrorWrapper(response.payload.error);
     else if (response.hasResult) return response.payload.result as ResultType;
-    else throw new Error(); // Malformed
+    else throw createMalformedResponseError();
   }
 }

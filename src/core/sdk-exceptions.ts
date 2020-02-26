@@ -36,6 +36,10 @@ export function createModalNotReadyError() {
   return new MagicError(ErrorCode.ModalNotReady, 'Modal is not ready.');
 }
 
+export function createMalformedResponseError() {
+  return new MagicError(ErrorCode.MalformedResponse, 'Response from the Magic iframe is malformed.');
+}
+
 export function createInvalidArgumentError(options: {
   functionName: string;
   argIndex: number;
