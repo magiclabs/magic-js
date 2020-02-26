@@ -2,16 +2,16 @@ import { ErrorCode, WarningCode } from '../types';
 
 // --- Base error/warning classes
 
-export class MagicError extends Error {
+export class MagicSDKError extends Error {
   __proto__ = Error;
 
   constructor(public code: ErrorCode, message: string) {
     super(`Magic SDK Error: [${code}] ${message}`);
-    Object.setPrototypeOf(this, MagicError.prototype);
+    Object.setPrototypeOf(this, MagicSDKError.prototype);
   }
 }
 
-export class MagicWarning {
+export class MagicSDKWarning {
   public message: string;
 
   constructor(public code: WarningCode, message: string) {
@@ -26,18 +26,18 @@ export class MagicWarning {
 // --- SDK error factories
 
 export function createMissingApiKeyError() {
-  return new MagicError(
+  return new MagicSDKError(
     ErrorCode.MissingApiKey,
     'Please provide an API key that you acquired from the Magic developer dashboard.',
   );
 }
 
 export function createModalNotReadyError() {
-  return new MagicError(ErrorCode.ModalNotReady, 'Modal is not ready.');
+  return new MagicSDKError(ErrorCode.ModalNotReady, 'Modal is not ready.');
 }
 
 export function createMalformedResponseError() {
-  return new MagicError(ErrorCode.MalformedResponse, 'Response from the Magic iframe is malformed.');
+  return new MagicSDKError(ErrorCode.MalformedResponse, 'Response from the Magic iframe is malformed.');
 }
 
 export function createInvalidArgumentError(options: {
@@ -56,7 +56,7 @@ export function createInvalidArgumentError(options: {
     return `${iAdjusted}th`;
   };
 
-  return new MagicError(
+  return new MagicSDKError(
     ErrorCode.InvalidArgument,
     `Invalid ${ordinalSuffix(options.argIndex)} argument given to \`${options.functionName}\`.\n` +
       `  Expected: \`${options.expected}\`\n` +
@@ -67,5 +67,5 @@ export function createInvalidArgumentError(options: {
 // --- SDK Warning factories
 
 export function createDuplicateIframeWarning() {
-  return new MagicWarning(WarningCode.DuplicateIframe, 'Duplicate iframes found.');
+  return new MagicSDKWarning(WarningCode.DuplicateIframe, 'Duplicate iframes found.');
 }

@@ -17,15 +17,24 @@ export class MagicSDK {
   public readonly endpoint: string;
   public readonly encodedQueryParams: string;
 
-  /** API endpoints for Magic SDK authentication flows. */
+  /**
+   * Contains methods for starting a Magic SDK authentication flow.
+   */
   public readonly auth: AuthModule;
 
-  /** API endpoints for Magic SDK user actions. */
+  /**
+   * Contains methods for interacting with user data, checking login
+   * status, generating cryptographically-secure ID tokens, and more.
+   */
   public readonly user: UserModule;
 
-  /** Creates an instance of Magic SDK. */
+  /**
+   * Creates an instance of Magic SDK.
+   */
   constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
+
+    // --- Save some global information
 
     this.endpoint = options?.endpoint || MAGIC_URL;
     this.encodedQueryParams = encodeQueryParameters({
@@ -35,6 +44,8 @@ export class MagicSDK {
       sdk: sdkName,
       version: sdkVersion,
     });
+
+    // Assign API Modules
 
     this.auth = new AuthModule(
       () => this.transport,
@@ -47,7 +58,10 @@ export class MagicSDK {
   }
 
   /**
-   * The JSON RPC payload transport associated with this `MagicSDK` instance.
+   * Represents the JSON RPC payload message channel associated with this
+   * `MagicSDK` instance.
+   *
+   * @internal
    */
   private get transport(): PayloadTransport {
     if (!MagicSDK.__transports__.has(this.encodedQueryParams)) {
@@ -61,7 +75,9 @@ export class MagicSDK {
   }
 
   /**
-   * The iframe controller associated with this `MagicSDK` instance.
+   * Represents the iframe controller associated with this `MagicSDK` instance.
+   *
+   * @internal
    */
   private get overlay(): IframeController {
     if (!MagicSDK.__overlays__.has(this.encodedQueryParams)) {

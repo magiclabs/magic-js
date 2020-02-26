@@ -10,9 +10,17 @@ export class BaseModule {
     private readonly getOverlay: () => IframeController,
   ) {}
 
+  protected get transport() {
+    return this.getTransport();
+  }
+
+  protected get overlay() {
+    return this.getOverlay();
+  }
+
   protected async request<ResultType = any>(payload: JsonRpcRequestPayload) {
-    const response = await this.getTransport().post<ResultType>(
-      this.getOverlay(),
+    const response = await this.transport.post<ResultType>(
+      this.overlay,
       MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
       payload,
     );
