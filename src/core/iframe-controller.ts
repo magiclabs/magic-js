@@ -48,7 +48,7 @@ function checkForSameSrcInstances(encodedQueryParams: string) {
  */
 export class IframeController {
   public readonly iframe: Promise<HTMLIFrameElement>;
-  private _overlayReady = false;
+  public readonly ready: Promise<void>;
 
   constructor(
     private readonly transport: PayloadTransport,
@@ -56,14 +56,8 @@ export class IframeController {
     private readonly encodedQueryParams: string,
   ) {
     this.iframe = this.init();
+    this.ready = this.waitForReady();
     this.listen();
-  }
-
-  /**
-   * Represents the ready state of the underlying Magic `<iframe>`.
-   */
-  public get overlayReady() {
-    return this._overlayReady;
   }
 
   /**
@@ -124,14 +118,16 @@ export class IframeController {
     overlayResolved.style.display = 'none';
   }
 
+  private waitForReady() {
+    return new Promise<void>(resolve => {
+      this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
+    });
+  }
+
   /**
    * Listen for messages sent from the underlying Magic `<iframe>`.
    */
   private listen() {
-    this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
-      this._overlayReady = true;
-    });
-
     this.transport.on(MagicIncomingWindowMessage.MAGIC_HIDE_OVERLAY, () => {
       this.hideOverlay();
     });
