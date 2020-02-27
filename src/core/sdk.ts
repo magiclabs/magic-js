@@ -47,14 +47,13 @@ export class MagicSDK {
 
     // Assign API Modules
 
-    this.auth = new AuthModule(
-      () => this.transport,
-      () => this.overlay,
-    );
-    this.user = new UserModule(
-      () => this.transport,
-      () => this.overlay,
-    );
+    /* istanbul ignore next */
+    const getTransport = () => this.transport;
+    /* istanbul ignore next */
+    const getOverlay = () => this.overlay;
+
+    this.auth = new AuthModule(getTransport, getOverlay);
+    this.user = new UserModule(getTransport, getOverlay);
   }
 
   /**
