@@ -40,7 +40,7 @@ function applyOverlayStyles(elem: HTMLElement) {
  */
 function checkForSameSrcInstances(encodedQueryParams: string) {
   const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
-  return Boolean(iframes.find(iframe => iframe.src?.includes(encodedQueryParams)));
+  return Boolean(iframes.find(iframe => iframe.src.includes(encodedQueryParams)));
 }
 
 /**
@@ -118,6 +118,9 @@ export class IframeController {
     overlayResolved.style.display = 'none';
   }
 
+  /**
+   * Set the controller as "ready" for JSON RPC events.
+   */
   private waitForReady() {
     return new Promise<void>(resolve => {
       this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
