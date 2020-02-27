@@ -18,7 +18,7 @@ test.beforeEach(t => {
  * Initialize `MagicSDK`
  *
  * Action Must:
- * - Initialize Fortmatic instance
+ * - Initialize `MagicSDK` instance
  * - Not throw
  */
 test.serial('#01', t => {
@@ -41,7 +41,7 @@ test.serial('#01', t => {
  * Fail to initialize `MagicSDK`
  *
  * Action Must:
- * - Fail to Initialize Fortmatic instance without a key
+ * - Fail to Initialize `MagicSDK` instance without a key
  */
 test.serial('#02', t => {
   try {
@@ -58,7 +58,7 @@ test.serial('#02', t => {
  * Initialize `MagicSDK` with custom endpoint
  *
  * Action Must:
- * - Initialize Fortmatic instance
+ * - Initialize `MagicSDK` instance
  * - Not throw
  */
 test.serial('#03', t => {
@@ -81,7 +81,7 @@ test.serial('#03', t => {
  * Initialize `MagicSDK` when `window.location` is missing.
  *
  * Action Must:
- * - Initialize Fortmatic instance
+ * - Initialize `MagicSDK` instance
  * - Not throw
  */
 test.serial('#04', t => {
