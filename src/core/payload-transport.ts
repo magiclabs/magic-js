@@ -100,6 +100,11 @@ export class PayloadTransport {
     handler: (this: Window, event: MagicMessageEvent) => any,
   ): RemoveEventListenerFunction {
     const boundHandler = handler.bind(window);
+
+    // We cannot effectively cover this function because it never gets reference
+    // by value. The functionality of this callback is tested within
+    // `initMessageListener`.
+    /* istanbul ignore next */
     const listener = (event: MessageEvent) => {
       if (event.data.msgType === `${msgType}-${this.encodedQueryParams}`) boundHandler(event);
     };
