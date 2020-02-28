@@ -11,25 +11,50 @@
 import { JsonRpcRequestPayload, JsonRpcResponsePayload, MagicPayloadMethod } from '../types';
 
 /**
+ * Assert `value` is `undefined`.
+ */
+function isUndefined(value: any): value is undefined {
+  return typeof value === 'undefined';
+}
+
+/**
+ * Assert `value` is `null`.
+ */
+function isNull(value: any): value is null {
+  return value === null;
+}
+
+/**
+ * Assert `value` is `null` or `undefined`.
+ */
+function isNil(value: any): value is null | undefined {
+  return isNull(value) || isUndefined(value);
+}
+
+/**
  * Assert `value` is a `JsonRpcRequestPayload` object.
  */
 export function isJsonRpcRequestPayload(value?: JsonRpcRequestPayload): value is JsonRpcRequestPayload {
-  if (!value) return false;
-  return !!value.jsonrpc && !!value.id && !!value.method && !!value.params;
+  if (isNil(value)) return false;
+  return (
+    !isUndefined(value.jsonrpc) && !isUndefined(value.id) && !isUndefined(value.method) && !isUndefined(value.params)
+  );
 }
 
 /**
  * Assert `value` is a `JsonRpcResponsePayload` object.
  */
 export function isJsonRpcResponsePayload(value: any): value is JsonRpcResponsePayload {
-  if (!value) return false;
-  return !!value.jsonrpc && !!value.id && (!!value.result || value.result === null || !!value.error);
+  if (isNil(value)) return false;
+  return (
+    !isUndefined(value.jsonrpc) && !isUndefined(value.id) && (!isUndefined(value.result) || !isUndefined(value.error))
+  );
 }
 
 /**
  * Assert `value` is a Magic SDK payload method identifier.
  */
 export function isMagicPayloadMethod(value?: any): value is MagicPayloadMethod {
-  if (!value) return false;
+  if (isNil(value)) return false;
   return typeof value === 'string' && Object.values(MagicPayloadMethod).includes(value as any);
 }

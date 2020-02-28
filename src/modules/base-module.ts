@@ -4,7 +4,7 @@ import { JsonRpcErrorWrapper } from '../core/json-rpc';
 import { IframeController } from '../core/iframe-controller';
 import { createMalformedResponseError } from '../core/sdk-exceptions';
 
-export class BaseModule {
+export abstract class BaseModule {
   constructor(
     private readonly getTransport: () => PayloadTransport,
     private readonly getOverlay: () => IframeController,

@@ -5,25 +5,25 @@ import { createJsonRpcRequestPayload } from '../../core/json-rpc';
 export class UserModule extends BaseModule {
   /** */
   public getIdToken(configuration?: GetIdTokenConfiguration) {
-    const fmRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetAccessToken, [configuration]);
-    return this.request<string>(fmRequestPayload);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetAccessToken, [configuration]);
+    return this.request<string>(requestPayload);
   }
 
   /** */
   public getMetadata() {
-    const fmRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetMetadata);
-    return this.request<MagicUserMetadata>(fmRequestPayload);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetMetadata);
+    return this.request<MagicUserMetadata>(requestPayload);
   }
 
   /** */
   public isLoggedIn() {
-    const fmRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.IsLoggedIn);
-    return this.request<boolean>(fmRequestPayload);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.IsLoggedIn);
+    return this.request<boolean>(requestPayload);
   }
 
   /** */
   public logout() {
-    const fmRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Logout);
-    return this.request<boolean>(fmRequestPayload);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Logout);
+    return this.request<boolean>(requestPayload);
   }
 }
