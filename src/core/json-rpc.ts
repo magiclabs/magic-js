@@ -17,21 +17,6 @@ export function createJsonRpcRequestPayload(method: string, params: any[] = []):
 }
 
 /**
- * Wraps JSON RPC Payload errors in a JavaScript `Error` object.
- */
-export class JsonRpcErrorWrapper extends Error {
-  __proto__ = Error;
-
-  public readonly code: string | number;
-
-  constructor(sourceError?: JsonRpcError | JsonRpcErrorWrapper | null) {
-    super(sourceError?.message);
-    this.code = sourceError?.code ?? -32603;
-    Object.setPrototypeOf(this, JsonRpcErrorWrapper.prototype);
-  }
-}
-
-/**
  * A class which standardizes JSON RPC responses to ensure the correct
  * formatting.
  */
