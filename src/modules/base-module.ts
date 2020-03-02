@@ -1,8 +1,7 @@
 import { PayloadTransport } from '../core/payload-transport';
 import { JsonRpcRequestPayload, MagicOutgoingWindowMessage } from '../types';
-import { JsonRpcErrorWrapper } from '../core/json-rpc';
 import { IframeController } from '../core/iframe-controller';
-import { createMalformedResponseError } from '../core/sdk-exceptions';
+import { createMalformedResponseError, MagicRPCError } from '../core/sdk-exceptions';
 
 export abstract class BaseModule {
   constructor(
@@ -25,7 +24,7 @@ export abstract class BaseModule {
       payload,
     );
 
-    if (response.hasError) throw new JsonRpcErrorWrapper(response.payload.error);
+    if (response.hasError) throw new MagicRPCError(response.payload.error);
     else if (response.hasResult) return response.payload.result as ResultType;
     else throw createMalformedResponseError();
   }

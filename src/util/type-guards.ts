@@ -8,7 +8,7 @@
  * https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types
  */
 
-import { JsonRpcRequestPayload, JsonRpcResponsePayload, MagicPayloadMethod } from '../types';
+import { JsonRpcRequestPayload, JsonRpcResponsePayload, MagicPayloadMethod, RPCErrorCode } from '../types';
 
 /**
  * Assert `value` is `undefined`.
@@ -57,4 +57,12 @@ export function isJsonRpcResponsePayload(value: any): value is JsonRpcResponsePa
 export function isMagicPayloadMethod(value?: any): value is MagicPayloadMethod {
   if (isNil(value)) return false;
   return typeof value === 'string' && Object.values(MagicPayloadMethod).includes(value as any);
+}
+
+/**
+ * Assert `value` is an expected JSON RPC error code.
+ */
+export function isJsonRpcErrorCode(value?: any): value is RPCErrorCode {
+  if (isNil(value)) return false;
+  return typeof value === 'number' && Object.values(RPCErrorCode).includes(value);
 }

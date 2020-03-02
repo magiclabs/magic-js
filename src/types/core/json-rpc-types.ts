@@ -1,3 +1,5 @@
+import { RPCErrorCode } from './exception-types';
+
 // --- Request interfaces
 
 export interface JsonRpcRequestPayload {
@@ -11,7 +13,7 @@ export interface JsonRpcRequestPayload {
 
 export interface JsonRpcError {
   message: string;
-  code: string | number;
+  code: RPCErrorCode;
 }
 
 export interface JsonRpcResponsePayload<ResultType = any> {

@@ -3,10 +3,11 @@ import '../../../setup';
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { JsonRpcResponse, JsonRpcErrorWrapper } from '../../../../src/core/json-rpc';
+import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { createPayloadTransport, createIframeController } from '../../../lib/factories';
 import { JsonRpcRequestPayload } from '../../../../src/types';
+import { MagicRPCError, MagicSDKError } from '../../../../src/core/sdk-exceptions';
 
 function createBaseModule() {
   const payloadTransport = createPayloadTransport();
@@ -59,18 +60,19 @@ test.serial('#01', async t => {
  *
  * Action Must:
  * - Execute `BaseModule.request`
- * - Reject with `JsonRpcErrorWrapper`
+ * - Reject with `MagicRPCError`
  */
 test.serial('#02', async t => {
   const { baseModule, postStub } = createBaseModule();
 
-  const response = new JsonRpcResponse(requestPayload).applyError({ code: 1, message: 'hello world' });
+  const response = new JsonRpcResponse(requestPayload).applyError({ code: -32603, message: 'hello world' });
 
   postStub.returns(response);
 
-  const err: JsonRpcErrorWrapper = await t.throwsAsync(baseModule.request(requestPayload));
-  t.is(err.code, 1);
-  t.is(err.message, 'hello world');
+  const err: MagicRPCError = await t.throwsAsync(baseModule.request(requestPayload));
+  t.true(err instanceof MagicRPCError);
+  t.is(err.code, -32603);
+  t.is(err.message, 'Magic RPC Error: [-32603] hello world');
 });
 
 /**
@@ -87,7 +89,8 @@ test.serial('#03', async t => {
 
   postStub.returns(response);
 
-  const err: JsonRpcErrorWrapper = await t.throwsAsync(baseModule.request(requestPayload));
+  const err: MagicSDKError = await t.throwsAsync(baseModule.request(requestPayload));
+  t.true(err instanceof MagicSDKError);
   t.is(err.code, 'MALFORMED_RESPONSE');
   t.is(err.message, 'Magic SDK Error: [MALFORMED_RESPONSE] Response from the Magic iframe is malformed.');
 });
