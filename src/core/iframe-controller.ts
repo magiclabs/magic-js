@@ -77,7 +77,7 @@ export class IframeController {
 
           const trans = document.createElement('img');
           trans.src = 'https://static.fortmatic.com/assets/trans.gif';
-          trans.style.position = 'static';
+          trans.style.position = 'fixed';
           document.body.appendChild(trans);
 
           resolve(iframe);
