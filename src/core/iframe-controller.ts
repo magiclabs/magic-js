@@ -61,13 +61,6 @@ export class IframeController {
   }
 
   /**
-   * A unique `<iframe>` label inferred from the associated endpoint
-   */
-  private get iframeLabel() {
-    return new URL(this.endpoint).host;
-  }
-
-  /**
    * Initialize the Magic `<iframe>` and pre-load overlay content when DOM
    * is ready.
    */
@@ -77,13 +70,14 @@ export class IframeController {
         if (!checkForSameSrcInstances(this.encodedQueryParams)) {
           const iframe = document.createElement('iframe');
           iframe.classList.add('magic-iframe');
-          iframe.dataset.magicIframeLabel = this.iframeLabel;
-          iframe.src = `${this.endpoint}/send?params=${this.encodedQueryParams}`;
+          iframe.dataset.magicIframeLabel = new URL(this.endpoint).host;
+          iframe.src = new URL(`/send?params=${this.encodedQueryParams}`, this.endpoint).href;
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
 
           const trans = document.createElement('img');
           trans.src = 'https://static.fortmatic.com/assets/trans.gif';
+          trans.style.position = 'static';
           document.body.appendChild(trans);
 
           resolve(iframe);
