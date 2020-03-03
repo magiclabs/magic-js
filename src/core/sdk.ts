@@ -36,7 +36,7 @@ export class MagicSDK {
 
     // --- Save some global information
 
-    this.endpoint = options?.endpoint || MAGIC_URL;
+    this.endpoint = new URL(options?.endpoint ?? MAGIC_URL).origin;
     this.encodedQueryParams = encodeQueryParameters({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',

@@ -19,7 +19,7 @@ function createOverlayElementsStub() {
     dataset: {},
     style: { display: 'none' },
   });
-  createElementStub.withArgs('img').returns({ src: null });
+  createElementStub.withArgs('img').returns({ src: null, style: {} });
 
   return {
     classListAddStub,
