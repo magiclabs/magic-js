@@ -46,7 +46,7 @@ configCJS.output
 
 const configCDN = configBase();
 configCDN.name('cdn');
-configCDN.entry('main').add('./src/index.ts');
+configCDN.entry('main').add('./src/index.cdn.ts');
 configCDN.output
   .path(resolve(__dirname, '../dist'))
   .filename('magic.js')
