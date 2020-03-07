@@ -41,8 +41,7 @@ configCJS.entry('main').add('./src/index.ts');
 configCJS.output
   .path(resolve(__dirname, '../dist/cjs'))
   .filename('magic.js')
-  .libraryTarget('commonjs2')
-  .libraryExport('default');
+  .libraryTarget('commonjs2');
 
 const configCDN = configBase();
 configCDN.name('cdn');
