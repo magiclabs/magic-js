@@ -4,7 +4,7 @@ export NODE_ENV=production
 export WEBPACK_ENV=production
 export BABEL_ENV=production
 
-export MAGIC_URL=https://auth.fortmatic.com
+export MAGIC_URL=https://auth.magic.link
 
 # Increase memory limit for Node
 export NODE_OPTIONS=--max_old_space_size=4096

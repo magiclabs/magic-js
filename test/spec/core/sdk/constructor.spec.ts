@@ -29,7 +29,7 @@ test.serial('#01', t => {
   t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
-    host: 'auth.fortmatic.com',
+    host: 'auth.magic.link',
     sdk: sdkName,
     version: sdkVersion,
   });
@@ -94,7 +94,7 @@ test.serial('#04', t => {
   t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: '',
-    host: 'auth.fortmatic.com',
+    host: 'auth.magic.link',
     sdk: sdkName,
     version: sdkVersion,
   });
