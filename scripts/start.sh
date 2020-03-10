@@ -20,12 +20,12 @@ while test $# -gt 0; do
       ;;
 
     -dev | --dev | -development | --development)
-      export MAGIC_URL=https://auth.dev.fortmatic.com
+      export MAGIC_URL=https://auth.dev.magic.link
       shift
       ;;
 
     -stagef | --stagef)
-      export MAGIC_URL=https://auth.stagef.fortmatic.com
+      export MAGIC_URL=https://auth.stagef.magic.link
       shift
       ;;
 
@@ -37,11 +37,11 @@ done
 
 # Fallback
 if [ -z "$MAGIC_URL" ]; then
-  export MAGIC_URL=https://auth.fortmatic.com
+  export MAGIC_URL=https://auth.magic.link
 fi
 
 echo
-echo "Building Fortmatic SDK for development, pointing to $MAGIC_URL"
+echo "Building Magic SDK for development, pointing to $MAGIC_URL"
 echo
 
 export TS_NODE_PROJECT="webpack/tsconfig.json"
