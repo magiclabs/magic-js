@@ -67,7 +67,7 @@ jobs:
           key: *dependency-cache-key
       - run:
           name: Install Module Dependencies
-          command: npm install
+          command: yarn install
       - save_cache:
           paths: *dependency-paths
           key: *dependency-cache-key
