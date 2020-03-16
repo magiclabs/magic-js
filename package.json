@@ -12,9 +12,9 @@
   "main": "dist/cjs/magic.js",
   "types": "dist/cjs/src/index.d.ts",
   "scripts": {
-    "start": "npm run clean:build && ./scripts/start.sh",
-    "build": "npm run clean:build && ./scripts/build.sh",
-    "test": "npm run clean:test-artifacts && ./scripts/test.sh",
+    "start": "yarn run clean:build && ./scripts/start.sh",
+    "build": "yarn run clean:build && ./scripts/build.sh",
+    "test": "yarn run clean:test-artifacts && ./scripts/test.sh",
     "lint": "eslint --fix src/**/*.ts",
     "clean": "npm-run-all -s clean:*",
     "clean:test-artifacts": "rimraf coverage && rimraf .nyc_output",

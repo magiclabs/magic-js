@@ -83,7 +83,7 @@ jobs:
       - *attach-workspace
       - run:
           name: Lint source files
-          command: npm run lint
+          command: yarn run lint
 
   # Builds modules and persists the build output to the workspace.
   build:
@@ -93,7 +93,7 @@ jobs:
       - *attach-workspace
       - run:
           name: Build modules
-          command: npm run build
+          command: yarn run build
       - persist_to_workspace:
           paths: *build-output-paths
           root: *workspace-root
@@ -106,7 +106,7 @@ jobs:
       - *attach-workspace
       - run:
           name: Run unit tests
-          command: npm run test
+          command: yarn run test
       # For display in CircleCI Artifacts: https://circleci.com/docs/2.0/artifacts/
       - store_artifacts:
           path: coverage
