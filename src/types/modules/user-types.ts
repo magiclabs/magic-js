@@ -6,7 +6,6 @@ export interface GetIdTokenConfiguration {
 }
 
 export interface MagicUserMetadata {
-  id: string | null;
   publicAddress: string | null;
   email: string | null;
 }
