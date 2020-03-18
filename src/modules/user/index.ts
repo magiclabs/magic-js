@@ -5,7 +5,7 @@ import { createJsonRpcRequestPayload } from '../../core/json-rpc';
 export class UserModule extends BaseModule {
   /** */
   public getIdToken(configuration?: GetIdTokenConfiguration) {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetAccessToken, [configuration]);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetIdToken, [configuration]);
     return this.request<string>(requestPayload);
   }
 

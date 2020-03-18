@@ -37,7 +37,7 @@ test.serial('#01', async t => {
  * `AuthModule.loginWithMagicLink`  with `showUI` parameter.
  *
  * Action Must:
- * - Generate JSON RPC request payload with method `magic_auth_get_access_token`
+ * - Generate JSON RPC request payload with method `magic_auth_get_id_token`
  */
 test.serial('#02', async t => {
   const magic = createMagicSDK();

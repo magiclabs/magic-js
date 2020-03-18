@@ -31,7 +31,7 @@ export interface JsonRpcResponsePayload<ResultType = any> {
  */
 export enum MagicPayloadMethod {
   LoginWithMagicLink = 'magic_auth_login_with_magic_link',
-  GetAccessToken = 'magic_auth_get_access_token',
+  GetIdToken = 'magic_auth_get_id_token',
   GetMetadata = 'magic_auth_get_metadata',
   IsLoggedIn = 'magic_auth_is_logged_in',
   Logout = 'magic_auth_logout',
