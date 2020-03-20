@@ -24,7 +24,7 @@ test.serial('#01', async t => {
   const idStub = getPayloadIdStub();
   idStub.returns(999);
 
-  magic.user.getIdToken();
+  magic.user.generateIdToken();
 
   /* Assertion */
   const requestPayload = (magic.user as any).request.args[0][0];
