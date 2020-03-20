@@ -74,12 +74,6 @@ export class IframeController {
           iframe.src = new URL(`/send?params=${this.encodedQueryParams}`, this.endpoint).href;
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
-
-          const trans = document.createElement('img');
-          trans.src = 'https://static.fortmatic.com/assets/trans.gif';
-          trans.style.position = 'fixed';
-          document.body.appendChild(trans);
-
           resolve(iframe);
         } else {
           createDuplicateIframeWarning().log();
