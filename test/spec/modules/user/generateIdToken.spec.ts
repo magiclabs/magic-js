@@ -72,5 +72,5 @@ test.serial('#03', async t => {
   const requestPayload = (magic.user as any).request.args[0][0];
   t.is(requestPayload.id, 222);
   t.is(requestPayload.method, 'magic_auth_generate_id_token');
-  t.deepEqual(requestPayload.params, [{ lifespan: 900 }]);
+  t.deepEqual(requestPayload.params, [{ attachment: 'hello world' }]);
 });
