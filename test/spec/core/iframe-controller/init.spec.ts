@@ -58,7 +58,6 @@ test.serial('#01', async t => {
     (appendChildStub.args[0][0] as HTMLIFrameElement).src,
     `${MAGIC_RELAYER_FULL_URL}/send?params=${ENCODED_QUERY_PARAMS}`,
   );
-  t.is((appendChildStub.args[1][0] as HTMLImageElement).src, 'https://static.fortmatic.com/assets/trans.gif');
   t.true(classListAddStub.calledWith('magic-iframe'));
   t.deepEqual(iframe.dataset, { magicIframeLabel: 'auth.magic.link' });
   t.is(iframe.src, `${MAGIC_RELAYER_FULL_URL}/send?params=${ENCODED_QUERY_PARAMS}`);
@@ -125,7 +124,6 @@ test.serial('#04', async t => {
     (appendChildStub.args[0][0] as HTMLIFrameElement).src,
     `${MAGIC_RELAYER_FULL_URL}/send?params=${ENCODED_QUERY_PARAMS}`,
   );
-  t.is((appendChildStub.args[1][0] as HTMLImageElement).src, 'https://static.fortmatic.com/assets/trans.gif');
   t.true(classListAddStub.calledWith('magic-iframe'));
   t.deepEqual(iframe.dataset, { magicIframeLabel: 'auth.magic.link' });
   t.is(iframe.src, `${MAGIC_RELAYER_FULL_URL}/send?params=${ENCODED_QUERY_PARAMS}`);
