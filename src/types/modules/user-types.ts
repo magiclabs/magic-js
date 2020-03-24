@@ -15,7 +15,7 @@ export interface GenerateIdTokenConfiguration extends GetIdTokenConfiguration {
 }
 
 export interface MagicUserMetadata {
-  id: string | null;
+  issuer: string | null;
   publicAddress: string | null;
   email: string | null;
 }
