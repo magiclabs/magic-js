@@ -9,6 +9,7 @@ import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { MAGIC_URL } from '../constants/config';
 import { MagicSDKAdditionalConfiguration } from '../types';
+import { Web3Module } from '../modules/web3';
 
 export class MagicSDK {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
@@ -27,6 +28,12 @@ export class MagicSDK {
    * status, generating cryptographically-secure ID tokens, and more.
    */
   public readonly user: UserModule;
+
+  /**
+   * Contains a Web3-compliant provider. Pass this module to your Web3 instance
+   * for automatic compatibility with Ethereum methods.
+   */
+  public readonly web3: Web3Module;
 
   /**
    * Creates an instance of Magic SDK.
@@ -54,6 +61,7 @@ export class MagicSDK {
 
     this.auth = new AuthModule(getTransport, getOverlay);
     this.user = new UserModule(getTransport, getOverlay);
+    this.web3 = new Web3Module(getTransport, getOverlay);
   }
 
   /**

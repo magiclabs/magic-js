@@ -9,6 +9,16 @@ export interface JsonRpcRequestPayload {
   id: string | number;
 }
 
+export interface JsonRpcRequestCallback {
+  /** Callback executed upon JSON RPC response. */
+  (err: JsonRpcError | null, result?: JsonRpcResponsePayload | null): void;
+}
+
+export interface JsonRpcBatchRequestCallback {
+  /** Callback executed upon JSON RPC response. */
+  (err: JsonRpcError | null, result?: (JsonRpcResponsePayload | null)[] | null): void;
+}
+
 // --- Response interfaces
 
 export interface JsonRpcError {

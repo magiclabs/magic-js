@@ -2,6 +2,7 @@ export enum SDKErrorCode {
   MissingApiKey = 'MISSING_API_KEY',
   ModalNotReady = 'MODAL_NOT_READY',
   MalformedResponse = 'MALFORMED_RESPONSE',
+  InvalidArgument = 'INVALID_ARGUMENT',
 }
 
 export enum SDKWarningCode {

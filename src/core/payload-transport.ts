@@ -9,18 +9,17 @@ import { JsonRpcResponse } from './json-rpc';
 import { createModalNotReadyError } from './sdk-exceptions';
 
 interface RemoveEventListenerFunction {
-  /**
-   * Stop listening on the event associated with this `FmFetchOffFunction`
-   * object.
-   */
   (): void;
 }
 
+interface StandardizedResponse {
+  id?: string | number;
+  response?: JsonRpcResponse;
+}
+
 /**
- * Get the originating payload from a batch request using the specified `id`
- * (if `id` is undefined or missing, the original payload is returned).
+ * Get the originating payload from a batch request using the specified `id`.
  */
-/* istanbul ignore next */
 function getRequestPayloadFromBatch(
   requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   id?: string | number,
@@ -37,7 +36,7 @@ function getRequestPayloadFromBatch(
 function standardizeResponse(
   requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   event: MagicMessageEvent,
-): { id?: string | number; response?: JsonRpcResponse } {
+): StandardizedResponse {
   const id = event.data.response?.id ?? undefined;
   const requestPayloadResolved = getRequestPayloadFromBatch(requestPayload, id);
 
