@@ -1,8 +1,22 @@
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-underscore-dangle, no-param-reassign */
 
 import { JsonRpcRequestPayload, JsonRpcResponsePayload, JsonRpcError } from '../types';
 import { isJsonRpcResponsePayload } from '../util/type-guards';
 import { getPayloadId } from '../util/get-payload-id';
+
+/**
+ * Returns a full `JsonRpcRequestPayload` from a potentially incomplete payload
+ * object. This method mutates the given `payload` to preserve compatibility
+ * with external libraries that perform their own `JsonRpcRequestPayload.id`
+ * check to associate responses (such as `web3`).
+ */
+export function standardizeJsonRpcRequestPayload(payload: Partial<JsonRpcRequestPayload>) {
+  payload.jsonrpc = payload.jsonrpc ?? '2.0';
+  payload.id = getPayloadId();
+  payload.method = payload.method ?? 'noop';
+  payload.params = payload.params ?? [];
+  return payload as JsonRpcRequestPayload;
+}
 
 /**
  * Build a valid JSON RPC payload for emitting to the Magic SDK iframe relayer.
@@ -17,8 +31,8 @@ export function createJsonRpcRequestPayload(method: string, params: any[] = []):
 }
 
 /**
- * A class which standardizes JSON RPC responses to ensure the correct
- * formatting.
+ * Formats and standardizes a JSON RPC 2.0 response from a number of potential
+ * sources.
  */
 export class JsonRpcResponse<ResultType = any> {
   private readonly _jsonrpc: string;

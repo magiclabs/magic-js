@@ -59,8 +59,8 @@ export function createMalformedResponseError() {
 }
 
 export function createInvalidArgumentError(options: {
-  functionName: string;
-  argIndex: number;
+  procedure: string;
+  argument: number;
   expected: string;
   received: string;
 }) {
@@ -76,7 +76,7 @@ export function createInvalidArgumentError(options: {
 
   return new MagicSDKError(
     SDKErrorCode.InvalidArgument,
-    `Invalid ${ordinalSuffix(options.argIndex)} argument given to \`${options.functionName}\`.\n` +
+    `Invalid ${ordinalSuffix(options.argument)} argument given to \`${options.procedure}\`.\n` +
       `  Expected: \`${options.expected}\`\n` +
       `  Received: \`${options.received}\``,
   );
@@ -86,4 +86,11 @@ export function createInvalidArgumentError(options: {
 
 export function createDuplicateIframeWarning() {
   return new MagicSDKWarning(SDKWarningCode.DuplicateIframe, 'Duplicate iframes found.');
+}
+
+export function createSynchronousWeb3MethodWarning() {
+  return new MagicSDKWarning(
+    SDKWarningCode.SyncWeb3Method,
+    'Non-async web3 methods are deprecated in web3 > 1.0 and are not supported by the Magic web3 provider. Please use an async method instead.',
+  );
 }

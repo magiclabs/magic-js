@@ -6,6 +6,7 @@ export enum SDKErrorCode {
 }
 
 export enum SDKWarningCode {
+  SyncWeb3Method = 'SYNC_WEB3_METHOD',
   DuplicateIframe = 'DUPLICATE_IFRAME',
 }
 
