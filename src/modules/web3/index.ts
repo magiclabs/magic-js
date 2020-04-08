@@ -23,14 +23,14 @@ export class Web3Module extends BaseModule {
   public readonly isMagic = true;
 
   /* eslint-disable prettier/prettier */
-  public async sendAsync(payload: Partial<JsonRpcRequestPayload>, onRequestComplete: JsonRpcRequestCallback): Promise<void>;
-  public async sendAsync(payload: Partial<JsonRpcRequestPayload>[], onRequestComplete: JsonRpcBatchRequestCallback): Promise<void>;
-  public async sendAsync(payload: Partial<JsonRpcRequestPayload> | Partial<JsonRpcRequestPayload>[], onRequestComplete: JsonRpcRequestCallback | JsonRpcBatchRequestCallback): Promise<void>;
+  public sendAsync(payload: Partial<JsonRpcRequestPayload>, onRequestComplete: JsonRpcRequestCallback): void;
+  public sendAsync(payload: Partial<JsonRpcRequestPayload>[], onRequestComplete: JsonRpcBatchRequestCallback): void;
+  public sendAsync(payload: Partial<JsonRpcRequestPayload> | Partial<JsonRpcRequestPayload>[], onRequestComplete: JsonRpcRequestCallback | JsonRpcBatchRequestCallback): void;
   /* eslint-enable prettier/prettier */
-  public async sendAsync(
+  public sendAsync(
     payload: Partial<JsonRpcRequestPayload> | Partial<JsonRpcRequestPayload>[],
     onRequestComplete: JsonRpcRequestCallback | JsonRpcBatchRequestCallback,
-  ): Promise<void> {
+  ): void {
     if (!onRequestComplete) {
       throw createInvalidArgumentError({
         procedure: 'Magic.web3.sendAsync',
@@ -41,32 +41,31 @@ export class Web3Module extends BaseModule {
     }
 
     if (Array.isArray(payload)) {
-      const batchResponse = await this.transport.post(
-        this.overlay,
-        MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
-        payload.map(p => standardizeJsonRpcRequestPayload(p)),
-      );
-
-      (onRequestComplete as JsonRpcBatchRequestCallback)(
-        null,
-        batchResponse.map(response => ({
-          ...response.payload,
-          error: response.hasError ? new MagicRPCError(response.payload.error) : null,
-        })),
-      );
+      this.transport
+        .post(
+          this.overlay,
+          MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
+          payload.map(p => standardizeJsonRpcRequestPayload(p)),
+        )
+        .then(batchResponse => {
+          (onRequestComplete as JsonRpcBatchRequestCallback)(
+            null,
+            batchResponse.map(response => ({
+              ...response.payload,
+              error: response.hasError ? new MagicRPCError(response.payload.error) : null,
+            })),
+          );
+        });
     } else {
       const finalPayload = standardizeJsonRpcRequestPayload(payload);
-
-      const response = await this.transport.post(
-        this.overlay,
-        MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
-        finalPayload,
-      );
-
-      (onRequestComplete as JsonRpcRequestCallback)(
-        response.hasError ? new MagicRPCError(response.payload.error) : null,
-        response.payload,
-      );
+      this.transport
+        .post(this.overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, finalPayload)
+        .then(response => {
+          (onRequestComplete as JsonRpcRequestCallback)(
+            response.hasError ? new MagicRPCError(response.payload.error) : null,
+            response.payload,
+          );
+        });
     }
   }
 

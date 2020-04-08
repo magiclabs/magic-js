@@ -28,14 +28,15 @@ export class MagicRPCError extends Error {
   __proto__ = Error;
 
   public code: RPCErrorCode;
+  public rawMessage: string;
 
   constructor(sourceError?: JsonRpcError | null) {
     super();
 
     const codeNormalized = Number(sourceError?.code);
-    const messageNormalized = sourceError?.message || 'Internal error';
+    this.rawMessage = sourceError?.message || 'Internal error';
     this.code = isJsonRpcErrorCode(codeNormalized) ? codeNormalized : RPCErrorCode.InternalError;
-    this.message = `Magic RPC Error: [${this.code}] ${messageNormalized}`;
+    this.message = `Magic RPC Error: [${this.code}] ${this.rawMessage}`;
 
     Object.setPrototypeOf(this, MagicRPCError.prototype);
   }

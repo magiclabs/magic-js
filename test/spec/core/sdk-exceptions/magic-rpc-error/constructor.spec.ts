@@ -25,6 +25,7 @@ test('#01', t => {
   t.true(err instanceof MagicRPCError);
   t.is(err.code, -32603);
   t.is(err.message, 'Magic RPC Error: [-32603] hello world');
+  t.is(err.rawMessage, 'hello world');
 });
 
 /**
@@ -39,6 +40,7 @@ test('#02', t => {
   t.true(err instanceof MagicRPCError);
   t.is(err.code, -32603);
   t.is(err.message, 'Magic RPC Error: [-32603] Internal error');
+  t.is(err.rawMessage, 'Internal error');
 });
 
 /**
@@ -53,6 +55,7 @@ test('#03', t => {
   t.true(err instanceof MagicRPCError);
   t.is(err.code, -32603);
   t.is(err.message, 'Magic RPC Error: [-32603] Internal error');
+  t.is(err.rawMessage, 'Internal error');
 });
 
 /**
@@ -70,4 +73,5 @@ test('#04', t => {
   t.true(err instanceof MagicRPCError);
   t.is(err.code, -32603);
   t.is(err.message, 'Magic RPC Error: [-32603] hello world');
+  t.is(err.rawMessage, 'hello world');
 });
