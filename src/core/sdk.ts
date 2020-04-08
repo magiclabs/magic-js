@@ -47,6 +47,7 @@ export class MagicSDK {
     this.encodedQueryParams = encodeQueryParameters({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
+      ETH_NETWORK: options?.web3?.network,
       host: new URL(this.endpoint).host,
       sdk: sdkName,
       version: sdkVersion,
