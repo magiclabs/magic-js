@@ -19,6 +19,7 @@ function warningAssertions<T extends ExecutionContext<any>>(
   t.true(warning instanceof MagicSDKWarning);
   t.is(warning.code, expectedCode);
   t.is(warning.message, `Magic SDK Warning: [${expectedCode}] ${expectedMessage}`);
+  t.is(warning.rawMessage, expectedMessage);
 }
 
 test.beforeEach(t => {

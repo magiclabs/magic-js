@@ -6,8 +6,8 @@ import { isJsonRpcErrorCode } from '../util/type-guards';
 export class MagicSDKError extends Error {
   __proto__ = Error;
 
-  constructor(public code: SDKErrorCode, message: string) {
-    super(`Magic SDK Error: [${code}] ${message}`);
+  constructor(public code: SDKErrorCode, public rawMessage: string) {
+    super(`Magic SDK Error: [${code}] ${rawMessage}`);
     Object.setPrototypeOf(this, MagicSDKError.prototype);
   }
 }
@@ -15,8 +15,8 @@ export class MagicSDKError extends Error {
 export class MagicSDKWarning {
   public message: string;
 
-  constructor(public code: SDKWarningCode, message: string) {
-    this.message = `Magic SDK Warning: [${code}] ${message}`;
+  constructor(public code: SDKWarningCode, public rawMessage: string) {
+    this.message = `Magic SDK Warning: [${code}] ${rawMessage}`;
   }
 
   public log() {

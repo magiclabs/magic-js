@@ -99,11 +99,11 @@ export class Web3Module extends BaseModule {
 
     // Case #3
     // Legacy synchronous methods (unsupported).
-    createSynchronousWeb3MethodWarning().log();
+    const warning = createSynchronousWeb3MethodWarning();
+    warning.log();
     return new JsonRpcResponse(payloadOrMethod).applyError({
       code: -32603,
-      message:
-        'Non-async web3 methods are deprecated in web3 > 1.0 and are not supported by the Magic web3 provider. Please use an async method instead.',
+      message: warning.rawMessage,
     }).payload;
   }
 

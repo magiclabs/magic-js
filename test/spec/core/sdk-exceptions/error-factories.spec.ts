@@ -21,6 +21,7 @@ function errorAssertions<T extends ExecutionContext<any>>(
   t.true(error instanceof MagicSDKError);
   t.is(error.code, expectedCode);
   t.is(error.message, `Magic SDK Error: [${expectedCode}] ${expectedMessage}`);
+  t.is(error.rawMessage, expectedMessage);
 }
 
 test.beforeEach(t => {
