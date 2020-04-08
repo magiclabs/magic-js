@@ -43,13 +43,10 @@ function standardizeResponse(
   if (id && requestPayloadResolved) {
     // Build a standardized response object
     const response = new JsonRpcResponse(requestPayloadResolved)
-      .applyResult(event.data.response?.result)
-      .applyError(event.data.response?.error);
+      .applyResult(event.data.response.result)
+      .applyError(event.data.response.error);
 
-    return {
-      id: event.data.response?.id ?? undefined,
-      response,
-    };
+    return { id, response };
   }
 
   return {};

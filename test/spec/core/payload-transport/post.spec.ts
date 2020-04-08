@@ -40,10 +40,10 @@ function responseEvent(values: { result?: any; error?: any; id?: number } = {}) 
   return {
     data: {
       response: {
-        result: values.result || null,
-        error: values.error || null,
+        result: values.result ?? null,
+        error: values.error ?? null,
         jsonrpc: '2.0',
-        id: values.id || 1,
+        id: values.id ?? 1,
       },
     },
   };
@@ -169,4 +169,44 @@ test('#04', async t => {
   transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
   t.true(true);
+});
+
+/**
+ * Sends a batch payload and resolves with multiple responses.
+ *
+ * Action Must:
+ * - Send a payload using `MAGIC_HANDLE_REQUEST` event.
+ * - Acknowledge 3 `MAGIC_HANDLE_RESPONSE` events.
+ * - Resolves promise with array of responses.
+ */
+test('#05', async t => {
+  const response1 = responseEvent({ result: 'one', id: 1 });
+  const response2 = responseEvent({ result: 'two', id: 2 });
+  const response3 = responseEvent({ result: 'three', id: 3 });
+
+  const transport = createPayloadTransport('asdf');
+  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, response1],
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, response2],
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, response3],
+  ]);
+  const overlay = overlayStub();
+
+  const payload1 = requestPayload(1);
+  const payload2 = requestPayload(2);
+  const payload3 = requestPayload(3);
+
+  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, [
+    payload1,
+    payload2,
+    payload3,
+  ]);
+
+  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  t.true(handlerSpy.calledOnce);
+  t.deepEqual(response, [
+    new JsonRpcResponse(response1.data.response),
+    new JsonRpcResponse(response2.data.response),
+    new JsonRpcResponse(response3.data.response),
+  ]);
 });

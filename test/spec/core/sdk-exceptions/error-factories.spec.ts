@@ -9,6 +9,7 @@ import {
   createMissingApiKeyError,
   createModalNotReadyError,
   createMalformedResponseError,
+  createInvalidArgumentError,
 } from '../../../../src/core/sdk-exceptions';
 
 function errorAssertions<T extends ExecutionContext<any>>(
@@ -68,4 +69,96 @@ test('#02 MODAL_NOT_READY', async t => {
 test('#03 MALFORMED_RESPONSE', async t => {
   const error = createMalformedResponseError();
   errorAssertions(t, error, 'MALFORMED_RESPONSE', 'Response from the Magic iframe is malformed.');
+});
+
+/**
+ * Creates a `INVALID_ARGUMENT` error.
+ *
+ * Action Must:
+ * - Create an instance of `MagicSDKError`
+ * - Format the ordinal argument index with '*st'
+ */
+test('#04 INVALID_ARGUMENT', async t => {
+  const error = createInvalidArgumentError({
+    procedure: 'test',
+    argument: 0,
+    expected: 'something',
+    received: 'anotherThing',
+  });
+
+  errorAssertions(
+    t,
+    error,
+    'INVALID_ARGUMENT',
+    'Invalid 1st argument given to `test`.\n  Expected: `something`\n  Received: `anotherThing`',
+  );
+});
+
+/**
+ * Creates a `INVALID_ARGUMENT` error.
+ *
+ * Action Must:
+ * - Create an instance of `MagicSDKError`
+ * - Format the ordinal argument index with '*nd'
+ */
+test('#05 INVALID_ARGUMENT', async t => {
+  const error = createInvalidArgumentError({
+    procedure: 'test',
+    argument: 1,
+    expected: 'something',
+    received: 'anotherThing',
+  });
+
+  errorAssertions(
+    t,
+    error,
+    'INVALID_ARGUMENT',
+    'Invalid 2nd argument given to `test`.\n  Expected: `something`\n  Received: `anotherThing`',
+  );
+});
+
+/**
+ * Creates a `INVALID_ARGUMENT` error.
+ *
+ * Action Must:
+ * - Create an instance of `MagicSDKError`
+ * - Format the ordinal argument index with '*rd'
+ */
+test('#06 INVALID_ARGUMENT', async t => {
+  const error = createInvalidArgumentError({
+    procedure: 'test',
+    argument: 2,
+    expected: 'something',
+    received: 'anotherThing',
+  });
+
+  errorAssertions(
+    t,
+    error,
+    'INVALID_ARGUMENT',
+    'Invalid 3rd argument given to `test`.\n  Expected: `something`\n  Received: `anotherThing`',
+  );
+});
+
+/**
+ * Creates a `INVALID_ARGUMENT` error.
+ *
+ * Action Must:
+ * - Create an instance of `MagicSDKError`
+ * - Format the ordinal argument index with '*th'
+ */
+test('#07 INVALID_ARGUMENT', async t => {
+  const error = createInvalidArgumentError({
+    procedure: 'test',
+    argument: 3,
+    expected: 'something',
+    received: 'anotherThing',
+  });
+
+  errorAssertions(
+    t,
+    error,
+    'INVALID_ARGUMENT',
+    'Invalid 4th argument given to `test`.\n  Expected: `something`\n  Received: `anotherThing`',
+  );
 });
