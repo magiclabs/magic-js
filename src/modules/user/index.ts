@@ -4,6 +4,7 @@ import {
   MagicPayloadMethod,
   MagicUserMetadata,
   GenerateIdTokenConfiguration,
+  UpdateEmailConfiguration,
 } from '../../types';
 import { createJsonRpcRequestPayload } from '../../core/json-rpc';
 
@@ -24,6 +25,13 @@ export class UserModule extends BaseModule {
   public getMetadata() {
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetMetadata);
     return this.request<MagicUserMetadata>(requestPayload);
+  }
+
+  /** */
+  public async updateEmail(configuration: UpdateEmailConfiguration) {
+    const { email, showUI = true } = configuration;
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.UpdateEmail, [{ email, showUI }]);
+    return this.request<string | null>(requestPayload);
   }
 
   /** */
