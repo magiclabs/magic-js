@@ -31,7 +31,7 @@ Sign up or log in to the [developer dashboard](https://dashboard.magic.link) to 
 Then, you can start authenticating users with _just one method!_ Magic works across all modern desktop, mobile Chrome, Safari and Firefox browsers.
 
 ```ts
-import Magic from 'magic-sdk';
+import { Magic } from 'magic-sdk';
 
 const magic = new Magic('YOUR_API_KEY');
 
