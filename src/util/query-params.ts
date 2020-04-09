@@ -1,4 +1,4 @@
-import { EthNetworkConfiguration } from '../types/modules/web3-types';
+import { EthNetworkConfiguration } from '../types';
 
 /**
  * The shape of encoded query parameters sent along with the `<iframe>` request.

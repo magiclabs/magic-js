@@ -9,7 +9,7 @@ import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../lib/constants';
 import { name as sdkName, version as sdkVersion } from '../../../../package.json';
 import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
-import { Web3Module } from '../../../../src/modules/web3';
+import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 
 test.beforeEach(t => {
   browserEnv.restore();
@@ -36,7 +36,7 @@ test.serial('#01', t => {
   });
   t.true(magic.auth instanceof AuthModule);
   t.true(magic.user instanceof UserModule);
-  t.true(magic.web3 instanceof Web3Module);
+  t.true(magic.rpcProvider instanceof RPCProviderModule);
 });
 
 /**
@@ -77,7 +77,7 @@ test.serial('#03', t => {
   });
   t.true(magic.auth instanceof AuthModule);
   t.true(magic.user instanceof UserModule);
-  t.true(magic.web3 instanceof Web3Module);
+  t.true(magic.rpcProvider instanceof RPCProviderModule);
 });
 
 /**
@@ -103,7 +103,7 @@ test.serial('#04', t => {
   });
   t.true(magic.auth instanceof AuthModule);
   t.true(magic.user instanceof UserModule);
-  t.true(magic.web3 instanceof Web3Module);
+  t.true(magic.rpcProvider instanceof RPCProviderModule);
 });
 
 /**
@@ -128,5 +128,5 @@ test.serial('#05', t => {
   });
   t.true(magic.auth instanceof AuthModule);
   t.true(magic.user instanceof UserModule);
-  t.true(magic.web3 instanceof Web3Module);
+  t.true(magic.rpcProvider instanceof RPCProviderModule);
 });

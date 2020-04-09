@@ -9,7 +9,7 @@ import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { MAGIC_URL } from '../constants/config';
 import { MagicSDKAdditionalConfiguration } from '../types';
-import { Web3Module } from '../modules/web3';
+import { RPCProviderModule } from '../modules/rpc-provider';
 
 export class MagicSDK {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
@@ -30,18 +30,16 @@ export class MagicSDK {
   public readonly user: UserModule;
 
   /**
-   * Contains a Web3-compliant provider. Pass this module to your Web3 instance
-   * for automatic compatibility with Ethereum methods.
+   * Contains a Web3-compliant provider. Pass this module to your Web3/Ethers
+   * instance for automatic compatibility with Ethereum methods.
    */
-  public readonly web3: Web3Module;
+  public readonly rpcProvider: RPCProviderModule;
 
   /**
    * Creates an instance of Magic SDK.
    */
   constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
-
-    // --- Save some global information
 
     this.endpoint = new URL(options?.endpoint ?? MAGIC_URL).origin;
     this.encodedQueryParams = encodeQueryParameters({
@@ -53,16 +51,15 @@ export class MagicSDK {
       version: sdkVersion,
     });
 
-    // Assign API Modules
-
     /* istanbul ignore next */
     const getTransport = () => this.transport;
     /* istanbul ignore next */
     const getOverlay = () => this.overlay;
 
+    // Assign API Modules
     this.auth = new AuthModule(getTransport, getOverlay);
     this.user = new UserModule(getTransport, getOverlay);
-    this.web3 = new Web3Module(getTransport, getOverlay);
+    this.rpcProvider = new RPCProviderModule(getTransport, getOverlay);
   }
 
   /**

@@ -16,7 +16,7 @@ import {
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload, JsonRpcResponse } from '../../core/json-rpc';
 
 /** */
-export class Web3Module extends BaseModule {
+export class RPCProviderModule extends BaseModule {
   // Implements EIP 1193:
   // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md
 
