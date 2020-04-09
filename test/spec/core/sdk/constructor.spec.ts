@@ -114,7 +114,7 @@ test.serial('#04', t => {
  * - Not throw.
  */
 test.serial('#05', t => {
-  const magic = new MagicSDK(TEST_API_KEY, { web3: { network: 'mainnet' } });
+  const magic = new MagicSDK(TEST_API_KEY, { network: 'mainnet' });
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
