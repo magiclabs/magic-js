@@ -23,11 +23,11 @@ test.beforeEach(t => {
 test.serial('#01', t => {
   const magic = createMagicSDK();
 
-  const error: MagicSDKError = t.throws(() => magic.web3.sendAsync({} as any, undefined as any));
+  const error: MagicSDKError = t.throws(() => magic.rpcProvider.sendAsync({} as any, undefined as any));
 
   t.is(
     error.rawMessage,
-    'Invalid 2nd argument given to `Magic.web3.sendAsync`.\n  Expected: `function`\n  Received: `undefined`',
+    'Invalid 2nd argument given to `Magic.rpcProvider.sendAsync`.\n  Expected: `function`\n  Received: `undefined`',
   );
   t.is(error.code, 'INVALID_ARGUMENT');
 });
@@ -42,11 +42,11 @@ test.serial('#01', t => {
 test.serial('#02', t => {
   const magic = createMagicSDK();
 
-  const error: MagicSDKError = t.throws(() => magic.web3.sendAsync({} as any, null as any));
+  const error: MagicSDKError = t.throws(() => magic.rpcProvider.sendAsync({} as any, null as any));
 
   t.is(
     error.rawMessage,
-    'Invalid 2nd argument given to `Magic.web3.sendAsync`.\n  Expected: `function`\n  Received: `null`',
+    'Invalid 2nd argument given to `Magic.rpcProvider.sendAsync`.\n  Expected: `function`\n  Received: `null`',
   );
   t.is(error.code, 'INVALID_ARGUMENT');
 });
@@ -63,7 +63,7 @@ test.serial.cb('#03', t => {
 
   const postStub = sinon.stub();
   postStub.returns(Promise.resolve({ hasError: false, payload: 'test' }));
-  (magic.web3 as any).transport.post = postStub;
+  (magic.rpcProvider as any).transport.post = postStub;
 
   const idStub = getPayloadIdStub();
   idStub.returns(999);
@@ -74,11 +74,11 @@ test.serial.cb('#03', t => {
     t.deepEqual(response, 'test');
     t.end();
   });
-  magic.web3.sendAsync(payload, onRequestComplete);
+  magic.rpcProvider.sendAsync(payload, onRequestComplete);
 
   const [overlay, msgType, requestPayload] = postStub.args[0];
 
-  t.is(overlay, (magic.web3 as any).overlay);
+  t.is(overlay, (magic.rpcProvider as any).overlay);
   t.is(msgType, 'MAGIC_HANDLE_REQUEST');
   t.is(requestPayload.id, 999);
   t.is(requestPayload.method, 'eth_call');
@@ -99,7 +99,7 @@ test.serial.cb('#04', t => {
   postStub.returns(
     Promise.resolve({ hasError: true, payload: { error: { code: -32603, message: 'test' }, result: null } }),
   );
-  (magic.web3 as any).transport.post = postStub;
+  (magic.rpcProvider as any).transport.post = postStub;
 
   const idStub = getPayloadIdStub();
   idStub.returns(999);
@@ -111,11 +111,11 @@ test.serial.cb('#04', t => {
     t.deepEqual(response, { error: { code: -32603, message: 'test' }, result: null });
     t.end();
   });
-  magic.web3.sendAsync(payload, onRequestComplete);
+  magic.rpcProvider.sendAsync(payload, onRequestComplete);
 
   const [overlay, msgType, requestPayload] = postStub.args[0];
 
-  t.is(overlay, (magic.web3 as any).overlay);
+  t.is(overlay, (magic.rpcProvider as any).overlay);
   t.is(msgType, 'MAGIC_HANDLE_REQUEST');
   t.is(requestPayload.id, 999);
   t.is(requestPayload.method, 'eth_call');
@@ -136,7 +136,7 @@ test.serial.cb('#05', t => {
   const response1 = { hasError: false, payload: { result: 'test1' } };
   const response2 = { hasError: false, payload: { result: 'test2' } };
   postStub.returns(Promise.resolve([response1, response2]));
-  (magic.web3 as any).transport.post = postStub;
+  (magic.rpcProvider as any).transport.post = postStub;
 
   const idStub = getPayloadIdStub();
   idStub.onFirstCall().returns(123);
@@ -152,11 +152,11 @@ test.serial.cb('#05', t => {
     ]);
     t.end();
   });
-  magic.web3.sendAsync([payload1, payload2], onRequestComplete);
+  magic.rpcProvider.sendAsync([payload1, payload2], onRequestComplete);
 
   const [overlay, msgType, requestPayloads] = postStub.args[0];
 
-  t.is(overlay, (magic.web3 as any).overlay);
+  t.is(overlay, (magic.rpcProvider as any).overlay);
   t.is(msgType, 'MAGIC_HANDLE_REQUEST');
   t.is(requestPayloads[0].id, 123);
   t.is(requestPayloads[0].method, 'eth_call');
@@ -180,7 +180,7 @@ test.serial.cb('#06', t => {
   const response1 = { hasError: true, payload: { error: { code: -32603, message: 'test1' }, result: null } };
   const response2 = { hasError: true, payload: { error: { code: -32603, message: 'test2' }, result: null } };
   postStub.returns(Promise.resolve([response1, response2]));
-  (magic.web3 as any).transport.post = postStub;
+  (magic.rpcProvider as any).transport.post = postStub;
 
   const idStub = getPayloadIdStub();
   idStub.onFirstCall().returns(123);
@@ -196,11 +196,11 @@ test.serial.cb('#06', t => {
     t.is(responses[1].error.rawMessage, 'test2');
     t.end();
   });
-  magic.web3.sendAsync([payload1, payload2], onRequestComplete);
+  magic.rpcProvider.sendAsync([payload1, payload2], onRequestComplete);
 
   const [overlay, msgType, requestPayloads] = postStub.args[0];
 
-  t.is(overlay, (magic.web3 as any).overlay);
+  t.is(overlay, (magic.rpcProvider as any).overlay);
   t.is(msgType, 'MAGIC_HANDLE_REQUEST');
   t.is(requestPayloads[0].id, 123);
   t.is(requestPayloads[0].method, 'eth_call');

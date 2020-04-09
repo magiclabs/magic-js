@@ -8,13 +8,13 @@ import sinon from 'sinon';
 import { createMagicSDK } from '../../../lib/factories';
 import { getPayloadIdStub } from '../../../lib/stubs';
 import { BaseModule } from '../../../../src/modules/base-module';
-import { Web3Module } from '../../../../src/modules/web3';
+import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { createSynchronousWeb3MethodWarning } from '../../../../src/core/sdk-exceptions';
 
 test.beforeEach(t => {
   browserEnv.restore();
   (BaseModule as any).prototype.request = sinon.stub();
-  (Web3Module as any).prototype.sendAsync = sinon.stub();
+  (RPCProviderModule as any).prototype.sendAsync = sinon.stub();
 });
 
 /**
@@ -30,9 +30,9 @@ test.serial('#01', async t => {
   const idStub = getPayloadIdStub();
   idStub.returns(999);
 
-  magic.web3.send('eth_call');
+  magic.rpcProvider.send('eth_call');
 
-  const requestPayload = (magic.web3 as any).request.args[0][0];
+  const requestPayload = (magic.rpcProvider as any).request.args[0][0];
   t.is(requestPayload.id, 999);
   t.is(requestPayload.method, 'eth_call');
   t.deepEqual(requestPayload.params, []);
@@ -51,9 +51,9 @@ test.serial('#02', async t => {
   const idStub = getPayloadIdStub();
   idStub.returns(999);
 
-  magic.web3.send('eth_call', ['hello world']);
+  magic.rpcProvider.send('eth_call', ['hello world']);
 
-  const requestPayload = (magic.web3 as any).request.args[0][0];
+  const requestPayload = (magic.rpcProvider as any).request.args[0][0];
   t.is(requestPayload.id, 999);
   t.is(requestPayload.method, 'eth_call');
   t.deepEqual(requestPayload.params, ['hello world']);
@@ -69,10 +69,10 @@ test.serial('#03', async t => {
   const magic = createMagicSDK();
 
   const onRequestComplete = () => {};
-  magic.web3.send({ jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] }, onRequestComplete);
+  magic.rpcProvider.send({ jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] }, onRequestComplete);
 
-  const requestPayload = (magic.web3 as any).sendAsync.args[0][0];
-  const expectedCallback = (magic.web3 as any).sendAsync.args[0][1];
+  const requestPayload = (magic.rpcProvider as any).sendAsync.args[0][0];
+  const expectedCallback = (magic.rpcProvider as any).sendAsync.args[0][1];
   t.is(requestPayload.id, 1);
   t.is(requestPayload.method, 'eth_call');
   t.deepEqual(requestPayload.params, ['hello world']);
@@ -91,10 +91,10 @@ test.serial('#04', async t => {
   const onRequestComplete = () => {};
   const payload1 = { jsonrpc: '2.0', id: 1, method: 'first', params: ['hello world'] };
   const payload2 = { jsonrpc: '2.0', id: 2, method: 'second', params: ['goodbye world'] };
-  magic.web3.send([payload1, payload2], onRequestComplete);
+  magic.rpcProvider.send([payload1, payload2], onRequestComplete);
 
-  const requestPayload = (magic.web3 as any).sendAsync.args[0][0];
-  const expectedCallback = (magic.web3 as any).sendAsync.args[0][1];
+  const requestPayload = (magic.rpcProvider as any).sendAsync.args[0][0];
+  const expectedCallback = (magic.rpcProvider as any).sendAsync.args[0][1];
   t.is(requestPayload[0].id, 1);
   t.is(requestPayload[0].method, 'first');
   t.deepEqual(requestPayload[0].params, ['hello world']);
@@ -118,7 +118,7 @@ test.serial('#05', async t => {
   const consoleWarnStub = sinon.stub();
   browserEnv.stub('console.warn', consoleWarnStub);
 
-  const result = magic.web3.send({ jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] });
+  const result = magic.rpcProvider.send({ jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] });
   const expectedWarning = createSynchronousWeb3MethodWarning();
 
   t.is(result.jsonrpc, '2.0');

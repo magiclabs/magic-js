@@ -24,7 +24,7 @@ test('#01', async t => {
   const idStub = getPayloadIdStub();
   idStub.returns(999);
 
-  magic.web3.enable();
+  magic.rpcProvider.enable();
 
   const requestPayload = (magic.user as any).request.args[0][0];
   t.is(requestPayload.id, 999);

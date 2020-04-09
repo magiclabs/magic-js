@@ -33,7 +33,7 @@ export class RPCProviderModule extends BaseModule {
   ): void {
     if (!onRequestComplete) {
       throw createInvalidArgumentError({
-        procedure: 'Magic.web3.sendAsync',
+        procedure: 'Magic.rpcProvider.sendAsync',
         argument: 1,
         expected: 'function',
         received: onRequestComplete === null ? 'null' : typeof onRequestComplete,
