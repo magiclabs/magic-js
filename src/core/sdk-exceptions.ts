@@ -65,6 +65,10 @@ export function createInvalidArgumentError(options: {
   expected: string;
   received: string;
 }) {
+  /**
+   * Parses the argument index (given by `argument`) to attach the correct ordinal suffix.
+   * (i.e.: 1st, 2nd, 3rd, 4th, etc.)
+   */
   const ordinalSuffix = (i: number) => {
     const iAdjusted = i + 1; // Argument is zero-indexed.
     const j = iAdjusted % 10;
