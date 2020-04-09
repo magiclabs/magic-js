@@ -9,27 +9,47 @@ import { JsonRpcResponse } from './json-rpc';
 import { createModalNotReadyError } from './sdk-exceptions';
 
 interface RemoveEventListenerFunction {
-  /**
-   * Stop listening on the event associated with this `FmFetchOffFunction`
-   * object.
-   */
   (): void;
+}
+
+interface StandardizedResponse {
+  id?: string | number;
+  response?: JsonRpcResponse;
+}
+
+/**
+ * Get the originating payload from a batch request using the specified `id`.
+ */
+function getRequestPayloadFromBatch(
+  requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
+  id?: string | number,
+): JsonRpcRequestPayload | undefined {
+  return id && Array.isArray(requestPayload)
+    ? requestPayload.find(p => p.id === id)
+    : (requestPayload as JsonRpcRequestPayload);
 }
 
 /**
  * Ensures the incoming response follows the expected schema and parses for a
  * JSON RPC payload ID.
  */
-function standardizeResponse(requestPayload: JsonRpcRequestPayload, event: MagicMessageEvent) {
-  // Build a standardized response object
-  const response = new JsonRpcResponse(requestPayload)
-    .applyResult(event.data.response?.result)
-    .applyError(event.data.response?.error);
+function standardizeResponse(
+  requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
+  event: MagicMessageEvent,
+): StandardizedResponse {
+  const id = event.data.response?.id ?? undefined;
+  const requestPayloadResolved = getRequestPayloadFromBatch(requestPayload, id);
 
-  return {
-    id: event.data.response?.id ?? undefined,
-    response,
-  };
+  if (id && requestPayloadResolved) {
+    // Build a standardized response object
+    const response = new JsonRpcResponse(requestPayloadResolved)
+      .applyResult(event.data.response.result)
+      .applyError(event.data.response.error);
+
+    return { id, response };
+  }
+
+  return {};
 }
 
 export class PayloadTransport {
@@ -58,12 +78,24 @@ export class PayloadTransport {
   public async post<ResultType = any>(
     overlay: IframeController,
     msgType: MagicOutgoingWindowMessage,
+    payload: JsonRpcRequestPayload[],
+  ): Promise<JsonRpcResponse<ResultType>[]>;
+  public async post<ResultType = any>(
+    overlay: IframeController,
+    msgType: MagicOutgoingWindowMessage,
     payload: JsonRpcRequestPayload,
-  ): Promise<JsonRpcResponse<ResultType>> {
+  ): Promise<JsonRpcResponse<ResultType>>;
+  public async post<ResultType = any>(
+    overlay: IframeController,
+    msgType: MagicOutgoingWindowMessage,
+    payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
+  ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
     await overlay.ready;
     const iframe = await overlay.iframe;
     return new Promise((resolve, reject) => {
       if (iframe.contentWindow) {
+        const batchData: JsonRpcResponse[] = [];
+        const batchIds = Array.isArray(payload) ? payload.map(p => p.id) : [];
         iframe.contentWindow.postMessage({ msgType: `${msgType}-${this.encodedQueryParams}`, payload }, '*');
 
         /** Collect successful RPC responses and resolve. */
@@ -71,7 +103,16 @@ export class PayloadTransport {
           event: MagicMessageEvent,
         ) => {
           const { id, response } = standardizeResponse(payload, event);
-          if (id && id === payload.id) {
+
+          if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
+            batchData.push(response);
+
+            // For batch requests, we wait for all responses before resolving.
+            if (batchData.length === payload.length) {
+              removeEventListener();
+              resolve(batchData);
+            }
+          } else if (id && response && !Array.isArray(payload) && id === payload.id) {
             removeEventListener();
             resolve(response);
           }

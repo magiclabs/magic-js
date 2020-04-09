@@ -20,5 +20,6 @@ test('#01', t => {
 
   t.true(error instanceof MagicSDKError);
   t.is(error.message, 'Magic SDK Error: [TEST_CODE] test message');
+  t.is(error.rawMessage, 'test message');
   t.is(error.code, 'TEST_CODE');
 });

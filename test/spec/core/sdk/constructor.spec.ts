@@ -9,17 +9,18 @@ import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../lib/constants';
 import { name as sdkName, version as sdkVersion } from '../../../../package.json';
 import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
+import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 
 test.beforeEach(t => {
   browserEnv.restore();
 });
 
 /**
- * Initialize `MagicSDK`
+ * Initialize `MagicSDK`.
  *
  * Action Must:
- * - Initialize `MagicSDK` instance
- * - Not throw
+ * - Initialize `MagicSDK` instance.
+ * - Not throw.
  */
 test.serial('#01', t => {
   const magic = new MagicSDK(TEST_API_KEY);
@@ -35,13 +36,14 @@ test.serial('#01', t => {
   });
   t.true(magic.auth instanceof AuthModule);
   t.true(magic.user instanceof UserModule);
+  t.true(magic.rpcProvider instanceof RPCProviderModule);
 });
 
 /**
- * Fail to initialize `MagicSDK`
+ * Fail to initialize `MagicSDK`.
  *
  * Action Must:
- * - Fail to Initialize `MagicSDK` instance without a key
+ * - Fail to Initialize `MagicSDK` instance without a key.
  */
 test.serial('#02', t => {
   try {
@@ -55,11 +57,11 @@ test.serial('#02', t => {
 });
 
 /**
- * Initialize `MagicSDK` with custom endpoint
+ * Initialize `MagicSDK` with custom endpoint.
  *
  * Action Must:
- * - Initialize `MagicSDK` instance
- * - Not throw
+ * - Initialize `MagicSDK` instance.
+ * - Not throw.
  */
 test.serial('#03', t => {
   const magic = new MagicSDK(TEST_API_KEY, { endpoint: 'https://example.com' });
@@ -75,14 +77,15 @@ test.serial('#03', t => {
   });
   t.true(magic.auth instanceof AuthModule);
   t.true(magic.user instanceof UserModule);
+  t.true(magic.rpcProvider instanceof RPCProviderModule);
 });
 
 /**
  * Initialize `MagicSDK` when `window.location` is missing.
  *
  * Action Must:
- * - Initialize `MagicSDK` instance
- * - Not throw
+ * - Initialize `MagicSDK` instance.
+ * - Not throw.
  */
 test.serial('#04', t => {
   browserEnv.stub('location', undefined);
@@ -100,4 +103,30 @@ test.serial('#04', t => {
   });
   t.true(magic.auth instanceof AuthModule);
   t.true(magic.user instanceof UserModule);
+  t.true(magic.rpcProvider instanceof RPCProviderModule);
+});
+
+/**
+ * Initialize `MagicSDK` with custom Web3 network.
+ *
+ * Action Must:
+ * - Initialize `MagicSDK` instance.
+ * - Not throw.
+ */
+test.serial('#05', t => {
+  const magic = new MagicSDK(TEST_API_KEY, { network: 'mainnet' });
+
+  t.is(magic.apiKey, TEST_API_KEY);
+  t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
+  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
+    API_KEY: TEST_API_KEY,
+    DOMAIN_ORIGIN: 'null',
+    ETH_NETWORK: 'mainnet',
+    host: 'auth.magic.link',
+    sdk: sdkName,
+    version: sdkVersion,
+  });
+  t.true(magic.auth instanceof AuthModule);
+  t.true(magic.user instanceof UserModule);
+  t.true(magic.rpcProvider instanceof RPCProviderModule);
 });

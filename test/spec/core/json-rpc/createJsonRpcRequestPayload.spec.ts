@@ -11,14 +11,11 @@ import { getPayloadIdStub } from '../../../lib/stubs';
  * - Create valid JSON RPC payload using array of parameters
  */
 test('#01', t => {
-  /* Mocking and stubbing */
   const randomIdStub = getPayloadIdStub();
   randomIdStub.returns(1);
 
-  /* Execution */
   const payload = createJsonRpcRequestPayload('test', ['booyah!']);
 
-  /* Assertion */
   const expectedPayload = {
     jsonrpc: '2.0',
     id: 1,
@@ -36,14 +33,11 @@ test('#01', t => {
  * - Create valid JSON RPC payload when parameters are undefined
  */
 test('#02', t => {
-  /* Mocking and stubbing */
   const randomIdStub = getPayloadIdStub();
   randomIdStub.returns(1);
 
-  /* Execution */
   const payload = createJsonRpcRequestPayload('test');
 
-  /* Assertion */
   const expectedPayload = {
     jsonrpc: '2.0',
     id: 1,

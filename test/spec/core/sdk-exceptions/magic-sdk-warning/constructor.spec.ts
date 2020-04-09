@@ -20,5 +20,6 @@ test('#01', t => {
 
   t.true(warning instanceof MagicSDKWarning);
   t.is(warning.message, 'Magic SDK Warning: [TEST_CODE] test message');
+  t.is(warning.rawMessage, 'test message');
   t.is(warning.code, 'TEST_CODE');
 });
