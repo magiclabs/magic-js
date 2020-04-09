@@ -19,3 +19,17 @@ export interface MagicUserMetadata {
   publicAddress: string | null;
   email: string | null;
 }
+
+export interface UpdateEmailConfiguration {
+  /**
+   * The new email address to update to
+   */
+  email: string;
+
+  /**
+   * When `true`, a pre-built pending modal interface will
+   * guide the user to check their new, followed by old emails
+   * for confirmation emails.
+   */
+  showUI?: boolean;
+}
