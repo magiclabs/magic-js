@@ -1,26 +1,24 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import { resolve } from 'path';
-import { EnvironmentPlugin } from 'webpack';
+import { EnvironmentPlugin, DefinePlugin } from 'webpack';
 import Config from 'webpack-chain';
 import envVariables from './env-variables.json';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
-function configBase(transpileOnly = false) {
+function configBase(tsconfig: string, transpileOnly = false) {
   const config = new Config();
 
   config.context(resolve(__dirname, '..'));
   config.mode(isDevelopment ? 'development' : 'production');
 
-  /* eslint-disable prettier/prettier */
   config.module
     .rule('compile')
-      .test(/.tsx?$/)
-      .use('typescript')
-        .loader('ts-loader')
-        .options({ transpileOnly });
-  /* eslint-enable prettier/prettier */
+    .test(/.tsx?$/)
+    .use('typescript')
+    .loader('ts-loader')
+    .options({ transpileOnly, configFile: resolve(__dirname, `../config/${tsconfig}`) });
 
   config.plugin('environment').use(EnvironmentPlugin, [envVariables]);
 
@@ -35,15 +33,35 @@ function configBase(transpileOnly = false) {
   TypeScript to build ESM files for distribution.
  */
 
-const configCJS = configBase();
+const configCJS = configBase('tsconfig.cjs.json');
 configCJS.name('cjs');
 configCJS.entry('main').add('./src/index.ts');
 configCJS.output
   .path(resolve(__dirname, '../dist/cjs'))
-  .filename('magic.js')
+  .filename('index.js')
   .libraryTarget('commonjs2');
 
-const configCDN = configBase();
+const configReactNative = configBase('tsconfig.react-native.json');
+configReactNative.name('rn');
+configReactNative.entry('main').add('./src/index.ts');
+configReactNative.plugin('rn-environment').use(DefinePlugin, [
+  {
+    'process.env.IS_REACT_NATIVE': JSON.stringify(1),
+  },
+]);
+configReactNative.externals({
+  react: 'react',
+  'react-native': 'react-native',
+  'react-dom': 'react-dom',
+  'react-native-webview': 'react-native-webview',
+});
+configReactNative.output
+  .path(resolve(__dirname, '../RN'))
+  .filename('index.js')
+  .libraryTarget('commonjs2')
+  .libraryExport('default');
+
+const configCDN = configBase('tsconfig.cdn.json');
 configCDN.name('cdn');
 configCDN.entry('main').add('./src/index.cdn.ts');
 configCDN.output
@@ -53,4 +71,4 @@ configCDN.output
   .libraryExport('default')
   .library('Magic');
 
-module.exports = [configCJS.toConfig(), configCDN.toConfig()];
+module.exports = [configCJS.toConfig(), configReactNative.toConfig(), configCDN.toConfig()];

@@ -1,13 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 
 import { encodeQueryParameters } from '../util/query-params';
-import { name as sdkName, version as sdkVersion } from '../../package.json';
 import { createMissingApiKeyError } from './sdk-exceptions';
 import { IframeController } from './iframe-controller';
 import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
-import { MAGIC_URL } from '../constants/config';
+import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE } from '../constants/config';
 import { MagicSDKAdditionalConfiguration } from '../types';
 import { RPCProviderModule } from '../modules/rpc-provider';
 
@@ -47,8 +46,8 @@ export class MagicSDK {
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
       ETH_NETWORK: options?.network,
       host: new URL(this.endpoint).host,
-      sdk: sdkName,
-      version: sdkVersion,
+      sdk: IS_REACT_NATIVE ? `${SDK_NAME}-rn` : SDK_NAME,
+      version: SDK_VERSION,
     });
 
     /* istanbul ignore next */

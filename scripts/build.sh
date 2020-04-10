@@ -5,6 +5,8 @@ export WEBPACK_ENV=production
 export BABEL_ENV=production
 
 export MAGIC_URL=https://auth.magic.link
+export SDK_NAME=$(node -pe "require('./package.json')['name']")
+export SDK_VERSION=$(node -pe "require('./package.json')['version']")
 
 # Increase memory limit for Node
 export NODE_OPTIONS=--max_old_space_size=4096

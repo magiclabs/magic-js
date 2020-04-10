@@ -4,6 +4,7 @@
 /.idea
 .DS_Store
 /dist
+/RN
 /coverage
 /.nyc_output
 /package-lock.json

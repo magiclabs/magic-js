@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "target": "es6",
+    "strict": false,
+    "noImplicitAny": false
+  },
+  "include": ["../test/**/*.ts"]
+}

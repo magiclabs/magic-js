@@ -1,3 +1,5 @@
 [
-  "MAGIC_URL"
+  "MAGIC_URL",
+  "SDK_NAME",
+  "SDK_VERSION"
 ]

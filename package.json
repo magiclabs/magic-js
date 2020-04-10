@@ -9,8 +9,8 @@
     "url": "https://github.com/fortmatic/magic-js"
   },
   "homepage": "https://www.fortmatic.com",
-  "main": "dist/cjs/magic.js",
-  "types": "dist/cjs/src/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
   "scripts": {
     "start": "yarn run clean:build && ./scripts/start.sh",
     "build": "yarn run clean:build && ./scripts/build.sh",
@@ -18,7 +18,7 @@
     "lint": "eslint --fix src/**/*.ts",
     "clean": "npm-run-all -s clean:*",
     "clean:test-artifacts": "rimraf coverage && rimraf .nyc_output",
-    "clean:build": "rimraf dist",
+    "clean:build": "rimraf dist && rimraf RN",
     "clean_node_modules": "rimraf node_modules"
   },
   "dependencies": {},
