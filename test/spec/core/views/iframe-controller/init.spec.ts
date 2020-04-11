@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-import '../../../setup';
+import '../../../../setup';
 
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { IframeController } from '../../../../src/core/views/iframe-controller';
-import { ENCODED_QUERY_PARAMS, MAGIC_RELAYER_FULL_URL } from '../../../lib/constants';
-import { createIframeController } from '../../../lib/factories';
+import { IframeController } from '../../../../../src/core/views/iframe-controller';
+import { ENCODED_QUERY_PARAMS, MAGIC_RELAYER_FULL_URL } from '../../../../lib/constants';
+import { createIframeController } from '../../../../lib/factories';
 
 function createOverlayElementsStub() {
   const classListAddStub = sinon.stub();
