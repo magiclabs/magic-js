@@ -5,7 +5,7 @@ import '../../../setup';
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { IframeController } from '../../../../src/core/iframe-controller';
+import { IframeController } from '../../../../src/core/views/iframe-controller';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '../../../../src/types';
 import { createPayloadTransport } from '../../../lib/factories';

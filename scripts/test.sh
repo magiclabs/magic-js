@@ -4,6 +4,7 @@ echo
 echo "Running unit tests..."
 echo
 
+export NODE_ENV=test
 export SDK_NAME=$(node -pe "require('./package.json')['name']")
 export SDK_VERSION=$(node -pe "require('./package.json')['version']")
 

@@ -2,17 +2,19 @@
 
 import { encodeQueryParameters } from '../util/query-params';
 import { createMissingApiKeyError } from './sdk-exceptions';
-import { IframeController } from './iframe-controller';
+import { IframeController } from './views/iframe-controller';
 import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE } from '../constants/config';
 import { MagicSDKAdditionalConfiguration } from '../types';
 import { RPCProviderModule } from '../modules/rpc-provider';
+import { ViewController } from '../types/core/view-types';
+import { WebViewController } from './views/webview-controller';
 
 export class MagicSDK {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
-  private static readonly __overlays__: Map<string, IframeController> = new Map();
+  private static readonly __overlays__: Map<string, ViewController> = new Map();
 
   public readonly endpoint: string;
   public readonly encodedQueryParams: string;
@@ -67,7 +69,7 @@ export class MagicSDK {
    *
    * @internal
    */
-  private get transport(): PayloadTransport {
+  protected get transport(): PayloadTransport {
     if (!MagicSDK.__transports__.has(this.encodedQueryParams)) {
       MagicSDK.__transports__.set(
         this.encodedQueryParams,
@@ -83,12 +85,12 @@ export class MagicSDK {
    *
    * @internal
    */
-  private get overlay(): IframeController {
+  protected get overlay(): ViewController {
     if (!MagicSDK.__overlays__.has(this.encodedQueryParams)) {
-      MagicSDK.__overlays__.set(
-        this.encodedQueryParams,
-        new IframeController(this.transport, this.endpoint, this.encodedQueryParams),
-      );
+      const controller = IS_REACT_NATIVE
+        ? (undefined as any)
+        : new IframeController(this.transport, this.endpoint, this.encodedQueryParams);
+      MagicSDK.__overlays__.set(this.encodedQueryParams, controller);
     }
 
     return MagicSDK.__overlays__.get(this.encodedQueryParams)!;
@@ -101,5 +103,11 @@ export class MagicSDK {
    */
   public async preload() {
     await this.overlay.ready;
+  }
+}
+
+export class MagicSDKReactNative extends MagicSDK {
+  public get Render() {
+    return (this.overlay as WebViewController).init;
   }
 }

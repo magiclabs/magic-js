@@ -1,8 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 
-import { MagicIncomingWindowMessage } from '../types';
-import { PayloadTransport } from './payload-transport';
-import { createDuplicateIframeWarning } from './sdk-exceptions';
+import { MagicIncomingWindowMessage } from '../../types';
+import { PayloadTransport } from '../payload-transport';
+import { createDuplicateIframeWarning } from '../sdk-exceptions';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
@@ -47,8 +47,8 @@ function checkForSameSrcInstances(encodedQueryParams: string) {
  * View controller for the Magic `<iframe>` overlay.
  */
 export class IframeController {
-  public readonly iframe: Promise<HTMLIFrameElement>;
-  public readonly ready: Promise<void>;
+  public iframe: Promise<HTMLIFrameElement>;
+  public ready: Promise<void>;
 
   constructor(
     private readonly transport: PayloadTransport,

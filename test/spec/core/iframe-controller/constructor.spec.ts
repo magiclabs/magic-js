@@ -6,7 +6,7 @@ import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
 import { createIframeController } from '../../../lib/factories';
-import { IframeController } from '../../../../src/core/iframe-controller';
+import { IframeController } from '../../../../src/core/views/iframe-controller';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
 
 test.beforeEach(t => {

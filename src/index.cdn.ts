@@ -1,3 +1,5 @@
+// CDN entry-point
+
 import { MagicSDK } from './core/sdk';
 import { MagicSDKError, MagicSDKWarning, MagicRPCError } from './core/sdk-exceptions';
 import * as types from './types';

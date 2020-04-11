@@ -22,44 +22,33 @@ function configBase(tsconfig: string, transpileOnly = false) {
 
   config.plugin('environment').use(EnvironmentPlugin, [envVariables]);
 
+  config.externals({
+    react: 'react',
+    'react-native': 'react-native',
+    'react-native-webview': 'react-native-webview',
+  });
+
   config.resolve.extensions.merge(['.ts', '.tsx', '.js']);
 
   return config;
 }
 
-/*
-  We use Webpack to compile a CDN-compatible bundle for usage via `<script>`
-  tags in HTML and a CJS bundle for consumption via NodeJS. We rely fully on
-  TypeScript to build ESM files for distribution.
- */
-
 const configCJS = configBase('tsconfig.cjs.json');
 configCJS.name('cjs');
-configCJS.entry('main').add('./src/index.ts');
+configCJS.entry('main').add('./src/index.cjs.ts');
 configCJS.output
   .path(resolve(__dirname, '../dist/cjs'))
   .filename('index.js')
   .libraryTarget('commonjs2');
 
 const configReactNative = configBase('tsconfig.react-native.json');
-configReactNative.name('rn');
-configReactNative.entry('main').add('./src/index.ts');
-configReactNative.plugin('rn-environment').use(DefinePlugin, [
-  {
-    'process.env.IS_REACT_NATIVE': JSON.stringify(1),
-  },
-]);
-configReactNative.externals({
-  react: 'react',
-  'react-native': 'react-native',
-  'react-dom': 'react-dom',
-  'react-native-webview': 'react-native-webview',
-});
+configReactNative.name('react-native');
+configReactNative.entry('main').add('./src/index.react-native.ts');
+configReactNative.plugin('rn-environment').use(DefinePlugin, [{ 'process.env.IS_REACT_NATIVE': true }]);
 configReactNative.output
-  .path(resolve(__dirname, '../RN'))
+  .path(resolve(__dirname, '../dist/react-native'))
   .filename('index.js')
-  .libraryTarget('commonjs2')
-  .libraryExport('default');
+  .libraryTarget('commonjs2');
 
 const configCDN = configBase('tsconfig.cdn.json');
 configCDN.name('cdn');

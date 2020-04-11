@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 export NODE_ENV=development
-export WEBPACK_ENV=development
-export BABEL_ENV=development
-
 export LOCAL_MAGIC_PORT=3014
 export SDK_NAME=$(node -pe "require('./package.json')['name']")
 export SDK_VERSION=$(node -pe "require('./package.json')['version']")

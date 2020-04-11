@@ -1,12 +1,16 @@
+import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import {
   MagicIncomingWindowMessage,
   MagicOutgoingWindowMessage,
   JsonRpcRequestPayload,
   MagicMessageEvent,
 } from '../types';
-import { IframeController } from './iframe-controller';
+import { IframeController } from './views/iframe-controller';
 import { JsonRpcResponse } from './json-rpc';
 import { createModalNotReadyError } from './sdk-exceptions';
+import { ViewController } from '../types/core/view-types';
+import { WebViewController } from './views/webview-controller';
+import { IS_REACT_NATIVE } from '../constants/config';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -53,7 +57,7 @@ function standardizeResponse(
 }
 
 export class PayloadTransport {
-  private messageHandlers = new Set<(event: MessageEvent) => any>();
+  private messageHandlers = new Set<(event: MagicMessageEvent) => any>();
 
   /**
    * Create an instance of `PayloadTransport`
@@ -76,27 +80,40 @@ export class PayloadTransport {
    * @param payload - The JSON RPC payload to emit via `window.postMessage`.
    */
   public async post<ResultType = any>(
-    overlay: IframeController,
+    overlay: ViewController,
     msgType: MagicOutgoingWindowMessage,
     payload: JsonRpcRequestPayload[],
   ): Promise<JsonRpcResponse<ResultType>[]>;
+
   public async post<ResultType = any>(
-    overlay: IframeController,
+    overlay: ViewController,
     msgType: MagicOutgoingWindowMessage,
     payload: JsonRpcRequestPayload,
   ): Promise<JsonRpcResponse<ResultType>>;
+
   public async post<ResultType = any>(
-    overlay: IframeController,
+    overlay: ViewController,
     msgType: MagicOutgoingWindowMessage,
     payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
     await overlay.ready;
-    const iframe = await overlay.iframe;
+    const iframe = overlay instanceof IframeController ? await overlay.iframe : null;
+    const webView = overlay instanceof WebViewController ? overlay.webView : null;
+
     return new Promise((resolve, reject) => {
-      if (iframe.contentWindow) {
+      const isViewReady = IS_REACT_NATIVE ? !!webView : iframe && iframe.contentWindow;
+      if (isViewReady) {
         const batchData: JsonRpcResponse[] = [];
         const batchIds = Array.isArray(payload) ? payload.map(p => p.id) : [];
-        iframe.contentWindow.postMessage({ msgType: `${msgType}-${this.encodedQueryParams}`, payload }, '*');
+
+        if (IS_REACT_NATIVE) {
+          (webView as any).postMessage(
+            JSON.stringify({ msgType: `${msgType}-${this.encodedQueryParams}`, payload }),
+            '*',
+          );
+        } else {
+          iframe!.contentWindow!.postMessage({ msgType: `${msgType}-${this.encodedQueryParams}`, payload }, '*');
+        }
 
         /** Collect successful RPC responses and resolve. */
         const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (
@@ -146,12 +163,34 @@ export class PayloadTransport {
     // by value. The functionality of this callback is tested within
     // `initMessageListener`.
     /* istanbul ignore next */
-    const listener = (event: MessageEvent) => {
+    const listener = (event: MagicMessageEvent) => {
       if (event.data.msgType === `${msgType}-${this.encodedQueryParams}`) boundHandler(event);
     };
 
     this.messageHandlers.add(listener);
     return () => this.messageHandlers.delete(listener);
+  }
+
+  public handleWebViewMessage(event: WebViewMessageEvent) {
+    if (
+      event.nativeEvent &&
+      event.nativeEvent.url === `${this.endpoint}/send/?params=${this.encodedQueryParams}` &&
+      typeof event.nativeEvent.data === 'string'
+    ) {
+      const data: any = JSON.parse(event.nativeEvent.data);
+      if (data && data.msgType && this.messageHandlers.size) {
+        // If the response object is undefined, we ensure it's at least an
+        // empty object before passing to the event listener.
+        /* eslint-disable-next-line no-param-reassign */
+        data.response = data.response ?? {};
+
+        // Reconstruct event from RN event
+        const magicEvent: MagicMessageEvent = { data } as MagicMessageEvent;
+        for (const handler of this.messageHandlers.values()) {
+          handler(magicEvent);
+        }
+      }
+    }
   }
 
   /**
@@ -160,15 +199,13 @@ export class PayloadTransport {
   private initMessageListener() {
     window.addEventListener('message', (event: MessageEvent) => {
       if (event.origin === this.endpoint) {
-        if (event.data && event.data.msgType) {
-          if (this.messageHandlers.size) {
-            // If the response object is undefined, we ensure it's at least an
-            // empty object before passing to the event listener.
-            /* eslint-disable-next-line no-param-reassign */
-            event.data.response = event.data.response ?? {};
-            for (const handler of this.messageHandlers.values()) {
-              handler(event);
-            }
+        if (event.data && event.data.msgType && this.messageHandlers.size) {
+          // If the response object is undefined, we ensure it's at least an
+          // empty object before passing to the event listener.
+          /* eslint-disable-next-line no-param-reassign */
+          event.data.response = event.data.response ?? {};
+          for (const handler of this.messageHandlers.values()) {
+            handler(event);
           }
         }
       }

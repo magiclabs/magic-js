@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 export NODE_ENV=production
-export WEBPACK_ENV=production
-export BABEL_ENV=production
-
 export MAGIC_URL=https://auth.magic.link
 export SDK_NAME=$(node -pe "require('./package.json')['name']")
 export SDK_VERSION=$(node -pe "require('./package.json')['version']")
