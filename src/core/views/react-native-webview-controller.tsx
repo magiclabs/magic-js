@@ -153,11 +153,11 @@ export class ReactNativeWebViewController {
    */
   private listen() {
     this.transport.on(MagicIncomingWindowMessage.MAGIC_HIDE_OVERLAY, () => {
-      return this.container?.hideOverlay();
+      if (this.container) this.container.hideOverlay();
     });
 
     this.transport.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
-      return this.container?.showOverlay();
+      if (this.container) this.container.showOverlay();
     });
   }
 }
