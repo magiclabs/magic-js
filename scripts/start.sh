@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+LOCAL_MAGIC_PORT=3014
+LOCAL_MGBOX_PORT=3016
+
 export NODE_ENV=development
-export LOCAL_MAGIC_PORT=3014
+export MAGIC_URL=https://auth.magic.link/
+export MGBOX_URL=https://mgbox.io/
 export SDK_NAME=$(node -pe "require('./package.json')['name']")
 export SDK_VERSION=$(node -pe "require('./package.json')['version']")
 
@@ -9,22 +13,14 @@ set -e
 while test $# -gt 0; do
   case "$1" in
     -ip | --ip)
-      export MAGIC_URL=http://$(ipconfig getifaddr en0):$LOCAL_MAGIC_PORT
+      export MAGIC_URL=http://$(ipconfig getifaddr en0):$LOCAL_MAGIC_PORT/
+      export MGBOX_URL=http://$(ipconfig getifaddr en0):$LOCAL_MGBOX_PORT/
       shift
       ;;
 
     -local | --local)
-      export MAGIC_URL=http://localhost:$LOCAL_MAGIC_PORT
-      shift
-      ;;
-
-    -dev | --dev | -development | --development)
-      export MAGIC_URL=https://auth.dev.magic.link
-      shift
-      ;;
-
-    -stagef | --stagef)
-      export MAGIC_URL=https://auth.stagef.magic.link
+      export MAGIC_URL=http://localhost:$LOCAL_MAGIC_PORT/
+      export MGBOX_URL=http://localhost:$LOCAL_MGBOX_PORT/
       shift
       ;;
 
@@ -34,13 +30,11 @@ while test $# -gt 0; do
   esac
 done
 
-# Fallback
-if [ -z "$MAGIC_URL" ]; then
-  export MAGIC_URL=https://auth.magic.link
-fi
-
 echo
-echo "Building Magic SDK for development, pointing to $MAGIC_URL"
+echo "Building Magic SDK for production, pointing to:"
+echo
+echo "    auth:    $MAGIC_URL"
+echo "    mgbox:   $MGBOX_URL"
 echo
 
 export TS_NODE_PROJECT="webpack/tsconfig.json"

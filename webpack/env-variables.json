@@ -1,5 +1,7 @@
 [
+  "NODE_ENV",
   "MAGIC_URL",
+  "MGBOX_URL",
   "SDK_NAME",
   "SDK_VERSION"
 ]

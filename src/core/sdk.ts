@@ -6,7 +6,7 @@ import { IframeController } from './views/iframe-controller';
 import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
-import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE } from '../constants/config';
+import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE, MGBOX_URL } from '../constants/config';
 import { MagicSDKAdditionalConfiguration } from '../types';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from '../types/core/view-types';
@@ -42,7 +42,9 @@ export class MagicSDK {
   constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
 
-    this.endpoint = IS_REACT_NATIVE ? 'https://mgbox.io/' : new URL(options?.endpoint ?? MAGIC_URL).origin;
+    const fallbackEndpoint = IS_REACT_NATIVE ? MGBOX_URL : MAGIC_URL;
+
+    this.endpoint = new URL(options?.endpoint ?? fallbackEndpoint).origin;
     this.encodedQueryParams = encodeQueryParameters({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
@@ -81,7 +83,7 @@ export class MagicSDK {
   }
 
   /**
-   * Represents the iframe controller associated with this `MagicSDK` instance.
+   * Represents the view controller associated with this `MagicSDK` instance.
    *
    * @internal
    */

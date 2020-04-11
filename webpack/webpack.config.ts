@@ -23,24 +23,19 @@ function configBase(tsconfig: string, isReactNative = false) {
   config.plugin('environment').use(EnvironmentPlugin, [envVariables]);
   config.plugin('react-native-environment').use(DefinePlugin, [{ 'process.env.IS_REACT_NATIVE': isReactNative }]);
 
+  const reactDependencyRegex = /^(react|react-native|react-native-webview)$/;
+
   if (isReactNative) {
     // In React Native environments, we expect the developer to provide their
     // own React dependencies, so we mark them as "externals".
-    config.externals({
-      react: 'react',
-      'react-native': 'react-native',
-      'react-native-webview': 'react-native-webview',
-    });
+    config.externals(reactDependencyRegex);
   } else {
     // In browser environments, we must ensure that React dependencies are not
     // included or `required` anywhere, so we force these modules to be replaced
     // with an empty module.
     config
-      .plugin('mock-react-dependencies')
-      .use(NormalModuleReplacementPlugin, [
-        /(react|react-native|react-native-webview)/,
-        resolve(__dirname, '../src/noop-module.ts'),
-      ]);
+      .plugin('remove-react-dependencies')
+      .use(NormalModuleReplacementPlugin, [reactDependencyRegex, resolve(__dirname, '../src/noop-module.ts')]);
   }
 
   config.resolve.extensions.merge(['.ts', '.tsx', '.js']);
