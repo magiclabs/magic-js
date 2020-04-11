@@ -101,7 +101,7 @@ export class PayloadTransport {
     const webView = overlay instanceof ReactNativeWebViewController ? overlay.webView : null;
 
     return new Promise((resolve, reject) => {
-      const isViewReady = IS_REACT_NATIVE ? !!webView : iframe && iframe.contentWindow;
+      const isViewReady = IS_REACT_NATIVE ? webView && (webView as any).postMessage : iframe && iframe.contentWindow;
       if (isViewReady) {
         const batchData: JsonRpcResponse[] = [];
         const batchIds = Array.isArray(payload) ? payload.map(p => p.id) : [];
