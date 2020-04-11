@@ -9,7 +9,7 @@
     "url": "https://github.com/fortmatic/magic-js"
   },
   "homepage": "https://www.fortmatic.com",
-  "main": "dist/cjs/magic.js",
+  "main": "dist/cjs/index.js",
   "types": "dist/cjs/index.cjs.d.ts",
   "scripts": {
     "start": "yarn run clean:build && ./scripts/start.sh",

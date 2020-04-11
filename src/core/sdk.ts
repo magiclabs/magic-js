@@ -10,7 +10,7 @@ import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE } from '../constants/
 import { MagicSDKAdditionalConfiguration } from '../types';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from '../types/core/view-types';
-import { WebViewController } from './views/webview-controller';
+import { ReactNativeWebViewController } from './views/react-native-webview-controller';
 
 export class MagicSDK {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
@@ -42,7 +42,7 @@ export class MagicSDK {
   constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
 
-    this.endpoint = new URL(options?.endpoint ?? MAGIC_URL).origin;
+    this.endpoint = IS_REACT_NATIVE ? 'https://mgbox.io/' : new URL(options?.endpoint ?? MAGIC_URL).origin;
     this.encodedQueryParams = encodeQueryParameters({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
@@ -107,7 +107,7 @@ export class MagicSDK {
 }
 
 export class MagicSDKReactNative extends MagicSDK {
-  public get Render() {
-    return (this.overlay as WebViewController).init;
+  public get Modal() {
+    return (this.overlay as ReactNativeWebViewController).Modal;
   }
 }

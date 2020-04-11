@@ -1,4 +1,4 @@
 import { IframeController } from '../../core/views/iframe-controller';
-import { WebViewController } from '../../core/views/webview-controller';
+import { ReactNativeWebViewController } from '../../core/views/react-native-webview-controller';
 
-export type ViewController = IframeController | WebViewController;
+export type ViewController = IframeController | ReactNativeWebViewController;

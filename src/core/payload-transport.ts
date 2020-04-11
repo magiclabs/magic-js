@@ -1,4 +1,4 @@
-import { WebView, WebViewMessageEvent } from 'react-native-webview';
+import { WebViewMessageEvent } from 'react-native-webview';
 import {
   MagicIncomingWindowMessage,
   MagicOutgoingWindowMessage,
@@ -9,7 +9,7 @@ import { IframeController } from './views/iframe-controller';
 import { JsonRpcResponse } from './json-rpc';
 import { createModalNotReadyError } from './sdk-exceptions';
 import { ViewController } from '../types/core/view-types';
-import { WebViewController } from './views/webview-controller';
+import { ReactNativeWebViewController } from './views/react-native-webview-controller';
 import { IS_REACT_NATIVE } from '../constants/config';
 
 interface RemoveEventListenerFunction {
@@ -98,7 +98,7 @@ export class PayloadTransport {
   ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
     await overlay.ready;
     const iframe = overlay instanceof IframeController ? await overlay.iframe : null;
-    const webView = overlay instanceof WebViewController ? overlay.webView : null;
+    const webView = overlay instanceof ReactNativeWebViewController ? overlay.webView : null;
 
     return new Promise((resolve, reject) => {
       const isViewReady = IS_REACT_NATIVE ? !!webView : iframe && iframe.contentWindow;
@@ -171,7 +171,10 @@ export class PayloadTransport {
     return () => this.messageHandlers.delete(listener);
   }
 
-  public handleWebViewMessage(event: WebViewMessageEvent) {
+  /**
+   * Route incoming messages from a React Native `<WebView>`.
+   */
+  public handleReactNativeWebViewMessage(event: WebViewMessageEvent) {
     if (
       event.nativeEvent &&
       event.nativeEvent.url === `${this.endpoint}/send/?params=${this.encodedQueryParams}` &&

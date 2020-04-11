@@ -61,7 +61,7 @@ export class IframeController {
   }
 
   /**
-   * Initialize the Magic `<iframe>` and pre-load overlay content when DOM
+   * Initialize the Magic `<iframe>` and pre-load overlay content when the DOM
    * is ready.
    */
   private init(): Promise<HTMLIFrameElement> {
@@ -80,7 +80,7 @@ export class IframeController {
         }
       };
 
-      // Check Dom state and load...
+      // Check DOM state and load...
       if (['loaded', 'interactive', 'complete'].includes(document.readyState)) {
         onload();
       } else {
