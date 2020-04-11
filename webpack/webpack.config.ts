@@ -8,18 +8,22 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 /**
  * Bootstraps a Webpack configuration with most of the common defaults.
  */
-function configBase(tsconfig: string, isReactNative = false) {
+function configBase(name: 'cjs' | 'cdn' | 'react-native') {
+  const isReactNative = name === 'react-native';
   const config = new Config();
 
+  config.name(name);
   config.context(resolve(__dirname, '..'));
   config.mode(isDevelopment ? 'development' : 'production');
+  config.entry('main').add(`./src/index.${name}.ts`);
+  config.resolve.extensions.merge(['.ts', '.tsx', '.js']);
 
   config.module
     .rule('compile')
     .test(/.tsx?$/)
     .use('typescript')
     .loader('ts-loader')
-    .options({ configFile: resolve(__dirname, `../config/${tsconfig}`) });
+    .options({ configFile: resolve(__dirname, `../config/tsconfig.${name}.json`) });
 
   config.plugin('environment').use(EnvironmentPlugin, [envVariables]);
   config.plugin('react-native-environment').use(DefinePlugin, [{ 'process.env.IS_REACT_NATIVE': isReactNative }]);
@@ -40,24 +44,18 @@ function configBase(tsconfig: string, isReactNative = false) {
       ]);
   }
 
-  config.resolve.extensions.merge(['.ts', '.tsx', '.js']);
-
   return config;
 }
 
 /** CJS Bundler */
-const configCJS = configBase('tsconfig.cjs.json');
-configCJS.name('cjs');
-configCJS.entry('main').add('./src/index.cjs.ts');
+const configCJS = configBase('cjs');
 configCJS.output
   .path(resolve(__dirname, '../dist/cjs'))
   .filename('index.js')
   .libraryTarget('commonjs2');
 
 /** React Native Bundler */
-const configReactNative = configBase('tsconfig.react-native.json', true);
-configReactNative.name('react-native');
-configReactNative.entry('main').add('./src/index.react-native.ts');
+const configReactNative = configBase('react-native');
 configReactNative.performance.hints(false);
 configReactNative.output
   .path(resolve(__dirname, '../dist/react-native'))
@@ -65,9 +63,7 @@ configReactNative.output
   .libraryTarget('commonjs2');
 
 /** CDN Bundler */
-const configCDN = configBase('tsconfig.cdn.json');
-configCDN.name('cdn');
-configCDN.entry('main').add('./src/index.cdn.ts');
+const configCDN = configBase('cdn');
 configCDN.output
   .path(resolve(__dirname, '../dist'))
   .filename('magic.js')
