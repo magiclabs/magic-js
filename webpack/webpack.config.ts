@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 import { resolve } from 'path';
 import { EnvironmentPlugin, DefinePlugin, NormalModuleReplacementPlugin } from 'webpack';
 import Config from 'webpack-chain';
@@ -7,6 +5,9 @@ import envVariables from './env-variables.json';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
+/**
+ * Bootstraps a Webpack configuration with most of the common defaults.
+ */
 function configBase(tsconfig: string, isReactNative = false) {
   const config = new Config();
 
@@ -43,6 +44,7 @@ function configBase(tsconfig: string, isReactNative = false) {
   return config;
 }
 
+/** CJS Bundler */
 const configCJS = configBase('tsconfig.cjs.json');
 configCJS.name('cjs');
 configCJS.entry('main').add('./src/index.cjs.ts');
@@ -51,6 +53,7 @@ configCJS.output
   .filename('index.js')
   .libraryTarget('commonjs2');
 
+/** React Native Bundler */
 const configReactNative = configBase('tsconfig.react-native.json', true);
 configReactNative.name('react-native');
 configReactNative.entry('main').add('./src/index.react-native.ts');
@@ -59,6 +62,7 @@ configReactNative.output
   .filename('index.js')
   .libraryTarget('commonjs2');
 
+/** CDN Bundler */
 const configCDN = configBase('tsconfig.cdn.json');
 configCDN.name('cdn');
 configCDN.entry('main').add('./src/index.cdn.ts');
@@ -69,4 +73,5 @@ configCDN.output
   .libraryExport('default')
   .library('Magic');
 
+// Expose Webpack configurations for concurrent bundling
 module.exports = [configCJS.toConfig(), configReactNative.toConfig(), configCDN.toConfig()];
