@@ -18,10 +18,13 @@
     "lint": "eslint --fix src/**/*.ts",
     "clean": "npm-run-all -s clean:*",
     "clean:test-artifacts": "rimraf coverage && rimraf .nyc_output",
-    "clean:build": "rimraf dist && rimraf RN",
+    "clean:build": "rimraf dist",
     "clean_node_modules": "rimraf node_modules"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-native-webview": "^8.1.2",
+    "whatwg-url": "^8.0.0"
+  },
   "devDependencies": {
     "@ikscodes/browser-env": "~0.3.1",
     "@ikscodes/eslint-config": "~6.2.0",
@@ -32,6 +35,7 @@
     "@types/react-native": "^0.62.2",
     "@types/sinon": "~7.5.0",
     "@types/webpack": "~4.41.0",
+    "@types/whatwg-url": "^6.4.0",
     "@typescript-eslint/eslint-plugin": "~2.17.0",
     "ava": "2.2.0",
     "cli-glob": "^0.1.0",
@@ -49,7 +53,6 @@
     "prettier": "~1.19.1",
     "react": "^16.13.1",
     "react-native": "^0.62.2",
-    "react-native-webview": "^9.1.4",
     "rimraf": "~3.0.0",
     "sinon": "7.1.1",
     "ts-loader": "~6.2.1",

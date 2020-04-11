@@ -11,6 +11,7 @@ import { MagicSDKAdditionalConfiguration } from '../types';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from '../types/core/view-types';
 import { ReactNativeWebViewController } from './views/react-native-webview-controller';
+import { createURL } from '../util/url';
 
 export class MagicSDK {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
@@ -44,12 +45,12 @@ export class MagicSDK {
 
     const fallbackEndpoint = IS_REACT_NATIVE ? MGBOX_URL : MAGIC_URL;
 
-    this.endpoint = new URL(options?.endpoint ?? fallbackEndpoint).origin;
+    this.endpoint = createURL(options?.endpoint ?? fallbackEndpoint).origin;
     this.encodedQueryParams = encodeQueryParameters({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
       ETH_NETWORK: options?.network,
-      host: new URL(this.endpoint).host,
+      host: createURL(this.endpoint).host,
       sdk: IS_REACT_NATIVE ? `${SDK_NAME}-rn` : SDK_NAME,
       version: SDK_VERSION,
     });
@@ -90,7 +91,7 @@ export class MagicSDK {
   protected get overlay(): ViewController {
     if (!MagicSDK.__overlays__.has(this.encodedQueryParams)) {
       const controller = IS_REACT_NATIVE
-        ? (undefined as any)
+        ? new ReactNativeWebViewController(this.transport, this.endpoint, this.encodedQueryParams)
         : new IframeController(this.transport, this.endpoint, this.encodedQueryParams);
       MagicSDK.__overlays__.set(this.encodedQueryParams, controller);
     }

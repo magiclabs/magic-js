@@ -3,6 +3,7 @@
 import { MagicIncomingWindowMessage } from '../../types';
 import { PayloadTransport } from '../payload-transport';
 import { createDuplicateIframeWarning } from '../sdk-exceptions';
+import { createURL } from '../../util/url';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
@@ -70,8 +71,8 @@ export class IframeController {
         if (!checkForSameSrcInstances(this.encodedQueryParams)) {
           const iframe = document.createElement('iframe');
           iframe.classList.add('magic-iframe');
-          iframe.dataset.magicIframeLabel = new URL(this.endpoint).host;
-          iframe.src = new URL(`/send?params=${this.encodedQueryParams}`, this.endpoint).href;
+          iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
+          iframe.src = createURL(`/send?params=${this.encodedQueryParams}`, this.endpoint).href;
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
           resolve(iframe);

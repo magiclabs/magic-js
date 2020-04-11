@@ -9,7 +9,6 @@
  */
 
 import { JsonRpcRequestPayload, JsonRpcResponsePayload, MagicPayloadMethod, RPCErrorCode } from '../types';
-import { ViewController } from '../types/core/view-types';
 
 /**
  * Assert `value` is `undefined`.
