@@ -31,7 +31,7 @@ function configBase(name: 'cjs' | 'cdn' | 'react-native') {
   if (isReactNative) {
     // In React Native environments, we expect the developer to provide their
     // own React dependencies, so we mark them as "externals".
-    config.externals(/^(react|react-native)$/);
+    config.externals(/^(react|react-native|react-native-webview)$/);
   } else {
     // In browser environments, we must ensure that React dependencies are not
     // included or `required` anywhere, so we force these modules to be replaced

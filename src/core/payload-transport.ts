@@ -69,7 +69,7 @@ export class PayloadTransport {
    * relevant iframe context.
    */
   constructor(private readonly endpoint: string, private readonly encodedQueryParams: string) {
-    this.initMessageListener();
+    if (!IS_REACT_NATIVE) this.initMessageListener();
   }
 
   /**
