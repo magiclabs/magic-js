@@ -94,4 +94,13 @@ export class MagicSDK {
 
     return MagicSDK.__overlays__.get(this.encodedQueryParams)!;
   }
+
+  /**
+   * Preloads the Magic `<iframe>` context, allowing for faster initial
+   * requests. Awaiting the returned promise will signal when the `<iframe>` has
+   * completed loading and is ready for requests.
+   */
+  public async preload() {
+    await this.overlay.ready;
+  }
 }
