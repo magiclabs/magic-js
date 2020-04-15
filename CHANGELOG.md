@@ -1,3 +1,9 @@
+## `1.0.2` - 04/15/2020
+
+#### Added
+
+- `preload` method for downloading the assets required to render the Magic `<iframe>`.
+
 ## `1.0.1` - 04/09/2020
 
 This is the first release our changelog records. Future updates will be logged in the following format:
