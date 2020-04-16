@@ -14,7 +14,7 @@ labels: ❓Question
 
 [Ask your question here, please be as detailed as possible!]
 
-### 💻 Environment
+### 🌎 Environment
 
 | Software         | Version(s) |
 | ---------------- | ---------- |

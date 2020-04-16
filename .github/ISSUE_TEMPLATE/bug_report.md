@@ -33,7 +33,7 @@ labels: 🐛 Bug Report, 🔍 Needs Triage
 
 [If possible, please provide a code repository, gist, code snippet or sample files to reproduce the issue.]
 
-### 💻 Environment
+### 🌎 Environment
 
 | Software         | Version(s) |
 | ---------------- | ---------- |
