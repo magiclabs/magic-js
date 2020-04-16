@@ -1,6 +1,6 @@
 # ✨ Magic Authentication JavaScript SDK
 
-Magic empowers developers to protect their users via an innovative, passwordless authentication flow without the UX compromises that burden traditional OAuth implementations.
+> Magic empowers developers to protect their users via an innovative, passwordless authentication flow without the UX compromises that burden traditional OAuth implementations.
 
 <p align="center">
   <a href="./LICENSE">License</a> ·
