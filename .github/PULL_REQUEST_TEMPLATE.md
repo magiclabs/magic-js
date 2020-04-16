@@ -14,10 +14,10 @@
 
 - [List any fixed issues here like: Fixes #XXXX]
 
-## 🚨 Test instructions
+### 🚨 Test instructions
 
 [Describe any additional context required to test the PR/feature/bug fix.]
 
-## ⚠️ Update `CHANGELOG.md`
+### ⚠️ Update `CHANGELOG.md`
 
 - [ ] I have updated the `Upcoming Changes` section of `CHANGELOG.md` with context related to this Pull Request.
