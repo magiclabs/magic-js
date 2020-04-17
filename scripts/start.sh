@@ -9,26 +9,8 @@ export MGBOX_URL=https://mgbox.io/
 export SDK_NAME=$(node -pe "require('./package.json')['name']")
 export SDK_VERSION=$(node -pe "require('./package.json')['version']")
 
-set -e
-while test $# -gt 0; do
-  case "$1" in
-    -ip | --ip)
-      export MAGIC_URL=http://$(ipconfig getifaddr en0):$LOCAL_MAGIC_PORT/
-      export MGBOX_URL=http://$(ipconfig getifaddr en0):$LOCAL_MGBOX_PORT/
-      shift
-      ;;
-
-    -local | --local)
-      export MAGIC_URL=http://localhost:$LOCAL_MAGIC_PORT/
-      export MGBOX_URL=http://localhost:$LOCAL_MGBOX_PORT/
-      shift
-      ;;
-
-    *)
-      break
-      ;;
-  esac
-done
+# Increase memory limit for Node
+export NODE_OPTIONS=--max_old_space_size=4096
 
 echo
 echo "Building Magic SDK for production, pointing to:"
