@@ -1,5 +1,3 @@
-import '../../setup';
-
 import test from 'ava';
 import { encodeQueryParameters, decodeQueryParameters } from '../../../src/util/query-params';
 

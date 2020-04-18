@@ -1,5 +1,3 @@
-import '../../../setup';
-
 import test from 'ava';
 import { isJsonRpcRequestPayload } from '../../../../src/util/type-guards';
 

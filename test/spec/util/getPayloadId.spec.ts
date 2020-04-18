@@ -1,5 +1,3 @@
-import '../../setup';
-
 import test from 'ava';
 import { getPayloadId } from '../../../src/util/get-payload-id';
 

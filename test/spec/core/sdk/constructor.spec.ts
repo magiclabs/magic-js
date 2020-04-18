@@ -1,11 +1,9 @@
 /* eslint-disable no-new */
 
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import { MagicSDK } from '../../../../src/core/sdk';
-import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../lib/constants';
+import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
 import { name as sdkName, version as sdkVersion } from '../../../../package.json';
 import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';

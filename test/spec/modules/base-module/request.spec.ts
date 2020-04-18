@@ -1,11 +1,9 @@
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import { BaseModule } from '../../../../src/modules/base-module';
-import { createPayloadTransport, createIframeController } from '../../../lib/factories';
+import { createPayloadTransport, createIframeController } from '../../../factories';
 import { JsonRpcRequestPayload } from '../../../../src/types';
 import { MagicRPCError, MagicSDKError } from '../../../../src/core/sdk-exceptions';
 

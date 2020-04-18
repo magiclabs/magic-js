@@ -1,8 +1,6 @@
-import '../../../setup';
-
 import test from 'ava';
 import { standardizeJsonRpcRequestPayload } from '../../../../src/core/json-rpc';
-import { getPayloadIdStub } from '../../../lib/stubs';
+import { getPayloadIdStub } from '../../../mocks';
 
 /**
  * `standardizeJsonRpcRequestPayload`

@@ -1,11 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import { MagicSDK } from '../../../../src/core/sdk';
-import { TEST_API_KEY } from '../../../lib/constants';
+import { TEST_API_KEY } from '../../../constants';
 import { IframeController } from '../../../../src/core/views/iframe-controller';
 
 test.beforeEach(t => {

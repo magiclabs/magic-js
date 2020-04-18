@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-import '../../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { createIframeController } from '../../../../lib/factories';
+import { createIframeController } from '../../../../factories';
 import { IframeController } from '../../../../../src/core/views/iframe-controller';
 import { PayloadTransport } from '../../../../../src/core/payload-transport';
 

@@ -1,11 +1,9 @@
 /* eslint-disable no-new */
 
-import '../../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import { MagicSDK, MagicSDKReactNative } from '../../../../../src/core/sdk';
-import { TEST_API_KEY } from '../../../../lib/constants';
+import { TEST_API_KEY } from '../../../../constants';
 import { ReactNativeWebViewController } from '../../../../../src/core/views/react-native-webview-controller';
 
 test.beforeEach(t => {

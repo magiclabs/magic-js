@@ -1,13 +1,11 @@
 /* eslint-disable no-underscore-dangle, @typescript-eslint/no-empty-function */
 
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { createMagicSDK } from '../../../lib/factories';
+import { createMagicSDK } from '../../../factories';
 import { MagicSDKError } from '../../../../src/core/sdk-exceptions';
-import { getPayloadIdStub } from '../../../lib/stubs';
+import { getPayloadIdStub } from '../../../mocks';
 
 test.beforeEach(t => {
   browserEnv.restore();

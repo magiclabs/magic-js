@@ -1,11 +1,9 @@
-import '../../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
 import { IframeController } from '../../../../../src/core/views/iframe-controller';
-import { createIframeController } from '../../../../lib/factories';
-import { MSG_TYPES } from '../../../../lib/constants';
+import { createIframeController } from '../../../../factories';
+import { MSG_TYPES } from '../../../../constants';
 
 test.beforeEach(t => {
   browserEnv();

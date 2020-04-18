@@ -1,10 +1,8 @@
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { getPayloadIdStub } from '../../../lib/stubs';
-import { createMagicSDK } from '../../../lib/factories';
+import { getPayloadIdStub } from '../../../mocks';
+import { createMagicSDK } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
 test.beforeEach(t => {

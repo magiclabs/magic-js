@@ -1,10 +1,8 @@
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
-import { ENCODED_QUERY_PARAMS } from '../../../lib/constants';
+import { ENCODED_QUERY_PARAMS } from '../../../constants';
 
 test.beforeEach(t => {
   browserEnv();

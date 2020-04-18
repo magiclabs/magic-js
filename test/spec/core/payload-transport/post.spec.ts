@@ -1,14 +1,12 @@
 /* eslint-disable prefer-spread */
 
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
 import { IframeController } from '../../../../src/core/views/iframe-controller';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '../../../../src/types';
-import { createPayloadTransport } from '../../../lib/factories';
+import { createPayloadTransport } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 
 /** Stub the `<iframe>` for `PayloadTransport` testing requirements. */

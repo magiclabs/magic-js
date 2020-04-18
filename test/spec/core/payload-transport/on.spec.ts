@@ -1,11 +1,9 @@
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
 import { MagicIncomingWindowMessage } from '../../../../src/types';
-import { createPayloadTransport } from '../../../lib/factories';
-import { MSG_TYPES } from '../../../lib/constants';
+import { createPayloadTransport } from '../../../factories';
+import { MSG_TYPES } from '../../../constants';
 
 test.beforeEach(t => {
   browserEnv();

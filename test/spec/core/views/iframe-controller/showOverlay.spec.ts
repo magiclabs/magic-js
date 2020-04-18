@@ -1,9 +1,7 @@
-import '../../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { createIframeController } from '../../../../lib/factories';
+import { createIframeController } from '../../../../factories';
 
 test.beforeEach(t => {
   browserEnv.restore();

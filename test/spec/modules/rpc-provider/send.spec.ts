@@ -1,12 +1,10 @@
 /* eslint-disable no-underscore-dangle, @typescript-eslint/no-empty-function */
 
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { createMagicSDK } from '../../../lib/factories';
-import { getPayloadIdStub } from '../../../lib/stubs';
+import { createMagicSDK } from '../../../factories';
+import { getPayloadIdStub } from '../../../mocks';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { createSynchronousWeb3MethodWarning } from '../../../../src/core/sdk-exceptions';

@@ -1,5 +1,3 @@
-import '../../../setup';
-
 import test from 'ava';
 import { isJsonRpcErrorCode } from '../../../../src/util/type-guards';
 

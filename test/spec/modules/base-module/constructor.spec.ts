@@ -1,11 +1,9 @@
 /* eslint-disable no-new */
 
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import { BaseModule } from '../../../../src/modules/base-module';
-import { createPayloadTransport, createIframeController } from '../../../lib/factories';
+import { createPayloadTransport, createIframeController } from '../../../factories';
 
 test.beforeEach(t => {
   browserEnv.restore();

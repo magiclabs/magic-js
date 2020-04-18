@@ -1,5 +1,3 @@
-import '../../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import { MagicSDKWarning } from '../../../../../src/core/sdk-exceptions';

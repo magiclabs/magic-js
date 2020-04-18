@@ -1,7 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test, { ExecutionContext } from 'ava';
 import {
