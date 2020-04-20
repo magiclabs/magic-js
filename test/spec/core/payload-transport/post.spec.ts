@@ -3,15 +3,20 @@
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
+import mockery from 'mockery';
 import { IframeController } from '../../../../src/core/views/iframe-controller';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '../../../../src/types';
 import { createPayloadTransport } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
+import * as ConfigConstants from '../../../../src/constants/config';
+import { ReactNativeWebViewController } from '../../../../src/core/views/react-native-webview-controller';
 
-/** Stub the `<iframe>` for `PayloadTransport` testing requirements. */
-function overlayStub(hasContentWindow = true): IframeController {
-  return {
+/**
+ * Stub `IframeController` for `PayloadTransport` testing requirements.
+ */
+function iframeOverlayStub(hasContentWindow = true): IframeController {
+  const stub = {
     ready: Promise.resolve(),
     iframe: Promise.resolve({
       contentWindow: hasContentWindow
@@ -21,9 +26,31 @@ function overlayStub(hasContentWindow = true): IframeController {
         : undefined,
     }),
   } as any;
+
+  Object.setPrototypeOf(stub, IframeController.prototype);
+
+  return stub;
 }
 
-/** Create a dummy request payload. */
+/**
+ * Stub `ReactNativeWebViewController` for `PayloadTransport` testing requirements.
+ */
+function webviewOverlayStub(hasPostMessage = true): IframeController {
+  const stub = {
+    ready: Promise.resolve(),
+    webView: {
+      postMessage: hasPostMessage ? sinon.stub() : undefined,
+    },
+  } as any;
+
+  Object.setPrototypeOf(stub, ReactNativeWebViewController.prototype);
+
+  return stub;
+}
+
+/**
+ * Create a dummy request payload.
+ */
 function requestPayload(id = 1): JsonRpcRequestPayload {
   return {
     id,
@@ -33,7 +60,9 @@ function requestPayload(id = 1): JsonRpcRequestPayload {
   };
 }
 
-/** Create a dummy response payload. */
+/**
+ * Create a dummy response payload.
+ */
 function responseEvent(values: { result?: any; error?: any; id?: number } = {}) {
   return {
     data: {
@@ -72,6 +101,7 @@ function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomin
 test.beforeEach(t => {
   browserEnv();
   browserEnv.stub('addEventListener', sinon.stub());
+  (ConfigConstants.IS_REACT_NATIVE as any) = false;
 });
 
 /**
@@ -80,14 +110,15 @@ test.beforeEach(t => {
  * Action Must:
  * - Send a payload using `MAGIC_HANDLE_REQUEST` event.
  * - Acknowledge `MAGIC_HANDLE_RESPONSE` event.
+ * - Use `IframeController`
  * - Resolve a promise with the response.
  */
-test('#01', async t => {
+test.serial('#01', async t => {
   const transport = createPayloadTransport('asdf');
   const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
-  const overlay = overlayStub();
+  const overlay = iframeOverlayStub();
   const payload = requestPayload();
 
   const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
@@ -104,15 +135,41 @@ test('#01', async t => {
  * - Send a payload using `MAGIC_HANDLE_REQUEST` event.
  * - Acknowledge `MAGIC_HANDLE_RESPONSE` event.
  * - Skips response with non-matching payload ID
+ * - Use `IframeController`
  * - Resolve a promise with the response.
  */
-test('#02', async t => {
+test.serial('#02', async t => {
   const transport = createPayloadTransport('asdf');
   const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent({ id: 1234 })], // Should be skipped
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
-  const overlay = overlayStub();
+  const overlay = iframeOverlayStub();
+  const payload = requestPayload();
+
+  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+
+  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  t.true(handlerSpy.calledOnce);
+  t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
+});
+
+/**
+ * Sends payload and resolves with response
+ *
+ * Action Must:
+ * - Send a payload using `MAGIC_HANDLE_REQUEST` event.
+ * - Acknowledge `MAGIC_HANDLE_RESPONSE` event.
+ * - Use `ReactNativeWebViewController`
+ * - Resolve a promise with the response.
+ */
+test.serial('#03', async t => {
+  (ConfigConstants.IS_REACT_NATIVE as any) = true;
+  const transport = createPayloadTransport('asdf');
+  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
+  const overlay = webviewOverlayStub();
   const payload = requestPayload();
 
   const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
@@ -126,12 +183,13 @@ test('#02', async t => {
  * Fails to send payload if overlay contentWindow is `undefined`
  *
  * Action Must:
+ * - Use `IframeController`
  * - Reject promise
  */
-test.serial('#03', async t => {
+test.serial('#04', async t => {
   const transport = createPayloadTransport('asdf');
   stubPayloadTransport(transport, [[MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()]]);
-  const overlay = overlayStub(false);
+  const overlay = iframeOverlayStub(false);
   const payload = requestPayload();
 
   let didReject = false;
@@ -155,9 +213,9 @@ test.serial('#03', async t => {
  * - Acknowledge `MAGIC_HANDLE_RESPONSE` event.
  * - Does not resolve.
  */
-test('#04', async t => {
+test.serial('#05', async t => {
   const transport = createPayloadTransport('asdf');
-  const overlay = overlayStub();
+  const overlay = iframeOverlayStub();
   const payload = requestPayload();
 
   stubPayloadTransport(transport, [
@@ -177,7 +235,7 @@ test('#04', async t => {
  * - Acknowledge 3 `MAGIC_HANDLE_RESPONSE` events.
  * - Resolves promise with array of responses.
  */
-test('#05', async t => {
+test.serial('#06', async t => {
   const response1 = responseEvent({ result: 'one', id: 1 });
   const response2 = responseEvent({ result: 'two', id: 2 });
   const response3 = responseEvent({ result: 'three', id: 3 });
@@ -188,7 +246,7 @@ test('#05', async t => {
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, response2],
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, response3],
   ]);
-  const overlay = overlayStub();
+  const overlay = iframeOverlayStub();
 
   const payload1 = requestPayload(1);
   const payload2 = requestPayload(2);
