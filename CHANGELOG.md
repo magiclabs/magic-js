@@ -12,6 +12,12 @@
 
 - ...
 
+## `1.0.3` - 04/21/2020
+
+#### Added
+
+- `UpdateEmailFailed` RPCErrorCode for when update email fails.
+
 ## `1.0.2` - 04/15/2020
 
 #### Added
