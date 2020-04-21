@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 export NODE_ENV=production
-export WEBPACK_ENV=production
-export BABEL_ENV=production
-
 export MAGIC_URL=https://auth.magic.link
 
 # Increase memory limit for Node
