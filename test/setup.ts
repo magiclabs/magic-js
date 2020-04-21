@@ -1,10 +1,10 @@
 // NOTE: This module is automatically included at the top of each test file.
 
 import browserEnv from '@ikscodes/browser-env';
-import { enableMocks, mockReactDependencies, mockWhatwgUrl } from './mocks';
+import { enableMocks, removeReactDependencies, removeWhatwgUrl } from './mocks';
 
 browserEnv();
 enableMocks();
 
-mockReactDependencies();
-mockWhatwgUrl();
+removeReactDependencies();
+removeWhatwgUrl();

@@ -10,13 +10,7 @@ test.beforeEach(t => {
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-/**
- * `UsersModule.updateEmail` with `email` parameter.
- *
- * Action Must:
- * - Generate JSON RPC request payload with method `magic_auth_update_email`
- */
-test.serial('#01', async t => {
+test.serial('Generate JSON RPC request payload with method `magic_auth_update_email`', async t => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -31,13 +25,7 @@ test.serial('#01', async t => {
   t.deepEqual(requestPayload.params, [{ email: 'test', showUI: true }]);
 });
 
-/**
- * `UsersModule.updateEmail` with `showUI` parameter.
- *
- * Action Must:
- * - Generate JSON RPC request payload with method `magic_auth_update_email`
- */
-test.serial('#02', async t => {
+test.serial('Accepts a `showUI` parameter', async t => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();

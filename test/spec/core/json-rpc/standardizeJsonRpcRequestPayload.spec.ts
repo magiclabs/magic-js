@@ -2,49 +2,23 @@ import test from 'ava';
 import { standardizeJsonRpcRequestPayload } from '../../../../src/core/json-rpc';
 import { getPayloadIdStub } from '../../../mocks';
 
-/**
- * `standardizeJsonRpcRequestPayload`
- *
- * Action must:
- * - Mutate the payload object given as the argument.
- */
-test('#01', t => {
+test('Mutate the payload object given as the argument', t => {
   const originalPayload = {};
   const finalPayload = standardizeJsonRpcRequestPayload(originalPayload);
   t.is(originalPayload, finalPayload);
 });
 
-/**
- * `standardizeJsonRpcRequestPayload`
- *
- * Action must:
- * - Create a JSON RPC payload, preserving the current value of
- *   `payload.jsonrpc`.
- */
-test('#02', t => {
+test('Create a JSON RPC payload, preserving the current value of `payload.jsonrpc`', t => {
   const payload = standardizeJsonRpcRequestPayload({ jsonrpc: 'hello world' });
   t.is(payload.jsonrpc, 'hello world');
 });
 
-/**
- * `standardizeJsonRpcRequestPayload`
- *
- * Action must:
- * - Create a JSON RPC payload, replacing the missing value of
- *   `payload.jsonrpc`.
- */
-test('#03', t => {
+test('Create a JSON RPC payload, replacing the missing value of `payload.jsonrpc`', t => {
   const payload = standardizeJsonRpcRequestPayload({});
   t.is(payload.jsonrpc, '2.0');
 });
 
-/**
- * `standardizeJsonRpcRequestPayload`
- *
- * Action must:
- * - Create a JSON RPC payload, replacing the value of `payload.id`.
- */
-test('#04', t => {
+test('Create a JSON RPC payload, replacing the value of `payload.id`', t => {
   const randomIdStub = getPayloadIdStub();
   randomIdStub.returns(999);
 
@@ -60,50 +34,22 @@ test('#04', t => {
   t.deepEqual(payload, expectedPayload);
 });
 
-/**
- * `standardizeJsonRpcRequestPayload`
- *
- * Action must:
- * - Create a JSON RPC payload, preserving the current value of
- *   `payload.method`.
- */
-test('#05', t => {
+test('Create a JSON RPC payload, preserving the current value of `payload.method`', t => {
   const payload = standardizeJsonRpcRequestPayload({ method: 'test' });
   t.is(payload.method, 'test');
 });
 
-/**
- * `standardizeJsonRpcRequestPayload`
- *
- * Action must:
- * - Create a JSON RPC payload, replacing the missing value of
- *   `payload.method`.
- */
-test('#06', t => {
+test('Create a JSON RPC payload, replacing the missing value of `payload.method`', t => {
   const payload = standardizeJsonRpcRequestPayload({});
   t.is(payload.method, 'noop');
 });
 
-/**
- * `standardizeJsonRpcRequestPayload`
- *
- * Action must:
- * - Create a JSON RPC payload, preserving the current value of
- *   `payload.params`.
- */
-test('#07', t => {
+test('Create a JSON RPC payload, preserving the current value of `payload.params`', t => {
   const payload = standardizeJsonRpcRequestPayload({ params: ['test'] });
   t.deepEqual(payload.params, ['test']);
 });
 
-/**
- * `standardizeJsonRpcRequestPayload`
- *
- * Action must:
- * - Create a JSON RPC payload, replacing the missing value of
- *   `payload.params`.
- */
-test('#08', t => {
+test('Create a JSON RPC payload, replacing the missing value of `payload.params`', t => {
   const payload = standardizeJsonRpcRequestPayload({});
   t.deepEqual(payload.params, []);
 });

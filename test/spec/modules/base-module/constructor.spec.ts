@@ -9,14 +9,7 @@ test.beforeEach(t => {
   browserEnv.restore();
 });
 
-/**
- * Initialize `BaseModule`
- *
- * Action Must:
- * - Initialize `BaseModule` instance
- * - Not throw
- */
-test.serial('#01', t => {
+test.serial('Initialize `BaseModule`', t => {
   const payloadTransport = createPayloadTransport();
   const iframeController = createIframeController();
 

@@ -25,14 +25,7 @@ test.beforeEach(t => {
   browserEnv.restore();
 });
 
-/**
- * JsonRpcResponse.applyError
- *
- *  Action Must:
- *  - Add a formatted error to the response by providing a JsonRpcError as
- *    argument.
- */
-test('#01', t => {
+test('Add a formatted error to the response with `JsonRpcError` object as argument', t => {
   const payload = createSourcePayload();
   const error = createJsonRcpError();
 
@@ -44,13 +37,7 @@ test('#01', t => {
   t.true(response.hasError);
 });
 
-/**
- * JsonRpcResponse.applyError
- *
- *  Action Must:
- *  - Apply `null` and `undefined` explicitly.
- */
-test('#02', t => {
+test('Apply `null` or `undefined` errors explicitly', t => {
   const payload = createSourcePayload();
   const nullError = null;
   const undefinedError = undefined;

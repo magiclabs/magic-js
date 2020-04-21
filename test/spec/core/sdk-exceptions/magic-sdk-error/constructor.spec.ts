@@ -6,14 +6,7 @@ test.beforeEach(t => {
   browserEnv();
 });
 
-/**
- * Instantiate `MagicSDKError`
- *
- * Action Must:
- * - Build instance
- * - Not throw
- */
-test('#01', t => {
+test('Instantiate `MagicSDKError`', t => {
   const error = new MagicSDKError('TEST_CODE' as any, 'test message');
 
   t.true(error instanceof MagicSDKError);

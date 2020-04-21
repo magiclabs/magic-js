@@ -10,13 +10,7 @@ test.beforeEach(t => {
   browserEnv.restore();
 });
 
-/**
- * `MagicSDK.transport` is lazy loaded.
- *
- * Action Must:
- * - Not construct a `ProviderTransport` instance until `transport` is accessed.
- */
-test('#01', async t => {
+test('`MagicSDK.transport` is lazy loaded', async t => {
   const magic = new MagicSDK(TEST_API_KEY);
 
   t.is((MagicSDK as any).__transports__.size, 0);
@@ -29,15 +23,7 @@ test('#01', async t => {
   t.is(A, B);
 });
 
-/**
- * `MagicSDK.transport` is shared between `MagicSDK` instances with same
- * parameters.
- *
- * Action Must:
- * - Use exact same `PayloadTransport` between two equivalent `MagicSDK`
- *   instances.
- */
-test('#02', async t => {
+test('`MagicSDK.transport` is shared between `MagicSDK` instances with same parameters', async t => {
   const magicA = new MagicSDK(TEST_API_KEY);
   const magicB = new MagicSDK(TEST_API_KEY);
 
@@ -47,15 +33,7 @@ test('#02', async t => {
   t.is(A, B);
 });
 
-/**
- * `MagicSDK.transport` is unique between `MagicSDK` instances with different
- * parameters.
- *
- * Action Must:
- * - Use different `PayloadTransport` instances between two different `MagicSDK`
- *   instances.
- */
-test('#03', async t => {
+test('`MagicSDK.transport` is unique between `MagicSDK` instances with different parameters', async t => {
   const magicA = new MagicSDK(TEST_API_KEY);
   const magicB = new MagicSDK('asdfasdf');
 

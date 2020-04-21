@@ -8,14 +8,7 @@ test.beforeEach(t => {
   browserEnv.restore();
 });
 
-/**
- * JsonRpcResponse class
- *
- *  Action Must:
- *  - Initialize JsonRpcResponse instance if argument is instanceof
- *    JsonRpcReponse
- */
-test('#01', t => {
+test('Initialize JsonRpcResponse instance if argument is `instanceof` JsonRpcReponse', t => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,
@@ -33,13 +26,7 @@ test('#01', t => {
   t.is((second as any)._error, null);
 });
 
-/**
- * JsonRpcResponse class
- *
- *  Action Must:
- *  - Initialize JsonRpcResponse instance if argument is a JsonRpcResponsePayload
- */
-test('#02', t => {
+test('Initialize JsonRpcResponse instance if argument is a JsonRpcResponsePayload', t => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,
@@ -55,13 +42,7 @@ test('#02', t => {
   t.is((response as any)._error, null);
 });
 
-/**
- * JsonRpcResponse class
- *
- *  Action Must:
- *  - Initialize JsonRpcResponse instance if argument is a JsonRpcRequestPayload
- */
-test('#03', t => {
+test('Initialize JsonRpcResponse instance if argument is a JsonRpcRequestPayload', t => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,
@@ -77,14 +58,7 @@ test('#03', t => {
   t.is((response as any)._error, null);
 });
 
-/**
- * JsonRpcResponse class
- *
- *  Action Must:
- *  - Initialize JsonRpcResponse instance if argument is a
- *    JsonRpcBatchRequestPayload
- */
-test('#04', t => {
+test('Initialize `JsonRpcResponse` instance if argument is a `JsonRpcBatchRequestPayload`', t => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,

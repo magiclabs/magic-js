@@ -12,13 +12,7 @@ test.beforeEach(t => {
   (IframeController as any).prototype.waitForReady = sinon.stub().returns(Promise.resolve());
 });
 
-/**
- * `MagicSDK.preload` invokes `MagicSDK.overlay.ready`.
- *
- * Action Must:
- * - Await the promise returned by `MagicSDK.overlay.ready`.
- */
-test('#01', async t => {
+test('`MagicSDK.preload` invokes `MagicSDK.overlay.ready`', async t => {
   const magic = new MagicSDK(TEST_API_KEY);
   await t.notThrowsAsync(() => magic.preload());
   t.true((magic as any).overlay.waitForReady.calledOnce);

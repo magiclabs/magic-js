@@ -24,28 +24,12 @@ test.beforeEach(t => {
   browserEnv.restore();
 });
 
-/**
- * Creates a `DUPLICATE_IFRAME` warning.
- *
- * Action Must:
- * - Create an instance of `MagicSDKWarning`
- * - Message and code should be the expected value for `DUPLICATE_IFRAME`
- *   warning.
- */
-test('#01 DUPLICATE_IFRAME', async t => {
+test('Creates a `DUPLICATE_IFRAME` warning', async t => {
   const warning = createDuplicateIframeWarning();
   warningAssertions(t, warning, 'DUPLICATE_IFRAME', 'Duplicate iframes found.');
 });
 
-/**
- * Creates a `SYNC_WEB3_METHOD` warning.
- *
- * Action Must:
- * - Create an instance of `MagicSDKWarning`
- * - Message and code should be the expected value for `SYNC_WEB3_METHOD`
- *   warning.
- */
-test('#02 SYNC_WEB3_METHOD', async t => {
+test('Creates a `SYNC_WEB3_METHOD` warning', async t => {
   const warning = createSynchronousWeb3MethodWarning();
   warningAssertions(
     t,

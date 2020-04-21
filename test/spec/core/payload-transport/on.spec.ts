@@ -3,19 +3,12 @@ import test from 'ava';
 import sinon from 'sinon';
 import { MagicIncomingWindowMessage } from '../../../../src/types';
 import { createPayloadTransport } from '../../../factories';
-import { MSG_TYPES } from '../../../constants';
 
 test.beforeEach(t => {
   browserEnv();
 });
 
-/**
- * Adds the event listener callback to the internal state.
- *
- * Action Must:
- * - Increase the size of the underlying `Set` by 1.
- */
-test('#01', t => {
+test('Adds the event listener callback to the internal state', t => {
   const transport = createPayloadTransport();
   const onHandlerStub = sinon.stub();
 
@@ -24,14 +17,7 @@ test('#01', t => {
   t.is((transport as any).messageHandlers.size, 1);
 });
 
-/**
- * Removes the event listener callback from internal state.
- *
- * Action Must:
- * - Increase the size of the underlying `Set` by 1
- * - Then... decrease the size of the underlying `Set` by 1
- */
-test('#02', t => {
+test('Removes the event listener callback from internal state', t => {
   const transport = createPayloadTransport();
   const onHandlerStub = sinon.stub();
 

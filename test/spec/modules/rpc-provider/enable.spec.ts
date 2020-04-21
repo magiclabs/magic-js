@@ -10,13 +10,7 @@ test.beforeEach(t => {
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-/**
- * `Web3Module.enable`
- *
- * Action Must:
- * - Generate JSON RPC request payload with method `eth_accounts`
- */
-test('#01', async t => {
+test('Generates a JSON RPC request payload with method `eth_accounts`', async t => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();

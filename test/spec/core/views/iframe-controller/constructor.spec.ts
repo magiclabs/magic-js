@@ -11,13 +11,7 @@ test.beforeEach(t => {
   browserEnv.restore();
 });
 
-/**
- * Instantiates successfully
- *
- * Action Must:
- * - Create a new instance of `FmIframeController`
- */
-test('#01', async t => {
+test('Instantiates `IframeController`', async t => {
   const initStub = sinon.stub();
   initStub.returns(new Promise(() => {}));
   const listenStub = sinon.stub();

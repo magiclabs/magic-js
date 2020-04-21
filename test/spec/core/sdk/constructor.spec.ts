@@ -13,14 +13,7 @@ test.beforeEach(t => {
   browserEnv.restore();
 });
 
-/**
- * Initialize `MagicSDK`.
- *
- * Action Must:
- * - Initialize `MagicSDK` instance.
- * - Not throw.
- */
-test.serial('#01', t => {
+test.serial('Initialize `MagicSDK`', t => {
   const magic = new MagicSDK(TEST_API_KEY);
 
   t.is(magic.apiKey, TEST_API_KEY);
@@ -37,13 +30,7 @@ test.serial('#01', t => {
   t.true(magic.rpcProvider instanceof RPCProviderModule);
 });
 
-/**
- * Fail to initialize `MagicSDK`.
- *
- * Action Must:
- * - Fail to Initialize `MagicSDK` instance without a key.
- */
-test.serial('#02', t => {
+test.serial('Fail to initialize `MagicSDK`', t => {
   try {
     new MagicSDK(undefined as any);
   } catch (err) {
@@ -54,14 +41,7 @@ test.serial('#02', t => {
   }
 });
 
-/**
- * Initialize `MagicSDK` with custom endpoint.
- *
- * Action Must:
- * - Initialize `MagicSDK` instance.
- * - Not throw.
- */
-test.serial('#03', t => {
+test.serial('Initialize `MagicSDK` with custom endpoint', t => {
   const magic = new MagicSDK(TEST_API_KEY, { endpoint: 'https://example.com' });
 
   t.is(magic.apiKey, TEST_API_KEY);
@@ -78,14 +58,7 @@ test.serial('#03', t => {
   t.true(magic.rpcProvider instanceof RPCProviderModule);
 });
 
-/**
- * Initialize `MagicSDK` when `window.location` is missing.
- *
- * Action Must:
- * - Initialize `MagicSDK` instance.
- * - Not throw.
- */
-test.serial('#04', t => {
+test.serial('Initialize `MagicSDK` when `window.location` is missing', t => {
   browserEnv.stub('location', undefined);
 
   const magic = new MagicSDK(TEST_API_KEY);
@@ -104,14 +77,7 @@ test.serial('#04', t => {
   t.true(magic.rpcProvider instanceof RPCProviderModule);
 });
 
-/**
- * Initialize `MagicSDK` with custom Web3 network.
- *
- * Action Must:
- * - Initialize `MagicSDK` instance.
- * - Not throw.
- */
-test.serial('#05', t => {
+test.serial('Initialize `MagicSDK` with custom Web3 network', t => {
   const magic = new MagicSDK(TEST_API_KEY, { network: 'mainnet' });
 
   t.is(magic.apiKey, TEST_API_KEY);

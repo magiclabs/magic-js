@@ -10,13 +10,7 @@ test.beforeEach(t => {
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-/**
- * `UserModule.logout`
- *
- * Action Must:
- * - Generate JSON RPC request payload with method `magic_auth_logout`
- */
-test('#01', async t => {
+test('Generate JSON RPC request payload with method `magic_auth_logout`', async t => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();

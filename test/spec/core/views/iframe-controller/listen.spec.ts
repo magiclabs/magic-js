@@ -13,13 +13,7 @@ test.beforeEach(t => {
   (IframeController.prototype as any).hideOverlay = () => {};
 });
 
-/**
- * Receive MAGIC_HIDE_OVERLAY
- *
- * Action Must:
- * - Call hide Overlay
- */
-test.cb('#01 MAGIC_HIDE_OVERLAY', t => {
+test.cb('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', t => {
   const overlay = createIframeController('');
   const hideOverlayStub = sinon.stub();
   (overlay as any).hideOverlay = hideOverlayStub;
@@ -32,13 +26,7 @@ test.cb('#01 MAGIC_HIDE_OVERLAY', t => {
   }, 0);
 });
 
-/**
- * Receive MAGIC_SHOW_OVERLAY
- *
- * Action Must:
- * - Call Show Overlay
- */
-test.cb('#02 MAGIC_SHOW_OVERLAY', t => {
+test.cb('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', t => {
   const overlay = createIframeController('');
   const showOverlayStub = sinon.stub();
   (overlay as any).showOverlay = showOverlayStub;

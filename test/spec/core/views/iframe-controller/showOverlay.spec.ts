@@ -8,13 +8,7 @@ test.beforeEach(t => {
   browserEnv.stub('addEventListener', sinon.stub());
 });
 
-/**
- * Show Overlay
- *
- * Action Must:
- * - Change display of style to block
- */
-test('#01', async t => {
+test('Change display style to `block`', async t => {
   const overlay = createIframeController();
 
   (overlay as any).iframe = { style: { display: 'none' } };

@@ -6,14 +6,7 @@ test.beforeEach(t => {
   browserEnv();
 });
 
-/**
- * Instantiate `MagicSDKWarning`
- *
- * Action Must:
- * - Build instance
- * - Not throw
- */
-test('#01', t => {
+test('Instantiate `MagicSDKWarning`', t => {
   const warning = new MagicSDKWarning('TEST_CODE' as any, 'test message');
 
   t.true(warning instanceof MagicSDKWarning);

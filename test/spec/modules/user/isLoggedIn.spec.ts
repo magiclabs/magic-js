@@ -10,13 +10,7 @@ test.beforeEach(t => {
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-/**
- * `UserModule.isLoggedIn`
- *
- * Action Must:
- * - Generate JSON RPC request payload with method `magic_auth_is_logged_in`
- */
-test('#01', async t => {
+test(' Generate JSON RPC request payload with method `magic_auth_is_logged_in`', async t => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();

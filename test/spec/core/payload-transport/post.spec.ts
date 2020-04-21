@@ -3,14 +3,13 @@
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import mockery from 'mockery';
 import { IframeController } from '../../../../src/core/views/iframe-controller';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '../../../../src/types';
 import { createPayloadTransport } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
-import * as ConfigConstants from '../../../../src/constants/config';
 import { ReactNativeWebViewController } from '../../../../src/core/views/react-native-webview-controller';
+import { mockConfigConstant } from '../../../mocks';
 
 /**
  * Stub `IframeController` for `PayloadTransport` testing requirements.
@@ -101,19 +100,10 @@ function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomin
 test.beforeEach(t => {
   browserEnv();
   browserEnv.stub('addEventListener', sinon.stub());
-  (ConfigConstants.IS_REACT_NATIVE as any) = false;
+  mockConfigConstant('IS_REACT_NATIVE', false);
 });
 
-/**
- * Sends payload and resolves with response
- *
- * Action Must:
- * - Send a payload using `MAGIC_HANDLE_REQUEST` event.
- * - Acknowledge `MAGIC_HANDLE_RESPONSE` event.
- * - Use `IframeController`
- * - Resolve a promise with the response.
- */
-test.serial('#01', async t => {
+test.serial('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async t => {
   const transport = createPayloadTransport('asdf');
   const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
@@ -128,65 +118,45 @@ test.serial('#01', async t => {
   t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
 });
 
-/**
- * Sends payload and resolves with response
- *
- * Action Must:
- * - Send a payload using `MAGIC_HANDLE_REQUEST` event.
- * - Acknowledge `MAGIC_HANDLE_RESPONSE` event.
- * - Skips response with non-matching payload ID
- * - Use `IframeController`
- * - Resolve a promise with the response.
- */
-test.serial('#02', async t => {
-  const transport = createPayloadTransport('asdf');
-  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
-    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent({ id: 1234 })], // Should be skipped
-    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
-  ]);
-  const overlay = iframeOverlayStub();
-  const payload = requestPayload();
+test.serial(
+  'Sends payload; recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response',
+  async t => {
+    const transport = createPayloadTransport('asdf');
+    const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+      [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent({ id: 1234 })], // Should be skipped
+      [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+    ]);
+    const overlay = iframeOverlayStub();
+    const payload = requestPayload();
 
-  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+    const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  t.true(handlerSpy.calledOnce);
-  t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
-});
+    t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+    t.true(handlerSpy.calledOnce);
+    t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
+  },
+);
 
-/**
- * Sends payload and resolves with response
- *
- * Action Must:
- * - Send a payload using `MAGIC_HANDLE_REQUEST` event.
- * - Acknowledge `MAGIC_HANDLE_RESPONSE` event.
- * - Use `ReactNativeWebViewController`
- * - Resolve a promise with the response.
- */
-test.serial('#03', async t => {
-  (ConfigConstants.IS_REACT_NATIVE as any) = true;
-  const transport = createPayloadTransport('asdf');
-  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
-    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
-  ]);
-  const overlay = webviewOverlayStub();
-  const payload = requestPayload();
+test.serial(
+  'Sends payload; recieves MAGIC_HANDLE_REQUEST event; uses `ReactNativeWebViewController`; resolves response',
+  async t => {
+    mockConfigConstant('IS_REACT_NATIVE', true);
+    const transport = createPayloadTransport('asdf');
+    const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+      [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+    ]);
+    const overlay = webviewOverlayStub();
+    const payload = requestPayload();
 
-  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+    const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  t.true(handlerSpy.calledOnce);
-  t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
-});
+    t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+    t.true(handlerSpy.calledOnce);
+    t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
+  },
+);
 
-/**
- * Fails to send payload if overlay contentWindow is `undefined`
- *
- * Action Must:
- * - Use `IframeController`
- * - Reject promise
- */
-test.serial('#04', async t => {
+test.serial('Fails to send payload if overlay `contentWindow` is `undefined`', async t => {
   const transport = createPayloadTransport('asdf');
   stubPayloadTransport(transport, [[MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()]]);
   const overlay = iframeOverlayStub(false);
@@ -204,16 +174,7 @@ test.serial('#04', async t => {
   t.true(didReject);
 });
 
-/**
- * Sends payload and standardizes malformed response. This test is primarily for
- * coverage.
- *
- * Action Must:
- * - Send a payload using `MAGIC_HANDLE_REQUEST` event.
- * - Acknowledge `MAGIC_HANDLE_RESPONSE` event.
- * - Does not resolve.
- */
-test.serial('#05', async t => {
+test.serial('Sends payload and standardizes malformed response', async t => {
   const transport = createPayloadTransport('asdf');
   const overlay = iframeOverlayStub();
   const payload = requestPayload();
@@ -227,15 +188,7 @@ test.serial('#05', async t => {
   t.true(true);
 });
 
-/**
- * Sends a batch payload and resolves with multiple responses.
- *
- * Action Must:
- * - Send a payload using `MAGIC_HANDLE_REQUEST` event.
- * - Acknowledge 3 `MAGIC_HANDLE_RESPONSE` events.
- * - Resolves promise with array of responses.
- */
-test.serial('#06', async t => {
+test.serial('Sends a batch payload and resolves with multiple responses', async t => {
   const response1 = responseEvent({ result: 'one', id: 1 });
   const response2 = responseEvent({ result: 'two', id: 2 });
   const response3 = responseEvent({ result: 'three', id: 3 });

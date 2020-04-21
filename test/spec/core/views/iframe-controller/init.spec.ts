@@ -32,15 +32,7 @@ test.beforeEach(t => {
   (IframeController.prototype as any).listen = sinon.stub();
 });
 
-/**
- * Initialization
- *
- * Action Must:
- * - Append header with style
- * - Append body with iframe
- * - resolve an iframe object
- */
-test.serial('#01', async t => {
+test.serial('Appends header with style, appends body with iframe, and resolves iframe', async t => {
   const { classListAddStub, createElementStub } = createOverlayElementsStub();
   const appendChildStub = sinon.stub();
 
@@ -61,13 +53,7 @@ test.serial('#01', async t => {
   t.is(iframe.src, `${MAGIC_RELAYER_FULL_URL}/send?params=${ENCODED_QUERY_PARAMS}`);
 });
 
-/**
- * Duplicate Instance
- *
- * Action Must:
- * - Display error in console
- */
-test.serial('#02', async t => {
+test.serial('Displays warning in console upon duplicate iframes', async t => {
   const { createElementStub } = createOverlayElementsStub();
 
   browserEnv.stub('document.querySelectorAll', () => [{ src: ENCODED_QUERY_PARAMS }]);
@@ -88,7 +74,7 @@ test.serial('#02', async t => {
  * Action Must:
  * - addEventListener to 'load'
  */
-test.serial('#03', t => {
+test.serial('Waits until `document` is loaded/ready', t => {
   const { createElementStub } = createOverlayElementsStub();
 
   browserEnv.stub('document.querySelectorAll', () => ({ length: 0 }));
@@ -106,7 +92,7 @@ test.serial('#03', t => {
  * Action Must:
  * - Assume iframe is not yet initialized.
  */
-test.serial('#04', async t => {
+test.serial('Assumes the iframe is not yet initialized if `src` is `undefined`', async t => {
   const { classListAddStub, createElementStub } = createOverlayElementsStub();
   const appendChildStub = sinon.stub();
 

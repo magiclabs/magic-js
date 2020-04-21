@@ -34,14 +34,7 @@ test.beforeEach(t => {
   browserEnv.restore();
 });
 
-/**
- * `BaseModule.request`
- *
- * Action Must:
- * - Execute `BaseModule.request`
- * - Resolve with response
- */
-test.serial('#01', async t => {
+test.serial('Resolves with a successful response', async t => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
@@ -53,14 +46,7 @@ test.serial('#01', async t => {
   t.is(result, 'hello world');
 });
 
-/**
- * `BaseModule.request`
- *
- * Action Must:
- * - Execute `BaseModule.request`
- * - Reject with `MagicRPCError`
- */
-test.serial('#02', async t => {
+test.serial('Rejects with a `MagicRPCError` upon request failed', async t => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyError({ code: -32603, message: 'hello world' });
@@ -73,14 +59,7 @@ test.serial('#02', async t => {
   t.is(err.message, 'Magic RPC Error: [-32603] hello world');
 });
 
-/**
- * `BaseModule.request`
- *
- * Action Must:
- * - Execute `BaseModule.request`
- * - Reject with `MALFORMED_RESPONSE` error
- */
-test.serial('#03', async t => {
+test.serial('Rejects with `MALFORMED_RESPONSE` error if response cannot be parsed correctly', async t => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload);

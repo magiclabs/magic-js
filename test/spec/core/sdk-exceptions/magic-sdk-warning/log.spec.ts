@@ -3,15 +3,7 @@ import test from 'ava';
 import sinon from 'sinon';
 import { MagicSDKWarning } from '../../../../../src/core/sdk-exceptions';
 
-/**
- * `MagicSDKWarning.log` logs message to `console.warn`
- *
- * Action Must:
- * - Create an instance of `MagicSDKWarning`
- * - Call `MagicSDKWarning.log`
- * - Logs `MagicSDKWarning.message` to `console.warn`
- */
-test('#01', async t => {
+test('`MagicSDKWarning.log` logs message to `console.warn`', async t => {
   const warning = new MagicSDKWarning('TEST_CODE' as any, 'test message');
   const consoleWarningStub = sinon.stub();
   browserEnv.stub('console.warn', consoleWarningStub);
