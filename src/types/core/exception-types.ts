@@ -23,6 +23,7 @@ export enum RPCErrorCode {
   MagicLinkExpired = -10001,
   MagicLinkRateLimited = -10002,
   UserAlreadyLoggedIn = -10003,
+  UpdateEmailFailed = -10004,
 }
 
 export type ErrorCode = SDKErrorCode | RPCErrorCode;
