@@ -2,17 +2,15 @@
 
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
-import { StyleSheet } from 'react-native';
-import sinon from 'sinon';
 import { MagicSDK, MagicSDKReactNative } from '../../../../../src/core/sdk';
 import { TEST_API_KEY } from '../../../../constants';
-import { mockConfigConstant } from '../../../../mocks';
+import { mockConfigConstant, reactNativeStyleSheetStub } from '../../../../mocks';
 import { ReactNativeWebViewController } from '../../../../../src/core/views/react-native-webview-controller';
 
 test.beforeEach(t => {
   browserEnv.restore();
   mockConfigConstant('IS_REACT_NATIVE', true);
-  (StyleSheet as any) = { create: sinon.stub() };
+  reactNativeStyleSheetStub();
 });
 
 test('`MagicSDKReactNative.overlay` is lazy loaded', async t => {

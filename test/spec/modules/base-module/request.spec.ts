@@ -32,6 +32,8 @@ const requestPayload: JsonRpcRequestPayload = {
 
 test.beforeEach(t => {
   browserEnv.restore();
+  // Silence the "duplicate iframes" warning.
+  browserEnv.stub('console.warn', () => {});
 });
 
 test.serial('Resolves with a successful response', async t => {

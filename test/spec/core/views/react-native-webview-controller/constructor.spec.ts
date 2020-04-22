@@ -3,12 +3,11 @@
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { StyleSheet } from 'react-native';
 import { createReactNativeWebViewController } from '../../../../factories';
 import { ReactNativeWebViewController } from '../../../../../src/core/views/react-native-webview-controller';
 import { PayloadTransport } from '../../../../../src/core/payload-transport';
 import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS } from '../../../../constants';
-import { mockConfigConstant } from '../../../../mocks';
+import { mockConfigConstant, reactNativeStyleSheetStub } from '../../../../mocks';
 
 test.beforeEach(t => {
   browserEnv.restore();
@@ -19,7 +18,8 @@ test('Instantiates `ReactNativeWebViewController`', async t => {
   const listenStub = sinon.stub();
   const waitForReadyStub = sinon.stub();
 
-  (StyleSheet as any) = { create: sinon.stub().returns({ hello: 'world' }) };
+  const createStyleSheetStub = reactNativeStyleSheetStub();
+  createStyleSheetStub.returns({ hello: 'world' });
 
   (ReactNativeWebViewController.prototype as any).listen = listenStub;
   (ReactNativeWebViewController.prototype as any).waitForReady = waitForReadyStub;

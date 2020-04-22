@@ -2,16 +2,14 @@
 
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
-import { StyleSheet } from 'react-native';
-import sinon from 'sinon';
 import { MagicSDKReactNative } from '../../../../../src/core/sdk';
 import { TEST_API_KEY } from '../../../../constants';
-import { mockConfigConstant } from '../../../../mocks';
+import { mockConfigConstant, reactNativeStyleSheetStub } from '../../../../mocks';
 
 test.beforeEach(t => {
   browserEnv.restore();
   mockConfigConstant('IS_REACT_NATIVE', true);
-  (StyleSheet as any) = { create: sinon.stub() };
+  reactNativeStyleSheetStub();
 });
 
 test('`MagicSDKReactNative.Modal` returns `ReactNativeWebViewController.Modal`', async t => {

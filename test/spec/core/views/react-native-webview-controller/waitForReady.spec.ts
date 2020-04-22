@@ -1,15 +1,13 @@
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
 import test from 'ava';
-import { StyleSheet } from 'react-native';
 import { createReactNativeWebViewController } from '../../../../factories';
 import { MSG_TYPES, ENCODED_QUERY_PARAMS } from '../../../../constants';
-import { mockConfigConstant } from '../../../../mocks';
+import { mockConfigConstant, reactNativeStyleSheetStub } from '../../../../mocks';
 
 test.beforeEach(t => {
   browserEnv();
   mockConfigConstant('IS_REACT_NATIVE', true);
-  (StyleSheet as any) = { create: sinon.stub() };
+  reactNativeStyleSheetStub();
 });
 
 test.cb('Receive MAGIC_OVERLAY_READY, resolve `waitForReady` promise', t => {
