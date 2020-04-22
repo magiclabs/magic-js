@@ -87,7 +87,7 @@ export class ReactNativeWebViewController {
   // is sufficient (this logic is stable right now and not expected to change in
   // the forseeable future).
   /* istanbul ignore next */
-  public Modal: React.FC = () => {
+  public Relayer: React.FC = () => {
     const [show, setShow] = useState(false);
 
     /**
