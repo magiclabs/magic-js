@@ -19,11 +19,14 @@
     "clean": "npm-run-all -s clean:*",
     "clean:test-artifacts": "rimraf coverage && rimraf .nyc_output",
     "clean:build": "rimraf dist",
-    "clean_node_modules": "rimraf node_modules"
+    "clean_node_modules": "rimraf node_modules",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "dependencies": {
     "react-native-webview": "^8.1.2",
-    "whatwg-url": "^8.0.0"
+    "whatwg-url": "^8.0.0",
+    "snyk": "^1.309.0"
   },
   "devDependencies": {
     "@ikscodes/browser-env": "~0.3.1",
@@ -99,5 +102,6 @@
       "html",
       "lcov"
     ]
-  }
+  },
+  "snyk": true
 }
