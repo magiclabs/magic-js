@@ -1,12 +1,12 @@
 import { PayloadTransport } from '../core/payload-transport';
 import { JsonRpcRequestPayload, MagicOutgoingWindowMessage } from '../types';
-import { IframeController } from '../core/iframe-controller';
 import { createMalformedResponseError, MagicRPCError } from '../core/sdk-exceptions';
+import { ViewController } from '../types/core/view-types';
 
 export abstract class BaseModule {
   constructor(
     private readonly getTransport: () => PayloadTransport,
-    private readonly getOverlay: () => IframeController,
+    private readonly getOverlay: () => ViewController,
   ) {}
 
   protected get transport() {

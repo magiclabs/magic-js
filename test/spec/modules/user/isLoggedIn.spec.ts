@@ -1,10 +1,8 @@
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { getPayloadIdStub } from '../../../lib/stubs';
-import { createMagicSDK } from '../../../lib/factories';
+import { getPayloadIdStub } from '../../../mocks';
+import { createMagicSDK } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
 test.beforeEach(t => {
@@ -12,13 +10,7 @@ test.beforeEach(t => {
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-/**
- * `UserModule.isLoggedIn`
- *
- * Action Must:
- * - Generate JSON RPC request payload with method `magic_auth_is_logged_in`
- */
-test('#01', async t => {
+test(' Generate JSON RPC request payload with method `magic_auth_is_logged_in`', async t => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();

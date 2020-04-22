@@ -1,7 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 
-import '../../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import { MagicRPCError } from '../../../../../src/core/sdk-exceptions';
@@ -10,13 +8,7 @@ test.beforeEach(t => {
   browserEnv.restore();
 });
 
-/**
- * MagicRPCError class
- *
- *  Action Must:
- *  - Initialize MagicRPCError with object argument.
- */
-test('#01', t => {
+test('Initialize `MagicRPCError` with object argument', t => {
   const err = new MagicRPCError({
     code: -32603,
     message: 'hello world',
@@ -28,13 +20,7 @@ test('#01', t => {
   t.is(err.rawMessage, 'hello world');
 });
 
-/**
- * MagicRPCError class
- *
- *  Action Must:
- *  - Initialize MagicRPCError with `null` argument.
- */
-test('#02', t => {
+test('Initialize MagicRPCError with `null` argument', t => {
   const err = new MagicRPCError(null);
 
   t.true(err instanceof MagicRPCError);
@@ -43,13 +29,7 @@ test('#02', t => {
   t.is(err.rawMessage, 'Internal error');
 });
 
-/**
- * MagicRPCError class
- *
- *  Action Must:
- *  - Initialize MagicRPCError with `undefined` argument.
- */
-test('#03', t => {
+test('Initialize MagicRPCError with `undefined` argument', t => {
   const err = new MagicRPCError();
 
   t.true(err instanceof MagicRPCError);
@@ -58,13 +38,7 @@ test('#03', t => {
   t.is(err.rawMessage, 'Internal error');
 });
 
-/**
- * MagicRPCError class
- *
- *  Action Must:
- *  - Initialize MagicRPCError with unknown error code argument.
- */
-test('#04', t => {
+test('Initialize MagicRPCError with unknown error code argument', t => {
   const err = new MagicRPCError({
     code: 1,
     message: 'hello world',

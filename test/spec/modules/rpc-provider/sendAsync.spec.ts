@@ -1,26 +1,17 @@
 /* eslint-disable no-underscore-dangle, @typescript-eslint/no-empty-function */
 
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { createMagicSDK } from '../../../lib/factories';
+import { createMagicSDK } from '../../../factories';
 import { MagicSDKError } from '../../../../src/core/sdk-exceptions';
-import { getPayloadIdStub } from '../../../lib/stubs';
+import { getPayloadIdStub } from '../../../mocks';
 
 test.beforeEach(t => {
   browserEnv.restore();
 });
 
-/**
- * Throws 'INVALID_ARGUMENT' error if 'onRequestCallback' argument is
- * `undefined`.
- *
- * Action Must:
- * - Throw 'INVALID_ARGUMENT' error.
- */
-test.serial('#01', t => {
+test.serial('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `undefined`', t => {
   const magic = createMagicSDK();
 
   const error: MagicSDKError = t.throws(() => magic.rpcProvider.sendAsync({} as any, undefined as any));
@@ -32,14 +23,7 @@ test.serial('#01', t => {
   t.is(error.code, 'INVALID_ARGUMENT');
 });
 
-/**
- * Throws 'INVALID_ARGUMENT' error if 'onRequestCallback' argument is
- * `null`.
- *
- * Action Must:
- * - Throw 'INVALID_ARGUMENT' error.
- */
-test.serial('#02', t => {
+test.serial('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `null`', t => {
   const magic = createMagicSDK();
 
   const error: MagicSDKError = t.throws(() => magic.rpcProvider.sendAsync({} as any, null as any));
@@ -51,14 +35,7 @@ test.serial('#02', t => {
   t.is(error.code, 'INVALID_ARGUMENT');
 });
 
-/**
- * Send asynchronously using RPC payload + callback.
- *
- * Action Must:
- * - Send with the supplied payload.
- * - Response contains a result and no error.
- */
-test.serial.cb('#03', t => {
+test.serial.cb('Async, with full RPC payload + callback; success response', t => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();
@@ -85,14 +62,7 @@ test.serial.cb('#03', t => {
   t.deepEqual(requestPayload.params, ['hello world']);
 });
 
-/**
- * Send asynchronously using RPC payload + callback.
- *
- * Action Must:
- * - Send with the supplied payload.
- * - Response contains an error and no result.
- */
-test.serial.cb('#04', t => {
+test.serial.cb('Async, with full RPC payload + callback; error response', t => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();
@@ -122,14 +92,7 @@ test.serial.cb('#04', t => {
   t.deepEqual(requestPayload.params, ['hello world']);
 });
 
-/**
- * Send asynchronously using batch RPC payload + callback.
- *
- * Action Must:
- * - Send with the supplied payloads.
- * - Responses contain results and no errors.
- */
-test.serial.cb('#05', t => {
+test.serial.cb('Async, with batch RPC payload + callback; success responses', t => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();
@@ -166,14 +129,7 @@ test.serial.cb('#05', t => {
   t.deepEqual(requestPayloads[1].params, ['hello world']);
 });
 
-/**
- * Send asynchronously using batch RPC payload + callback.
- *
- * Action Must:
- * - Send with the supplied payloads.
- * - Responses contain errors and no results.
- */
-test.serial.cb('#06', t => {
+test.serial.cb('Async, with full RPC payload + callback; error responses', t => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();

@@ -10,7 +10,22 @@
 
 #### Added
 
-- ...
+- Support for React Native:
+
+```tsx
+// Import the React Native bundle
+// (Don't worry, the API is exactly the same!)
+import { Magic } from 'magic-sdk/react-native';
+
+const magic = new Magic('API_KEY');
+
+function App() {
+  return (<div>
+    {/* Just render the `Modal` component to connect Magic SDK! 🚀 */}
+    <magic.Modal />
+  </div>);
+}
+```
 
 ## `1.0.3` - 04/21/2020
 

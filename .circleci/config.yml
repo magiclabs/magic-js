@@ -30,12 +30,11 @@ aliases: [
   # List of build output paths that should be persisted to the
   # CircleCI workspace.
   &build-output-paths [
-    "dist",
-    "build"
+    "dist"
   ],
 
   # NPM lockfile cache key (update "vN" => "vN+1" to cache-bust).
-  &dependency-cache-key "v1-dependency-cache-{{ checksum \"yarn.lock\" }}",
+  &dependency-cache-key "v2-dependency-cache-{{ checksum \"yarn.lock\" }}",
 
   &workspace-root "/home/circleci/project",
 

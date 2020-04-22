@@ -1,19 +1,21 @@
 /* eslint-disable no-underscore-dangle */
 
 import { encodeQueryParameters } from '../util/query-params';
-import { name as sdkName, version as sdkVersion } from '../../package.json';
 import { createMissingApiKeyError } from './sdk-exceptions';
-import { IframeController } from './iframe-controller';
+import { IframeController } from './views/iframe-controller';
 import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
-import { MAGIC_URL } from '../constants/config';
+import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE, MGBOX_URL } from '../constants/config';
 import { MagicSDKAdditionalConfiguration } from '../types';
 import { RPCProviderModule } from '../modules/rpc-provider';
+import { ViewController } from '../types/core/view-types';
+import { ReactNativeWebViewController } from './views/react-native-webview-controller';
+import { createURL } from '../util/url';
 
 export class MagicSDK {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
-  private static readonly __overlays__: Map<string, IframeController> = new Map();
+  private static readonly __overlays__: Map<string, ViewController> = new Map();
 
   public readonly endpoint: string;
   public readonly encodedQueryParams: string;
@@ -41,14 +43,16 @@ export class MagicSDK {
   constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
 
-    this.endpoint = new URL(options?.endpoint ?? MAGIC_URL).origin;
+    const fallbackEndpoint = IS_REACT_NATIVE ? MGBOX_URL : MAGIC_URL;
+
+    this.endpoint = createURL(options?.endpoint ?? fallbackEndpoint).origin;
     this.encodedQueryParams = encodeQueryParameters({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
       ETH_NETWORK: options?.network,
-      host: new URL(this.endpoint).host,
-      sdk: sdkName,
-      version: sdkVersion,
+      host: createURL(this.endpoint).host,
+      sdk: IS_REACT_NATIVE ? `${SDK_NAME}-rn` : SDK_NAME,
+      version: SDK_VERSION,
     });
 
     /* istanbul ignore next */
@@ -68,7 +72,7 @@ export class MagicSDK {
    *
    * @internal
    */
-  private get transport(): PayloadTransport {
+  protected get transport(): PayloadTransport {
     if (!MagicSDK.__transports__.has(this.encodedQueryParams)) {
       MagicSDK.__transports__.set(
         this.encodedQueryParams,
@@ -80,16 +84,16 @@ export class MagicSDK {
   }
 
   /**
-   * Represents the iframe controller associated with this `MagicSDK` instance.
+   * Represents the view controller associated with this `MagicSDK` instance.
    *
    * @internal
    */
-  private get overlay(): IframeController {
+  protected get overlay(): ViewController {
     if (!MagicSDK.__overlays__.has(this.encodedQueryParams)) {
-      MagicSDK.__overlays__.set(
-        this.encodedQueryParams,
-        new IframeController(this.transport, this.endpoint, this.encodedQueryParams),
-      );
+      const controller = IS_REACT_NATIVE
+        ? new ReactNativeWebViewController(this.transport, this.endpoint, this.encodedQueryParams)
+        : new IframeController(this.transport, this.endpoint, this.encodedQueryParams);
+      MagicSDK.__overlays__.set(this.encodedQueryParams, controller);
     }
 
     return MagicSDK.__overlays__.get(this.encodedQueryParams)!;
@@ -102,5 +106,11 @@ export class MagicSDK {
    */
   public async preload() {
     await this.overlay.ready;
+  }
+}
+
+export class MagicSDKReactNative extends MagicSDK {
+  public get Modal() {
+    return (this.overlay as ReactNativeWebViewController).Modal;
   }
 }

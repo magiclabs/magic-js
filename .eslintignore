@@ -1,0 +1,4 @@
+/node_modules
+/dist
+react-native.js
+react-native.d.ts

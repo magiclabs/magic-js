@@ -13,7 +13,8 @@
     "@typescript-eslint/await-thenable": 0,
     "no-useless-constructor": 0,
     "@typescript-eslint/no-useless-constructor": 0,
-    "@typescript-eslint/no-empty-function": 0
+    "@typescript-eslint/no-empty-function": 0,
+    "import/no-extraneous-dependencies": [1, {"devDependencies": true}]
   },
   "settings": {
     "import/resolver": {

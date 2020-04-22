@@ -1,8 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 
-import { MagicIncomingWindowMessage } from '../types';
-import { PayloadTransport } from './payload-transport';
-import { createDuplicateIframeWarning } from './sdk-exceptions';
+import { MagicIncomingWindowMessage } from '../../types';
+import { PayloadTransport } from '../payload-transport';
+import { createDuplicateIframeWarning } from '../sdk-exceptions';
+import { createURL } from '../../util/url';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
@@ -47,8 +48,8 @@ function checkForSameSrcInstances(encodedQueryParams: string) {
  * View controller for the Magic `<iframe>` overlay.
  */
 export class IframeController {
-  public readonly iframe: Promise<HTMLIFrameElement>;
-  public readonly ready: Promise<void>;
+  public iframe: Promise<HTMLIFrameElement>;
+  public ready: Promise<void>;
 
   constructor(
     private readonly transport: PayloadTransport,
@@ -61,7 +62,7 @@ export class IframeController {
   }
 
   /**
-   * Initialize the Magic `<iframe>` and pre-load overlay content when DOM
+   * Initialize the Magic `<iframe>` and pre-load overlay content when the DOM
    * is ready.
    */
   private init(): Promise<HTMLIFrameElement> {
@@ -70,8 +71,8 @@ export class IframeController {
         if (!checkForSameSrcInstances(this.encodedQueryParams)) {
           const iframe = document.createElement('iframe');
           iframe.classList.add('magic-iframe');
-          iframe.dataset.magicIframeLabel = new URL(this.endpoint).host;
-          iframe.src = new URL(`/send?params=${this.encodedQueryParams}`, this.endpoint).href;
+          iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
+          iframe.src = createURL(`/send?params=${this.encodedQueryParams}`, this.endpoint).href;
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
           resolve(iframe);
@@ -80,7 +81,7 @@ export class IframeController {
         }
       };
 
-      // Check Dom state and load...
+      // Check DOM state and load...
       if (['loaded', 'interactive', 'complete'].includes(document.readyState)) {
         onload();
       } else {

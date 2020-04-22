@@ -18,6 +18,6 @@ export interface MagicMessageResponse<ResultType = any> {
 }
 
 /** The expected message event returned by the Magic iframe context. */
-export interface MagicMessageEvent extends MessageEvent {
+export interface MagicMessageEvent extends Partial<MessageEvent> {
   data: MagicMessageResponse;
 }
