@@ -2,6 +2,8 @@
 # dependencies
 /.circleci
 /.idea
+/.vscode
+/.github
 /scripts
 /webpack
 /node_modules
@@ -12,4 +14,5 @@
 tsconfig.json
 .prettierrc.js
 .eslintrc
-
+CHANGELOG.md
+CONTRIBUTING.md
