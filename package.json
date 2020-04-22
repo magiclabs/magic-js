@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "react-native-webview": "^8.1.2",
-    "whatwg-url": "^8.0.0",
-    "snyk": "^1.309.0"
+    "snyk": "^1.309.0",
+    "whatwg-url": "^8.0.0"
   },
   "devDependencies": {
     "@ikscodes/browser-env": "~0.3.1",
