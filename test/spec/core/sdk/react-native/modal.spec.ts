@@ -12,8 +12,8 @@ test.beforeEach(t => {
   reactNativeStyleSheetStub();
 });
 
-test('`MagicSDKReactNative.Modal` returns `ReactNativeWebViewController.Modal`', async t => {
+test('`MagicSDKReactNative.Relayer` returns `ReactNativeWebViewController.Relayer`', async t => {
   const magic = new MagicSDKReactNative(TEST_API_KEY);
-  (magic as any).overlay.Modal = 'hello world';
-  t.is(magic.Modal as any, 'hello world');
+  (magic as any).overlay.Relayer = 'hello world';
+  t.is(magic.Relayer as any, 'hello world');
 });

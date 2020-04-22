@@ -12,7 +12,7 @@
 
 - ...
 
-## `1.1.0` - 04/22/2020
+## `1.1.1` - 04/22/2020
 
 #### Added
 
@@ -28,7 +28,7 @@ const magic = new Magic('API_KEY');
 function App() {
   return (<div>
     {/* Just render the `Modal` component to connect Magic SDK! 🚀 */}
-    <magic.Modal />
+    <magic.Relayer />
   </div>);
 }
 ```

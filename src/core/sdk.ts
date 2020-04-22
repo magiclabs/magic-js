@@ -110,7 +110,7 @@ export class MagicSDK {
 }
 
 export class MagicSDKReactNative extends MagicSDK {
-  public get Modal() {
-    return (this.overlay as ReactNativeWebViewController).Modal;
+  public get Relayer() {
+    return (this.overlay as ReactNativeWebViewController).Relayer;
   }
 }
