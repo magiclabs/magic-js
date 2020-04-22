@@ -1,7 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test, { ExecutionContext } from 'ava';
 import {
@@ -28,15 +26,7 @@ test.beforeEach(t => {
   browserEnv.restore();
 });
 
-/**
- * Creates a `MISSING_API_KEY` warning.
- *
- * Action Must:
- * - Create an instance of `MagicSDKError`
- * - Message and code should be the expected value for `MISSING_API_KEY`
- *   warning.
- */
-test('#01 MISSING_API_KEY', async t => {
+test('Creates a `MISSING_API_KEY` error', async t => {
   const error = createMissingApiKeyError();
   errorAssertions(
     t,
@@ -46,40 +36,17 @@ test('#01 MISSING_API_KEY', async t => {
   );
 });
 
-/**
- * Creates a `MODAL_NOT_READY` warning.
- *
- * Action Must:
- * - Create an instance of `MagicSDKError`
- * - Message and code should be the expected value for `MODAL_NOT_READY`
- *   warning.
- */
-test('#02 MODAL_NOT_READY', async t => {
+test('Creates a `MODAL_NOT_READY` error', async t => {
   const error = createModalNotReadyError();
   errorAssertions(t, error, 'MODAL_NOT_READY', 'Modal is not ready.');
 });
 
-/**
- * Creates a `MALFORMED_RESPONSE` warning.
- *
- * Action Must:
- * - Create an instance of `MagicSDKError`
- * - Message and code should be the expected value for `MALFORMED_RESPONSE`
- *   warning.
- */
-test('#03 MALFORMED_RESPONSE', async t => {
+test('Creates a `MALFORMED_RESPONSE` error', async t => {
   const error = createMalformedResponseError();
   errorAssertions(t, error, 'MALFORMED_RESPONSE', 'Response from the Magic iframe is malformed.');
 });
 
-/**
- * Creates a `INVALID_ARGUMENT` error.
- *
- * Action Must:
- * - Create an instance of `MagicSDKError`
- * - Format the ordinal argument index with '*st'
- */
-test('#04 INVALID_ARGUMENT', async t => {
+test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index with "*st"', async t => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 0,
@@ -95,14 +62,7 @@ test('#04 INVALID_ARGUMENT', async t => {
   );
 });
 
-/**
- * Creates a `INVALID_ARGUMENT` error.
- *
- * Action Must:
- * - Create an instance of `MagicSDKError`
- * - Format the ordinal argument index with '*nd'
- */
-test('#05 INVALID_ARGUMENT', async t => {
+test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index with "*nd"', async t => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 1,
@@ -118,14 +78,7 @@ test('#05 INVALID_ARGUMENT', async t => {
   );
 });
 
-/**
- * Creates a `INVALID_ARGUMENT` error.
- *
- * Action Must:
- * - Create an instance of `MagicSDKError`
- * - Format the ordinal argument index with '*rd'
- */
-test('#06 INVALID_ARGUMENT', async t => {
+test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index with "*rd"', async t => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 2,
@@ -141,14 +94,7 @@ test('#06 INVALID_ARGUMENT', async t => {
   );
 });
 
-/**
- * Creates a `INVALID_ARGUMENT` error.
- *
- * Action Must:
- * - Create an instance of `MagicSDKError`
- * - Format the ordinal argument index with '*th'
- */
-test('#07 INVALID_ARGUMENT', async t => {
+test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index with "*th"', async t => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 3,

@@ -1,10 +1,8 @@
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { getPayloadIdStub } from '../../../lib/stubs';
-import { createMagicSDK } from '../../../lib/factories';
+import { getPayloadIdStub } from '../../../mocks';
+import { createMagicSDK } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
 test.beforeEach(t => {
@@ -12,13 +10,7 @@ test.beforeEach(t => {
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-/**
- * `UserModule.getIdToken`
- *
- * Action Must:
- * - Generate JSON RPC request payload with method `magic_auth_get_id_token`
- */
-test.serial('#01', async t => {
+test.serial('Generate JSON RPC request payload with method `magic_auth_get_id_token`', async t => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -33,13 +25,7 @@ test.serial('#01', async t => {
   t.deepEqual(requestPayload.params, [undefined]);
 });
 
-/**
- * `UserModule.getIdToken`
- *
- * Action Must:
- * - Generate JSON RPC request payload with method `magic_auth_get_id_token`
- */
-test.serial('#02', async t => {
+test.serial('Accepts a `lifespan` parameter', async t => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();

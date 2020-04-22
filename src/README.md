@@ -48,3 +48,13 @@ web3.eth.sendTransaction(...);
 
 RPCProviderModule.sendAsync -> PayloadTransport.post -> Window.postMessage -> iframe
 ```
+
+## React Native
+
+We support web and React Native implementations from the same SDK. This introduces a few notable _gotchas:_
+
+1. Do not reference any React dependencies at the top-level! Only use these dependencies within a closure (such as the body of a class method or function), and assume they could be `undefined`. We completely remove these dependencies from CJS and CDN bundles, so referencing these imports will raise a `TypeError`.
+
+2. You can use the `IS_REACT_NATIVE` environment constant to gate browser-specific or React Native-specific APIs. Do not assume that all `window` functionality is available in a React Native context! It may be helpful to familiarize yourself with the [differences between React.js and React Native](https://medium.com/@alexmngn/from-reactjs-to-react-native-what-are-the-main-differences-between-both-d6e8e88ebf24).
+
+3. See [`./noop-module.ts`](./noop-module.ts)? It's purposefully empty! Any dependencies that need removal from a specific environment's bundle is replaced with this module. Please don't change or remove this file!

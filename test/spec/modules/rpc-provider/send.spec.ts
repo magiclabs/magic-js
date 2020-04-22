@@ -1,12 +1,10 @@
 /* eslint-disable no-underscore-dangle, @typescript-eslint/no-empty-function */
 
-import '../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { createMagicSDK } from '../../../lib/factories';
-import { getPayloadIdStub } from '../../../lib/stubs';
+import { createMagicSDK } from '../../../factories';
+import { getPayloadIdStub } from '../../../mocks';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { createSynchronousWeb3MethodWarning } from '../../../../src/core/sdk-exceptions';
@@ -17,14 +15,7 @@ test.beforeEach(t => {
   (RPCProviderModule as any).prototype.sendAsync = sinon.stub();
 });
 
-/**
- * Send asynchronously using payload method (as string).
- *
- * Action Must:
- * - Send with the supplied payload method.
- * - Use a fallback argument for `params` (empty array).
- */
-test.serial('#01', async t => {
+test.serial('Async, with payload method (as string); uses fallback `params` argument', async t => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -38,14 +29,7 @@ test.serial('#01', async t => {
   t.deepEqual(requestPayload.params, []);
 });
 
-/**
- * Send asynchronously using payload method (as string).
- *
- * Action Must:
- * - Send with the supplied payload method.
- * - Use the given argument for `params`.
- */
-test.serial('#02', async t => {
+test.serial('Async, with payload method (as string); uses given `params` argument', async t => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -59,13 +43,7 @@ test.serial('#02', async t => {
   t.deepEqual(requestPayload.params, ['hello world']);
 });
 
-/**
- * Send asynchronously using RPC payload + callback
- *
- * Action Must:
- * - Send with the supplied payload.
- */
-test.serial('#03', async t => {
+test.serial('Async, with full RPC payload + callback', async t => {
   const magic = createMagicSDK();
 
   const onRequestComplete = () => {};
@@ -79,13 +57,7 @@ test.serial('#03', async t => {
   t.is(onRequestComplete, expectedCallback);
 });
 
-/**
- * Send asynchronously using batch RPC payload + callback
- *
- * Action Must:
- * - Send with the supplied payloads.
- */
-test.serial('#04', async t => {
+test.serial('Async, with batch RPC payload + callback', async t => {
   const magic = createMagicSDK();
 
   const onRequestComplete = () => {};
@@ -104,15 +76,7 @@ test.serial('#04', async t => {
   t.is(onRequestComplete, expectedCallback);
 });
 
-/**
- * Send synchronously (legacy behavior) using RPC payload and no callback.
- *
- * Action Must:
- * - Send with the supplied payload.
- * - Log a deprecation warning to the console.
- * - Return a JSON RPC reponse payload.
- */
-test.serial('#05', async t => {
+test.serial('Sync (legacy behavior), with full RPC payload and no callback', async t => {
   const magic = createMagicSDK();
 
   const consoleWarnStub = sinon.stub();

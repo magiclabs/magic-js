@@ -82,6 +82,11 @@ export class ReactNativeWebViewController {
    * Renders a React Native `<WebView>` with built-in message handling to and
    * from the Magic `<iframe>` context.
    */
+  // Validating this logic requires lots of React-specific boilerplate. We will
+  // revisit this method for unit testing in the future. For now, manual testing
+  // is sufficient (this logic is stable right now and not expected to change in
+  // the forseeable future).
+  /* istanbul ignore next */
   public Modal: React.FC = () => {
     const [show, setShow] = useState(false);
 

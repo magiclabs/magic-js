@@ -1,10 +1,8 @@
-import '../../../../setup';
-
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import { IframeController } from '../../../../../src/core/views/iframe-controller';
-import { createIframeController } from '../../../../lib/factories';
-import { MSG_TYPES } from '../../../../lib/constants';
+import { createIframeController } from '../../../../factories';
+import { MSG_TYPES } from '../../../../constants';
 
 test.beforeEach(t => {
   browserEnv();
@@ -14,13 +12,7 @@ test.beforeEach(t => {
   (IframeController.prototype as any).hideOverlay = () => {};
 });
 
-/**
- * Receive MAGIC_OVERLAY_READY
- *
- * Action Must:
- * - Resolve `waitForReady` promise.
- */
-test.cb('#01 MAGIC_OVERLAY_READY', t => {
+test.cb('Receive MAGIC_OVERLAY_READY, resolve `waitForReady` promise', t => {
   const overlay = createIframeController('');
   const waitForReady = (overlay as any).waitForReady();
 
