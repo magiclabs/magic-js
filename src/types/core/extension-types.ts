@@ -30,6 +30,10 @@ export abstract class Extension<TName extends string, TConfig extends any = {}> 
   protected readonly extension!: ExtensionUtils;
 }
 
+/**
+ * Wraps a Magic SDK constructor with the necessary type information to support
+ * a strongly-typed `Extension` interface.
+ */
 export type WithExtensions<SDK extends SDKBase> = {
   new <
     TCustomExtName extends string,
