@@ -7,13 +7,13 @@ import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE, MGBOX_URL } from '../constants/config';
-import { MagicSDKAdditionalConfiguration } from '../types';
+import { MagicSDKAdditionalConfiguration, Extension, WithExtensions } from '../types';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from '../types/core/view-types';
 import { ReactNativeWebViewController } from './views/react-native-webview-controller';
 import { createURL } from '../util/url';
 
-export class MagicSDK {
+export class SDKBase {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
   private static readonly __overlays__: Map<string, ViewController> = new Map();
 
@@ -40,7 +40,7 @@ export class MagicSDK {
   /**
    * Creates an instance of Magic SDK.
    */
-  constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
+  constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration<Extension<string>[]>) {
     if (!apiKey) throw createMissingApiKeyError();
 
     const fallbackEndpoint = IS_REACT_NATIVE ? MGBOX_URL : MAGIC_URL;
@@ -73,14 +73,11 @@ export class MagicSDK {
    * @internal
    */
   protected get transport(): PayloadTransport {
-    if (!MagicSDK.__transports__.has(this.encodedQueryParams)) {
-      MagicSDK.__transports__.set(
-        this.encodedQueryParams,
-        new PayloadTransport(this.endpoint, this.encodedQueryParams),
-      );
+    if (!SDKBase.__transports__.has(this.encodedQueryParams)) {
+      SDKBase.__transports__.set(this.encodedQueryParams, new PayloadTransport(this.endpoint, this.encodedQueryParams));
     }
 
-    return MagicSDK.__transports__.get(this.encodedQueryParams)!;
+    return SDKBase.__transports__.get(this.encodedQueryParams)!;
   }
 
   /**
@@ -89,14 +86,14 @@ export class MagicSDK {
    * @internal
    */
   protected get overlay(): ViewController {
-    if (!MagicSDK.__overlays__.has(this.encodedQueryParams)) {
+    if (!SDKBase.__overlays__.has(this.encodedQueryParams)) {
       const controller = IS_REACT_NATIVE
         ? new ReactNativeWebViewController(this.transport, this.endpoint, this.encodedQueryParams)
         : new IframeController(this.transport, this.endpoint, this.encodedQueryParams);
-      MagicSDK.__overlays__.set(this.encodedQueryParams, controller);
+      SDKBase.__overlays__.set(this.encodedQueryParams, controller);
     }
 
-    return MagicSDK.__overlays__.get(this.encodedQueryParams)!;
+    return SDKBase.__overlays__.get(this.encodedQueryParams)!;
   }
 
   /**
@@ -109,8 +106,11 @@ export class MagicSDK {
   }
 }
 
-export class MagicSDKReactNative extends MagicSDK {
+export class SDKBaseReactNative extends SDKBase {
   public get Relayer() {
     return (this.overlay as ReactNativeWebViewController).Relayer;
   }
 }
+
+export const MagicSDK = (SDKBase as unknown) as WithExtensions<SDKBase>;
+export const MagicSDKReactNative = (SDKBaseReactNative as unknown) as WithExtensions<SDKBaseReactNative>;
