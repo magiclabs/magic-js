@@ -111,3 +111,5 @@ export class RPCProviderModule extends BaseModule {
     return this.request<string>(requestPayload);
   }
 }
+
+const test: RPCProviderModule = {} as any;
