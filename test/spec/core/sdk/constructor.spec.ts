@@ -8,6 +8,7 @@ import { name as sdkName, version as sdkVersion } from '../../../../package.json
 import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
+import { inflateBase64Json } from '../../../lib';
 
 test.beforeEach(t => {
   browserEnv.restore();
@@ -18,7 +19,7 @@ test.serial('Initialize `MagicSDK`', t => {
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
+  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     host: 'auth.magic.link',
@@ -46,7 +47,7 @@ test.serial('Initialize `MagicSDK` with custom endpoint', t => {
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, 'https://example.com');
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
+  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     host: 'example.com',
@@ -65,7 +66,7 @@ test.serial('Initialize `MagicSDK` when `window.location` is missing', t => {
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
+  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: '',
     host: 'auth.magic.link',
@@ -82,7 +83,7 @@ test.serial('Initialize `MagicSDK` with custom Web3 network', t => {
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
+  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     ETH_NETWORK: 'mainnet',
