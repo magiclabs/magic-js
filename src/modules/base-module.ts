@@ -1,20 +1,18 @@
-import { PayloadTransport } from '../core/payload-transport';
 import { JsonRpcRequestPayload, MagicOutgoingWindowMessage } from '../types';
 import { createMalformedResponseError, MagicRPCError } from '../core/sdk-exceptions';
+import { PayloadTransport } from '../core/payload-transport';
 import { ViewController } from '../types/core/view-types';
+import { SDKBase } from '../core/sdk';
 
-export abstract class BaseModule {
-  constructor(
-    private readonly getTransport: () => PayloadTransport,
-    private readonly getOverlay: () => ViewController,
-  ) {}
+export class BaseModule {
+  constructor(protected readonly sdk: SDKBase) {}
 
-  protected get transport() {
-    return this.getTransport();
+  protected get transport(): PayloadTransport {
+    return (this.sdk as any).transport;
   }
 
-  protected get overlay() {
-    return this.getOverlay();
+  protected get overlay(): ViewController {
+    return (this.sdk as any).overlay;
   }
 
   protected async request<ResultType = any>(payload: JsonRpcRequestPayload) {

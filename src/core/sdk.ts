@@ -1,4 +1,4 @@
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-underscore-dangle, no-param-reassign  */
 
 import { encodeQueryParameters } from '../util/query-params';
 import { createMissingApiKeyError } from './sdk-exceptions';
@@ -7,11 +7,12 @@ import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE, MGBOX_URL } from '../constants/config';
-import { MagicSDKAdditionalConfiguration, Extension, WithExtensions } from '../types';
+import { MagicSDKAdditionalConfiguration, WithExtensions } from '../types';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from '../types/core/view-types';
 import { ReactNativeWebViewController } from './views/react-native-webview-controller';
 import { createURL } from '../util/url';
+import { Extension } from '../modules/base-extension';
 
 export class SDKBase {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
@@ -44,8 +45,32 @@ export class SDKBase {
     if (!apiKey) throw createMissingApiKeyError();
 
     const fallbackEndpoint = IS_REACT_NATIVE ? MGBOX_URL : MAGIC_URL;
-
     this.endpoint = createURL(options?.endpoint ?? fallbackEndpoint).origin;
+
+    // Assign API Modules
+    this.auth = new AuthModule(this);
+    this.user = new UserModule(this);
+    this.rpcProvider = new RPCProviderModule(this);
+
+    // Prepare Extensions
+    const extensions: Extension<string>[] | { [key: string]: Extension<string> } = options?.extensions ?? [];
+    const extConfig: any = {};
+
+    if (Array.isArray(extensions)) {
+      extensions.forEach(ext => {
+        ext.init(this);
+        (this as any)[ext.name] = ext;
+        extConfig[ext.name] = ext.config;
+      });
+    } else {
+      Object.keys(extensions).forEach(name => {
+        extensions[name].init(this);
+        (this as any)[name] = extensions[name];
+        extConfig[name] = extensions[name].config;
+      });
+    }
+
+    // Build query params for the current `ViewController`
     this.encodedQueryParams = encodeQueryParameters({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
@@ -53,17 +78,8 @@ export class SDKBase {
       host: createURL(this.endpoint).host,
       sdk: IS_REACT_NATIVE ? `${SDK_NAME}-rn` : SDK_NAME,
       version: SDK_VERSION,
+      ext: extConfig,
     });
-
-    /* istanbul ignore next */
-    const getTransport = () => this.transport;
-    /* istanbul ignore next */
-    const getOverlay = () => this.overlay;
-
-    // Assign API Modules
-    this.auth = new AuthModule(getTransport, getOverlay);
-    this.user = new UserModule(getTransport, getOverlay);
-    this.rpcProvider = new RPCProviderModule(getTransport, getOverlay);
   }
 
   /**

@@ -1,9 +1,6 @@
-import { BaseModule } from '../../modules/base-module';
-import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../../core/json-rpc';
 import { MagicSDKAdditionalConfiguration } from './sdk-types';
 import { SDKBase } from '../../core/sdk';
-import { AuthModule } from '../../modules/auth';
-import { UserModule } from '../../modules/user';
+import { Extension } from '../../modules/base-extension';
 
 type UnwrapArray<T extends any[]> = T extends Array<infer P> ? P : never;
 type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<
@@ -15,24 +12,6 @@ type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<
 type GetExtensionFromName<TExt extends Extension<string>[], TExtName extends string> = {
   [P in TExtName]: Extract<UnwrapArray<TExt>, Extension<TExtName>>;
 }[TExtName];
-
-type ReservedExtensionKeys = 'name' | 'config' | 'sdk';
-
-export type ExtensionUtils = {
-  auth: AuthModule;
-  user: UserModule;
-  transport: BaseModule['transport'];
-  overlay: BaseModule['overlay'];
-  request: BaseModule['request'];
-  createJsonRpcRequestPayload: typeof createJsonRpcRequestPayload;
-  standardizeJsonRpcRequestPayload: typeof standardizeJsonRpcRequestPayload;
-};
-
-export abstract class Extension<TName extends string, TConfig extends any = {}> {
-  public abstract readonly name: TName;
-  public abstract readonly config: TConfig;
-  protected readonly sdk!: ExtensionUtils;
-}
 
 /**
  * Wraps a Magic SDK constructor with the necessary type information to support
@@ -49,9 +28,9 @@ export type WithExtensions<SDK extends SDKBase> = {
   ): SDK &
     {
       [P in TExtName]: TExt extends Extension<string>[]
-        ? Omit<GetExtensionFromName<TExt, P>, ReservedExtensionKeys>
+        ? Omit<GetExtensionFromName<TExt, P>, 'name' | 'config' | 'init'>
         : TExt extends { [P in TExtName]: Extension<string> }
-        ? Omit<TExt[P], ReservedExtensionKeys>
+        ? Omit<TExt[P], 'name' | 'config' | 'init'>
         : never;
     };
 };
