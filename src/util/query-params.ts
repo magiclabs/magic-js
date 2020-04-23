@@ -20,6 +20,7 @@ export interface QueryParameters {
   host?: string;
   sdk?: string;
   version?: string;
+  ext?: any;
 }
 
 /**

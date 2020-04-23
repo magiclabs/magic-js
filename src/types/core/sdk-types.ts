@@ -1,9 +1,9 @@
 import { EthNetworkConfiguration } from '../modules';
-import { Extension } from './extension-types';
+import { Extension } from '../../modules/base-extension';
 
 export interface MagicSDKAdditionalConfiguration<
   TCustomExtName extends string = string,
-  TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> } = any[]
+  TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> } = any
 > {
   endpoint?: string;
   network?: EthNetworkConfiguration;
