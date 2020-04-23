@@ -2,7 +2,7 @@ import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '.
 import { BaseModule } from './base-module';
 import { SDKBase } from '../core/sdk';
 
-export abstract class Extension<TName extends string, TConfig extends any = {}> extends BaseModule {
+export abstract class Extension<TName extends string, TConfig extends any = any> extends BaseModule {
   public abstract readonly name: TName;
   public abstract readonly config: TConfig;
 

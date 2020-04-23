@@ -66,3 +66,16 @@ export function isJsonRpcErrorCode(value?: any): value is RPCErrorCode {
   if (isNil(value)) return false;
   return typeof value === 'number' && Object.values(RPCErrorCode).includes(value);
 }
+
+/**
+ * Assert `value` is an empty, plain object.
+ */
+export function isEmpty(value?: any): value is {} {
+  for (const key in value) {
+    if (Object.hasOwnProperty.call(value, key)) {
+      return false;
+    }
+  }
+
+  return true;
+}

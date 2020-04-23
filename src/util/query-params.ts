@@ -27,5 +27,5 @@ export interface QueryParameters {
  * Encode query parameters as a compressed, Base64-encoded JSON string.
  */
 export function encodeQueryParameters(options: QueryParameters): string {
-  return compress(JSON.stringify(options));
+  return encodeURIComponent(compress(JSON.stringify(options)));
 }

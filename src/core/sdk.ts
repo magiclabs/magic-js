@@ -13,6 +13,7 @@ import { ViewController } from '../types/core/view-types';
 import { ReactNativeWebViewController } from './views/react-native-webview-controller';
 import { createURL } from '../util/url';
 import { Extension } from '../modules/base-extension';
+import { isEmpty } from '../util/type-guards';
 
 export class SDKBase {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
@@ -60,13 +61,13 @@ export class SDKBase {
       extensions.forEach(ext => {
         ext.init(this);
         (this as any)[ext.name] = ext;
-        extConfig[ext.name] = ext.config;
+        if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
       });
     } else {
       Object.keys(extensions).forEach(name => {
         extensions[name].init(this);
-        (this as any)[name] = extensions[name];
-        extConfig[name] = extensions[name].config;
+        (this as any)[extensions[name].name] = extensions[name];
+        if (!isEmpty(extensions[name].config)) extConfig[name] = extensions[name].config;
       });
     }
 
@@ -78,7 +79,7 @@ export class SDKBase {
       host: createURL(this.endpoint).host,
       sdk: IS_REACT_NATIVE ? `${SDK_NAME}-rn` : SDK_NAME,
       version: SDK_VERSION,
-      ext: extConfig,
+      ext: isEmpty(extConfig) ? undefined : extConfig,
     });
   }
 
