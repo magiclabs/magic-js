@@ -1,9 +1,9 @@
 // React Native entry-point
 
-import process from 'process';
 import { Buffer } from 'buffer';
 
-global.process = process;
+global.process = require('process');
+
 process.browser = false;
 
 if (typeof btoa === 'undefined') {
