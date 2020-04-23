@@ -40,7 +40,7 @@ export class SDKBase {
   /**
    * Creates an instance of Magic SDK.
    */
-  constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration<Extension<string>[]>) {
+  constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
 
     const fallbackEndpoint = IS_REACT_NATIVE ? MGBOX_URL : MAGIC_URL;
