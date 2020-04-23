@@ -31,11 +31,19 @@ export abstract class Extension<TName extends string, TConfig extends any = {}> 
 }
 
 export type WithExtensions<SDK extends SDKBase> = {
-  new <TExt extends Extension<string>[], TExtName extends string = ExtensionNames<TExt>>(
+  new <
+    TCustomExtName extends string,
+    TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> },
+    TExtName extends string = TExt extends Extension<string>[] ? ExtensionNames<TExt> : keyof TExt
+  >(
     apiKey: string,
-    options?: MagicSDKAdditionalConfiguration<TExt>,
+    options?: MagicSDKAdditionalConfiguration<TCustomExtName, TExt>,
   ): SDK &
     {
-      [P in TExtName]: Omit<GetExtensionFromName<TExt, P>, ReservedExtensionKeys>;
+      [P in TExtName]: TExt extends Extension<string>[]
+        ? Omit<GetExtensionFromName<TExt, P>, ReservedExtensionKeys>
+        : TExt extends { [P in TExtName]: Extension<string> }
+        ? Omit<TExt[P], ReservedExtensionKeys>
+        : never;
     };
 };
