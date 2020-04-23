@@ -2,7 +2,7 @@
 
 #### Fixed
 
-- Certain NodeJS globals/polyfills were not available in React Native environments. These polyfills are now bootstrapped automatically.
+- ...
 
 #### Changed
 
@@ -11,6 +11,12 @@
 #### Added
 
 - ...
+
+## `1.1.2` - 04/22/2020
+
+#### Fixed
+
+- Certain NodeJS globals/polyfills were not available in React Native environments. These polyfills are now bootstrapped automatically.
 
 ## `1.1.1` - 04/22/2020
 
