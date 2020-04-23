@@ -1,6 +1,9 @@
 import { deflate } from 'pako';
 import { EthNetworkConfiguration } from '../types';
 
+/**
+ * Compresses arbitrary string data using the well-known zlib algorithm.
+ */
 function compress(data: string) {
   const charData = data.split('').map(x => x.charCodeAt(0));
   const binData = new Uint8Array(charData);
