@@ -2,6 +2,8 @@ import { BaseModule } from '../../modules/base-module';
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../../core/json-rpc';
 import { MagicSDKAdditionalConfiguration } from './sdk-types';
 import { SDKBase } from '../../core/sdk';
+import { AuthModule } from '../../modules/auth';
+import { UserModule } from '../../modules/user';
 
 type UnwrapArray<T extends any[]> = T extends Array<infer P> ? P : never;
 type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<
@@ -14,9 +16,11 @@ type GetExtensionFromName<TExt extends Extension<string>[], TExtName extends str
   [P in TExtName]: Extract<UnwrapArray<TExt>, Extension<TExtName>>;
 }[TExtName];
 
-type ReservedExtensionKeys = 'name' | 'config' | 'extension';
+type ReservedExtensionKeys = 'name' | 'config' | 'sdk';
 
 export type ExtensionUtils = {
+  auth: AuthModule;
+  user: UserModule;
   transport: BaseModule['transport'];
   overlay: BaseModule['overlay'];
   request: BaseModule['request'];
@@ -27,7 +31,7 @@ export type ExtensionUtils = {
 export abstract class Extension<TName extends string, TConfig extends any = {}> {
   public abstract readonly name: TName;
   public abstract readonly config: TConfig;
-  protected readonly extension!: ExtensionUtils;
+  protected readonly sdk!: ExtensionUtils;
 }
 
 /**
