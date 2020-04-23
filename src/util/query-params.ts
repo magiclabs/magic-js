@@ -1,4 +1,11 @@
+import { deflate } from 'pako';
 import { EthNetworkConfiguration } from '../types';
+
+function compress(data: string) {
+  const charData = data.split('').map(x => x.charCodeAt(0));
+  const binData = new Uint8Array(charData);
+  return btoa(deflate(binData, { to: 'string' }));
+}
 
 /**
  * The shape of encoded query parameters sent along with the `<iframe>` request.
@@ -12,10 +19,9 @@ export interface QueryParameters {
   version?: string;
 }
 
+/**
+ * Encode query parameters as a compressed, Base64-encoded JSON string.
+ */
 export function encodeQueryParameters(options: QueryParameters): string {
-  return btoa(JSON.stringify(options));
-}
-
-export function decodeQueryParameters(queryString: string): QueryParameters {
-  return JSON.parse(atob(queryString));
+  return compress(JSON.stringify(options));
 }
