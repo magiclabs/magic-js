@@ -41,7 +41,7 @@
     "@types/webpack": "~4.41.0",
     "@types/whatwg-url": "^6.4.0",
     "@typescript-eslint/eslint-plugin": "~2.17.0",
-    "ava": "2.2.0",
+    "ava": "2.4.0",
     "cli-glob": "^0.1.0",
     "eslint": "~6.8.0",
     "eslint-import-resolver-typescript": "~2.0.0",
