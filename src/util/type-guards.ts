@@ -74,6 +74,7 @@ export function isEmpty(value?: any): value is {} {
   if (!value) return true;
 
   for (const key in value) {
+    /* istanbul ignore else */
     if (Object.hasOwnProperty.call(value, key)) {
       return false;
     }
