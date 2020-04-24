@@ -99,15 +99,18 @@ test.serial('Initialize `MagicSDK` with custom Web3 network', t => {
 
 class NoopExtNoConfig extends Extension<'noop'> {
   name = 'noop' as const;
-  config = {};
-
   helloWorld() {}
 }
 
-class NoopExtWithConfig extends Extension<'noop'> {
+class NoopExtWithConfig extends Extension.Internal<'noop'> {
   name = 'noop' as const;
   config = { hello: 'world' };
+  helloWorld() {}
+}
 
+class NoopExtWithEmptyConfig extends Extension.Internal<'noop'> {
+  name = 'noop' as const;
+  config = {};
   helloWorld() {}
 }
 
@@ -125,7 +128,7 @@ test.serial('Initialize `MagicSDK` with config-less extensions via array', t => 
   t.true(magic.noop instanceof NoopExtNoConfig);
 });
 
-test.serial('Initialize `MagicSDK` with config-ful extensions via array', t => {
+test.serial('Initialize `MagicSDK` with config-ful extensions via array (non-empty config)', t => {
   const magic = new MagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithConfig()] });
 
   t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
@@ -138,6 +141,20 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via array', t => {
   });
 
   t.true(magic.noop instanceof NoopExtWithConfig);
+});
+
+test.serial('Initialize `MagicSDK` with config-ful extensions via array (empty config)', t => {
+  const magic = new MagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithEmptyConfig()] });
+
+  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+    API_KEY: TEST_API_KEY,
+    DOMAIN_ORIGIN: 'null',
+    host: 'auth.magic.link',
+    sdk: sdkName,
+    version: sdkVersion,
+  });
+
+  t.true(magic.noop instanceof NoopExtWithEmptyConfig);
 });
 
 test.serial('Initialize `MagicSDK` with config-less extensions via dictionary', t => {
@@ -154,7 +171,7 @@ test.serial('Initialize `MagicSDK` with config-less extensions via dictionary', 
   t.true(magic.foobar instanceof NoopExtNoConfig);
 });
 
-test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary', t => {
+test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (non-empty config)', t => {
   const magic = new MagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithConfig() } });
 
   t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
@@ -167,4 +184,18 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary', t
   });
 
   t.true(magic.foobar instanceof NoopExtWithConfig);
+});
+
+test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (empty config)', t => {
+  const magic = new MagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithEmptyConfig() } });
+
+  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+    API_KEY: TEST_API_KEY,
+    DOMAIN_ORIGIN: 'null',
+    host: 'auth.magic.link',
+    sdk: sdkName,
+    version: sdkVersion,
+  });
+
+  t.true(magic.foobar instanceof NoopExtWithEmptyConfig);
 });

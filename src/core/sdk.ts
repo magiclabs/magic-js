@@ -61,13 +61,18 @@ export class SDKBase {
       extensions.forEach(ext => {
         ext.init(this);
         (this as any)[ext.name] = ext;
-        if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
+        if (ext instanceof Extension.Internal) {
+          if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
+        }
       });
     } else {
       Object.keys(extensions).forEach(name => {
         extensions[name].init(this);
-        (this as any)[name] = extensions[name];
-        if (!isEmpty(extensions[name].config)) extConfig[extensions[name].name] = extensions[name].config;
+        const ext = extensions[name];
+        (this as any)[name] = ext;
+        if (ext instanceof Extension.Internal) {
+          if (!isEmpty(ext.config)) extConfig[extensions[name].name] = ext.config;
+        }
       });
     }
 
