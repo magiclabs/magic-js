@@ -6,5 +6,5 @@ test('Encodes query parameters as compressed, URL-safe, Base64 JSON string', asy
     API_KEY: 'test',
   });
   t.is(typeof result, 'string');
-  t.is(result, 'eJyrVnIM8Iz3do1UslIqSS0uUaoFADMKBZ0%3D');
+  t.is(result, 'eJyrVnIM8Iz3do1UslIqSS0uUaoFADMKBZ0=');
 });

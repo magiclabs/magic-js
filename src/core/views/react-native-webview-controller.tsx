@@ -136,7 +136,7 @@ export class ReactNativeWebViewController {
       <View ref={containerRef} style={containerStyles}>
         <WebView
           ref={webViewRef}
-          source={{ uri: `${this.endpoint}/send/?params=${this.encodedQueryParams}` }}
+          source={{ uri: `${this.endpoint}/send/?params=${encodeURIComponent(this.encodedQueryParams)}` }}
           onMessage={handleWebViewMessage}
           style={this.styles['magic-webview']}
         />
