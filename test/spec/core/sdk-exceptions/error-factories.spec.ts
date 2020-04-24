@@ -118,6 +118,6 @@ test('Creates an `EXTENSION_NOT_INITIALIZED` error', async t => {
     t,
     error,
     'EXTENSION_NOT_INITIALIZED',
-    'Extensions must be initialized with a SDK instance before `Extension.foo` can be accessed. Do not invoke `Extension.foo` inside an extension constructor.',
+    'Extensions must be initialized with a Magic SDK instance before `Extension.foo` can be accessed. Do not invoke `Extension.foo` inside an extension constructor.',
   );
 });
