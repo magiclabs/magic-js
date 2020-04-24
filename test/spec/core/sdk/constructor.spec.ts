@@ -1,4 +1,4 @@
-/* eslint-disable no-new */
+/* eslint-disable no-new, class-methods-use-this */
 
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
@@ -9,6 +9,7 @@ import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { inflateBase64Json } from '../../../lib';
+import { Extension } from '../../../../src/modules/base-extension';
 
 test.beforeEach(t => {
   browserEnv.restore();
@@ -94,4 +95,76 @@ test.serial('Initialize `MagicSDK` with custom Web3 network', t => {
   t.true(magic.auth instanceof AuthModule);
   t.true(magic.user instanceof UserModule);
   t.true(magic.rpcProvider instanceof RPCProviderModule);
+});
+
+class NoopExtNoConfig extends Extension<'noop'> {
+  name = 'noop' as const;
+  config = {};
+
+  helloWorld() {}
+}
+
+class NoopExtWithConfig extends Extension<'noop'> {
+  name = 'noop' as const;
+  config = { hello: 'world' };
+
+  helloWorld() {}
+}
+
+test.serial('Initialize `MagicSDK` with config-less extensions via array', t => {
+  const magic = new MagicSDK(TEST_API_KEY, { extensions: [new NoopExtNoConfig()] });
+
+  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+    API_KEY: TEST_API_KEY,
+    DOMAIN_ORIGIN: 'null',
+    host: 'auth.magic.link',
+    sdk: sdkName,
+    version: sdkVersion,
+  });
+
+  t.true(magic.noop instanceof NoopExtNoConfig);
+});
+
+test.serial('Initialize `MagicSDK` with config-ful extensions via array', t => {
+  const magic = new MagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithConfig()] });
+
+  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+    API_KEY: TEST_API_KEY,
+    DOMAIN_ORIGIN: 'null',
+    host: 'auth.magic.link',
+    sdk: sdkName,
+    version: sdkVersion,
+    ext: { noop: { hello: 'world' } },
+  });
+
+  t.true(magic.noop instanceof NoopExtWithConfig);
+});
+
+test.serial('Initialize `MagicSDK` with config-less extensions via dictionary', t => {
+  const magic = new MagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtNoConfig() } });
+
+  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+    API_KEY: TEST_API_KEY,
+    DOMAIN_ORIGIN: 'null',
+    host: 'auth.magic.link',
+    sdk: sdkName,
+    version: sdkVersion,
+  });
+
+  t.true(magic.foobar instanceof NoopExtNoConfig);
+});
+
+test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary', t => {
+  const magic = new MagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithConfig() } });
+
+  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+    API_KEY: TEST_API_KEY,
+    DOMAIN_ORIGIN: 'null',
+    host: 'auth.magic.link',
+    sdk: sdkName,
+    version: sdkVersion,
+    ext: { noop: { hello: 'world' } },
+  });
+
+  t.true(magic.foobar instanceof NoopExtWithConfig);
 });

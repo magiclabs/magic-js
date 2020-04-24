@@ -3,22 +3,20 @@ import test from 'ava';
 import sinon from 'sinon';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import { BaseModule } from '../../../../src/modules/base-module';
-import { createPayloadTransport, createIframeController } from '../../../factories';
+import { createPayloadTransport, createMagicSDK } from '../../../factories';
 import { JsonRpcRequestPayload } from '../../../../src/types';
 import { MagicRPCError, MagicSDKError } from '../../../../src/core/sdk-exceptions';
 
 function createBaseModule() {
+  const sdk = createMagicSDK();
   const payloadTransport = createPayloadTransport();
-  const iframeController = createIframeController();
-
   const postStub = sinon.stub();
-
   (payloadTransport as any).post = postStub;
+  Object.defineProperty(sdk, 'transport', {
+    get: () => payloadTransport,
+  });
 
-  const baseModule: any = new (BaseModule as any)(
-    () => payloadTransport,
-    () => iframeController,
-  );
+  const baseModule: any = new (BaseModule as any)(sdk);
 
   return { baseModule, postStub };
 }
