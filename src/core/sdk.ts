@@ -7,7 +7,8 @@ import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE, MGBOX_URL } from '../constants/config';
-import { MagicSDKAdditionalConfiguration, WithExtensions } from '../types';
+import { MagicSDKAdditionalConfiguration } from '../types';
+import { WithExtensions } from '../types/internal';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from '../types/core/view-types';
 import { ReactNativeWebViewController } from './views/react-native-webview-controller';
@@ -91,8 +92,6 @@ export class SDKBase {
   /**
    * Represents the JSON RPC payload message channel associated with this
    * `MagicSDK` instance.
-   *
-   * @internal
    */
   protected get transport(): PayloadTransport {
     if (!SDKBase.__transports__.has(this.encodedQueryParams)) {
@@ -104,8 +103,6 @@ export class SDKBase {
 
   /**
    * Represents the view controller associated with this `MagicSDK` instance.
-   *
-   * @internal
    */
   protected get overlay(): ViewController {
     if (!SDKBase.__overlays__.has(this.encodedQueryParams)) {
@@ -119,9 +116,9 @@ export class SDKBase {
   }
 
   /**
-   * Preloads the Magic `<iframe>` context, allowing for faster initial
-   * requests. Awaiting the returned promise will signal when the `<iframe>` has
-   * completed loading and is ready for requests.
+   * Preloads the Magic view, allowing for faster initial requests in browser
+   * environments. Awaiting the returned promise will signal when the Magic view
+   * has completed loading and is ready for requests.
    */
   public async preload() {
     await this.overlay.ready;

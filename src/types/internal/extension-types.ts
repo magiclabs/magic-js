@@ -1,8 +1,8 @@
-import { MagicSDKAdditionalConfiguration } from './sdk-types';
+import { MagicSDKAdditionalConfiguration } from '../core/sdk-types';
 import { SDKBase } from '../../core/sdk';
 import { Extension } from '../../modules/base-extension';
+import { UnwrapArray } from './utility-types';
 
-type UnwrapArray<T extends any[]> = T extends Array<infer P> ? P : never;
 type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<
   {
     [P in keyof TExt]: TExt[P] extends Extension<infer K> ? K : never;
