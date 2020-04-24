@@ -71,6 +71,8 @@ export function isJsonRpcErrorCode(value?: any): value is RPCErrorCode {
  * Assert `value` is an empty, plain object.
  */
 export function isEmpty(value?: any): value is {} {
+  if (!value) return true;
+
   for (const key in value) {
     if (Object.hasOwnProperty.call(value, key)) {
       return false;
