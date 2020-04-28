@@ -2,7 +2,7 @@
 
 #### Fixed
 
-- A bug on Safari that would lead to persistent `TypeError`s when using the CDN build of the library.
+- ...
 
 #### Changed
 
@@ -11,6 +11,12 @@
 #### Added
 
 - ...
+
+## `1.1.3` - 04/28/2020
+
+#### Fixed
+
+- A bug on Safari that would lead to persistent `TypeError`s when using the CDN build of the library.
 
 ## `1.1.2` - 04/22/2020
 
