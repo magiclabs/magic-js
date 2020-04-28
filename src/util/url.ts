@@ -9,9 +9,9 @@ export function createURL(url: string, base?: string): URL {
   // Otherwise, we strip out the `whatwg-url` dependency completely.
   /* istanbul ignore next */
   if (PolyfillURL) {
-    return (new PolyfillURL(url, base) as unknown) as URL;
+    return (base ? (new PolyfillURL(url, base) as unknown) : (new PolyfillURL(url) as unknown)) as URL;
   }
 
   // This line should only be reached in the CJS/CDN bundles.
-  return new URL(url, base);
+  return base ? new URL(url, base) : new URL(url);
 }
