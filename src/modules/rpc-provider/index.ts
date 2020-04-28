@@ -108,6 +108,6 @@ export class RPCProviderModule extends BaseModule {
 
   public enable() {
     const requestPayload = createJsonRpcRequestPayload('eth_accounts');
-    return this.request<string>(requestPayload);
+    return this.request<string[]>(requestPayload);
   }
 }
