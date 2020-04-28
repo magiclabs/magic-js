@@ -2,7 +2,7 @@
 
 #### Fixed
 
-- ...
+- A bug on Safari that would lead to persistent `TypeError`s when using the CDN build of the library.
 
 #### Changed
 
