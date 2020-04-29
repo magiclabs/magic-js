@@ -54,8 +54,8 @@ test('Initialize JsonRpcResponse instance if argument is a JsonRpcRequestPayload
 
   t.is((response as any)._jsonrpc, '2.0');
   t.is((response as any)._id, 1);
-  t.is((response as any)._result, null);
-  t.is((response as any)._error, null);
+  t.is((response as any)._result, undefined);
+  t.is((response as any)._error, undefined);
 });
 
 test('Initialize `JsonRpcResponse` instance if argument is a `JsonRpcBatchRequestPayload`', t => {
@@ -70,6 +70,6 @@ test('Initialize `JsonRpcResponse` instance if argument is a `JsonRpcBatchReques
 
   t.is((response as any)._jsonrpc, '2.0');
   t.is((response as any)._id, 1);
-  t.is((response as any)._result, null);
-  t.is((response as any)._error, null);
+  t.is((response as any)._result, undefined);
+  t.is((response as any)._error, undefined);
 });

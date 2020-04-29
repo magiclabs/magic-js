@@ -43,11 +43,16 @@ test('Apply `null` or `undefined` errors explicitly', t => {
   const undefinedError = undefined;
 
   const response1 = new JsonRpcResponse(payload);
-  response1.applyError(nullError);
-
   const response2 = new JsonRpcResponse(payload);
+
+  t.false(response1.hasError);
+  t.false(response2.hasError);
+
+  response1.applyError(nullError);
   response2.applyError(undefinedError);
 
   t.is((response1 as any)._error, null);
   t.is((response2 as any)._error, undefined);
+  t.false(response1.hasError);
+  t.false(response2.hasError);
 });

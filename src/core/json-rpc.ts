@@ -57,8 +57,8 @@ export class JsonRpcResponse<ResultType = any> {
     } else {
       this._jsonrpc = responseOrPayload.jsonrpc;
       this._id = responseOrPayload.id;
-      this._result = null;
-      this._error = null;
+      this._result = undefined;
+      this._error = undefined;
     }
   }
 
@@ -77,7 +77,7 @@ export class JsonRpcResponse<ResultType = any> {
   }
 
   public get hasResult() {
-    return typeof this._result !== 'undefined' && this._result !== null;
+    return typeof this._result !== 'undefined';
   }
 
   public get payload(): JsonRpcResponsePayload {
