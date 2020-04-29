@@ -2,11 +2,11 @@ import { RPCErrorCode } from './exception-types';
 
 // --- Request interfaces
 
-export interface JsonRpcRequestPayload {
+export interface JsonRpcRequestPayload<TParams = any> {
   jsonrpc: string;
+  id: string | number | null;
   method: string;
-  params: any[];
-  id: string | number;
+  params?: TParams;
 }
 
 export interface JsonRpcRequestCallback {
