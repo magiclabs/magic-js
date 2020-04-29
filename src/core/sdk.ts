@@ -1,4 +1,4 @@
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-underscore-dangle, no-param-reassign  */
 
 import { encodeQueryParameters } from '../util/query-params';
 import { createMissingApiKeyError } from './sdk-exceptions';
@@ -8,12 +8,15 @@ import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE, MGBOX_URL } from '../constants/config';
 import { MagicSDKAdditionalConfiguration } from '../types';
+import { WithExtensions } from '../types/internal';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from '../types/core/view-types';
 import { ReactNativeWebViewController } from './views/react-native-webview-controller';
 import { createURL } from '../util/url';
+import { Extension } from '../modules/base-extension';
+import { isEmpty } from '../util/type-guards';
 
-export class MagicSDK {
+export class SDKBase {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
   private static readonly __overlays__: Map<string, ViewController> = new Map();
 
@@ -44,8 +47,37 @@ export class MagicSDK {
     if (!apiKey) throw createMissingApiKeyError();
 
     const fallbackEndpoint = IS_REACT_NATIVE ? MGBOX_URL : MAGIC_URL;
-
     this.endpoint = createURL(options?.endpoint ?? fallbackEndpoint).origin;
+
+    // Assign API Modules
+    this.auth = new AuthModule(this);
+    this.user = new UserModule(this);
+    this.rpcProvider = new RPCProviderModule(this);
+
+    // Prepare Extensions
+    const extensions: Extension<string>[] | { [key: string]: Extension<string> } = options?.extensions ?? [];
+    const extConfig: any = {};
+
+    if (Array.isArray(extensions)) {
+      extensions.forEach(ext => {
+        ext.init(this);
+        (this as any)[ext.name] = ext;
+        if (ext instanceof Extension.Internal) {
+          if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
+        }
+      });
+    } else {
+      Object.keys(extensions).forEach(name => {
+        extensions[name].init(this);
+        const ext = extensions[name];
+        (this as any)[name] = ext;
+        if (ext instanceof Extension.Internal) {
+          if (!isEmpty(ext.config)) extConfig[extensions[name].name] = ext.config;
+        }
+      });
+    }
+
+    // Build query params for the current `ViewController`
     this.encodedQueryParams = encodeQueryParameters({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
@@ -53,64 +85,51 @@ export class MagicSDK {
       host: createURL(this.endpoint).host,
       sdk: IS_REACT_NATIVE ? `${SDK_NAME}-rn` : SDK_NAME,
       version: SDK_VERSION,
+      ext: isEmpty(extConfig) ? undefined : extConfig,
     });
-
-    /* istanbul ignore next */
-    const getTransport = () => this.transport;
-    /* istanbul ignore next */
-    const getOverlay = () => this.overlay;
-
-    // Assign API Modules
-    this.auth = new AuthModule(getTransport, getOverlay);
-    this.user = new UserModule(getTransport, getOverlay);
-    this.rpcProvider = new RPCProviderModule(getTransport, getOverlay);
   }
 
   /**
    * Represents the JSON RPC payload message channel associated with this
    * `MagicSDK` instance.
-   *
-   * @internal
    */
   protected get transport(): PayloadTransport {
-    if (!MagicSDK.__transports__.has(this.encodedQueryParams)) {
-      MagicSDK.__transports__.set(
-        this.encodedQueryParams,
-        new PayloadTransport(this.endpoint, this.encodedQueryParams),
-      );
+    if (!SDKBase.__transports__.has(this.encodedQueryParams)) {
+      SDKBase.__transports__.set(this.encodedQueryParams, new PayloadTransport(this.endpoint, this.encodedQueryParams));
     }
 
-    return MagicSDK.__transports__.get(this.encodedQueryParams)!;
+    return SDKBase.__transports__.get(this.encodedQueryParams)!;
   }
 
   /**
    * Represents the view controller associated with this `MagicSDK` instance.
-   *
-   * @internal
    */
   protected get overlay(): ViewController {
-    if (!MagicSDK.__overlays__.has(this.encodedQueryParams)) {
+    if (!SDKBase.__overlays__.has(this.encodedQueryParams)) {
       const controller = IS_REACT_NATIVE
         ? new ReactNativeWebViewController(this.transport, this.endpoint, this.encodedQueryParams)
         : new IframeController(this.transport, this.endpoint, this.encodedQueryParams);
-      MagicSDK.__overlays__.set(this.encodedQueryParams, controller);
+      SDKBase.__overlays__.set(this.encodedQueryParams, controller);
     }
 
-    return MagicSDK.__overlays__.get(this.encodedQueryParams)!;
+    return SDKBase.__overlays__.get(this.encodedQueryParams)!;
   }
 
   /**
-   * Preloads the Magic `<iframe>` context, allowing for faster initial
-   * requests. Awaiting the returned promise will signal when the `<iframe>` has
-   * completed loading and is ready for requests.
+   * Preloads the Magic view, allowing for faster initial requests in browser
+   * environments. Awaiting the returned promise will signal when the Magic view
+   * has completed loading and is ready for requests.
    */
   public async preload() {
     await this.overlay.ready;
   }
 }
 
-export class MagicSDKReactNative extends MagicSDK {
+export class SDKBaseReactNative extends SDKBase {
   public get Relayer() {
     return (this.overlay as ReactNativeWebViewController).Relayer;
   }
 }
+
+export const MagicSDK = (SDKBase as unknown) as WithExtensions<SDKBase>;
+export const MagicSDKReactNative = (SDKBaseReactNative as unknown) as WithExtensions<SDKBaseReactNative>;

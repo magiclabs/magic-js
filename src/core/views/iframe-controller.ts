@@ -68,11 +68,11 @@ export class IframeController {
   private init(): Promise<HTMLIFrameElement> {
     return new Promise(resolve => {
       const onload = () => {
-        if (!checkForSameSrcInstances(this.encodedQueryParams)) {
+        if (!checkForSameSrcInstances(encodeURIComponent(this.encodedQueryParams))) {
           const iframe = document.createElement('iframe');
           iframe.classList.add('magic-iframe');
           iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
-          iframe.src = createURL(`/send?params=${this.encodedQueryParams}`, this.endpoint).href;
+          iframe.src = createURL(`/send?params=${encodeURIComponent(this.encodedQueryParams)}`, this.endpoint).href;
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
           resolve(iframe);

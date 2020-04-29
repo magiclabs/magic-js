@@ -3,6 +3,7 @@ export enum SDKErrorCode {
   ModalNotReady = 'MODAL_NOT_READY',
   MalformedResponse = 'MALFORMED_RESPONSE',
   InvalidArgument = 'INVALID_ARGUMENT',
+  ExtensionNotInitialized = 'EXTENSION_NOT_INITIALIZED',
 }
 
 export enum SDKWarningCode {

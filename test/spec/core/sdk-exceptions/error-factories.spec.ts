@@ -8,6 +8,7 @@ import {
   createModalNotReadyError,
   createMalformedResponseError,
   createInvalidArgumentError,
+  createExtensionNotInitializedError,
 } from '../../../../src/core/sdk-exceptions';
 
 function errorAssertions<T extends ExecutionContext<any>>(
@@ -46,7 +47,7 @@ test('Creates a `MALFORMED_RESPONSE` error', async t => {
   errorAssertions(t, error, 'MALFORMED_RESPONSE', 'Response from the Magic iframe is malformed.');
 });
 
-test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index with "*st"', async t => {
+test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*st"', async t => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 0,
@@ -62,7 +63,7 @@ test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index w
   );
 });
 
-test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index with "*nd"', async t => {
+test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*nd"', async t => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 1,
@@ -78,7 +79,7 @@ test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index w
   );
 });
 
-test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index with "*rd"', async t => {
+test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*rd"', async t => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 2,
@@ -94,7 +95,7 @@ test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index w
   );
 });
 
-test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index with "*th"', async t => {
+test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*th"', async t => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 3,
@@ -107,5 +108,16 @@ test('Creates a `INVALID_ARGUMENT` error and format the ordinal argument index w
     error,
     'INVALID_ARGUMENT',
     'Invalid 4th argument given to `test`.\n  Expected: `something`\n  Received: `anotherThing`',
+  );
+});
+
+test('Creates an `EXTENSION_NOT_INITIALIZED` error', async t => {
+  const error = createExtensionNotInitializedError('foo');
+
+  errorAssertions(
+    t,
+    error,
+    'EXTENSION_NOT_INITIALIZED',
+    'Extensions must be initialized with a Magic SDK instance before `Extension.foo` can be accessed. Do not invoke `Extension.foo` inside an extension constructor.',
   );
 });

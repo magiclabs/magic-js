@@ -13,6 +13,7 @@ function configBase(name: 'cjs' | 'cdn' | 'react-native') {
   const config = new Config();
 
   config.name(name);
+  config.target(isReactNative ? 'node' : 'web');
   config.context(resolve(__dirname, '..'));
   config.mode(isDevelopment ? 'development' : 'production');
   config.entry('main').add(`./src/index.${name}.ts`);

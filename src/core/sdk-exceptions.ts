@@ -59,6 +59,13 @@ export function createMalformedResponseError() {
   return new MagicSDKError(SDKErrorCode.MalformedResponse, 'Response from the Magic iframe is malformed.');
 }
 
+export function createExtensionNotInitializedError(member: string) {
+  return new MagicSDKError(
+    SDKErrorCode.ExtensionNotInitialized,
+    `Extensions must be initialized with a Magic SDK instance before \`Extension.${member}\` can be accessed. Do not invoke \`Extension.${member}\` inside an extension constructor.`,
+  );
+}
+
 export function createInvalidArgumentError(options: {
   procedure: string;
   argument: number;

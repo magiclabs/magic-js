@@ -10,7 +10,8 @@
 
 #### Added
 
-- ...
+- The new `Extension` interface will soon enable Magic SDK to support official
+  and third-party plugins!
 
 ## `1.1.4` - 04/28/2020
 
