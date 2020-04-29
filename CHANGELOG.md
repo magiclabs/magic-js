@@ -12,6 +12,12 @@
 
 - ...
 
+## `1.1.4` - 04/28/2020
+
+#### Changed
+
+- Allow JSON RPC responses from the Magic `<iframe>` to be explicitly `null`.
+
 ## `1.1.3` - 04/28/2020
 
 #### Fixed
