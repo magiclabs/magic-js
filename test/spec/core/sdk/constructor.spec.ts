@@ -8,7 +8,6 @@ import { name as sdkName, version as sdkVersion } from '../../../../package.json
 import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
-import { inflateBase64Json } from '../../../lib';
 import { Extension } from '../../../../src/modules/base-extension';
 
 test.beforeEach(t => {
@@ -20,7 +19,7 @@ test.serial('Initialize `MagicSDK`', t => {
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
-  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     host: 'auth.magic.link',
@@ -48,7 +47,7 @@ test.serial('Initialize `MagicSDK` with custom endpoint', t => {
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, 'https://example.com');
-  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     host: 'example.com',
@@ -67,7 +66,7 @@ test.serial('Initialize `MagicSDK` when `window.location` is missing', t => {
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
-  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: '',
     host: 'auth.magic.link',
@@ -84,7 +83,7 @@ test.serial('Initialize `MagicSDK` with custom Web3 network', t => {
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
-  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     ETH_NETWORK: 'mainnet',
@@ -117,7 +116,7 @@ class NoopExtWithEmptyConfig extends Extension.Internal<'noop'> {
 test.serial('Initialize `MagicSDK` with config-less extensions via array', t => {
   const magic = new MagicSDK(TEST_API_KEY, { extensions: [new NoopExtNoConfig()] });
 
-  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     host: 'auth.magic.link',
@@ -131,7 +130,7 @@ test.serial('Initialize `MagicSDK` with config-less extensions via array', t => 
 test.serial('Initialize `MagicSDK` with config-ful extensions via array (non-empty config)', t => {
   const magic = new MagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithConfig()] });
 
-  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     host: 'auth.magic.link',
@@ -146,7 +145,7 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via array (non-emp
 test.serial('Initialize `MagicSDK` with config-ful extensions via array (empty config)', t => {
   const magic = new MagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithEmptyConfig()] });
 
-  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     host: 'auth.magic.link',
@@ -160,7 +159,7 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via array (empty c
 test.serial('Initialize `MagicSDK` with config-less extensions via dictionary', t => {
   const magic = new MagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtNoConfig() } });
 
-  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     host: 'auth.magic.link',
@@ -174,7 +173,7 @@ test.serial('Initialize `MagicSDK` with config-less extensions via dictionary', 
 test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (non-empty config)', t => {
   const magic = new MagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithConfig() } });
 
-  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     host: 'auth.magic.link',
@@ -189,7 +188,7 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (no
 test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (empty config)', t => {
   const magic = new MagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithEmptyConfig() } });
 
-  t.deepEqual(inflateBase64Json(magic.encodedQueryParams), {
+  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     host: 'auth.magic.link',

@@ -24,7 +24,6 @@
     "prepare": "yarn run snyk-protect"
   },
   "dependencies": {
-    "pako": "^1.0.11",
     "react-native-webview": "^8.1.2",
     "snyk": "^1.309.0",
     "whatwg-url": "^8.0.0"
