@@ -12,6 +12,12 @@
 
 - ...
 
+## `1.2.1` - 04/30/2020
+
+#### Fixed
+
+- Removed the `pako` dependency as it was negatively impacting SDK bundle size.
+
 ## `1.2.0` - 04/29/2020
 
 #### Added
