@@ -26,7 +26,7 @@ This represents the most current behavior of Web3:
 ```ts
 web3.eth.sendTransaction(...);
 
-RPCProviderModule.send -> BaseModule.request -> PayloadTransport.post -> Window.postMessage -> iframe
+RPCProviderModule.send -> RPCProviderModule.request -> PayloadTransport.post -> Window.postMessage -> iframe
 ```
 
 ### Case #3: Web3 `<=1.0.0-beta.37` using `send`
