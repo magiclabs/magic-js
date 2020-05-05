@@ -8,7 +8,7 @@ import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE, MGBOX_URL } from '../constants/config';
 import { MagicSDKAdditionalConfiguration, MagicSDKReactNativeAdditionalConfiguration } from '../types';
-import { WithExtensions } from '../types/internal';
+import { WithExtensions } from '../types/core/extension-types';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from '../types/core/view-types';
 import { ReactNativeWebViewController } from './views/react-native-webview-controller';

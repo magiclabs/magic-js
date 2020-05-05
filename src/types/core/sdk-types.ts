@@ -1,4 +1,4 @@
-import { EthNetworkConfiguration } from '../modules';
+import { EthNetworkConfiguration } from '../modules/rpc-provider-types';
 import { Extension } from '../../modules/base-extension';
 
 export interface MagicSDKAdditionalConfiguration<

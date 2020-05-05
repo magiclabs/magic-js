@@ -1,7 +1,7 @@
-import { MagicSDKAdditionalConfiguration, MagicSDKReactNativeAdditionalConfiguration } from '../core/sdk-types';
+import { MagicSDKAdditionalConfiguration, MagicSDKReactNativeAdditionalConfiguration } from './sdk-types';
 import { SDKBase, SDKBaseReactNative } from '../../core/sdk';
 import { Extension } from '../../modules/base-extension';
-import { UnwrapArray } from './utility-types';
+import { UnwrapArray } from '../utility-types';
 
 type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<
   {
