@@ -9,3 +9,8 @@ export interface MagicSDKAdditionalConfiguration<
   network?: EthNetworkConfiguration;
   extensions?: TExt;
 }
+
+export type MagicSDKReactNativeAdditionalConfiguration<
+  TCustomExtName extends string = string,
+  TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> } = any
+> = Omit<MagicSDKAdditionalConfiguration<TCustomExtName, TExt>, 'endpoint'>;

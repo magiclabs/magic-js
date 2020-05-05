@@ -1,5 +1,5 @@
-import { MagicSDKAdditionalConfiguration } from '../core/sdk-types';
-import { SDKBase } from '../../core/sdk';
+import { MagicSDKAdditionalConfiguration, MagicSDKReactNativeAdditionalConfiguration } from '../core/sdk-types';
+import { SDKBase, SDKBaseReactNative } from '../../core/sdk';
 import { Extension } from '../../modules/base-extension';
 import { UnwrapArray } from './utility-types';
 
@@ -13,6 +13,16 @@ type GetExtensionFromName<TExt extends Extension<string>[], TExtName extends str
   [P in TExtName]: Extract<UnwrapArray<TExt>, Extension<TExtName>>;
 }[TExtName];
 
+type GetAdditionalConfiguration<
+  SDK extends SDKBase,
+  TCustomExtName extends string,
+  TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> }
+> = SDK extends SDKBaseReactNative
+  ? MagicSDKReactNativeAdditionalConfiguration<TCustomExtName, TExt>
+  : SDK extends SDKBase
+  ? MagicSDKAdditionalConfiguration<TCustomExtName, TExt>
+  : never;
+
 /**
  * Wraps a Magic SDK constructor with the necessary type information to support
  * a strongly-typed `Extension` interface.
@@ -24,7 +34,7 @@ export type WithExtensions<SDK extends SDKBase> = {
     TExtName extends string = TExt extends Extension<string>[] ? ExtensionNames<TExt> : keyof TExt
   >(
     apiKey: string,
-    options?: MagicSDKAdditionalConfiguration<TCustomExtName, TExt>,
+    options?: GetAdditionalConfiguration<SDK, TCustomExtName, TExt>,
   ): SDK &
     {
       [P in TExtName]: TExt extends Extension<string>[]
