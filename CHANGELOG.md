@@ -10,6 +10,12 @@
 
 #### Added
 
+- ...
+
+## `1.3.0` - 05/05/2020
+
+#### Added
+
 - Support for configuring [Harmony](https://www.harmony.one/) network as the Etherum chain type. Further documentation is coming soon.
 
 ## `1.2.1` - 04/30/2020
