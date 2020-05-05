@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle, no-param-reassign  */
 
 import { encodeQueryParameters } from '../util/query-params';
-import { createMissingApiKeyError } from './sdk-exceptions';
+import { createMissingApiKeyError, createReactNativeEndpointConfigurationWarning } from './sdk-exceptions';
 import { IframeController } from './views/iframe-controller';
 import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
@@ -46,8 +46,12 @@ export class SDKBase<TConfiguration extends MagicSDKAdditionalConfiguration = Ma
   constructor(public readonly apiKey: string, options?: TConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
 
-    const fallbackEndpoint = options?.endpoint ?? MAGIC_URL;
-    this.endpoint = createURL(IS_REACT_NATIVE ? MGBOX_URL : fallbackEndpoint).origin;
+    if (IS_REACT_NATIVE && options?.endpoint) {
+      createReactNativeEndpointConfigurationWarning().log();
+    }
+
+    const fallbackEndpoint = IS_REACT_NATIVE ? MGBOX_URL : MAGIC_URL;
+    this.endpoint = createURL(options?.endpoint ?? fallbackEndpoint).origin;
 
     // Assign API Modules
     this.auth = new AuthModule(this);

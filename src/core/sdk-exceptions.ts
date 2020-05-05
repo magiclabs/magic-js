@@ -1,5 +1,6 @@
 import { SDKErrorCode, SDKWarningCode, RPCErrorCode, JsonRpcError } from '../types';
 import { isJsonRpcErrorCode } from '../util/type-guards';
+import { MGBOX_URL } from '../constants/config';
 
 // --- Error/warning classes
 
@@ -104,5 +105,12 @@ export function createSynchronousWeb3MethodWarning() {
   return new MagicSDKWarning(
     SDKWarningCode.SyncWeb3Method,
     'Non-async web3 methods are deprecated in web3 > 1.0 and are not supported by the Magic web3 provider. Please use an async method instead.',
+  );
+}
+
+export function createReactNativeEndpointConfigurationWarning() {
+  return new MagicSDKWarning(
+    SDKWarningCode.ReactNativeEndpointConfiguration,
+    `CUSTOM DOMAINS ARE NOT SUPPORTED WHEN USING MAGIC SDK WITH REACT NATIVE! The \`endpoint\` parameter SHOULD NOT be provided. The Magic \`<iframe>\` is automatically wrapped by a WebView pointed at \`${MGBOX_URL}\`. Changing this default behavior will lead to unexpected results and potentially security-threatening bugs.`,
   );
 }
