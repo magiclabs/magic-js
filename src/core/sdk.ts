@@ -46,8 +46,8 @@ export class SDKBase<TConfiguration extends MagicSDKAdditionalConfiguration = Ma
   constructor(public readonly apiKey: string, options?: TConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
 
-    const fallbackEndpoint = IS_REACT_NATIVE ? MGBOX_URL : MAGIC_URL;
-    this.endpoint = createURL(options?.endpoint ?? fallbackEndpoint).origin;
+    const fallbackEndpoint = options?.endpoint ?? MAGIC_URL;
+    this.endpoint = createURL(IS_REACT_NATIVE ? MGBOX_URL : fallbackEndpoint).origin;
 
     // Assign API Modules
     this.auth = new AuthModule(this);

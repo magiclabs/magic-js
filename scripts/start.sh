@@ -5,7 +5,7 @@ LOCAL_MGBOX_PORT=3016
 
 export NODE_ENV=development
 export MAGIC_URL=https://auth.magic.link/
-export MGBOX_URL=https://mgbox.io/
+export MGBOX_URL=https://box.magic.link/
 export SDK_NAME=$(node -pe "require('./package.json')['name']")
 export SDK_VERSION=$(node -pe "require('./package.json')['version']")
 
