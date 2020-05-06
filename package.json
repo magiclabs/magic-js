@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "react-native-webview": "^8.1.2",
-    "snyk": "^1.309.0",
+    "snyk": "^1.316.1",
     "whatwg-url": "^8.0.0"
   },
   "devDependencies": {
