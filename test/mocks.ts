@@ -18,7 +18,7 @@ export function getPayloadIdStub() {
   return stub;
 }
 
-export function mockConfigConstant(key: keyof typeof ConfigConstants, value: boolean) {
+export function mockConfigConstant(key: keyof typeof ConfigConstants, value: any) {
   (ConfigConstants as any)[key] = value;
 }
 
