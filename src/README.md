@@ -36,7 +36,7 @@ This is an edge case affecting a small subset of Web3 pre-`1.x` beta versions:
 ```ts
 web3.eth.sendTransaction(...);
 
-RPCProviderModule.send -> BaseModule.sendAsync -> PayloadTransport.post -> Window.postMessage -> iframe
+RPCProviderModule.send -> RPCProviderModule.sendAsync -> PayloadTransport.post -> Window.postMessage -> iframe
 ```
 
 ### Case #4: Legacy Web3 using `sendAsync`

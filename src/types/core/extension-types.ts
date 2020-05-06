@@ -1,7 +1,7 @@
-import { MagicSDKAdditionalConfiguration } from '../core/sdk-types';
-import { SDKBase } from '../../core/sdk';
+import { MagicSDKAdditionalConfiguration, MagicSDKReactNativeAdditionalConfiguration } from './sdk-types';
+import { SDKBase, SDKBaseReactNative } from '../../core/sdk';
 import { Extension } from '../../modules/base-extension';
-import { UnwrapArray } from './utility-types';
+import { UnwrapArray } from '../utility-types';
 
 type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<
   {
@@ -12,6 +12,16 @@ type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<
 type GetExtensionFromName<TExt extends Extension<string>[], TExtName extends string> = {
   [P in TExtName]: Extract<UnwrapArray<TExt>, Extension<TExtName>>;
 }[TExtName];
+
+type GetAdditionalConfiguration<
+  SDK extends SDKBase,
+  TCustomExtName extends string,
+  TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> }
+> = SDK extends SDKBaseReactNative
+  ? MagicSDKReactNativeAdditionalConfiguration<TCustomExtName, TExt>
+  : SDK extends SDKBase
+  ? MagicSDKAdditionalConfiguration<TCustomExtName, TExt>
+  : never;
 
 /**
  * Wraps a Magic SDK constructor with the necessary type information to support
@@ -24,7 +34,7 @@ export type WithExtensions<SDK extends SDKBase> = {
     TExtName extends string = TExt extends Extension<string>[] ? ExtensionNames<TExt> : keyof TExt
   >(
     apiKey: string,
-    options?: MagicSDKAdditionalConfiguration<TCustomExtName, TExt>,
+    options?: GetAdditionalConfiguration<SDK, TCustomExtName, TExt>,
   ): SDK &
     {
       [P in TExtName]: TExt extends Extension<string>[]

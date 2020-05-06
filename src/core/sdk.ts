@@ -1,14 +1,14 @@
 /* eslint-disable no-underscore-dangle, no-param-reassign  */
 
 import { encodeQueryParameters } from '../util/query-params';
-import { createMissingApiKeyError } from './sdk-exceptions';
+import { createMissingApiKeyError, createReactNativeEndpointConfigurationWarning } from './sdk-exceptions';
 import { IframeController } from './views/iframe-controller';
 import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE, MGBOX_URL } from '../constants/config';
-import { MagicSDKAdditionalConfiguration } from '../types';
-import { WithExtensions } from '../types/internal';
+import { MagicSDKAdditionalConfiguration, MagicSDKReactNativeAdditionalConfiguration } from '../types';
+import { WithExtensions } from '../types/core/extension-types';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from '../types/core/view-types';
 import { ReactNativeWebViewController } from './views/react-native-webview-controller';
@@ -16,7 +16,7 @@ import { createURL } from '../util/url';
 import { Extension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 
-export class SDKBase {
+export class SDKBase<TConfiguration extends MagicSDKAdditionalConfiguration = MagicSDKAdditionalConfiguration> {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
   private static readonly __overlays__: Map<string, ViewController> = new Map();
 
@@ -43,8 +43,12 @@ export class SDKBase {
   /**
    * Creates an instance of Magic SDK.
    */
-  constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
+  constructor(public readonly apiKey: string, options?: TConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
+
+    if (IS_REACT_NATIVE && options?.endpoint) {
+      createReactNativeEndpointConfigurationWarning().log();
+    }
 
     const fallbackEndpoint = IS_REACT_NATIVE ? MGBOX_URL : MAGIC_URL;
     this.endpoint = createURL(options?.endpoint ?? fallbackEndpoint).origin;
@@ -125,7 +129,7 @@ export class SDKBase {
   }
 }
 
-export class SDKBaseReactNative extends SDKBase {
+export class SDKBaseReactNative extends SDKBase<MagicSDKReactNativeAdditionalConfiguration> {
   public get Relayer() {
     return (this.overlay as ReactNativeWebViewController).Relayer;
   }

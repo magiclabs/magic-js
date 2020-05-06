@@ -6,7 +6,9 @@ import {
   MagicSDKWarning,
   createDuplicateIframeWarning,
   createSynchronousWeb3MethodWarning,
+  createReactNativeEndpointConfigurationWarning,
 } from '../../../../src/core/sdk-exceptions';
+import { mockConfigConstant } from '../../../mocks';
 
 function warningAssertions<T extends ExecutionContext<any>>(
   t: T,
@@ -36,5 +38,18 @@ test('Creates a `SYNC_WEB3_METHOD` warning', async t => {
     warning,
     'SYNC_WEB3_METHOD',
     'Non-async web3 methods are deprecated in web3 > 1.0 and are not supported by the Magic web3 provider. Please use an async method instead.',
+  );
+});
+
+test('Creates a `REACT_NATIVE_ENDPOINT_CONFIGURATION` warning', async t => {
+  mockConfigConstant('IS_REACT_NATIVE', true);
+  mockConfigConstant('MGBOX_URL', 'https://example.com');
+
+  const warning = createReactNativeEndpointConfigurationWarning();
+  warningAssertions(
+    t,
+    warning,
+    'REACT_NATIVE_ENDPOINT_CONFIGURATION',
+    'CUSTOM DOMAINS ARE NOT SUPPORTED WHEN USING MAGIC SDK WITH REACT NATIVE! The `endpoint` parameter SHOULD NOT be provided. The Magic `<iframe>` is automatically wrapped by a WebView pointed at `https://example.com`. Changing this default behavior will lead to unexpected results and potentially security-threatening bugs.',
   );
 });
