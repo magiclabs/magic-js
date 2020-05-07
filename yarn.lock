@@ -1263,6 +1263,11 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/hosted-git-info@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@types/hosted-git-info/-/hosted-git-info-2.7.0.tgz#5199b4df62d53f51d60520d61513eaa4b2dd3d3d"
+  integrity sha512-OW/D8GqCyQtH8F7xDdDxzPJTBgknZeZhlCakUcBCya2rYPRN53F+0YJVwSPyiyAhrknnjkl3P9qVk0oBI4S1qw==
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"
@@ -1322,7 +1327,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.2.tgz#160d82623610db590a64e8ca81784e11117e5a54"
   integrity sha512-LB2R1Oyhpg8gu4SON/mfforE525+Hi/M1ineICEDftqNVTyFg1aRIeGuTvXAoWHc4nbrFncWtJgMmoyRvuGh7A==
 
-"@types/node@^6.14.4":
+"@types/node@^6.14.4", "@types/node@^6.14.7":
   version "6.14.10"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.14.10.tgz#d9ce598127eb0cc02821476862d11389cb01f6a4"
   integrity sha512-pF4HjZGSog75kGq7B1InK/wt/N08BuPATo+7HRfv7gZUzccebwv/fmWVGs/j6LvSiLWpCuGGhql51M/wcQsNzA==
@@ -9529,11 +9534,21 @@ snyk-gradle-plugin@3.2.5:
     tmp "0.0.33"
     tslib "^1.9.3"
 
-snyk-module@1.9.1, snyk-module@^1.6.0, snyk-module@^1.9.1:
+snyk-module@1.9.1, snyk-module@^1.6.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/snyk-module/-/snyk-module-1.9.1.tgz#b2a78f736600b0ab680f1703466ed7309c980804"
   integrity sha512-A+CCyBSa4IKok5uEhqT+hV/35RO6APFNLqk9DRRHg7xW2/j//nPX8wTSZUPF8QeRNEk/sX+6df7M1y6PBHGSHA==
   dependencies:
+    debug "^3.1.0"
+    hosted-git-info "^2.7.1"
+
+snyk-module@^2.0.2:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/snyk-module/-/snyk-module-2.1.0.tgz#80d9e9b64f202ae753ed3b33b372ca6f5ec323da"
+  integrity sha512-K5xeA39vLbm23Y/29wFEhKGvo7FwV4x9XhCP5gB22dBPyYiCCNiDERX4ofHQvtM6q96cL0hIroMdlbctv/0nPw==
+  dependencies:
+    "@types/hosted-git-info" "^2.7.0"
+    "@types/node" "^6.14.7"
     debug "^3.1.0"
     hosted-git-info "^2.7.1"
 
@@ -9593,17 +9608,17 @@ snyk-php-plugin@1.9.0:
     "@snyk/composer-lockfile-parser" "1.4.0"
     tslib "1.11.1"
 
-snyk-policy@1.13.5:
-  version "1.13.5"
-  resolved "https://registry.yarnpkg.com/snyk-policy/-/snyk-policy-1.13.5.tgz#c5cf262f759879a65ab0810dd58d59c8ec7e9e47"
-  integrity sha512-KI6GHt+Oj4fYKiCp7duhseUj5YhyL/zJOrrJg0u6r59Ux9w8gmkUYT92FHW27ihwuT6IPzdGNEuy06Yv2C9WaQ==
+snyk-policy@1.14.1:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/snyk-policy/-/snyk-policy-1.14.1.tgz#4e48ea993573aca18e8d883b8c62171b9d35a3e0"
+  integrity sha512-C5vSkoBYxPnaqb218sm4m6N5s1BhIXlldpIX5xRNnZ0QkDwVj3dy/PfgwxRgVQh7QFGa1ajbvKmsGmm4RRsN8g==
   dependencies:
-    debug "^3.1.0"
+    debug "^4.1.1"
     email-validator "^2.0.4"
     js-yaml "^3.13.1"
     lodash.clonedeep "^4.5.0"
     semver "^6.0.0"
-    snyk-module "^1.9.1"
+    snyk-module "^2.0.2"
     snyk-resolve "^1.0.1"
     snyk-try-require "^1.3.1"
     then-fs "^2.0.0"
@@ -9675,10 +9690,10 @@ snyk-try-require@1.3.1, snyk-try-require@^1.1.1, snyk-try-require@^1.3.1:
     lru-cache "^4.0.0"
     then-fs "^2.0.0"
 
-snyk@^1.316.1:
-  version "1.319.1"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.319.1.tgz#854d2886cbcba0a26e273d89b62ae0cab8b70373"
-  integrity sha512-7EEjlCbvubnTt7NHtEin2xFULyes8wETKkMQ9M1qwe7WE/3BRvVtF0x/ayAtaOCl4VZkG3cQCWVQTJHKZYy6Cg==
+snyk@^1.319.1:
+  version "1.319.2"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.319.2.tgz#39bd9b0258f21de2aa88b0e2a381873680fbcb1c"
+  integrity sha512-IwJTsmwNKUhJ5V7jSnCOsLTB1HKbXkJJkg9nnqRk8iD8BlNJA3vq3D2pptndKWa/ssV7ySZT51Wr5Hbh2dHWqA==
   dependencies:
     "@snyk/cli-interface" "2.6.0"
     "@snyk/configstore" "^3.2.0-rc1"
@@ -9714,7 +9729,7 @@ snyk@^1.316.1:
     snyk-nodejs-lockfile-parser "1.22.0"
     snyk-nuget-plugin "1.17.0"
     snyk-php-plugin "1.9.0"
-    snyk-policy "1.13.5"
+    snyk-policy "1.14.1"
     snyk-python-plugin "1.17.0"
     snyk-resolve "1.0.1"
     snyk-resolve-deps "4.4.0"
