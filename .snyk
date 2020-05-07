@@ -49,3 +49,9 @@ patch:
         patched: '2020-05-01T00:24:06.737Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > graphlib > lodash:
         patched: '2020-05-01T00:24:06.737Z'
+    - snyk > snyk-nodejs-lockfile-parser > snyk-config > lodash:
+        patched: '2020-05-07T01:52:46.390Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/ruby-semver > lodash:
+        patched: '2020-05-07T01:52:46.390Z'
+    - snyk > snyk-mvn-plugin > @snyk/java-call-graph-builder > snyk-config > lodash:
+        patched: '2020-05-07T01:52:46.390Z'
