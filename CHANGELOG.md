@@ -12,6 +12,12 @@
 
 - ...
 
+## `1.3.2` - 05/07/2020
+
+#### Fixed
+
+- The React Native entry point encountered an issue where `Buffer` is `undefined`. This is now resolved!
+
 ## `1.3.1` - 05/06/2020
 
 #### Changed
