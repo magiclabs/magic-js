@@ -18,6 +18,8 @@
 
 - The React Native entry point now issues a warning if the `endpoint` parameter is used. This parameter should only be customized for web/browser targets. Existing implementations will continue to work with the warning.
 
+- The default `endpoint` URL for React Native integrations is `https://box.magic.link`.
+
 ## `1.3.0` - 05/05/2020
 
 #### Added
