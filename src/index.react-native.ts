@@ -1,7 +1,7 @@
 // React Native entry-point
 /* eslint-disable global-require */
 
-if (typeof global.process === 'undefined') global.process = require('process');
+global.process = require('process');
 if (typeof global.Buffer === 'undefined') global.Buffer = require('buffer').Buffer;
 
 process.browser = false;
