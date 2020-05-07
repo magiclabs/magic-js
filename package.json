@@ -1,6 +1,6 @@
 {
   "name": "magic-sdk",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Passwordless authentication for the web.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
