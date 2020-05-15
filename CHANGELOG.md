@@ -12,6 +12,12 @@
 
 - ...
 
+## `1.3.3` - 05/14/2020
+
+#### Fixed
+
+- Fix a bug affecting Ethers JS V5 beta that would fail to attach the required ID parameter to JSON RPC 2.0 request payloads.
+
 ## `1.3.2` - 05/07/2020
 
 #### Fixed
