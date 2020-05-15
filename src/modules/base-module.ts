@@ -3,6 +3,7 @@ import { createMalformedResponseError, MagicRPCError } from '../core/sdk-excepti
 import { PayloadTransport } from '../core/payload-transport';
 import { ViewController } from '../types/core/view-types';
 import { SDKBase } from '../core/sdk';
+import { standardizeJsonRpcRequestPayload } from '../core/json-rpc';
 
 export class BaseModule {
   constructor(protected readonly sdk: SDKBase) {}
@@ -19,7 +20,7 @@ export class BaseModule {
     const response = await this.transport.post<ResultType>(
       this.overlay,
       MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
-      payload,
+      standardizeJsonRpcRequestPayload(payload),
     );
 
     if (response.hasError) throw new MagicRPCError(response.payload.error);

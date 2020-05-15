@@ -53,3 +53,21 @@ test('Create a JSON RPC payload, replacing the missing value of `payload.params`
   const payload = standardizeJsonRpcRequestPayload({});
   t.deepEqual(payload.params, []);
 });
+
+test('Calling upon the same payload twice does not mutate the payload ID', t => {
+  const originalPayload = {
+    id: 999,
+  };
+
+  const randomIdStub = getPayloadIdStub();
+  randomIdStub.onFirstCall().returns(1);
+  randomIdStub.onSecondCall().returns(2);
+
+  standardizeJsonRpcRequestPayload(originalPayload);
+
+  t.is(originalPayload.id, 1);
+
+  standardizeJsonRpcRequestPayload(originalPayload);
+
+  t.is(originalPayload.id, 1);
+});
