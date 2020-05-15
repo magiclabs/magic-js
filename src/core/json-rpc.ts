@@ -4,17 +4,44 @@ import { JsonRpcRequestPayload, JsonRpcResponsePayload, JsonRpcError } from '../
 import { isJsonRpcResponsePayload } from '../util/type-guards';
 import { getPayloadId } from '../util/get-payload-id';
 
+const payloadPreprocessedSymbol = Symbol('Payload pre-processed by Magic SDK');
+
+/**
+ * To avoid "pre-processing" a payload more than once (and needlessly
+ * incrementing our payload ID generator), we attach a symbol to detect a
+ * payloads we've already visited.
+ */
+function markPayloadAsPreprocessed<T extends Partial<JsonRpcRequestPayload>>(payload: T): T {
+  (payload as any)[payloadPreprocessedSymbol] = true;
+  return payload;
+}
+
+/**
+ * Returns `true` if the payload has been visited by our "pre-processing," in
+ * `standardizeJsonRpcRequestPayload(...)`.
+ */
+function isPayloadPreprocessed<T extends Partial<JsonRpcRequestPayload>>(payload: T) {
+  return !!(payload as any)?.[payloadPreprocessedSymbol];
+}
+
 /**
  * Returns a full `JsonRpcRequestPayload` from a potentially incomplete payload
  * object. This method mutates the given `payload` to preserve compatibility
  * with external libraries that perform their own `JsonRpcRequestPayload.id`
  * check to associate responses (such as `web3`).
+ *
+ * This function is no-op if the payload has already been processed before.
  */
 export function standardizeJsonRpcRequestPayload(payload: Partial<JsonRpcRequestPayload>) {
-  payload.jsonrpc = payload.jsonrpc ?? '2.0';
-  payload.id = getPayloadId();
-  payload.method = payload.method ?? 'noop';
-  payload.params = payload.params ?? [];
+  if (!isPayloadPreprocessed(payload)) {
+    payload.jsonrpc = payload.jsonrpc ?? '2.0';
+    payload.id = getPayloadId();
+    payload.method = payload.method ?? 'noop';
+    payload.params = payload.params ?? [];
+
+    markPayloadAsPreprocessed(payload);
+  }
+
   return payload as JsonRpcRequestPayload;
 }
 
@@ -22,12 +49,12 @@ export function standardizeJsonRpcRequestPayload(payload: Partial<JsonRpcRequest
  * Build a valid JSON RPC payload for emitting to the Magic SDK iframe relayer.
  */
 export function createJsonRpcRequestPayload(method: string, params: any[] = []): JsonRpcRequestPayload {
-  return {
+  return markPayloadAsPreprocessed({
     params,
     method,
     jsonrpc: '2.0',
     id: getPayloadId(),
-  };
+  });
 }
 
 /**
