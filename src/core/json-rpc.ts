@@ -12,7 +12,11 @@ const payloadPreprocessedSymbol = Symbol('Payload pre-processed by Magic SDK');
  * payloads we've already visited.
  */
 function markPayloadAsPreprocessed<T extends Partial<JsonRpcRequestPayload>>(payload: T): T {
-  (payload as any)[payloadPreprocessedSymbol] = true;
+  Object.defineProperty(payload, payloadPreprocessedSymbol, {
+    value: true,
+    enumerable: false,
+  });
+
   return payload;
 }
 
@@ -21,7 +25,7 @@ function markPayloadAsPreprocessed<T extends Partial<JsonRpcRequestPayload>>(pay
  * `standardizeJsonRpcRequestPayload(...)`.
  */
 function isPayloadPreprocessed<T extends Partial<JsonRpcRequestPayload>>(payload: T) {
-  return !!(payload as any)?.[payloadPreprocessedSymbol];
+  return !!(payload as any)[payloadPreprocessedSymbol];
 }
 
 /**
