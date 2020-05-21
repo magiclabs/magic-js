@@ -12,6 +12,14 @@
 
 - ...
 
+## `1.3.4` - 05/14/2020
+
+#### Fixed
+
+- Alias the `Magic` constructor import to the SDK instance type. We have pretty complex extension typings which wrap the base SDK class, which was making typing a variable as `Magic` unnecessarily difficult! Now, you can use the constructor as the instance type as expected.
+
+- Fixed a bug that would prevent typings from being available in a React Native environment.
+
 ## `1.3.3` - 05/14/2020
 
 #### Fixed
