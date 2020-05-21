@@ -1,1 +1,1 @@
-export * from './dist/react-native/index.react-native.d.ts';
+export * from './dist/react-native/index.react-native';

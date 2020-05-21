@@ -1,6 +1,7 @@
 // CJS entry-point
 
-export { MagicSDK as Magic } from './core/sdk';
+import { MagicSDK } from './core/sdk';
+
 export {
   MagicSDKError as SDKError,
   MagicSDKWarning as SDKWarning,
@@ -8,3 +9,6 @@ export {
 } from './core/sdk-exceptions';
 export { Extension } from './modules/base-extension';
 export * from './types';
+
+export const Magic = MagicSDK;
+export type Magic = InstanceType<typeof MagicSDK>;

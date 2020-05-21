@@ -1,6 +1,8 @@
 // React Native entry-point
 /* eslint-disable global-require */
 
+import { MagicSDKReactNative } from './core/sdk';
+
 // We expect `global.process` to be a Node Process, so we have to replace it
 // here.
 global.process = require('process');
@@ -24,7 +26,6 @@ if (typeof atob === 'undefined') {
   };
 }
 
-export { MagicSDKReactNative as Magic } from './core/sdk';
 export {
   MagicSDKError as SDKError,
   MagicSDKWarning as SDKWarning,
@@ -32,3 +33,6 @@ export {
 } from './core/sdk-exceptions';
 export { Extension } from './modules/base-extension';
 export * from './types';
+
+export const Magic = MagicSDKReactNative;
+export type Magic = InstanceType<typeof MagicSDKReactNative>;
