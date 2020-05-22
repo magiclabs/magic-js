@@ -1,4 +1,3 @@
-import { WebViewMessageEvent } from 'react-native-webview';
 import {
   MagicIncomingWindowMessage,
   MagicOutgoingWindowMessage,
@@ -101,16 +100,13 @@ export class PayloadTransport {
     const webView = overlay instanceof ReactNativeWebViewController ? overlay.webView : null;
 
     return new Promise((resolve, reject) => {
-      const isViewReady = IS_REACT_NATIVE ? webView && (webView as any).postMessage : iframe && iframe.contentWindow;
+      const isViewReady = IS_REACT_NATIVE ? webView && webView.postMessage : iframe && iframe.contentWindow;
       if (isViewReady) {
         const batchData: JsonRpcResponse[] = [];
         const batchIds = Array.isArray(payload) ? payload.map(p => p.id) : [];
 
         if (IS_REACT_NATIVE) {
-          (webView as any).postMessage(
-            JSON.stringify({ msgType: `${msgType}-${this.encodedQueryParams}`, payload }),
-            '*',
-          );
+          webView.postMessage(JSON.stringify({ msgType: `${msgType}-${this.encodedQueryParams}`, payload }), '*');
         } else {
           iframe!.contentWindow!.postMessage({ msgType: `${msgType}-${this.encodedQueryParams}`, payload }, '*');
         }
@@ -174,7 +170,7 @@ export class PayloadTransport {
   /**
    * Route incoming messages from a React Native `<WebView>`.
    */
-  public handleReactNativeWebViewMessage(event: WebViewMessageEvent) {
+  public handleReactNativeWebViewMessage(event: any) {
     if (
       event.nativeEvent &&
       event.nativeEvent.url === `${this.endpoint}/send/?params=${this.encodedQueryParams}` &&

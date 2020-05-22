@@ -7,5 +7,10 @@
   "include": [
     "../src/**/*.ts",
     "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/index.cdn.ts",
+    "../src/index.cjs.ts",
+    "../src/noop-module.ts"
   ]
 }

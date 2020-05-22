@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import { MagicIncomingWindowMessage } from '../../types';
 import { PayloadTransport } from '../payload-transport';
+import { webSafeImports } from '../../web-safe-imports';
 
 /*
 
@@ -21,7 +20,7 @@ import { PayloadTransport } from '../payload-transport';
  * `<WebView>` UI to render above all other DOM content.
  */
 function createWebViewStyles() {
-  return StyleSheet.create({
+  return webSafeImports.rn.StyleSheet.create({
     'magic-webview': {
       flex: 1,
       backgroundColor: 'transparent',
@@ -52,7 +51,7 @@ function createWebViewStyles() {
  * Overloads React Native's `<View>` with helper methods we require to hide/show
  * the rendered `<WebView>`.
  */
-interface ViewWrapper extends Partial<View> {
+interface ViewWrapper {
   showOverlay: () => void;
   hideOverlay: () => void;
 }
@@ -61,10 +60,10 @@ interface ViewWrapper extends Partial<View> {
  * View controller for the Magic `<WebView>` overlay.
  */
 export class ReactNativeWebViewController {
-  public webView: WebView | null;
+  public webView: any;
   private container: ViewWrapper | null;
   public ready: Promise<void>;
-  private styles: ReturnType<typeof StyleSheet.create>;
+  private styles: any;
 
   constructor(
     private readonly transport: PayloadTransport,
@@ -94,7 +93,7 @@ export class ReactNativeWebViewController {
      * Saves a reference to the underlying `<WebView>` node so we can interact
      * with incoming messages.
      */
-    const webViewRef = useCallback((webView: WebView): void => {
+    const webViewRef = useCallback((webView: any): void => {
       this.webView = webView;
     }, []);
 
@@ -102,7 +101,7 @@ export class ReactNativeWebViewController {
      * Saves a reference to the underlying `<View>` node so we can interact with
      * display styles.
      */
-    const containerRef = useCallback((view: View): void => {
+    const containerRef = useCallback((view: any): void => {
       this.container = {
         ...view,
         showOverlay,
@@ -128,19 +127,19 @@ export class ReactNativeWebViewController {
       return [this.styles['webview-container'], show ? this.styles.show : this.styles.hide];
     }, [show]);
 
-    const handleWebViewMessage = useCallback((event: WebViewMessageEvent) => {
+    const handleWebViewMessage = useCallback((event: any) => {
       this.transport.handleReactNativeWebViewMessage(event);
     }, []);
 
     return (
-      <View ref={containerRef} style={containerStyles}>
-        <WebView
+      <webSafeImports.rn.View ref={containerRef} style={containerStyles}>
+        <webSafeImports.rnwv.WebView
           ref={webViewRef}
           source={{ uri: `${this.endpoint}/send/?params=${encodeURIComponent(this.encodedQueryParams)}` }}
           onMessage={handleWebViewMessage}
           style={this.styles['magic-webview']}
         />
-      </View>
+      </webSafeImports.rn.View>
     );
   };
 
