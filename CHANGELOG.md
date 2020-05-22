@@ -12,6 +12,12 @@
 
 - ...
 
+## `1.3.5` - 05/14/2020
+
+#### Fixed
+
+- Fixed a bug where React Native typings would pollute web environments not using Webpack.
+
 ## `1.3.4` - 05/14/2020
 
 #### Fixed
