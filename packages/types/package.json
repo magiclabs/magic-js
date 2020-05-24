@@ -1,7 +1,7 @@
 {
-  "name": "@magic-sdk/core",
+  "name": "@magic-sdk/types",
   "version": "1.3.5",
-  "description": "Core business logic for Magic SDK packages.",
+  "description": "Shared typings for Magic SDK packages.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
   "repository": {

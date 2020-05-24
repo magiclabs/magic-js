@@ -2,9 +2,13 @@
   "extends": ["@ikscodes/eslint-config"],
   "parserOptions": {
     "project": [
-      "./tsconfig.json",
-      "./webpack/tsconfig.json",
-      "./test/tsconfig.json"
+      "./packages/core/tsconfig.json",
+      "./packages/core/test/tsconfig.json",
+      "./packages/react-native/tsconfig.json",
+      "./packages/react-native/test/tsconfig.json",
+      "./packages/types/tsconfig.json",
+      "./packages/web/tsconfig.json",
+      "./packages/web/test/tsconfig.json"
     ]
   },
   "rules": {
@@ -20,9 +24,13 @@
     "import/resolver": {
       "typescript": {
         "directory": [
-          "./tsconfig.json",
-          "./webpack/tsconfig.json",
-          "./test/tsconfig.json"
+          "./packages/core/tsconfig.json",
+          "./packages/core/test/tsconfig.json",
+          "./packages/react-native/tsconfig.json",
+          "./packages/react-native/test/tsconfig.json",
+          "./packages/types/tsconfig.json",
+          "./packages/web/tsconfig.json",
+          "./packages/web/test/tsconfig.json"
         ]
       }
     }
