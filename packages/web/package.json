@@ -11,15 +11,17 @@
   "homepage": "https://magic.link",
 
   "files": ["dist/**/*"],
-  "main": "dist/index.js",
+  "main": "dist/main/index.js",
   "umd:main": "dist/magic.js",
-  "module": "dist/index.m.js",
-  "esmodule": "dist/index.modern.js",
-  "types": "dist/web/src/index.d.ts",
+  "module": "dist/main/index.m.js",
+  "esmodule": "dist/main/index.modern.js",
+  "types": "dist/main/index.d.ts",
 
   "scripts": {
-    "dev": "microbundle watch src/index.ts --target web --format modern,es,cjs,umd",
-    "build": "microbundle build src/index.ts --target web --format modern,es,cjs,umd"
+    "dev": "microbundle watch src/index.ts --target web --format modern,es,cjs",
+    "build": "yarn run build:main && yarn run build:cdn",
+    "build:main": "microbundle build src/index.ts --target web --format modern,es,cjs",
+    "build:cdn": "microbundle build src/index.cdn.ts --output dist/magic.js --target web --name Magic --format umd"
   },
 
   "dependencies": {},

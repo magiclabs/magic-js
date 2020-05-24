@@ -14,7 +14,7 @@
   "main": "dist/index.js",
   "module": "dist/index.m.js",
   "esmodule": "dist/index.modern.js",
-  "types": "dist/react-native/src/index.d.ts",
+  "types": "dist/index.d.ts",
 
   "scripts": {
     "dev": "microbundle watch src/index.ts --target node --format modern,es,cjs --external react,react-native-webview,whatwg-url",
