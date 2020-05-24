@@ -15,7 +15,21 @@ Please note we have a **code of conduct**, please follow it in all your interact
 - For chores/the rest: `chore/[descriptive_chore_name]`
 
 4. Install dependencies with Yarn: `yarn install`
-5. Start building for development: `yarn start`
+5. Start building for development: `yarn dev`
+
+### Development Scripts
+
+| NPM Script | Usage | Description |
+| ---------- | ----- | ----------- |
+| `bootstrap` | `yarn bootstrap` | Install dependencies/set up a local development environment. |
+| `exec` | `PKG=$PACKAGE_TARGET yarn exec -- ...` | Execute commands in the specified package. |
+| `dev` | `PKG=$PACKAGE_TARGET yarn dev` | Start the specified package in development mode, or all packages if `$PKG` is omitted. |
+| `build` | `PKG=$PACKAGE_TARGET yarn build` | Build the specified package for production, or all packages if `$PKG` is omitted. |
+| `clean` | `PKG=$PACKAGE_TARGET yarn clean` | Run cleaning scripts for the specified package, or all packages if `$PKG` is omitted. |
+| `lint` | `PKG=$PACKAGE_TARGET yarn lint` | Run the linter for the specified package, or all packages if `$PKG` is omitted. |
+| `test` | `PKG=$PACKAGE_TARGET yarn test` | Run tests for the specified package, or all packages if `$PKG` is omitted. |
+| `release` | `yarn release` | Publishes all packages with unreleased versions. |
+| `release_canary` | `yarn release_canary` | Publishes pre-release versions for all packages. |
 
 ## Opening a Pull Request
 
