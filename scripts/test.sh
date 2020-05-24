@@ -14,3 +14,9 @@ fi
 
 export TS_NODE_PROJECT="test/tsconfig.json"
 npx nyc --reporter=lcov --reporter=text-summary ava $input
+
+if [ $PKG ] ; then
+  lerna exec --scope $PKG -- npx nyc --reporter=lcov --reporter=text-summary ava $input
+else
+  lerna exec -- npx nyc --reporter=lcov --reporter=text-summary ava $input
+fi

@@ -1,0 +1,48 @@
+{
+  "name": "@magic-sdk/core",
+  "version": "1.3.5",
+  "description": "(CORE PACKAGE) Passwordless authentication for the web.",
+  "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fortmatic/magic-js"
+  },
+  "homepage": "https://magic.link",
+
+  "files": ["dist/**/*"],
+  "main": "dist/index.js",
+  "module": "dist/index.m.js",
+  "esmodule": "dist/index.modern.js",
+  "types": "dist/core/src/index.d.ts",
+
+  "scripts": {
+    "dev": "microbundle watch src/index.ts --target web --format modern,es,cjs",
+    "build": "microbundle build src/index.ts --target web --format modern,es,cjs"
+  },
+
+  "dependencies": {},
+
+  "devDependencies": {},
+
+  "peerDependencies": {},
+
+  "ava": {
+    "require": ["ts-node/register", "./test/setup.ts"],
+    "files": ["test/**/*.spec.ts"],
+    "extensions": ["ts", "tsx"],
+    "compileEnhancements": false,
+    "verbose": true
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": false,
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 99,
+    "statements": 99,
+    "functions": 99,
+    "branches": 99,
+    "reporter": ["html", "lcov"]
+  }
+}

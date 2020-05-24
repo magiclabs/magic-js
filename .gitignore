@@ -1,10 +1,12 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 /node_modules
+/**/node_modules
 /.vscode
 /.idea
 .DS_Store
-/dist
-/coverage
-/.nyc_output
+/**/dist
+/**/coverage
+/**/.nyc_output
 /package-lock.json
+/**/package-lock.json

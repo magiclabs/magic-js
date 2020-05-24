@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["es2018", "dom"],
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "target": "es5",
     "strict": true,
@@ -18,9 +18,8 @@
     "declaration": true,
   },
   "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx",
-    "../test/**/*.ts",
-    "../webpack/**/*.ts"
+    "../packages/**/*.ts",
+    "../packages/**/*.tsx",
+    "../test/**/*.ts"
   ]
 }
