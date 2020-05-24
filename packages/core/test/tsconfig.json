@@ -1,5 +1,5 @@
 {
-  "extends": "../../../config/tsconfig.base.json",
+  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "target": "es6",
     "strict": false,
