@@ -8,7 +8,7 @@ export class AuthModule extends BaseModule {
    * this method will return a Decentralized ID token (with a default lifespan
    * of 15 minutes).
    */
-  public async loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
+  public loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
     const { email, showUI = true } = configuration;
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.LoginWithMagicLink, [{ email, showUI }]);
     return this.request<string | null>(requestPayload);

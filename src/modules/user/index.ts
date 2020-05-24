@@ -28,7 +28,7 @@ export class UserModule extends BaseModule {
   }
 
   /** */
-  public async updateEmail(configuration: UpdateEmailConfiguration) {
+  public updateEmail(configuration: UpdateEmailConfiguration) {
     const { email, showUI = true } = configuration;
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.UpdateEmail, [{ email, showUI }]);
     return this.request<string | null>(requestPayload);

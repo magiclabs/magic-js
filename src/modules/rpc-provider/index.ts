@@ -14,6 +14,7 @@ import {
   createSynchronousWeb3MethodWarning,
 } from '../../core/sdk-exceptions';
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload, JsonRpcResponse } from '../../core/json-rpc';
+import { PromiEvent, EventsDefinition } from '../../util/promise-tools';
 
 /** */
 export class RPCProviderModule extends BaseModule {
@@ -70,14 +71,14 @@ export class RPCProviderModule extends BaseModule {
   }
 
   /* eslint-disable prettier/prettier */
-  public send<ResultType>(method: string, params?: any[]): Promise<ResultType>;
+  public send<ResultType = any, Events extends EventsDefinition = {}>(method: string, params?: any[]): PromiEvent<ResultType, Events>;
   public send(payload: JsonRpcRequestPayload | JsonRpcRequestPayload[], onRequestComplete: JsonRpcRequestCallback): void;
   public send<ResultType>(payload: JsonRpcRequestPayload, none: void): JsonRpcResponsePayload<ResultType>;
   /* eslint-enable prettier/prettier */
-  public send<ResultType = any>(
+  public send<ResultType = any, Events extends EventsDefinition = {}>(
     payloadOrMethod: string | JsonRpcRequestPayload | JsonRpcRequestPayload[],
     onRequestCompleteOrParams: JsonRpcRequestCallback | any[] | void,
-  ): Promise<ResultType> | JsonRpcResponsePayload<ResultType> | void {
+  ): PromiEvent<ResultType, Events> | JsonRpcResponsePayload<ResultType> | void {
     // Case #1
     // Web3 >= 1.0.0-beta.38 calls `send` with method and parameters.
     if (typeof payloadOrMethod === 'string') {
