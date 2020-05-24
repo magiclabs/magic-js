@@ -25,7 +25,7 @@ interface StandardizedResponse {
  */
 function getRequestPayloadFromBatch(
   requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
-  id?: string | number,
+  id?: string | number | null,
 ): JsonRpcRequestPayload | undefined {
   return id && Array.isArray(requestPayload)
     ? requestPayload.find(p => p.id === id)
@@ -40,7 +40,7 @@ function standardizeResponse(
   requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   event: MagicMessageEvent,
 ): StandardizedResponse {
-  const id = event.data.response?.id ?? undefined;
+  const { id } = event.data.response;
   const requestPayloadResolved = getRequestPayloadFromBatch(requestPayload, id);
 
   if (id && requestPayloadResolved) {

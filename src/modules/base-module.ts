@@ -1,4 +1,4 @@
-import { JsonRpcRequestPayload, MagicOutgoingWindowMessage } from '../types';
+import { JsonRpcRequestPayload, MagicOutgoingWindowMessage, MagicIncomingWindowMessage } from '../types';
 import { createMalformedResponseError, MagicRPCError } from '../core/sdk-exceptions';
 import { PayloadTransport } from '../core/payload-transport';
 import { ViewController } from '../types/core/view-types';
@@ -24,12 +24,25 @@ export class BaseModule {
       standardizeJsonRpcRequestPayload(payload),
     );
 
-    return createPromiEvent<ResultType, Events>((resolve, reject) => {
+    // PromiEvent-ify the response.
+    const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
       responsePromise.then(res => {
         if (res.hasError) reject(new MagicRPCError(res.payload.error));
         else if (res.hasResult) resolve(res.payload.result as ResultType);
         else throw createMalformedResponseError();
       });
     });
+
+    // Listen for events from the `<iframe>` associated with the current payload
+    // and emit those to `PromiEvent` subscribers.
+    this.transport.on(MagicIncomingWindowMessage.MAGIC_HANDLE_EVENT, evt => {
+      const { response } = evt.data;
+      if (response.id === payload.id && response.result?.event) {
+        const { event, params = [] } = response.result;
+        promiEvent.emit(event, ...params);
+      }
+    });
+
+    return promiEvent;
   }
 }
