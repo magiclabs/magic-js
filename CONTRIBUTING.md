@@ -14,7 +14,7 @@ Please note we have a **code of conduct**, please follow it in all your interact
 - For features: `feature/#[issue_number]/[descriptive_feature_name]`
 - For chores/the rest: `chore/[descriptive_chore_name]`
 
-4. Install dependencies with Yarn: `yarn install`
+4. Install & hoist dependencies with Yarn + Lerna: `yarn bootstrap`
 5. Start building for development: `yarn dev`
 
 ### Development Scripts
