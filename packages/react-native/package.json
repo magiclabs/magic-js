@@ -9,24 +9,25 @@
     "url": "https://github.com/fortmatic/magic-js"
   },
   "homepage": "https://magic.link",
-
   "files": ["dist/**/*"],
   "main": "dist/index.js",
   "module": "dist/index.m.js",
   "esmodule": "dist/index.modern.js",
   "types": "dist/index.d.ts",
-
   "scripts": {
-    "dev": "microbundle watch src/index.ts --target node --format modern,es,cjs --external react,react-native-webview,whatwg-url",
-    "build": "microbundle build src/index.ts --target node --format modern,es,cjs --external react,react-native-webview,whatwg-url"
+    "dev": "microbundle watch src/index.ts --target node --format modern,es,cjs --jsx React.createElement --external react,react-native",
+    "build": "microbundle build src/index.ts --target node --format modern,es,cjs --jsx React.createElement --external react,react-native"
   },
-
-  "dependencies": {},
-
-  "devDependencies": {},
-
+  "dependencies": {
+    "@magic-sdk/core": "1.3.5",
+    "react-native-webview": "^8.1.2",
+    "whatwg-url": "^8.0.0"
+  },
+  "devDependencies": {
+    "react": "^16.13.1",
+    "react-native": "^0.62.2"
+  },
   "peerDependencies": {},
-
   "ava": {
     "require": ["ts-node/register", "./test/setup.ts"],
     "files": ["test/**/*.spec.ts"],

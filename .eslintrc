@@ -1,16 +1,6 @@
 {
+  "root": true,
   "extends": ["@ikscodes/eslint-config"],
-  "parserOptions": {
-    "project": [
-      "./packages/core/tsconfig.json",
-      "./packages/core/test/tsconfig.json",
-      "./packages/react-native/tsconfig.json",
-      "./packages/react-native/test/tsconfig.json",
-      "./packages/types/tsconfig.json",
-      "./packages/web/tsconfig.json",
-      "./packages/web/test/tsconfig.json"
-    ]
-  },
   "rules": {
     "import/extensions": 0,
     "no-alert": 0,
@@ -18,21 +8,7 @@
     "no-useless-constructor": 0,
     "@typescript-eslint/no-useless-constructor": 0,
     "@typescript-eslint/no-empty-function": 0,
+    "class-methods-use-this": 0,
     "import/no-extraneous-dependencies": [1, {"devDependencies": true}]
-  },
-  "settings": {
-    "import/resolver": {
-      "typescript": {
-        "directory": [
-          "./packages/core/tsconfig.json",
-          "./packages/core/test/tsconfig.json",
-          "./packages/react-native/tsconfig.json",
-          "./packages/react-native/test/tsconfig.json",
-          "./packages/types/tsconfig.json",
-          "./packages/web/tsconfig.json",
-          "./packages/web/test/tsconfig.json"
-        ]
-      }
-    }
   }
 }

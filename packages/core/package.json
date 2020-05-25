@@ -9,28 +9,38 @@
     "url": "https://github.com/fortmatic/magic-js"
   },
   "homepage": "https://magic.link",
-
-  "files": ["dist/**/*"],
-  "main": "dist/index.js",
-  "module": "dist/index.m.js",
-  "esmodule": "dist/index.modern.js",
-  "types": "dist/index.d.ts",
-
+  "files": [
+    "dist/**/*"
+  ],
+  "main": "dist/main/index.js",
+  "module": "dist/main/index.m.js",
+  "esmodule": "dist/main/index.modern.js",
+  "types": "dist/main/index.d.ts",
   "scripts": {
-    "dev": "microbundle watch src/index.ts --target web --format modern,es,cjs",
-    "build": "microbundle build src/index.ts --target web --format modern,es,cjs"
+    "dev": "npm-run-all -p dev:*",
+    "dev:main": "microbundle watch src/index.ts --target web --format modern,es,cjs --external none",
+    "dev:types": "microbundle watch src/index.types.ts --output dist/types/index.js --target web --format modern,es,cjs --external none",
+    "build": "npm-run-all -s build:*",
+    "build:main": "microbundle build src/index.ts --target web --format modern,es,cjs",
+    "build:types": "microbundle build src/index.types.ts --output dist/types/index.js --target web --format modern,es,cjs --external none"
   },
-
-  "dependencies": {},
-
+  "dependencies": {
+    "eventemitter3": "^4.0.4"
+  },
   "devDependencies": {},
-
   "peerDependencies": {},
-
   "ava": {
-    "require": ["ts-node/register", "./test/setup.ts"],
-    "files": ["test/**/*.spec.ts"],
-    "extensions": ["ts", "tsx"],
+    "require": [
+      "ts-node/register",
+      "./test/setup.ts"
+    ],
+    "files": [
+      "test/**/*.spec.ts"
+    ],
+    "extensions": [
+      "ts",
+      "tsx"
+    ],
     "compileEnhancements": false,
     "verbose": true
   },
@@ -43,6 +53,9 @@
     "statements": 99,
     "functions": 99,
     "branches": 99,
-    "reporter": ["html", "lcov"]
+    "reporter": [
+      "html",
+      "lcov"
+    ]
   }
 }

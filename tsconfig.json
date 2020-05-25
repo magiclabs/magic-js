@@ -19,7 +19,6 @@
   },
   "include": [
     "../packages/**/*.ts",
-    "../packages/**/*.tsx",
-    "../test/**/*.ts"
+    "../packages/**/*.tsx"
   ]
 }

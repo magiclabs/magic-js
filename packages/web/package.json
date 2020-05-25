@@ -9,27 +9,23 @@
     "url": "https://github.com/fortmatic/magic-js"
   },
   "homepage": "https://magic.link",
-
   "files": ["dist/**/*"],
   "main": "dist/main/index.js",
   "umd:main": "dist/magic.js",
   "module": "dist/main/index.m.js",
   "esmodule": "dist/main/index.modern.js",
   "types": "dist/main/index.d.ts",
-
   "scripts": {
-    "dev": "microbundle watch src/index.ts --target web --format modern,es,cjs",
+    "dev": "microbundle watch src/index.ts --target web --format modern,es,cjs --external none",
     "build": "yarn run build:main && yarn run build:cdn",
-    "build:main": "microbundle build src/index.ts --target web --format modern,es,cjs",
-    "build:cdn": "microbundle build src/index.cdn.ts --output dist/magic.js --target web --name Magic --format umd"
+    "build:main": "microbundle build src/index.ts --target web --format modern,es,cjs --external none",
+    "build:cdn": "microbundle build src/index.cdn.ts --tsconfig tsconfig.no-types.json --output dist/magic.js --target web --name Magic --format umd --external none"
   },
-
-  "dependencies": {},
-
+  "dependencies": {
+    "@magic-sdk/core": "1.3.5"
+  },
   "devDependencies": {},
-
   "peerDependencies": {},
-
   "ava": {
     "require": ["ts-node/register", "./test/setup.ts"],
     "files": ["test/**/*.spec.ts"],
