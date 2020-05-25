@@ -8,7 +8,7 @@
  * https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types
  */
 
-import { JsonRpcRequestPayload, JsonRpcResponsePayload, MagicPayloadMethod, RPCErrorCode } from '../types';
+import { JsonRpcRequestPayload, JsonRpcResponsePayload, MagicPayloadMethod, RPCErrorCode } from '@magic-sdk/types';
 
 /**
  * Assert `value` is `undefined`.

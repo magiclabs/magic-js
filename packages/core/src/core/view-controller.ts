@@ -1,5 +1,5 @@
+import { MagicIncomingWindowMessage, MagicMessageRequest } from '@magic-sdk/types';
 import { PayloadTransport } from './payload-transport';
-import { MagicIncomingWindowMessage, MagicMessageRequest } from '../types';
 
 export abstract class ViewController<Transport extends PayloadTransport = PayloadTransport> {
   public ready: Promise<void>;
@@ -9,19 +9,18 @@ export abstract class ViewController<Transport extends PayloadTransport = Payloa
     protected readonly endpoint: string,
     protected readonly encodedQueryParams: string,
   ) {
-    this.ready = this.waitForReady();
-    this.init();
+    this.ready = new Promise(resolve => {
+      this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
+    });
+
+    if (this.init) this.init();
     this.listen();
   }
 
-  /**
-   * Set the controller as "ready" for JSON RPC events.
-   */
-  private waitForReady() {
-    return new Promise<void>(resolve => {
-      this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
-    });
-  }
+  protected abstract init(): void;
+  public abstract postMessage(data: MagicMessageRequest): Promise<void>;
+  protected abstract hideOverlay(): void;
+  protected abstract showOverlay(): void;
 
   /**
    * Listen for messages sent from the underlying Magic `<WebView>`.
@@ -35,9 +34,4 @@ export abstract class ViewController<Transport extends PayloadTransport = Payloa
       this.showOverlay();
     });
   }
-
-  protected abstract init(): void;
-  public abstract postMessage(data: MagicMessageRequest): Promise<void>;
-  protected abstract hideOverlay(): void;
-  protected abstract showOverlay(): void;
 }

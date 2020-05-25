@@ -1,5 +1,5 @@
 import { PayloadTransport } from '@magic-sdk/core';
-import { MagicMessageEvent } from '@magic-sdk/core/types';
+import { MagicMessageEvent } from '@magic-sdk/types';
 
 export class ReactNativeTransport extends PayloadTransport {
   protected init() {}

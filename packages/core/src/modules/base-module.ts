@@ -1,4 +1,4 @@
-import { JsonRpcRequestPayload, MagicOutgoingWindowMessage, MagicIncomingWindowMessage } from '../types';
+import { JsonRpcRequestPayload, MagicOutgoingWindowMessage, MagicIncomingWindowMessage } from '@magic-sdk/types';
 import { createMalformedResponseError, MagicRPCError } from '../core/sdk-exceptions';
 import { PayloadTransport } from '../core/payload-transport';
 import { SDKBase } from '../core/sdk';
@@ -17,7 +17,7 @@ export class BaseModule {
     return (this.sdk as any).overlay;
   }
 
-  protected request<ResultType = any, Events extends EventsDefinition = {}>(payload: JsonRpcRequestPayload) {
+  protected request<ResultType = any, Events extends EventsDefinition = {}>(payload: Partial<JsonRpcRequestPayload>) {
     const responsePromise = this.transport.post<ResultType>(
       this.overlay,
       MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,

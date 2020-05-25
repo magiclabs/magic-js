@@ -3,7 +3,7 @@ import {
   MagicOutgoingWindowMessage,
   JsonRpcRequestPayload,
   MagicMessageEvent,
-} from '../types';
+} from '@magic-sdk/types';
 import { JsonRpcResponse } from './json-rpc';
 import { ViewController } from './view-controller';
 import { createAutoCatchingPromise } from '../util/promise-tools';
@@ -67,6 +67,8 @@ export abstract class PayloadTransport {
   constructor(protected readonly endpoint: string, protected readonly encodedQueryParams: string) {
     this.init();
   }
+
+  protected abstract init(): void;
 
   /**
    * Send a payload to the Magic `<iframe>` for processing and automatically
@@ -149,51 +151,5 @@ export abstract class PayloadTransport {
 
     this.messageHandlers.add(listener);
     return () => this.messageHandlers.delete(listener);
-  }
-
-  protected abstract init(): void;
-
-  /**
-   * Route incoming messages from a React Native `<WebView>`.
-   */
-  public handleReactNativeWebViewMessage(event: any) {
-    if (
-      event.nativeEvent &&
-      event.nativeEvent.url === `${this.endpoint}/send/?params=${this.encodedQueryParams}` &&
-      typeof event.nativeEvent.data === 'string'
-    ) {
-      const data: any = JSON.parse(event.nativeEvent.data);
-      if (data && data.msgType && this.messageHandlers.size) {
-        // If the response object is undefined, we ensure it's at least an
-        // empty object before passing to the event listener.
-        /* eslint-disable-next-line no-param-reassign */
-        data.response = data.response ?? {};
-
-        // Reconstruct event from RN event
-        const magicEvent: MagicMessageEvent = { data } as MagicMessageEvent;
-        for (const handler of this.messageHandlers.values()) {
-          handler(magicEvent);
-        }
-      }
-    }
-  }
-
-  /**
-   * Initialize the underlying `Window.onmessage` event listener.
-   */
-  private initMessageListener() {
-    window.addEventListener('message', (event: MessageEvent) => {
-      if (event.origin === this.endpoint) {
-        if (event.data && event.data.msgType && this.messageHandlers.size) {
-          // If the response object is undefined, we ensure it's at least an
-          // empty object before passing to the event listener.
-          /* eslint-disable-next-line no-param-reassign */
-          event.data.response = event.data.response ?? {};
-          for (const handler of this.messageHandlers.values()) {
-            handler(event);
-          }
-        }
-      }
-    });
   }
 }

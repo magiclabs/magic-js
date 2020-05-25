@@ -1,4 +1,4 @@
-import { SDKErrorCode, SDKWarningCode, RPCErrorCode, JsonRpcError } from '../types';
+import { SDKErrorCode, SDKWarningCode, RPCErrorCode, JsonRpcError } from '@magic-sdk/types';
 import { isJsonRpcErrorCode } from '../util/type-guards';
 import { MGBOX_URL } from '../constants/config';
 

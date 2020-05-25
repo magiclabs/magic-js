@@ -19,7 +19,11 @@
     "build": "microbundle build src/index.ts --target node --format modern,es,cjs --jsx React.createElement --external react,react-native"
   },
   "dependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/runtime": "^7.9.6",
+    "regenerator-runtime": "0.13.5",
     "@magic-sdk/core": "1.3.5",
+    "@magic-sdk/types": "1.3.5",
     "react-native-webview": "^8.1.2",
     "whatwg-url": "^8.0.0"
   },

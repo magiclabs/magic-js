@@ -12,22 +12,21 @@
   "files": [
     "dist/**/*"
   ],
-  "main": "dist/main/index.js",
-  "module": "dist/main/index.m.js",
-  "esmodule": "dist/main/index.modern.js",
-  "types": "dist/main/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.m.js",
+  "esmodule": "dist/index.modern.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "npm-run-all -p dev:*",
-    "dev:main": "microbundle watch src/index.ts --target web --format modern,es,cjs --external none",
-    "dev:types": "microbundle watch src/index.types.ts --output dist/types/index.js --target web --format modern,es,cjs --external none",
-    "build": "npm-run-all -s build:*",
-    "build:main": "microbundle build src/index.ts --target web --format modern,es,cjs",
-    "build:types": "microbundle build src/index.types.ts --output dist/types/index.js --target web --format modern,es,cjs --external none"
+    "dev": "microbundle watch src/index.ts --define $ENV --target web --format modern,es,cjs --external none",
+    "build": "microbundle build src/index.ts --define $ENV --target web --format modern,es,cjs --external none"
   },
   "dependencies": {
+    "@magic-sdk/types": "1.3.5",
     "eventemitter3": "^4.0.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.9.6"
+  },
   "peerDependencies": {},
   "ava": {
     "require": [

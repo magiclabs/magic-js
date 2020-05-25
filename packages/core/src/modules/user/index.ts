@@ -1,11 +1,11 @@
-import { BaseModule } from '../base-module';
 import {
   GetIdTokenConfiguration,
   MagicPayloadMethod,
   MagicUserMetadata,
   GenerateIdTokenConfiguration,
   UpdateEmailConfiguration,
-} from '../../types';
+} from '@magic-sdk/types';
+import { BaseModule } from '../base-module';
 import { createJsonRpcRequestPayload } from '../../core/json-rpc';
 
 export class UserModule extends BaseModule {

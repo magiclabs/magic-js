@@ -1,13 +1,13 @@
 /* eslint-disable consistent-return */
 
-import { BaseModule } from '../base-module';
 import {
   JsonRpcRequestPayload,
   JsonRpcRequestCallback,
   MagicOutgoingWindowMessage,
   JsonRpcBatchRequestCallback,
   JsonRpcResponsePayload,
-} from '../../types';
+} from '@magic-sdk/types';
+import { BaseModule } from '../base-module';
 import {
   createInvalidArgumentError,
   MagicRPCError,

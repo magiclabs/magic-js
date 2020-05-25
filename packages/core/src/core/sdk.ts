@@ -1,23 +1,38 @@
 /* eslint-disable no-underscore-dangle, no-param-reassign  */
 
+import { EthNetworkConfiguration } from '@magic-sdk/types';
 import { encodeQueryParameters } from '../util/query-params';
 import { createMissingApiKeyError, createReactNativeEndpointConfigurationWarning } from './sdk-exceptions';
 import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
-import { MAGIC_URL, SDK_NAME, SDK_VERSION, IS_REACT_NATIVE, MGBOX_URL } from '../constants/config';
-import { MagicSDKAdditionalConfiguration } from '../types';
-import { WithExtensions } from '../types/core/extension-types';
+import { VERSION, MGBOX_URL, MAGIC_URL } from '../constants/config';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
-import { Extension } from '../modules/base-extension';
+import { Extension, WithExtensions } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
-import { ConstructorOf } from '../types/utility-types';
+
+type ConstructorOf<C> = { new (...args: any[]): C };
+
+interface SDKEnvironment {
+  sdkName: string;
+  target: 'web' | 'react-native';
+  ViewController: ConstructorOf<ViewController>;
+  PayloadTransport: ConstructorOf<PayloadTransport>;
+}
+
+export interface MagicSDKAdditionalConfiguration<
+  TCustomExtName extends string = string,
+  TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> } = any
+> {
+  endpoint?: string;
+  network?: EthNetworkConfiguration;
+  extensions?: TExt;
+}
 
 export class SDKBase {
-  protected ViewController!: ConstructorOf<ViewController>;
-  protected PayloadTransport!: ConstructorOf<PayloadTransport>;
+  private static environment: SDKEnvironment;
 
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
   private static readonly __overlays__: Map<string, ViewController> = new Map();
@@ -48,12 +63,12 @@ export class SDKBase {
   constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
 
-    if (IS_REACT_NATIVE && options?.endpoint) {
+    if (SDKBase.environment.target === 'react-native' && options?.endpoint) {
       createReactNativeEndpointConfigurationWarning().log();
     }
 
-    const fallbackEndpoint = IS_REACT_NATIVE ? MGBOX_URL : MAGIC_URL;
-    this.endpoint = createURL(options?.endpoint ?? fallbackEndpoint).origin;
+    const fallbackURL = SDKBase.environment.target === 'react-native' ? MGBOX_URL : MAGIC_URL;
+    this.endpoint = createURL(options?.endpoint ?? fallbackURL).origin;
 
     // Assign API Modules
     this.auth = new AuthModule(this);
@@ -89,8 +104,8 @@ export class SDKBase {
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
       ETH_NETWORK: options?.network,
       host: createURL(this.endpoint).host,
-      sdk: IS_REACT_NATIVE ? `${SDK_NAME}-rn` : SDK_NAME,
-      version: SDK_VERSION,
+      sdk: SDKBase.environment.sdkName,
+      version: VERSION,
       ext: isEmpty(extConfig) ? undefined : extConfig,
     });
   }
@@ -103,7 +118,7 @@ export class SDKBase {
     if (!SDKBase.__transports__.has(this.encodedQueryParams)) {
       SDKBase.__transports__.set(
         this.encodedQueryParams,
-        new this.PayloadTransport(this.endpoint, this.encodedQueryParams),
+        new SDKBase.environment.PayloadTransport(this.endpoint, this.encodedQueryParams),
       );
     }
 
@@ -115,7 +130,7 @@ export class SDKBase {
    */
   protected get overlay(): ViewController {
     if (!SDKBase.__overlays__.has(this.encodedQueryParams)) {
-      const controller = new this.ViewController(this.transport, this.endpoint, this.encodedQueryParams);
+      const controller = new SDKBase.environment.ViewController(this.transport, this.endpoint, this.encodedQueryParams);
       SDKBase.__overlays__.set(this.encodedQueryParams, controller);
     }
 
@@ -134,11 +149,14 @@ export class SDKBase {
 
 export function createSDKCtor<SDK extends SDKBase>(
   SDKBaseCtor: ConstructorOf<SDK>,
-  ViewControllerCtor: ConstructorOf<ViewController>,
-  PayloadTransportCtor: ConstructorOf<PayloadTransport>,
+  config: SDKEnvironment,
 ): WithExtensions<SDK> {
-  return class extends (SDKBaseCtor as any) {
-    PayloadTransport = PayloadTransportCtor;
-    ViewController = ViewControllerCtor;
-  } as any;
+  (SDKBase as any).environment = {
+    target: config.target,
+    sdkName: config.sdkName,
+    PayloadTransport: config.PayloadTransport,
+    ViewController: config.ViewController,
+  };
+
+  return SDKBaseCtor as any;
 }

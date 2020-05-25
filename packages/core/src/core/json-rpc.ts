@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle, no-param-reassign */
 
-import { JsonRpcRequestPayload, JsonRpcResponsePayload, JsonRpcError } from '../types';
+import { JsonRpcRequestPayload, JsonRpcResponsePayload, JsonRpcError } from '@magic-sdk/types';
 import { isJsonRpcResponsePayload } from '../util/type-guards';
 import { getPayloadId } from '../util/get-payload-id';
 

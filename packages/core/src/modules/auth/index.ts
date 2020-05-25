@@ -1,5 +1,5 @@
+import { MagicPayloadMethod, LoginWithMagicLinkConfiguration } from '@magic-sdk/types';
 import { BaseModule } from '../base-module';
-import { MagicPayloadMethod, LoginWithMagicLinkConfiguration } from '../../types';
 import { createJsonRpcRequestPayload } from '../../core/json-rpc';
 
 export class AuthModule extends BaseModule {

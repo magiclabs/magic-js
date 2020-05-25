@@ -19,10 +19,14 @@
     "dev": "microbundle watch src/index.ts --target web --format modern,es,cjs --external none",
     "build": "yarn run build:main && yarn run build:cdn",
     "build:main": "microbundle build src/index.ts --target web --format modern,es,cjs --external none",
-    "build:cdn": "microbundle build src/index.cdn.ts --tsconfig tsconfig.no-types.json --output dist/magic.js --target web --name Magic --format umd --external none"
+    "build:cdn": "microbundle build src/index.cdn.ts --tsconfig tsconfig.cdn.json --output dist/magic.js --target web --name Magic --format umd --external none"
   },
   "dependencies": {
-    "@magic-sdk/core": "1.3.5"
+    "@babel/core": "^7.9.6",
+    "@babel/runtime": "^7.9.6",
+    "regenerator-runtime": "0.13.5",
+    "@magic-sdk/core": "1.3.5",
+    "@magic-sdk/types": "1.3.5"
   },
   "devDependencies": {},
   "peerDependencies": {},

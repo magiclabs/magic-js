@@ -1,5 +1,7 @@
 /* eslint-disable global-require */
 
+import 'regenerator-runtime/runtime';
+
 import { SDKBase, createSDKCtor } from '@magic-sdk/core';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { ReactNativeTransport } from './react-native-transport';
@@ -36,9 +38,10 @@ export {
   MagicSDKError as SDKError,
   MagicSDKWarning as SDKWarning,
   MagicRPCError as RPCError,
+  MagicSDKAdditionalConfiguration,
 } from '@magic-sdk/core';
 
-export * from '@magic-sdk/core/types';
+export * from '@magic-sdk/types';
 
 class SDKBaseReactNative extends SDKBase {
   public get Relayer() {
@@ -46,5 +49,11 @@ class SDKBaseReactNative extends SDKBase {
   }
 }
 
-export const Magic = createSDKCtor(SDKBaseReactNative, ReactNativeWebViewController, ReactNativeTransport);
+export const Magic = createSDKCtor(SDKBaseReactNative, {
+  target: 'react-native',
+  sdkName: 'magic-sdk-rn',
+  ViewController: ReactNativeWebViewController,
+  PayloadTransport: ReactNativeTransport,
+});
+
 export type Magic = InstanceType<typeof Magic>;
