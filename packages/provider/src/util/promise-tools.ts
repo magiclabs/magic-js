@@ -1,31 +1,5 @@
-import EventEmitter from 'eventemitter3';
+import { TypedEmitter, EventsDefinition } from './events';
 import { MagicSDKError, MagicRPCError } from '../core/sdk-exceptions';
-
-export type EventsDefinition<EventName extends string = string> = {
-  [P in EventName]: (...args: any[]) => void;
-};
-
-type Arguments<T> = [T] extends [(...args: infer U) => any] ? U : [T] extends [void] ? [] : [T];
-
-/**
- * Adapted from `typed-emitter`, made to work with `eventemitter3`.
- *
- * @see https://github.com/andywer/typed-emitter
- */
-interface TypedEmitter<Events extends EventsDefinition> {
-  addListener<E extends keyof Events>(event: E, listener: Events[E]): this;
-  on<E extends keyof Events>(event: E, listener: Events[E]): this;
-  once<E extends keyof Events>(event: E, listener: Events[E]): this;
-
-  off<E extends keyof Events>(event: E, listener: Events[E]): this;
-  removeAllListeners<E extends keyof Events>(event?: E): this;
-  removeListener<E extends keyof Events>(event: E, listener: Events[E]): this;
-
-  emit<E extends keyof Events>(event: E, ...args: Arguments<Events[E]>): boolean;
-  eventNames(): (keyof Events | string | symbol)[];
-  listeners<E extends keyof Events>(event: E): Function[];
-  listenerCount<E extends keyof Events>(event: E): number;
-}
 
 /**
  * An exact replication of the `Promise` interface with an updated return type
@@ -47,8 +21,11 @@ interface EventedPromiseChain<T, TEvents extends EventsDefinition> extends Promi
 /**
  * A `Promise` and `EventEmitter` all in one!
  */
-export type PromiEvent<TResult, TEvents extends EventsDefinition> = EventedPromiseChain<TResult, TEvents> &
-  TypedEmitter<TEvents>;
+export type PromiEvent<TResult, TEvents extends EventsDefinition = void> = EventedPromiseChain<
+  TResult,
+  TEvents extends void ? DefaultEvents<TResult> : TEvents & DefaultEvents<TResult>
+> &
+  TypedEmitter<TEvents extends void ? DefaultEvents<TResult> : TEvents & DefaultEvents<TResult>>;
 
 /**
  * Default events attached to every `PromiEvent`.
@@ -60,7 +37,7 @@ type DefaultEvents<TResult> = {
 };
 
 /**
- * A `Promise` executor with the option of being asynchronous.
+ * A `Promise` executor with can be optionally asynchronous.
  */
 type AsyncPromiseExecutor<TResult> = (
   resolve: (value?: TResult | PromiseLike<TResult>) => void,
@@ -78,11 +55,11 @@ function clonePromise<T extends Promise<any>>(promise: T): T {
  * Create a native JavaScript `Promise` overloaded with strongly-typed methods
  * from `EventEmitter`.
  */
-export function createPromiEvent<TResult, TEvents extends EventsDefinition = {}>(
+export function createPromiEvent<TResult, TEvents extends EventsDefinition = void>(
   executor: AsyncPromiseExecutor<TResult>,
 ): PromiEvent<TResult, TEvents & DefaultEvents<TResult>> {
   const promise = createAutoCatchingPromise(executor);
-  const eventEmitter = new EventEmitter() as TypedEmitter<TEvents & DefaultEvents<TResult>>;
+  const eventEmitter = new TypedEmitter<TEvents & DefaultEvents<TResult>>();
 
   const promiEvent = () => {
     return Object.assign(clonePromise(promise), {

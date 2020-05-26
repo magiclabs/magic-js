@@ -3,11 +3,14 @@ import { createMalformedResponseError, MagicRPCError } from '../core/sdk-excepti
 import { PayloadTransport } from '../core/payload-transport';
 import { SDKBase } from '../core/sdk';
 import { standardizeJsonRpcRequestPayload } from '../core/json-rpc';
-import { createPromiEvent, EventsDefinition } from '../util/promise-tools';
+import { createPromiEvent } from '../util/promise-tools';
 import { ViewController } from '../core/view-controller';
+import { EventsDefinition, TypedEmitter } from '../util/events';
 
-export class BaseModule {
-  constructor(protected readonly sdk: SDKBase) {}
+export class BaseModule<ModuleEvents extends EventsDefinition = void> extends TypedEmitter<ModuleEvents> {
+  constructor(protected readonly sdk: SDKBase) {
+    super();
+  }
 
   protected get transport(): PayloadTransport {
     return (this.sdk as any).transport;
@@ -17,7 +20,7 @@ export class BaseModule {
     return (this.sdk as any).overlay;
   }
 
-  protected request<ResultType = any, Events extends EventsDefinition = {}>(payload: Partial<JsonRpcRequestPayload>) {
+  protected request<ResultType = any, Events extends EventsDefinition = any>(payload: Partial<JsonRpcRequestPayload>) {
     const responsePromise = this.transport.post<ResultType>(
       this.overlay,
       MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
