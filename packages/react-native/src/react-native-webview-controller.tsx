@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { ViewController, createModalNotReadyError } from '@magic-sdk/core';
+import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { ReactNativeTransport } from './react-native-transport';
 
 /**

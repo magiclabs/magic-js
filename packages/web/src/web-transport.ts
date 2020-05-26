@@ -1,4 +1,4 @@
-import { PayloadTransport } from '@magic-sdk/core';
+import { PayloadTransport } from '@magic-sdk/provider';
 
 export class WebTransport extends PayloadTransport {
   /**

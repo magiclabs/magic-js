@@ -2,16 +2,16 @@
   "extends": "../../.eslintrc",
   "parserOptions": {
     "project": [
-      "./packages/core/tsconfig.json",
-      "./packages/core/test/tsconfig.json"
+      "./packages/provider/tsconfig.json",
+      "./packages/provider/test/tsconfig.json"
     ]
   },
   "settings": {
     "import/resolver": {
       "typescript": {
         "directory": [
-          "./packages/core/tsconfig.json",
-          "./packages/core/test/tsconfig.json"
+          "./packages/provider/tsconfig.json",
+          "./packages/provider/test/tsconfig.json"
         ]
       }
     }

@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
 
-import { SDKBase, createSDK } from '@magic-sdk/core';
+import { SDKBase, createSDK } from '@magic-sdk/provider';
 import { IframeController } from './iframe-controller';
 import { WebTransport } from './web-transport';
 
@@ -10,7 +10,7 @@ export {
   MagicSDKWarning as SDKWarning,
   MagicRPCError as RPCError,
   MagicSDKAdditionalConfiguration,
-} from '@magic-sdk/core';
+} from '@magic-sdk/provider';
 
 export * from '@magic-sdk/types';
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/core';
+import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
