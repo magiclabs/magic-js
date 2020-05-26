@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
 
-import { SDKBase, createSDKCtor } from '@magic-sdk/core';
+import { SDKBase, createSDK } from '@magic-sdk/core';
 import { IframeController } from './iframe-controller';
 import { WebTransport } from './web-transport';
 
@@ -14,9 +14,10 @@ export {
 
 export * from '@magic-sdk/types';
 
-export const Magic = createSDKCtor(SDKBase, {
+export const Magic = createSDK(SDKBase, {
   target: 'web',
   sdkName: 'magic-sdk',
+  defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
   PayloadTransport: WebTransport,
 });

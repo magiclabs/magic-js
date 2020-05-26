@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { ViewController, createDuplicateIframeWarning, createURL } from '@magic-sdk/core';
+import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/core';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
@@ -89,6 +89,10 @@ export class IframeController extends ViewController {
 
   public async postMessage(data: any) {
     const iframe = await this.iframe;
-    iframe.contentWindow!.postMessage(data, '*');
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(data, '*');
+    } else {
+      throw createModalNotReadyError();
+    }
   }
 }

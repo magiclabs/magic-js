@@ -6,21 +6,28 @@ import { createMissingApiKeyError, createReactNativeEndpointConfigurationWarning
 import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
-import { VERSION, MGBOX_URL, MAGIC_URL } from '../constants/config';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
 import { Extension, WithExtensions } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
+import { VERSION } from '../config';
 
 type ConstructorOf<C> = { new (...args: any[]): C };
 
+/**
+ * A data structure containing details about the current environment. This is
+ * guaranteed to be populated before the SDK is instantiated.
+ */
 interface SDKEnvironment {
-  sdkName: string;
+  sdkName: 'magic-sdk' | 'magic-sdk-rn';
   target: 'web' | 'react-native';
+  defaultEndpoint: string;
   ViewController: ConstructorOf<ViewController>;
   PayloadTransport: ConstructorOf<PayloadTransport>;
 }
+
+export const SDKEnvironment: SDKEnvironment = {} as any;
 
 export interface MagicSDKAdditionalConfiguration<
   TCustomExtName extends string = string,
@@ -32,8 +39,6 @@ export interface MagicSDKAdditionalConfiguration<
 }
 
 export class SDKBase {
-  private static environment: SDKEnvironment;
-
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
   private static readonly __overlays__: Map<string, ViewController> = new Map();
 
@@ -63,12 +68,12 @@ export class SDKBase {
   constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
 
-    if (SDKBase.environment.target === 'react-native' && options?.endpoint) {
+    if (SDKEnvironment.target === 'react-native' && options?.endpoint) {
       createReactNativeEndpointConfigurationWarning().log();
     }
 
-    const fallbackURL = SDKBase.environment.target === 'react-native' ? MGBOX_URL : MAGIC_URL;
-    this.endpoint = createURL(options?.endpoint ?? fallbackURL).origin;
+    const { defaultEndpoint } = SDKEnvironment;
+    this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
 
     // Assign API Modules
     this.auth = new AuthModule(this);
@@ -104,7 +109,7 @@ export class SDKBase {
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
       ETH_NETWORK: options?.network,
       host: createURL(this.endpoint).host,
-      sdk: SDKBase.environment.sdkName,
+      sdk: SDKEnvironment.sdkName,
       version: VERSION,
       ext: isEmpty(extConfig) ? undefined : extConfig,
     });
@@ -118,7 +123,7 @@ export class SDKBase {
     if (!SDKBase.__transports__.has(this.encodedQueryParams)) {
       SDKBase.__transports__.set(
         this.encodedQueryParams,
-        new SDKBase.environment.PayloadTransport(this.endpoint, this.encodedQueryParams),
+        new SDKEnvironment.PayloadTransport(this.endpoint, this.encodedQueryParams),
       );
     }
 
@@ -130,7 +135,7 @@ export class SDKBase {
    */
   protected get overlay(): ViewController {
     if (!SDKBase.__overlays__.has(this.encodedQueryParams)) {
-      const controller = new SDKBase.environment.ViewController(this.transport, this.endpoint, this.encodedQueryParams);
+      const controller = new SDKEnvironment.ViewController(this.transport, this.endpoint, this.encodedQueryParams);
       SDKBase.__overlays__.set(this.encodedQueryParams, controller);
     }
 
@@ -147,16 +152,10 @@ export class SDKBase {
   }
 }
 
-export function createSDKCtor<SDK extends SDKBase>(
+export function createSDK<SDK extends SDKBase>(
   SDKBaseCtor: ConstructorOf<SDK>,
-  config: SDKEnvironment,
+  environment: SDKEnvironment,
 ): WithExtensions<SDK> {
-  (SDKBase as any).environment = {
-    target: config.target,
-    sdkName: config.sdkName,
-    PayloadTransport: config.PayloadTransport,
-    ViewController: config.ViewController,
-  };
-
+  Object.assign(SDKEnvironment, environment);
   return SDKBaseCtor as any;
 }

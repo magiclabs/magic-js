@@ -2,7 +2,7 @@
 
 import 'regenerator-runtime/runtime';
 
-import { SDKBase, createSDKCtor } from '@magic-sdk/core';
+import { SDKBase, createSDK } from '@magic-sdk/core';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { ReactNativeTransport } from './react-native-transport';
 
@@ -49,9 +49,10 @@ class SDKBaseReactNative extends SDKBase {
   }
 }
 
-export const Magic = createSDKCtor(SDKBaseReactNative, {
+export const Magic = createSDK(SDKBaseReactNative, {
   target: 'react-native',
   sdkName: 'magic-sdk-rn',
+  defaultEndpoint: 'https://box.magic.link/',
   ViewController: ReactNativeWebViewController,
   PayloadTransport: ReactNativeTransport,
 });

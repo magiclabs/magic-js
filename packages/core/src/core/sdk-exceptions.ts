@@ -1,6 +1,6 @@
 import { SDKErrorCode, SDKWarningCode, RPCErrorCode, JsonRpcError } from '@magic-sdk/types';
 import { isJsonRpcErrorCode } from '../util/type-guards';
-import { MGBOX_URL } from '../constants/config';
+import { SDKEnvironment } from './sdk';
 
 // --- Error/warning classes
 
@@ -111,6 +111,6 @@ export function createSynchronousWeb3MethodWarning() {
 export function createReactNativeEndpointConfigurationWarning() {
   return new MagicSDKWarning(
     SDKWarningCode.ReactNativeEndpointConfiguration,
-    `CUSTOM DOMAINS ARE NOT SUPPORTED WHEN USING MAGIC SDK WITH REACT NATIVE! The \`endpoint\` parameter SHOULD NOT be provided. The Magic \`<iframe>\` is automatically wrapped by a WebView pointed at \`${MGBOX_URL}\`. Changing this default behavior will lead to unexpected results and potentially security-threatening bugs.`,
+    `CUSTOM DOMAINS ARE NOT SUPPORTED WHEN USING MAGIC SDK WITH REACT NATIVE! The \`endpoint\` parameter SHOULD NOT be provided. The Magic \`<iframe>\` is automatically wrapped by a WebView pointed at \`${SDKEnvironment.defaultEndpoint}\`. Changing this default behavior will lead to unexpected results and potentially security-threatening bugs.`,
   );
 }

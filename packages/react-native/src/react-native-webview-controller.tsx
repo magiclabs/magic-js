@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { ViewController } from '@magic-sdk/core';
+import { ViewController, createModalNotReadyError } from '@magic-sdk/core';
 import { ReactNativeTransport } from './react-native-transport';
 
 /**
@@ -136,6 +136,8 @@ export class ReactNativeWebViewController extends ViewController<ReactNativeTran
   public async postMessage(data: any) {
     if (this.webView && (this.webView as any).postMessage) {
       (this.webView as any).postMessage(JSON.stringify(data), '*');
+    } else {
+      throw createModalNotReadyError();
     }
   }
 }

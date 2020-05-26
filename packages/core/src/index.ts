@@ -1,4 +1,4 @@
-export { SDKBase, createSDKCtor, MagicSDKAdditionalConfiguration } from './core/sdk';
+export { SDKBase, createSDK, MagicSDKAdditionalConfiguration } from './core/sdk';
 export { PayloadTransport } from './core/payload-transport';
 export { ViewController } from './core/view-controller';
 export * from './core/sdk-exceptions';
