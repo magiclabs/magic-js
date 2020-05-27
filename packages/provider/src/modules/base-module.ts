@@ -20,7 +20,7 @@ export class BaseModule<ModuleEvents extends EventsDefinition = void> extends Ty
     return (this.sdk as any).overlay;
   }
 
-  protected request<ResultType = any, Events extends EventsDefinition = any>(payload: Partial<JsonRpcRequestPayload>) {
+  protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
     const responsePromise = this.transport.post<ResultType>(
       this.overlay,
       MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
