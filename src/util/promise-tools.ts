@@ -51,10 +51,16 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
   const promise = createAutoCatchingPromise(executor);
   const eventEmitter = new TypedEmitter<TEvents & DefaultEvents<TResult>>();
 
+  // We save the original `Promise` methods to the following symbols so we can
+  // access them internally.
   const thenSymbol = Symbol('Promise.then');
   const catchSymbol = Symbol('Promise.catch');
   const finallySymbol = Symbol('Promise.finally');
 
+  /**
+   * Ensures the next object in the `PromiEvent` chain is overloaded with
+   * `EventEmitter` methods.
+   */
   const createChainingPromiseMethod = (
     method: typeof thenSymbol | typeof catchSymbol | typeof finallySymbol,
     source: Promise<any>,
@@ -63,15 +69,26 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
     return promiEvent(nextPromise);
   };
 
+  /**
+   * Applies the desired `EventEmitter` method and returns the source
+   * `PromiEvent`.
+   */
   const createChainingEmitterMethod = (method: keyof typeof eventEmitter, source: Promise<any>) => (...args: any[]) => {
     (eventEmitter as any)[method].apply(eventEmitter, args);
     return source;
   };
 
+  /**
+   * Applies an `EventEmitter` method which returns a non-`PromiEvent` result.
+   */
   const createBoundEmitterMethod = (method: keyof typeof eventEmitter) => (...args: any[]) => {
     return (eventEmitter as any)[method].apply(eventEmitter, args);
   };
 
+  /**
+   * Builds a `PromiEvent` by assigning `EventEmitter` methods to a native
+   * `Promise` object.
+   */
   const promiEvent = (source: any) => {
     return Object.assign(source, {
       [thenSymbol]: source[thenSymbol] || source.then,
@@ -100,12 +117,14 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
   const result = promiEvent(
     promise.then(
       resolved => {
+        // Emit default completion events and resolve result.
         result.emit('done', resolved);
         result.emit('settled');
         return resolved;
       },
 
       err => {
+        // Emit default error events and re-throw.
         result.emit('error', err);
         result.emit('settled');
         throw err;
