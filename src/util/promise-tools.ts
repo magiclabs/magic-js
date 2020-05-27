@@ -99,13 +99,13 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
       catch: createChainingPromiseMethod(catchSymbol, source),
       finally: createChainingPromiseMethod(finallySymbol, source),
 
-      addListener: createChainingEmitterMethod('addListener', source),
       on: createChainingEmitterMethod('on', source),
       once: createChainingEmitterMethod('once', source),
+      addListener: createChainingEmitterMethod('addListener', source),
 
       off: createChainingEmitterMethod('off', source),
-      removeAllListeners: createChainingEmitterMethod('removeAllListeners', source),
       removeListener: createChainingEmitterMethod('removeListener', source),
+      removeAllListeners: createChainingEmitterMethod('removeAllListeners', source),
 
       emit: createBoundEmitterMethod('emit'),
       eventNames: createBoundEmitterMethod('eventNames'),
