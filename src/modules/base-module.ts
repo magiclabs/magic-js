@@ -29,16 +29,22 @@ export class BaseModule<ModuleEvents extends EventsDefinition = void> extends Ty
 
     // PromiEvent-ify the response.
     const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
-      responsePromise.then(res => {
-        if (res.hasError) reject(new MagicRPCError(res.payload.error));
-        else if (res.hasResult) resolve(res.payload.result as ResultType);
-        else throw createMalformedResponseError();
-      });
+      responsePromise
+        .then(res => {
+          cleanupEvents();
+          if (res.hasError) reject(new MagicRPCError(res.payload.error));
+          else if (res.hasResult) resolve(res.payload.result as ResultType);
+          else throw createMalformedResponseError();
+        })
+        .catch(err => {
+          cleanupEvents();
+          reject(err);
+        });
     });
 
     // Listen for events from the `<iframe>` associated with the current payload
     // and emit those to `PromiEvent` subscribers.
-    this.transport.on(MagicIncomingWindowMessage.MAGIC_HANDLE_EVENT, evt => {
+    const cleanupEvents = this.transport.on(MagicIncomingWindowMessage.MAGIC_HANDLE_EVENT, evt => {
       const { response } = evt.data;
       if (response.id === payload.id && response.result?.event) {
         const { event, params = [] } = response.result;

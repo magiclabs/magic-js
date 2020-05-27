@@ -2,14 +2,27 @@ import { TypedEmitter, EventsDefinition } from './events';
 import { MagicSDKError, MagicRPCError } from '../core/sdk-exceptions';
 
 /**
+ * Extends `Promise` with a polymorphic `this` type to accomodate arbitrary
+ * `Promise` API extensions.
+ */
+interface ExtendedPromise<T> extends Promise<T> {
+  then<TResult1 = T, TResult2 = never>(
+    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+  ): ExtendedPromise<TResult1 | TResult2> & this;
+
+  catch<TResult = never>(
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
+  ): ExtendedPromise<T | TResult> & this;
+
+  finally(onfinally?: (() => void) | undefined | null): ExtendedPromise<T> & this;
+}
+
+/**
  * A `Promise` and `EventEmitter` all in one!
  */
-export type PromiEvent<TResult, TEvents extends EventsDefinition = void> = Promise<TResult> &
-  {
-    [P in keyof TypedEmitter]: TypedEmitter<
-      TEvents extends void ? DefaultEvents<TResult> : TEvents & DefaultEvents<TResult>
-    >[P];
-  };
+export type PromiEvent<TResult, TEvents extends EventsDefinition = void> = ExtendedPromise<TResult> &
+  TypedEmitter<TEvents extends void ? DefaultEvents<TResult> : TEvents & DefaultEvents<TResult>>;
 
 /**
  * Default events attached to every `PromiEvent`.
@@ -37,47 +50,70 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
 ): PromiEvent<TResult, TEvents extends void ? DefaultEvents<TResult> : TEvents & DefaultEvents<TResult>> {
   const promise = createAutoCatchingPromise(executor);
   const eventEmitter = new TypedEmitter<TEvents & DefaultEvents<TResult>>();
-  let isUsingPromise = true;
+
+  const thenSymbol = Symbol('Promise.then');
+  const catchSymbol = Symbol('Promise.catch');
+  const finallySymbol = Symbol('Promise.finally');
+
+  const createChainingPromiseMethod = (
+    method: typeof thenSymbol | typeof catchSymbol | typeof finallySymbol,
+    source: Promise<any>,
+  ) => (...args: any[]) => {
+    const nextPromise = (source as any)[method].apply(source, args);
+    return promiEvent(nextPromise);
+  };
+
+  const createChainingEmitterMethod = (method: keyof typeof eventEmitter, source: Promise<any>) => (...args: any[]) => {
+    (eventEmitter as any)[method].apply(eventEmitter, args);
+    return source;
+  };
 
   const createBoundEmitterMethod = (method: keyof typeof eventEmitter) => (...args: any[]) => {
     return (eventEmitter as any)[method].apply(eventEmitter, args);
   };
 
-  const createChainingEmitterMethod = (method: keyof typeof eventEmitter) => (...args: any[]) => {
-    isUsingPromise = false;
-    return createBoundEmitterMethod(method)(...args);
+  const promiEvent = (source: any) => {
+    return Object.assign(source, {
+      [thenSymbol]: source[thenSymbol] || source.then,
+      [catchSymbol]: source[catchSymbol] || source.catch,
+      [finallySymbol]: source[finallySymbol] || source.finally,
+
+      then: createChainingPromiseMethod(thenSymbol, source),
+      catch: createChainingPromiseMethod(catchSymbol, source),
+      finally: createChainingPromiseMethod(finallySymbol, source),
+
+      addListener: createChainingEmitterMethod('addListener', source),
+      on: createChainingEmitterMethod('on', source),
+      once: createChainingEmitterMethod('once', source),
+
+      off: createChainingEmitterMethod('off', source),
+      removeAllListeners: createChainingEmitterMethod('removeAllListeners', source),
+      removeListener: createChainingEmitterMethod('removeListener', source),
+
+      emit: createBoundEmitterMethod('emit'),
+      eventNames: createBoundEmitterMethod('eventNames'),
+      listeners: createBoundEmitterMethod('listeners'),
+      listenerCount: createBoundEmitterMethod('listenerCount'),
+    });
   };
 
-  const source = promise.then(
-    resolved => {
-      promiEvent.emit('done', resolved);
-      promiEvent.emit('settled');
-      return resolved;
-    },
+  const result = promiEvent(
+    promise.then(
+      resolved => {
+        result.emit('done', resolved);
+        result.emit('settled');
+        return resolved;
+      },
 
-    err => {
-      promiEvent.emit('error', err);
-      promiEvent.emit('settled');
-      if (isUsingPromise) throw err;
-    },
+      err => {
+        result.emit('error', err);
+        result.emit('settled');
+        throw err;
+      },
+    ),
   );
 
-  const promiEvent = Object.assign(source, {
-    addListener: createChainingEmitterMethod('addListener'),
-    on: createChainingEmitterMethod('on'),
-    once: createChainingEmitterMethod('once'),
-
-    off: createChainingEmitterMethod('off'),
-    removeAllListeners: createChainingEmitterMethod('removeAllListeners'),
-    removeListener: createChainingEmitterMethod('removeListener'),
-
-    emit: createBoundEmitterMethod('emit'),
-    eventNames: createBoundEmitterMethod('eventNames'),
-    listeners: createBoundEmitterMethod('listeners'),
-    listenerCount: createBoundEmitterMethod('listenerCount'),
-  });
-
-  return promiEvent as any;
+  return result;
 }
 
 /**
