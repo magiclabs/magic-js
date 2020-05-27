@@ -14,7 +14,7 @@ import {
   createSynchronousWeb3MethodWarning,
 } from '../../core/sdk-exceptions';
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload, JsonRpcResponse } from '../../core/json-rpc';
-import { PromiEvent, EventsDefinition } from '../../util/promise-tools';
+import { PromiEvent } from '../../util/promise-tools';
 
 /** */
 export class RPCProviderModule extends BaseModule {
@@ -71,14 +71,14 @@ export class RPCProviderModule extends BaseModule {
   }
 
   /* eslint-disable prettier/prettier */
-  public send<ResultType = any, Events extends EventsDefinition = {}>(method: string, params?: any[]): PromiEvent<ResultType, Events>;
-  public send(payload: JsonRpcRequestPayload | JsonRpcRequestPayload[], onRequestComplete: JsonRpcRequestCallback): void;
-  public send<ResultType>(payload: JsonRpcRequestPayload, none: void): JsonRpcResponsePayload<ResultType>;
-  /* eslint-enable prettier/prettier */
-  public send<ResultType = any, Events extends EventsDefinition = {}>(
+   public send<ResultType = any>(method: string, params?: any[]): PromiEvent<ResultType>;
+   public send(payload: JsonRpcRequestPayload | JsonRpcRequestPayload[], onRequestComplete: JsonRpcRequestCallback): void;
+   public send<ResultType>(payload: JsonRpcRequestPayload, none: void): JsonRpcResponsePayload<ResultType>;
+   /* eslint-enable prettier/prettier */
+  public send<ResultType = any>(
     payloadOrMethod: string | JsonRpcRequestPayload | JsonRpcRequestPayload[],
     onRequestCompleteOrParams: JsonRpcRequestCallback | any[] | void,
-  ): PromiEvent<ResultType, Events> | JsonRpcResponsePayload<ResultType> | void {
+  ): PromiEvent<ResultType> | JsonRpcResponsePayload<ResultType> | void {
     // Case #1
     // Web3 >= 1.0.0-beta.38 calls `send` with method and parameters.
     if (typeof payloadOrMethod === 'string') {
@@ -87,7 +87,7 @@ export class RPCProviderModule extends BaseModule {
         Array.isArray(onRequestCompleteOrParams) ? onRequestCompleteOrParams : [],
       );
 
-      return this.request(payload);
+      return this.request(payload) as any;
     }
 
     // Case #2
