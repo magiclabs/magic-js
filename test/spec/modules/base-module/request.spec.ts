@@ -196,9 +196,14 @@ test.serial.cb('Ignores events with malformed response', t => {
     }),
   );
 
-  baseModule.request(requestPayload).on('hello', () => {
-    t.fail();
-  });
+  baseModule
+    .request(requestPayload)
+    .on('hello', () => {
+      t.fail();
+    })
+    .then(() => {
+      t.end();
+    });
 
   window.postMessage(
     {
