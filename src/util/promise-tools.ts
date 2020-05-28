@@ -1,4 +1,4 @@
-import { TypedEmitter, EventsDefinition } from './events';
+import { TypedEmitter, EventsDefinition, createTypedEmitter } from './events';
 import { MagicSDKError, MagicRPCError } from '../core/sdk-exceptions';
 
 /**
@@ -49,7 +49,9 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
   executor: AsyncPromiseExecutor<TResult>,
 ): PromiEvent<TResult, TEvents extends void ? DefaultEvents<TResult> : TEvents & DefaultEvents<TResult>> {
   const promise = createAutoCatchingPromise(executor);
-  const eventEmitter = new TypedEmitter<TEvents & DefaultEvents<TResult>>();
+  const { createBoundEmitterMethod, createChainingEmitterMethod } = createTypedEmitter<
+    TEvents & DefaultEvents<TResult>
+  >();
 
   // We save the original `Promise` methods to the following symbols so we can
   // access them internally.
@@ -67,22 +69,6 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
   ) => (...args: any[]) => {
     const nextPromise = (source as any)[method].apply(source, args);
     return promiEvent(nextPromise);
-  };
-
-  /**
-   * Applies the desired `EventEmitter` method and returns the source
-   * `PromiEvent`.
-   */
-  const createChainingEmitterMethod = (method: keyof typeof eventEmitter, source: Promise<any>) => (...args: any[]) => {
-    (eventEmitter as any)[method].apply(eventEmitter, args);
-    return source;
-  };
-
-  /**
-   * Applies an `EventEmitter` method which returns a non-`PromiEvent` result.
-   */
-  const createBoundEmitterMethod = (method: keyof typeof eventEmitter) => (...args: any[]) => {
-    return (eventEmitter as any)[method].apply(eventEmitter, args);
   };
 
   /**

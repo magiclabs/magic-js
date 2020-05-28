@@ -5,12 +5,10 @@ import { ViewController } from '../types/core/view-types';
 import { SDKBase } from '../core/sdk';
 import { standardizeJsonRpcRequestPayload } from '../core/json-rpc';
 import { createPromiEvent } from '../util/promise-tools';
-import { TypedEmitter, EventsDefinition } from '../util/events';
+import { EventsDefinition } from '../util/events';
 
-export class BaseModule<ModuleEvents extends EventsDefinition = void> extends TypedEmitter<ModuleEvents> {
-  constructor(protected readonly sdk: SDKBase) {
-    super();
-  }
+export class BaseModule {
+  constructor(protected readonly sdk: SDKBase) {}
 
   protected get transport(): PayloadTransport {
     return (this.sdk as any).transport;
