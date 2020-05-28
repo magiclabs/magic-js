@@ -16,7 +16,8 @@ type NonChainingMethods = 'emit' | 'eventNames' | 'listeners' | 'listenerCount';
 type ReplaceReturnType<T extends (...a: any) => any, TNewReturn> = (...a: Parameters<T>) => TNewReturn;
 
 /**
- *
+ * Creates a `TypedEmitter` instance and returns helper functions for easily
+ * mixing `TypedEmitter` methods into other objects.
  */
 export function createTypedEmitter<Events extends EventsDefinition = void>() {
   const emitter = new TypedEmitter<Events>();
