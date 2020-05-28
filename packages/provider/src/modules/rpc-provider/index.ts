@@ -15,10 +15,12 @@ import {
 } from '../../core/sdk-exceptions';
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload, JsonRpcResponse } from '../../core/json-rpc';
 import { PromiEvent } from '../../util/promise-tools';
-import { EventsDefinition } from '../../util/events';
+import { createTypedEmitter, TypedEmitter } from '../../util/events';
+
+const { createBoundEmitterMethod, createChainingEmitterMethod } = createTypedEmitter();
 
 /** */
-export class RPCProviderModule extends BaseModule {
+export class RPCProviderModule extends BaseModule implements TypedEmitter {
   // Implements EIP 1193:
   // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md
 
@@ -72,10 +74,10 @@ export class RPCProviderModule extends BaseModule {
   }
 
   /* eslint-disable prettier/prettier */
-  public send<ResultType = any>(method: string, params?: any[]): PromiEvent<ResultType>;
-  public send(payload: JsonRpcRequestPayload | JsonRpcRequestPayload[], onRequestComplete: JsonRpcRequestCallback): void;
-  public send<ResultType>(payload: JsonRpcRequestPayload, none: void): JsonRpcResponsePayload<ResultType>;
-  /* eslint-enable prettier/prettier */
+   public send<ResultType = any>(method: string, params?: any[]): PromiEvent<ResultType>;
+   public send(payload: JsonRpcRequestPayload | JsonRpcRequestPayload[], onRequestComplete: JsonRpcRequestCallback): void;
+   public send<ResultType>(payload: JsonRpcRequestPayload, none: void): JsonRpcResponsePayload<ResultType>;
+   /* eslint-enable prettier/prettier */
   public send<ResultType = any>(
     payloadOrMethod: string | JsonRpcRequestPayload | JsonRpcRequestPayload[],
     onRequestCompleteOrParams: JsonRpcRequestCallback | any[] | void,
@@ -112,4 +114,17 @@ export class RPCProviderModule extends BaseModule {
     const requestPayload = createJsonRpcRequestPayload('eth_accounts');
     return this.request<string[]>(requestPayload);
   }
+
+  public on = createChainingEmitterMethod('on', this);
+  public once = createChainingEmitterMethod('once', this);
+  public addListener = createChainingEmitterMethod('addListener', this);
+
+  public off = createChainingEmitterMethod('off', this);
+  public removeListener = createChainingEmitterMethod('removeListener', this);
+  public removeAllListeners = createChainingEmitterMethod('removeAllListeners', this);
+
+  public emit = createBoundEmitterMethod('emit');
+  public eventNames = createBoundEmitterMethod('eventNames');
+  public listeners = createBoundEmitterMethod('listeners');
+  public listenerCount = createBoundEmitterMethod('listenerCount');
 }
