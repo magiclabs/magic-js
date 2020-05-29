@@ -2,7 +2,7 @@
 
 #### Fixed
 
-- ...
+- Circle CI tag in readme is broken after namechange from MagicHQ to MagicLabs
 
 #### Changed
 
