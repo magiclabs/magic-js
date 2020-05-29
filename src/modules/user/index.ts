@@ -8,6 +8,14 @@ import {
 } from '../../types';
 import { createJsonRpcRequestPayload } from '../../core/json-rpc';
 
+type UpdateEmailEvents = {
+  'email-sent': () => void;
+  'email-not-deliverable': () => void;
+  'old-email-confirmed': () => void;
+  'new-email-confirmed': () => void;
+  retry: () => void;
+};
+
 export class UserModule extends BaseModule {
   /** */
   public getIdToken(configuration?: GetIdTokenConfiguration) {
@@ -28,10 +36,10 @@ export class UserModule extends BaseModule {
   }
 
   /** */
-  public async updateEmail(configuration: UpdateEmailConfiguration) {
+  public updateEmail(configuration: UpdateEmailConfiguration) {
     const { email, showUI = true } = configuration;
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.UpdateEmail, [{ email, showUI }]);
-    return this.request<string | null>(requestPayload);
+    return this.request<string | null, UpdateEmailEvents>(requestPayload);
   }
 
   /** */

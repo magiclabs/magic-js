@@ -25,7 +25,7 @@ interface StandardizedResponse {
  */
 function getRequestPayloadFromBatch(
   requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
-  id?: string | number,
+  id?: string | number | null,
 ): JsonRpcRequestPayload | undefined {
   return id && Array.isArray(requestPayload)
     ? requestPayload.find(p => p.id === id)

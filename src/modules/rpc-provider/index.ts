@@ -1,4 +1,4 @@
-/* eslint-disable consistent-return */
+/* eslint-disable consistent-return, prefer-spread */
 
 import { BaseModule } from '../base-module';
 import {
@@ -14,9 +14,13 @@ import {
   createSynchronousWeb3MethodWarning,
 } from '../../core/sdk-exceptions';
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload, JsonRpcResponse } from '../../core/json-rpc';
+import { PromiEvent } from '../../util/promise-tools';
+import { TypedEmitter, createTypedEmitter } from '../../util/events';
+
+const { createBoundEmitterMethod, createChainingEmitterMethod } = createTypedEmitter();
 
 /** */
-export class RPCProviderModule extends BaseModule {
+export class RPCProviderModule extends BaseModule implements TypedEmitter {
   // Implements EIP 1193:
   // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md
 
@@ -70,14 +74,14 @@ export class RPCProviderModule extends BaseModule {
   }
 
   /* eslint-disable prettier/prettier */
-  public send<ResultType>(method: string, params?: any[]): Promise<ResultType>;
-  public send(payload: JsonRpcRequestPayload | JsonRpcRequestPayload[], onRequestComplete: JsonRpcRequestCallback): void;
-  public send<ResultType>(payload: JsonRpcRequestPayload, none: void): JsonRpcResponsePayload<ResultType>;
-  /* eslint-enable prettier/prettier */
+   public send<ResultType = any>(method: string, params?: any[]): PromiEvent<ResultType>;
+   public send(payload: JsonRpcRequestPayload | JsonRpcRequestPayload[], onRequestComplete: JsonRpcRequestCallback): void;
+   public send<ResultType>(payload: JsonRpcRequestPayload, none: void): JsonRpcResponsePayload<ResultType>;
+   /* eslint-enable prettier/prettier */
   public send<ResultType = any>(
     payloadOrMethod: string | JsonRpcRequestPayload | JsonRpcRequestPayload[],
     onRequestCompleteOrParams: JsonRpcRequestCallback | any[] | void,
-  ): Promise<ResultType> | JsonRpcResponsePayload<ResultType> | void {
+  ): PromiEvent<ResultType> | JsonRpcResponsePayload<ResultType> | void {
     // Case #1
     // Web3 >= 1.0.0-beta.38 calls `send` with method and parameters.
     if (typeof payloadOrMethod === 'string') {
@@ -86,7 +90,7 @@ export class RPCProviderModule extends BaseModule {
         Array.isArray(onRequestCompleteOrParams) ? onRequestCompleteOrParams : [],
       );
 
-      return this.request(payload);
+      return this.request(payload) as any;
     }
 
     // Case #2
@@ -110,4 +114,17 @@ export class RPCProviderModule extends BaseModule {
     const requestPayload = createJsonRpcRequestPayload('eth_accounts');
     return this.request<string[]>(requestPayload);
   }
+
+  public on = createChainingEmitterMethod('on', this);
+  public once = createChainingEmitterMethod('once', this);
+  public addListener = createChainingEmitterMethod('addListener', this);
+
+  public off = createChainingEmitterMethod('off', this);
+  public removeListener = createChainingEmitterMethod('removeListener', this);
+  public removeAllListeners = createChainingEmitterMethod('removeAllListeners', this);
+
+  public emit = createBoundEmitterMethod('emit');
+  public eventNames = createBoundEmitterMethod('eventNames');
+  public listeners = createBoundEmitterMethod('listeners');
+  public listenerCount = createBoundEmitterMethod('listenerCount');
 }

@@ -24,6 +24,7 @@
     "prepare": "yarn run snyk-protect"
   },
   "dependencies": {
+    "eventemitter3": "^4.0.4",
     "react-native-webview": "^8.1.2",
     "snyk": "^1.319.1",
     "whatwg-url": "^8.0.0"
