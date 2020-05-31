@@ -96,6 +96,7 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     // Case #2
     // Web3 <= 1.0.0-beta.37 uses `send` with a callback for async queries.
     if (Array.isArray(payloadOrMethod) || !!onRequestCompleteOrParams) {
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion */
       this.sendAsync(payloadOrMethod, onRequestCompleteOrParams as any);
       return;
     }

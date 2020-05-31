@@ -41,6 +41,15 @@ type AsyncPromiseExecutor<TResult> = (
   reject: (reason?: any) => void,
 ) => void | Promise<void>;
 
+const promiEventBrand = Symbol('isPromiEvent');
+
+/**
+ * Returns `true` if the given `value` is a `PromiEvent`.
+ */
+export function isPromiEvent(value: any): value is PromiEvent<any> {
+  return !!value[promiEventBrand];
+}
+
 /**
  * Create a native JavaScript `Promise` overloaded with strongly-typed methods
  * from `EventEmitter`.
@@ -77,6 +86,8 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
    */
   const promiEvent = (source: any) => {
     return Object.assign(source, {
+      [promiEventBrand]: true,
+
       [thenSymbol]: source[thenSymbol] || source.then,
       [catchSymbol]: source[catchSymbol] || source.catch,
       [finallySymbol]: source[finallySymbol] || source.finally,
