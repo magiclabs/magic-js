@@ -22,8 +22,6 @@ runTests() {
 
 export NODE_ENV=test
 
-pkgDirs=( provider types react-native web )
-
 case $PKG in
   "@magic-sdk/provider")
     runTests provider $1
@@ -42,8 +40,9 @@ case $PKG in
     ;;
 
   *)
-    foreach n $pkgDirs
-      runTests $n $1
-    end
+    runTests provider $1
+    runTests types $1
+    runTests react-native $1
+    runTests web $1
     ;;
 esac
