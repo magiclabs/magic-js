@@ -1,6 +1,6 @@
 import { SDKErrorCode, SDKWarningCode, RPCErrorCode, JsonRpcError } from '@magic-sdk/types';
 import { isJsonRpcErrorCode } from '../util/type-guards';
-import { SDKEnvironment } from './sdk';
+import { SDKEnvironment } from './sdk-environment';
 
 // --- Error/warning classes
 

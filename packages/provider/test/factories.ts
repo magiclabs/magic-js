@@ -1,7 +1,8 @@
 import sinon from 'sinon';
 import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS, TEST_API_KEY } from './constants';
 import { PayloadTransport } from '../src/core/payload-transport';
-import { createSDK, SDKBase } from '../src/core/sdk';
+import { SDKBase } from '../src/core/sdk';
+import { createSDK } from '../src/core/sdk-environment';
 import { ViewController } from '../src/core/view-controller';
 
 export class TestViewController extends ViewController {

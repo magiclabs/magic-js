@@ -9,25 +9,10 @@ import { UserModule } from '../modules/user';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
-import { Extension, WithExtensions } from '../modules/base-extension';
+import { Extension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { VERSION } from '../config';
-
-type ConstructorOf<C> = { new (...args: any[]): C };
-
-/**
- * A data structure containing details about the current environment. This is
- * guaranteed to be populated before the SDK is instantiated.
- */
-interface SDKEnvironment {
-  sdkName: 'magic-sdk' | 'magic-sdk-rn';
-  target: 'web' | 'react-native';
-  defaultEndpoint: string;
-  ViewController: ConstructorOf<ViewController>;
-  PayloadTransport: ConstructorOf<PayloadTransport>;
-}
-
-export const SDKEnvironment: SDKEnvironment = {} as any;
+import { SDKEnvironment } from './sdk-environment';
 
 export interface MagicSDKAdditionalConfiguration<
   TCustomExtName extends string = string,
@@ -150,12 +135,4 @@ export class SDKBase {
   public async preload() {
     await this.overlay.ready;
   }
-}
-
-export function createSDK<SDK extends SDKBase>(
-  SDKBaseCtor: ConstructorOf<SDK>,
-  environment: SDKEnvironment,
-): WithExtensions<SDK> {
-  Object.assign(SDKEnvironment, environment);
-  return SDKBaseCtor as any;
 }

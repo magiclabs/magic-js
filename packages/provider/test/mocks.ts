@@ -8,7 +8,7 @@
 import sinon from 'sinon';
 import * as ConfigConstants from '../src/config';
 import { getPayloadId } from '../src/util/get-payload-id';
-import { SDKEnvironment } from '../src/core/sdk';
+import { SDKEnvironment } from '../src/core/sdk-environment';
 
 export function getPayloadIdStub() {
   const stub = sinon.stub();

@@ -7,31 +7,10 @@ import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
 import { TestMagicSDK } from '../../../factories';
 import { mockConfigConstant, mockSDKEnvironmentConstant } from '../../../mocks';
 import { createReactNativeEndpointConfigurationWarning } from '../../../../src/core/sdk-exceptions';
-
-/**
- * We have a circular dependency breaking test code when referencing
- * constructors extending `BaseModule`. Rather than refactor the SDK code, it
- * was quicker to fix the issue with JS getters.
- */
-const ModuleCtors = {
-  get AuthModule() {
-    return (require('../../../../src/modules/auth') as typeof import('../../../../src/modules/auth')).AuthModule;
-  },
-
-  get UserModule() {
-    return (require('../../../../src/modules/user') as typeof import('../../../../src/modules/user')).UserModule;
-  },
-
-  get RPCProviderModule() {
-    return (require('../../../../src/modules/rpc-provider') as typeof import('../../../../src/modules/rpc-provider'))
-      .RPCProviderModule;
-  },
-
-  get Extension() {
-    return (require('../../../../src/modules/base-extension') as typeof import('../../../../src/modules/base-extension'))
-      .Extension;
-  },
-};
+import { AuthModule } from '../../../../src/modules/auth';
+import { UserModule } from '../../../../src/modules/user';
+import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
+import { Extension } from '../../../../src/modules/base-extension';
 
 test.beforeEach(t => {
   browserEnv.restore();
@@ -54,9 +33,9 @@ function assertEncodedQueryParams(t: ExecutionContext, encodedQueryParams: strin
 }
 
 function assertModuleInstanceTypes(t: ExecutionContext, sdk: any) {
-  t.true(sdk.auth instanceof ModuleCtors.AuthModule);
-  t.true(sdk.user instanceof ModuleCtors.UserModule);
-  t.true(sdk.rpcProvider instanceof ModuleCtors.RPCProviderModule);
+  t.true(sdk.auth instanceof AuthModule);
+  t.true(sdk.user instanceof UserModule);
+  t.true(sdk.rpcProvider instanceof RPCProviderModule);
 }
 
 test.serial('Initialize `MagicSDK`', t => {
@@ -114,18 +93,18 @@ test.serial('Initialize `MagicSDK` with custom Web3 network', t => {
   assertModuleInstanceTypes(t, magic);
 });
 
-class NoopExtNoConfig extends ModuleCtors.Extension<'noop'> {
+class NoopExtNoConfig extends Extension<'noop'> {
   name = 'noop' as const;
   helloWorld() {}
 }
 
-class NoopExtWithConfig extends ModuleCtors.Extension.Internal<'noop'> {
+class NoopExtWithConfig extends Extension.Internal<'noop'> {
   name = 'noop' as const;
   config = { hello: 'world' };
   helloWorld() {}
 }
 
-class NoopExtWithEmptyConfig extends ModuleCtors.Extension.Internal<'noop'> {
+class NoopExtWithEmptyConfig extends Extension.Internal<'noop'> {
   name = 'noop' as const;
   config = {};
   helloWorld() {}

@@ -4,12 +4,12 @@ import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
 import { getPayloadIdStub } from '../../../mocks';
+import { BaseModule } from '../../../../src/modules/base-module';
 import { createMagicSDK } from '../../../factories';
 
 test.beforeEach(t => {
   browserEnv.restore();
-  const { BaseModule } = require('../../../../src/modules/base-module');
-  BaseModule.prototype.request = sinon.stub();
+  (BaseModule as any).prototype.request = sinon.stub();
 });
 
 test.serial('Generates JSON RPC request payload with `email` parameter', async t => {

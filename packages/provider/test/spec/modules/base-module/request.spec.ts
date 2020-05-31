@@ -9,18 +9,7 @@ import { createPayloadTransport, createMagicSDK } from '../../../factories';
 import { MagicRPCError, MagicSDKError } from '../../../../src/core/sdk-exceptions';
 import { isPromiEvent } from '../../../../src/util/promise-tools';
 import { MSG_TYPES } from '../../../constants';
-
-/**
- * We have a circular dependency breaking test code when the `BaseModule`
- * constructor is referenced. Rather than refactor the SDK code, it was quicker
- * to fix the issue with JS getters.
- */
-const ModuleCtors = {
-  get BaseModule() {
-    return (require('../../../../src/modules/base-module') as typeof import('../../../../src/modules/base-module'))
-      .BaseModule;
-  },
-};
+import { BaseModule } from '../../../../src/modules/base-module';
 
 function createBaseModule() {
   const sdk = createMagicSDK();
@@ -31,7 +20,7 @@ function createBaseModule() {
     get: () => payloadTransport,
   });
 
-  const baseModule: any = new ModuleCtors.BaseModule(sdk);
+  const baseModule: any = new BaseModule(sdk);
 
   return { baseModule, postStub };
 }
