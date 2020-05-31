@@ -18,7 +18,7 @@
     "declaration": true,
   },
   "include": [
-    "../packages/**/*.ts",
-    "../packages/**/*.tsx"
+    "./packages/**/*.ts",
+    "./packages/**/*.tsx"
   ]
 }

@@ -37,7 +37,7 @@ function standardizeResponse(
   requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   event: MagicMessageEvent,
 ): StandardizedResponse {
-  const { id } = event.data.response;
+  const id = event.data.response?.id;
   const requestPayloadResolved = getRequestPayloadFromBatch(requestPayload, id);
 
   if (id && requestPayloadResolved) {

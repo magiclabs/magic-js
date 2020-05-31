@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+echo
+echo "Cleaning up generated files..."
+echo
+
 CLEAN_DIST=true
 CLEAN_CACHE=false
 CLEAN_TEST_ARTIFACTS=false

@@ -9,6 +9,6 @@
     "@typescript-eslint/no-useless-constructor": 0,
     "@typescript-eslint/no-empty-function": 0,
     "class-methods-use-this": 0,
-    "import/no-extraneous-dependencies": [1, {"devDependencies": true}]
+    "import/no-extraneous-dependencies": 0
   }
 }
