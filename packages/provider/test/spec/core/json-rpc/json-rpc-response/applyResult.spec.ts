@@ -2,8 +2,8 @@
 
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
+import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
-import { JsonRpcRequestPayload } from '../../../../../src/types';
 
 function createSourcePayload(): JsonRpcRequestPayload {
   return {

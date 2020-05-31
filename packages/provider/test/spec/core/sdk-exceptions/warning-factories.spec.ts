@@ -8,7 +8,7 @@ import {
   createSynchronousWeb3MethodWarning,
   createReactNativeEndpointConfigurationWarning,
 } from '../../../../src/core/sdk-exceptions';
-import { mockConfigConstant } from '../../../mocks';
+import { mockConfigConstant, mockSDKEnvironmentConstant } from '../../../mocks';
 
 function warningAssertions<T extends ExecutionContext<any>>(
   t: T,
@@ -42,8 +42,7 @@ test('Creates a `SYNC_WEB3_METHOD` warning', async t => {
 });
 
 test('Creates a `REACT_NATIVE_ENDPOINT_CONFIGURATION` warning', async t => {
-  mockConfigConstant('IS_REACT_NATIVE', true);
-  mockConfigConstant('MGBOX_URL', 'https://example.com');
+  mockSDKEnvironmentConstant('defaultEndpoint', 'https://example.com');
 
   const warning = createReactNativeEndpointConfigurationWarning();
   warningAssertions(

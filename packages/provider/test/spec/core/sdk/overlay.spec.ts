@@ -2,30 +2,31 @@
 
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
-import { MagicSDK } from '../../../../src/core/sdk';
 import { TEST_API_KEY } from '../../../constants';
-import { IframeController } from '../../../../src/core/views/iframe-controller';
+import { ViewController } from '../../../../src/core/view-controller';
+import { TestMagicSDK } from '../../../factories';
+import { SDKBase } from '../../../../src/core/sdk';
 
 test.beforeEach(t => {
   browserEnv.restore();
 });
 
 test('`MagicSDK.overlay` is lazy loaded', async t => {
-  const magic = new MagicSDK(TEST_API_KEY);
+  const magic = new TestMagicSDK(TEST_API_KEY);
 
-  t.is((MagicSDK as any).__overlays__.size, 0);
+  t.is((SDKBase as any).__overlays__.size, 0);
 
   const { overlay: A } = magic as any;
-  const B = (MagicSDK as any).__overlays__.values().next().value;
+  const B = (SDKBase as any).__overlays__.values().next().value;
 
-  t.is((MagicSDK as any).__overlays__.size, 1);
-  t.true(A instanceof IframeController);
+  t.is((SDKBase as any).__overlays__.size, 1);
+  t.true(A instanceof ViewController);
   t.is(A, B);
 });
 
 test('`MagicSDK.overlay` is shared between `MagicSDK` instances with same parameters', async t => {
-  const magicA = new MagicSDK(TEST_API_KEY);
-  const magicB = new MagicSDK(TEST_API_KEY);
+  const magicA = new TestMagicSDK(TEST_API_KEY);
+  const magicB = new TestMagicSDK(TEST_API_KEY);
 
   const { overlay: A } = magicA as any;
   const { overlay: B } = magicB as any;
@@ -34,8 +35,8 @@ test('`MagicSDK.overlay` is shared between `MagicSDK` instances with same parame
 });
 
 test('`MagicSDK.overlay` is unique between `MagicSDK` instances with different parameters', async t => {
-  const magicA = new MagicSDK(TEST_API_KEY);
-  const magicB = new MagicSDK('asdfasdf');
+  const magicA = new TestMagicSDK(TEST_API_KEY);
+  const magicB = new TestMagicSDK('asdfasdf');
 
   const { overlay: A } = magicA as any;
   const { overlay: B } = magicB as any;

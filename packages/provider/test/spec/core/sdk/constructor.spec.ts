@@ -1,39 +1,76 @@
-/* eslint-disable no-new, class-methods-use-this */
+/* eslint-disable no-new, class-methods-use-this, global-require */
 
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
-import { MagicSDK } from '../../../../src/core/sdk';
+import test, { ExecutionContext } from 'ava';
+import sinon from 'sinon';
 import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
-import { name as sdkName, version as sdkVersion } from '../../../../package.json';
-import { AuthModule } from '../../../../src/modules/auth';
-import { UserModule } from '../../../../src/modules/user';
-import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
-import { Extension } from '../../../../src/modules/base-extension';
+import { TestMagicSDK } from '../../../factories';
+import { mockConfigConstant, mockSDKEnvironmentConstant } from '../../../mocks';
+import { createReactNativeEndpointConfigurationWarning } from '../../../../src/core/sdk-exceptions';
+
+/**
+ * We have a circular dependency breaking test code when referencing
+ * constructors extending `BaseModule`. Rather than refactor the SDK code, it
+ * was quicker to fix the issue with JS getters.
+ */
+const ModuleCtors = {
+  get AuthModule() {
+    return (require('../../../../src/modules/auth') as typeof import('../../../../src/modules/auth')).AuthModule;
+  },
+
+  get UserModule() {
+    return (require('../../../../src/modules/user') as typeof import('../../../../src/modules/user')).UserModule;
+  },
+
+  get RPCProviderModule() {
+    return (require('../../../../src/modules/rpc-provider') as typeof import('../../../../src/modules/rpc-provider'))
+      .RPCProviderModule;
+  },
+
+  get Extension() {
+    return (require('../../../../src/modules/base-extension') as typeof import('../../../../src/modules/base-extension'))
+      .Extension;
+  },
+};
 
 test.beforeEach(t => {
   browserEnv.restore();
+  mockConfigConstant('VERSION', '1.0.0-test');
 });
 
-test.serial('Initialize `MagicSDK`', t => {
-  const magic = new MagicSDK(TEST_API_KEY);
-
-  t.is(magic.apiKey, TEST_API_KEY);
-  t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
+function assertEncodedQueryParams(t: ExecutionContext, encodedQueryParams: string, expectedParams: any = {}) {
+  const defaultExpectedParams = {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
     host: 'auth.magic.link',
-    sdk: sdkName,
-    version: sdkVersion,
+    sdk: 'magic-sdk',
+    version: '1.0.0-test',
+  };
+
+  t.deepEqual(JSON.parse(atob(encodedQueryParams)), {
+    ...defaultExpectedParams,
+    ...expectedParams,
   });
-  t.true(magic.auth instanceof AuthModule);
-  t.true(magic.user instanceof UserModule);
-  t.true(magic.rpcProvider instanceof RPCProviderModule);
+}
+
+function assertModuleInstanceTypes(t: ExecutionContext, sdk: any) {
+  t.true(sdk.auth instanceof ModuleCtors.AuthModule);
+  t.true(sdk.user instanceof ModuleCtors.UserModule);
+  t.true(sdk.rpcProvider instanceof ModuleCtors.RPCProviderModule);
+}
+
+test.serial('Initialize `MagicSDK`', t => {
+  const magic = new TestMagicSDK(TEST_API_KEY);
+
+  t.is(magic.apiKey, TEST_API_KEY);
+  t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
+  assertEncodedQueryParams(t, magic.encodedQueryParams);
+  assertModuleInstanceTypes(t, magic);
 });
 
 test.serial('Fail to initialize `MagicSDK`', t => {
   try {
-    new MagicSDK(undefined as any);
+    new TestMagicSDK(undefined as any);
   } catch (err) {
     t.is(
       err.message,
@@ -43,99 +80,68 @@ test.serial('Fail to initialize `MagicSDK`', t => {
 });
 
 test.serial('Initialize `MagicSDK` with custom endpoint', t => {
-  const magic = new MagicSDK(TEST_API_KEY, { endpoint: 'https://example.com' });
+  const magic = new TestMagicSDK(TEST_API_KEY, { endpoint: 'https://example.com' });
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, 'https://example.com');
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
-    API_KEY: TEST_API_KEY,
-    DOMAIN_ORIGIN: 'null',
+  assertEncodedQueryParams(t, magic.encodedQueryParams, {
     host: 'example.com',
-    sdk: sdkName,
-    version: sdkVersion,
   });
-  t.true(magic.auth instanceof AuthModule);
-  t.true(magic.user instanceof UserModule);
-  t.true(magic.rpcProvider instanceof RPCProviderModule);
+  assertModuleInstanceTypes(t, magic);
 });
 
 test.serial('Initialize `MagicSDK` when `window.location` is missing', t => {
   browserEnv.stub('location', undefined);
 
-  const magic = new MagicSDK(TEST_API_KEY);
+  const magic = new TestMagicSDK(TEST_API_KEY);
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
-    API_KEY: TEST_API_KEY,
+  assertEncodedQueryParams(t, magic.encodedQueryParams, {
     DOMAIN_ORIGIN: '',
-    host: 'auth.magic.link',
-    sdk: sdkName,
-    version: sdkVersion,
   });
-  t.true(magic.auth instanceof AuthModule);
-  t.true(magic.user instanceof UserModule);
-  t.true(magic.rpcProvider instanceof RPCProviderModule);
+  assertModuleInstanceTypes(t, magic);
 });
 
 test.serial('Initialize `MagicSDK` with custom Web3 network', t => {
-  const magic = new MagicSDK(TEST_API_KEY, { network: 'mainnet' });
+  const magic = new TestMagicSDK(TEST_API_KEY, { network: 'mainnet' });
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
-    API_KEY: TEST_API_KEY,
-    DOMAIN_ORIGIN: 'null',
+  assertEncodedQueryParams(t, magic.encodedQueryParams, {
     ETH_NETWORK: 'mainnet',
-    host: 'auth.magic.link',
-    sdk: sdkName,
-    version: sdkVersion,
   });
-  t.true(magic.auth instanceof AuthModule);
-  t.true(magic.user instanceof UserModule);
-  t.true(magic.rpcProvider instanceof RPCProviderModule);
+  assertModuleInstanceTypes(t, magic);
 });
 
-class NoopExtNoConfig extends Extension<'noop'> {
+class NoopExtNoConfig extends ModuleCtors.Extension<'noop'> {
   name = 'noop' as const;
   helloWorld() {}
 }
 
-class NoopExtWithConfig extends Extension.Internal<'noop'> {
+class NoopExtWithConfig extends ModuleCtors.Extension.Internal<'noop'> {
   name = 'noop' as const;
   config = { hello: 'world' };
   helloWorld() {}
 }
 
-class NoopExtWithEmptyConfig extends Extension.Internal<'noop'> {
+class NoopExtWithEmptyConfig extends ModuleCtors.Extension.Internal<'noop'> {
   name = 'noop' as const;
   config = {};
   helloWorld() {}
 }
 
 test.serial('Initialize `MagicSDK` with config-less extensions via array', t => {
-  const magic = new MagicSDK(TEST_API_KEY, { extensions: [new NoopExtNoConfig()] });
+  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: [new NoopExtNoConfig()] });
 
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
-    API_KEY: TEST_API_KEY,
-    DOMAIN_ORIGIN: 'null',
-    host: 'auth.magic.link',
-    sdk: sdkName,
-    version: sdkVersion,
-  });
-
+  assertEncodedQueryParams(t, magic.encodedQueryParams);
   t.true(magic.noop instanceof NoopExtNoConfig);
 });
 
 test.serial('Initialize `MagicSDK` with config-ful extensions via array (non-empty config)', t => {
-  const magic = new MagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithConfig()] });
+  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithConfig()] });
 
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
-    API_KEY: TEST_API_KEY,
-    DOMAIN_ORIGIN: 'null',
-    host: 'auth.magic.link',
-    sdk: sdkName,
-    version: sdkVersion,
+  assertEncodedQueryParams(t, magic.encodedQueryParams, {
     ext: { noop: { hello: 'world' } },
   });
 
@@ -143,42 +149,25 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via array (non-emp
 });
 
 test.serial('Initialize `MagicSDK` with config-ful extensions via array (empty config)', t => {
-  const magic = new MagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithEmptyConfig()] });
+  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithEmptyConfig()] });
 
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
-    API_KEY: TEST_API_KEY,
-    DOMAIN_ORIGIN: 'null',
-    host: 'auth.magic.link',
-    sdk: sdkName,
-    version: sdkVersion,
-  });
+  assertEncodedQueryParams(t, magic.encodedQueryParams);
 
   t.true(magic.noop instanceof NoopExtWithEmptyConfig);
 });
 
 test.serial('Initialize `MagicSDK` with config-less extensions via dictionary', t => {
-  const magic = new MagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtNoConfig() } });
+  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtNoConfig() } });
 
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
-    API_KEY: TEST_API_KEY,
-    DOMAIN_ORIGIN: 'null',
-    host: 'auth.magic.link',
-    sdk: sdkName,
-    version: sdkVersion,
-  });
+  assertEncodedQueryParams(t, magic.encodedQueryParams);
 
   t.true(magic.foobar instanceof NoopExtNoConfig);
 });
 
 test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (non-empty config)', t => {
-  const magic = new MagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithConfig() } });
+  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithConfig() } });
 
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
-    API_KEY: TEST_API_KEY,
-    DOMAIN_ORIGIN: 'null',
-    host: 'auth.magic.link',
-    sdk: sdkName,
-    version: sdkVersion,
+  assertEncodedQueryParams(t, magic.encodedQueryParams, {
     ext: { noop: { hello: 'world' } },
   });
 
@@ -186,15 +175,38 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (no
 });
 
 test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (empty config)', t => {
-  const magic = new MagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithEmptyConfig() } });
+  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithEmptyConfig() } });
 
-  t.deepEqual(JSON.parse(atob(magic.encodedQueryParams)), {
-    API_KEY: TEST_API_KEY,
-    DOMAIN_ORIGIN: 'null',
-    host: 'auth.magic.link',
-    sdk: sdkName,
-    version: sdkVersion,
-  });
+  assertEncodedQueryParams(t, magic.encodedQueryParams);
 
   t.true(magic.foobar instanceof NoopExtWithEmptyConfig);
 });
+
+test.serial(
+  'Warns upon construction of `MagicSDK` instance if `endpoint` parameter is provided with `react-native` target.',
+  t => {
+    mockSDKEnvironmentConstant('target', 'react-native');
+
+    const consoleWarnStub = sinon.stub();
+    browserEnv.stub('console.warn', consoleWarnStub);
+    const expectedWarning = createReactNativeEndpointConfigurationWarning();
+
+    new TestMagicSDK(TEST_API_KEY, { endpoint: 'https://example.com' } as any);
+
+    t.true(consoleWarnStub.calledWith(expectedWarning.message));
+  },
+);
+
+test.serial(
+  'Does not warn upon construction of `MagicSDK` instance if `endpoint` parameter is omitted with `react-native` target.',
+  t => {
+    mockSDKEnvironmentConstant('target', 'react-native');
+
+    const consoleWarnStub = sinon.stub();
+    browserEnv.stub('console.warn', consoleWarnStub);
+
+    new TestMagicSDK(TEST_API_KEY);
+
+    t.false(consoleWarnStub.called);
+  },
+);

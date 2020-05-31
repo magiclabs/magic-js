@@ -9,10 +9,7 @@ export abstract class ViewController<Transport extends PayloadTransport = Payloa
     protected readonly endpoint: string,
     protected readonly encodedQueryParams: string,
   ) {
-    this.ready = new Promise(resolve => {
-      this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
-    });
-
+    this.ready = this.waitForReady();
     if (this.init) this.init();
     this.listen();
   }
@@ -21,6 +18,12 @@ export abstract class ViewController<Transport extends PayloadTransport = Payloa
   public abstract postMessage(data: MagicMessageRequest): Promise<void>;
   protected abstract hideOverlay(): void;
   protected abstract showOverlay(): void;
+
+  private waitForReady() {
+    return new Promise<void>(resolve => {
+      this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
+    });
+  }
 
   /**
    * Listen for messages sent from the underlying Magic `<WebView>`.

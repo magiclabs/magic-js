@@ -8,6 +8,7 @@
 import sinon from 'sinon';
 import * as ConfigConstants from '../src/config';
 import { getPayloadId } from '../src/util/get-payload-id';
+import { SDKEnvironment } from '../src/core/sdk';
 
 export function getPayloadIdStub() {
   const stub = sinon.stub();
@@ -17,4 +18,8 @@ export function getPayloadIdStub() {
 
 export function mockConfigConstant(key: keyof typeof ConfigConstants, value: any) {
   (ConfigConstants as any)[key] = value;
+}
+
+export function mockSDKEnvironmentConstant(key: keyof typeof SDKEnvironment, value: any) {
+  (SDKEnvironment as any)[key] = value;
 }
