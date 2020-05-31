@@ -1,13 +1,15 @@
+/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
 import { getPayloadIdStub } from '../../../mocks';
 import { createMagicSDK } from '../../../factories';
-import { BaseModule } from '../../../../src/modules/base-module';
 
 test.beforeEach(t => {
   browserEnv.restore();
-  (BaseModule as any).prototype.request = sinon.stub();
+  const { BaseModule } = require('../../../../src/modules/base-module');
+  BaseModule.prototype.request = sinon.stub();
 });
 
 test.serial('Generates JSON RPC request payload with `email` parameter', async t => {
