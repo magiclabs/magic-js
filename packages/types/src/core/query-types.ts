@@ -1,4 +1,4 @@
-import { EthNetworkConfiguration } from "../modules/rpc-provider-types";
+import { EthNetworkConfiguration } from '../modules/rpc-provider-types';
 
 /**
  * The shape of encoded query parameters sent along with the `<iframe>` request.

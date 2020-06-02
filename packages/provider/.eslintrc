@@ -1,18 +1,25 @@
 {
-  "extends": "../../.eslintrc",
+  "extends": ["@ikscodes/eslint-config"],
+  "rules": {
+    "import/extensions": 0,
+    "no-alert": 0,
+    "@typescript-eslint/await-thenable": 0,
+    "no-useless-constructor": 0,
+    "@typescript-eslint/no-useless-constructor": 0,
+    "@typescript-eslint/no-empty-function": 0,
+    "class-methods-use-this": 0,
+    "import/no-extraneous-dependencies": 0
+  },
   "parserOptions": {
     "project": [
-      "./packages/provider/tsconfig.json",
-      "./packages/provider/test/tsconfig.json"
+      "./tsconfig.json",
+      "./test/tsconfig.json"
     ]
   },
   "settings": {
     "import/resolver": {
       "typescript": {
-        "directory": [
-          "./packages/provider/tsconfig.json",
-          "./packages/provider/test/tsconfig.json"
-        ]
+        "directory": ["**/tsconfig.json"]
       }
     }
   }
