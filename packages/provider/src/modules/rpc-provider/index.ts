@@ -1,4 +1,4 @@
-/* eslint-disable consistent-return */
+/* eslint-disable consistent-return, prefer-spread */
 
 import {
   JsonRpcRequestPayload,

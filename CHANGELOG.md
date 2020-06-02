@@ -2,7 +2,7 @@
 
 #### Fixed
 
-- ...
+- Circle CI tag in readme is broken after namechange from MagicHQ to MagicLabs
 
 #### Changed
 
@@ -11,6 +11,12 @@
 #### Added
 
 - ...
+
+## `1.4.0` - 05/14/2020
+
+#### Added
+
+- `PromiEvent` interface for increasing the flexibility developers have when building 100% whitelabeled authentication flows using Magic SDK. This is a completely optional feature. Documentation is coming soon!
 
 ## `1.3.5` - 05/14/2020
 

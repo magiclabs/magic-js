@@ -1,6 +1,6 @@
 # ✨ Magic Authentication JavaScript SDK
 
-[![<MagicHQ>](https://circleci.com/gh/MagicHQ/magic-js.svg?style=shield)](https://circleci.com/gh/MagicHQ/magic-js)
+[![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
 
 > Magic empowers developers to protect their users via an innovative, passwordless authentication flow without the UX compromises that burden traditional OAuth implementations.
 
