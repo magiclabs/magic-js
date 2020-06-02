@@ -2,21 +2,26 @@
 
 import 'regenerator-runtime/runtime';
 
-import { SDKBase, createSDK } from '@magic-sdk/provider';
+import { createSDK } from '@magic-sdk/provider';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { ReactNativeTransport } from './react-native-transport';
+import { SDKBaseReactNative } from './react-native-sdk-base';
 
 // We expect `global.process` to be a Node Process, so we have to replace it
 // here.
 global.process = require('process');
 
 // WHATWG URL requires global `Buffer` access.
+/* istanbul ignore next */
+// We cannot test this code path without causing problems for Ava & TS Node.
+// Unfortunatley, we must ignore it.
 if (typeof global.Buffer === 'undefined') global.Buffer = require('buffer').Buffer;
 
-process.browser = false;
+(process as any).browser = false;
 
 // Web3 assumes a browser context, so we need to provide a `btoa` shim.
 if (typeof btoa === 'undefined') {
+  /* istanbul ignore next */
   global.btoa = str => {
     return Buffer.from(str, 'binary').toString('base64');
   };
@@ -24,11 +29,15 @@ if (typeof btoa === 'undefined') {
 
 // Web3 assumes a browser context, so we need to provide an `atob` shim.
 if (typeof atob === 'undefined') {
+  /* istanbul ignore next */
   global.atob = b64Encoded => {
     return Buffer.from(b64Encoded, 'base64').toString('binary');
   };
 }
 
+/* istanbul ignore next */
+// We cannot test this code path without causing problems for Ava & TS Node.
+// Unfortunatley, we must ignore it.
 if (typeof URL === 'undefined') {
   global.URL = require('whatwg-url').URL;
 }
@@ -42,12 +51,6 @@ export {
 } from '@magic-sdk/provider';
 
 export * from '@magic-sdk/types';
-
-class SDKBaseReactNative extends SDKBase {
-  public get Relayer() {
-    return (this.overlay as ReactNativeWebViewController).Relayer;
-  }
-}
 
 export const Magic = createSDK(SDKBaseReactNative, {
   target: 'react-native',

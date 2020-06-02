@@ -43,6 +43,7 @@
     "eslint-plugin-react-hooks": "~1.7.0",
     "glob": "^7.1.6",
     "husky": "^4.2.3",
+    "import-fresh": "^3.2.1",
     "lerna": "^3.21.0",
     "lint-staged": "^10.0.7",
     "microbundle": "^0.12.0",

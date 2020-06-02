@@ -1,9 +1,14 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
+    "module": "commonjs",
     "target": "es6",
     "strict": false,
     "noImplicitAny": false
   },
-  "include": ["./**/*.ts"]
+  "include": [
+    "./**/*.ts",
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ]
 }

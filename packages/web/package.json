@@ -31,9 +31,17 @@
   "devDependencies": {},
   "peerDependencies": {},
   "ava": {
-    "require": ["ts-node/register", "./test/setup.ts"],
-    "files": ["test/**/*.spec.ts"],
-    "extensions": ["ts", "tsx"],
+    "require": [
+      "ts-node/register",
+      "./test/setup.ts"
+    ],
+    "files": [
+      "test/**/*.spec.ts"
+    ],
+    "extensions": [
+      "ts",
+      "tsx"
+    ],
     "compileEnhancements": false,
     "verbose": true
   },
