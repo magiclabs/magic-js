@@ -11,7 +11,6 @@ import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
 import { Extension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
-import { VERSION } from '../config';
 import { SDKEnvironment } from './sdk-environment';
 
 export interface MagicSDKAdditionalConfiguration<
@@ -57,7 +56,7 @@ export class SDKBase {
       createReactNativeEndpointConfigurationWarning().log();
     }
 
-    const { defaultEndpoint } = SDKEnvironment;
+    const { defaultEndpoint, version } = SDKEnvironment;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
 
     // Assign API Modules
@@ -95,7 +94,7 @@ export class SDKBase {
       ETH_NETWORK: options?.network,
       host: createURL(this.endpoint).host,
       sdk: SDKEnvironment.sdkName,
-      version: VERSION,
+      version,
       ext: isEmpty(extConfig) ? undefined : extConfig,
     });
   }

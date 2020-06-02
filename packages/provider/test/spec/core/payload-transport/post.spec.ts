@@ -7,7 +7,6 @@ import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestP
 import { PayloadTransport } from '../../../../src/core/payload-transport';
 import { createPayloadTransport } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
-import { mockConfigConstant } from '../../../mocks';
 import { ViewController } from '../../../../src/core/view-controller';
 
 /**

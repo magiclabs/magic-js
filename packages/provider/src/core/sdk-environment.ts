@@ -11,6 +11,7 @@ type ConstructorOf<C> = { new (...args: any[]): C };
  */
 interface SDKEnvironment {
   sdkName: 'magic-sdk' | 'magic-sdk-rn';
+  version: string;
   target: 'web' | 'react-native';
   defaultEndpoint: string;
   ViewController: ConstructorOf<ViewController>;

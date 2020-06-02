@@ -5,7 +5,7 @@ import test, { ExecutionContext } from 'ava';
 import sinon from 'sinon';
 import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
 import { TestMagicSDK } from '../../../factories';
-import { mockConfigConstant, mockSDKEnvironmentConstant } from '../../../mocks';
+import { mockSDKEnvironmentConstant } from '../../../mocks';
 import { createReactNativeEndpointConfigurationWarning } from '../../../../src/core/sdk-exceptions';
 import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
@@ -14,7 +14,6 @@ import { Extension } from '../../../../src/modules/base-extension';
 
 test.beforeEach(t => {
   browserEnv.restore();
-  mockConfigConstant('VERSION', '1.0.0-test');
 });
 
 function assertEncodedQueryParams(t: ExecutionContext, encodedQueryParams: string, expectedParams: any = {}) {

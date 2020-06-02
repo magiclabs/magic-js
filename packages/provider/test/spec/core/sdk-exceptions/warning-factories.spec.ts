@@ -8,7 +8,7 @@ import {
   createSynchronousWeb3MethodWarning,
   createReactNativeEndpointConfigurationWarning,
 } from '../../../../src/core/sdk-exceptions';
-import { mockConfigConstant, mockSDKEnvironmentConstant } from '../../../mocks';
+import { mockSDKEnvironmentConstant } from '../../../mocks';
 
 function warningAssertions<T extends ExecutionContext<any>>(
   t: T,
