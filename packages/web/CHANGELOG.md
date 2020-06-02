@@ -2,7 +2,7 @@
 
 #### Fixed
 
-- Circle CI tag in readme is broken after namechange from MagicHQ to MagicLabs
+- ...
 
 #### Changed
 
@@ -11,6 +11,16 @@
 #### Added
 
 - ...
+
+## `2.0.0` - 06/02/2020
+
+#### Fixed
+
+- Circle CI tag in readme is broken after namechange from MagicHQ to MagicLabs
+
+#### Changed
+
+- Removed the `magic-sdk/react-native` entry-point. To use React Native with Magic SDK, install `@magic-sdk/react-native` instead. There are no breaking API changes related to public SDK methods.
 
 ## `1.4.0` - 05/14/2020
 

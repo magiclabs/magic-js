@@ -33,7 +33,7 @@ Please note we have a **code of conduct**, please follow it in all your interact
 
 ## Opening a Pull Request
 
-1. Update the **`Upcoming Changes`** section of [`CHANGELOG.md`](./CHANGELOG.md) with your fixes, changes, or additions. A maintainer will label your changes with a version number and release date once they are published.
+1. Update the **`Upcoming Changes`** section of the relevante package's `CHANGELOG.md` with your fixes, changes, or additions. A maintainer will label your changes with a version number and release date once they are published.
 2. Open a pull request from your fork/branch to the upstream `master` branch of _this_ repository.
 3. A maintainer will review your code changes and offer feedback or suggestions if necessary. Once your changes are approved, a maintainer will merge the pull request for you and publish a release.
 

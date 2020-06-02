@@ -6,7 +6,6 @@
 
 <p align="center">
   <a href="./LICENSE">License</a> ·
-  <a href="./CHANGELOG.md">Changelog</a> ·
   <a href="./CONTRIBUTING.md">Contributing Guide</a>
 </p>
 
@@ -14,16 +13,27 @@
 
 See the [developer documentation](https://docs.magic.link) to learn how you can master the Magic SDK in a matter of minutes.
 
+## 📦 Package Ecosystem
+
+| Package directory | Package Name | Changelog | Description |
+| ----------------- | ------------ | ------- | ----------- |
+| [`/web`](./packages/web) | [`magic-sdk`](https://www.npmjs.com/package/magic-sdk) | [CHANGELOG](./packages/web/CHANGELOG.md) | Web/browser entry-point for Magic SDK. |
+| [`/react-native`](./packages/react-native) | [`@magic-sdk/react-native`](https://www.npmjs.com/package/@magic-sdk/react-native) | [CHANGELOG](./packages/react-native/CHANGELOG.md) | React Native entry-point for Magic SDK. |
+| [`/types`](./packages/types) | [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types) | [CHANGELOG](./packages/types/CHANGELOG.md) | Core typings shared between JavaScript entry-points of Magic SDK. |
+| [`/provider`](./packages/provider) | [`@magic-sdk/provider`](https://www.npmjs.com/package/@magic-sdk/provider) | [CHANGELOG](./packages/provider/CHANGELOG.md) | Core business logic shared between JavaScript entry-points of Magic SDK. |
+
 ## 🔗 Installation
 
 Integrating your app with Magic will require our client-side NPM package:
 
 ```bash
 # Via NPM:
-npm install --save magic-sdk
+npm install --save magic-sdk # If you're targeting web browsers
+npm install --save @magic-sdk/react-native # If you're targeting React Native
 
 # Via Yarn:
-yarn add magic-sdk
+yarn add magic-sdk # If you're targeting web browsers
+yarn add @magic-sdk/react-native # If you're targeting React Native
 ```
 
 Alternatively, you can load via CDN with by adding a script tag to your app’s `<head>`:
