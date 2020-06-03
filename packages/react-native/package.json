@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native",
-  "version": "1.0.0-canary.0",
+  "version": "1.0.0-canary.1",
   "description": "Passwordless authentication for React Native.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -15,23 +15,27 @@
   "esmodule": "dist/index.modern.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "microbundle watch src/index.ts --define $ENV --target node --format modern,es,cjs --jsx React.createElement --external react,react-native",
-    "build": "microbundle build src/index.ts --define $ENV --target node --format modern,es,cjs --jsx React.createElement --external react,react-native"
+    "dev": "microbundle watch src/index.ts --define $ENV --target node --format modern,es,cjs --jsx React.createElement",
+    "build": "microbundle build src/index.ts --define $ENV --target node --format modern,es,cjs --jsx React.createElement",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
     "regenerator-runtime": "0.13.5",
-    "@magic-sdk/provider": "1.0.0-canary.0",
-    "@magic-sdk/types": "1.0.0-canary.0",
-    "react-native-webview": "^8.1.2",
+    "@magic-sdk/provider": "1.0.0-canary.1",
+    "@magic-sdk/types": "1.0.0-canary.1",
+    "react-native-webview": "8.1.2",
     "whatwg-url": "^8.0.0"
   },
   "devDependencies": {
     "react": "^16.13.1",
     "react-native": "^0.62.2"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-native": ">=0.60 <0.62"
+  },
   "ava": {
     "require": [
       "ts-node/register",

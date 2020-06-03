@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/types",
-  "version": "1.0.0-canary.0",
+  "version": "1.0.0-canary.1",
   "description": "Passwordless authentication for React Native.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -15,8 +15,9 @@
   "esmodule": "dist/index.modern.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "microbundle watch src/index.ts --target node --format modern,es,cjs --external none",
-    "build": "microbundle build src/index.ts --target node --format modern,es,cjs --external none"
+    "dev": "microbundle watch src/index.ts --target node --format modern,es,cjs",
+    "build": "microbundle build src/index.ts --target node --format modern,es,cjs",
+    "precommit": "lint-staged"
   },
   "dependencies": {},
   "peerDependencies": {}

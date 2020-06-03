@@ -1,6 +1,6 @@
 {
   "name": "magic-sdk",
-  "version": "2.0.0-canary.0",
+  "version": "2.0.0-canary.1",
   "description": "Passwordless authentication for the web.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -10,23 +10,24 @@
   },
   "homepage": "https://magic.link",
   "files": ["dist/**/*"],
-  "main": "dist/main/index.js",
+  "main": "dist/npm/index.js",
   "umd:main": "dist/magic.js",
-  "module": "dist/main/index.m.js",
-  "esmodule": "dist/main/index.modern.js",
-  "types": "dist/main/index.d.ts",
+  "module": "dist/npm/index.m.js",
+  "esmodule": "dist/npm/index.modern.js",
+  "types": "dist/npm/index.d.ts",
   "scripts": {
-    "dev": "microbundle watch src/index.ts --define $ENV --target web --format modern,es,cjs --external none",
-    "build": "yarn run build:main && yarn run build:cdn",
-    "build:main": "microbundle build src/index.ts --define $ENV --target web --format modern,es,cjs --external none",
-    "build:cdn": "microbundle build src/index.cdn.ts --define $ENV --tsconfig tsconfig.cdn.json --output dist/magic.js --target web --name Magic --format umd --external none"
+    "dev": "microbundle watch src/index.ts --define $ENV --target web --format modern,es,cjs",
+    "build": "yarn run build:npm && yarn run build:cdn",
+    "build:npm": "microbundle build src/index.ts --define $ENV --target web --format modern,es,cjs",
+    "build:cdn": "microbundle build src/index.cdn.ts --define $ENV --tsconfig tsconfig.cdn.json --output dist/magic.js --target web --name Magic --format umd --external none",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
     "regenerator-runtime": "0.13.5",
-    "@magic-sdk/provider": "1.0.0-canary.0",
-    "@magic-sdk/types": "1.0.0-canary.0"
+    "@magic-sdk/provider": "1.0.0-canary.1",
+    "@magic-sdk/types": "1.0.0-canary.1"
   },
   "devDependencies": {},
   "peerDependencies": {},

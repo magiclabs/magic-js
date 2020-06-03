@@ -1,46 +1,35 @@
-/* eslint-disable global-require */
+/* eslint-disable global-require, @typescript-eslint/no-var-requires */
 
 import 'regenerator-runtime/runtime';
 
 import { createSDK } from '@magic-sdk/provider';
+import * as processPolyfill from 'process';
+import { URL as URLPolyfill, URLSearchParams as URLSearchParamsPolyfill } from 'whatwg-url';
+import { Buffer } from 'buffer';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { ReactNativeTransport } from './react-native-transport';
 import { SDKBaseReactNative } from './react-native-sdk-base';
 
-// We expect `global.process` to be a Node Process, so we have to replace it
-// here.
-global.process = require('process');
+// We expect `global.process` to be a Node Process,
+// so we replace it here.
+global.process = processPolyfill;
+
+(global.process as any).browser = false;
 
 // WHATWG URL requires global `Buffer` access.
-/* istanbul ignore next */
-// We cannot test this code path without causing problems for Ava & TS Node.
-// Unfortunatley, we must ignore it.
-if (typeof global.Buffer === 'undefined') global.Buffer = require('buffer').Buffer;
+global.Buffer = Buffer;
 
-(process as any).browser = false;
+// Setup global WHATWG URL polyfills
+global.URL = URLPolyfill as any;
+global.URLSearchParams = URLSearchParamsPolyfill as any;
 
-// Web3 assumes a browser context, so we need to provide a `btoa` shim.
-if (typeof btoa === 'undefined') {
-  /* istanbul ignore next */
-  global.btoa = str => {
-    return Buffer.from(str, 'binary').toString('base64');
-  };
-}
-
-// Web3 assumes a browser context, so we need to provide an `atob` shim.
-if (typeof atob === 'undefined') {
-  /* istanbul ignore next */
-  global.atob = b64Encoded => {
-    return Buffer.from(b64Encoded, 'base64').toString('binary');
-  };
-}
+// Web3 assumes a browser context, so we need
+// to provide `btoa` and `atob` shims.
 
 /* istanbul ignore next */
-// We cannot test this code path without causing problems for Ava & TS Node.
-// Unfortunatley, we must ignore it.
-if (typeof URL === 'undefined') {
-  global.URL = require('whatwg-url').URL;
-}
+global.btoa = str => Buffer.from(str, 'binary').toString('base64');
+/* istanbul ignore next */
+global.atob = b64Encoded => Buffer.from(b64Encoded, 'base64').toString('binary');
 
 export {
   Extension,
