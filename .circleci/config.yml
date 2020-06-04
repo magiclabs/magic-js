@@ -24,13 +24,20 @@ aliases: [
   # List of dependency paths that should be persisted to the
   # CircleCI workspace.
   &dependency-paths [
-    "node_modules"
+    "node_modules",
+    "packages/provider/node_modules",
+    "packages/react-native/node_modules",
+    "packages/types/node_modules",
+    "packages/web/node_modules"
   ],
 
   # List of build output paths that should be persisted to the
   # CircleCI workspace.
   &build-output-paths [
-    "dist"
+    "packages/provider/dist",
+    "packages/react-native/dist",
+    "packages/types/dist",
+    "packages/web/dist"
   ],
 
   # NPM lockfile cache key (update "vN" => "vN+1" to cache-bust).
@@ -108,7 +115,11 @@ jobs:
           command: yarn run test
       # For display in CircleCI Artifacts: https://circleci.com/docs/2.0/artifacts/
       - store_artifacts:
-          path: coverage
+          path: packages/provider/coverage
+      - store_artifacts:
+          path: packages/react-native/coverage
+      - store_artifacts:
+          path: packages/web/coverage
 
 # --- Workflow definitions --------------------------------------------------- #
 
@@ -120,14 +131,14 @@ workflows:
     jobs:
       - install-dependencies
 
-      - lint:
+      - build:
           requires:
             - install-dependencies
 
-      - build:
+      - lint:
           requires:
-            - lint
+            - build
 
       - test:
           requires:
-            - lint
+            - build

@@ -1,0 +1,60 @@
+{
+  "name": "magic-sdk",
+  "version": "2.0.0-canary.1",
+  "description": "Passwordless authentication for the web.",
+  "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fortmatic/magic-js"
+  },
+  "homepage": "https://magic.link",
+  "files": ["dist/**/*"],
+  "main": "dist/npm/index.js",
+  "umd:main": "dist/magic.js",
+  "module": "dist/npm/index.m.js",
+  "esmodule": "dist/npm/index.modern.js",
+  "types": "dist/npm/index.d.ts",
+  "scripts": {
+    "dev": "microbundle watch src/index.ts --define $ENV --target web --format modern,es,cjs",
+    "build": "yarn run build:npm && yarn run build:cdn",
+    "build:npm": "microbundle build src/index.ts --define $ENV --target web --format modern,es,cjs",
+    "build:cdn": "microbundle build src/index.cdn.ts --define $ENV --tsconfig tsconfig.cdn.json --output dist/magic.js --target web --name Magic --format umd --sourcemap false --external none",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/runtime": "^7.9.6",
+    "regenerator-runtime": "0.13.5",
+    "@magic-sdk/provider": "1.0.0-canary.1",
+    "@magic-sdk/types": "1.0.0-canary.1"
+  },
+  "devDependencies": {},
+  "peerDependencies": {},
+  "ava": {
+    "require": [
+      "ts-node/register",
+      "./test/setup.ts"
+    ],
+    "files": [
+      "test/**/*.spec.ts"
+    ],
+    "extensions": [
+      "ts",
+      "tsx"
+    ],
+    "compileEnhancements": false,
+    "verbose": true
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": false,
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 99,
+    "statements": 99,
+    "functions": 99,
+    "branches": 99,
+    "reporter": ["html", "lcov"]
+  }
+}

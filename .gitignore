@@ -1,10 +1,23 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# Dependencies
 /node_modules
+/**/node_modules
+
+# Misc
 /.vscode
 /.idea
 .DS_Store
-/dist
-/coverage
-/.nyc_output
+
+# Test artifacts
+/**/coverage
+/**/.nyc_output
+
+# We use Yarn
 /package-lock.json
+/**/package-lock.json
+/**/yarn-error.log
+
+# Output files
+/**/dist
+

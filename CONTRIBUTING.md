@@ -14,12 +14,26 @@ Please note we have a **code of conduct**, please follow it in all your interact
 - For features: `feature/#[issue_number]/[descriptive_feature_name]`
 - For chores/the rest: `chore/[descriptive_chore_name]`
 
-4. Install dependencies with Yarn: `yarn install`
-5. Start building for development: `yarn start`
+4. Install & hoist dependencies with Yarn + Lerna: `yarn bootstrap`
+5. Start building for development: `yarn dev`
+
+### Development Scripts
+
+| NPM Script | Usage | Description |
+| ---------- | ----- | ----------- |
+| `bootstrap` | `yarn bootstrap` | Install dependencies/set up a local development environment. |
+| `exec` | `PKG=$PACKAGE_TARGET yarn exec -- ...` | Execute commands in the specified package. |
+| `dev` | `PKG=$PACKAGE_TARGET yarn dev` | Start the specified package in development mode, or all packages if `$PKG` is omitted. |
+| `build` | `PKG=$PACKAGE_TARGET yarn build` | Build the specified package for production, or all packages if `$PKG` is omitted. |
+| `clean` | `PKG=$PACKAGE_TARGET yarn clean` | Run cleaning scripts for the specified package, or all packages if `$PKG` is omitted. |
+| `lint` | `PKG=$PACKAGE_TARGET yarn lint` | Run the linter for the specified package, or all packages if `$PKG` is omitted. |
+| `test` | `PKG=$PACKAGE_TARGET yarn test` | Run tests for the specified package, or all packages if `$PKG` is omitted. |
+| `release` | `yarn release` | Publishes all packages with unreleased versions. |
+| `release_canary` | `yarn release_canary` | Publishes pre-release versions for all packages. |
 
 ## Opening a Pull Request
 
-1. Update the **`Upcoming Changes`** section of [`CHANGELOG.md`](./CHANGELOG.md) with your fixes, changes, or additions. A maintainer will label your changes with a version number and release date once they are published.
+1. Update the **`Upcoming Changes`** section of the relevante package's `CHANGELOG.md` with your fixes, changes, or additions. A maintainer will label your changes with a version number and release date once they are published.
 2. Open a pull request from your fork/branch to the upstream `master` branch of _this_ repository.
 3. A maintainer will review your code changes and offer feedback or suggestions if necessary. Once your changes are approved, a maintainer will merge the pull request for you and publish a release.
 

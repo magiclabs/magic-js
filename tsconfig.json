@@ -1,3 +1,24 @@
 {
-  "extends": "./config/tsconfig.base.json"
+  "compilerOptions": {
+    "lib": ["es2018", "dom"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es5",
+    "strict": true,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "declaration": true,
+  },
+  "include": [
+    "./packages/**/*.ts",
+    "./packages/**/*.tsx"
+  ]
 }
