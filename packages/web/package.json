@@ -19,7 +19,7 @@
     "dev": "microbundle watch src/index.ts --define $ENV --target web --format modern,es,cjs",
     "build": "yarn run build:npm && yarn run build:cdn",
     "build:npm": "microbundle build src/index.ts --define $ENV --target web --format modern,es,cjs",
-    "build:cdn": "microbundle build src/index.cdn.ts --define $ENV --tsconfig tsconfig.cdn.json --output dist/magic.js --target web --name Magic --format umd --external none",
+    "build:cdn": "microbundle build src/index.cdn.ts --define $ENV --tsconfig tsconfig.cdn.json --output dist/magic.js --target web --name Magic --format umd --sourcemap false --external none",
     "precommit": "lint-staged"
   },
   "dependencies": {

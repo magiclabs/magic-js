@@ -1,3 +1,5 @@
+import 'regenerator-runtime/runtime';
+
 import { SDKBase, createSDK, Extension, MagicSDKError, MagicSDKWarning, MagicRPCError } from '@magic-sdk/provider';
 import * as types from '@magic-sdk/types';
 import { IframeController } from './iframe-controller';

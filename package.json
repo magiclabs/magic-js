@@ -4,7 +4,7 @@
   "scripts": {
     "bootstrap": "yarn install && lerna bootstrap",
     "exec": "lerna exec --scope $PKG -- $@",
-    "dev": "./scripts/clean.sh && ./scripts/dev.sh",
+    "dev": "./scripts/dev.sh",
     "build": "./scripts/clean.sh && ./scripts/build.sh",
     "clean": "./scripts/clean.sh",
     "lint": "./scripts/lint.sh",
