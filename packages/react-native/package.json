@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native",
-  "version": "1.0.0-canary.1",
+  "version": "1.0.0",
   "description": "Passwordless authentication for React Native.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -9,7 +9,9 @@
     "url": "https://github.com/fortmatic/magic-js"
   },
   "homepage": "https://magic.link",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.m.js",
   "esmodule": "dist/index.modern.js",
@@ -22,10 +24,10 @@
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
-    "regenerator-runtime": "0.13.5",
-    "@magic-sdk/provider": "1.0.0-canary.1",
-    "@magic-sdk/types": "1.0.0-canary.1",
+    "@magic-sdk/provider": "^1.0.0",
+    "@magic-sdk/types": "^1.0.0",
     "react-native-webview": "8.1.2",
+    "regenerator-runtime": "0.13.5",
     "whatwg-url": "^8.0.0"
   },
   "devDependencies": {
@@ -60,6 +62,9 @@
     "statements": 99,
     "functions": 99,
     "branches": 99,
-    "reporter": ["html", "lcov"]
+    "reporter": [
+      "html",
+      "lcov"
+    ]
   }
 }

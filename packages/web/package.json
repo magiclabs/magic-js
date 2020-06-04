@@ -1,6 +1,6 @@
 {
   "name": "magic-sdk",
-  "version": "2.0.0-canary.1",
+  "version": "2.0.0",
   "description": "Passwordless authentication for the web.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -9,7 +9,9 @@
     "url": "https://github.com/fortmatic/magic-js"
   },
   "homepage": "https://magic.link",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "main": "dist/npm/index.js",
   "umd:main": "dist/magic.js",
   "module": "dist/npm/index.m.js",
@@ -25,12 +27,10 @@
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
-    "regenerator-runtime": "0.13.5",
-    "@magic-sdk/provider": "1.0.0-canary.1",
-    "@magic-sdk/types": "1.0.0-canary.1"
+    "@magic-sdk/provider": "^1.0.0",
+    "@magic-sdk/types": "^1.0.0",
+    "regenerator-runtime": "0.13.5"
   },
-  "devDependencies": {},
-  "peerDependencies": {},
   "ava": {
     "require": [
       "ts-node/register",
@@ -55,6 +55,9 @@
     "statements": 99,
     "functions": 99,
     "branches": 99,
-    "reporter": ["html", "lcov"]
+    "reporter": [
+      "html",
+      "lcov"
+    ]
   }
 }
