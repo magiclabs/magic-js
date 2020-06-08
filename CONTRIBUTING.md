@@ -10,9 +10,9 @@ Please note we have a **code of conduct**, please follow it in all your interact
 2. Clone your fork.
 3. Create a new branch in your local repository with the following pattern:
 
-- For bug fixes: `bug/#[issue_number]/[descriptive_bug_name]`
-- For features: `feature/#[issue_number]/[descriptive_feature_name]`
-- For chores/the rest: `chore/[descriptive_chore_name]`
+- For bug fixes: `bug/[package_name]/[issue_number]/[descriptive_bug_name]`
+- For features: `feature/[package_name]/[issue_number]/[descriptive_feature_name]`
+- For chores/the rest: `chore/[package_name]/[descriptive_chore_name]`
 
 4. Install & hoist dependencies with Yarn + Lerna: `yarn bootstrap`
 5. Start building for development: `yarn dev`
@@ -33,7 +33,7 @@ Please note we have a **code of conduct**, please follow it in all your interact
 
 ## Opening a Pull Request
 
-1. Update the **`Upcoming Changes`** section of the relevante package's `CHANGELOG.md` with your fixes, changes, or additions. A maintainer will label your changes with a version number and release date once they are published.
+1. Update the **`Upcoming Changes`** section of the relevant package's `CHANGELOG.md` with your fixes, changes, or additions. A maintainer will label your changes with a version number and release date once they are published.
 2. Open a pull request from your fork/branch to the upstream `master` branch of _this_ repository.
 3. A maintainer will review your code changes and offer feedback or suggestions if necessary. Once your changes are approved, a maintainer will merge the pull request for you and publish a release.
 
