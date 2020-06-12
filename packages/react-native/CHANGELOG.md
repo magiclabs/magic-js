@@ -2,6 +2,7 @@
 
 #### Fixed
 
+- Move "react-native-webivew" to peer dependencies
 - Circle CI tag in readme is broken after namechange from MagicHQ to MagicLabs
 
 #### Changed
