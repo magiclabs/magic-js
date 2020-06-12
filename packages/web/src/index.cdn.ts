@@ -1,6 +1,14 @@
 import 'regenerator-runtime/runtime';
 
-import { SDKBase, createSDK, Extension, MagicSDKError, MagicSDKWarning, MagicRPCError } from '@magic-sdk/provider';
+import {
+  SDKBase,
+  createSDK,
+  Extension,
+  MagicSDKError,
+  MagicExtensionError,
+  MagicRPCError,
+  MagicSDKWarning,
+} from '@magic-sdk/provider';
 import * as types from '@magic-sdk/types';
 import { IframeController } from './iframe-controller';
 import { WebTransport } from './web-transport';
@@ -19,8 +27,9 @@ const Magic = createSDK(SDKBase, {
 Object.assign(Magic, {
   ...types,
   SDKError: MagicSDKError,
-  SDKWarning: MagicSDKWarning,
+  ExtensionError: MagicExtensionError,
   RPCError: MagicRPCError,
+  SDKWarning: MagicSDKWarning,
   Extension,
 });
 

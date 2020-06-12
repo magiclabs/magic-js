@@ -1,6 +1,7 @@
 import { SDKErrorCode, SDKWarningCode, RPCErrorCode, JsonRpcError } from '@magic-sdk/types';
 import { isJsonRpcErrorCode } from '../util/type-guards';
 import { SDKEnvironment } from './sdk-environment';
+import { Extension } from '../modules/base-extension';
 
 // --- Error/warning classes
 
@@ -13,15 +14,12 @@ export class MagicSDKError extends Error {
   }
 }
 
-export class MagicSDKWarning {
-  public message: string;
+export class MagicExtensionError extends Error {
+  __proto__ = Error;
 
-  constructor(public code: SDKWarningCode, public rawMessage: string) {
-    this.message = `Magic SDK Warning: [${code}] ${rawMessage}`;
-  }
-
-  public log() {
-    console.warn(this.message);
+  constructor(ext: Extension<string>, public code: string | number, public rawMessage: string) {
+    super(`Magic Extension Error (${ext.name}): [${code}] ${rawMessage}`);
+    Object.setPrototypeOf(this, MagicExtensionError.prototype);
   }
 }
 
@@ -40,6 +38,18 @@ export class MagicRPCError extends Error {
     this.message = `Magic RPC Error: [${this.code}] ${this.rawMessage}`;
 
     Object.setPrototypeOf(this, MagicRPCError.prototype);
+  }
+}
+
+export class MagicSDKWarning {
+  public message: string;
+
+  constructor(public code: SDKWarningCode, public rawMessage: string) {
+    this.message = `Magic SDK Warning: [${code}] ${rawMessage}`;
+  }
+
+  public log() {
+    console.warn(this.message);
   }
 }
 

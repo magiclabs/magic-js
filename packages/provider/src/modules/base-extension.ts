@@ -1,7 +1,7 @@
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../core/json-rpc';
 import { BaseModule } from './base-module';
 import { SDKBase, MagicSDKAdditionalConfiguration } from '../core/sdk';
-import { createExtensionNotInitializedError } from '../core/sdk-exceptions';
+import { createExtensionNotInitializedError, MagicExtensionError } from '../core/sdk-exceptions';
 
 abstract class BaseExtension<TName extends string> extends BaseModule {
   public abstract readonly name: TName;
@@ -29,6 +29,10 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
   public init(sdk: SDKBase) {
     (this.sdk as any) = sdk;
     this.isInitialized = true;
+  }
+
+  public raiseError(code: string | number, message: string): void {
+    throw new MagicExtensionError(this, code, message);
   }
 }
 
@@ -75,9 +79,9 @@ export type WithExtensions<SDK extends SDKBase> = {
   ): SDK &
     {
       [P in TExtName]: TExt extends Extension<string>[]
-        ? Omit<GetExtensionFromName<TExt, P>, 'name' | 'config' | 'init'>
+        ? Omit<GetExtensionFromName<TExt, P>, 'name' | 'config' | 'init' | 'raiseError'>
         : TExt extends { [P in TExtName]: Extension<string> }
-        ? Omit<TExt[P], 'name' | 'config' | 'init'>
+        ? Omit<TExt[P], 'name' | 'config' | 'init' | 'raiseError'>
         : never;
     };
 };

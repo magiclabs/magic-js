@@ -34,8 +34,9 @@ global.atob = b64Encoded => Buffer.from(b64Encoded, 'base64').toString('binary')
 export {
   Extension,
   MagicSDKError as SDKError,
-  MagicSDKWarning as SDKWarning,
+  MagicExtensionError as ExtensionError,
   MagicRPCError as RPCError,
+  MagicSDKWarning as SDKWarning,
   MagicSDKAdditionalConfiguration,
 } from '@magic-sdk/provider';
 
