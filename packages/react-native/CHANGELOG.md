@@ -12,6 +12,12 @@
 
 - ...
 
+## `1.0.1` - 06/11/2020
+
+#### Changed
+
+- Update dependencies.
+
 ## `1.0.0` - 06/02/2020
 
 This is the first release our changelog records. Future updates will be logged in the following format:
