@@ -1,7 +1,7 @@
 {
   "name": "@magic-sdk/types",
   "version": "1.0.0",
-  "description": "Passwordless authentication for React Native.",
+  "description": "Core business logic for Magic SDK packages.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
   "repository": {

@@ -9,7 +9,7 @@
     "clean": "./scripts/clean.sh",
     "lint": "./scripts/lint.sh",
     "test": "./scripts/test.sh",
-    "version": "lerna version",
+    "bump_version": "lerna version",
     "release": "lerna publish from-package --yes",
     "release_canary": "lerna publish from-package --canary --yes",
     "snyk-protect": "snyk protect",
@@ -65,5 +65,6 @@
   "snyk": true,
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "version": "0.0.0"
 }
