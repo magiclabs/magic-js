@@ -12,6 +12,14 @@
 
 - ...
 
+## `2.0.2` - 06/12/2020
+
+#### Changed
+
+- Update dependencies.
+- Circle CI tag in readme is broken after namechange from MagicHQ to MagicLabs
+
+
 ## `2.0.1` - 06/11/2020
 
 #### Changed
