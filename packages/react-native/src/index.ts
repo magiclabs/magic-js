@@ -12,7 +12,8 @@ import { SDKBaseReactNative } from './react-native-sdk-base';
 
 // We expect `global.process` to be a Node Process,
 // so we replace it here.
-global.process = processPolyfill;
+/* istanbul ignore next */
+if (typeof global.process === 'undefined') global.process = processPolyfill;
 
 (global.process as any).browser = false;
 
@@ -34,8 +35,9 @@ global.atob = b64Encoded => Buffer.from(b64Encoded, 'base64').toString('binary')
 export {
   Extension,
   MagicSDKError as SDKError,
-  MagicSDKWarning as SDKWarning,
+  MagicExtensionError as ExtensionError,
   MagicRPCError as RPCError,
+  MagicSDKWarning as SDKWarning,
   MagicSDKAdditionalConfiguration,
 } from '@magic-sdk/provider';
 

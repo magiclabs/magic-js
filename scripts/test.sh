@@ -4,25 +4,20 @@ echo
 echo "Running unit tests..."
 echo
 
-# Turn a glob (`$1`) into a list of absolute file paths. The glob should be
-# relative to the active `$PKG` directory.
-glob() {
-  ../../scripts/glob.js $1
-}
-
-# `cd` into the relevant project directory and set the appropriate TSCONFIG
-# file.
-setPackage() {
-  cd ./packages/$1
-  export TS_NODE_PROJECT="./test/tsconfig.json"
-}
-
 # Run tests for the project directory given by `$1`.
 runTests() {
-  setPackage $1
-  input=$(echo $(glob $2))
-  npx nyc --reporter=lcov --reporter=text-summary ava $input
-  cd ../.. # Return to the original working directory
+  # Set the package directory and TSConfig file.
+  cd ./packages/$1
+  export TS_NODE_PROJECT="./test/tsconfig.json"
+
+  # Parse a glob of input test files (relative to the package directory).
+  input=$(echo $(../../scripts/glob.js $2))
+
+  # Run tests, with coverage.
+  npx nyc --reporter=lcov --reporter=text-summary  ava $input || exit 1
+
+  # Return to the original working directory
+  cd ../..
 }
 
 # Print a message indicating no tests are available for the given `$PKG`.

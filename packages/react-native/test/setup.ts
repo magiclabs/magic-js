@@ -5,5 +5,14 @@ import 'regenerator-runtime/runtime';
 import browserEnv from '@ikscodes/browser-env';
 import { removeReactDependencies } from './mocks';
 
-browserEnv();
+browserEnv([
+  'setTimeout',
+  'clearTimeout',
+  'postMessage',
+  'addEventListener',
+  'removeEventListener',
+  'document',
+  'console',
+  'window',
+]);
 removeReactDependencies();

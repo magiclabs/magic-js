@@ -1,9 +1,15 @@
 import { SDKErrorCode, SDKWarningCode, RPCErrorCode, JsonRpcError } from '@magic-sdk/types';
 import { isJsonRpcErrorCode } from '../util/type-guards';
 import { SDKEnvironment } from './sdk-environment';
+import { Extension } from '../modules/base-extension';
 
 // --- Error/warning classes
 
+/**
+ * This error type represents internal SDK errors. This could be developer
+ * mistakes (or Magic's mistakes), or execution errors unrelated to standard
+ * JavaScript exceptions.
+ */
 export class MagicSDKError extends Error {
   __proto__ = Error;
 
@@ -13,18 +19,24 @@ export class MagicSDKError extends Error {
   }
 }
 
-export class MagicSDKWarning {
-  public message: string;
+/**
+ * This error type is reserved for communicating errors that arise during
+ * execution of Magic SDK Extension methods. Compare this to the `SDKError`
+ * type, specifically in context of Extensions.
+ */
+export class MagicExtensionError extends Error {
+  __proto__ = Error;
 
-  constructor(public code: SDKWarningCode, public rawMessage: string) {
-    this.message = `Magic SDK Warning: [${code}] ${rawMessage}`;
-  }
-
-  public log() {
-    console.warn(this.message);
+  constructor(ext: Extension<string>, public code: string | number, public rawMessage: string) {
+    super(`Magic Extension Error (${ext.name}): [${code}] ${rawMessage}`);
+    Object.setPrototypeOf(this, MagicExtensionError.prototype);
   }
 }
 
+/**
+ * This error type communicates exceptions that occur during execution in the
+ * Magic `<iframe>` context.
+ */
 export class MagicRPCError extends Error {
   __proto__ = Error;
 
@@ -40,6 +52,22 @@ export class MagicRPCError extends Error {
     this.message = `Magic RPC Error: [${this.code}] ${this.rawMessage}`;
 
     Object.setPrototypeOf(this, MagicRPCError.prototype);
+  }
+}
+
+/**
+ * In contrast to `SDKError` objects, this "warning" type represents important
+ * context that does not rise to the level of an exception.
+ */
+export class MagicSDKWarning {
+  public message: string;
+
+  constructor(public code: SDKWarningCode, public rawMessage: string) {
+    this.message = `Magic SDK Warning: [${code}] ${rawMessage}`;
+  }
+
+  public log() {
+    console.warn(this.message);
   }
 }
 

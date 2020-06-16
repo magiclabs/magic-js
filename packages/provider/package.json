@@ -40,7 +40,6 @@
       "ts",
       "tsx"
     ],
-    "compileEnhancements": false,
     "verbose": true
   },
   "nyc": {
@@ -53,7 +52,6 @@
     "functions": 99,
     "branches": 99,
     "reporter": [
-      "html",
       "lcov"
     ]
   }

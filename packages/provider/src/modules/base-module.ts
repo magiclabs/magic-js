@@ -10,14 +10,23 @@ import { EventsDefinition } from '../util/events';
 export class BaseModule {
   constructor(protected readonly sdk: SDKBase) {}
 
+  /**
+   * The `PayloadTransport` for the SDK instance registered to this module.
+   */
   protected get transport(): PayloadTransport {
     return (this.sdk as any).transport;
   }
 
+  /**
+   * The `ViewController` for the SDK instance registered to this module.
+   */
   protected get overlay(): ViewController {
     return (this.sdk as any).overlay;
   }
 
+  /**
+   * Emits promisified requests to the Magic `<iframe>` context.
+   */
   protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
     const responsePromise = this.transport.post<ResultType>(
       this.overlay,

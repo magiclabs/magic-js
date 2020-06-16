@@ -7,8 +7,9 @@ import { WebTransport } from './web-transport';
 export {
   Extension,
   MagicSDKError as SDKError,
-  MagicSDKWarning as SDKWarning,
+  MagicExtensionError as ExtensionError,
   MagicRPCError as RPCError,
+  MagicSDKWarning as SDKWarning,
   MagicSDKAdditionalConfiguration,
 } from '@magic-sdk/provider';
 
