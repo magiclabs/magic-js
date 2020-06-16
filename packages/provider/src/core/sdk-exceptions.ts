@@ -5,6 +5,11 @@ import { Extension } from '../modules/base-extension';
 
 // --- Error/warning classes
 
+/**
+ * This error type represents internal SDK errors. This could be developer
+ * mistakes (or Magic's mistakes), or execution errors unrelated to standard
+ * JavaScript exceptions.
+ */
 export class MagicSDKError extends Error {
   __proto__ = Error;
 
@@ -14,6 +19,11 @@ export class MagicSDKError extends Error {
   }
 }
 
+/**
+ * This error type is reserved for communicating errors that arise during
+ * execution of Magic SDK Extension methods. Compare this to the `SDKError`
+ * type, specifically in context of Extensions.
+ */
 export class MagicExtensionError extends Error {
   __proto__ = Error;
 
@@ -23,6 +33,10 @@ export class MagicExtensionError extends Error {
   }
 }
 
+/**
+ * This error type communicates exceptions that occur during execution in the
+ * Magic `<iframe>` context.
+ */
 export class MagicRPCError extends Error {
   __proto__ = Error;
 
@@ -41,6 +55,10 @@ export class MagicRPCError extends Error {
   }
 }
 
+/**
+ * In contrast to `SDKError` objects, this "warning" type represents important
+ * context that does not rise to the level of an exception.
+ */
 export class MagicSDKWarning {
   public message: string;
 
