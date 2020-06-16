@@ -7,6 +7,11 @@
 
 import sinon from 'sinon';
 import mockery from 'mockery';
+import importFresh from 'import-fresh';
+
+export function requireIndex() {
+  return importFresh('../src/index') as typeof import('../src/index');
+}
 
 export function reactNativeStyleSheetStub() {
   const ReactNative = require('react-native');
@@ -26,7 +31,6 @@ export function removeReactDependencies() {
   mockery.registerMock('react', noopModule);
   mockery.registerMock('react-native', noopModule);
   mockery.registerMock('react-native-webview', noopModule);
-  mockery.registerMock('whatwg-url', noopModule);
 
   mockery.enable({
     warnOnReplace: false,

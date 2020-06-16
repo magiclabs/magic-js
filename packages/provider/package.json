@@ -40,7 +40,6 @@
       "ts",
       "tsx"
     ],
-    "compileEnhancements": false,
     "verbose": true
   },
   "nyc": {

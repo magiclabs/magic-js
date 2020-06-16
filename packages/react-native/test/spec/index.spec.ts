@@ -1,11 +1,7 @@
 /* eslint-disable global-require */
 
 import test, { ExecutionContext } from 'ava';
-import importFresh from 'import-fresh';
-
-function requireIndex() {
-  return importFresh('../../src/index');
-}
+import { requireIndex } from '../mocks';
 
 function assertGlobalPolyfill(t: ExecutionContext, globalKey: string) {
   delete global[globalKey];

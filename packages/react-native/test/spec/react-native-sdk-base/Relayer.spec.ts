@@ -4,7 +4,7 @@ import { createMagicSDK } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
 test.beforeEach(() => {
-  browserEnv();
+  browserEnv.restore();
   reactNativeStyleSheetStub();
 });
 
