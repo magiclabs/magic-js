@@ -23,9 +23,9 @@ Please note we have a **code of conduct**, please follow it in all your interact
 | ---------- | ----- | ----------- |
 | `bootstrap` | `yarn bootstrap` | Install dependencies/set up a local development environment. |
 | `exec` | `PKG=$PACKAGE_TARGET yarn exec -- ...` | Execute commands in the specified package. |
-| `dev` | `PKG=$PACKAGE_TARGET yarn dev` | Start the specified package in development mode, or all packages if `$PKG` is omitted. |
+| `dev` | `PKG=$PACKAGE_TARGET yarn dev` | Start the specified package in development mode. |
 | `build` | `PKG=$PACKAGE_TARGET yarn build` | Build the specified package for production, or all packages if `$PKG` is omitted. |
-| `clean` | `PKG=$PACKAGE_TARGET yarn clean` | Run cleaning scripts for the specified package, or all packages if `$PKG` is omitted. |
+| `clean` | `PKG=$PACKAGE_TARGET yarn clean` | Run cleaning scripts for the specified package, or all packages if `$PKG` is omitted. Available flags: (`--cache`, `--test-artifacts`, `--deps`) |
 | `lint` | `PKG=$PACKAGE_TARGET yarn lint` | Run the linter for the specified package, or all packages if `$PKG` is omitted. |
 | `test` | `PKG=$PACKAGE_TARGET yarn test` | Run tests for the specified package, or all packages if `$PKG` is omitted. |
 | `bump_version` | `yarn bump_version` | Alias for `lerna version` |

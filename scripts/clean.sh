@@ -17,7 +17,7 @@ while test $# -gt 0; do
       shift
       ;;
 
-    -test | --test)
+    -test-artifacts | --test-artifacts)
       CLEAN_TEST_ARTIFACTS=true
       shift
       ;;
