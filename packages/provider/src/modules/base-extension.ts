@@ -14,10 +14,12 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
   constructor() {
     super(undefined as any);
 
+    const sdkAccessFields = ['request', 'transport', 'overlay', 'sdk'];
+
     // Dissallow SDK access before initialization.
     return new Proxy(this, {
       get: (target, prop, receiver) => {
-        if (['request', 'transport', 'overlay', 'sdk'].includes(prop as string) && !this.isInitialized) {
+        if (sdkAccessFields.includes(prop as string) && !this.isInitialized) {
           throw createExtensionNotInitializedError(prop as string);
         }
 
@@ -26,12 +28,22 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
     });
   }
 
+  /**
+   * Registers a Magic SDK instance with this Extension.
+   */
   public init(sdk: SDKBase) {
+    if (this.isInitialized) return;
+
     (this.sdk as any) = sdk;
     this.isInitialized = true;
   }
 
-  public raiseError(code: string | number, message: string): void {
+  /**
+   * Throws an error wrapped with a native Magic SDK error type. This enables
+   * consistency in error handling for consumers of Magic SDK and this
+   * Extension.
+   */
+  protected raiseError(code: string | number, message: string): void {
     throw new MagicExtensionError(this, code, message);
   }
 }
@@ -52,14 +64,31 @@ export abstract class Extension<TName extends string> extends BaseExtension<TNam
   public static Internal = InternalExtension;
 }
 
+/**
+ * These fields exist on the `Extension` type, but should be hidden from the
+ * public interface.
+ */
+type HiddenExtensionFields = 'name' | 'config' | 'init' | 'raiseError';
+
+/**
+ * Gets the type contained in an array type.
+ */
 type UnwrapArray<T extends any[]> = T extends Array<infer P> ? P : never;
 
+/**
+ * Create a union type of Extension names from an array of Extension types given
+ * by `TExt`.
+ */
 type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<
   {
     [P in keyof TExt]: TExt[P] extends Extension<infer K> ? K : never;
   }
 >;
 
+/**
+ * From the literal Extension name type given by `TExtName`, extract a
+ * dictionary of Extension types.
+ */
 type GetExtensionFromName<TExt extends Extension<string>[], TExtName extends string> = {
   [P in TExtName]: Extract<UnwrapArray<TExt>, Extension<TExtName>>;
 }[TExtName];
@@ -79,9 +108,9 @@ export type WithExtensions<SDK extends SDKBase> = {
   ): SDK &
     {
       [P in TExtName]: TExt extends Extension<string>[]
-        ? Omit<GetExtensionFromName<TExt, P>, 'name' | 'config' | 'init' | 'raiseError'>
+        ? Omit<GetExtensionFromName<TExt, P>, HiddenExtensionFields>
         : TExt extends { [P in TExtName]: Extension<string> }
-        ? Omit<TExt[P], 'name' | 'config' | 'init' | 'raiseError'>
+        ? Omit<TExt[P], HiddenExtensionFields>
         : never;
     };
 };
