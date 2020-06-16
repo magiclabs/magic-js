@@ -12,7 +12,13 @@
 
 - ...
 
-## `2.0.0` - 06/20/2020
+## `2.0.1` - 06/16/2020
+
+#### Added
+
+- Introduce the `ExtensionError` type to ease handling of errors rising from Magic SDK Extensions.
+
+## `2.0.0` - 06/12/2020
 
 #### Changed
 

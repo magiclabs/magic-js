@@ -12,6 +12,13 @@
 
 - ...
 
+## `1.0.3` - 06/16/2020
+
+#### Added
+
+- Introduced `MagicExtensionError` type to create consistency for errors rising from Magic SDK Extensions.
+- Add the `BaseExtension.raiseError` method.
+
 ## `1.0.2` - 06/12/2020
 
 #### Changed
