@@ -52,7 +52,6 @@
     "functions": 99,
     "branches": 99,
     "reporter": [
-      "html",
       "lcov"
     ]
   }

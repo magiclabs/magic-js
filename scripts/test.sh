@@ -14,7 +14,7 @@ runTests() {
   input=$(echo $(../../scripts/glob.js $2))
 
   # Run tests, with coverage.
-  npx nyc --reporter=text-summary  ava $input || exit 1
+  npx nyc --reporter=lcov --reporter=text-summary  ava $input || exit 1
 
   # Return to the original working directory
   cd ../..
