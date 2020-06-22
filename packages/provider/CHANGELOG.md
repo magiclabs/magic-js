@@ -12,6 +12,16 @@
 
 - ...
 
+## `2.0.0` - 06/22/2020
+
+#### Added
+
+- The following utilities are now exposed on the `Extension` base class: `createPromiEvent`, `decodeQueryParameters`, `encodeQueryParameters`.
+
+#### Changed
+
+- The `createJsonRpcRequestPayload` and `standardizeJsonRpcRequestPayload` utilities are now nested under the `utils` field of the `Extension` base class.
+
 ## `1.0.3` - 06/16/2020
 
 #### Added
