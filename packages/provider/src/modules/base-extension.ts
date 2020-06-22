@@ -2,14 +2,20 @@ import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '.
 import { BaseModule } from './base-module';
 import { SDKBase, MagicSDKAdditionalConfiguration } from '../core/sdk';
 import { createExtensionNotInitializedError, MagicExtensionError } from '../core/sdk-exceptions';
+import { createPromiEvent, encodeQueryParameters, decodeQueryParameters } from '../util';
 
 abstract class BaseExtension<TName extends string> extends BaseModule {
   public abstract readonly name: TName;
 
   private isInitialized = false;
 
-  protected createJsonRpcRequestPayload = createJsonRpcRequestPayload;
-  protected standardizeJsonRpcRequestPayload = standardizeJsonRpcRequestPayload;
+  protected utils = {
+    createPromiEvent,
+    decodeQueryParameters,
+    encodeQueryParameters,
+    createJsonRpcRequestPayload,
+    standardizeJsonRpcRequestPayload,
+  };
 
   constructor() {
     super(undefined as any);
@@ -65,10 +71,10 @@ export abstract class Extension<TName extends string> extends BaseExtension<TNam
 }
 
 /**
- * These fields exist on the `Extension` type, but should be hidden from the
- * public interface.
+ * These fields are exposed on the `Extension` type, but should be hidden from
+ * the public interface.
  */
-type HiddenExtensionFields = 'name' | 'config' | 'init' | 'raiseError';
+type HiddenExtensionFields = 'name' | 'init' | 'config';
 
 /**
  * Gets the type contained in an array type.
