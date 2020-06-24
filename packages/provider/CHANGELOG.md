@@ -12,6 +12,13 @@
 
 - ...
 
+## `2.1.0` - 06/23/2020
+
+#### Added
+
+- Add the `BaseExtension.createError` method.
+- You are now able to attach arbitrary, strongly-typed data to `MagicExtensionError` objects.
+
 ## `2.0.0` - 06/22/2020
 
 #### Added
