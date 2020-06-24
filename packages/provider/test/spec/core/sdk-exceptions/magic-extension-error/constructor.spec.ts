@@ -13,10 +13,11 @@ class TestExtension extends Extension<'test'> {
 
 test('Instantiate `MagicExtensionError`', (t) => {
   const ext = new TestExtension();
-  const error = new MagicExtensionError(ext, 'TEST_CODE', 'test message');
+  const error = new MagicExtensionError(ext, 'TEST_CODE', 'test message', { hello: 'world' });
 
   t.true(error instanceof MagicExtensionError);
   t.is(error.message, 'Magic Extension Error (test): [TEST_CODE] test message');
   t.is(error.rawMessage, 'test message');
   t.is(error.code, 'TEST_CODE');
+  t.deepEqual(error.data, { hello: 'world' });
 });

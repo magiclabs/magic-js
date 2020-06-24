@@ -9,11 +9,11 @@ test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('Throws a `MagicExtensionError`', (t) => {
+test('Creates a `MagicExtensionError`', (t) => {
   const baseExtension = new (Extension as any)();
 
   const expectedError = new MagicExtensionError(baseExtension, 'TEST', 'hello world', {});
-  const error: MagicExtensionError = t.throws(() => baseExtension.raiseError('TEST', 'hello world'));
+  const error: MagicExtensionError = baseExtension.createError('TEST', 'hello world');
 
   t.is(expectedError.code, error.code);
   t.is(expectedError.message, error.message);
