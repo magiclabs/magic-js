@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Passwordless authentication for React Native.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -24,8 +24,8 @@
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
-    "@magic-sdk/provider": "^2.0.0",
-    "@magic-sdk/types": "^1.0.2",
+    "@magic-sdk/provider": "^2.1.0",
+    "@magic-sdk/types": "^1.0.3",
     "regenerator-runtime": "0.13.5",
     "whatwg-url": "^8.0.0"
   },
