@@ -12,6 +12,12 @@
 
 - ...
 
+## `2.1.1` - 06/24/2020
+
+#### Changed
+
+- The argument type given to the default `"error"` event of `PromiEvent` is now `any` (in line with native Promise typings).
+
 ## `2.1.0` - 06/23/2020
 
 #### Added
