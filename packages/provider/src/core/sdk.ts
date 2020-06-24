@@ -69,7 +69,7 @@ export class SDKBase {
     const extConfig: any = {};
 
     if (Array.isArray(extensions)) {
-      extensions.forEach(ext => {
+      extensions.forEach((ext) => {
         ext.init(this);
         (this as any)[ext.name] = ext;
         if (ext instanceof Extension.Internal) {
@@ -77,7 +77,7 @@ export class SDKBase {
         }
       });
     } else {
-      Object.keys(extensions).forEach(name => {
+      Object.keys(extensions).forEach((name) => {
         extensions[name].init(this);
         const ext = extensions[name];
         (this as any)[name] = ext;

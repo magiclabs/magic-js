@@ -7,12 +7,12 @@ import { getPayloadIdStub } from '../../../mocks';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { createMagicSDK } from '../../../factories';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-test.serial('Generates JSON RPC request payload with `email` parameter', async t => {
+test.serial('Generates JSON RPC request payload with `email` parameter', async (t) => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -27,7 +27,7 @@ test.serial('Generates JSON RPC request payload with `email` parameter', async t
   t.deepEqual(requestPayload.params, [{ email: 'test', showUI: true }]);
 });
 
-test.serial('Generates JSON RPC request payload with `showUI` parameter', async t => {
+test.serial('Generates JSON RPC request payload with `showUI` parameter', async (t) => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();

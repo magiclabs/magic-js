@@ -4,11 +4,11 @@ import sinon from 'sinon';
 import { ENCODED_QUERY_PARAMS } from '../../constants';
 import { createWebTransport } from '../../factories';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv();
 });
 
-test.serial('Adds `message` event listener', t => {
+test.serial('Adds `message` event listener', (t) => {
   const addEventListenerStub = sinon.stub();
   browserEnv.stub('addEventListener', addEventListenerStub);
 
@@ -17,7 +17,7 @@ test.serial('Adds `message` event listener', t => {
   t.is(addEventListenerStub.args[0][0], 'message');
 });
 
-test.cb('Ignores events with different origin than expected', t => {
+test.cb('Ignores events with different origin than expected', (t) => {
   const transport = createWebTransport('asdf');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -30,7 +30,7 @@ test.cb('Ignores events with different origin than expected', t => {
   }, 0);
 });
 
-test.cb('Ignores events with undefined `data` attribute', t => {
+test.cb('Ignores events with undefined `data` attribute', (t) => {
   const transport = createWebTransport('');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -43,7 +43,7 @@ test.cb('Ignores events with undefined `data` attribute', t => {
   }, 0);
 });
 
-test.cb('Ignores events with undefined `data.msgType`', t => {
+test.cb('Ignores events with undefined `data.msgType`', (t) => {
   const transport = createWebTransport('');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -56,7 +56,7 @@ test.cb('Ignores events with undefined `data.msgType`', t => {
   }, 0);
 });
 
-test.cb('Executes events where `messageHandlers` size is > 0', t => {
+test.cb('Executes events where `messageHandlers` size is > 0', (t) => {
   const transport = createWebTransport('');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -70,7 +70,7 @@ test.cb('Executes events where `messageHandlers` size is > 0', t => {
   }, 0);
 });
 
-test.cb('Ignores events where `messageHandlers` size is === 0', t => {
+test.cb('Ignores events where `messageHandlers` size is === 0', (t) => {
   const transport = createWebTransport('');
   (transport as any).messageHandlers = { size: 0 };
 

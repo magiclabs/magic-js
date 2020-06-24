@@ -3,11 +3,11 @@ import test from 'ava';
 import EventEmitter from 'eventemitter3';
 import { TypedEmitter } from '../../../../../src/util/events';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('Initialize `TypedEmitter`', t => {
+test('Initialize `TypedEmitter`', (t) => {
   const emitter = new TypedEmitter();
 
   t.true(emitter instanceof TypedEmitter);

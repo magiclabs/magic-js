@@ -49,12 +49,12 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
         .post(
           this.overlay,
           MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
-          payload.map(p => standardizeJsonRpcRequestPayload(p)),
+          payload.map((p) => standardizeJsonRpcRequestPayload(p)),
         )
-        .then(batchResponse => {
+        .then((batchResponse) => {
           (onRequestComplete as JsonRpcBatchRequestCallback)(
             null,
-            batchResponse.map(response => ({
+            batchResponse.map((response) => ({
               ...response.payload,
               error: response.hasError ? new MagicRPCError(response.payload.error) : null,
             })),
@@ -64,7 +64,7 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
       const finalPayload = standardizeJsonRpcRequestPayload(payload);
       this.transport
         .post(this.overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, finalPayload)
-        .then(response => {
+        .then((response) => {
           (onRequestComplete as JsonRpcRequestCallback)(
             response.hasError ? new MagicRPCError(response.payload.error) : null,
             response.payload,

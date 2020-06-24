@@ -20,7 +20,7 @@ export abstract class ViewController<Transport extends PayloadTransport = Payloa
   protected abstract showOverlay(): void;
 
   private waitForReady() {
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
     });
   }

@@ -57,7 +57,7 @@ function responseEvent(values: { result?: any; error?: any; id?: number } = {}) 
  */
 function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomingWindowMessage, any][]) {
   const timeouts = [];
-  const handlerSpy = sinon.spy(() => timeouts.forEach(t => t && clearTimeout(t)));
+  const handlerSpy = sinon.spy(() => timeouts.forEach((t) => t && clearTimeout(t)));
   const onSpy = sinon.spy((msgType, handler) => {
     events.forEach((event, i) => {
       if (msgType === event[0]) {
@@ -73,12 +73,12 @@ function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomin
   return { handlerSpy, onSpy };
 }
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv();
   browserEnv.stub('addEventListener', sinon.stub());
 });
 
-test.serial('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async t => {
+test.serial('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async (t) => {
   const transport = createPayloadTransport('asdf');
   const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
@@ -95,7 +95,7 @@ test.serial('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves respon
 
 test.serial(
   'Sends payload; recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response',
-  async t => {
+  async (t) => {
     const transport = createPayloadTransport('asdf');
     const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
       [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent({ id: 1234 })], // Should be skipped
@@ -112,7 +112,7 @@ test.serial(
   },
 );
 
-test.serial('Sends payload and standardizes malformed response', async t => {
+test.serial('Sends payload and standardizes malformed response', async (t) => {
   const transport = createPayloadTransport('asdf');
   const overlay = overlayStub();
   const payload = requestPayload();
@@ -126,7 +126,7 @@ test.serial('Sends payload and standardizes malformed response', async t => {
   t.true(true);
 });
 
-test.serial('Sends a batch payload and resolves with multiple responses', async t => {
+test.serial('Sends a batch payload and resolves with multiple responses', async (t) => {
   const response1 = responseEvent({ result: 'one', id: 1 });
   const response2 = responseEvent({ result: 'two', id: 2 });
   const response3 = responseEvent({ result: 'three', id: 3 });

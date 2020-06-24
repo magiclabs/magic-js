@@ -32,13 +32,13 @@ const requestPayload: JsonRpcRequestPayload = {
   method: 'test',
 };
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
   // Silence the "duplicate iframes" warning.
   browserEnv.stub('console.warn', () => {});
 });
 
-test.serial('Resolves with a successful response', async t => {
+test.serial('Resolves with a successful response', async (t) => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
@@ -50,7 +50,7 @@ test.serial('Resolves with a successful response', async t => {
   t.is(result, 'hello world');
 });
 
-test.serial('Rejects with a `MagicRPCError` upon request failed', async t => {
+test.serial('Rejects with a `MagicRPCError` upon request failed', async (t) => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyError({ code: -32603, message: 'hello world' });
@@ -63,7 +63,7 @@ test.serial('Rejects with a `MagicRPCError` upon request failed', async t => {
   t.is(err.message, 'Magic RPC Error: [-32603] hello world');
 });
 
-test.serial('Rejects with `MALFORMED_RESPONSE` error if response cannot be parsed correctly', async t => {
+test.serial('Rejects with `MALFORMED_RESPONSE` error if response cannot be parsed correctly', async (t) => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload);
@@ -76,7 +76,7 @@ test.serial('Rejects with `MALFORMED_RESPONSE` error if response cannot be parse
   t.is(err.message, 'Magic SDK Error: [MALFORMED_RESPONSE] Response from the Magic iframe is malformed.');
 });
 
-test.serial('Return value is a `PromiEvent`', async t => {
+test.serial('Return value is a `PromiEvent`', async (t) => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
@@ -88,20 +88,20 @@ test.serial('Return value is a `PromiEvent`', async t => {
   t.true(isPromiEvent(result));
 });
 
-test.serial.cb('Emits events received from the `PayloadTransport`', t => {
+test.serial.cb('Emits events received from the `PayloadTransport`', (t) => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
   postStub.returns(
-    new Promise(resolve => {
+    new Promise((resolve) => {
       setTimeout(() => {
         resolve(response);
       }, 1000);
     }),
   );
 
-  baseModule.request(requestPayload).on('hello', result => {
+  baseModule.request(requestPayload).on('hello', (result) => {
     t.is(result, 'world');
     t.end();
   });
@@ -115,7 +115,7 @@ test.serial.cb('Emits events received from the `PayloadTransport`', t => {
   );
 });
 
-test.serial('Receive no further events after the response from `PayloadTransport` resolves', async t => {
+test.serial('Receive no further events after the response from `PayloadTransport` resolves', async (t) => {
   t.plan(1);
 
   const { baseModule, postStub } = createBaseModule();
@@ -123,7 +123,7 @@ test.serial('Receive no further events after the response from `PayloadTransport
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
   postStub.returns(
-    new Promise(resolve => {
+    new Promise((resolve) => {
       setTimeout(() => {
         resolve(response);
       }, 1000);
@@ -132,7 +132,7 @@ test.serial('Receive no further events after the response from `PayloadTransport
 
   const request = baseModule
     .request(requestPayload)
-    .on('hello', result => {
+    .on('hello', (result) => {
       t.is(result, 'world');
     })
     .on('hello2', () => {
@@ -158,13 +158,13 @@ test.serial('Receive no further events after the response from `PayloadTransport
   );
 });
 
-test.serial.cb('Falls back to empty array if `params` is missing from event', t => {
+test.serial.cb('Falls back to empty array if `params` is missing from event', (t) => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
   postStub.returns(
-    new Promise(resolve => {
+    new Promise((resolve) => {
       setTimeout(() => {
         resolve(response);
       }, 1000);
@@ -185,13 +185,13 @@ test.serial.cb('Falls back to empty array if `params` is missing from event', t 
   );
 });
 
-test.serial.cb('Ignores events with malformed response', t => {
+test.serial.cb('Ignores events with malformed response', (t) => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
   postStub.returns(
-    new Promise(resolve => {
+    new Promise((resolve) => {
       setTimeout(() => {
         resolve(response);
       }, 1000);

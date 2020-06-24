@@ -38,7 +38,7 @@ function applyOverlayStyles(elem: HTMLElement) {
  */
 function checkForSameSrcInstances(encodedQueryParams: string) {
   const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
-  return Boolean(iframes.find(iframe => iframe.src.includes(encodedQueryParams)));
+  return Boolean(iframes.find((iframe) => iframe.src.includes(encodedQueryParams)));
 }
 
 /**
@@ -52,7 +52,7 @@ export class IframeController extends ViewController {
   }
 
   private createIframe(): Promise<HTMLIFrameElement> {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const onload = () => {
         if (!checkForSameSrcInstances(encodeURIComponent(this.encodedQueryParams))) {
           const iframe = document.createElement('iframe');

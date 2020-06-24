@@ -12,7 +12,7 @@ import { UserModule } from '../../../../src/modules/user';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { Extension } from '../../../../src/modules/base-extension';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
@@ -37,7 +37,7 @@ function assertModuleInstanceTypes(t: ExecutionContext, sdk: any) {
   t.true(sdk.rpcProvider instanceof RPCProviderModule);
 }
 
-test.serial('Initialize `MagicSDK`', t => {
+test.serial('Initialize `MagicSDK`', (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY);
 
   t.is(magic.apiKey, TEST_API_KEY);
@@ -46,7 +46,7 @@ test.serial('Initialize `MagicSDK`', t => {
   assertModuleInstanceTypes(t, magic);
 });
 
-test.serial('Fail to initialize `MagicSDK`', t => {
+test.serial('Fail to initialize `MagicSDK`', (t) => {
   try {
     new TestMagicSDK(undefined as any);
   } catch (err) {
@@ -57,7 +57,7 @@ test.serial('Fail to initialize `MagicSDK`', t => {
   }
 });
 
-test.serial('Initialize `MagicSDK` with custom endpoint', t => {
+test.serial('Initialize `MagicSDK` with custom endpoint', (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY, { endpoint: 'https://example.com' });
 
   t.is(magic.apiKey, TEST_API_KEY);
@@ -68,7 +68,7 @@ test.serial('Initialize `MagicSDK` with custom endpoint', t => {
   assertModuleInstanceTypes(t, magic);
 });
 
-test.serial('Initialize `MagicSDK` when `window.location` is missing', t => {
+test.serial('Initialize `MagicSDK` when `window.location` is missing', (t) => {
   browserEnv.stub('location', undefined);
 
   const magic = new TestMagicSDK(TEST_API_KEY);
@@ -81,7 +81,7 @@ test.serial('Initialize `MagicSDK` when `window.location` is missing', t => {
   assertModuleInstanceTypes(t, magic);
 });
 
-test.serial('Initialize `MagicSDK` with custom Web3 network', t => {
+test.serial('Initialize `MagicSDK` with custom Web3 network', (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY, { network: 'mainnet' });
 
   t.is(magic.apiKey, TEST_API_KEY);
@@ -109,14 +109,14 @@ class NoopExtWithEmptyConfig extends Extension.Internal<'noop'> {
   helloWorld() {}
 }
 
-test.serial('Initialize `MagicSDK` with config-less extensions via array', t => {
+test.serial('Initialize `MagicSDK` with config-less extensions via array', (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY, { extensions: [new NoopExtNoConfig()] });
 
   assertEncodedQueryParams(t, magic.encodedQueryParams);
   t.true(magic.noop instanceof NoopExtNoConfig);
 });
 
-test.serial('Initialize `MagicSDK` with config-ful extensions via array (non-empty config)', t => {
+test.serial('Initialize `MagicSDK` with config-ful extensions via array (non-empty config)', (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithConfig()] });
 
   assertEncodedQueryParams(t, magic.encodedQueryParams, {
@@ -126,7 +126,7 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via array (non-emp
   t.true(magic.noop instanceof NoopExtWithConfig);
 });
 
-test.serial('Initialize `MagicSDK` with config-ful extensions via array (empty config)', t => {
+test.serial('Initialize `MagicSDK` with config-ful extensions via array (empty config)', (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithEmptyConfig()] });
 
   assertEncodedQueryParams(t, magic.encodedQueryParams);
@@ -134,7 +134,7 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via array (empty c
   t.true(magic.noop instanceof NoopExtWithEmptyConfig);
 });
 
-test.serial('Initialize `MagicSDK` with config-less extensions via dictionary', t => {
+test.serial('Initialize `MagicSDK` with config-less extensions via dictionary', (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtNoConfig() } });
 
   assertEncodedQueryParams(t, magic.encodedQueryParams);
@@ -142,7 +142,7 @@ test.serial('Initialize `MagicSDK` with config-less extensions via dictionary', 
   t.true(magic.foobar instanceof NoopExtNoConfig);
 });
 
-test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (non-empty config)', t => {
+test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (non-empty config)', (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithConfig() } });
 
   assertEncodedQueryParams(t, magic.encodedQueryParams, {
@@ -152,7 +152,7 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (no
   t.true(magic.foobar instanceof NoopExtWithConfig);
 });
 
-test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (empty config)', t => {
+test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (empty config)', (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithEmptyConfig() } });
 
   assertEncodedQueryParams(t, magic.encodedQueryParams);
@@ -162,7 +162,7 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (em
 
 test.serial(
   'Warns upon construction of `MagicSDK` instance if `endpoint` parameter is provided with `react-native` target.',
-  t => {
+  (t) => {
     mockSDKEnvironmentConstant('target', 'react-native');
 
     const consoleWarnStub = sinon.stub();
@@ -177,7 +177,7 @@ test.serial(
 
 test.serial(
   'Does not warn upon construction of `MagicSDK` instance if `endpoint` parameter is omitted with `react-native` target.',
-  t => {
+  (t) => {
     mockSDKEnvironmentConstant('target', 'react-native');
 
     const consoleWarnStub = sinon.stub();

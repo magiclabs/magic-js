@@ -4,12 +4,12 @@ import sinon from 'sinon';
 import { createModalNotReadyError, MagicSDKError } from '@magic-sdk/provider';
 import { createIframeController } from '../../factories';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
   browserEnv.stub('addEventListener', sinon.stub());
 });
 
-test('Calls iframe.contentWindow.postMessage with the expected arguments', async t => {
+test('Calls iframe.contentWindow.postMessage with the expected arguments', async (t) => {
   const overlay = createIframeController();
 
   const postMessageStub = sinon.stub();
@@ -20,7 +20,7 @@ test('Calls iframe.contentWindow.postMessage with the expected arguments', async
   t.deepEqual(postMessageStub.args[0], [{ thisIsData: 'hello world' }, '*']);
 });
 
-test('Throws MODAL_NOT_READY error if iframe.contentWindow is nil', async t => {
+test('Throws MODAL_NOT_READY error if iframe.contentWindow is nil', async (t) => {
   const overlay = createIframeController();
 
   (overlay as any).iframe = undefined;

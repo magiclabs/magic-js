@@ -7,11 +7,11 @@ import { ViewController } from '../../../../src/core/view-controller';
 import { createViewController } from '../../../factories';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('Instantiates `ViewController`', async t => {
+test('Instantiates `ViewController`', async (t) => {
   const initStub = sinon.stub();
   initStub.returns(new Promise(() => {}));
   const listenStub = sinon.stub();

@@ -14,11 +14,11 @@ function createSourcePayload(): JsonRpcRequestPayload {
   };
 }
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('Applies a result to the response.', t => {
+test('Applies a result to the response.', (t) => {
   const payload = createSourcePayload();
   const result = 123;
 
@@ -30,7 +30,7 @@ test('Applies a result to the response.', t => {
   t.true(response.hasResult);
 });
 
-test('`null` can be a valid a result..', t => {
+test('`null` can be a valid a result..', (t) => {
   const payload = createSourcePayload();
   const result = null;
 
@@ -42,7 +42,7 @@ test('`null` can be a valid a result..', t => {
   t.true(response.hasResult);
 });
 
-test('Applies `null` or `undefined` results explicitly', t => {
+test('Applies `null` or `undefined` results explicitly', (t) => {
   const payload = createSourcePayload();
   const nullResult = null;
   const undefinedResult = undefined;

@@ -7,11 +7,11 @@ import { ViewController } from '../../../../src/core/view-controller';
 import { TestMagicSDK } from '../../../factories';
 import { SDKBase } from '../../../../src/core/sdk';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('`MagicSDK.overlay` is lazy loaded', async t => {
+test('`MagicSDK.overlay` is lazy loaded', async (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY);
 
   t.is((SDKBase as any).__overlays__.size, 0);
@@ -24,7 +24,7 @@ test('`MagicSDK.overlay` is lazy loaded', async t => {
   t.is(A, B);
 });
 
-test('`MagicSDK.overlay` is shared between `MagicSDK` instances with same parameters', async t => {
+test('`MagicSDK.overlay` is shared between `MagicSDK` instances with same parameters', async (t) => {
   const magicA = new TestMagicSDK(TEST_API_KEY);
   const magicB = new TestMagicSDK(TEST_API_KEY);
 
@@ -34,7 +34,7 @@ test('`MagicSDK.overlay` is shared between `MagicSDK` instances with same parame
   t.is(A, B);
 });
 
-test('`MagicSDK.overlay` is unique between `MagicSDK` instances with different parameters', async t => {
+test('`MagicSDK.overlay` is unique between `MagicSDK` instances with different parameters', async (t) => {
   const magicA = new TestMagicSDK(TEST_API_KEY);
   const magicB = new TestMagicSDK('asdfasdf');
 

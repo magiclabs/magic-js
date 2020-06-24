@@ -5,11 +5,11 @@ import test from 'ava';
 import { MagicExtensionError } from '../../../../src/core/sdk-exceptions';
 import { Extension } from '../../../../src/modules/base-extension';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('Throws a `MagicExtensionError`', t => {
+test('Throws a `MagicExtensionError`', (t) => {
   const baseExtension = new (Extension as any)();
 
   const expectedError = new MagicExtensionError(baseExtension, 'TEST', 'hello world');

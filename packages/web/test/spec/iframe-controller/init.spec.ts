@@ -25,14 +25,14 @@ function createOverlayElementsStub() {
   };
 }
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
   browserEnv.stub('addEventListener', sinon.stub());
   browserEnv.stub('removeEventListener', sinon.stub());
   (IframeController.prototype as any).listen = sinon.stub();
 });
 
-test.serial('Appends header with style, appends body with iframe, and resolves iframe', async t => {
+test.serial('Appends header with style, appends body with iframe, and resolves iframe', async (t) => {
   const { classListAddStub, createElementStub } = createOverlayElementsStub();
   const appendChildStub = sinon.stub();
 
@@ -53,7 +53,7 @@ test.serial('Appends header with style, appends body with iframe, and resolves i
   t.is(iframe.src, `${MAGIC_RELAYER_FULL_URL}/send?params=${ENCODED_QUERY_PARAMS}`);
 });
 
-test.serial('Displays warning in console upon duplicate iframes', async t => {
+test.serial('Displays warning in console upon duplicate iframes', async (t) => {
   const { createElementStub } = createOverlayElementsStub();
 
   browserEnv.stub('document.querySelectorAll', () => [{ src: ENCODED_QUERY_PARAMS }]);
@@ -68,7 +68,7 @@ test.serial('Displays warning in console upon duplicate iframes', async t => {
   t.is(consoleWarnStub.args[0][0], 'Magic SDK Warning: [DUPLICATE_IFRAME] Duplicate iframes found.');
 });
 
-test.serial('Waits until `document` is loaded/ready', t => {
+test.serial('Waits until `document` is loaded/ready', (t) => {
   const { createElementStub } = createOverlayElementsStub();
 
   browserEnv.stub('document.querySelectorAll', () => ({ length: 0 }));
@@ -80,7 +80,7 @@ test.serial('Waits until `document` is loaded/ready', t => {
   t.is((window as any).addEventListener.args[1][0], 'load');
 });
 
-test.serial('Assumes the iframe is not yet initialized if `src` is `undefined`', async t => {
+test.serial('Assumes the iframe is not yet initialized if `src` is `undefined`', async (t) => {
   const { classListAddStub, createElementStub } = createOverlayElementsStub();
   const appendChildStub = sinon.stub();
 

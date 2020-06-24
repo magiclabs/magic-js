@@ -45,12 +45,21 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
   }
 
   /**
+   * Creates an error wrapped with a native Magic SDK error type. This enables
+   * consistency in error handling for consumers of Magic SDK and this
+   * Extension.
+   */
+  protected createError<TData = any>(code: string | number, message: string, data: TData): MagicExtensionError<TData> {
+    return new MagicExtensionError<TData>(this, code, message, data);
+  }
+
+  /**
    * Throws an error wrapped with a native Magic SDK error type. This enables
    * consistency in error handling for consumers of Magic SDK and this
    * Extension.
    */
-  protected raiseError(code: string | number, message: string): void {
-    throw new MagicExtensionError(this, code, message);
+  protected raiseError<TData = any>(code: string | number, message: string, data: TData): void {
+    throw new MagicExtensionError<TData>(this, code, message, data);
   }
 }
 

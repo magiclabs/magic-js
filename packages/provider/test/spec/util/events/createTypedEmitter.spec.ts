@@ -3,11 +3,11 @@ import sinon from 'sinon';
 import test from 'ava';
 import { TypedEmitter, createTypedEmitter } from '../../../../src/util/events';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('Returns an object containing a `TypedEmitter` instance & two helper functions', t => {
+test('Returns an object containing a `TypedEmitter` instance & two helper functions', (t) => {
   const { emitter, createBoundEmitterMethod, createChainingEmitterMethod } = createTypedEmitter();
 
   t.true(emitter instanceof TypedEmitter);
@@ -15,7 +15,7 @@ test('Returns an object containing a `TypedEmitter` instance & two helper functi
   t.is(typeof createChainingEmitterMethod, 'function');
 });
 
-test('`createBoundEmitterMethod` helper creates a function that calls the underlying `TypedEmitter` method', t => {
+test('`createBoundEmitterMethod` helper creates a function that calls the underlying `TypedEmitter` method', (t) => {
   const { emitter, createBoundEmitterMethod } = createTypedEmitter();
 
   const emitStub = sinon.stub().returns('foobar');
@@ -31,7 +31,7 @@ test('`createBoundEmitterMethod` helper creates a function that calls the underl
   t.is(result, 'foobar' as any);
 });
 
-test('`createChainingEmitterMethod` helper creates a function that calls the underlying `TypedEmitter` method', t => {
+test('`createChainingEmitterMethod` helper creates a function that calls the underlying `TypedEmitter` method', (t) => {
   const { emitter, createChainingEmitterMethod } = createTypedEmitter();
 
   const onStub = sinon.stub().returns('foobar');

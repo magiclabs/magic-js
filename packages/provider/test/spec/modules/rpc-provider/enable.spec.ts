@@ -5,12 +5,12 @@ import { getPayloadIdStub } from '../../../mocks';
 import { createMagicSDK } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-test('Generates a JSON RPC request payload with method `eth_accounts`', async t => {
+test('Generates a JSON RPC request payload with method `eth_accounts`', async (t) => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();

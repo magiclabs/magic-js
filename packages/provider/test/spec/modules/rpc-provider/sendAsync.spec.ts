@@ -7,11 +7,11 @@ import { createMagicSDK } from '../../../factories';
 import { MagicSDKError } from '../../../../src/core/sdk-exceptions';
 import { getPayloadIdStub } from '../../../mocks';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test.serial('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `undefined`', t => {
+test.serial('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `undefined`', (t) => {
   const magic = createMagicSDK();
 
   const error: MagicSDKError = t.throws(() => magic.rpcProvider.sendAsync({} as any, undefined as any));
@@ -23,7 +23,7 @@ test.serial('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `u
   t.is(error.code, 'INVALID_ARGUMENT');
 });
 
-test.serial('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `null`', t => {
+test.serial('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `null`', (t) => {
   const magic = createMagicSDK();
 
   const error: MagicSDKError = t.throws(() => magic.rpcProvider.sendAsync({} as any, null as any));
@@ -35,7 +35,7 @@ test.serial('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `n
   t.is(error.code, 'INVALID_ARGUMENT');
 });
 
-test.serial.cb('Async, with full RPC payload + callback; success response', t => {
+test.serial.cb('Async, with full RPC payload + callback; success response', (t) => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();
@@ -62,7 +62,7 @@ test.serial.cb('Async, with full RPC payload + callback; success response', t =>
   t.deepEqual(requestPayload.params, ['hello world']);
 });
 
-test.serial.cb('Async, with full RPC payload + callback; error response', t => {
+test.serial.cb('Async, with full RPC payload + callback; error response', (t) => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();
@@ -92,7 +92,7 @@ test.serial.cb('Async, with full RPC payload + callback; error response', t => {
   t.deepEqual(requestPayload.params, ['hello world']);
 });
 
-test.serial.cb('Async, with batch RPC payload + callback; success responses', t => {
+test.serial.cb('Async, with batch RPC payload + callback; success responses', (t) => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();
@@ -129,7 +129,7 @@ test.serial.cb('Async, with batch RPC payload + callback; success responses', t 
   t.deepEqual(requestPayloads[1].params, ['hello world']);
 });
 
-test.serial.cb('Async, with full RPC payload + callback; error responses', t => {
+test.serial.cb('Async, with full RPC payload + callback; error responses', (t) => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();

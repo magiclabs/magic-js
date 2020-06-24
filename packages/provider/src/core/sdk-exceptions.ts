@@ -24,10 +24,10 @@ export class MagicSDKError extends Error {
  * execution of Magic SDK Extension methods. Compare this to the `SDKError`
  * type, specifically in context of Extensions.
  */
-export class MagicExtensionError extends Error {
+export class MagicExtensionError<TData = any> extends Error {
   __proto__ = Error;
 
-  constructor(ext: Extension<string>, public code: string | number, public rawMessage: string) {
+  constructor(ext: Extension<string>, public code: string | number, public rawMessage: string, public data: TData) {
     super(`Magic Extension Error (${ext.name}): [${code}] ${rawMessage}`);
     Object.setPrototypeOf(this, MagicExtensionError.prototype);
   }

@@ -23,11 +23,11 @@ function errorAssertions<T extends ExecutionContext<any>>(
   t.is(error.rawMessage, expectedMessage);
 }
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('Creates a `MISSING_API_KEY` error', async t => {
+test('Creates a `MISSING_API_KEY` error', async (t) => {
   const error = createMissingApiKeyError();
   errorAssertions(
     t,
@@ -37,17 +37,17 @@ test('Creates a `MISSING_API_KEY` error', async t => {
   );
 });
 
-test('Creates a `MODAL_NOT_READY` error', async t => {
+test('Creates a `MODAL_NOT_READY` error', async (t) => {
   const error = createModalNotReadyError();
   errorAssertions(t, error, 'MODAL_NOT_READY', 'Modal is not ready.');
 });
 
-test('Creates a `MALFORMED_RESPONSE` error', async t => {
+test('Creates a `MALFORMED_RESPONSE` error', async (t) => {
   const error = createMalformedResponseError();
   errorAssertions(t, error, 'MALFORMED_RESPONSE', 'Response from the Magic iframe is malformed.');
 });
 
-test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*st"', async t => {
+test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*st"', async (t) => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 0,
@@ -63,7 +63,7 @@ test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index 
   );
 });
 
-test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*nd"', async t => {
+test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*nd"', async (t) => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 1,
@@ -79,7 +79,7 @@ test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index 
   );
 });
 
-test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*rd"', async t => {
+test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*rd"', async (t) => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 2,
@@ -95,7 +95,7 @@ test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index 
   );
 });
 
-test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*th"', async t => {
+test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index with "*th"', async (t) => {
   const error = createInvalidArgumentError({
     procedure: 'test',
     argument: 3,
@@ -111,7 +111,7 @@ test('Creates an `INVALID_ARGUMENT` error and format the ordinal argument index 
   );
 });
 
-test('Creates an `EXTENSION_NOT_INITIALIZED` error', async t => {
+test('Creates an `EXTENSION_NOT_INITIALIZED` error', async (t) => {
   const error = createExtensionNotInitializedError('foo');
 
   errorAssertions(

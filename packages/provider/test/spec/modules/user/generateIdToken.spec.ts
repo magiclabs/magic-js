@@ -5,12 +5,12 @@ import { getPayloadIdStub } from '../../../mocks';
 import { createMagicSDK } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-test.serial('Generate JSON RPC request payload with method `magic_auth_generate_id_token`', async t => {
+test.serial('Generate JSON RPC request payload with method `magic_auth_generate_id_token`', async (t) => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -25,7 +25,7 @@ test.serial('Generate JSON RPC request payload with method `magic_auth_generate_
   t.deepEqual(requestPayload.params, [undefined]);
 });
 
-test.serial('Accepts a `lifespan` parameter', async t => {
+test.serial('Accepts a `lifespan` parameter', async (t) => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -40,7 +40,7 @@ test.serial('Accepts a `lifespan` parameter', async t => {
   t.deepEqual(requestPayload.params, [{ lifespan: 900 }]);
 });
 
-test.serial('Accepts an `attachment` parameter', async t => {
+test.serial('Accepts an `attachment` parameter', async (t) => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();

@@ -9,11 +9,11 @@ import { Extension } from '../../../../src/modules/base-extension';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { createPromiEvent, encodeQueryParameters, decodeQueryParameters } from '../../../../src/util';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test.serial('Initialize `Extension`', t => {
+test.serial('Initialize `Extension`', (t) => {
   const baseExtension = new (Extension as any)();
 
   t.true(baseExtension instanceof Extension);
@@ -25,7 +25,7 @@ test.serial('Initialize `Extension`', t => {
   t.is(baseExtension.utils.encodeQueryParameters, encodeQueryParameters);
 });
 
-test.serial('Disallows `Extension.sdk` access before extension is initialized', t => {
+test.serial('Disallows `Extension.sdk` access before extension is initialized', (t) => {
   const sdk = createMagicSDK();
   const baseExtension = new (Extension as any)();
 
@@ -39,7 +39,7 @@ test.serial('Disallows `Extension.sdk` access before extension is initialized', 
   t.notThrows(() => baseExtension.sdk);
 });
 
-test.serial('Disallows `Extension.request` access before extension is initialized', t => {
+test.serial('Disallows `Extension.request` access before extension is initialized', (t) => {
   const sdk = createMagicSDK();
   const baseExtension = new (Extension as any)();
 
@@ -53,7 +53,7 @@ test.serial('Disallows `Extension.request` access before extension is initialize
   t.notThrows(() => baseExtension.request);
 });
 
-test.serial('Disallows `Extension.transport` access before extension is initialized', t => {
+test.serial('Disallows `Extension.transport` access before extension is initialized', (t) => {
   const sdk = createMagicSDK();
   const baseExtension = new (Extension as any)();
 
@@ -67,7 +67,7 @@ test.serial('Disallows `Extension.transport` access before extension is initiali
   t.notThrows(() => baseExtension.transport);
 });
 
-test.serial('Disallows `Extension.overlay` access before extension is initialized', t => {
+test.serial('Disallows `Extension.overlay` access before extension is initialized', (t) => {
   const sdk = createMagicSDK();
   const baseExtension = new (Extension as any)();
 

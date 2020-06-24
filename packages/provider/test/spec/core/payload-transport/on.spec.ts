@@ -4,11 +4,11 @@ import sinon from 'sinon';
 import { MagicIncomingWindowMessage } from '@magic-sdk/types';
 import { createPayloadTransport } from '../../../factories';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv();
 });
 
-test('Adds the event listener callback to the internal state', t => {
+test('Adds the event listener callback to the internal state', (t) => {
   const transport = createPayloadTransport();
   const onHandlerStub = sinon.stub();
 
@@ -17,7 +17,7 @@ test('Adds the event listener callback to the internal state', t => {
   t.is((transport as any).messageHandlers.size, 1);
 });
 
-test('Removes the event listener callback from internal state', t => {
+test('Removes the event listener callback from internal state', (t) => {
   const transport = createPayloadTransport();
   const onHandlerStub = sinon.stub();
 

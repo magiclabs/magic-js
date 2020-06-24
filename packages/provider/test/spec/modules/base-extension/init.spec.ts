@@ -5,11 +5,11 @@ import test from 'ava';
 import { Extension } from '../../../../src/modules/base-extension';
 import { createMagicSDK } from '../../../factories';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('`baseExtension.init` is no-op if already initialized', t => {
+test('`baseExtension.init` is no-op if already initialized', (t) => {
   const sdk = createMagicSDK();
   const baseExtension = new (Extension as any)();
 

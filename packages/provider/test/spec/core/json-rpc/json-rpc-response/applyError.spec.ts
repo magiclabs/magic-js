@@ -21,11 +21,11 @@ function createJsonRcpError(): JsonRpcError {
   };
 }
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('Add a formatted error to the response with `JsonRpcError` object as argument', t => {
+test('Add a formatted error to the response with `JsonRpcError` object as argument', (t) => {
   const payload = createSourcePayload();
   const error = createJsonRcpError();
 
@@ -37,7 +37,7 @@ test('Add a formatted error to the response with `JsonRpcError` object as argume
   t.true(response.hasError);
 });
 
-test('Apply `null` or `undefined` errors explicitly', t => {
+test('Apply `null` or `undefined` errors explicitly', (t) => {
   const payload = createSourcePayload();
   const nullError = null;
   const undefinedError = undefined;

@@ -9,13 +9,13 @@ import { BaseModule } from '../../../../src/modules/base-module';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { createSynchronousWeb3MethodWarning } from '../../../../src/core/sdk-exceptions';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
   (BaseModule as any).prototype.request = sinon.stub();
   (RPCProviderModule as any).prototype.sendAsync = sinon.stub();
 });
 
-test.serial('Async, with payload method (as string); uses fallback `params` argument', async t => {
+test.serial('Async, with payload method (as string); uses fallback `params` argument', async (t) => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -29,7 +29,7 @@ test.serial('Async, with payload method (as string); uses fallback `params` argu
   t.deepEqual(requestPayload.params, []);
 });
 
-test.serial('Async, with payload method (as string); uses given `params` argument', async t => {
+test.serial('Async, with payload method (as string); uses given `params` argument', async (t) => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -43,7 +43,7 @@ test.serial('Async, with payload method (as string); uses given `params` argumen
   t.deepEqual(requestPayload.params, ['hello world']);
 });
 
-test.serial('Async, with full RPC payload + callback', async t => {
+test.serial('Async, with full RPC payload + callback', async (t) => {
   const magic = createMagicSDK();
 
   const onRequestComplete = () => {};
@@ -57,7 +57,7 @@ test.serial('Async, with full RPC payload + callback', async t => {
   t.is(onRequestComplete, expectedCallback);
 });
 
-test.serial('Async, with batch RPC payload + callback', async t => {
+test.serial('Async, with batch RPC payload + callback', async (t) => {
   const magic = createMagicSDK();
 
   const onRequestComplete = () => {};
@@ -76,7 +76,7 @@ test.serial('Async, with batch RPC payload + callback', async t => {
   t.is(onRequestComplete, expectedCallback);
 });
 
-test.serial('Sync (legacy behavior), with full RPC payload and no callback', async t => {
+test.serial('Sync (legacy behavior), with full RPC payload and no callback', async (t) => {
   const magic = createMagicSDK();
 
   const consoleWarnStub = sinon.stub();

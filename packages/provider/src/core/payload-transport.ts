@@ -25,7 +25,7 @@ function getRequestPayloadFromBatch(
   id?: string | number | null,
 ): JsonRpcRequestPayload | undefined {
   return id && Array.isArray(requestPayload)
-    ? requestPayload.find(p => p.id === id)
+    ? requestPayload.find((p) => p.id === id)
     : (requestPayload as JsonRpcRequestPayload);
 }
 
@@ -94,11 +94,11 @@ export abstract class PayloadTransport {
     msgType: MagicOutgoingWindowMessage,
     payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
-    return createAutoCatchingPromise(async resolve => {
+    return createAutoCatchingPromise(async (resolve) => {
       await overlay.ready;
 
       const batchData: JsonRpcResponse[] = [];
-      const batchIds = Array.isArray(payload) ? payload.map(p => p.id) : [];
+      const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
 
       await overlay.postMessage({ msgType: `${msgType}-${this.encodedQueryParams}`, payload });
 

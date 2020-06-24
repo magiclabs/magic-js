@@ -22,16 +22,16 @@ function warningAssertions<T extends ExecutionContext<any>>(
   t.is(warning.rawMessage, expectedMessage);
 }
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('Creates a `DUPLICATE_IFRAME` warning', async t => {
+test('Creates a `DUPLICATE_IFRAME` warning', async (t) => {
   const warning = createDuplicateIframeWarning();
   warningAssertions(t, warning, 'DUPLICATE_IFRAME', 'Duplicate iframes found.');
 });
 
-test('Creates a `SYNC_WEB3_METHOD` warning', async t => {
+test('Creates a `SYNC_WEB3_METHOD` warning', async (t) => {
   const warning = createSynchronousWeb3MethodWarning();
   warningAssertions(
     t,
@@ -41,7 +41,7 @@ test('Creates a `SYNC_WEB3_METHOD` warning', async t => {
   );
 });
 
-test('Creates a `REACT_NATIVE_ENDPOINT_CONFIGURATION` warning', async t => {
+test('Creates a `REACT_NATIVE_ENDPOINT_CONFIGURATION` warning', async (t) => {
   mockSDKEnvironmentConstant('defaultEndpoint', 'https://example.com');
 
   const warning = createReactNativeEndpointConfigurationWarning();

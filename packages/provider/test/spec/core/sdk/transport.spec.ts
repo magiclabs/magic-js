@@ -7,11 +7,11 @@ import { PayloadTransport } from '../../../../src/core/payload-transport';
 import { TestMagicSDK } from '../../../factories';
 import { SDKBase } from '../../../../src/core/sdk';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('`MagicSDK.transport` is lazy loaded', async t => {
+test('`MagicSDK.transport` is lazy loaded', async (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY);
 
   t.is((SDKBase as any).__transports__.size, 0);
@@ -24,7 +24,7 @@ test('`MagicSDK.transport` is lazy loaded', async t => {
   t.is(A, B);
 });
 
-test('`MagicSDK.transport` is shared between `MagicSDK` instances with same parameters', async t => {
+test('`MagicSDK.transport` is shared between `MagicSDK` instances with same parameters', async (t) => {
   const magicA = new TestMagicSDK(TEST_API_KEY);
   const magicB = new TestMagicSDK(TEST_API_KEY);
 
@@ -34,7 +34,7 @@ test('`MagicSDK.transport` is shared between `MagicSDK` instances with same para
   t.is(A, B);
 });
 
-test('`MagicSDK.transport` is unique between `MagicSDK` instances with different parameters', async t => {
+test('`MagicSDK.transport` is unique between `MagicSDK` instances with different parameters', async (t) => {
   const magicA = new TestMagicSDK(TEST_API_KEY);
   const magicB = new TestMagicSDK('asdfasdf');
 

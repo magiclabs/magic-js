@@ -5,11 +5,11 @@ import test from 'ava';
 import { createMagicSDK } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test.serial('Initialize `BaseModule`', t => {
+test.serial('Initialize `BaseModule`', (t) => {
   const sdk = createMagicSDK();
 
   const baseModule = new BaseModule(sdk);

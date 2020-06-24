@@ -4,11 +4,11 @@ import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('Initialize JsonRpcResponse instance if argument is `instanceof` JsonRpcReponse', t => {
+test('Initialize JsonRpcResponse instance if argument is `instanceof` JsonRpcReponse', (t) => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,
@@ -26,7 +26,7 @@ test('Initialize JsonRpcResponse instance if argument is `instanceof` JsonRpcRep
   t.is((second as any)._error, null);
 });
 
-test('Initialize JsonRpcResponse instance if argument is a JsonRpcResponsePayload', t => {
+test('Initialize JsonRpcResponse instance if argument is a JsonRpcResponsePayload', (t) => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,
@@ -42,7 +42,7 @@ test('Initialize JsonRpcResponse instance if argument is a JsonRpcResponsePayloa
   t.is((response as any)._error, null);
 });
 
-test('Initialize JsonRpcResponse instance if argument is a JsonRpcRequestPayload', t => {
+test('Initialize JsonRpcResponse instance if argument is a JsonRpcRequestPayload', (t) => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,
@@ -58,7 +58,7 @@ test('Initialize JsonRpcResponse instance if argument is a JsonRpcRequestPayload
   t.is((response as any)._error, undefined);
 });
 
-test('Initialize `JsonRpcResponse` instance if argument is a `JsonRpcBatchRequestPayload`', t => {
+test('Initialize `JsonRpcResponse` instance if argument is a `JsonRpcBatchRequestPayload`', (t) => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,

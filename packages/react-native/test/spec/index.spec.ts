@@ -13,11 +13,11 @@ function assertGlobalPolyfill(t: ExecutionContext, globalKey: string) {
   t.is(typeof global[globalKey], 'function');
 }
 
-test.serial('Defines global `btoa` function if none exists', t => {
+test.serial('Defines global `btoa` function if none exists', (t) => {
   assertGlobalPolyfill(t, 'btoa');
 });
 
-test.serial('Defines global `atob` function if none exists', t => {
+test.serial('Defines global `atob` function if none exists', (t) => {
   assertGlobalPolyfill(t, 'atob');
 });
 

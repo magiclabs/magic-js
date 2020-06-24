@@ -4,11 +4,11 @@ import sinon from 'sinon';
 import { createViewController } from '../../../factories';
 import { MSG_TYPES } from '../../../constants';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv();
 });
 
-test.cb('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', t => {
+test.cb('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', (t) => {
   const overlay = createViewController('');
   const hideOverlayStub = sinon.stub();
   (overlay as any).hideOverlay = hideOverlayStub;
@@ -21,7 +21,7 @@ test.cb('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', t => {
   }, 0);
 });
 
-test.cb('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', t => {
+test.cb('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', (t) => {
   const overlay = createViewController('');
   const showOverlayStub = sinon.stub();
   (overlay as any).showOverlay = showOverlayStub;

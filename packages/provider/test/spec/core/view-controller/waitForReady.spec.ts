@@ -3,11 +3,11 @@ import test from 'ava';
 import { createViewController } from '../../../factories';
 import { MSG_TYPES } from '../../../constants';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv();
 });
 
-test.cb('Receive MAGIC_OVERLAY_READY, resolve `waitForReady` promise', t => {
+test.cb('Receive MAGIC_OVERLAY_READY, resolve `waitForReady` promise', (t) => {
   const overlay = createViewController('');
   const waitForReady = (overlay as any).waitForReady();
 

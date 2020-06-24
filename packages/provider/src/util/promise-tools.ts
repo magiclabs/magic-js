@@ -113,14 +113,14 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
 
   const result = promiEvent(
     promise.then(
-      resolved => {
+      (resolved) => {
         // Emit default completion events and resolve result.
         result.emit('done', resolved);
         result.emit('settled');
         return resolved;
       },
 
-      err => {
+      (err) => {
         // Emit default error events and re-throw.
         result.emit('error', err);
         result.emit('settled');

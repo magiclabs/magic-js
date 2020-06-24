@@ -2,7 +2,7 @@ import test from 'ava';
 import { createJsonRpcRequestPayload } from '../../../../src/core/json-rpc';
 import { getPayloadIdStub } from '../../../mocks';
 
-test('Create valid JSON RPC payload using array of parameters', t => {
+test('Create valid JSON RPC payload using array of parameters', (t) => {
   const randomIdStub = getPayloadIdStub();
   randomIdStub.returns(1);
 
@@ -18,7 +18,7 @@ test('Create valid JSON RPC payload using array of parameters', t => {
   t.deepEqual(payload, expectedPayload);
 });
 
-test('Create valid JSON RPC payload when parameters are undefined', t => {
+test('Create valid JSON RPC payload when parameters are undefined', (t) => {
   const randomIdStub = getPayloadIdStub();
   randomIdStub.returns(1);
 
