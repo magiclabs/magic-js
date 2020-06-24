@@ -12,7 +12,13 @@
 
 - ...
 
-## `2.1.1` - 06/24/2020
+## `2.1.2` - 06/23/2020
+
+#### Changed
+
+- `MagicRPCError.code` can now be typed as a plain `number` for greater flexibility.
+
+## `2.1.1` - 06/23/2020
 
 #### Changed
 
