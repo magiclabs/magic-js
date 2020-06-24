@@ -1,5 +1,4 @@
 import { TypedEmitter, EventsDefinition, createTypedEmitter } from './events';
-import { MagicSDKError, MagicRPCError } from '../core/sdk-exceptions';
 
 /**
  * Extends `Promise` with a polymorphic `this` type to accomodate arbitrary
@@ -29,7 +28,7 @@ export type PromiEvent<TResult, TEvents extends EventsDefinition = void> = Exten
  */
 type DefaultEvents<TResult> = {
   done: (result: TResult) => void;
-  error: (err: MagicSDKError | MagicRPCError) => void;
+  error: (reason: any) => void;
   settled: () => void;
 };
 
