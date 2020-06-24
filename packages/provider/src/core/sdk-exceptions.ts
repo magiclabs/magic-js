@@ -40,7 +40,7 @@ export class MagicExtensionError<TData = any> extends Error {
 export class MagicRPCError extends Error {
   __proto__ = Error;
 
-  public code: RPCErrorCode;
+  public code: RPCErrorCode | number;
   public rawMessage: string;
 
   constructor(sourceError?: JsonRpcError | null) {
