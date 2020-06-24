@@ -1,6 +1,6 @@
 {
   "name": "magic-sdk",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Passwordless authentication for the web.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -27,7 +27,7 @@
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
-    "@magic-sdk/provider": "^2.1.0",
+    "@magic-sdk/provider": "^2.1.1",
     "@magic-sdk/types": "^1.0.3",
     "regenerator-runtime": "0.13.5"
   },
