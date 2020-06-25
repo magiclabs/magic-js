@@ -12,6 +12,19 @@
 
 - ...
 
+## `2.2.0` - 06/25/2020
+
+#### Changed
+
+- Update dependencies.
+- Marked `encodeQueryParameters` and `decodeQueryParameters` utility methods for deprecation in `v3.0.0`.
+
+#### Added
+
+- Add `MagicExtensionWarning` class.
+- Add `createWarning` and `createDeprecationWarning` helper methods to `BaseExtension`.
+- Add `encodeJSON` and `decodeJSON` helper methods to `BaseExtension.utils`. These are direct aliases for `encodeQueryParameters` and `decodeQueryParameters` (which will be deprecated in the next major version).
+
 ## `2.1.2` - 06/23/2020
 
 #### Changed

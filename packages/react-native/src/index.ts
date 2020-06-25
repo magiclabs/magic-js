@@ -36,6 +36,7 @@ export {
   Extension,
   MagicSDKError as SDKError,
   MagicExtensionError as ExtensionError,
+  MagicExtensionWarning as ExtensionWarning,
   MagicRPCError as RPCError,
   MagicSDKWarning as SDKWarning,
   MagicSDKAdditionalConfiguration,

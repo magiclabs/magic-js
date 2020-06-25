@@ -12,6 +12,12 @@
 
 - ...
 
+## `1.1.0` - 06/23/2020
+
+#### Added
+
+- Add `SDKWarningCode.DeprecationNotice`.
+
 ## `1.0.3` - 06/23/2020
 
 #### Changed

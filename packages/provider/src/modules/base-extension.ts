@@ -1,8 +1,8 @@
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../core/json-rpc';
 import { BaseModule } from './base-module';
 import { SDKBase, MagicSDKAdditionalConfiguration } from '../core/sdk';
-import { createExtensionNotInitializedError, MagicExtensionError } from '../core/sdk-exceptions';
-import { createPromiEvent, encodeQueryParameters, decodeQueryParameters } from '../util';
+import { createExtensionNotInitializedError, MagicExtensionError, MagicExtensionWarning } from '../core/sdk-exceptions';
+import { createPromiEvent, encodeJSON, decodeJSON, encodeQueryParameters, decodeQueryParameters } from '../util';
 
 abstract class BaseExtension<TName extends string> extends BaseModule {
   public abstract readonly name: TName;
@@ -11,8 +11,10 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
 
   protected utils = {
     createPromiEvent,
-    decodeQueryParameters,
-    encodeQueryParameters,
+    encodeJSON,
+    decodeJSON,
+    encodeQueryParameters, // Scheduled for deprecation...
+    decodeQueryParameters, // Scheduled for deprecation...
     createJsonRpcRequestPayload,
     standardizeJsonRpcRequestPayload,
   };
@@ -45,7 +47,34 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
   }
 
   /**
-   * Creates an error wrapped with a native Magic SDK error type. This enables
+   * Creates a deprecation warning wrapped with a native Magic SDK warning type.
+   * Best practice is to warn users of upcoming deprecations at least one major
+   * version before the change is implemented. You can use this method to
+   * communicate deprecations in a manner consistent with Magic SDK core code.
+   */
+  protected createDeprecationWarning(options: {
+    method: string;
+    removalVersion: string;
+    useInstead?: string;
+  }): MagicExtensionWarning {
+    const { method, removalVersion, useInstead } = options;
+
+    const useInsteadSuffix = useInstead ? ` Use \`${useInstead}\` instead.` : '';
+    const message = `\`${method}\` will be removed from this Extension in version \`${removalVersion}\`.${useInsteadSuffix}`;
+    return new MagicExtensionWarning(this, 'DEPRECATION_NOTICE', message);
+  }
+
+  /**
+   * Creates a warning wrapped with a native Magic SDK warning type. This
+   * maintains consistency in warning messaging for consumers of Magic SDK and
+   * this Extension.
+   */
+  protected createWarning(code: string | number, message: string): MagicExtensionWarning {
+    return new MagicExtensionWarning(this, code, message);
+  }
+
+  /**
+   * Creates an error wrapped with a native Magic SDK error type. This maintains
    * consistency in error handling for consumers of Magic SDK and this
    * Extension.
    */
@@ -54,7 +83,7 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
   }
 
   /**
-   * Throws an error wrapped with a native Magic SDK error type. This enables
+   * Throws an error wrapped with a native Magic SDK error type. This maintains
    * consistency in error handling for consumers of Magic SDK and this
    * Extension.
    */

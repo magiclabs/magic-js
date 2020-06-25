@@ -7,6 +7,7 @@ import {
   createDuplicateIframeWarning,
   createSynchronousWeb3MethodWarning,
   createReactNativeEndpointConfigurationWarning,
+  createDeprecationWarning,
 } from '../../../../src/core/sdk-exceptions';
 import { mockSDKEnvironmentConstant } from '../../../mocks';
 
@@ -26,12 +27,12 @@ test.beforeEach((t) => {
   browserEnv.restore();
 });
 
-test('Creates a `DUPLICATE_IFRAME` warning', async (t) => {
+test.serial('Creates a `DUPLICATE_IFRAME` warning', async (t) => {
   const warning = createDuplicateIframeWarning();
   warningAssertions(t, warning, 'DUPLICATE_IFRAME', 'Duplicate iframes found.');
 });
 
-test('Creates a `SYNC_WEB3_METHOD` warning', async (t) => {
+test.serial('Creates a `SYNC_WEB3_METHOD` warning', async (t) => {
   const warning = createSynchronousWeb3MethodWarning();
   warningAssertions(
     t,
@@ -41,7 +42,7 @@ test('Creates a `SYNC_WEB3_METHOD` warning', async (t) => {
   );
 });
 
-test('Creates a `REACT_NATIVE_ENDPOINT_CONFIGURATION` warning', async (t) => {
+test.serial('Creates a `REACT_NATIVE_ENDPOINT_CONFIGURATION` warning', async (t) => {
   mockSDKEnvironmentConstant('defaultEndpoint', 'https://example.com');
 
   const warning = createReactNativeEndpointConfigurationWarning();
@@ -50,5 +51,49 @@ test('Creates a `REACT_NATIVE_ENDPOINT_CONFIGURATION` warning', async (t) => {
     warning,
     'REACT_NATIVE_ENDPOINT_CONFIGURATION',
     'CUSTOM DOMAINS ARE NOT SUPPORTED WHEN USING MAGIC SDK WITH REACT NATIVE! The `endpoint` parameter SHOULD NOT be provided. The Magic `<iframe>` is automatically wrapped by a WebView pointed at `https://example.com`. Changing this default behavior will lead to unexpected results and potentially security-threatening bugs.',
+  );
+});
+
+test.serial('Creates a `DEPRECATION_NOTICE` warning for `magic-sdk`', async (t) => {
+  mockSDKEnvironmentConstant('sdkName', 'magic-sdk');
+
+  const warning = createDeprecationWarning({
+    method: 'test()',
+    removalVersions: { 'magic-sdk': 'v999', '@magic-sdk/react-native': 'v888' },
+  });
+
+  warningAssertions(t, warning, 'DEPRECATION_NOTICE', '`test()` will be removed from `magic-sdk` in version `v999`.');
+});
+
+test.serial('Creates a `DEPRECATION_NOTICE` warning for `@magic-sdk/react-native`', async (t) => {
+  mockSDKEnvironmentConstant('sdkName', 'magic-sdk-rn');
+
+  const warning = createDeprecationWarning({
+    method: 'test()',
+    removalVersions: { 'magic-sdk': 'v999', '@magic-sdk/react-native': 'v888' },
+  });
+
+  warningAssertions(
+    t,
+    warning,
+    'DEPRECATION_NOTICE',
+    '`test()` will be removed from `@magic-sdk/react-native` in version `v888`.',
+  );
+});
+
+test.serial('Creates a `DEPRECATION_NOTICE` warning with `useInstead` suffix', async (t) => {
+  mockSDKEnvironmentConstant('sdkName', 'magic-sdk');
+
+  const warning = createDeprecationWarning({
+    method: 'test()',
+    removalVersions: { 'magic-sdk': 'v999', '@magic-sdk/react-native': 'v888' },
+    useInstead: 'test2()',
+  });
+
+  warningAssertions(
+    t,
+    warning,
+    'DEPRECATION_NOTICE',
+    '`test()` will be removed from `magic-sdk` in version `v999`. Use `test2()` instead.',
   );
 });

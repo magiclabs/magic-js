@@ -10,6 +10,7 @@ export enum SDKWarningCode {
   SyncWeb3Method = 'SYNC_WEB3_METHOD',
   DuplicateIframe = 'DUPLICATE_IFRAME',
   ReactNativeEndpointConfiguration = 'REACT_NATIVE_ENDPOINT_CONFIGURATION',
+  DeprecationNotice = 'DEPRECATION_NOTICE',
 }
 
 export enum RPCErrorCode {

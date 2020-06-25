@@ -12,6 +12,16 @@
 
 - ...
 
+## `2.1.0` - 06/25/2020
+
+#### Changed
+
+- Update dependencies.
+
+#### Added
+
+- Add `ExtensionWarning` class.
+
 ## `2.0.5` - 06/23/2020
 
 #### Changed
