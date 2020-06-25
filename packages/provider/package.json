@@ -54,5 +54,6 @@
     "reporter": [
       "lcov"
     ]
-  }
+  },
+  "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
 }
