@@ -1,5 +1,5 @@
 export * from './get-payload-id';
 export * from './promise-tools';
-export * from './query-params';
+export * from './base64-json';
 export * from './type-guards';
 export * from './url';

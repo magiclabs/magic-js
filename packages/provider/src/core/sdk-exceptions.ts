@@ -34,6 +34,23 @@ export class MagicExtensionError<TData = any> extends Error {
 }
 
 /**
+ * This error type is reserved for communicating errors that arise during
+ * execution of Magic SDK Extension methods. Compare this to the `SDKError`
+ * type, specifically in context of Extensions.
+ */
+export class MagicExtensionWarning {
+  public message: string;
+
+  constructor(ext: Extension<string>, public code: string | number, public rawMessage: string) {
+    this.message = `Magic Extension Error (${ext.name}): [${code}] ${rawMessage}`;
+  }
+
+  public log() {
+    console.warn(this.message);
+  }
+}
+
+/**
  * This error type communicates exceptions that occur during execution in the
  * Magic `<iframe>` context.
  */
@@ -141,4 +158,23 @@ export function createReactNativeEndpointConfigurationWarning() {
     SDKWarningCode.ReactNativeEndpointConfiguration,
     `CUSTOM DOMAINS ARE NOT SUPPORTED WHEN USING MAGIC SDK WITH REACT NATIVE! The \`endpoint\` parameter SHOULD NOT be provided. The Magic \`<iframe>\` is automatically wrapped by a WebView pointed at \`${SDKEnvironment.defaultEndpoint}\`. Changing this default behavior will lead to unexpected results and potentially security-threatening bugs.`,
   );
+}
+
+export function createDeprecationWarning(options: {
+  method: string;
+  removalVersions: { [P in 'magic-sdk' | '@magic-sdk/react-native']: string };
+  useInstead?: string;
+}) {
+  const { method, removalVersions, useInstead } = options;
+
+  const envNameToNpmName = {
+    'magic-sdk': 'magic-sdk' as const,
+    'magic-sdk-rn': '@magic-sdk/react-native' as const,
+  };
+
+  const npmName = envNameToNpmName[SDKEnvironment.sdkName];
+  const removalVersion = removalVersions[npmName];
+  const useInsteadSuffix = useInstead ? ` Use \`${useInstead}\` instead.` : '';
+  const message = `\`${method}\` will be removed from \`${npmName}\` in version \`${removalVersion}\`.${useInsteadSuffix}`;
+  return new MagicSDKWarning(SDKWarningCode.DeprecationNotice, message);
 }

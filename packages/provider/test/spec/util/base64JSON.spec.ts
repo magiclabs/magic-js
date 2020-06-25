@@ -1,8 +1,8 @@
 import test from 'ava';
-import { encodeQueryParameters, decodeQueryParameters } from '../../../src/util/query-params';
+import { encodeJSON, decodeJSON } from '../../../src/util/base64-json';
 
 test('Encodes query parameters as Base64 JSON string', async (t) => {
-  const result = encodeQueryParameters({
+  const result = encodeJSON({
     API_KEY: 'test',
   });
   t.is(typeof result, 'string');
@@ -10,6 +10,6 @@ test('Encodes query parameters as Base64 JSON string', async (t) => {
 });
 
 test('Decodes query parameters from Base64 JSON string', async (t) => {
-  const result = decodeQueryParameters('eyJBUElfS0VZIjoidGVzdCJ9');
+  const result = decodeJSON('eyJBUElfS0VZIjoidGVzdCJ9');
   t.deepEqual(result, { API_KEY: 'test' });
 });

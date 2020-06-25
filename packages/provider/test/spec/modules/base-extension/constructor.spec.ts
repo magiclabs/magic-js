@@ -7,7 +7,13 @@ import { createExtensionNotInitializedError, MagicSDKError } from '../../../../s
 import { createMagicSDK } from '../../../factories';
 import { Extension } from '../../../../src/modules/base-extension';
 import { BaseModule } from '../../../../src/modules/base-module';
-import { createPromiEvent, encodeQueryParameters, decodeQueryParameters } from '../../../../src/util';
+import {
+  createPromiEvent,
+  encodeJSON,
+  decodeJSON,
+  encodeQueryParameters,
+  decodeQueryParameters,
+} from '../../../../src/util';
 
 test.beforeEach((t) => {
   browserEnv.restore();
@@ -21,6 +27,8 @@ test.serial('Initialize `Extension`', (t) => {
   t.is(baseExtension.utils.createJsonRpcRequestPayload, createJsonRpcRequestPayload);
   t.is(baseExtension.utils.standardizeJsonRpcRequestPayload, standardizeJsonRpcRequestPayload);
   t.is(baseExtension.utils.createPromiEvent, createPromiEvent);
+  t.is(baseExtension.utils.decodeJSON, decodeJSON);
+  t.is(baseExtension.utils.encodeJSON, encodeJSON);
   t.is(baseExtension.utils.decodeQueryParameters, decodeQueryParameters);
   t.is(baseExtension.utils.encodeQueryParameters, encodeQueryParameters);
 });

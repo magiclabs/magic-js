@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle, no-param-reassign  */
 
-import { EthNetworkConfiguration } from '@magic-sdk/types';
-import { encodeQueryParameters } from '../util/query-params';
+import { EthNetworkConfiguration, QueryParameters } from '@magic-sdk/types';
+import { encodeJSON } from '../util/base64-json';
 import { createMissingApiKeyError, createReactNativeEndpointConfigurationWarning } from './sdk-exceptions';
 import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
@@ -88,7 +88,7 @@ export class SDKBase {
     }
 
     // Build query params for the current `ViewController`
-    this.encodedQueryParams = encodeQueryParameters({
+    this.encodedQueryParams = encodeJSON<QueryParameters>({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
       ETH_NETWORK: options?.network,
