@@ -73,7 +73,12 @@ test.serial('Creates a `DEPRECATION_NOTICE` warning for `@magic-sdk/react-native
     removalVersions: { 'magic-sdk': 'v999', '@magic-sdk/react-native': 'v888' },
   });
 
-  warningAssertions(t, warning, 'DEPRECATION_NOTICE', '`test()` will be removed from `magic-sdk` in version `v888`.');
+  warningAssertions(
+    t,
+    warning,
+    'DEPRECATION_NOTICE',
+    '`test()` will be removed from `@magic-sdk/react-native` in version `v888`.',
+  );
 });
 
 test.serial('Creates a `DEPRECATION_NOTICE` warning with `useInstead` suffix', async (t) => {
