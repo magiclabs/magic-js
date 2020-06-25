@@ -13,7 +13,7 @@ test('Creates a `MagicExtensionWarning`', (t) => {
   const baseExtension = new (Extension as any)();
 
   const expectedWarning = new MagicExtensionWarning(baseExtension, 'TEST', 'hello world');
-  const error: MagicExtensionWarning = baseExtension.createError('TEST', 'hello world');
+  const error: MagicExtensionWarning = baseExtension.createWarning('TEST', 'hello world');
 
   t.is(expectedWarning.code, error.code);
   t.is(expectedWarning.message, error.message);
