@@ -6,6 +6,7 @@ import {
   Extension,
   MagicSDKError,
   MagicExtensionError,
+  MagicExtensionWarning,
   MagicRPCError,
   MagicSDKWarning,
 } from '@magic-sdk/provider';
@@ -28,6 +29,7 @@ Object.assign(Magic, {
   ...types,
   SDKError: MagicSDKError,
   ExtensionError: MagicExtensionError,
+  ExtensionWarning: MagicExtensionWarning,
   RPCError: MagicRPCError,
   SDKWarning: MagicSDKWarning,
   Extension,
