@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fortmatic/magic-js"
+    "url": "https://github.com/magicLabs/magic-js"
   },
   "homepage": "https://magic.link",
   "files": [
@@ -24,20 +24,22 @@
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
-    "@magic-sdk/provider": "^2.2.0",
-    "@magic-sdk/types": "^1.1.0",
+    "@magic-sdk/provider": "^2.1.2",
+    "@magic-sdk/types": "^1.0.3",
+    "buffer": "^5.6.0",
+    "process": "^0.11.10",
     "regenerator-runtime": "0.13.5",
     "whatwg-url": "^8.0.0"
   },
   "devDependencies": {
     "react": "^16.13.1",
     "react-native": "^0.62.2",
-    "react-native-webview": "8.1.2"
+    "react-native-webview": "9.4.0"
   },
   "peerDependencies": {
-    "react": "^16.13.1",
-    "react-native": ">=0.60 <0.62",
-    "react-native-webview": ">=8 <9"
+    "react": ">=16",
+    "react-native": ">=0.60",
+    "react-native-webview": ">=8 <10"
   },
   "ava": {
     "require": [
@@ -65,6 +67,5 @@
     "reporter": [
       "lcov"
     ]
-  },
-  "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
+  }
 }

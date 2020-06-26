@@ -12,10 +12,9 @@ import { SDKBaseReactNative } from './react-native-sdk-base';
 
 // We expect `global.process` to be a Node Process,
 // so we replace it here.
-/* istanbul ignore next */
-if (typeof global.process === 'undefined') global.process = processPolyfill;
+global.process = processPolyfill || {};
 
-(global.process as any).browser = false;
+global.process.browser = false;
 
 // WHATWG URL requires global `Buffer` access.
 global.Buffer = Buffer;
