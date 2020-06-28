@@ -12,6 +12,13 @@
 
 - ...
 
+## `2.2.0` - 06/28/2020
+
+#### Added
+
+* Remove peer dependencies upper limit for webview  
+* Add `Buffer` and `process` to the dependencies instead of relying on the env.
+
 ## `2.1.0` - 06/25/2020
 
 #### Changed
