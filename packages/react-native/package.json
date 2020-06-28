@@ -39,7 +39,7 @@
   "peerDependencies": {
     "react": ">=16",
     "react-native": ">=0.60",
-    "react-native-webview": ">=8 <10"
+    "react-native-webview": ">=8"
   },
   "ava": {
     "require": [
