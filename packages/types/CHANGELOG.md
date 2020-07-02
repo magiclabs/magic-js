@@ -10,7 +10,7 @@
 
 #### Added
 
-- ...
+- Added WebAuthn support types
 
 ## `1.1.0` - 06/23/2020
 
