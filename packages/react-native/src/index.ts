@@ -3,7 +3,6 @@
 import 'regenerator-runtime/runtime';
 
 import { createSDK } from '@magic-sdk/provider';
-import * as processPolyfill from 'process';
 import { URL as URLPolyfill, URLSearchParams as URLSearchParamsPolyfill } from 'whatwg-url';
 import { Buffer } from 'buffer';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
@@ -12,7 +11,7 @@ import { SDKBaseReactNative } from './react-native-sdk-base';
 
 // We expect `global.process` to be a Node Process,
 // so we replace it here.
-global.process = processPolyfill || {};
+if (global.process) global.process = { ...global.process, ...require('process') };
 
 global.process.browser = false;
 
