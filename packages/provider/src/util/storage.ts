@@ -8,6 +8,7 @@ let lf: LocalForage;
  */
 function proxyLocalForageMethod<TMethod extends keyof LocalForageDbMethods>(method: TMethod): LocalForage[TMethod] {
   return async (...args: any[]) => {
+    /* istanbul ignore else */
     if (!lf) lf = await SDKEnvironment.configureStorage();
     await lf.ready();
     return (lf[method] as any)(...args);

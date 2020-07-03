@@ -29,8 +29,8 @@ export const Magic = createSDK(SDKBase, {
   PayloadTransport: WebTransport,
   configureStorage: /* istanbul ignore next */ async () => {
     const lf = localForage.createInstance({
-      name: 'MagicAuthSDK',
-      storeName: 'magic_auth_sdk_local_store',
+      name: 'MagicAuthLocalStorageDB',
+      storeName: 'MagicAuthLocalStorage',
     });
 
     await lf.defineDriver(memoryDriver);

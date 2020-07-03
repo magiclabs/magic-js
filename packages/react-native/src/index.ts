@@ -62,8 +62,8 @@ export const Magic = createSDK(SDKBaseReactNative, {
   PayloadTransport: ReactNativeTransport,
   configureStorage: /* istanbul ignore next */ async () => {
     const lf = localForage.createInstance({
-      name: 'MagicAuthSDK',
-      storeName: 'magic_auth_sdk_local_store',
+      name: 'MagicAuthLocalStorageDB',
+      storeName: 'MagicAuthLocalStorage',
     });
 
     const driver = driverWithoutSerialization();
