@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 import 'regenerator-runtime/runtime';
 
 import {
@@ -11,6 +13,8 @@ import {
   MagicSDKWarning,
 } from '@magic-sdk/provider';
 import * as types from '@magic-sdk/types';
+import localForage from 'localforage';
+import * as memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
 import { WebTransport } from './web-transport';
 
@@ -21,6 +25,15 @@ const Magic = createSDK(SDKBase, {
   defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
   PayloadTransport: WebTransport,
+  configureStorage: /* istanbul ignore next */ async () => {
+    localForage.config({
+      name: 'MagicAuthSDK',
+      storeName: 'magic_auth_sdk_local_store',
+    });
+
+    await localForage.defineDriver(memoryDriver);
+    await localForage.setDriver([localForage.INDEXEDDB, localForage.LOCALSTORAGE, memoryDriver._driver]);
+  },
 });
 
 // NOTE: enums are emitted by TypeScript -- in the CDN bundle we attach public

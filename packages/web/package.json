@@ -29,7 +29,9 @@
     "@babel/runtime": "^7.9.6",
     "@magic-sdk/provider": "^2.3.0-alpha.0",
     "@magic-sdk/types": "^1.2.0-alpha.0",
-    "regenerator-runtime": "0.13.5"
+    "regenerator-runtime": "0.13.5",
+    "localforage": "^1.7.4",
+    "localforage-driver-memory": "^1.0.5"
   },
   "ava": {
     "require": [

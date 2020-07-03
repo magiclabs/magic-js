@@ -48,6 +48,7 @@ export const TestMagicSDK = createSDK(SDKBase, {
   defaultEndpoint: MAGIC_RELAYER_FULL_URL,
   ViewController: TestViewController,
   PayloadTransport: TestPayloadTransport,
+  configureStorage: () => Promise.resolve(),
 });
 
 export function createMagicSDK(endpoint = MAGIC_RELAYER_FULL_URL) {

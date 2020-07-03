@@ -16,6 +16,7 @@ interface SDKEnvironment {
   defaultEndpoint: string;
   ViewController: ConstructorOf<ViewController>;
   PayloadTransport: ConstructorOf<PayloadTransport>;
+  configureStorage: () => Promise<void>;
 }
 
 export const SDKEnvironment: SDKEnvironment = {} as any;
