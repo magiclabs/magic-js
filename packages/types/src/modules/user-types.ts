@@ -33,3 +33,15 @@ export interface UpdateEmailConfiguration {
    */
   showUI?: boolean;
 }
+
+export interface UpdateWebAuthnInfoConfiguration {
+  /**
+   *  WebAuthn info id
+   */
+  id: string;
+
+  /**
+   *  nickname that user attempts to update to the webauth device associate to the id.
+   */
+  nickname: string;
+}
