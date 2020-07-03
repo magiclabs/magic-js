@@ -10,7 +10,7 @@
 
 #### Added
 
-- ...
+- WebAuthn support feature
 
 ## `2.2.0` - 06/25/2020
 
