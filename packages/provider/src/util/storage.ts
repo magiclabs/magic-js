@@ -1,17 +1,16 @@
-import localForage from 'localforage';
+import type LocalForage from 'localforage';
 import { SDKEnvironment } from '../core/sdk-environment';
 
-let configured: Promise<void>;
+let lf: LocalForage;
 
 /**
  * Proxies `localforage` methods with strong-typing.
  */
 function proxyLocalForageMethod<TMethod extends keyof LocalForageDbMethods>(method: TMethod): LocalForage[TMethod] {
   return async (...args: any[]) => {
-    if (!configured) configured = SDKEnvironment.configureStorage();
-    await configured;
-    await localForage.ready();
-    return (localForage[method] as any)(...args);
+    if (!lf) lf = await SDKEnvironment.configureStorage();
+    await lf.ready();
+    return (lf[method] as any)(...args);
   };
 }
 

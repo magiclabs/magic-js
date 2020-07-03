@@ -7,6 +7,20 @@ import * as memoryDriver from 'localforage-driver-memory';
 import * as storage from '../../../src/util/storage';
 import { mockSDKEnvironmentConstant } from '../../mocks';
 
+test.before(() => {
+  mockSDKEnvironmentConstant('configureStorage', async () => {
+    const lf = localForage.createInstance({
+      driver: [],
+    });
+
+    await lf.defineDriver(memoryDriver);
+    await localForage.setDriver(memoryDriver._driver);
+    await lf.setDriver([memoryDriver._driver]);
+
+    return lf;
+  });
+});
+
 /**
  * Stubs the given `method` on `localforage` and determines if the underlying
  * storage utility calls it successfully.
@@ -16,16 +30,8 @@ async function assertLocalForageDbMethodCalled<T extends keyof LocalForageDbMeth
   method: T,
   ...args: Parameters<LocalForageDbMethods[T]>
 ) {
-  mockSDKEnvironmentConstant('configureStorage', async () => {
-    await localForage.defineDriver(memoryDriver);
-    await localForage.setDriver([memoryDriver._driver]);
-  });
-
   const localForageStub = sinon.spy(memoryDriver, method);
-  (localForage as any).test = 'hello';
-
   await storage[method as keyof LocalForageDbMethods](...args);
-
   t.true(localForageStub.called);
 }
 

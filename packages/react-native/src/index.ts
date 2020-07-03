@@ -61,15 +61,16 @@ export const Magic = createSDK(SDKBaseReactNative, {
   ViewController: ReactNativeWebViewController,
   PayloadTransport: ReactNativeTransport,
   configureStorage: /* istanbul ignore next */ async () => {
-    const driver = driverWithoutSerialization();
-    localForage.config({
+    const lf = localForage.createInstance({
       name: 'MagicAuthSDK',
       storeName: 'magic_auth_sdk_local_store',
     });
 
-    await localForage.defineDriver(driver);
-    await localForage.defineDriver(memoryDriver);
-    await localForage.setDriver([driver._driver, memoryDriver._driver]);
+    const driver = driverWithoutSerialization();
+    await Promise.all([lf.defineDriver(driver), lf.defineDriver(memoryDriver)]);
+    await lf.setDriver([driver._driver, memoryDriver._driver]);
+
+    return lf;
   },
 });
 

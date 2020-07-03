@@ -28,13 +28,15 @@ export const Magic = createSDK(SDKBase, {
   ViewController: IframeController,
   PayloadTransport: WebTransport,
   configureStorage: /* istanbul ignore next */ async () => {
-    localForage.config({
+    const lf = localForage.createInstance({
       name: 'MagicAuthSDK',
       storeName: 'magic_auth_sdk_local_store',
     });
 
-    await localForage.defineDriver(memoryDriver);
-    await localForage.setDriver([localForage.INDEXEDDB, localForage.LOCALSTORAGE, memoryDriver._driver]);
+    await lf.defineDriver(memoryDriver);
+    await lf.setDriver([localForage.INDEXEDDB, localForage.LOCALSTORAGE, memoryDriver._driver]);
+
+    return lf;
   },
 });
 
