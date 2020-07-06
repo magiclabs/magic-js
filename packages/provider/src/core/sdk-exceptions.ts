@@ -1,4 +1,4 @@
-import { SDKErrorCode, SDKWarningCode, RPCErrorCode, JsonRpcError } from '@magic-sdk/types';
+import { JsonRpcError, RPCErrorCode, SDKErrorCode, SDKWarningCode } from '@magic-sdk/types';
 import { isJsonRpcErrorCode } from '../util/type-guards';
 import { SDKEnvironment } from './sdk-environment';
 import { Extension } from '../modules/base-extension';
@@ -110,6 +110,14 @@ export function createExtensionNotInitializedError(member: string) {
     SDKErrorCode.ExtensionNotInitialized,
     `Extensions must be initialized with a Magic SDK instance before \`Extension.${member}\` can be accessed. Do not invoke \`Extension.${member}\` inside an extension constructor.`,
   );
+}
+
+export function createWebAuthnNotSupportError() {
+  return new MagicSDKError(SDKErrorCode.WebAuthnNotSupported, 'WebAuthn is not supported in this device.');
+}
+
+export function createWebAuthCreateCredentialError(message: string) {
+  return new MagicSDKError(SDKErrorCode.WebAuthnCreateCredentialError, `Error creating credential: ${message}`);
 }
 
 export function createInvalidArgumentError(options: {
