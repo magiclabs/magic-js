@@ -1,4 +1,3 @@
-import type LocalForage from 'localforage';
 import { SDKEnvironment } from '../core/sdk-environment';
 
 let lf: LocalForage;
