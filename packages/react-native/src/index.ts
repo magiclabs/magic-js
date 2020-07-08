@@ -1,11 +1,20 @@
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/*
+  eslint-disable
+
+  global-require,
+  @typescript-eslint/no-var-requires,
+  no-underscore-dangle
+ */
 
 import 'regenerator-runtime/runtime';
 
 import { createSDK } from '@magic-sdk/provider';
 import * as processPolyfill from 'process';
+import localForage from 'localforage';
 import { URL as URLPolyfill, URLSearchParams as URLSearchParamsPolyfill } from 'whatwg-url';
 import { Buffer } from 'buffer';
+import { driverWithoutSerialization } from '@aveq-research/localforage-asyncstorage-driver';
+import * as memoryDriver from 'localforage-driver-memory';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { ReactNativeTransport } from './react-native-transport';
 import { SDKBaseReactNative } from './react-native-sdk-base';
@@ -51,6 +60,18 @@ export const Magic = createSDK(SDKBaseReactNative, {
   defaultEndpoint: 'https://box.magic.link/',
   ViewController: ReactNativeWebViewController,
   PayloadTransport: ReactNativeTransport,
+  configureStorage: /* istanbul ignore next */ async () => {
+    const lf = localForage.createInstance({
+      name: 'MagicAuthLocalStorageDB',
+      storeName: 'MagicAuthLocalStorage',
+    });
+
+    const driver = driverWithoutSerialization();
+    await Promise.all([lf.defineDriver(driver), lf.defineDriver(memoryDriver)]);
+    await lf.setDriver([driver._driver, memoryDriver._driver]);
+
+    return lf;
+  },
 });
 
 export type Magic = InstanceType<typeof Magic>;

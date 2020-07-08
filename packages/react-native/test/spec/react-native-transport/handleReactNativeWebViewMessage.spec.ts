@@ -4,11 +4,11 @@ import sinon from 'sinon';
 import { ENCODED_QUERY_PARAMS } from '../../constants';
 import { createReactNativeTransport } from '../../factories';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv();
 });
 
-test.cb('Ignores events with different origin than expected', t => {
+test.cb('Ignores events with different origin than expected', (t) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -26,7 +26,7 @@ test.cb('Ignores events with different origin than expected', t => {
   }, 0);
 });
 
-test.cb('Ignores events with non-string data', t => {
+test.cb('Ignores events with non-string data', (t) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -70,7 +70,7 @@ test.cb('Ignores events with non-string data', t => {
 //   }, 0);
 // });
 
-test.cb('Replaces `undefined` or `null` response with an empty object', t => {
+test.cb('Replaces `undefined` or `null` response with an empty object', (t) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -89,7 +89,7 @@ test.cb('Replaces `undefined` or `null` response with an empty object', t => {
   }, 0);
 });
 
-test.cb('Executes event handlers where `messageHandlers` size is > 0', t => {
+test.cb('Executes event handlers where `messageHandlers` size is > 0', (t) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -108,7 +108,7 @@ test.cb('Executes event handlers where `messageHandlers` size is > 0', t => {
   }, 0);
 });
 
-test.cb('Ignores event handlers where `messageHandlers` size is === 0', t => {
+test.cb('Ignores event handlers where `messageHandlers` size is === 0', (t) => {
   const transport = createReactNativeTransport('asdf');
   (transport as any).messageHandlers = { size: 0 };
 

@@ -2,7 +2,14 @@ import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '.
 import { BaseModule } from './base-module';
 import { SDKBase, MagicSDKAdditionalConfiguration } from '../core/sdk';
 import { createExtensionNotInitializedError, MagicExtensionError, MagicExtensionWarning } from '../core/sdk-exceptions';
-import { createPromiEvent, encodeJSON, decodeJSON, encodeQueryParameters, decodeQueryParameters } from '../util';
+import {
+  createPromiEvent,
+  encodeJSON,
+  decodeJSON,
+  encodeQueryParameters,
+  decodeQueryParameters,
+  storage,
+} from '../util';
 
 abstract class BaseExtension<TName extends string> extends BaseModule {
   public abstract readonly name: TName;
@@ -17,6 +24,7 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
     decodeQueryParameters, // Scheduled for deprecation...
     createJsonRpcRequestPayload,
     standardizeJsonRpcRequestPayload,
+    storage,
   };
 
   constructor() {

@@ -20,37 +20,6 @@ export class MagicSDKError extends Error {
 }
 
 /**
- * This error type is reserved for communicating errors that arise during
- * execution of Magic SDK Extension methods. Compare this to the `SDKError`
- * type, specifically in context of Extensions.
- */
-export class MagicExtensionError<TData = any> extends Error {
-  __proto__ = Error;
-
-  constructor(ext: Extension<string>, public code: string | number, public rawMessage: string, public data: TData) {
-    super(`Magic Extension Error (${ext.name}): [${code}] ${rawMessage}`);
-    Object.setPrototypeOf(this, MagicExtensionError.prototype);
-  }
-}
-
-/**
- * This error type is reserved for communicating errors that arise during
- * execution of Magic SDK Extension methods. Compare this to the `SDKError`
- * type, specifically in context of Extensions.
- */
-export class MagicExtensionWarning {
-  public message: string;
-
-  constructor(ext: Extension<string>, public code: string | number, public rawMessage: string) {
-    this.message = `Magic Extension Error (${ext.name}): [${code}] ${rawMessage}`;
-  }
-
-  public log() {
-    console.warn(this.message);
-  }
-}
-
-/**
  * This error type communicates exceptions that occur during execution in the
  * Magic `<iframe>` context.
  */
@@ -73,8 +42,9 @@ export class MagicRPCError extends Error {
 }
 
 /**
- * In contrast to `SDKError` objects, this "warning" type represents important
- * context that does not rise to the level of an exception.
+ * In contrast to `SDKError` objects, this "warning" type communicates important
+ * context that does not rise to the level of an exception. These should be
+ * logged rather than thrown.
  */
 export class MagicSDKWarning {
   public message: string;
@@ -83,6 +53,43 @@ export class MagicSDKWarning {
     this.message = `Magic SDK Warning: [${code}] ${rawMessage}`;
   }
 
+  /**
+   * Logs this warning to the console.
+   */
+  public log() {
+    console.warn(this.message);
+  }
+}
+
+/**
+ * This error type is reserved for communicating errors that arise during
+ * execution of Magic SDK Extension methods. Compare this to the `SDKError`
+ * type, specifically in context of Extensions.
+ */
+export class MagicExtensionError<TData = any> extends Error {
+  __proto__ = Error;
+
+  constructor(ext: Extension<string>, public code: string | number, public rawMessage: string, public data: TData) {
+    super(`Magic Extension Error (${ext.name}): [${code}] ${rawMessage}`);
+    Object.setPrototypeOf(this, MagicExtensionError.prototype);
+  }
+}
+
+/**
+ * In contrast to `MagicExtensionError` objects, this "warning" type
+ * communicates important context that does not rise to the level of an
+ * exception. These should be logged rather than thrown.
+ */
+export class MagicExtensionWarning {
+  public message: string;
+
+  constructor(ext: Extension<string>, public code: string | number, public rawMessage: string) {
+    this.message = `Magic Extension Warning (${ext.name}): [${code}] ${rawMessage}`;
+  }
+
+  /**
+   * Logs this warning to the console.
+   */
   public log() {
     console.warn(this.message);
   }

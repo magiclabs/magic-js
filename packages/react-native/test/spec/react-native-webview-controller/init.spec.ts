@@ -3,29 +3,29 @@ import test from 'ava';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv();
   reactNativeStyleSheetStub();
 });
 
-test("Intializes 'webView' with null", t => {
+test("Intializes 'webView' with null", (t) => {
   const overlay = createReactNativeWebViewController();
   t.is((overlay as any).webView, null);
 });
 
-test("Intializes 'container' with null", t => {
+test("Intializes 'container' with null", (t) => {
   const overlay = createReactNativeWebViewController();
   t.is((overlay as any).container, null);
 });
 
-test("Intializes 'styles' with the result of React Native's StyleSheet.create", t => {
+test("Intializes 'styles' with the result of React Native's StyleSheet.create", (t) => {
   reactNativeStyleSheetStub().returns('hello world');
 
   const overlay = createReactNativeWebViewController();
   t.is((overlay as any).styles, 'hello world');
 });
 
-test('Stylesheet.create is called with the expected style object', t => {
+test('Stylesheet.create is called with the expected style object', (t) => {
   const stylesheetCreateStub = reactNativeStyleSheetStub();
 
   createReactNativeWebViewController();
