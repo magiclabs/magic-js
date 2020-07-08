@@ -12,6 +12,13 @@
 
 - ...
 
+## `2.3.0` - 07/08/2020
+
+#### Added
+
+- WebAuthn support.
+- `localforage` APIs for Magic SDK Extensions.
+
 ## `2.1.0` - 06/25/2020
 
 #### Changed
