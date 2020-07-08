@@ -12,6 +12,12 @@
 
 - WebAuthn support feature
 
+## `2.4.1` - 07/08/2020
+
+#### Fixed
+
+- Bug affecting `localforage` type imports causing compilation failure in TypeScript.
+
 ## `2.4.0` - 07/08/2020
 
 #### Added

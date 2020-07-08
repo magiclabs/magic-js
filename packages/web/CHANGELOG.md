@@ -12,6 +12,12 @@
 
 - ...
 
+## `2.3.1` - 07/08/2020
+
+#### Fixed
+
+- Bug affecting `localforage` type imports causing compilation failure in TypeScript.
+
 ## `2.3.0` - 07/08/2020
 
 #### Added
