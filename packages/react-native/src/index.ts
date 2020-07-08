@@ -12,13 +12,13 @@ import { SDKBaseReactNative } from './react-native-sdk-base';
 
 // We expect `global.process` to be a Node Process for web3.js usage
 // so we replace it here.
-if (global.process) {
-  global.process = { ...processPolyfill, ...global.process };
-} else {
+if (typeof global.process === 'undefined') {
   global.process = processPolyfill;
+} else {
+  global.process = { ...processPolyfill, ...global.process };
 }
 
-global.process.browser = false;
+(global.process as any).browser = false;
 
 // WHATWG URL requires global `Buffer` access.
 global.Buffer = Buffer;
