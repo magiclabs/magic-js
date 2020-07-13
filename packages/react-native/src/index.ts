@@ -16,7 +16,6 @@ import * as memoryDriver from 'localforage-driver-memory';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { ReactNativeTransport } from './react-native-transport';
 import { SDKBaseReactNative } from './react-native-sdk-base';
-import { version } from '../package.json';
 
 // We expect `global.process` to be a Node Process,
 // so we replace it here.
@@ -55,7 +54,7 @@ export * from '@magic-sdk/types';
 export const Magic = createSDK(SDKBaseReactNative, {
   target: 'react-native',
   sdkName: 'magic-sdk-rn',
-  version,
+  version: '2.4.5',
   defaultEndpoint: 'https://box.magic.link/',
   ViewController: ReactNativeWebViewController,
   PayloadTransport: ReactNativeTransport,

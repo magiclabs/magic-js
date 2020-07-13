@@ -3,14 +3,13 @@
 
   "compilerOptions": {
     "module": "es6",
-    "rootDir": ".",
+    "rootDir": "./src",
     "outDir": "./dist/module"
   },
 
   "include": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
-    "./package.json"
   ],
 
   "references": [

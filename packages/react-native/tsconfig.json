@@ -2,14 +2,13 @@
   "extends": "../../tsconfig.settings.json",
 
   "compilerOptions": {
-    "rootDir": ".",
+    "rootDir": "./src",
     "outDir": "./dist/commonjs"
   },
 
   "include": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
-    "./package.json"
   ],
 
   "references": [

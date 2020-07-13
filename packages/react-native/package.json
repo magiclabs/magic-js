@@ -13,9 +13,9 @@
     "dist/*"
   ],
   "target": "node",
-  "main": "dist/commonjs/src/index.js",
-  "module": "dist/module/src/index.js",
-  "types": "dist/commonjs/src/index.d.ts",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/module/index.js",
+  "types": "dist/commonjs/index.d.ts",
   "scripts": {
     "precommit": "lint-staged"
   },
