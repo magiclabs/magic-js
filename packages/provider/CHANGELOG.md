@@ -12,6 +12,12 @@
 
 - WebAuthn support feature
 
+## `2.5.3` - 07/13/2020
+
+#### Fixed
+
+- Bug preventing NPM tarball from containing `/dist` files.
+
 ## `2.5.0` - 07/13/2020
 
 #### Changed

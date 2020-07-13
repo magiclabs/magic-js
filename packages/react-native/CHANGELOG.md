@@ -12,6 +12,12 @@
 
 - ...
 
+## `2.4.3` - 07/13/2020
+
+#### Fixed
+
+- Bug preventing NPM tarball from containing `/dist` files.
+
 ## `2.4.0` - 07/13/2020
 
 #### Changed
