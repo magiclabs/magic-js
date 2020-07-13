@@ -14,7 +14,7 @@ import {
 } from '@magic-sdk/provider';
 import * as types from '@magic-sdk/types';
 import localForage from 'localforage';
-import * as memoryDriver from 'localforage-driver-memory';
+import memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
 import { WebTransport } from './web-transport';
 

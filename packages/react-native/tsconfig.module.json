@@ -2,16 +2,18 @@
   "extends": "../tsconfig.settings.json",
 
   "compilerOptions": {
+    "module": "esnext",
     "rootDir": "./src",
-    "outDir": "./dist/commonjs"
+    "outDir": "./dist/module"
   },
 
   "include": [
     "./src/**/*.ts",
-    "./src/**/*.js",
+    "./src/**/*.tsx",
   ],
 
   "references": [
-    { "path": "../types" }
+    { "path": "../types" },
+    { "path": "../provider" },
   ]
 }

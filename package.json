@@ -2,13 +2,15 @@
   "private": true,
   "name": "magic-sdk-monorepo",
   "scripts": {
-    "bootstrap": "yarn install && lerna bootstrap",
-    "exec": "lerna exec --scope $PKG -- $@",
-    "dev": "./scripts/dev.sh",
-    "build": "./scripts/clean.sh && ./scripts/build.sh",
-    "clean": "./scripts/clean.sh",
-    "lint": "./scripts/lint.sh",
-    "test": "./scripts/test.sh",
+    "bootstrap": "yarn install && lerna link",
+    "wsrun": "wsrun --bin $INIT_CWD/scripts/runner.sh -p $PKG",
+    "dev": "yarn clean && tsc -b -w $(yarn --silent paths)",
+    "build": "yarn clean && $INIT_CWD/scripts/build.sh",
+    "paths": "yarn --silent wsrun --parallel --no-prefix -r [silent] $INIT_CWD/scripts/cwd.sh",
+    "clean": "$INIT_CWD/scripts/clean.sh",
+    "lint": "$INIT_CWD/scripts/lint.sh",
+    "test": "yarn wsrun --serial $INIT_CWD/scripts/test.sh",
+    "scaffold": "$INIT_CWD/scripts/scaffold/run.ts",
     "bump_version": "lerna version",
     "release": "lerna publish from-package --yes",
     "release_canary": "lerna publish from-package --canary --yes",
@@ -55,7 +57,8 @@
     "sinon": "7.1.1",
     "ts-node": "~8.5.2",
     "typed-emitter": "^1.0.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "wsrun": "^5.2.1"
   },
   "husky": {
     "hooks": {

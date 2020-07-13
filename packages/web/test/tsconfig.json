@@ -6,5 +6,8 @@
     "strict": false,
     "noImplicitAny": false
   },
-  "include": ["./**/*.ts"]
+  "include": ["./**/*.ts"],
+  "references": [
+    { "path": ".." }
+  ]
 }

@@ -12,16 +12,12 @@
   "files": [
     "dist/**/*"
   ],
-  "main": "dist/npm/index.js",
+  "umdGlobal": "Magic",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/module/index.js",
+  "types": "dist/commonjs/index.d.ts",
   "umd:main": "dist/magic.js",
-  "module": "dist/npm/index.m.js",
-  "esmodule": "dist/npm/index.modern.js",
-  "types": "dist/npm/index.d.ts",
   "scripts": {
-    "dev": "microbundle watch src/index.ts --define $ENV --target web --format modern,es,cjs",
-    "build": "yarn run build:npm && yarn run build:cdn",
-    "build:npm": "microbundle build src/index.ts --define $ENV --target web --format modern,es,cjs",
-    "build:cdn": "microbundle build src/index.cdn.ts --define $ENV --tsconfig tsconfig.cdn.json --output dist/magic.js --target web --name Magic --format umd --sourcemap false --external none",
     "precommit": "lint-staged"
   },
   "dependencies": {

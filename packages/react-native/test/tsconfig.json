@@ -6,9 +6,8 @@
     "strict": false,
     "noImplicitAny": false
   },
-  "include": [
-    "./**/*.ts",
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
+  "include": ["./**/*.ts"],
+  "references": [
+    { "path": ".." }
   ]
 }

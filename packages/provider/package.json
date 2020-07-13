@@ -12,13 +12,10 @@
   "files": [
     "dist/**/*"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.m.js",
-  "esmodule": "dist/index.modern.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/module/index.js",
+  "types": "dist/commonjs/index.d.ts",
   "scripts": {
-    "dev": "microbundle watch src/index.ts --target web --format modern,es,cjs",
-    "build": "microbundle build src/index.ts --target web --format modern,es,cjs",
     "precommit": "lint-staged"
   },
   "dependencies": {

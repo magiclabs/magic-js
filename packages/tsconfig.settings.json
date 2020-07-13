@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "lib": ["es2018", "dom"],
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es6",
     "strict": true,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
@@ -16,9 +16,7 @@
     "allowJs": true,
     "sourceMap": true,
     "declaration": true,
+    "skipLibCheck": true,
+    "composite": true,
   },
-  "include": [
-    "./packages/**/*.ts",
-    "./packages/**/*.tsx"
-  ]
 }
