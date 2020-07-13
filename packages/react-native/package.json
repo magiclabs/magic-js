@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Passwordless authentication for React Native.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -9,7 +9,9 @@
     "url": "https://github.com/fortmatic/magic-js"
   },
   "homepage": "https://magic.link",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "target": "node",
   "main": "dist/commonjs/src/index.js",
   "module": "dist/module/src/index.js",
@@ -21,8 +23,8 @@
     "@aveq-research/localforage-asyncstorage-driver": "^1.0.2",
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
-    "@magic-sdk/provider": "^2.5.1",
-    "@magic-sdk/types": "^1.4.1",
+    "@magic-sdk/provider": "^2.5.2",
+    "@magic-sdk/types": "^1.4.2",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5",
     "whatwg-url": "^8.0.0"
