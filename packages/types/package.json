@@ -12,6 +12,7 @@
   "files": [
     "dist/**/*"
   ],
+  "target": "web",
   "main": "dist/commonjs/index.js",
   "module": "dist/module/index.js",
   "types": "dist/commonjs/index.d.ts",

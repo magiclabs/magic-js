@@ -3,10 +3,6 @@
 
   "extends": ["@ikscodes/eslint-config"],
 
-  "parserOptions": {
-    "project": ["./packages/tsconfig.json", "./scripts/tsconfig.json"]
-  },
-
   "rules": {
     "import/extensions": 0,
     "no-alert": 0,

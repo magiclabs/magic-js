@@ -1,0 +1,17 @@
+{
+  "files": [],
+
+  "references": [
+    { "path": "./packages/provider/tsconfig.json" },
+    { "path": "./packages/provider/tsconfig.module.json" },
+
+    { "path": "./packages/react-native/tsconfig.json" },
+    { "path": "./packages/react-native/tsconfig.module.json" },
+
+    { "path": "./packages/types/tsconfig.json" },
+    { "path": "./packages/types/tsconfig.module.json" },
+
+    { "path": "./packages/web/tsconfig.json" },
+    { "path": "./packages/web/tsconfig.module.json" },
+  ]
+}

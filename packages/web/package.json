@@ -13,9 +13,10 @@
     "dist/**/*"
   ],
   "umdGlobal": "Magic",
-  "main": "dist/commonjs/index.js",
-  "module": "dist/module/index.js",
-  "types": "dist/commonjs/index.d.ts",
+  "target": "web",
+  "main": "dist/commonjs/src/index.js",
+  "module": "dist/module/src/index.js",
+  "types": "dist/commonjs/src/index.d.ts",
   "umd:main": "dist/magic.js",
   "scripts": {
     "precommit": "lint-staged"

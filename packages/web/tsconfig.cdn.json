@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.settings.json",
+  "extends": "../../tsconfig.settings.json",
 
   "compilerOptions": {
     "module": "esnext",
@@ -10,6 +10,7 @@
 
   "include": [
     "./src/**/*.ts",
+    "./package.json",
   ],
 
   "references": [
