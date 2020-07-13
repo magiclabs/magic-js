@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.settings.json",
 
   "compilerOptions": {
-    "module": "esnext",
+    "module": "esnext", // Microbundle will output ES5
     "declaration": false,
     "sourceMap": false,
     "composite": false,
