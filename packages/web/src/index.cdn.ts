@@ -14,14 +14,15 @@ import {
 } from '@magic-sdk/provider';
 import * as types from '@magic-sdk/types';
 import localForage from 'localforage';
-import * as memoryDriver from 'localforage-driver-memory';
+import memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
 import { WebTransport } from './web-transport';
+import { version } from '../package.json';
 
 const Magic = createSDK(SDKBase, {
   target: 'web',
   sdkName: 'magic-sdk',
-  version: process.env.WEB_VERSION!,
+  version,
   defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
   PayloadTransport: WebTransport,

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "lib": ["es2018", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es6",
+    "strict": true,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "composite": true,
+  },
+}

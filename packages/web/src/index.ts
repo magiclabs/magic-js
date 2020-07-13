@@ -7,6 +7,7 @@ import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
 import { WebTransport } from './web-transport';
+import { version } from '../package.json';
 
 export {
   Extension,
@@ -23,7 +24,7 @@ export * from '@magic-sdk/types';
 export const Magic = createSDK(SDKBase, {
   target: 'web',
   sdkName: 'magic-sdk',
-  version: process.env.WEB_VERSION!,
+  version,
   defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
   PayloadTransport: WebTransport,

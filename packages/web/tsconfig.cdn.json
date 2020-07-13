@@ -1,7 +1,20 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.settings.json",
+
   "compilerOptions": {
+    "module": "esnext",
     "declaration": false,
     "sourceMap": false,
-  }
+    "composite": false,
+  },
+
+  "include": [
+    "./src/**/*.ts",
+    "./package.json",
+  ],
+
+  "references": [
+    { "path": "../types" },
+    { "path": "../provider" },
+  ]
 }

@@ -12,13 +12,11 @@
   "files": [
     "dist/**/*"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.m.js",
-  "esmodule": "dist/index.modern.js",
-  "types": "dist/index.d.ts",
+  "target": "node",
+  "main": "dist/commonjs/src/index.js",
+  "module": "dist/module/src/index.js",
+  "types": "dist/commonjs/src/index.d.ts",
   "scripts": {
-    "dev": "microbundle watch src/index.ts --define $ENV --target node --format modern,es,cjs --jsx React.createElement",
-    "build": "microbundle build src/index.ts --define $ENV --target node --format modern,es,cjs --jsx React.createElement",
     "precommit": "lint-staged"
   },
   "dependencies": {

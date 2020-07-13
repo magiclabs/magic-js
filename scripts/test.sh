@@ -1,52 +1,26 @@
 #!/usr/bin/env bash
 
-echo
-echo "Running unit tests..."
-echo
+# This script is run via `wsrun`, so it's working directory is
+# relative to the package being processed.
 
-# Run tests for the project directory given by `$1`.
+RAW_INPUT=$1
+
 runTests() {
-  # Set the package directory and TSConfig file.
-  cd ./packages/$1
-  export TS_NODE_PROJECT="./test/tsconfig.json"
-
   # Parse a glob of input test files (relative to the package directory).
-  input=$(echo $(../../scripts/glob.js $2))
+  input=$(echo $($INIT_CWD/scripts/glob.ts $RAW_INPUT))
+
+  export TS_NODE_PROJECT="./test/tsconfig.json"
 
   # Run tests, with coverage.
   npx nyc --reporter=lcov --reporter=text-summary  ava $input || exit 1
-
-  # Return to the original working directory
-  cd ../..
 }
 
-# Print a message indicating no tests are available for the given `$PKG`.
 echoNoTests() {
-  echo "No tests to run in package \`$PKG\`"
+  echo "No tests to run."
 }
 
-export NODE_ENV=test
-
-case $PKG in
-  "@magic-sdk/provider")
-    runTests provider $1
-    ;;
-
-  "@magic-sdk/types")
-    echoNoTests
-    ;;
-
-  "@magic-sdk/react-native")
-    runTests react-native $1
-    ;;
-
-  "magic-sdk")
-    runTests web $1
-    ;;
-
-  *)
-    runTests provider $1
-    runTests react-native $1
-    runTests web $1
-    ;;
-esac
+if [[ ! -d "./test" ]] ; then
+  echoNoTests
+else
+  runTests
+fi

@@ -2,14 +2,14 @@
   "extends": "../../tsconfig.settings.json",
 
   "compilerOptions": {
+    "module": "esnext",
     "rootDir": ".",
-    "outDir": "./dist/commonjs"
+    "outDir": "./dist/module"
   },
 
   "include": [
     "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./package.json"
+    "./package.json",
   ],
 
   "references": [
