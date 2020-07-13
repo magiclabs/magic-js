@@ -11,14 +11,14 @@ test.beforeEach((t) => {
 });
 
 test('Calls webView.postMessage with the expected arguments', async (t) => {
-  const overlay = createReactNativeWebViewController();
+  const overlay = createReactNativeWebViewController('http://example.com');
 
   const postMessageStub = sinon.stub();
   (overlay as any).webView = { postMessage: postMessageStub };
 
   await overlay.postMessage({ thisIsData: 'hello world' });
 
-  t.deepEqual(postMessageStub.args[0], [JSON.stringify({ thisIsData: 'hello world' }), '*']);
+  t.deepEqual(postMessageStub.args[0], [JSON.stringify({ thisIsData: 'hello world' }), 'http://example.com']);
 });
 
 test('Throws MODAL_NOT_READY error if webView is nil', async (t) => {

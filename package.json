@@ -4,7 +4,7 @@
   "scripts": {
     "bootstrap": "yarn install && lerna link",
     "wsrun": "wsrun --bin $INIT_CWD/scripts/runner.sh -p $PKG",
-    "dev": "yarn clean && tsc -b -w $(yarn --silent paths)",
+    "dev": "yarn clean && $INIT_CWD/scripts/dev.sh",
     "build": "yarn clean && $INIT_CWD/scripts/build.sh",
     "clean": "$INIT_CWD/scripts/clean.sh",
     "lint": "$INIT_CWD/scripts/lint.sh",

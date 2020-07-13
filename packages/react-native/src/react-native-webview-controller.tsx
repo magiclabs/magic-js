@@ -135,7 +135,7 @@ export class ReactNativeWebViewController extends ViewController<ReactNativeTran
 
   public async postMessage(data: any) {
     if (this.webView && (this.webView as any).postMessage) {
-      (this.webView as any).postMessage(JSON.stringify(data), '*');
+      (this.webView as any).postMessage(JSON.stringify(data), this.endpoint);
     } else {
       throw createModalNotReadyError();
     }
