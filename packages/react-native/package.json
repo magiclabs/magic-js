@@ -9,9 +9,7 @@
     "url": "https://github.com/fortmatic/magic-js"
   },
   "homepage": "https://magic.link",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist"],
   "target": "node",
   "main": "dist/commonjs/src/index.js",
   "module": "dist/module/src/index.js",
