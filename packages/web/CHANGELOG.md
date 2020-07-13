@@ -12,6 +12,13 @@
 
 - ...
 
+## `2.4.0` - 07/13/2020
+
+#### Changed
+
+- Updated build system to use TypeScript project references instead of Microbundle.
+- Pass `targetOrigin` parameter to `postMessage` calls.
+
 ## `2.3.1` - 07/08/2020
 
 #### Fixed

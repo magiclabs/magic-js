@@ -10,7 +10,14 @@
 
 #### Added
 
-- Added WebAuthn support types
+- ...
+
+## `1.4.0` - 07/13/2020
+
+#### Changed
+
+- Updated build system to use TypeScript project references instead of Microbundle.
+- Pass `targetOrigin` parameter to `postMessage` calls.
 
 ## `1.3.1` - 07/08/2020
 
