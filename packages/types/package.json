@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/types",
-  "version": "1.4.3",
+  "version": "1.4.4-alpha.0",
   "description": "Core typings for Magic SDK packages.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -9,7 +9,9 @@
     "url": "https://github.com/fortmatic/magic-js"
   },
   "homepage": "https://magic.link",
-  "files": ["dist/*"],
+  "files": [
+    "dist/*"
+  ],
   "target": "web",
   "main": "dist/commonjs/index.js",
   "module": "dist/module/index.js",
