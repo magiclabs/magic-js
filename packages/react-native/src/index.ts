@@ -6,8 +6,6 @@
   no-underscore-dangle
  */
 
-import 'regenerator-runtime/runtime';
-
 import { createSDK } from '@magic-sdk/provider';
 import * as processPolyfill from 'process';
 import localForage from 'localforage';
