@@ -6,6 +6,7 @@ echo "  Building CommonJS files..."
 echo
 
 tsc -b $(yarn --silent paths)
+echo "TypeScripts compiled."
 
 echo
 echo "+------------------------------------------------------------------------------+"
@@ -13,6 +14,7 @@ echo "  Building ES module files..."
 echo
 
 tsc -b $(yarn --silent paths tsconfig.module.json)
+echo "TypeScripts compiled."
 
 echo
 echo "+------------------------------------------------------------------------------+"
