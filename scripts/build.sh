@@ -5,7 +5,13 @@ echo "+-------------------------------------------------------------------------
 echo "  Building CommonJS files..."
 echo
 
-tsc -b $(yarn --silent paths)
+paths=$(echo -e $(yarn --silent paths tsconfig.json))
+
+echo "Compiling TypeScripts for the following projects:"
+node -pe "'$paths'.split(' ').reduce((prev, next) => prev + '\n - ' + next, '')"
+echo
+
+tsc -b $paths
 echo "TypeScripts compiled."
 
 echo
@@ -13,14 +19,20 @@ echo "+-------------------------------------------------------------------------
 echo "  Building ES module files..."
 echo
 
-tsc -b $(yarn --silent paths tsconfig.module.json)
+paths=$(echo -e $(yarn --silent paths tsconfig.module.json))
+
+echo "Compiling TypeScripts for the following projects:"
+node -pe "'$paths'.split(' ').reduce((prev, next) => prev + '\n - ' + next, '')"
+echo
+
+tsc -b $paths
 echo "TypeScripts compiled."
 
 echo
 echo "+------------------------------------------------------------------------------+"
 echo "  Building CDN bundles..."
-echo "  (You can safely ignore \`The 'this' keyword is equivalent to 'undefined'\`"
-echo "   warnings"
+echo
+echo "You can safely ignore \`The 'this' keyword is equivalent to 'undefined'\` warnings"
 echo
 
 yarn wsrun --serial $INIT_CWD/scripts/build:cdn.sh
