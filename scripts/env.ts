@@ -30,7 +30,7 @@ Object.keys(environment).forEach(async (envVar) => {
       from: `process.env.${envVar}`,
       to: JSON.stringify(environment[envVar]),
       allowEmptyPaths: true,
-    }).catch(console.log);
+    }).catch(console.error);
 
     console.log(`Injected ENV variable \`${envVar}\``);
   }
