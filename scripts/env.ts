@@ -12,9 +12,8 @@ import { replaceInFile } from 'replace-in-file';
 import path from 'path';
 
 /**
- * Environment variables to be interpolated into the built files. This
- * replicates the behavior `microbundle --define` for both bundled files and
- * those emitted by TypeScript's `tsc`.
+ * Environment variables to be interpolated into the built files. Interpolations
+ * occur where `"%VARIABLE_NAME%"` is found.
  */
 const environment = {
   WEB_VERSION: require(path.resolve(__dirname, '../packages/web/package.json')).version,
@@ -27,8 +26,8 @@ Object.keys(environment).forEach(async (envVar) => {
   if (environment[envVar]) {
     await replaceInFile({
       files,
-      from: `process.env.${envVar}`,
-      to: JSON.stringify(environment[envVar]),
+      from: `%${envVar}%`,
+      to: environment[envVar],
       allowEmptyPaths: true,
     }).catch(console.error);
 
