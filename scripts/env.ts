@@ -11,6 +11,11 @@
 import { replaceInFile } from 'replace-in-file';
 import path from 'path';
 
+/**
+ * Environment variables to be interpolated into the built files. This
+ * replicates the behavior `microbundle --define` for both bundled files and
+ * those emitted by TypeScript's `tsc`.
+ */
 const environment = {
   WEB_VERSION: require(path.resolve(__dirname, '../packages/web/package.json')).version,
   REACT_NATIVE_VERSION: require(path.resolve(__dirname, '../packages/react-native/package.json')).version,
