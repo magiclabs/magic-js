@@ -12,7 +12,7 @@
 
 - WebAuthn support feature
 
-## `2.5.3` - 07/13/2020
+## `2.5.1` through `2.5.4` - 07/13/2020
 
 #### Fixed
 
