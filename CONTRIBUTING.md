@@ -15,7 +15,8 @@ Please note we have a **code of conduct**, please follow it in all your interact
 - For chores/the rest: `chore/[package_name]/[descriptive_chore_name]`
 
 4. Install & hoist dependencies with Yarn + Lerna: `yarn bootstrap`
-5. Start building for development: `yarn dev`
+5. Add `./node_modules/.bin` to your system's [`PATH`](https://en.wikipedia.org/wiki/PATH_(variable)), if it's not already listed.
+6. Start building for development: `yarn dev`
 
 ### Development Scripts
 
