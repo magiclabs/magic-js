@@ -21,7 +21,7 @@ import { WebTransport } from './web-transport';
 const Magic = createSDK(SDKBase, {
   target: 'web',
   sdkName: 'magic-sdk',
-  version: '2.4.5',
+  version: process.env.WEB_VERSION!,
   defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
   PayloadTransport: WebTransport,

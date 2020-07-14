@@ -36,3 +36,12 @@ echo "You can safely ignore \`The 'this' keyword is equivalent to 'undefined'\` 
 echo
 
 yarn wsrun --serial $INIT_CWD/scripts/build:cdn.sh
+
+echo
+echo "+------------------------------------------------------------------------------+"
+echo "  Interpolate ENV variables..."
+echo
+
+paths=$(echo -e $(yarn --silent paths))
+
+$INIT_CWD/scripts/env.ts $paths

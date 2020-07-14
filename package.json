@@ -4,8 +4,8 @@
   "scripts": {
     "bootstrap": "yarn install && lerna link",
     "wsrun": "wsrun --bin $INIT_CWD/scripts/runner.sh -p $PKG",
-    "dev": "yarn clean && $INIT_CWD/scripts/dev.sh",
-    "build": "yarn clean && $INIT_CWD/scripts/build.sh",
+    "dev": "$INIT_CWD/scripts/clean.sh && $INIT_CWD/scripts/dev.sh",
+    "build": "$INIT_CWD/scripts/clean.sh && $INIT_CWD/scripts/build.sh",
     "clean": "$INIT_CWD/scripts/clean.sh",
     "lint": "$INIT_CWD/scripts/lint.sh",
     "test": "yarn wsrun --serial --fast-exit -c $INIT_CWD/scripts/test.sh",
@@ -52,9 +52,11 @@
     "prettier": "~2.0.5",
     "react": "^16.13.1",
     "react-native": "^0.62.2",
+    "replace-in-file": "^6.1.0",
     "rimraf": "~3.0.0",
     "sinon": "7.1.1",
     "ts-node": "~8.5.2",
+    "tsc-watch": "^4.2.9",
     "typed-emitter": "^1.0.0",
     "typescript": "~3.8.3",
     "wsrun": "^5.2.1"

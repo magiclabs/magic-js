@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node-script
+#!/usr/bin/env npx ts-script
 
 import { resolve } from 'path';
 import glob from 'glob';
