@@ -39,9 +39,10 @@ yarn wsrun --serial $INIT_CWD/scripts/build:cdn.sh
 
 echo
 echo "+------------------------------------------------------------------------------+"
-echo "  Interpolate ENV variables..."
+echo "  Interpolating ENV variables..."
 echo
 
 paths=$(echo -e $(yarn --silent paths))
 
 $INIT_CWD/scripts/env.ts $paths
+echo
