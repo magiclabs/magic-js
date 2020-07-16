@@ -12,7 +12,7 @@
   ],
 
   "references": [
-    { "path": "../types" },
-    { "path": "../provider" },
+    { "path": "../types/tsconfig.module.json" },
+    { "path": "../provider/tsconfig.module.json" },
   ]
 }

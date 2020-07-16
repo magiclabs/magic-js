@@ -2,30 +2,16 @@
 
 echo
 echo "+------------------------------------------------------------------------------+"
-echo "  Building CommonJS files..."
+echo "  Building TypeScripts..."
 echo
 
-paths=$(echo -e $(yarn --silent paths tsconfig.json))
+tsconfig_paths=$(echo -e $(yarn --silent paths tsconfig.json tsconfig.module.json))
 
 echo "Compiling TypeScripts for the following projects:"
-node -pe "'$paths'.split(' ').reduce((prev, next) => prev + '\n - ' + next, '')"
+node -pe "'$tsconfig_paths'.split(' ').reduce((prev, next) => prev + '\n  - ' + next, '')"
 echo
 
-tsc -b $paths
-echo "TypeScripts compiled."
-
-echo
-echo "+------------------------------------------------------------------------------+"
-echo "  Building ES module files..."
-echo
-
-paths=$(echo -e $(yarn --silent paths tsconfig.module.json))
-
-echo "Compiling TypeScripts for the following projects:"
-node -pe "'$paths'.split(' ').reduce((prev, next) => prev + '\n - ' + next, '')"
-echo
-
-tsc -b $paths
+tsc -b $tsconfig_paths
 echo "TypeScripts compiled."
 
 echo
@@ -42,7 +28,7 @@ echo "+-------------------------------------------------------------------------
 echo "  Interpolating ENV variables..."
 echo
 
-paths=$(echo -e $(yarn --silent paths))
+pkg_paths=$(echo -e $(yarn --silent paths))
 
-$INIT_CWD/scripts/env.ts $paths
+$INIT_CWD/scripts/env.ts $pkg_paths
 echo

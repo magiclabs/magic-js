@@ -13,6 +13,6 @@
   ],
 
   "references": [
-    { "path": "../types" },
+    { "path": "../types/tsconfig.module.json" },
   ]
 }

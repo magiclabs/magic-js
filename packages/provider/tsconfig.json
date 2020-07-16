@@ -12,6 +12,6 @@
   ],
 
   "references": [
-    { "path": "../types" }
+    { "path": "../types/tsconfig.json" }
   ]
 }
