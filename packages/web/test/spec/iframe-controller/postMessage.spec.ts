@@ -10,14 +10,14 @@ test.beforeEach((t) => {
 });
 
 test('Calls iframe.contentWindow.postMessage with the expected arguments', async (t) => {
-  const overlay = createIframeController();
+  const overlay = createIframeController('http://example.com');
 
   const postMessageStub = sinon.stub();
   (overlay as any).iframe = { contentWindow: { postMessage: postMessageStub } };
 
   await overlay.postMessage({ thisIsData: 'hello world' });
 
-  t.deepEqual(postMessageStub.args[0], [{ thisIsData: 'hello world' }, '*']);
+  t.deepEqual(postMessageStub.args[0], [{ thisIsData: 'hello world' }, 'http://example.com']);
 });
 
 test('Throws MODAL_NOT_READY error if iframe.contentWindow is nil', async (t) => {

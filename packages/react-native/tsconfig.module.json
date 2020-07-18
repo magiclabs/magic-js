@@ -2,8 +2,9 @@
   "extends": "../../tsconfig.settings.json",
 
   "compilerOptions": {
+    "module": "es6",
     "rootDir": "./src",
-    "outDir": "./dist/commonjs"
+    "outDir": "./dist/module"
   },
 
   "include": [
@@ -12,7 +13,7 @@
   ],
 
   "references": [
-    { "path": "../types/tsconfig.json" },
-    { "path": "../provider/tsconfig.json" },
+    { "path": "../types/tsconfig.module.json" },
+    { "path": "../provider/tsconfig.module.json" },
   ]
 }

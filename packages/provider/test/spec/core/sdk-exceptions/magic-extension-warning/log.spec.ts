@@ -15,5 +15,5 @@ test('`MagicSDKWarning.log` logs message to `console.warn`', async (t) => {
   browserEnv.stub('console.warn', consoleWarningStub);
   warning.log();
 
-  t.is(consoleWarningStub.args[0][0], 'Magic Extension Error (test): [TEST_CODE] test message');
+  t.is(consoleWarningStub.args[0][0], 'Magic Extension Warning (test): [TEST_CODE] test message');
 });

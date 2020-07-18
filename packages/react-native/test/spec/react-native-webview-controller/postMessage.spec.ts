@@ -5,23 +5,23 @@ import { createModalNotReadyError, MagicSDKError } from '@magic-sdk/provider';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv.restore();
   reactNativeStyleSheetStub();
 });
 
-test('Calls webView.postMessage with the expected arguments', async t => {
-  const overlay = createReactNativeWebViewController();
+test('Calls webView.postMessage with the expected arguments', async (t) => {
+  const overlay = createReactNativeWebViewController('http://example.com');
 
   const postMessageStub = sinon.stub();
   (overlay as any).webView = { postMessage: postMessageStub };
 
   await overlay.postMessage({ thisIsData: 'hello world' });
 
-  t.deepEqual(postMessageStub.args[0], [JSON.stringify({ thisIsData: 'hello world' }), '*']);
+  t.deepEqual(postMessageStub.args[0], [JSON.stringify({ thisIsData: 'hello world' }), 'http://example.com']);
 });
 
-test('Throws MODAL_NOT_READY error if webView is nil', async t => {
+test('Throws MODAL_NOT_READY error if webView is nil', async (t) => {
   const overlay = createReactNativeWebViewController();
 
   (overlay as any).webView = undefined;

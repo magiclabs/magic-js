@@ -16,7 +16,7 @@ test('Instantiate `MagicExtensionWarning`', (t) => {
   const warning = new MagicExtensionWarning(ext, 'TEST_CODE' as any, 'test message');
 
   t.true(warning instanceof MagicExtensionWarning);
-  t.is(warning.message, 'Magic Extension Error (test): [TEST_CODE] test message');
+  t.is(warning.message, 'Magic Extension Warning (test): [TEST_CODE] test message');
   t.is(warning.rawMessage, 'test message');
   t.is(warning.code, 'TEST_CODE');
 });

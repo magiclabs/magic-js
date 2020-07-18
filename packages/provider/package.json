@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/provider",
-  "version": "2.3.1-alpha.0",
+  "version": "2.5.4",
   "description": "Core business logic for Magic SDK packages.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -10,23 +10,26 @@
   },
   "homepage": "https://magic.link",
   "files": [
-    "dist/**/*"
+    "dist/*"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.m.js",
-  "esmodule": "dist/index.modern.js",
-  "types": "dist/index.d.ts",
+  "target": "web",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/module/index.js",
+  "types": "dist/commonjs/index.d.ts",
   "scripts": {
-    "dev": "microbundle watch src/index.ts --target web --format modern,es,cjs",
-    "build": "microbundle build src/index.ts --target web --format modern,es,cjs",
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@magic-sdk/types": "^1.2.1-alpha.0",
+    "@magic-sdk/types": "^1.4.4",
     "eventemitter3": "^4.0.4"
   },
+  "peerDependencies": {
+    "localforage": "^1.7.4"
+  },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.9.6"
+    "@babel/plugin-transform-runtime": "^7.9.6",
+    "localforage": "^1.7.4",
+    "localforage-driver-memory": "^1.0.5"
   },
   "ava": {
     "require": [

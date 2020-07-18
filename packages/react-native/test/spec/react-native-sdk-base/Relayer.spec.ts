@@ -8,7 +8,7 @@ test.beforeEach(() => {
   reactNativeStyleSheetStub();
 });
 
-test('SDKBaseReactNative.Relayer aliases to ReactNativeWebViewController.Relayer', t => {
+test('SDKBaseReactNative.Relayer aliases to ReactNativeWebViewController.Relayer', (t) => {
   const magic = createMagicSDK();
 
   (magic as any).overlay.Relayer = 'hello world';

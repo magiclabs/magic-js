@@ -9,7 +9,7 @@ import {
 import { BaseModule } from '../base-module';
 import { createJsonRpcRequestPayload } from '../../core/json-rpc';
 import { transformNewAssertionForServer } from '../../util/webauthn';
-import { createWebAuthCreateCredentialError, createWebAuthnNotSupportError } from '../..';
+import { createWebAuthCreateCredentialError, createWebAuthnNotSupportError } from '../../core/sdk-exceptions';
 
 type UpdateEmailEvents = {
   'email-sent': () => void;

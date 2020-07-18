@@ -8,3 +8,7 @@ declare namespace NodeJS {
     browser: boolean;
   }
 }
+
+declare module '@aveq-research/localforage-asyncstorage-driver' {
+  export const driverWithoutSerialization: any;
+}

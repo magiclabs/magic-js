@@ -12,12 +12,31 @@
 
 - ...
 
-## `2.2.0` - 06/28/2020
+## `2.4.1` through `2.4.5` - 07/13/2020
+
+#### Fixed
+
+- Bug preventing NPM tarball from containing `/dist` files.
+
+## `2.4.0` - 07/13/2020
+
+#### Changed
+
+- Updated build system to use TypeScript project references instead of Microbundle.
+- Pass `targetOrigin` parameter to `postMessage` calls.
+
+## `2.3.1` - 07/08/2020
+
+#### Fixed
+
+- Bug affecting `localforage` type imports causing compilation failure in TypeScript.
+
+## `2.3.0` - 07/08/2020
 
 #### Added
 
-* Remove peer dependencies upper limit for webview  
-* Add `Buffer` and `process` to the dependencies instead of relying on the env.
+- WebAuthn support.
+- `localforage` APIs for Magic SDK Extensions.
 
 ## `2.1.0` - 06/25/2020
 

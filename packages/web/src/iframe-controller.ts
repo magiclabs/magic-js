@@ -90,7 +90,7 @@ export class IframeController extends ViewController {
   public async postMessage(data: any) {
     const iframe = await this.iframe;
     if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage(data, '*');
+      iframe.contentWindow.postMessage(data, this.endpoint);
     } else {
       throw createModalNotReadyError();
     }

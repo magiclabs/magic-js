@@ -1,3 +1,4 @@
+import localForage from 'localforage';
 import { ViewController } from './view-controller';
 import { PayloadTransport } from './payload-transport';
 import { SDKBase } from './sdk';
@@ -16,6 +17,7 @@ interface SDKEnvironment {
   defaultEndpoint: string;
   ViewController: ConstructorOf<ViewController>;
   PayloadTransport: ConstructorOf<PayloadTransport>;
+  configureStorage: () => Promise<typeof localForage>;
 }
 
 export const SDKEnvironment: SDKEnvironment = {} as any;
