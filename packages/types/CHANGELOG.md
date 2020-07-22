@@ -12,6 +12,12 @@
 
 - ...
 
+## `1.4.5` - 07/22/2020
+
+#### Added
+
+- Export `PromiEvent` type and `isPromiEvent` utility from SDK entry-points (`magic-sdk` and `@magic-sdk/react-native`).
+
 ## `1.4.1` through `1.4.4` - 07/13/2020
 
 #### Fixed

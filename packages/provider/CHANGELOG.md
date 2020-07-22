@@ -10,7 +10,13 @@
 
 #### Added
 
-- WebAuthn support feature
+- ...
+
+## `2.5.5` - 07/22/2020
+
+#### Added
+
+- Export `PromiEvent` type and `isPromiEvent` utility from SDK entry-points (`magic-sdk` and `@magic-sdk/react-native`).
 
 ## `2.5.1` through `2.5.4` - 07/13/2020
 
