@@ -9,6 +9,7 @@ import {
   encodeQueryParameters,
   decodeQueryParameters,
   storage,
+  isPromiEvent,
 } from '../util';
 
 abstract class BaseExtension<TName extends string> extends BaseModule {
@@ -18,6 +19,7 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
 
   protected utils = {
     createPromiEvent,
+    isPromiEvent,
     encodeJSON,
     decodeJSON,
     encodeQueryParameters, // Scheduled for deprecation...

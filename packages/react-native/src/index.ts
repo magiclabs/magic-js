@@ -47,6 +47,8 @@ export {
   MagicRPCError as RPCError,
   MagicSDKWarning as SDKWarning,
   MagicSDKAdditionalConfiguration,
+  PromiEvent,
+  isPromiEvent,
 } from '@magic-sdk/provider';
 
 export * from '@magic-sdk/types';

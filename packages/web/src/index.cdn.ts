@@ -11,6 +11,7 @@ import {
   MagicExtensionWarning,
   MagicRPCError,
   MagicSDKWarning,
+  isPromiEvent,
 } from '@magic-sdk/provider';
 import * as types from '@magic-sdk/types';
 import localForage from 'localforage';
@@ -48,6 +49,7 @@ Object.assign(Magic, {
   RPCError: MagicRPCError,
   SDKWarning: MagicSDKWarning,
   Extension,
+  isPromiEvent,
 });
 
 export { Magic as default };
