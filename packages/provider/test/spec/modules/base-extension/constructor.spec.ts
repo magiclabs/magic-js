@@ -13,6 +13,7 @@ import {
   decodeJSON,
   encodeQueryParameters,
   decodeQueryParameters,
+  isPromiEvent,
 } from '../../../../src/util';
 
 test.beforeEach((t) => {
@@ -27,6 +28,7 @@ test.serial('Initialize `Extension`', (t) => {
   t.is(baseExtension.utils.createJsonRpcRequestPayload, createJsonRpcRequestPayload);
   t.is(baseExtension.utils.standardizeJsonRpcRequestPayload, standardizeJsonRpcRequestPayload);
   t.is(baseExtension.utils.createPromiEvent, createPromiEvent);
+  t.is(baseExtension.utils.isPromiEvent, isPromiEvent);
   t.is(baseExtension.utils.decodeJSON, decodeJSON);
   t.is(baseExtension.utils.encodeJSON, encodeJSON);
   t.is(baseExtension.utils.decodeQueryParameters, decodeQueryParameters);
