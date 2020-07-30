@@ -32,6 +32,15 @@ export function removeReactDependencies() {
   mockery.registerMock('react-native', noopModule);
   mockery.registerMock('react-native-webview', noopModule);
 
+  // The `localforage` driver we use to enable React Native's `AsyncStorage`
+  // currently uses an `import` statement at the top of it's index file, this is
+  // causing TypeScript + `ts-node` to throw a SyntaxError. Until that is
+  // resolved, we have no choice but to mock it.
+  //
+  // Relevant issue:
+  // https://github.com/aveq-research/localforage-asyncstorage-driver/issues/1
+  mockery.registerMock('@aveq-research/localforage-asyncstorage-driver', noopModule);
+
   mockery.enable({
     warnOnReplace: false,
     warnOnUnregistered: false,

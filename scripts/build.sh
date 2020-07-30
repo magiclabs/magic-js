@@ -1,20 +1,34 @@
 #!/usr/bin/env bash
 
 echo
-echo "Building Magic SDK packages for production."
+echo "+------------------------------------------------------------------------------+"
+echo "  Building TypeScripts..."
 echo
 
-export NODE_ENV=production
-export WEB_VERSION=$(node -pe "require('./packages/web/package.json')['version']")
-export REACT_NATIVE_VERSION=$(node -pe "require('./packages/react-native/package.json')['version']")
-export ENV="process.env.WEB_VERSION=$WEB_VERSION,process.env.REACT_NATIVE_VERSION=$REACT_NATIVE_VERSION"
+tsconfig_paths=$(echo -e $(yarn --silent paths tsconfig.json tsconfig.module.json))
 
-# Increase memory limit for Node
-export NODE_OPTIONS=--max_old_space_size=4096
+echo "Compiling TypeScripts for the following projects:"
+node -pe "'$tsconfig_paths'.split(' ').reduce((prev, next) => prev + '\n  - ' + next, '')"
+echo
 
-if [ $PKG ] ; then
-  lerna exec --scope $PKG -- yarn build
-else
-  lerna run build
-fi
+tsc -b $tsconfig_paths
+echo "TypeScripts compiled."
 
+echo
+echo "+------------------------------------------------------------------------------+"
+echo "  Building CDN bundles..."
+echo
+echo "You can safely ignore \`The 'this' keyword is equivalent to 'undefined'\` warnings"
+echo
+
+yarn wsrun --serial $INIT_CWD/scripts/build:cdn.sh
+
+echo
+echo "+------------------------------------------------------------------------------+"
+echo "  Interpolating ENV variables..."
+echo
+
+pkg_paths=$(echo -e $(yarn --silent paths))
+
+$INIT_CWD/scripts/env.ts $pkg_paths
+echo

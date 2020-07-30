@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/types",
-  "version": "1.2.0-alpha.0",
+  "version": "1.4.5",
   "description": "Core typings for Magic SDK packages.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -10,15 +10,13 @@
   },
   "homepage": "https://magic.link",
   "files": [
-    "dist/**/*"
+    "dist/*"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.m.js",
-  "esmodule": "dist/index.modern.js",
-  "types": "dist/index.d.ts",
+  "target": "web",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/module/index.js",
+  "types": "dist/commonjs/index.d.ts",
   "scripts": {
-    "dev": "microbundle watch src/index.ts --target node --format modern,es,cjs",
-    "build": "microbundle build src/index.ts --target node --format modern,es,cjs",
     "precommit": "lint-staged"
   },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"

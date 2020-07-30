@@ -1,6 +1,6 @@
 {
   "name": "magic-sdk",
-  "version": "2.2.0-alpha.0",
+  "version": "2.4.6",
   "description": "Passwordless authentication for the web.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -10,25 +10,24 @@
   },
   "homepage": "https://magic.link",
   "files": [
-    "dist/**/*"
+    "dist/*"
   ],
-  "main": "dist/npm/index.js",
+  "umdGlobal": "Magic",
+  "target": "web",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/module/index.js",
+  "types": "dist/commonjs/index.d.ts",
   "umd:main": "dist/magic.js",
-  "module": "dist/npm/index.m.js",
-  "esmodule": "dist/npm/index.modern.js",
-  "types": "dist/npm/index.d.ts",
   "scripts": {
-    "dev": "microbundle watch src/index.ts --define $ENV --target web --format modern,es,cjs",
-    "build": "yarn run build:npm && yarn run build:cdn",
-    "build:npm": "microbundle build src/index.ts --define $ENV --target web --format modern,es,cjs",
-    "build:cdn": "microbundle build src/index.cdn.ts --define $ENV --tsconfig tsconfig.cdn.json --output dist/magic.js --target web --name Magic --format umd --sourcemap false --external none",
     "precommit": "lint-staged"
   },
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
-    "@magic-sdk/provider": "^2.3.0-alpha.0",
-    "@magic-sdk/types": "^1.2.0-alpha.0",
+    "@magic-sdk/provider": "^2.5.5",
+    "@magic-sdk/types": "^1.4.5",
+    "localforage": "^1.7.4",
+    "localforage-driver-memory": "^1.0.5",
     "regenerator-runtime": "0.13.5"
   },
   "ava": {

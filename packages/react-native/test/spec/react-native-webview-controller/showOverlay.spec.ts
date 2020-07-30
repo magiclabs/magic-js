@@ -4,12 +4,12 @@ import sinon from 'sinon';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv();
   reactNativeStyleSheetStub();
 });
 
-test('Call `container.showOverlay` if present', t => {
+test('Call `container.showOverlay` if present', (t) => {
   const overlay = createReactNativeWebViewController('asdf');
   const showOverlayStub = sinon.stub();
   (overlay as any).container = {
@@ -21,7 +21,7 @@ test('Call `container.showOverlay` if present', t => {
   t.true(showOverlayStub.calledOnce);
 });
 
-test('Not call `container.showOverlay` if `container` is nil', t => {
+test('Not call `container.showOverlay` if `container` is nil', (t) => {
   const overlay = createReactNativeWebViewController('asdf');
   (overlay as any).container = undefined;
 

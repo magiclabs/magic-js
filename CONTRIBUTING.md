@@ -15,7 +15,8 @@ Please note we have a **code of conduct**, please follow it in all your interact
 - For chores/the rest: `chore/[package_name]/[descriptive_chore_name]`
 
 4. Install & hoist dependencies with Yarn + Lerna: `yarn bootstrap`
-5. Start building for development: `yarn dev`
+5. Add `./node_modules/.bin` to your system's [`PATH`](https://en.wikipedia.org/wiki/PATH_(variable)), if it's not already listed.
+6. Start building for development: `yarn dev`
 
 ### Development Scripts
 
@@ -28,6 +29,7 @@ Please note we have a **code of conduct**, please follow it in all your interact
 | `clean` | `PKG=$PACKAGE_TARGET yarn clean` | Run cleaning scripts for the specified package, or all packages if `$PKG` is omitted. Available flags: (`--cache`, `--test-artifacts`, `--deps`) |
 | `lint` | `PKG=$PACKAGE_TARGET yarn lint` | Run the linter for the specified package, or all packages if `$PKG` is omitted. |
 | `test` | `PKG=$PACKAGE_TARGET yarn test` | Run tests for the specified package, or all packages if `$PKG` is omitted. |
+| `paths` | `PKG=$PACKAGE_TARGET yarn paths` | Print the relative paths to each project based on the value of `$PKG`. |
 | `bump_version` | `yarn bump_version` | Alias for `lerna version` |
 | `release` | `yarn release` | Publishes all packages with unreleased versions. |
 | `release_canary` | `yarn release_canary` | Publishes pre-release versions for all packages. |
@@ -37,6 +39,13 @@ Please note we have a **code of conduct**, please follow it in all your interact
 1. Update the **`Upcoming Changes`** section of the relevant package's `CHANGELOG.md` with your fixes, changes, or additions. A maintainer will label your changes with a version number and release date once they are published.
 2. Open a pull request from your fork/branch to the upstream `master` branch of _this_ repository.
 3. A maintainer will review your code changes and offer feedback or suggestions if necessary. Once your changes are approved, a maintainer will merge the pull request for you and publish a release.
+
+## Cutting a release
+
+1. Update each `CHANGELOG.md` file to reflect the intended versioned updates.
+2. Bump versions accordingly: `yarn bump_version` and follow the prompts.
+3. Build files for distribution: `yarn build`
+4. Publish updated packages to NPM: `yarn release`
 
 ## Contributor Covenant Code of Conduct
 

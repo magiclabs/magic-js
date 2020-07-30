@@ -12,6 +12,38 @@
 
 - ...
 
+## `2.5.5` - 07/22/2020
+
+#### Added
+
+- Export `PromiEvent` type and `isPromiEvent` utility from SDK entry-points (`magic-sdk` and `@magic-sdk/react-native`).
+
+## `2.5.1` through `2.5.4` - 07/13/2020
+
+#### Fixed
+
+- Bug preventing NPM tarball from containing `/dist` files.
+
+## `2.5.0` - 07/13/2020
+
+#### Changed
+
+- Updated build system to use TypeScript project references instead of Microbundle.
+- Pass `targetOrigin` parameter to `postMessage` calls.
+
+## `2.4.1` - 07/08/2020
+
+#### Fixed
+
+- Bug affecting `localforage` type imports causing compilation failure in TypeScript.
+
+## `2.4.0` - 07/08/2020
+
+#### Added
+
+- WebAuthn support.
+- `localforage` APIs for Magic SDK Extensions.
+
 ## `2.2.0` - 06/25/2020
 
 #### Changed
