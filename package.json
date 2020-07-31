@@ -14,7 +14,8 @@
     "release": "lerna publish from-package --yes",
     "release_canary": "lerna publish from-package --canary --yes",
     "snyk-protect": "snyk protect",
-    "prepare": "yarn run snyk-protect"
+    "prepare": "yarn run snyk-protect",
+    "postinstall": "$INIT_CWD/scripts/postInstall.sh"
   },
   "dependencies": {
     "snyk": "^1.319.1"

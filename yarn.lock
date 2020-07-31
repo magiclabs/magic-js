@@ -3712,7 +3712,7 @@ buffer-from@^1.0.0:
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
   integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
 
-buffer@^5.5.0:
+buffer@^5.5.0, buffer@^5.6.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.6.0.tgz#a31749dc7d81d84db08abf937b6b8c4033f62786"
   integrity sha512-/gDYp/UtU0eA1ys8bOs9J6a+E/KWIY+DZ+Q2WESNUA0jFRsJOc0SNUO6xJ5SGA1xueg3NL65W6s+NY5l9cunuw==
@@ -10730,6 +10730,11 @@ process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
+
+process@^0.11.10:
+  version "0.11.10"
+  resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
+  integrity sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
 
 progress@^2.0.0, progress@^2.0.3:
   version "2.0.3"
