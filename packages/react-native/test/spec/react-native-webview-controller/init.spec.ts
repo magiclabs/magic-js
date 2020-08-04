@@ -50,10 +50,12 @@ test('Stylesheet.create is called with the expected style object', (t) => {
 
       show: {
         zIndex: 10000,
+        elevation: 10000,
       },
 
       hide: {
         zIndex: -10000,
+        elevation: 0,
       },
     },
   ]);

@@ -28,10 +28,12 @@ function createWebViewStyles() {
 
     show: {
       zIndex: 10000,
+      elevation: 10000,
     },
 
     hide: {
       zIndex: -10000,
+      elevation: 0,
     },
   });
 }
