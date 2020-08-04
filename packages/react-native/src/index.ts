@@ -22,7 +22,11 @@ import { SDKBaseReactNative } from './react-native-sdk-base';
 if (typeof global.process === 'undefined') {
   global.process = processPolyfill;
 } else {
-  global.process = { ...processPolyfill, ...global.process };
+  for (const p in processPolyfill) {
+    if (!global.process[p]) {
+      global.process[p] = processPolyfill[p];
+    }
+  }
 }
 
 (global.process as any).browser = false;
