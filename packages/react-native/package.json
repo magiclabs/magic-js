@@ -25,6 +25,7 @@
     "@babel/runtime": "^7.9.6",
     "@magic-sdk/provider": "^2.5.5",
     "@magic-sdk/types": "^1.4.5",
+    "@types/lodash": "^4.14.158",
     "buffer": "^5.6.0",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5",
