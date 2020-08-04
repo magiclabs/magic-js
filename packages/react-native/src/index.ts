@@ -11,6 +11,7 @@ import * as processPolyfill from 'process';
 import localForage from 'localforage';
 import { URL as URLPolyfill, URLSearchParams as URLSearchParamsPolyfill } from 'whatwg-url';
 import { Buffer } from 'buffer';
+import * as _ from 'lodash';
 import { driverWithoutSerialization } from '@aveq-research/localforage-asyncstorage-driver';
 import * as memoryDriver from 'localforage-driver-memory';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
@@ -19,15 +20,7 @@ import { SDKBaseReactNative } from './react-native-sdk-base';
 
 // We expect `global.process` to be a Node Process for web3.js usage
 // so we replace it here.
-if (typeof global.process === 'undefined') {
-  global.process = processPolyfill;
-} else {
-  for (const p in processPolyfill) {
-    if (!global.process[p]) {
-      global.process[p] = processPolyfill[p];
-    }
-  }
-}
+global.process = _.merge(global.process, processPolyfill);
 
 (global.process as any).browser = false;
 
