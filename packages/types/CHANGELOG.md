@@ -12,6 +12,12 @@
 
 - ...
 
+## `1.4.6` - 08/20/2020
+
+#### Added
+
+- New RPC error code for the `loginWithMagicLink` method: `-10005`
+
 ## `1.4.5` - 07/22/2020
 
 #### Added
