@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/types",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "Core typings for Magic SDK packages.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
