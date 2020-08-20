@@ -12,13 +12,13 @@
 
 - ...
 
-## `2.6.1` - 08/20/2020
+## `2.5.7` - 08/20/2020
 
 #### Added
 
 - New RPC error code for the `loginWithMagicLink` method: `-10005`
 
-## `2.6.0` - 08/04/2020
+## `2.5.6` - 08/04/2020
 
 - Add `process` and `buffer` to the dependencies
 
