@@ -12,6 +12,12 @@
 
 - ...
 
+## `2.6.0` - 08/24/2020
+
+#### Added
+
+- New optional `locale` parameter to SDK constructor
+
 ## `2.5.1` - 08/20/2020
 
 #### Added

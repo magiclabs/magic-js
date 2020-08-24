@@ -23,6 +23,7 @@ function assertEncodedQueryParams(t: ExecutionContext, encodedQueryParams: strin
     host: 'auth.magic.link',
     sdk: 'magic-sdk',
     version: '1.0.0-test',
+    locale: 'en_US',
   };
 
   t.deepEqual(JSON.parse(atob(encodedQueryParams)), {
@@ -88,6 +89,17 @@ test.serial('Initialize `MagicSDK` with custom Web3 network', (t) => {
   t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
   assertEncodedQueryParams(t, magic.encodedQueryParams, {
     ETH_NETWORK: 'mainnet',
+  });
+  assertModuleInstanceTypes(t, magic);
+});
+
+test.serial('Initialize `MagicSDK` with custom locale', (t) => {
+  const magic = new TestMagicSDK(TEST_API_KEY, { locale: 'pl_PL' });
+
+  t.is(magic.apiKey, TEST_API_KEY);
+  t.is(magic.endpoint, MAGIC_RELAYER_FULL_URL);
+  assertEncodedQueryParams(t, magic.encodedQueryParams, {
+    locale: 'pl_PL',
   });
   assertModuleInstanceTypes(t, magic);
 });

@@ -11,4 +11,5 @@ export interface QueryParameters {
   sdk?: string;
   version?: string;
   ext?: any;
+  locale?: string;
 }

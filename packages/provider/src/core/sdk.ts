@@ -18,6 +18,7 @@ export interface MagicSDKAdditionalConfiguration<
   TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> } = any
 > {
   endpoint?: string;
+  locale?: 'en_US' | 'pl_PL';
   network?: EthNetworkConfiguration;
   extensions?: TExt;
 }
@@ -96,6 +97,7 @@ export class SDKBase {
       sdk: SDKEnvironment.sdkName,
       version,
       ext: isEmpty(extConfig) ? undefined : extConfig,
+      locale: options?.locale || 'en_US',
     });
   }
 
