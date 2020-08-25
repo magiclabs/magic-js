@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "description": "Passwordless authentication for React Native.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -23,8 +23,8 @@
     "@aveq-research/localforage-asyncstorage-driver": "^1.0.2",
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
-    "@magic-sdk/provider": "^2.5.7",
-    "@magic-sdk/types": "^1.4.7",
+    "@magic-sdk/provider": "^2.6.0",
+    "@magic-sdk/types": "^1.4.8",
     "@types/lodash": "^4.14.158",
     "buffer": "^5.6.0",
     "localforage": "^1.7.4",
