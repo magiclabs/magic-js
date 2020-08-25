@@ -12,6 +12,18 @@
 
 - ...
 
+## `1.4.8` - 08/20/2020
+
+#### Added
+
+- Updated dependencies
+
+## `1.4.7` - 08/20/2020
+
+#### Added
+
+- Updated dependencies
+
 ## `1.4.6` - 08/20/2020
 
 #### Added
