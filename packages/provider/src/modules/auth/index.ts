@@ -38,21 +38,18 @@ export class AuthModule extends BaseModule {
    * If no argument is provided, a credential is automatically parsed from
    * `window.location.search`.
    */
-  public loginWithCredential(credential?: string) {
-    let queryString: string | undefined;
+  public loginWithCredential(credentialOrQueryString?: string) {
+    let credentialResolved = credentialOrQueryString ?? '';
 
-    if (!credential && SDKEnvironment.target === 'web') {
-      queryString = window.location.search;
+    if (!credentialOrQueryString && SDKEnvironment.target === 'web') {
+      credentialResolved = window.location.search;
 
       // Remove the query from the redirect callback as a precaution.
       const urlWithoutQuery = window.location.origin + window.location.pathname;
       window.history.replaceState(null, '', urlWithoutQuery);
     }
 
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.LoginWithCredential, [
-      credential,
-      queryString,
-    ]);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.LoginWithCredential, [credentialResolved]);
 
     return this.request<string | null>(requestPayload);
   }

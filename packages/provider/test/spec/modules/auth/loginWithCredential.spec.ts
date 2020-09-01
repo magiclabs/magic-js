@@ -25,7 +25,7 @@ test.serial('Generates JSON RPC request payload with the given parameter as the 
   t.is(requestPayload.jsonrpc, '2.0');
   t.is(requestPayload.id, 222);
   t.is(requestPayload.method, 'magic_auth_login_with_credential');
-  t.deepEqual(requestPayload.params, ['helloworld', undefined]);
+  t.deepEqual(requestPayload.params, ['helloworld']);
 });
 
 test.serial(
@@ -50,7 +50,7 @@ test.serial(
     t.is(requestPayload.jsonrpc, '2.0');
     t.is(requestPayload.id, 777);
     t.is(requestPayload.method, 'magic_auth_login_with_credential');
-    t.deepEqual(requestPayload.params, [undefined, '?magic_credential=asdf']);
+    t.deepEqual(requestPayload.params, ['?magic_credential=asdf']);
   },
 );
 
@@ -68,5 +68,5 @@ test.serial('If no parameter is given & platform target is NOT "web", credential
   t.is(requestPayload.jsonrpc, '2.0');
   t.is(requestPayload.id, 777);
   t.is(requestPayload.method, 'magic_auth_login_with_credential');
-  t.deepEqual(requestPayload.params, ['', undefined]);
+  t.deepEqual(requestPayload.params, ['']);
 });
