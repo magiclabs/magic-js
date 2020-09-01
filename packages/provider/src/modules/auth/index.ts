@@ -8,6 +8,7 @@ import { BaseModule } from '../base-module';
 import { createJsonRpcRequestPayload } from '../../core/json-rpc';
 import { transformNewAssertionForServer, transformAssertionForServer } from '../../util/webauthn';
 import { createWebAuthCreateCredentialError, createWebAuthnNotSupportError } from '../../core/sdk-exceptions';
+import { SDKEnvironment } from '../../core/sdk-environment';
 
 type LoginWithMagicLinkEvents = {
   'email-sent': () => void;
@@ -22,9 +23,42 @@ export class AuthModule extends BaseModule {
    * of 15 minutes).
    */
   public loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
-    const { email, showUI = true } = configuration;
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.LoginWithMagicLink, [{ email, showUI }]);
+    const { email, showUI = true, redirectURI } = configuration;
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.LoginWithMagicLink, [
+      { email, showUI, redirectURI },
+    ]);
     return this.request<string | null, LoginWithMagicLinkEvents>(requestPayload);
+  }
+
+  /**
+   * Log a user in with a special one-time-use credential token. This is
+   * currently used during magic link flows with a configured redirect to
+   * hydrate the user session at the end of the flow.
+   *
+   * If no argument is provided, a credential is automatically parsed from
+   * `window.location.search`.
+   */
+  public loginWithCredential(credential?: string) {
+    let credentialResolved = credential ?? '';
+
+    if (!credential && SDKEnvironment.target === 'web') {
+      const queryString = window.location.search;
+
+      // Remove the query from the redirect callback as a precaution.
+      const urlWithoutQuery = window.location.origin + window.location.pathname;
+      window.history.replaceState(null, '', urlWithoutQuery);
+
+      // Parse the URL query string for a `magic_credential` value.
+      credentialResolved =
+        queryString
+          .substr(1)
+          .split('&')
+          .map((part) => [part.substring(0, part.indexOf('=')), part.substring(part.indexOf('=')).substr(1)])
+          .find(([key]) => key === 'magic_credential')?.[1] ?? '';
+    }
+
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.LoginWithCredential, [credentialResolved]);
+    return this.request<string | null>(requestPayload);
   }
 
   public async registerWithWebAuthn(configuration: RegisterWithWebAuthnConfiguration) {
