@@ -25,34 +25,11 @@ test.serial('Generates JSON RPC request payload with the given parameter as the 
   t.is(requestPayload.jsonrpc, '2.0');
   t.is(requestPayload.id, 222);
   t.is(requestPayload.method, 'magic_auth_login_with_credential');
-  t.deepEqual(requestPayload.params, ['helloworld']);
-});
-
-test.serial('If no parameter is given & platform target is "web", parse query string for credential', async (t) => {
-  const magic = createMagicSDK();
-
-  const idStub = getPayloadIdStub();
-  idStub.returns(777);
-
-  browserEnv.stub('window.history.replaceState', () => {});
-
-  browserEnv.stub('window.location', {
-    search: '?magic_credential=asdf',
-    origin: 'http://example.com',
-    pathname: '/hello/world',
-  });
-
-  await magic.auth.loginWithCredential();
-
-  const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.jsonrpc, '2.0');
-  t.is(requestPayload.id, 777);
-  t.is(requestPayload.method, 'magic_auth_login_with_credential');
-  t.deepEqual(requestPayload.params, ['asdf']);
+  t.deepEqual(requestPayload.params, ['helloworld', undefined]);
 });
 
 test.serial(
-  'If no parameter is given & platform target is "web", fall back to empty string if no credential is found',
+  'If no parameter is given & platform target is "web", URL search string is included in the payload params',
   async (t) => {
     const magic = createMagicSDK();
 
@@ -62,7 +39,7 @@ test.serial(
     browserEnv.stub('window.history.replaceState', () => {});
 
     browserEnv.stub('window.location', {
-      search: '?noop=asdf',
+      search: '?magic_credential=asdf',
       origin: 'http://example.com',
       pathname: '/hello/world',
     });
@@ -73,7 +50,7 @@ test.serial(
     t.is(requestPayload.jsonrpc, '2.0');
     t.is(requestPayload.id, 777);
     t.is(requestPayload.method, 'magic_auth_login_with_credential');
-    t.deepEqual(requestPayload.params, ['']);
+    t.deepEqual(requestPayload.params, [undefined, '?magic_credential=asdf']);
   },
 );
 
@@ -91,5 +68,5 @@ test.serial('If no parameter is given & platform target is NOT "web", credential
   t.is(requestPayload.jsonrpc, '2.0');
   t.is(requestPayload.id, 777);
   t.is(requestPayload.method, 'magic_auth_login_with_credential');
-  t.deepEqual(requestPayload.params, ['']);
+  t.deepEqual(requestPayload.params, ['', undefined]);
 });

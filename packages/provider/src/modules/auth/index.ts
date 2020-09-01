@@ -39,25 +39,21 @@ export class AuthModule extends BaseModule {
    * `window.location.search`.
    */
   public loginWithCredential(credential?: string) {
-    let credentialResolved = credential ?? '';
+    let queryString: string | undefined;
 
     if (!credential && SDKEnvironment.target === 'web') {
-      const queryString = window.location.search;
+      queryString = window.location.search;
 
       // Remove the query from the redirect callback as a precaution.
       const urlWithoutQuery = window.location.origin + window.location.pathname;
       window.history.replaceState(null, '', urlWithoutQuery);
-
-      // Parse the URL query string for a `magic_credential` value.
-      credentialResolved =
-        queryString
-          .substr(1)
-          .split('&')
-          .map((part) => [part.substring(0, part.indexOf('=')), part.substring(part.indexOf('=')).substr(1)])
-          .find(([key]) => key === 'magic_credential')?.[1] ?? '';
     }
 
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.LoginWithCredential, [credentialResolved]);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.LoginWithCredential, [
+      credential,
+      queryString,
+    ]);
+
     return this.request<string | null>(requestPayload);
   }
 
