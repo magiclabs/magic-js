@@ -33,7 +33,9 @@ export class AuthModule extends BaseModule {
   /**
    * Log a user in with a special one-time-use credential token. This is
    * currently used during magic link flows with a configured redirect to
-   * hydrate the user session at the end of the flow.
+   * hydrate the user session at the end of the flow. If the flow is successful,
+   * this method will return a Decentralized ID token (with a default lifespan
+   * of 15 minutes).
    *
    * If no argument is provided, a credential is automatically parsed from
    * `window.location.search`.
