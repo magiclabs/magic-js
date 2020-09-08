@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "magic-sdk-monorepo",
+  "version": "0.0.0",
   "scripts": {
     "bootstrap": "yarn install && lerna link",
     "wsrun": "wsrun --bin $INIT_CWD/scripts/runner.sh -p $PKG",
@@ -14,8 +15,7 @@
     "release": "lerna publish from-package --yes",
     "release_canary": "lerna publish from-package --canary --yes",
     "snyk-protect": "snyk protect",
-    "prepare": "yarn run snyk-protect",
-    "postinstall": "$INIT_CWD/scripts/postInstall.sh"
+    "prepare": "yarn run snyk-protect"
   },
   "dependencies": {
     "snyk": "^1.319.1"
@@ -68,8 +68,13 @@
     }
   },
   "snyk": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "version": "0.0.0"
+  "workspaces": {
+    "packages": ["packages/*"],
+    "nohoist": [
+      "@magic-sdk/react-native/buffer",
+      "@magic-sdk/react-native/buffer/**",
+      "@magic-sdk/react-native/process",
+      "@magic-sdk/react-native/process/**"
+    ]
+  }
 }
