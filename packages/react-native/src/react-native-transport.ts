@@ -10,7 +10,7 @@ export class ReactNativeTransport extends PayloadTransport {
   public handleReactNativeWebViewMessage(event: any) {
     if (
       event.nativeEvent &&
-      event.nativeEvent.url === `${this.endpoint}/send/?params=${this.encodedQueryParams}` &&
+      event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.encodedQueryParams)}` &&
       typeof event.nativeEvent.data === 'string'
     ) {
       const data: any = JSON.parse(event.nativeEvent.data);

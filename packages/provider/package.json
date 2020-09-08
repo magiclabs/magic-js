@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/provider",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "Core business logic for Magic SDK packages.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@magic-sdk/types": "^1.4.8",
+    "@magic-sdk/types": "^1.4.9",
     "eventemitter3": "^4.0.4"
   },
   "peerDependencies": {
