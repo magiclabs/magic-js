@@ -10,6 +10,14 @@ export interface LoginWithMagicLinkConfiguration {
    * authentication.
    */
   showUI?: boolean;
+
+  /**
+   * You can optionally provide a redirect URI that will be followed at the end
+   * of the magic link flow. Don't forget to invoke
+   * `magic.auth.loginWithCredential()` to complete the login from the route you
+   * configure here.
+   */
+  redirectURI?: string;
 }
 
 export interface RegisterWithWebAuthnConfiguration {

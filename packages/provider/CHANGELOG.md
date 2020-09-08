@@ -12,6 +12,13 @@
 
 - ...
 
+## `2.7.0-alpha.0` - 09/08/2020
+
+#### Added
+
+- New, optional `redirectURI` parameter for the `loginWithMagicLink` method
+- New `loginWithCredential` method for completing a magic link login with redirect: `await magic.auth.loginWithCredential()`
+
 ## `2.6.1` - 09/03/2020
 
 - Fix Modal doesn't show up

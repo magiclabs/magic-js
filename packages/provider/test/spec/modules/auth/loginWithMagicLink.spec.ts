@@ -24,7 +24,7 @@ test.serial('Generates JSON RPC request payload with `email` parameter', async (
   t.is(requestPayload.jsonrpc, '2.0');
   t.is(requestPayload.id, 222);
   t.is(requestPayload.method, 'magic_auth_login_with_magic_link');
-  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: true }]);
+  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: true, redirectURI: undefined }]);
 });
 
 test.serial('Generates JSON RPC request payload with `showUI` parameter', async (t) => {
@@ -39,5 +39,20 @@ test.serial('Generates JSON RPC request payload with `showUI` parameter', async 
   t.is(requestPayload.jsonrpc, '2.0');
   t.is(requestPayload.id, 777);
   t.is(requestPayload.method, 'magic_auth_login_with_magic_link');
-  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: false }]);
+  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: false, redirectURI: undefined }]);
+});
+
+test.serial('Generates JSON RPC request payload with `redirectURI` parameter', async (t) => {
+  const magic = createMagicSDK();
+
+  const idStub = getPayloadIdStub();
+  idStub.returns(999);
+
+  await magic.auth.loginWithMagicLink({ email: 'test', showUI: true, redirectURI: 'helloworld' });
+
+  const requestPayload = (magic.user as any).request.args[0][0];
+  t.is(requestPayload.jsonrpc, '2.0');
+  t.is(requestPayload.id, 999);
+  t.is(requestPayload.method, 'magic_auth_login_with_magic_link');
+  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: true, redirectURI: 'helloworld' }]);
 });

@@ -12,6 +12,13 @@
 
 - ...
 
+## `1.5.0-alpha.0` - 09/08/2020
+
+#### Added
+
+- New, optional `redirectURI` parameter for the `loginWithMagicLink` method
+- New `loginWithCredential` method for completing a magic link login with redirect: `await magic.auth.loginWithCredential()`
+
 ## `1.4.8` - 08/20/2020
 
 #### Added
