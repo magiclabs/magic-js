@@ -27,6 +27,7 @@ export enum RPCErrorCode {
   MagicLinkFailedVerification = -10000,
   MagicLinkExpired = -10001,
   MagicLinkRateLimited = -10002,
+  MagicLinkInvalidRedirectURL = -10006,
   UserAlreadyLoggedIn = -10003,
   UpdateEmailFailed = -10004,
   UserRequestEditEmail = -10005,
