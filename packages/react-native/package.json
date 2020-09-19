@@ -20,18 +20,18 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@aveq-research/localforage-asyncstorage-driver": "^1.0.2",
-    "@babel/core": "^7.9.6",
-    "@babel/runtime": "^7.9.6",
+    "@aveq-research/localforage-asyncstorage-driver": "~1.1.5",
+    "@babel/core": "~7.10.4",
+    "@babel/runtime": "~7.10.4",
     "@magic-sdk/provider": "^2.7.0",
     "@magic-sdk/types": "^1.5.0",
     "@types/lodash": "^4.14.158",
-    "buffer": "^5.6.0",
+    "buffer": "~5.6.0",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5",
     "lodash": "^4.17.19",
-    "process": "^0.11.10",
-    "whatwg-url": "^8.0.0"
+    "process": "~0.11.10",
+    "whatwg-url": "~8.1.0"
   },
   "devDependencies": {
     "react": "^16.13.1",
@@ -39,9 +39,9 @@
     "react-native-webview": "8.1.2"
   },
   "peerDependencies": {
-    "react": "^16.13.1",
-    "react-native": ">=0.60 <0.62",
-    "react-native-webview": ">=8 <9"
+    "react": ">=16",
+    "react-native": ">=0.60",
+    "react-native-webview": ">=8"
   },
   "ava": {
     "require": [
