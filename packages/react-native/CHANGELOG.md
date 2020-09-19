@@ -12,6 +12,12 @@
 
 - ...
 
+## `2.7.1` - 09/18/2020
+
+#### Fixed
+
+- Fix missing BigInt dependency #131
+
 ## `2.7.0` - 09/15/2020
 
 #### Added
