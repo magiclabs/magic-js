@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "Passwordless authentication for React Native.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
