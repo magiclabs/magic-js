@@ -12,6 +12,13 @@ import {
   isPromiEvent,
 } from '../util';
 
+interface BaseExtension<TName extends string> extends BaseModule {
+  compat?: {
+    'magic-sdk': boolean | string;
+    '@magic-sdk/react-native': boolean | string;
+  };
+}
+
 abstract class BaseExtension<TName extends string> extends BaseModule {
   public abstract readonly name: TName;
 
@@ -34,7 +41,7 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
 
     const sdkAccessFields = ['request', 'transport', 'overlay', 'sdk'];
 
-    // Dissallow SDK access before initialization.
+    // Disallow SDK access before initialization.
     return new Proxy(this, {
       get: (target, prop, receiver) => {
         if (sdkAccessFields.includes(prop as string) && !this.isInitialized) {
@@ -122,7 +129,7 @@ export abstract class Extension<TName extends string> extends BaseExtension<TNam
  * These fields are exposed on the `Extension` type, but should be hidden from
  * the public interface.
  */
-type HiddenExtensionFields = 'name' | 'init' | 'config';
+type HiddenExtensionFields = 'name' | 'init' | 'config' | 'compat';
 
 /**
  * Gets the type contained in an array type.

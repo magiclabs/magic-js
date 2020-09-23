@@ -1,6 +1,6 @@
 import { JsonRpcError, RPCErrorCode, SDKErrorCode, SDKWarningCode } from '@magic-sdk/types';
 import { isJsonRpcErrorCode } from '../util/type-guards';
-import { SDKEnvironment } from './sdk-environment';
+import { SDKEnvironment, envNameToNpmName } from './sdk-environment';
 import { Extension } from '../modules/base-extension';
 
 // --- Error/warning classes
@@ -127,6 +127,24 @@ export function createWebAuthCreateCredentialError(message: string) {
   return new MagicSDKError(SDKErrorCode.WebAuthnCreateCredentialError, `Error creating credential: ${message}`);
 }
 
+export function createIncompatibleExtensionsError(extensions: Extension<string>[]) {
+  const npmName = envNameToNpmName[SDKEnvironment.sdkName];
+  let msg = `Some extensions are incompatible with \`${npmName}@${SDKEnvironment.version}\`:`;
+
+  extensions.forEach((ext) => {
+    const compat = ext.compat![npmName];
+
+    /* istanbul ignore else */
+    if (typeof compat === 'string') {
+      msg += `\n  - Extension \`${ext.name}\` supports version(s) \`${compat}\``;
+    } else if (!compat) {
+      msg += `\n  - Extension \`${ext.name}\` does not support ${SDKEnvironment.target} environments.`;
+    }
+  });
+
+  return new MagicSDKError(SDKErrorCode.IncompatibleExtensionsError, msg);
+}
+
 export function createInvalidArgumentError(options: {
   procedure: string;
   argument: number;
@@ -182,14 +200,10 @@ export function createDeprecationWarning(options: {
 }) {
   const { method, removalVersions, useInstead } = options;
 
-  const envNameToNpmName = {
-    'magic-sdk': 'magic-sdk' as const,
-    'magic-sdk-rn': '@magic-sdk/react-native' as const,
-  };
-
   const npmName = envNameToNpmName[SDKEnvironment.sdkName];
   const removalVersion = removalVersions[npmName];
   const useInsteadSuffix = useInstead ? ` Use \`${useInstead}\` instead.` : '';
   const message = `\`${method}\` will be removed from \`${npmName}\` in version \`${removalVersion}\`.${useInsteadSuffix}`;
+
   return new MagicSDKWarning(SDKWarningCode.DeprecationNotice, message);
 }
