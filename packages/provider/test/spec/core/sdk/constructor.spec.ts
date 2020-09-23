@@ -5,11 +5,7 @@ import test, { ExecutionContext } from 'ava';
 import sinon from 'sinon';
 import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
 import { TestMagicSDK } from '../../../factories';
-import {
-  mockSDKEnvironmentConstant,
-  restoreSDKEnvironmentConstant,
-  restoreSDKEnvironmentConstants,
-} from '../../../mocks';
+import { mockSDKEnvironmentConstant, restoreSDKEnvironmentConstants } from '../../../mocks';
 import {
   createReactNativeEndpointConfigurationWarning,
   createIncompatibleExtensionsError,
