@@ -119,14 +119,6 @@ export function createExtensionNotInitializedError(member: string) {
   );
 }
 
-export function createWebAuthnNotSupportError() {
-  return new MagicSDKError(SDKErrorCode.WebAuthnNotSupported, 'WebAuthn is not supported in this device.');
-}
-
-export function createWebAuthCreateCredentialError(message: string) {
-  return new MagicSDKError(SDKErrorCode.WebAuthnCreateCredentialError, `Error creating credential: ${message}`);
-}
-
 export function createIncompatibleExtensionsError(extensions: Extension<string>[]) {
   const npmName = envNameToNpmName[SDKEnvironment.sdkName];
   let msg = `Some extensions are incompatible with \`${npmName}@${SDKEnvironment.version}\`:`;

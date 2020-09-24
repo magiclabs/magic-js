@@ -19,22 +19,3 @@ export interface LoginWithMagicLinkConfiguration {
    */
   redirectURI?: string;
 }
-
-export interface RegisterWithWebAuthnConfiguration {
-  /**
-   * The username of the user attempting to register.
-   */
-  username: string;
-
-  /**
-   * The nickname that the user attempts to set to this webauthn device.
-   */
-  nickname?: string;
-}
-
-export interface LoginWithWebAuthnConfiguration {
-  /**
-   * The username of the user attempting to register.
-   */
-  username: string;
-}

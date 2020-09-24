@@ -8,7 +8,6 @@
 import sinon from 'sinon';
 import { getPayloadId } from '../src/util/get-payload-id';
 import { SDKEnvironment } from '../src/core/sdk-environment';
-import { transformNewAssertionForServer, transformAssertionForServer } from '../src/util/webauthn';
 
 export function getPayloadIdStub() {
   const stub = sinon.stub();
@@ -27,16 +26,4 @@ export function restoreSDKEnvironmentConstants() {
   Object.keys(originalSDKEnvironment).forEach((key) => {
     (SDKEnvironment as any)[key] = originalSDKEnvironment[key];
   });
-}
-
-export function transformNewAssertionForServerStub() {
-  const stub = sinon.stub();
-  (transformNewAssertionForServer as any) = stub;
-  return stub;
-}
-
-export function transformAssertionForServerStub() {
-  const stub = sinon.stub();
-  (transformAssertionForServer as any) = stub;
-  return stub;
 }
