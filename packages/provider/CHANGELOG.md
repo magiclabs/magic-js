@@ -12,6 +12,12 @@
 
 - ...
 
+## `2.8.0` - 09/24/2020
+
+#### Added
+
+- Adds a Magic SDK extensions runtime compatibility check, ensuring you're version of Magic SDK is designed for the extensions you have in use.
+
 ## `2.7.0` - 09/15/2020
 
 #### Added
