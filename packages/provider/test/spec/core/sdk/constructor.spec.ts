@@ -5,8 +5,12 @@ import test, { ExecutionContext } from 'ava';
 import sinon from 'sinon';
 import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
 import { TestMagicSDK } from '../../../factories';
-import { mockSDKEnvironmentConstant } from '../../../mocks';
-import { createReactNativeEndpointConfigurationWarning } from '../../../../src/core/sdk-exceptions';
+import { mockSDKEnvironmentConstant, restoreSDKEnvironmentConstants } from '../../../mocks';
+import {
+  createReactNativeEndpointConfigurationWarning,
+  createIncompatibleExtensionsError,
+  MagicSDKError,
+} from '../../../../src/core/sdk-exceptions';
 import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
@@ -14,6 +18,7 @@ import { Extension } from '../../../../src/modules/base-extension';
 
 test.beforeEach((t) => {
   browserEnv.restore();
+  restoreSDKEnvironmentConstants();
 });
 
 function assertEncodedQueryParams(t: ExecutionContext, encodedQueryParams: string, expectedParams: any = {}) {
@@ -121,6 +126,24 @@ class NoopExtWithEmptyConfig extends Extension.Internal<'noop'> {
   helloWorld() {}
 }
 
+class NoopExtSupportingWeb extends Extension<'noop'> {
+  name = 'noop' as const;
+  compat = {
+    'magic-sdk': '>1.0.0',
+    '@magic-sdk/react-native': false,
+  };
+  helloWorld() {}
+}
+
+class NoopExtSupportingReactNative extends Extension<'noop'> {
+  name = 'noop' as const;
+  compat = {
+    'magic-sdk': false,
+    '@magic-sdk/react-native': '>1.0.0',
+  };
+  helloWorld() {}
+}
+
 test.serial('Initialize `MagicSDK` with config-less extensions via array', (t) => {
   const magic = new TestMagicSDK(TEST_API_KEY, { extensions: [new NoopExtNoConfig()] });
 
@@ -170,6 +193,95 @@ test.serial('Initialize `MagicSDK` with config-ful extensions via dictionary (em
   assertEncodedQueryParams(t, magic.encodedQueryParams);
 
   t.true(magic.foobar instanceof NoopExtWithEmptyConfig);
+});
+
+test.serial('Initialize `MagicSDK` with incompatible web extension (platform) via array', (t) => {
+  const ext = new NoopExtSupportingReactNative();
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  const error: MagicSDKError = t.throws(() => new TestMagicSDK(TEST_API_KEY, { extensions: [ext] }));
+
+  t.is(error.code, expectedError.code);
+  t.is(error.message, expectedError.message);
+});
+
+test.serial('Initialize `MagicSDK` with incompatible web extension (platform) via dictionary', (t) => {
+  const ext = new NoopExtSupportingReactNative();
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  const error: MagicSDKError = t.throws(() => new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: ext } }));
+
+  t.is(error.code, expectedError.code);
+  t.is(error.message, expectedError.message);
+});
+
+test.serial('Initialize `MagicSDK` with incompatible React Native extension (platform) via array', (t) => {
+  mockSDKEnvironmentConstant('sdkName', 'magic-sdk-rn');
+  mockSDKEnvironmentConstant('target', 'react-native');
+
+  const ext = new NoopExtSupportingWeb();
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  const error: MagicSDKError = t.throws(() => new TestMagicSDK(TEST_API_KEY, { extensions: [ext] }));
+
+  t.is(error.code, expectedError.code);
+  t.is(error.message, expectedError.message);
+});
+
+test.serial('Initialize `MagicSDK` with incompatible React Native extension (platform) via dictionary', (t) => {
+  mockSDKEnvironmentConstant('sdkName', 'magic-sdk-rn');
+  mockSDKEnvironmentConstant('target', 'react-native');
+
+  const ext = new NoopExtSupportingWeb();
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  const error: MagicSDKError = t.throws(() => new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: ext } }));
+
+  t.is(error.code, expectedError.code);
+  t.is(error.message, expectedError.message);
+});
+
+test.serial('Initialize `MagicSDK` with incompatible web extension (version) via array', (t) => {
+  mockSDKEnvironmentConstant('version', '0.1.0');
+
+  const ext = new NoopExtSupportingWeb();
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  const error: MagicSDKError = t.throws(() => new TestMagicSDK(TEST_API_KEY, { extensions: [ext] }));
+
+  t.is(error.code, expectedError.code);
+  t.is(error.message, expectedError.message);
+});
+
+test.serial('Initialize `MagicSDK` with incompatible web extension (version) via dictionary', (t) => {
+  mockSDKEnvironmentConstant('version', '0.1.0');
+
+  const ext = new NoopExtSupportingWeb();
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  const error: MagicSDKError = t.throws(() => new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: ext } }));
+
+  t.is(error.code, expectedError.code);
+  t.is(error.message, expectedError.message);
+});
+
+test.serial('Initialize `MagicSDK` with incompatible React Native extension (version) via array', (t) => {
+  mockSDKEnvironmentConstant('sdkName', 'magic-sdk-rn');
+  mockSDKEnvironmentConstant('target', 'react-native');
+  mockSDKEnvironmentConstant('version', '0.1.0');
+
+  const ext = new NoopExtSupportingReactNative();
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  const error: MagicSDKError = t.throws(() => new TestMagicSDK(TEST_API_KEY, { extensions: [ext] }));
+
+  t.is(error.code, expectedError.code);
+  t.is(error.message, expectedError.message);
+});
+
+test.serial('Initialize `MagicSDK` with incompatible React Native extension (version) via dictionary', (t) => {
+  mockSDKEnvironmentConstant('sdkName', 'magic-sdk-rn');
+  mockSDKEnvironmentConstant('target', 'react-native');
+  mockSDKEnvironmentConstant('version', '0.1.0');
+  const ext = new NoopExtSupportingReactNative();
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  const error: MagicSDKError = t.throws(() => new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: ext } }));
+
+  t.is(error.code, expectedError.code);
+  t.is(error.message, expectedError.message);
 });
 
 test.serial(

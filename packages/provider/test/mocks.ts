@@ -16,8 +16,17 @@ export function getPayloadIdStub() {
   return stub;
 }
 
+const originalSDKEnvironment: any = {};
+
 export function mockSDKEnvironmentConstant(key: keyof typeof SDKEnvironment, value: any) {
+  if (!originalSDKEnvironment[key]) originalSDKEnvironment[key] = SDKEnvironment[key];
   (SDKEnvironment as any)[key] = value;
+}
+
+export function restoreSDKEnvironmentConstants() {
+  Object.keys(originalSDKEnvironment).forEach((key) => {
+    (SDKEnvironment as any)[key] = originalSDKEnvironment[key];
+  });
 }
 
 export function transformNewAssertionForServerStub() {

@@ -29,3 +29,8 @@ export function createSDK<SDK extends SDKBase>(
   Object.assign(SDKEnvironment, environment);
   return SDKBaseCtor as any;
 }
+
+export const envNameToNpmName = {
+  'magic-sdk': 'magic-sdk' as const,
+  'magic-sdk-rn': '@magic-sdk/react-native' as const,
+};

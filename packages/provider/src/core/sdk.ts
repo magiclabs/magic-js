@@ -1,8 +1,13 @@
 /* eslint-disable no-underscore-dangle, no-param-reassign  */
 
 import { EthNetworkConfiguration, QueryParameters } from '@magic-sdk/types';
+import semverSatisfies from 'semver/functions/satisfies';
 import { encodeJSON } from '../util/base64-json';
-import { createMissingApiKeyError, createReactNativeEndpointConfigurationWarning } from './sdk-exceptions';
+import {
+  createMissingApiKeyError,
+  createReactNativeEndpointConfigurationWarning,
+  createIncompatibleExtensionsError,
+} from './sdk-exceptions';
 import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
@@ -12,6 +17,78 @@ import { createURL } from '../util/url';
 import { Extension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment } from './sdk-environment';
+
+/**
+ * Checks if the given `ext` is compatible with the platform & version of Magic
+ * SDK currently in use.
+ */
+function checkExtensionCompat(ext: Extension<string>) {
+  if (ext.compat) {
+    // Check web compatibility
+    if (SDKEnvironment.sdkName === 'magic-sdk') {
+      return typeof ext.compat['magic-sdk'] === 'string'
+        ? semverSatisfies(SDKEnvironment.version, ext.compat['magic-sdk'])
+        : !!ext.compat['magic-sdk'];
+    }
+
+    // Check React Native compatibility
+    /* istanbul ignore else */
+    if (SDKEnvironment.sdkName === 'magic-sdk-rn') {
+      return typeof ext.compat['@magic-sdk/react-native'] === 'string'
+        ? semverSatisfies(SDKEnvironment.version, ext.compat['@magic-sdk/react-native'])
+        : !!ext.compat['@magic-sdk/react-native'];
+    }
+
+    // Else case should be impossible here...
+  }
+
+  // To gracefully support older extensions, we assume
+  // compatibility when the `compat` field is missing.
+  return true;
+}
+
+/**
+ * Initializes SDK extensions, checks for platform/version compatiblity issues,
+ * then consolidates any global configurations provided by those extensions.
+ */
+function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfiguration): Record<string, any> {
+  const extensions: Extension<string>[] | { [key: string]: Extension<string> } = options?.extensions ?? [];
+  const extConfig: any = {};
+  const incompatibleExtensions: Extension<string>[] = [];
+
+  if (Array.isArray(extensions)) {
+    extensions.forEach((ext) => {
+      if (checkExtensionCompat(ext)) {
+        ext.init(this);
+        (this as any)[ext.name] = ext;
+        if (ext instanceof Extension.Internal) {
+          if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
+        }
+      } else {
+        incompatibleExtensions.push(ext);
+      }
+    });
+  } else {
+    Object.keys(extensions).forEach((name) => {
+      if (checkExtensionCompat(extensions[name])) {
+        extensions[name].init(this);
+        const ext = extensions[name];
+        (this as any)[name] = ext;
+        if (ext instanceof Extension.Internal) {
+          if (!isEmpty(ext.config)) extConfig[extensions[name].name] = ext.config;
+        }
+      } else {
+        incompatibleExtensions.push(extensions[name]);
+      }
+    });
+  }
+
+  if (incompatibleExtensions.length) {
+    throw createIncompatibleExtensionsError(incompatibleExtensions);
+  }
+
+  return extConfig;
+}
 
 export interface MagicSDKAdditionalConfiguration<
   TCustomExtName extends string = string,
@@ -66,27 +143,7 @@ export class SDKBase {
     this.rpcProvider = new RPCProviderModule(this);
 
     // Prepare Extensions
-    const extensions: Extension<string>[] | { [key: string]: Extension<string> } = options?.extensions ?? [];
-    const extConfig: any = {};
-
-    if (Array.isArray(extensions)) {
-      extensions.forEach((ext) => {
-        ext.init(this);
-        (this as any)[ext.name] = ext;
-        if (ext instanceof Extension.Internal) {
-          if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
-        }
-      });
-    } else {
-      Object.keys(extensions).forEach((name) => {
-        extensions[name].init(this);
-        const ext = extensions[name];
-        (this as any)[name] = ext;
-        if (ext instanceof Extension.Internal) {
-          if (!isEmpty(ext.config)) extConfig[extensions[name].name] = ext.config;
-        }
-      });
-    }
+    const extConfig: any = prepareExtensions.call(this, options);
 
     // Build query params for the current `ViewController`
     this.encodedQueryParams = encodeJSON<QueryParameters>({
