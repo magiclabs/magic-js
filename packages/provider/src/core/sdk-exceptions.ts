@@ -142,7 +142,7 @@ export function createIncompatibleExtensionsError(extensions: Extension<string>[
     }
   });
 
-  return new MagicSDKError(SDKErrorCode.IncompatibleExtensionsError, msg);
+  return new MagicSDKError(SDKErrorCode.IncompatibleExtensions, msg);
 }
 
 export function createInvalidArgumentError(options: {
