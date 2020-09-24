@@ -9,8 +9,6 @@ import {
   createMalformedResponseError,
   createInvalidArgumentError,
   createExtensionNotInitializedError,
-  createWebAuthnNotSupportError,
-  createWebAuthCreateCredentialError,
   createIncompatibleExtensionsError,
 } from '../../../../src/core/sdk-exceptions';
 import { Extension } from '../../../../src/modules/base-extension';
@@ -46,18 +44,6 @@ test('Creates a `MISSING_API_KEY` error', async (t) => {
 test('Creates a `MODAL_NOT_READY` error', async (t) => {
   const error = createModalNotReadyError();
   errorAssertions(t, error, 'MODAL_NOT_READY', 'Modal is not ready.');
-});
-
-test('Creates a `WEBAUTHN_NOT_SUPPORTED` error', async (t) => {
-  const error = createWebAuthnNotSupportError();
-  errorAssertions(t, error, 'WEBAUTHN_NOT_SUPPORTED', 'WebAuthn is not supported in this device.');
-});
-
-test('Creates a `WEBAUTHN_CREATE_CREDENTIAL_ERROR` error', async (t) => {
-  const MockErrorMessage = 'test error message';
-
-  const error = createWebAuthCreateCredentialError(MockErrorMessage);
-  errorAssertions(t, error, 'WEBAUTHN_CREATE_CREDENTIAL_ERROR', `Error creating credential: ${MockErrorMessage}`);
 });
 
 test('Creates a `MALFORMED_RESPONSE` error', async (t) => {

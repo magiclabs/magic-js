@@ -4,9 +4,7 @@ export enum SDKErrorCode {
   MalformedResponse = 'MALFORMED_RESPONSE',
   InvalidArgument = 'INVALID_ARGUMENT',
   ExtensionNotInitialized = 'EXTENSION_NOT_INITIALIZED',
-  WebAuthnNotSupported = 'WEBAUTHN_NOT_SUPPORTED',
   IncompatibleExtensions = 'INCOMPATIBLE_EXTENSIONS',
-  WebAuthnCreateCredentialError = 'WEBAUTHN_CREATE_CREDENTIAL_ERROR',
 }
 
 export enum SDKWarningCode {
