@@ -131,16 +131,21 @@ export function createIncompatibleExtensionsError(extensions: Extension<string>[
   const npmName = envNameToNpmName[SDKEnvironment.sdkName];
   let msg = `Some extensions are incompatible with \`${npmName}@${SDKEnvironment.version}\`:`;
 
-  extensions.forEach((ext) => {
-    const compat = ext.compat![npmName];
+  extensions
+    .filter((ext) => typeof ext.compat !== 'undefined' && ext.compat !== null)
+    .forEach((ext) => {
+      const compat = ext.compat![npmName];
 
-    /* istanbul ignore else */
-    if (typeof compat === 'string') {
-      msg += `\n  - Extension \`${ext.name}\` supports version(s) \`${compat}\``;
-    } else if (!compat) {
-      msg += `\n  - Extension \`${ext.name}\` does not support ${SDKEnvironment.target} environments.`;
-    }
-  });
+      /* istanbul ignore else */
+      if (typeof compat === 'string') {
+        msg += `\n  - Extension \`${ext.name}\` supports version(s) \`${compat}\``;
+      } else if (!compat) {
+        msg += `\n  - Extension \`${ext.name}\` does not support ${SDKEnvironment.target} environments.`;
+      }
+
+      // Else case is irrelevant here here
+      // (we filter out extensions with missing `compat` field)
+    });
 
   return new MagicSDKError(SDKErrorCode.IncompatibleExtensions, msg);
 }
