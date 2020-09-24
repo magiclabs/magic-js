@@ -1,6 +1,6 @@
 {
   "name": "magic-sdk",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "description": "Passwordless authentication for the web.",
   "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
   "license": "MIT",
@@ -24,8 +24,8 @@
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
-    "@magic-sdk/provider": "^2.7.0",
-    "@magic-sdk/types": "^1.5.0",
+    "@magic-sdk/provider": "^2.8.0",
+    "@magic-sdk/types": "^1.6.0",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5",
     "regenerator-runtime": "0.13.5"
