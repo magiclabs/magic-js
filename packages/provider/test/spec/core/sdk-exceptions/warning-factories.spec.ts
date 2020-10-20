@@ -66,7 +66,7 @@ test.serial('Creates a `DEPRECATION_NOTICE` warning for `magic-sdk`', async (t) 
 });
 
 test.serial('Creates a `DEPRECATION_NOTICE` warning for `@magic-sdk/react-native`', async (t) => {
-  mockSDKEnvironmentConstant('sdkName', 'magic-sdk-rn');
+  mockSDKEnvironmentConstant('sdkName', '@magic-sdk/react-native');
 
   const warning = createDeprecationWarning({
     method: 'test()',

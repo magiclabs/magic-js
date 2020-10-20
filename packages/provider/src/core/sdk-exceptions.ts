@@ -1,6 +1,6 @@
 import { JsonRpcError, RPCErrorCode, SDKErrorCode, SDKWarningCode } from '@magic-sdk/types';
 import { isJsonRpcErrorCode } from '../util/type-guards';
-import { SDKEnvironment, envNameToNpmName } from './sdk-environment';
+import { SDKEnvironment } from './sdk-environment';
 import { Extension } from '../modules/base-extension';
 
 // --- Error/warning classes
@@ -120,19 +120,18 @@ export function createExtensionNotInitializedError(member: string) {
 }
 
 export function createIncompatibleExtensionsError(extensions: Extension<string>[]) {
-  const npmName = envNameToNpmName[SDKEnvironment.sdkName];
-  let msg = `Some extensions are incompatible with \`${npmName}@${SDKEnvironment.version}\`:`;
+  let msg = `Some extensions are incompatible with \`${SDKEnvironment.sdkName}@${SDKEnvironment.version}\`:`;
 
   extensions
     .filter((ext) => typeof ext.compat !== 'undefined' && ext.compat !== null)
     .forEach((ext) => {
-      const compat = ext.compat![npmName];
+      const compat = ext.compat![SDKEnvironment.sdkName];
 
       /* istanbul ignore else */
       if (typeof compat === 'string') {
         msg += `\n  - Extension \`${ext.name}\` supports version(s) \`${compat}\``;
       } else if (!compat) {
-        msg += `\n  - Extension \`${ext.name}\` does not support ${SDKEnvironment.target} environments.`;
+        msg += `\n  - Extension \`${ext.name}\` does not support ${SDKEnvironment.platform} environments.`;
       }
 
       // Else case is irrelevant here here
@@ -197,10 +196,9 @@ export function createDeprecationWarning(options: {
 }) {
   const { method, removalVersions, useInstead } = options;
 
-  const npmName = envNameToNpmName[SDKEnvironment.sdkName];
-  const removalVersion = removalVersions[npmName];
+  const removalVersion = removalVersions[SDKEnvironment.sdkName];
   const useInsteadSuffix = useInstead ? ` Use \`${useInstead}\` instead.` : '';
-  const message = `\`${method}\` will be removed from \`${npmName}\` in version \`${removalVersion}\`.${useInsteadSuffix}`;
+  const message = `\`${method}\` will be removed from \`${SDKEnvironment.sdkName}\` in version \`${removalVersion}\`.${useInsteadSuffix}`;
 
   return new MagicSDKWarning(SDKWarningCode.DeprecationNotice, message);
 }

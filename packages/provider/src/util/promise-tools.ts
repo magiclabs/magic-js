@@ -56,7 +56,7 @@ export function isPromiEvent(value: any): value is PromiEvent<any> {
 export function createPromiEvent<TResult, TEvents extends EventsDefinition = void>(
   executor: AsyncPromiseExecutor<TResult>,
 ): PromiEvent<TResult, TEvents extends void ? DefaultEvents<TResult> : TEvents & DefaultEvents<TResult>> {
-  const promise = createAutoCatchingPromise(executor);
+  const promise = createPromise(executor);
   const { createBoundEmitterMethod, createChainingEmitterMethod } = createTypedEmitter<
     TEvents & DefaultEvents<TResult>
   >();
@@ -140,7 +140,7 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
  * So, here we solve the issue of nested promises by ensuring that no errors
  * mistakenly go unhandled!
  */
-export function createAutoCatchingPromise<TResult>(executor: AsyncPromiseExecutor<TResult>) {
+export function createPromise<TResult>(executor: AsyncPromiseExecutor<TResult>) {
   return new Promise<TResult>((resolve, reject) => {
     const result = executor(resolve, reject);
     Promise.resolve(result).catch(reject);

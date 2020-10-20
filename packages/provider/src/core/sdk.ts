@@ -16,7 +16,7 @@ import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
 import { Extension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
-import { SDKEnvironment } from './sdk-environment';
+import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
 
 /**
  * Checks if the given `ext` is compatible with the platform & version of Magic
@@ -33,7 +33,7 @@ function checkExtensionCompat(ext: Extension<string>) {
 
     // Check React Native compatibility
     /* istanbul ignore else */
-    if (SDKEnvironment.sdkName === 'magic-sdk-rn') {
+    if (SDKEnvironment.sdkName === '@magic-sdk/react-native') {
       return typeof ext.compat['@magic-sdk/react-native'] === 'string'
         ? semverSatisfies(SDKEnvironment.version, ext.compat['@magic-sdk/react-native'])
         : !!ext.compat['@magic-sdk/react-native'];
@@ -130,7 +130,7 @@ export class SDKBase {
   constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
     if (!apiKey) throw createMissingApiKeyError();
 
-    if (SDKEnvironment.target === 'react-native' && options?.endpoint) {
+    if (SDKEnvironment.platform === 'react-native' && options?.endpoint) {
       createReactNativeEndpointConfigurationWarning().log();
     }
 
@@ -151,7 +151,7 @@ export class SDKBase {
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
       ETH_NETWORK: options?.network,
       host: createURL(this.endpoint).host,
-      sdk: SDKEnvironment.sdkName,
+      sdk: sdkNameToEnvName[SDKEnvironment.sdkName],
       version,
       ext: isEmpty(extConfig) ? undefined : extConfig,
       locale: options?.locale || 'en_US',

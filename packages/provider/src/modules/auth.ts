@@ -1,7 +1,7 @@
 import { MagicPayloadMethod, LoginWithMagicLinkConfiguration } from '@magic-sdk/types';
-import { BaseModule } from '../base-module';
-import { createJsonRpcRequestPayload } from '../../core/json-rpc';
-import { SDKEnvironment } from '../../core/sdk-environment';
+import { BaseModule } from './base-module';
+import { createJsonRpcRequestPayload } from '../core/json-rpc';
+import { SDKEnvironment } from '../core/sdk-environment';
 
 type LoginWithMagicLinkEvents = {
   'email-sent': () => void;
@@ -36,7 +36,7 @@ export class AuthModule extends BaseModule {
   public loginWithCredential(credentialOrQueryString?: string) {
     let credentialResolved = credentialOrQueryString ?? '';
 
-    if (!credentialOrQueryString && SDKEnvironment.target === 'web') {
+    if (!credentialOrQueryString && SDKEnvironment.platform === 'web') {
       credentialResolved = window.location.search;
 
       // Remove the query from the redirect callback as a precaution.

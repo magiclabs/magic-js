@@ -54,8 +54,8 @@ export {
 export * from '@magic-sdk/types';
 
 export const Magic = createSDK(SDKBaseReactNative, {
-  target: 'react-native',
-  sdkName: 'magic-sdk-rn',
+  platform: 'react-native',
+  sdkName: '@magic-sdk/react-native',
   version: '%REACT_NATIVE_VERSION%',
   defaultEndpoint: 'https://box.magic.link/',
   ViewController: ReactNativeWebViewController,

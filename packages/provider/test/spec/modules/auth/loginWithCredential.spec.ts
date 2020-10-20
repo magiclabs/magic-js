@@ -10,7 +10,7 @@ import { createMagicSDK } from '../../../factories';
 test.beforeEach((t) => {
   browserEnv.restore();
   (BaseModule as any).prototype.request = sinon.stub();
-  mockSDKEnvironmentConstant('target', 'web');
+  mockSDKEnvironmentConstant('platform', 'web');
 });
 
 test.serial('Generates JSON RPC request payload with the given parameter as the credential', async (t) => {
@@ -60,7 +60,7 @@ test.serial('If no parameter is given & platform target is NOT "web", credential
   const idStub = getPayloadIdStub();
   idStub.returns(777);
 
-  mockSDKEnvironmentConstant('target', 'react-native');
+  mockSDKEnvironmentConstant('platform', 'react-native');
 
   await magic.auth.loginWithCredential();
 

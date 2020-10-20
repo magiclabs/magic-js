@@ -7,13 +7,13 @@ import { WithExtensions } from '../modules/base-extension';
 type ConstructorOf<C> = { new (...args: any[]): C };
 
 /**
- * A data structure containing details about the current environment. This is
- * guaranteed to be populated before the SDK is instantiated.
+ * A structure containing details about the current environment.
+ * This is guaranteed to be populated before the SDK is instantiated.
  */
 interface SDKEnvironment {
-  sdkName: 'magic-sdk' | 'magic-sdk-rn';
+  sdkName: 'magic-sdk' | '@magic-sdk/react-native';
   version: string;
-  target: 'web' | 'react-native';
+  platform: 'web' | 'react-native';
   defaultEndpoint: string;
   ViewController: ConstructorOf<ViewController>;
   PayloadTransport: ConstructorOf<PayloadTransport>;
@@ -30,7 +30,7 @@ export function createSDK<SDK extends SDKBase>(
   return SDKBaseCtor as any;
 }
 
-export const envNameToNpmName = {
+export const sdkNameToEnvName = {
   'magic-sdk': 'magic-sdk' as const,
-  'magic-sdk-rn': '@magic-sdk/react-native' as const,
+  '@magic-sdk/react-native': 'magic-sdk-rn' as const,
 };

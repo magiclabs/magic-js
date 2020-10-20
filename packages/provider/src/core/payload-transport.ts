@@ -6,7 +6,7 @@ import {
 } from '@magic-sdk/types';
 import { JsonRpcResponse } from './json-rpc';
 import { ViewController } from './view-controller';
-import { createAutoCatchingPromise } from '../util/promise-tools';
+import { createPromise } from '../util/promise-tools';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -94,7 +94,7 @@ export abstract class PayloadTransport {
     msgType: MagicOutgoingWindowMessage,
     payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
-    return createAutoCatchingPromise(async (resolve) => {
+    return createPromise(async (resolve) => {
       await overlay.ready;
 
       const batchData: JsonRpcResponse[] = [];

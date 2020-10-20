@@ -5,8 +5,8 @@ import {
   GenerateIdTokenConfiguration,
   UpdateEmailConfiguration,
 } from '@magic-sdk/types';
-import { BaseModule } from '../base-module';
-import { createJsonRpcRequestPayload } from '../../core/json-rpc';
+import { BaseModule } from './base-module';
+import { createJsonRpcRequestPayload } from '../core/json-rpc';
 
 type UpdateEmailEvents = {
   'email-sent': () => void;

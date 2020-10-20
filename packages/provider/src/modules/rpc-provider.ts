@@ -7,15 +7,11 @@ import {
   JsonRpcBatchRequestCallback,
   JsonRpcResponsePayload,
 } from '@magic-sdk/types';
-import { BaseModule } from '../base-module';
-import {
-  createInvalidArgumentError,
-  MagicRPCError,
-  createSynchronousWeb3MethodWarning,
-} from '../../core/sdk-exceptions';
-import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload, JsonRpcResponse } from '../../core/json-rpc';
-import { PromiEvent } from '../../util/promise-tools';
-import { createTypedEmitter, TypedEmitter } from '../../util/events';
+import { BaseModule } from './base-module';
+import { createInvalidArgumentError, MagicRPCError, createSynchronousWeb3MethodWarning } from '../core/sdk-exceptions';
+import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload, JsonRpcResponse } from '../core/json-rpc';
+import { PromiEvent } from '../util/promise-tools';
+import { createTypedEmitter, TypedEmitter } from '../util/events';
 
 const { createBoundEmitterMethod, createChainingEmitterMethod } = createTypedEmitter();
 

@@ -145,7 +145,7 @@ class NoopExtSupportingReactNative extends Extension<'noop'> {
 }
 
 test.serial('Creates an `INCOMPATIBLE_EXTENSIONS` error for web (version-related)', async (t) => {
-  mockSDKEnvironmentConstant('target', 'web');
+  mockSDKEnvironmentConstant('platform', 'web');
   mockSDKEnvironmentConstant('sdkName', 'magic-sdk');
   mockSDKEnvironmentConstant('version', '0.0.0');
 
@@ -160,8 +160,8 @@ test.serial('Creates an `INCOMPATIBLE_EXTENSIONS` error for web (version-related
 });
 
 test.serial('Creates an `INCOMPATIBLE_EXTENSIONS` error for React Native (version-related)', async (t) => {
-  mockSDKEnvironmentConstant('target', 'react-native');
-  mockSDKEnvironmentConstant('sdkName', 'magic-sdk-rn');
+  mockSDKEnvironmentConstant('platform', 'react-native');
+  mockSDKEnvironmentConstant('sdkName', '@magic-sdk/react-native');
   mockSDKEnvironmentConstant('version', '0.0.0');
 
   const error = createIncompatibleExtensionsError([
@@ -178,7 +178,7 @@ test.serial('Creates an `INCOMPATIBLE_EXTENSIONS` error for React Native (versio
 });
 
 test.serial('Creates an `INCOMPATIBLE_EXTENSIONS` error for web (environment-related)', async (t) => {
-  mockSDKEnvironmentConstant('target', 'web');
+  mockSDKEnvironmentConstant('platform', 'web');
   mockSDKEnvironmentConstant('sdkName', 'magic-sdk');
   mockSDKEnvironmentConstant('version', '0.0.0');
 
@@ -193,8 +193,8 @@ test.serial('Creates an `INCOMPATIBLE_EXTENSIONS` error for web (environment-rel
 });
 
 test.serial('Creates an `INCOMPATIBLE_EXTENSIONS` error for React Native (environment-related)', async (t) => {
-  mockSDKEnvironmentConstant('target', 'react-native');
-  mockSDKEnvironmentConstant('sdkName', 'magic-sdk-rn');
+  mockSDKEnvironmentConstant('platform', 'react-native');
+  mockSDKEnvironmentConstant('sdkName', '@magic-sdk/react-native');
   mockSDKEnvironmentConstant('version', '0.0.0');
 
   const error = createIncompatibleExtensionsError([new NoopExtSupportingWeb()]);

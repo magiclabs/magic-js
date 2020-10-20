@@ -47,7 +47,7 @@ export function createViewController(endpoint = MAGIC_RELAYER_FULL_URL) {
 
 export const TestMagicSDK = createSDK(SDKBase, {
   sdkName: 'magic-sdk',
-  target: 'web',
+  platform: 'web',
   version: '1.0.0-test',
   defaultEndpoint: MAGIC_RELAYER_FULL_URL,
   ViewController: TestViewController,

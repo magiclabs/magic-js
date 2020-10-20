@@ -21,7 +21,7 @@ export {
 export * from '@magic-sdk/types';
 
 export const Magic = createSDK(SDKBase, {
-  target: 'web',
+  platform: 'web',
   sdkName: 'magic-sdk',
   version: '%WEB_VERSION%',
   defaultEndpoint: 'https://auth.magic.link/',
