@@ -8,6 +8,7 @@
 #       build -- Build CJS and UMD bundles for the module.                     #
 #        test -- Run unit tests and build a coverage report using              #
 #                Istanbul/`nyc`.                                               #
+#     release -- Publishes all unrelease packages to NPM.                      #
 #                                                                              #
 #                                                                              #
 #  2) Ensure the aliases for `&dependency-paths` and `&build-output-paths`     #
@@ -48,6 +49,24 @@ aliases: [
   &attach-workspace {
     attach_workspace: {
       at: *workspace-root
+    }
+  },
+
+  # Filter pull requests not in "master" or "next" (development code)
+  &filter-default-branches {
+    filters: {
+      branches: {
+        ignore: "/^master$|^next$/"
+      }
+    }
+  },
+
+  # Filter pull requests in "master" only (production code).
+  &filter-release-branches-only {
+    filters: {
+      branches: {
+        only: "/^master$|^next$/"
+      }
     }
   },
 ]
@@ -121,15 +140,23 @@ jobs:
       - store_artifacts:
           path: packages/web/coverage
 
+  create-release:
+    executor: default
+    steps:
+      - checkout
+      - *attach-workspace
+      - run:
+          name: Publish to NPM
+          command: yarn run release
+
 # --- Workflow definitions --------------------------------------------------- #
 
 workflows:
-
   # Builds modules, verifies code with the linter, runs unit tests, and builds a
   # coverage report.
   pull-request:
     jobs:
-      - install-dependencies
+      - install-dependencies: *filter-default-branches
 
       - build:
           requires:
@@ -142,3 +169,35 @@ workflows:
       - test:
           requires:
             - build
+
+  # Builds modules, verifies code with the linter, runs unit tests, and
+  # publishes the built packages to NPM.
+  publish-to-npm:
+    jobs:
+      - install-dependencies: *filter-release-branches-only
+
+      - build:
+          requires:
+            - install-dependencies
+
+      - test:
+          requires:
+            - build
+
+      - lint:
+          requires:
+            - build
+
+        # Manual approval step as a final gatekeeper to prevent
+        # possible mistakes!
+      - confirm-release:
+          type: approval
+          requires:
+            - test
+            - lint
+
+      - create-release:
+          requires:
+            - confirm-release
+            - test
+            - lint
