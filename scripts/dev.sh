@@ -2,7 +2,7 @@
 
 echo
 echo "+------------------------------------------------------------------------------+"
-echo "  Building for development..."
+echo " 🏗 Building for development..."
 echo
 
 pkg_paths=$(echo -e $(yarn --silent paths))

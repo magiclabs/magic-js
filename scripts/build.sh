@@ -2,7 +2,7 @@
 
 echo
 echo "+------------------------------------------------------------------------------+"
-echo "  Building TypeScripts..."
+echo " 🏗 Building TypeScripts..."
 echo
 
 tsconfig_paths=$(echo -e $(yarn --silent paths tsconfig.json tsconfig.module.json))
@@ -16,7 +16,7 @@ echo "TypeScripts compiled."
 
 echo
 echo "+------------------------------------------------------------------------------+"
-echo "  Building CDN bundles..."
+echo " 📦 Building CDN bundles..."
 echo
 echo "You can safely ignore \`The 'this' keyword is equivalent to 'undefined'\` warnings"
 echo
@@ -25,7 +25,7 @@ yarn wsrun --serial $INIT_CWD/scripts/build:cdn.sh
 
 echo
 echo "+------------------------------------------------------------------------------+"
-echo "  Interpolating ENV variables..."
+echo " 🔗 Interpolating ENV variables..."
 echo
 
 pkg_paths=$(echo -e $(yarn --silent paths))

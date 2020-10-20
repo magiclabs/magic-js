@@ -2,7 +2,7 @@
 
 echo
 echo "+------------------------------------------------------------------------------+"
-echo "  Linting TypeScripts..."
+echo " 🔎 Linting TypeScripts..."
 echo
 
 yarn wsrun --stages eslint --fix "**/src/**/*.ts"
