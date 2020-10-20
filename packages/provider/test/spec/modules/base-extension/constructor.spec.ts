@@ -7,14 +7,7 @@ import { createExtensionNotInitializedError, MagicSDKError } from '../../../../s
 import { createMagicSDK } from '../../../factories';
 import { Extension } from '../../../../src/modules/base-extension';
 import { BaseModule } from '../../../../src/modules/base-module';
-import {
-  createPromiEvent,
-  encodeJSON,
-  decodeJSON,
-  encodeQueryParameters,
-  decodeQueryParameters,
-  isPromiEvent,
-} from '../../../../src/util';
+import { createPromiEvent, encodeJSON, decodeJSON, isPromiEvent } from '../../../../src/util';
 
 test.beforeEach((t) => {
   browserEnv.restore();
@@ -31,8 +24,6 @@ test.serial('Initialize `Extension`', (t) => {
   t.is(baseExtension.utils.isPromiEvent, isPromiEvent);
   t.is(baseExtension.utils.decodeJSON, decodeJSON);
   t.is(baseExtension.utils.encodeJSON, encodeJSON);
-  t.is(baseExtension.utils.decodeQueryParameters, decodeQueryParameters);
-  t.is(baseExtension.utils.encodeQueryParameters, encodeQueryParameters);
 });
 
 test.serial('Disallows `Extension.sdk` access before extension is initialized', (t) => {

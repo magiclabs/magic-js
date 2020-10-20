@@ -2,11 +2,11 @@
   "name": "@magic-sdk/types",
   "version": "1.6.0",
   "description": "Core typings for Magic SDK packages.",
-  "author": "Fortmatic <team@fortmatic.com> (https://fortmatic.com/)",
+  "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fortmatic/magic-js"
+    "url": "https://github.com/magiclabs/magic-js"
   },
   "homepage": "https://magic.link",
   "files": [

@@ -2,17 +2,13 @@ import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '.
 import { BaseModule } from './base-module';
 import { SDKBase, MagicSDKAdditionalConfiguration } from '../core/sdk';
 import { createExtensionNotInitializedError, MagicExtensionError, MagicExtensionWarning } from '../core/sdk-exceptions';
-import {
-  createPromiEvent,
-  encodeJSON,
-  decodeJSON,
-  encodeQueryParameters,
-  decodeQueryParameters,
-  storage,
-  isPromiEvent,
-} from '../util';
+import { createPromiEvent, encodeJSON, decodeJSON, storage, isPromiEvent } from '../util';
 
 interface BaseExtension<TName extends string> extends BaseModule {
+  /**
+   * A structure describing the platform and version compatiblity of this
+   * extension.
+   */
   compat?: {
     'magic-sdk': boolean | string;
     '@magic-sdk/react-native': boolean | string;
@@ -29,8 +25,6 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
     isPromiEvent,
     encodeJSON,
     decodeJSON,
-    encodeQueryParameters, // Scheduled for deprecation...
-    decodeQueryParameters, // Scheduled for deprecation...
     createJsonRpcRequestPayload,
     standardizeJsonRpcRequestPayload,
     storage,
@@ -55,6 +49,7 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
 
   /**
    * Registers a Magic SDK instance with this Extension.
+   * @internal
    */
   public init(sdk: SDKBase) {
     if (this.isInitialized) return;
@@ -98,27 +93,23 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
   protected createError<TData = any>(code: string | number, message: string, data: TData): MagicExtensionError<TData> {
     return new MagicExtensionError<TData>(this, code, message, data);
   }
-
-  /**
-   * Throws an error wrapped with a native Magic SDK error type. This maintains
-   * consistency in error handling for consumers of Magic SDK and this
-   * Extension.
-   */
-  protected raiseError<TData = any>(code: string | number, message: string, data: TData): void {
-    throw new MagicExtensionError<TData>(this, code, message, data);
-  }
 }
 
 abstract class InternalExtension<TName extends string, TConfig extends any = any> extends BaseExtension<TName> {
   public abstract readonly config: TConfig;
 }
 
+/**
+ * A base class representing "extensions" to the core Magic JS APIs. Extensions
+ * enable new functionality by composing Magic endpoints methods together.
+ */
 export abstract class Extension<TName extends string> extends BaseExtension<TName> {
   /**
-   * This is a special constructor used to mark an extension as "official." Only
-   * official extensions can interact with the iframe using custom JSON RPC
-   * methods and business logic. This is intended for internal-use only and
-   * provides no advantage to open-source extension developers.
+   * This is a special constructor used to mark "official" extensions. These
+   * extensions are designed for special interaction with the Magic iframe using
+   * custom JSON RPC methods, business logic, and global configurations. This is
+   * intended for internal-use only (and provides no useful advantage to
+   * open-source extension developers over the regular `Extension` class).
    *
    * @internal
    */
@@ -126,8 +117,8 @@ export abstract class Extension<TName extends string> extends BaseExtension<TNam
 }
 
 /**
- * These fields are exposed on the `Extension` type, but should be hidden from
- * the public interface.
+ * These fields are exposed on the `Extension` type,
+ * but should be hidden from the public interface.
  */
 type HiddenExtensionFields = 'name' | 'init' | 'config' | 'compat';
 
@@ -137,8 +128,8 @@ type HiddenExtensionFields = 'name' | 'init' | 'config' | 'compat';
 type UnwrapArray<T extends any[]> = T extends Array<infer P> ? P : never;
 
 /**
- * Create a union type of Extension names from an array of Extension types given
- * by `TExt`.
+ * Create a union type of Extension names from an
+ * array of Extension types given by `TExt`.
  */
 type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<
   {
@@ -147,16 +138,16 @@ type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<
 >;
 
 /**
- * From the literal Extension name type given by `TExtName`, extract a
- * dictionary of Extension types.
+ * From the literal Extension name type given by `TExtName`,
+ * extract a dictionary of Extension types.
  */
 type GetExtensionFromName<TExt extends Extension<string>[], TExtName extends string> = {
   [P in TExtName]: Extract<UnwrapArray<TExt>, Extension<TExtName>>;
 }[TExtName];
 
 /**
- * Wraps a Magic SDK constructor with the necessary type information to support
- * a strongly-typed `Extension` interface.
+ * Wraps a Magic SDK constructor with the necessary type
+ * information to support a strongly-typed `Extension` interface.
  */
 export type WithExtensions<SDK extends SDKBase> = {
   new <
