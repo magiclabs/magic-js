@@ -12,6 +12,14 @@
 
 - ...
 
+## `3.0.0` - 10/20/2020
+
+#### Changed
+
+- Removed the following public methods and functions
+    - `BaseExtension.utils.encodeQueryParameters`
+    - `BaseExtension.utils.decodeQueryParameters`
+
 ## `2.7.0` - 09/24/2020
 
 #### Added
