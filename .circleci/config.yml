@@ -65,7 +65,10 @@ aliases: [
   &filter-release-branches-only {
     filters: {
       branches: {
-        only: "/^master$|^next$/"
+        only: [
+          "master",
+          "next",
+        ]
       }
     }
   },
