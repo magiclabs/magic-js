@@ -55,3 +55,4 @@ const magic = new Magic('YOUR_API_KEY');
 
 await magic.auth.loginWithMagicLink({ email: 'your.email@example.com' });
 ```
+
