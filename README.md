@@ -43,18 +43,18 @@ Alternatively, you can load via CDN with by adding a script tag to your app’s 
 ```
 
 ## 🔗 Testing
-Run test for all packages
+Run tests for all packages
 ```bash
 yarn test
 ```
 
-Test individual package
+Test an individual package
 ```bash
 PKG=magic-sdk yarn test
 PKG=@magic-sdk/react-native yarn test
 ```
 
-Test specific file
+Test specific files
 ```bash
 yarn test /test/**/constructor.spec.ts
 ```
