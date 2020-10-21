@@ -42,6 +42,12 @@ Alternatively, you can load via CDN with by adding a script tag to your app’s 
 <script src="https://cdn.jsdelivr.net/npm/magic-sdk/dist/magic.js"></script>
 ```
 
+## 🔗 Testing
+Run test
+```bash
+yarn test
+```
+
 ## ⚡️ Quick Start
 
 Sign up or log in to the [developer dashboard](https://dashboard.magic.link) to receive API keys that will allow your application to interact with Magic's authentication APIs.
