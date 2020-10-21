@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/types",
-  "version": "1.6.0",
+  "version": "2.0.0-next.0",
   "description": "Core typings for Magic SDK packages.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
