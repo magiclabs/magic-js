@@ -120,6 +120,9 @@ jobs:
       - checkout
       - *attach-workspace
       - run:
+          name: Bump version
+          command: lerna version $(auto version) --no-git-tag-version
+      - run:
           name: Build modules
           command: yarn run build
       - persist_to_workspace:
