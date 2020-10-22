@@ -125,13 +125,12 @@ jobs:
           command: |
             git config user.email "team@magic.link"
             git config user.name "Magic Labs"
-            git --set-upstream origin $CIRCLE_BRANCH
       - run:
           name: Bump version
           command: echo $(yarn auto version) && yarn bump_version
       - run:
           name: Git push
-          command: git push
+          command: git push --set-upstream origin $CIRCLE_BRANCH
 
 
   # Builds modules and persists the build output to the workspace.
