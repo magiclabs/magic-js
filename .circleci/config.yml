@@ -123,6 +123,9 @@ jobs:
       - run:
           name: Bump version
           command: echo $(yarn auto version) && yarn bump_version
+      - run:
+          name: Git push
+          command: git push
 
 
   # Builds modules and persists the build output to the workspace.
