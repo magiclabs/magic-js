@@ -42,6 +42,23 @@ Alternatively, you can load via CDN with by adding a script tag to your app’s 
 <script src="https://cdn.jsdelivr.net/npm/magic-sdk/dist/magic.js"></script>
 ```
 
+## 🔗 Testing
+Run tests for all packages
+```bash
+yarn test
+```
+
+Test an individual package
+```bash
+PKG=magic-sdk yarn test
+PKG=@magic-sdk/react-native yarn test
+```
+
+Test specific files
+```bash
+yarn test /test/**/constructor.spec.ts
+```
+
 ## ⚡️ Quick Start
 
 Sign up or log in to the [developer dashboard](https://dashboard.magic.link) to receive API keys that will allow your application to interact with Magic's authentication APIs.
