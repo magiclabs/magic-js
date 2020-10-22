@@ -53,6 +53,14 @@ aliases: [
     }
   },
 
+  &add-ssh-keys {
+    add-ssh-keys: {
+      fingerprints: [
+        "c5:38:8b:b9:3b:15:84:8e:37:a9:04:ea:9a:1f:2b:0d"
+      ]
+    }
+  },
+
   # Filter pull requests not in "master" or "next" (development code)
   &filter-default-branches {
     filters: {
@@ -120,6 +128,7 @@ jobs:
     steps:
       - checkout
       - *attach-workspace
+      - *add-ssh-keys
       - run:
           name: Configure git
           command: |
