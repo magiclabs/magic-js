@@ -2,14 +2,6 @@
 
 [Provide a general summary of the pull request here.]
 
-### 🗜 Versioning
-
-(Check _one!_)
-
-- [ ] Patch: Bug Fix?
-- [ ] Minor: New Feature?
-- [ ] Major: Breaking Change?
-
 ### ✅ Fixed Issues
 
 - [List any fixed issues here like: Fixes #XXXX]
@@ -18,6 +10,9 @@
 
 [Describe any additional context required to test the PR/feature/bug fix.]
 
-### ⚠️ Update `CHANGELOG.md`
+### ⚠️ Don't forget to add a [semver](https://semver.org/) label!
 
-- [ ] I have updated the `Upcoming Changes` section of `CHANGELOG.md` with context related to this Pull Request.
+- `patch`: Bug Fix?
+- `minor`: New Feature?
+- `major`: Breaking Change?
+- `skip-release`: It's unnecessary to publish this change.
