@@ -122,7 +122,7 @@ jobs:
       - *attach-workspace
       - run:
           name: Bump version
-          command: yarn bump_version
+          command: echo $(yarn auto version) && yarn bump_version
 
 
   # Builds modules and persists the build output to the workspace.
