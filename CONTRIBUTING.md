@@ -33,16 +33,13 @@ Please note we have a **code of conduct**, please follow it in all your interact
 
 ## Opening a Pull Request
 
-1. Update the **`Upcoming Changes`** section of the relevant package's `CHANGELOG.md` with your fixes, changes, or additions. A maintainer will label your changes with a version number and release date once they are published.
-2. Open a pull request from your fork/branch to the upstream `master` branch of _this_ repository.
+1. Open a pull request from your fork/branch to the upstream `master` branch of _this_ repository.
+2. Add a label for the [semver](https://semver.org/) update corresponding to your changes: `patch`, `minor`, or `major`.
 3. A maintainer will review your code changes and offer feedback or suggestions if necessary. Once your changes are approved, a maintainer will merge the pull request for you and publish a release.
 
 ## Cutting a release
 
-1. Update each `CHANGELOG.md` file to reflect the intended versioned updates.
-2. Bump versions accordingly: `yarn bump_version` and follow the prompts.
-3. Build files for distribution: `yarn build`
-4. Publish updated packages to NPM: `yarn release`
+We use [`auto`](https://github.com/intuit/auto) as our continous delivery tool. Cutting a release is just a matter of merging to `master`. For pre-releases, you can create a `next` branch as the base for your experimental/W.I.P. feature. Please familiarize yourself with the [documentation for `auto`](https://intuit.github.io/auto/docs) if you are in a position to cut a release.
 
 ## Contributor Covenant Code of Conduct
 
