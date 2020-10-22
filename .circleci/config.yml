@@ -1,21 +1,3 @@
-# ---------------------------------------------------------------------------- #
-#                                 CI OVERVIEW                                  #
-#                                 ~~~~~~~~~~~                                  #
-#                                                                              #
-#  1) The following scripts should be preserved in `package.json`:             #
-#                                                                              #
-#        lint -- Run a linter against source files.                            #
-#       build -- Build CJS and UMD bundles for the module.                     #
-#        test -- Run unit tests and build a coverage report using              #
-#                Istanbul/`nyc`.                                               #
-#                                                                              #
-#                                                                              #
-#  2) Ensure the aliases for `&dependency-paths` and `&build-output-paths`     #
-#     below properly reflect the dependency and output directories             #
-#     of the module.                                                           #
-#                                                                              #
-# ---------------------------------------------------------------------------- #
-
 version: 2.1
 
 # --- YAML Aliases ----------------------------------------------------------- #
@@ -41,13 +23,34 @@ aliases: [
   ],
 
   # NPM lockfile cache key (update "vN" => "vN+1" to cache-bust).
-  &dependency-cache-key "v2-dependency-cache-{{ checksum \"yarn.lock\" }}",
+  &dependency-cache-key "v3-dependency-cache-{{ checksum \"yarn.lock\" }}",
 
   &workspace-root "/home/circleci/project",
 
   &attach-workspace {
     attach_workspace: {
       at: *workspace-root
+    }
+  },
+
+  # Filter pull requests not in "master" or "next" (development code)
+  &filter-default-branches {
+    filters: {
+      branches: {
+        ignore: "/^master$|^next$/"
+      }
+    }
+  },
+
+  # Filter pull requests in "master" only (production code).
+  &filter-release-branches-only {
+    filters: {
+      branches: {
+        only: [
+          "master",
+          "next",
+        ]
+      }
     }
   },
 ]
@@ -98,6 +101,14 @@ jobs:
       - checkout
       - *attach-workspace
       - run:
+          name: Apply semver updates (if any)
+          command: |
+            AUTO_VERSION=$(yarn --silent auto version)
+            if [[ $AUTO_VERSION ]]; then
+              yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --yes
+            fi
+
+      - run:
           name: Build modules
           command: yarn run build
       - persist_to_workspace:
@@ -121,15 +132,24 @@ jobs:
       - store_artifacts:
           path: packages/web/coverage
 
+  # Publish all packages to NPM
+  create-release:
+    executor: default
+    steps:
+      - checkout
+      - *attach-workspace
+      - run:
+          name: Publish to NPM
+          command: yarn auto shipit
+
 # --- Workflow definitions --------------------------------------------------- #
 
 workflows:
-
   # Builds modules, verifies code with the linter, runs unit tests, and builds a
   # coverage report.
   pull-request:
     jobs:
-      - install-dependencies
+      - install-dependencies: *filter-default-branches
 
       - build:
           requires:
@@ -142,3 +162,35 @@ workflows:
       - test:
           requires:
             - build
+
+  # Builds modules, verifies code with the linter, runs unit tests, and
+  # publishes the built packages to NPM.
+  publish-to-npm:
+    jobs:
+      - install-dependencies: *filter-release-branches-only
+
+      - build:
+          requires:
+            - install-dependencies
+
+      - test:
+          requires:
+            - build
+
+      - lint:
+          requires:
+            - build
+
+        # Manual approval step as a final gatekeeper to prevent
+        # possible mistakes!
+      - confirm-release:
+          type: approval
+          requires:
+            - test
+            - lint
+
+      - create-release:
+          requires:
+            - confirm-release
+            - test
+            - lint

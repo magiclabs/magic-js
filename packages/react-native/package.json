@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native",
-  "version": "2.8.0",
+  "version": "3.0.1-next.0",
   "description": "Passwordless authentication for React Native.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -23,8 +23,8 @@
     "@aveq-research/localforage-asyncstorage-driver": "~1.1.5",
     "@babel/core": "~7.10.4",
     "@babel/runtime": "~7.10.4",
-    "@magic-sdk/provider": "^2.8.0",
-    "@magic-sdk/types": "^1.6.0",
+    "@magic-sdk/provider": "^3.0.1-next.0",
+    "@magic-sdk/types": "^2.0.1-next.0",
     "@types/lodash": "^4.14.158",
     "buffer": "~5.6.0",
     "localforage": "^1.7.4",

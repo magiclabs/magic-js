@@ -21,3 +21,6 @@
 # Output files
 /**/dist
 
+# ENV
+.env
+
