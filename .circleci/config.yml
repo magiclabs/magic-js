@@ -125,6 +125,7 @@ jobs:
           command: |
             git config user.email "team@magic.link"
             git config user.name "Magic Labs"
+            git --set-upstream origin $CIRCLE_BRANCH
       - run:
           name: Bump version
           command: echo $(yarn auto version) && yarn bump_version
