@@ -101,8 +101,13 @@ jobs:
       - checkout
       - *attach-workspace
       - run:
-          name: Apply semver updates
-          command: yarn lerna version $(yarn --silent auto version) --no-git-tag-version --yes
+          name: Apply semver updates (if any)
+          command: |
+            AUTO_VERSION=$(yarn --silent auto version)
+            if [[ $AUTO_VERSION ]]; then
+              yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --yes
+            fi
+
       - run:
           name: Build modules
           command: yarn run build
