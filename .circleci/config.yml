@@ -135,7 +135,7 @@ jobs:
       - *attach-workspace
       - run:
           name: Publish to NPM
-          command: yarn run ci:release
+          command: yarn auto shipit
 
 # --- Workflow definitions --------------------------------------------------- #
 
