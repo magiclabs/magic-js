@@ -114,15 +114,23 @@ jobs:
           name: Lint source files
           command: yarn run lint
 
-  # Builds modules and persists the build output to the workspace.
-  build:
+  # Bumps the current version based on `auto version` output.
+  version:
     executor: default
     steps:
       - checkout
       - *attach-workspace
       - run:
           name: Bump version
-          command: yarn version
+          command: yarn bump_version
+
+
+  # Builds modules and persists the build output to the workspace.
+  build:
+    executor: default
+    steps:
+      - checkout
+      - *attach-workspace
       - run:
           name: Build modules
           command: yarn run build
@@ -183,8 +191,13 @@ workflows:
     jobs:
       - install-dependencies: *filter-release-branches-only
 
+      - version:
+          requires:
+            - install-dependencies
+
       - build:
           requires:
+            - version
             - install-dependencies
 
       - test:
