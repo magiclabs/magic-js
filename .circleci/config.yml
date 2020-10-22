@@ -166,7 +166,6 @@ workflows:
 
       - build:
           requires:
-            - version
             - install-dependencies
 
       - test:
