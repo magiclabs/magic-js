@@ -53,14 +53,6 @@ aliases: [
     }
   },
 
-  &add-ssh-keys {
-    add_ssh_keys: {
-      fingerprints: [
-        "55:15:f0:4c:9c:ac:a5:e9:28:41:1a:f2:00:59:b9:df"
-      ]
-    }
-  },
-
   # Filter pull requests not in "master" or "next" (development code)
   &filter-default-branches {
     filters: {
@@ -122,26 +114,6 @@ jobs:
           name: Lint source files
           command: yarn run lint
 
-  # Bumps the current version based on `auto version` output.
-  version:
-    executor: default
-    steps:
-      - checkout
-      - *attach-workspace
-      - *add-ssh-keys
-      - run:
-          name: Configure git
-          command: |
-            git config user.email "team@magic.link"
-            git config user.name "Magic Labs"
-      - run:
-          name: Bump version
-          command: echo $(yarn auto version) && yarn bump_version
-      - run:
-          name: Git push
-          command: git push --set-upstream origin $CIRCLE_BRANCH
-
-
   # Builds modules and persists the build output to the workspace.
   build:
     executor: default
@@ -149,11 +121,32 @@ jobs:
       - checkout
       - *attach-workspace
       - run:
+          name: Prepare semver updates
+          command: yarn ci:prepare_version
+      - run:
           name: Build modules
           command: yarn run build
       - persist_to_workspace:
           paths: *build-output-paths
           root: *workspace-root
+
+  # Bumps the current version based on `auto version` output.
+  bump-version:
+    executor: default
+    steps:
+      - checkout
+      - *attach-workspace
+      - run:
+          name: Configure git
+          command: |
+            git config user.email "team@magic.link"
+            git config user.name "Magic Labs"
+      - run:
+          name: Apply semver updates
+          command: yarn ci:bump_version
+      - run:
+          name: Git push
+          command: git push https://$GH_TOKEN@github.com/magiclabs/magic-js $CIRCLE_BRANCH
 
   # Run unit tests and builds a coverage report.
   test:
@@ -172,6 +165,7 @@ jobs:
       - store_artifacts:
           path: packages/web/coverage
 
+  # Publish all packages to NPM
   create-release:
     executor: default
     steps:
@@ -179,7 +173,7 @@ jobs:
       - *attach-workspace
       - run:
           name: Publish to NPM
-          command: yarn run release
+          command: yarn run ci:release
 
 # --- Workflow definitions --------------------------------------------------- #
 
@@ -208,10 +202,6 @@ workflows:
     jobs:
       - install-dependencies: *filter-release-branches-only
 
-      - version:
-          requires:
-            - install-dependencies
-
       - build:
           requires:
             - version
@@ -238,3 +228,10 @@ workflows:
             - confirm-release
             - test
             - lint
+
+      - bump-version:
+            requires:
+              - confirm-release
+              - create-release
+              - test
+              - lint

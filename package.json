@@ -11,10 +11,11 @@
     "lint": "$INIT_CWD/scripts/lint.sh",
     "test": "yarn wsrun --serial --fast-exit -c $INIT_CWD/scripts/test.sh",
     "paths": "yarn --silent wsrun --parallel --no-prefix -r silent $INIT_CWD/scripts/cwd.ts",
-    "bump_version": "lerna version $(yarn --silent auto version) -m \"chore(release): publish [skip ci]\" --no-push --yes",
-    "release": "auto shipit",
     "snyk-protect": "snyk protect",
-    "prepare": "yarn run snyk-protect"
+    "prepare": "yarn run snyk-protect",
+    "ci:prepare_version": "lerna version $(yarn --silent auto version) -m --no-git-tag-version --no-push --yes",
+    "ci:bump_version": "lerna version $(yarn --silent auto version) -m \"chore(release): publish [skip ci]\" --no-push --yes",
+    "ci:release": "auto shipit"
   },
   "dependencies": {
     "snyk": "^1.319.1"
