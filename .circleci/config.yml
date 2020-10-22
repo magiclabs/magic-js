@@ -8,6 +8,7 @@
 #       build -- Build CJS and UMD bundles for the module.                     #
 #        test -- Run unit tests and build a coverage report using              #
 #                Istanbul/`nyc`.                                               #
+#     version -- Increments `package.json` versions as necessary.              #
 #     release -- Publishes all unrelease packages to NPM.                      #
 #                                                                              #
 #                                                                              #
@@ -113,6 +114,17 @@ jobs:
           name: Lint source files
           command: yarn run lint
 
+  # Bumps the current version based on `auto version` output.
+  version:
+    executor: default
+    steps:
+      - checkout
+      - *attach-workspace
+      - run:
+          name: Bump version
+          command: yarn bump_version
+
+
   # Builds modules and persists the build output to the workspace.
   build:
     executor: default
@@ -179,8 +191,13 @@ workflows:
     jobs:
       - install-dependencies: *filter-release-branches-only
 
+      - version:
+          requires:
+            - install-dependencies
+
       - build:
           requires:
+            - version
             - install-dependencies
 
       - test:
