@@ -1,6 +1,6 @@
 {
   "name": "magic-sdk",
-  "version": "3.0.0-next.0",
+  "version": "3.0.1-next.0",
   "description": "Passwordless authentication for the web.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -24,8 +24,8 @@
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
-    "@magic-sdk/provider": "^3.0.0-next.0",
-    "@magic-sdk/types": "^2.0.0-next.0",
+    "@magic-sdk/provider": "^3.0.1-next.0",
+    "@magic-sdk/types": "^2.0.1-next.0",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5",
     "regenerator-runtime": "0.13.5"

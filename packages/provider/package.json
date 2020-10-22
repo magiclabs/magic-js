@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/provider",
-  "version": "3.0.0-next.0",
+  "version": "3.0.1-next.0",
   "description": "Core business logic for Magic SDK packages.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@magic-sdk/types": "^2.0.0-next.0",
+    "@magic-sdk/types": "^2.0.1-next.0",
     "eventemitter3": "^4.0.4",
     "semver": "^7.3.2"
   },
