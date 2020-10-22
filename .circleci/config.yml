@@ -8,6 +8,7 @@
 #       build -- Build CJS and UMD bundles for the module.                     #
 #        test -- Run unit tests and build a coverage report using              #
 #                Istanbul/`nyc`.                                               #
+#     version -- Increments `package.json` versions as necessary.              #
 #     release -- Publishes all unrelease packages to NPM.                      #
 #                                                                              #
 #                                                                              #
@@ -121,7 +122,7 @@ jobs:
       - *attach-workspace
       - run:
           name: Bump version
-          command: lerna version $(auto version) --no-git-tag-version
+          command: yarn version
       - run:
           name: Build modules
           command: yarn run build
