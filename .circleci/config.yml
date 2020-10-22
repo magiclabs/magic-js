@@ -56,7 +56,7 @@ aliases: [
   &add-ssh-keys {
     add_ssh_keys: {
       fingerprints: [
-        "c5:38:8b:b9:3b:15:84:8e:37:a9:04:ea:9a:1f:2b:0d"
+        "55:15:f0:4c:9c:ac:a5:e9:28:41:1a:f2:00:59:b9:df"
       ]
     }
   },
