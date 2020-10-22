@@ -30,8 +30,6 @@ Please note we have a **code of conduct**, please follow it in all your interact
 | `lint` | `PKG=$PACKAGE_TARGET yarn lint` | Run the linter for the specified package, or all packages if `$PKG` is omitted. |
 | `test` | `PKG=$PACKAGE_TARGET yarn test` | Run tests for the specified package, or all packages if `$PKG` is omitted. |
 | `paths` | `PKG=$PACKAGE_TARGET yarn paths` | Print the relative paths to each project based on the value of `$PKG`. |
-| `bump_version` | `yarn bump_version` | Uses `lerna version` and `auto version` to update `package.json` files for all projects. |
-| `release` | `yarn release` | Publishes all packages with unreleased versions using `auto shipit`. |
 
 ## Opening a Pull Request
 
