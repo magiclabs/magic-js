@@ -10,7 +10,7 @@
     "clean": "$INIT_CWD/scripts/clean.sh",
     "lint": "$INIT_CWD/scripts/lint.sh",
     "test": "yarn wsrun --serial --fast-exit -c $INIT_CWD/scripts/test.sh",
-    "paths": "yarn --silent wsrun --parallel --no-prefix -r $INIT_CWD/scripts/cwd.ts",
+    "paths": "yarn --silent wsrun --parallel --no-prefix -r -c $INIT_CWD/scripts/cwd.ts",
     "snyk-protect": "snyk protect",
     "prepare": "yarn run snyk-protect"
   },
