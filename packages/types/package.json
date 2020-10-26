@@ -16,8 +16,5 @@
   "main": "dist/commonjs/index.js",
   "module": "dist/module/index.js",
   "types": "dist/commonjs/index.d.ts",
-  "scripts": {
-    "precommit": "lint-staged"
-  },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
 }

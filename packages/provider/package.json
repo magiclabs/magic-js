@@ -16,9 +16,6 @@
   "main": "dist/commonjs/index.js",
   "module": "dist/module/index.js",
   "types": "dist/commonjs/index.d.ts",
-  "scripts": {
-    "precommit": "lint-staged"
-  },
   "dependencies": {
     "@magic-sdk/types": "^2.0.1",
     "eventemitter3": "^4.0.4",

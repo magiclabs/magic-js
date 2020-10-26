@@ -10,7 +10,7 @@ RAW_INPUT=$1
 
 runTests() {
   # Parse a glob of input test files (relative to the package directory).
-  input=$(echo $($INIT_CWD/scripts/glob.ts $RAW_INPUT))
+  input=$(glob $RAW_INPUT) || ''
 
   export TS_NODE_PROJECT="./test/tsconfig.json"
 

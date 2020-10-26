@@ -18,9 +18,6 @@
   "module": "dist/module/index.js",
   "types": "dist/commonjs/index.d.ts",
   "umd:main": "dist/magic.js",
-  "scripts": {
-    "precommit": "lint-staged"
-  },
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
