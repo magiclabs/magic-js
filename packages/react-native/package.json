@@ -16,9 +16,6 @@
   "main": "dist/commonjs/index.js",
   "module": "dist/module/index.js",
   "types": "dist/commonjs/index.d.ts",
-  "scripts": {
-    "precommit": "lint-staged"
-  },
   "dependencies": {
     "@aveq-research/localforage-asyncstorage-driver": "~1.1.5",
     "@babel/core": "~7.10.4",
