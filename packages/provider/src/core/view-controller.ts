@@ -3,38 +3,30 @@ import { PayloadTransport } from './payload-transport';
 
 export abstract class ViewController<Transport extends PayloadTransport = PayloadTransport> {
   public ready: Promise<void>;
+  protected readonly endpoint: string;
+  protected readonly parameters: string;
 
-  constructor(
-    protected readonly transport: Transport,
-    protected readonly endpoint: string,
-    protected readonly encodedQueryParams: string,
-  ) {
-    this.ready = this.waitForReady();
+  constructor(protected readonly transport: Transport) {
     if (this.init) this.init();
-    this.listen();
+
+    this.endpoint = transport.endpoint;
+    this.parameters = transport.parameters;
+
+    this.ready = new Promise<void>((resolve) => {
+      transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
+    });
+
+    transport.on(MagicIncomingWindowMessage.MAGIC_HIDE_OVERLAY, () => {
+      if (this.hideOverlay) this.hideOverlay();
+    });
+
+    transport.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
+      if (this.showOverlay) this.showOverlay();
+    });
   }
 
   protected abstract init(): void;
   public abstract postMessage(data: MagicMessageRequest): Promise<void>;
-  protected abstract hideOverlay(): void;
-  protected abstract showOverlay(): void;
-
-  private waitForReady() {
-    return new Promise<void>((resolve) => {
-      this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
-    });
-  }
-
-  /**
-   * Listen for messages sent from the underlying Magic `<WebView>`.
-   */
-  private listen() {
-    this.transport.on(MagicIncomingWindowMessage.MAGIC_HIDE_OVERLAY, () => {
-      this.hideOverlay();
-    });
-
-    this.transport.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
-      this.showOverlay();
-    });
-  }
+  protected abstract hideOverlay?(): void;
+  protected abstract showOverlay?(): void;
 }

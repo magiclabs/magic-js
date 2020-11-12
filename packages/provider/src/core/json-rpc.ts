@@ -46,7 +46,7 @@ export function standardizeJsonRpcRequestPayload(payload: Partial<JsonRpcRequest
     markPayloadAsPreprocessed(payload);
   }
 
-  return payload as JsonRpcRequestPayload;
+  return payload;
 }
 
 /**

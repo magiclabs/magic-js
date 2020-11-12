@@ -48,17 +48,13 @@ export class IframeController extends ViewController {
   private iframe!: Promise<HTMLIFrameElement>;
 
   protected init() {
-    this.iframe = this.createIframe();
-  }
-
-  private createIframe(): Promise<HTMLIFrameElement> {
-    return new Promise((resolve) => {
+    this.iframe = new Promise((resolve) => {
       const onload = () => {
-        if (!checkForSameSrcInstances(encodeURIComponent(this.encodedQueryParams))) {
+        if (!checkForSameSrcInstances(encodeURIComponent(this.parameters))) {
           const iframe = document.createElement('iframe');
           iframe.classList.add('magic-iframe');
           iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
-          iframe.src = createURL(`/send?params=${encodeURIComponent(this.encodedQueryParams)}`, this.endpoint).href;
+          iframe.src = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
           resolve(iframe);
@@ -78,13 +74,13 @@ export class IframeController extends ViewController {
   }
 
   protected async showOverlay() {
-    const overlayResolved = await this.iframe;
-    overlayResolved.style.display = 'block';
+    const iframe = await this.iframe;
+    iframe.style.display = 'block';
   }
 
   protected async hideOverlay() {
-    const overlayResolved = await this.iframe;
-    overlayResolved.style.display = 'none';
+    const iframe = await this.iframe;
+    iframe.style.display = 'none';
   }
 
   public async postMessage(data: any) {
