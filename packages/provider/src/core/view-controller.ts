@@ -7,26 +7,41 @@ export abstract class ViewController<Transport extends PayloadTransport = Payloa
   protected readonly parameters: string;
 
   constructor(protected readonly transport: Transport) {
+    // Get the `endpoint` and `parameters` value
+    // from the underlying `transport` instance.
+    this.endpoint = (transport as any).endpoint;
+    this.parameters = (transport as any).parameters;
+
+    // Create a promise that resolves when
+    // the view is ready for messages.
+    this.ready = this.waitForReady();
+
     if (this.init) this.init();
 
-    this.endpoint = transport.endpoint;
-    this.parameters = transport.parameters;
-
-    this.ready = new Promise<void>((resolve) => {
-      transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
-    });
-
-    transport.on(MagicIncomingWindowMessage.MAGIC_HIDE_OVERLAY, () => {
-      if (this.hideOverlay) this.hideOverlay();
-    });
-
-    transport.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
-      if (this.showOverlay) this.showOverlay();
-    });
+    this.listen();
   }
 
   protected abstract init(): void;
   public abstract postMessage(data: MagicMessageRequest): Promise<void>;
-  protected abstract hideOverlay?(): void;
-  protected abstract showOverlay?(): void;
+  protected abstract hideOverlay(): void;
+  protected abstract showOverlay(): void;
+
+  private waitForReady() {
+    return new Promise<void>((resolve) => {
+      this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
+    });
+  }
+
+  /**
+   * Listen for messages sent from the underlying Magic `<WebView>`.
+   */
+  private listen() {
+    this.transport.on(MagicIncomingWindowMessage.MAGIC_HIDE_OVERLAY, () => {
+      this.hideOverlay();
+    });
+
+    this.transport.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
+      this.showOverlay();
+    });
+  }
 }

@@ -42,7 +42,7 @@ export function createPayloadTransport(endpoint = MAGIC_RELAYER_FULL_URL) {
 }
 
 export function createViewController(endpoint = MAGIC_RELAYER_FULL_URL) {
-  return new TestViewController(createPayloadTransport(endpoint), endpoint, ENCODED_QUERY_PARAMS);
+  return new TestViewController(createPayloadTransport(endpoint));
 }
 
 export const TestMagicSDK = createSDK(SDKBase, {

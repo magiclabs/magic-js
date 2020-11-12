@@ -104,8 +104,8 @@ export class SDKBase {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
   private static readonly __overlays__: Map<string, ViewController> = new Map();
 
-  private readonly endpoint: string;
-  private readonly parameters: string;
+  protected readonly endpoint: string;
+  protected readonly parameters: string;
 
   /**
    * Contains methods for starting a Magic SDK authentication flow.

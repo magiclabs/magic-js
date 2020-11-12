@@ -58,13 +58,11 @@ export abstract class PayloadTransport {
   /**
    * Create an instance of `PayloadTransport`
    *
-   * @param overlay - The `IframeController` context to which the event will be
-   * posted.
    * @param endpoint - The URL for the relevant iframe context.
-   * @param encodedQueryParams - The unique, encoded query parameters for the
+   * @param parameters - The unique, encoded query parameters for the
    * relevant iframe context.
    */
-  constructor(public readonly endpoint: string, public readonly parameters: string) {
+  constructor(protected readonly endpoint: string, protected readonly parameters: string) {
     this.init();
   }
 

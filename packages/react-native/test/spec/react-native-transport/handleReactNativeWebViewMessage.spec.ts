@@ -33,7 +33,7 @@ test.cb('Ignores events with non-string data', (t) => {
 
   transport.handleReactNativeWebViewMessage({
     nativeEvent: {
-      url: `qwerty/send/?params=${(transport as any).encodedQueryParams}`,
+      url: `qwerty/send/?params=${(transport as any).parameters}`,
       data: 123,
     },
   } as any);

@@ -25,6 +25,8 @@ test('Instantiates `ViewController`', async (t) => {
 
   t.true(overlay instanceof ViewController);
   t.true((overlay as any).transport instanceof PayloadTransport);
+  t.is((overlay as any).endpoint, (overlay as any).transport.endpoint);
+  t.is((overlay as any).parameters, (overlay as any).transport.parameters);
   t.true(initStub.calledOnce);
   t.true(listenStub.calledOnce);
   t.true(waitForReadyStub.calledOnce);

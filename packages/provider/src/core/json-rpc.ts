@@ -46,7 +46,8 @@ export function standardizeJsonRpcRequestPayload(payload: Partial<JsonRpcRequest
     markPayloadAsPreprocessed(payload);
   }
 
-  return payload;
+  /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion */
+  return payload as JsonRpcRequestPayload;
 }
 
 /**

@@ -8,7 +8,7 @@ export function createWebTransport(endpoint = MAGIC_RELAYER_FULL_URL) {
 }
 
 export function createIframeController(endpoint = MAGIC_RELAYER_FULL_URL) {
-  return new IframeController(createWebTransport(endpoint), endpoint, ENCODED_QUERY_PARAMS);
+  return new IframeController(createWebTransport(endpoint));
 }
 
 export function createMagicSDK(endpoint = MAGIC_RELAYER_FULL_URL) {

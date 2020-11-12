@@ -33,12 +33,12 @@ function applyOverlayStyles(elem: HTMLElement) {
  * Checks if the given query params are associated with an active `<iframe>`
  * instance.
  *
- * @param encodedQueryParams - The unique, encoded query parameters to check for
+ * @param parameters - The unique, encoded query parameters to check for
  * duplicates against.
  */
-function checkForSameSrcInstances(encodedQueryParams: string) {
+function checkForSameSrcInstances(parameters: string) {
   const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
-  return Boolean(iframes.find((iframe) => iframe.src.includes(encodedQueryParams)));
+  return Boolean(iframes.find((iframe) => iframe.src.includes(parameters)));
 }
 
 /**
