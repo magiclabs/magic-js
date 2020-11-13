@@ -39,7 +39,7 @@ global.btoa = (str) => Buffer.from(str, 'binary').toString('base64');
 /* istanbul ignore next */
 global.atob = (b64Encoded) => Buffer.from(b64Encoded, 'base64').toString('binary');
 
-export * from '@magic-sdk/public';
+export * from '@magic-sdk/commons';
 
 export const Magic = createSDK(SDKBaseReactNative, {
   platform: 'react-native',

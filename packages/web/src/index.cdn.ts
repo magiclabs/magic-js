@@ -3,7 +3,7 @@
 import 'regenerator-runtime/runtime';
 
 import { SDKBase, createSDK } from '@magic-sdk/provider';
-import * as publicAPI from '@magic-sdk/public';
+import * as publicAPI from '@magic-sdk/commons';
 import localForage from 'localforage';
 import memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';

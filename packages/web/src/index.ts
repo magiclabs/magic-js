@@ -6,7 +6,7 @@ import * as memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
 import { WebTransport } from './web-transport';
 
-export * from '@magic-sdk/public';
+export * from '@magic-sdk/commons';
 
 export const Magic = createSDK(SDKBase, {
   platform: 'web',

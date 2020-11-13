@@ -68,7 +68,7 @@ These are packages Magic JS SDK uses internally to work seamlessly across platfo
 | ----------------- | ------------ | --------- | ----------- |
 | [`/types`](./packages/types) | [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types) | [CHANGELOG](./packages/types/CHANGELOG.md) | Core typings shared between JavaScript entry-points of Magic SDK. |
 | [`/provider`](./packages/provider) | [`@magic-sdk/provider`](https://www.npmjs.com/package/@magic-sdk/provider) | [CHANGELOG](./packages/provider/CHANGELOG.md) | Core business logic shared between JavaScript entry-points of Magic SDK. |
-| [`/public`](./packages/public) | [`@magic-sdk/public`](https://www.npmjs.com/package/@magic-sdk/public) | [CHANGELOG](./packages/public/CHANGELOG.md) | Exposes a listing of common public APIs from `@magic-sdk/provider` and `@magic-sdk/typings` to the platform-specific entry points. |
+| [`/commons`](./packages/commons) | [`@magic-sdk/commons`](https://www.npmjs.com/package/@magic-sdk/commons) | [CHANGELOG](./packages/commons/CHANGELOG.md) | Exposes a listing of common public APIs from `@magic-sdk/provider` and `@magic-sdk/typings` to the platform-specific entry points. |
 
 ## 🚦 Testing
 
