@@ -1,6 +1,3 @@
-import { QueryParameters } from '@magic-sdk/types';
-import { createDeprecationWarning } from '../core/sdk-exceptions';
-
 /**
  * Given a JSON-serializable object, encode as a Base64 string.
  */

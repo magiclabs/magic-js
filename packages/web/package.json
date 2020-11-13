@@ -23,6 +23,7 @@
     "@babel/runtime": "^7.9.6",
     "@magic-sdk/provider": "^3.0.1",
     "@magic-sdk/types": "^2.0.1",
+    "@magic-sdk/public": "^0.1.0",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5",
     "regenerator-runtime": "0.13.5"

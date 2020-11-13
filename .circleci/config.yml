@@ -8,6 +8,7 @@ aliases: [
   &dependency-paths [
     "node_modules",
     "packages/provider/node_modules",
+    "packages/public/node_modules",
     "packages/react-native/node_modules",
     "packages/types/node_modules",
     "packages/web/node_modules"
@@ -17,6 +18,7 @@ aliases: [
   # CircleCI workspace.
   &build-output-paths [
     "packages/provider/dist",
+    "packages/public/dist",
     "packages/react-native/dist",
     "packages/types/dist",
     "packages/web/dist"

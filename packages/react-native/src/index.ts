@@ -39,19 +39,7 @@ global.btoa = (str) => Buffer.from(str, 'binary').toString('base64');
 /* istanbul ignore next */
 global.atob = (b64Encoded) => Buffer.from(b64Encoded, 'base64').toString('binary');
 
-export {
-  Extension,
-  MagicSDKError as SDKError,
-  MagicExtensionError as ExtensionError,
-  MagicExtensionWarning as ExtensionWarning,
-  MagicRPCError as RPCError,
-  MagicSDKWarning as SDKWarning,
-  MagicSDKAdditionalConfiguration,
-  PromiEvent,
-  isPromiEvent,
-} from '@magic-sdk/provider';
-
-export * from '@magic-sdk/types';
+export * from '@magic-sdk/public';
 
 export const Magic = createSDK(SDKBaseReactNative, {
   platform: 'react-native',
