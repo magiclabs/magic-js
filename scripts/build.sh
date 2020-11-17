@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo
-boxen --border-color cyan --dim-border --padding 1 "🏗 Building TypeScripts..."
+boxen --border-color cyan --dim-border --padding 1 "Building TypeScripts..."
 echo
 
 tsconfig_paths=$(echo -e $(yarn --silent paths tsconfig.json tsconfig.module.json))
@@ -16,7 +16,7 @@ echo "TypeScripts compiled."
 # ---------------------------------------------------------------------------- #
 
 echo
-boxen --border-color cyan --dim-border --padding 1 "📦 Building CDN bundles..."
+boxen --border-color cyan --dim-border --padding 1 "Building CDN bundles..."
 echo
 
 echo "You can safely ignore \`The 'this' keyword is equivalent to 'undefined'\` warnings"
@@ -27,7 +27,7 @@ yarn wsrun --serial $INIT_CWD/scripts/wsrun/build:cdn.sh
 # ---------------------------------------------------------------------------- #
 
 echo
-boxen --border-color cyan --dim-border --padding 1 "🔗 Interpolating ENV variables..."
+boxen --border-color cyan --dim-border --padding 1 "Interpolating ENV variables..."
 echo
 
 pkg_paths=$(echo -e $(yarn --silent paths))

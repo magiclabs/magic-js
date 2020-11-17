@@ -63,7 +63,7 @@ fi
 
 msg() {
   echo
-  boxen --border-color cyan --dim-border --padding 1 "🧼 Cleaning $1..."
+  boxen --border-color cyan --dim-border --padding 1 "Cleaning $1..."
   echo
 }
 
