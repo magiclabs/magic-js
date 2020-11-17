@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 echo
-echo "+------------------------------------------------------------------------------+"
-echo " 🏗 Building TypeScripts..."
+boxen --border-color cyan --dim-border --padding 1 "🏗 Building TypeScripts..."
 echo
 
 tsconfig_paths=$(echo -e $(yarn --silent paths tsconfig.json tsconfig.module.json))
@@ -14,21 +13,24 @@ echo
 tsc -b $tsconfig_paths
 echo "TypeScripts compiled."
 
+# ---------------------------------------------------------------------------- #
+
 echo
-echo "+------------------------------------------------------------------------------+"
-echo " 📦 Building CDN bundles..."
+boxen --border-color cyan --dim-border --padding 1 "📦 Building CDN bundles..."
 echo
+
 echo "You can safely ignore \`The 'this' keyword is equivalent to 'undefined'\` warnings"
 echo
 
-yarn wsrun --serial $INIT_CWD/scripts/build:cdn.sh
+yarn wsrun --serial $INIT_CWD/scripts/wsrun/build:cdn.sh
+
+# ---------------------------------------------------------------------------- #
 
 echo
-echo "+------------------------------------------------------------------------------+"
-echo " 🔗 Interpolating ENV variables..."
+boxen --border-color cyan --dim-border --padding 1 "🔗 Interpolating ENV variables..."
 echo
 
 pkg_paths=$(echo -e $(yarn --silent paths))
 
-$INIT_CWD/scripts/env.ts $pkg_paths
+$INIT_CWD/scripts/inject-env.ts $pkg_paths
 echo

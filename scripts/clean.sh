@@ -4,6 +4,9 @@ CLEAN_DIST=true
 CLEAN_CACHE=false
 CLEAN_TEST_ARTIFACTS=false
 CLEAN_NODE_MODULES=false
+SHOW_HELP=false
+
+# ---------------------------------------------------------------------------- #
 
 set -e
 while test $# -gt 0; do
@@ -23,16 +26,44 @@ while test $# -gt 0; do
       shift
       ;;
 
+    -help | --help | -h)
+      SHOW_HELP=true
+      shift
+      ;;
+
     *)
       break
       ;;
   esac
 done
 
+# ---------------------------------------------------------------------------- #
+
+if [ $SHOW_HELP = true ]; then
+  __usage="
+    Usage: yarn clean [OPTIONS]
+
+    Options:
+      --cache                   Remove cache files.
+
+      --test-artifacts          Remove coverage reports.
+
+      --deps                    Remove node_modules (from all packages).
+
+      -h, --help                Show this message. No cleaning happens if
+                                this flag is present.
+  "
+
+  echo "$__usage"
+
+  exit 0
+fi
+
+# ---------------------------------------------------------------------------- #
+
 msg() {
   echo
-  echo "+------------------------------------------------------------------------------+"
-  echo " 🧼 Cleaning $1..."
+  boxen --border-color cyan --dim-border --padding 1 "🧼 Cleaning $1..."
   echo
 }
 
