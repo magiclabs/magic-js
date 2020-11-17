@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo
-boxen --border-color cyan --dim-border --padding 1 "🏗 Building for development..."
+boxen --border-color cyan --dim-border --padding 1 "Building for development..."
 echo
 
 pkg_paths=$(echo -e $(yarn --silent paths))
