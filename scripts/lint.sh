@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 echo
-echo "+------------------------------------------------------------------------------+"
-echo " 🔎 Linting TypeScripts..."
+boxen --border-color cyan --dim-border --padding 1   "🔎 Linting TypeScripts..."
 echo
 
 yarn wsrun --stages eslint --fix "**/src/**/*.ts"

@@ -4,15 +4,13 @@
   "version": "0.0.0",
   "scripts": {
     "bootstrap": "yarn install && lerna link",
-    "wsrun": "wsrun --bin $INIT_CWD/scripts/runner.sh -p $PKG",
+    "wsrun": "wsrun --bin $INIT_CWD/scripts/wsrun/runner.sh -p $PKG",
     "dev": "$INIT_CWD/scripts/clean.sh && $INIT_CWD/scripts/dev.sh",
     "build": "$INIT_CWD/scripts/clean.sh && $INIT_CWD/scripts/build.sh",
     "clean": "$INIT_CWD/scripts/clean.sh",
     "lint": "$INIT_CWD/scripts/lint.sh",
-    "test": "yarn wsrun --serial --fast-exit -c $INIT_CWD/scripts/test.sh",
-    "paths": "yarn --silent wsrun --parallel --no-prefix -r -c $INIT_CWD/scripts/cwd.ts",
-    "snyk-protect": "snyk protect",
-    "prepare": "yarn run snyk-protect"
+    "test": "$INIT_CWD/scripts/test.sh",
+    "paths": "yarn --silent wsrun --parallel --no-prefix -r -c $INIT_CWD/scripts/wsrun/resolve-paths.ts"
   },
   "dependencies": {
     "snyk": "^1.319.1"
@@ -32,6 +30,7 @@
     "@typescript-eslint/eslint-plugin": "~3.4.0",
     "auto": "^9.59.1",
     "ava": "3.11.0",
+    "boxen-cli": "^1.0.0",
     "eslint": "~7.3.1",
     "eslint-import-resolver-typescript": "~2.0.0",
     "eslint-plugin-import": "~2.21.0",
@@ -39,6 +38,7 @@
     "eslint-plugin-prettier": "~3.1.4",
     "eslint-plugin-react": "~7.20.0",
     "eslint-plugin-react-hooks": "~4.0.4",
+    "find-glob": "^2.1.0",
     "glob": "^7.1.6",
     "husky": "^4.3.0",
     "import-fresh": "^3.2.1",

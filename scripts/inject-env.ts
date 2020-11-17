@@ -14,6 +14,8 @@ import path from 'path';
 /**
  * Environment variables to be interpolated into the built files. Interpolations
  * occur where `"%VARIABLE_NAME%"` is found.
+ *
+ * (FYI: it's best to encapsulate the interpolation as a string).
  */
 const environment = {
   WEB_VERSION: require(path.resolve(__dirname, '../packages/web/package.json')).version,

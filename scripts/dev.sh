@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 echo
-echo "+------------------------------------------------------------------------------+"
-echo " 🏗 Building for development..."
+boxen --border-color cyan --dim-border --padding 1 "🏗 Building for development..."
 echo
 
 pkg_paths=$(echo -e $(yarn --silent paths))
@@ -14,4 +13,4 @@ echo
 
 sleep 3
 
-tsc-watch --onSuccess "$INIT_CWD/scripts/env.ts $pkg_paths" -b -w $tsconfig_paths
+tsc-watch --onSuccess "$INIT_CWD/scripts/inject-env.ts $pkg_paths" -b -w $tsconfig_paths
