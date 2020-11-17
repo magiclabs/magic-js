@@ -13,6 +13,5 @@
   "references": [
     { "path": "../types/tsconfig.json" },
     { "path": "../provider/tsconfig.json" },
-    { "path": "../commons/tsconfig.json" },
   ]
 }

@@ -10,7 +10,7 @@ export function createReactNativeTransport(endpoint = MAGIC_RELAYER_FULL_URL) {
 }
 
 export function createReactNativeWebViewController(endpoint = MAGIC_RELAYER_FULL_URL) {
-  return new ReactNativeWebViewController(createReactNativeTransport(endpoint), endpoint, ENCODED_QUERY_PARAMS);
+  return new ReactNativeWebViewController(createReactNativeTransport(endpoint));
 }
 
 export function createMagicSDK(endpoint = MAGIC_RELAYER_FULL_URL) {

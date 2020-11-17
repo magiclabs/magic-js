@@ -12,8 +12,8 @@ export class ReactNativeTransport extends PayloadTransport {
       event.nativeEvent &&
       typeof event.nativeEvent.data === 'string' &&
       /* Backward comaptible */
-      (event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.encodedQueryParams)}` ||
-        event.nativeEvent.url === `${this.endpoint}/send/?params=${this.encodedQueryParams}`)
+      (event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` ||
+        event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}`)
     ) {
       const data: any = JSON.parse(event.nativeEvent.data);
       if (data && data.msgType && this.messageHandlers.size) {

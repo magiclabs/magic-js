@@ -104,8 +104,8 @@ export class SDKBase {
   private static readonly __transports__: Map<string, PayloadTransport> = new Map();
   private static readonly __overlays__: Map<string, ViewController> = new Map();
 
-  public readonly endpoint: string;
-  public readonly encodedQueryParams: string;
+  protected readonly endpoint: string;
+  protected readonly parameters: string;
 
   /**
    * Contains methods for starting a Magic SDK authentication flow.
@@ -137,16 +137,16 @@ export class SDKBase {
     const { defaultEndpoint, version } = SDKEnvironment;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
 
-    // Assign API Modules
+    // Prepare built-in modules
     this.auth = new AuthModule(this);
     this.user = new UserModule(this);
     this.rpcProvider = new RPCProviderModule(this);
 
-    // Prepare Extensions
+    // Prepare extensions
     const extConfig: any = prepareExtensions.call(this, options);
 
-    // Build query params for the current `ViewController`
-    this.encodedQueryParams = encodeJSON<QueryParameters>({
+    // Encode parameters as base64-JSON
+    this.parameters = encodeJSON<QueryParameters>({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
       ETH_NETWORK: options?.network,
@@ -163,26 +163,23 @@ export class SDKBase {
    * `MagicSDK` instance.
    */
   protected get transport(): PayloadTransport {
-    if (!SDKBase.__transports__.has(this.encodedQueryParams)) {
-      SDKBase.__transports__.set(
-        this.encodedQueryParams,
-        new SDKEnvironment.PayloadTransport(this.endpoint, this.encodedQueryParams),
-      );
+    if (!SDKBase.__transports__.has(this.parameters)) {
+      SDKBase.__transports__.set(this.parameters, new SDKEnvironment.PayloadTransport(this.endpoint, this.parameters));
     }
 
-    return SDKBase.__transports__.get(this.encodedQueryParams)!;
+    return SDKBase.__transports__.get(this.parameters)!;
   }
 
   /**
    * Represents the view controller associated with this `MagicSDK` instance.
    */
   protected get overlay(): ViewController {
-    if (!SDKBase.__overlays__.has(this.encodedQueryParams)) {
-      const controller = new SDKEnvironment.ViewController(this.transport, this.endpoint, this.encodedQueryParams);
-      SDKBase.__overlays__.set(this.encodedQueryParams, controller);
+    if (!SDKBase.__overlays__.has(this.parameters)) {
+      const controller = new SDKEnvironment.ViewController(this.transport);
+      SDKBase.__overlays__.set(this.parameters, controller);
     }
 
-    return SDKBase.__overlays__.get(this.encodedQueryParams)!;
+    return SDKBase.__overlays__.get(this.parameters)!;
   }
 
   /**

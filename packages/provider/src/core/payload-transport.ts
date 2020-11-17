@@ -58,13 +58,11 @@ export abstract class PayloadTransport {
   /**
    * Create an instance of `PayloadTransport`
    *
-   * @param overlay - The `IframeController` context to which the event will be
-   * posted.
    * @param endpoint - The URL for the relevant iframe context.
-   * @param encodedQueryParams - The unique, encoded query parameters for the
+   * @param parameters - The unique, encoded query parameters for the
    * relevant iframe context.
    */
-  constructor(protected readonly endpoint: string, protected readonly encodedQueryParams: string) {
+  constructor(protected readonly endpoint: string, protected readonly parameters: string) {
     this.init();
   }
 
@@ -100,7 +98,7 @@ export abstract class PayloadTransport {
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
 
-      await overlay.postMessage({ msgType: `${msgType}-${this.encodedQueryParams}`, payload });
+      await overlay.postMessage({ msgType: `${msgType}-${this.parameters}`, payload });
 
       /** Collect successful RPC responses and resolve. */
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
@@ -146,7 +144,7 @@ export abstract class PayloadTransport {
     // `initMessageListener`.
     /* istanbul ignore next */
     const listener = (event: MagicMessageEvent) => {
-      if (event.data.msgType === `${msgType}-${this.encodedQueryParams}`) boundHandler(event);
+      if (event.data.msgType === `${msgType}-${this.parameters}`) boundHandler(event);
     };
 
     this.messageHandlers.add(listener);

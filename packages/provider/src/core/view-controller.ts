@@ -3,14 +3,21 @@ import { PayloadTransport } from './payload-transport';
 
 export abstract class ViewController<Transport extends PayloadTransport = PayloadTransport> {
   public ready: Promise<void>;
+  protected readonly endpoint: string;
+  protected readonly parameters: string;
 
-  constructor(
-    protected readonly transport: Transport,
-    protected readonly endpoint: string,
-    protected readonly encodedQueryParams: string,
-  ) {
+  constructor(protected readonly transport: Transport) {
+    // Get the `endpoint` and `parameters` value
+    // from the underlying `transport` instance.
+    this.endpoint = (transport as any).endpoint;
+    this.parameters = (transport as any).parameters;
+
+    // Create a promise that resolves when
+    // the view is ready for messages.
     this.ready = this.waitForReady();
+
     if (this.init) this.init();
+
     this.listen();
   }
 

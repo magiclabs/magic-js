@@ -5,6 +5,9 @@
     { "path": "./packages/provider/tsconfig.json" },
     { "path": "./packages/provider/tsconfig.module.json" },
 
+    { "path": "./packages/public/tsconfig.json" },
+    { "path": "./packages/public/tsconfig.module.json" },
+
     { "path": "./packages/react-native/tsconfig.json" },
     { "path": "./packages/react-native/tsconfig.module.json" },
 

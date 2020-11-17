@@ -6,19 +6,7 @@ import * as memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
 import { WebTransport } from './web-transport';
 
-export {
-  Extension,
-  MagicSDKError as SDKError,
-  MagicExtensionError as ExtensionError,
-  MagicExtensionWarning as ExtensionWarning,
-  MagicRPCError as RPCError,
-  MagicSDKWarning as SDKWarning,
-  MagicSDKAdditionalConfiguration,
-  PromiEvent,
-  isPromiEvent,
-} from '@magic-sdk/provider';
-
-export * from '@magic-sdk/types';
+export * from '@magic-sdk/commons';
 
 export const Magic = createSDK(SDKBase, {
   platform: 'web',

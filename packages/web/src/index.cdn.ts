@@ -2,18 +2,8 @@
 
 import 'regenerator-runtime/runtime';
 
-import {
-  SDKBase,
-  createSDK,
-  Extension,
-  MagicSDKError,
-  MagicExtensionError,
-  MagicExtensionWarning,
-  MagicRPCError,
-  MagicSDKWarning,
-  isPromiEvent,
-} from '@magic-sdk/provider';
-import * as types from '@magic-sdk/types';
+import { SDKBase, createSDK } from '@magic-sdk/provider';
+import * as publicAPI from '@magic-sdk/commons';
 import localForage from 'localforage';
 import memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
@@ -41,15 +31,6 @@ const Magic = createSDK(SDKBase, {
 
 // NOTE: enums are emitted by TypeScript -- in the CDN bundle we attach public
 // enums and error classes as static members of the `MagicSDK` class.
-Object.assign(Magic, {
-  ...types,
-  SDKError: MagicSDKError,
-  ExtensionError: MagicExtensionError,
-  ExtensionWarning: MagicExtensionWarning,
-  RPCError: MagicRPCError,
-  SDKWarning: MagicSDKWarning,
-  Extension,
-  isPromiEvent,
-});
+Object.assign(Magic, { ...publicAPI });
 
 export { Magic as default };
