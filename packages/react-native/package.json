@@ -29,7 +29,8 @@
     "localforage-driver-memory": "^1.0.5",
     "lodash": "^4.17.19",
     "process": "~0.11.10",
-    "whatwg-url": "~8.1.0"
+    "whatwg-url": "~8.1.0",
+    "tslib": "^2.0.3"
   },
   "devDependencies": {
     "react": "^16.13.1",
