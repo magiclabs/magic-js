@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../core/json-rpc';
 import { BaseModule } from './base-module';
 import { SDKBase, MagicSDKAdditionalConfiguration } from '../core/sdk';
@@ -15,10 +17,13 @@ interface BaseExtension<TName extends string> extends BaseModule {
   };
 }
 
+const sdkAccessFields = ['request', 'transport', 'overlay', 'sdk'];
+
 abstract class BaseExtension<TName extends string> extends BaseModule {
   public abstract readonly name: TName;
 
-  private isInitialized = false;
+  private __sdk_access_field_descriptors__ = new Map<string, PropertyDescriptor>();
+  private __is_initialized__ = false;
 
   protected utils = {
     createPromiEvent,
@@ -34,14 +39,22 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
     super(undefined as any);
 
     // Disallow SDK access before initialization.
-    ['request', 'transport', 'overlay', 'sdk'].forEach((prop) => {
+    sdkAccessFields.forEach((prop) => {
+      const descriptor = Object.getOwnPropertyDescriptor(this, prop);
+
+      const fallbackDescriptor: PropertyDescriptor = {
+        value: undefined,
+        writable: true,
+        enumerable: true,
+        configurable: true,
+      };
+
+      this.__sdk_access_field_descriptors__.set(prop, descriptor ?? fallbackDescriptor);
+
       Object.defineProperty(this, prop, {
+        configurable: true,
         get: () => {
-          if (!this.isInitialized) {
-            throw createExtensionNotInitializedError(prop);
-          } else {
-            return super[prop as keyof BaseModule];
-          }
+          throw createExtensionNotInitializedError(prop);
         },
       });
     });
@@ -53,10 +66,17 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
    * @internal
    */
   public init(sdk: SDKBase) {
-    if (this.isInitialized) return;
+    if (this.__is_initialized__) return;
 
-    (this.sdk as any) = sdk;
-    this.isInitialized = true;
+    // Replace original property descriptors
+    // for SDK access fields post-initialization.
+    sdkAccessFields.forEach((prop) => {
+      const descriptor = this.__sdk_access_field_descriptors__.get(prop)!;
+      Object.defineProperty(this, prop, descriptor);
+    });
+
+    this.sdk = sdk;
+    this.__is_initialized__ = true;
   }
 
   /**
