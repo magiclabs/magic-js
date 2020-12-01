@@ -33,22 +33,23 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
   constructor() {
     super(undefined as any);
 
-    const sdkAccessFields = ['request', 'transport', 'overlay', 'sdk'];
-
     // Disallow SDK access before initialization.
-    return new Proxy(this, {
-      get: (target, prop, receiver) => {
-        if (sdkAccessFields.includes(prop as string) && !this.isInitialized) {
-          throw createExtensionNotInitializedError(prop as string);
-        }
-
-        return Reflect.get(target, prop, receiver);
-      },
+    ['request', 'transport', 'overlay', 'sdk'].forEach((prop) => {
+      Object.defineProperty(this, prop, {
+        get: () => {
+          if (!this.isInitialized) {
+            throw createExtensionNotInitializedError(prop);
+          } else {
+            return super[prop as keyof BaseModule];
+          }
+        },
+      });
     });
   }
 
   /**
    * Registers a Magic SDK instance with this Extension.
+   *
    * @internal
    */
   public init(sdk: SDKBase) {
