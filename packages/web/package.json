@@ -26,7 +26,8 @@
     "@magic-sdk/types": "^3.0.0",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5",
-    "regenerator-runtime": "0.13.5"
+    "regenerator-runtime": "0.13.5",
+    "tslib": "^2.0.3"
   },
   "ava": {
     "require": [
