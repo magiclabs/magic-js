@@ -8,7 +8,7 @@ import { ViewController } from '../core/view-controller';
 import { EventsDefinition } from '../util/events';
 
 export class BaseModule {
-  constructor(protected readonly sdk: SDKBase) {}
+  constructor(protected sdk: SDKBase) {}
 
   /**
    * The `PayloadTransport` for the SDK instance registered to this module.

@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../core/json-rpc';
 import { BaseModule } from './base-module';
 import { SDKBase, MagicSDKAdditionalConfiguration } from '../core/sdk';
@@ -15,10 +17,32 @@ interface BaseExtension<TName extends string> extends BaseModule {
   };
 }
 
+const sdkAccessFields = ['request', 'transport', 'overlay', 'sdk'];
+
+/**
+ * From the `BaseExtension`-derived instance, get the prototype
+ * chain up to and including the `BaseModule` class.
+ */
+function getPrototypeChain<T extends BaseExtension<string>>(instance: T) {
+  let currentProto = Object.getPrototypeOf(instance);
+  const protos = [currentProto];
+
+  while (currentProto !== BaseModule.prototype) {
+    currentProto = Object.getPrototypeOf(currentProto);
+    protos.push(currentProto);
+  }
+
+  return protos;
+}
+
 abstract class BaseExtension<TName extends string> extends BaseModule {
   public abstract readonly name: TName;
 
-  private isInitialized = false;
+  private __sdk_access_field_descriptors__ = new Map<
+    string,
+    { descriptor: PropertyDescriptor; isPrototypeField: boolean }
+  >();
+  private __is_initialized__ = false;
 
   protected utils = {
     createPromiEvent,
@@ -33,29 +57,57 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
   constructor() {
     super(undefined as any);
 
-    const sdkAccessFields = ['request', 'transport', 'overlay', 'sdk'];
+    // Disallow SDK access before initialization...
 
-    // Disallow SDK access before initialization.
-    return new Proxy(this, {
-      get: (target, prop, receiver) => {
-        if (sdkAccessFields.includes(prop as string) && !this.isInitialized) {
-          throw createExtensionNotInitializedError(prop as string);
-        }
+    const allSources = [this, ...getPrototypeChain(this)];
 
-        return Reflect.get(target, prop, receiver);
-      },
+    sdkAccessFields.forEach((prop) => {
+      const allDescriptors = allSources.map((source) => Object.getOwnPropertyDescriptor(source, prop));
+      const sourceIndex = allDescriptors.findIndex((x) => !!x);
+      const isPrototypeField = sourceIndex > 0;
+      const descriptor = allDescriptors[sourceIndex];
+
+      /* istanbul ignore else */
+      if (descriptor) {
+        this.__sdk_access_field_descriptors__.set(prop, { descriptor, isPrototypeField });
+
+        Object.defineProperty(this, prop, {
+          configurable: true,
+          get: () => {
+            throw createExtensionNotInitializedError(prop);
+          },
+        });
+      }
     });
   }
 
   /**
    * Registers a Magic SDK instance with this Extension.
+   *
    * @internal
    */
   public init(sdk: SDKBase) {
-    if (this.isInitialized) return;
+    if (this.__is_initialized__) return;
 
-    (this.sdk as any) = sdk;
-    this.isInitialized = true;
+    // Replace original property descriptors
+    // for SDK access fields post-initialization.
+    sdkAccessFields.forEach((prop) => {
+      /* istanbul ignore else */
+      if (this.__sdk_access_field_descriptors__.has(prop)) {
+        const { descriptor, isPrototypeField } = this.__sdk_access_field_descriptors__.get(prop)!;
+
+        if (isPrototypeField) {
+          // For prototype fields, we just need the `delete` operator so that
+          // the instance will fallback to the prototype chain itself.
+          delete this[prop as keyof this];
+        } else {
+          Object.defineProperty(this, prop, descriptor);
+        }
+      }
+    });
+
+    this.sdk = sdk;
+    this.__is_initialized__ = true;
   }
 
   /**
