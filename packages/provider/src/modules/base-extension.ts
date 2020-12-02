@@ -22,7 +22,10 @@ const sdkAccessFields = ['request', 'transport', 'overlay', 'sdk'];
 abstract class BaseExtension<TName extends string> extends BaseModule {
   public abstract readonly name: TName;
 
-  private __sdk_access_field_descriptors__ = new Map<string, { descriptor: PropertyDescriptor; source: any }>();
+  private __sdk_access_field_descriptors__ = new Map<
+    string,
+    { descriptor: PropertyDescriptor; isPrototypeSource: boolean }
+  >();
   private __is_initialized__ = false;
 
   protected utils = {
@@ -43,28 +46,21 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
       const allSources = [this, BaseExtension.prototype, BaseModule.prototype];
       const allDescriptors = allSources.map((source) => Object.getOwnPropertyDescriptor(source, prop));
 
-      const truthyPredicate = (a: any) => !!a;
-      const source = allSources[allDescriptors.findIndex(truthyPredicate)];
-      const descriptor = allDescriptors.find(truthyPredicate);
+      const sourceIndex = allDescriptors.findIndex((a: any) => !!a);
+      const isPrototypeSource = sourceIndex > 0;
+      const descriptor = allDescriptors[sourceIndex];
 
-      const fallbackDescriptor: PropertyDescriptor = {
-        value: undefined,
-        writable: true,
-        enumerable: true,
-        configurable: true,
-      };
+      /* istanbul ignore else */
+      if (descriptor) {
+        this.__sdk_access_field_descriptors__.set(prop, { descriptor, isPrototypeSource });
 
-      this.__sdk_access_field_descriptors__.set(prop, {
-        descriptor: descriptor ?? fallbackDescriptor,
-        source,
-      });
-
-      Object.defineProperty(source, prop, {
-        configurable: true,
-        get: () => {
-          throw createExtensionNotInitializedError(prop);
-        },
-      });
+        Object.defineProperty(isPrototypeSource ? Object.getPrototypeOf(this) : this, prop, {
+          configurable: true,
+          get: () => {
+            throw createExtensionNotInitializedError(prop);
+          },
+        });
+      }
     });
   }
 
@@ -79,8 +75,8 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
     // Replace original property descriptors
     // for SDK access fields post-initialization.
     sdkAccessFields.forEach((prop) => {
-      const { descriptor, source } = this.__sdk_access_field_descriptors__.get(prop)!;
-      Object.defineProperty(source, prop, descriptor);
+      const { descriptor, isPrototypeSource } = this.__sdk_access_field_descriptors__.get(prop)!;
+      Object.defineProperty(isPrototypeSource ? Object.getPrototypeOf(this) : this, prop, descriptor);
     });
 
     this.sdk = sdk;
