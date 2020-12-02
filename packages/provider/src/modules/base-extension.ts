@@ -22,10 +22,7 @@ const sdkAccessFields = ['request', 'transport', 'overlay', 'sdk'];
 abstract class BaseExtension<TName extends string> extends BaseModule {
   public abstract readonly name: TName;
 
-  private __sdk_access_field_descriptors__ = new Map<
-    string,
-    { descriptor: PropertyDescriptor; isPrototypeSource: boolean }
-  >();
+  private __sdk_access_field_descriptors__ = new Map<string, { descriptor: PropertyDescriptor; source: any }>();
   private __is_initialized__ = false;
 
   protected utils = {
@@ -47,14 +44,14 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
       const allDescriptors = allSources.map((source) => Object.getOwnPropertyDescriptor(source, prop));
 
       const sourceIndex = allDescriptors.findIndex((a: any) => !!a);
-      const isPrototypeSource = sourceIndex > 0;
+      const source = sourceIndex > 0 ? Object.getPrototypeOf(this) : this;
       const descriptor = allDescriptors[sourceIndex];
 
       /* istanbul ignore else */
       if (descriptor) {
-        this.__sdk_access_field_descriptors__.set(prop, { descriptor, isPrototypeSource });
+        this.__sdk_access_field_descriptors__.set(prop, { descriptor, source });
 
-        Object.defineProperty(isPrototypeSource ? Object.getPrototypeOf(this) : this, prop, {
+        Object.defineProperty(source, prop, {
           configurable: true,
           get: () => {
             throw createExtensionNotInitializedError(prop);
@@ -75,8 +72,8 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
     // Replace original property descriptors
     // for SDK access fields post-initialization.
     sdkAccessFields.forEach((prop) => {
-      const { descriptor, isPrototypeSource } = this.__sdk_access_field_descriptors__.get(prop)!;
-      Object.defineProperty(isPrototypeSource ? Object.getPrototypeOf(this) : this, prop, descriptor);
+      const { descriptor, source } = this.__sdk_access_field_descriptors__.get(prop)!;
+      Object.defineProperty(source, prop, descriptor);
     });
 
     this.sdk = sdk;
