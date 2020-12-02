@@ -19,10 +19,29 @@ interface BaseExtension<TName extends string> extends BaseModule {
 
 const sdkAccessFields = ['request', 'transport', 'overlay', 'sdk'];
 
+/**
+ * From the `BaseExtension`-derived instance, get the prototype
+ * chain up to and including the `BaseModule` class.
+ */
+function getPrototypeChain<T extends BaseExtension<string>>(instance: T) {
+  let currentProto = Object.getPrototypeOf(instance);
+  const protos = [currentProto];
+
+  while (currentProto !== BaseModule.prototype) {
+    currentProto = Object.getPrototypeOf(currentProto);
+    protos.push(currentProto);
+  }
+
+  return protos;
+}
+
 abstract class BaseExtension<TName extends string> extends BaseModule {
   public abstract readonly name: TName;
 
-  private __sdk_access_field_descriptors__ = new Map<string, { descriptor: PropertyDescriptor; source: any }>();
+  private __sdk_access_field_descriptors__ = new Map<
+    string,
+    { descriptor: PropertyDescriptor; isPrototypeField: boolean }
+  >();
   private __is_initialized__ = false;
 
   protected utils = {
@@ -38,20 +57,21 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
   constructor() {
     super(undefined as any);
 
-    // Disallow SDK access before initialization.
-    sdkAccessFields.forEach((prop) => {
-      const allSources = [this, BaseExtension.prototype, BaseModule.prototype];
-      const allDescriptors = allSources.map((source) => Object.getOwnPropertyDescriptor(source, prop));
+    // Disallow SDK access before initialization...
 
-      const sourceIndex = allDescriptors.findIndex((a: any) => !!a);
-      const source = sourceIndex > 0 ? Object.getPrototypeOf(this) : this;
+    const allSources = [this, ...getPrototypeChain(this)];
+
+    sdkAccessFields.forEach((prop) => {
+      const allDescriptors = allSources.map((source) => Object.getOwnPropertyDescriptor(source, prop));
+      const sourceIndex = allDescriptors.findIndex((x) => !!x);
+      const isPrototypeField = sourceIndex > 0;
       const descriptor = allDescriptors[sourceIndex];
 
       /* istanbul ignore else */
       if (descriptor) {
-        this.__sdk_access_field_descriptors__.set(prop, { descriptor, source });
+        this.__sdk_access_field_descriptors__.set(prop, { descriptor, isPrototypeField });
 
-        Object.defineProperty(source, prop, {
+        Object.defineProperty(this, prop, {
           configurable: true,
           get: () => {
             throw createExtensionNotInitializedError(prop);
@@ -72,8 +92,12 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
     // Replace original property descriptors
     // for SDK access fields post-initialization.
     sdkAccessFields.forEach((prop) => {
-      const { descriptor, source } = this.__sdk_access_field_descriptors__.get(prop)!;
-      Object.defineProperty(source, prop, descriptor);
+      const { descriptor, isPrototypeField } = this.__sdk_access_field_descriptors__.get(prop)!;
+      if (!isPrototypeField) {
+        Object.defineProperty(this, prop, descriptor);
+      } else {
+        delete this[prop as keyof this];
+      }
     });
 
     this.sdk = sdk;
