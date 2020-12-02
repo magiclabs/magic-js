@@ -92,11 +92,15 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
     // Replace original property descriptors
     // for SDK access fields post-initialization.
     sdkAccessFields.forEach((prop) => {
-      const { descriptor, isPrototypeField } = this.__sdk_access_field_descriptors__.get(prop)!;
-      if (!isPrototypeField) {
-        Object.defineProperty(this, prop, descriptor);
-      } else {
-        delete this[prop as keyof this];
+      /* istanbul ignore else */
+      if (this.__sdk_access_field_descriptors__.has(prop)) {
+        const { descriptor, isPrototypeField } = this.__sdk_access_field_descriptors__.get(prop)!;
+
+        if (isPrototypeField) {
+          delete this[prop as keyof this];
+        } else {
+          Object.defineProperty(this, prop, descriptor);
+        }
       }
     });
 
