@@ -1,3 +1,16 @@
+# (Wed Dec 02 2020)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@4.0.2`
+  - Remove ES6 Proxy references [#154](https://github.com/magiclabs/magic-js/pull/154) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Tue Dec 01 2020)
 
 #### 🐛 Bug Fix
