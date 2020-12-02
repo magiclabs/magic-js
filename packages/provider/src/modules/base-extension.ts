@@ -97,6 +97,8 @@ abstract class BaseExtension<TName extends string> extends BaseModule {
         const { descriptor, isPrototypeField } = this.__sdk_access_field_descriptors__.get(prop)!;
 
         if (isPrototypeField) {
+          // For prototype fields, we just need the `delete` operator so that
+          // the instance will fallback to the prototype chain itself.
           delete this[prop as keyof this];
         } else {
           Object.defineProperty(this, prop, descriptor);
