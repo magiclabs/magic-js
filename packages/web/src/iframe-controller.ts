@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-underscore-dangle */
 
 import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
@@ -54,6 +55,7 @@ export class IframeController extends ViewController {
           const iframe = document.createElement('iframe');
           iframe.classList.add('magic-iframe');
           iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
+          iframe.title = 'Secure Modal';
           iframe.src = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
@@ -76,6 +78,7 @@ export class IframeController extends ViewController {
   protected async showOverlay() {
     const iframe = await this.iframe;
     iframe.style.display = 'block';
+    iframe.focus();
   }
 
   protected async hideOverlay() {

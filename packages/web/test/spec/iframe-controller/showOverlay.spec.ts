@@ -11,9 +11,15 @@ test.beforeEach((t) => {
 test('Change display style to `block`', async (t) => {
   const overlay = createIframeController();
 
-  (overlay as any).iframe = { style: { display: 'none' } };
+  const focusStub = sinon.stub();
+
+  (overlay as any).iframe = {
+    style: { display: 'none' },
+    focus: focusStub,
+  };
 
   await (overlay as any).showOverlay();
 
   t.deepEqual((overlay as any).iframe, { style: { display: 'block' } });
+  t.true(focusStub.calledOnce);
 });
