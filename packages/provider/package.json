@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/provider",
-  "version": "4.0.0",
+  "version": "4.0.2",
   "description": "Core business logic for Magic SDK packages.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -17,9 +17,10 @@
   "module": "dist/module/index.js",
   "types": "dist/commonjs/index.d.ts",
   "dependencies": {
-    "@magic-sdk/types": "^3.0.0",
+    "@magic-sdk/types": "^3.0.1",
     "eventemitter3": "^4.0.4",
-    "semver": "^7.3.2"
+    "semver": "^7.3.2",
+    "tslib": "^2.0.3"
   },
   "peerDependencies": {
     "localforage": "^1.7.4"

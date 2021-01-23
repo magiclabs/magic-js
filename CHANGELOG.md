@@ -1,3 +1,38 @@
+# (Wed Dec 02 2020)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@4.0.2`
+  - Remove ES6 Proxy references [#154](https://github.com/magiclabs/magic-js/pull/154) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Tue Dec 01 2020)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/commons@1.0.1`, `@magic-sdk/provider@4.0.1`, `@magic-sdk/react-native@4.0.1`, `@magic-sdk/types@3.0.1`, `magic-sdk@4.0.1`
+  - Add 'importHelpers: true' to base tsconfig.json [#152](https://github.com/magiclabs/magic-js/pull/152) ([@smithki](https://github.com/smithki))
+
+#### 🏠 Internal
+
+- Cleanup internal scripts [#150](https://github.com/magiclabs/magic-js/pull/150) ([@smithki](https://github.com/smithki))
+
+#### 📝 Documentation
+
+- `@magic-sdk/commons@1.0.1`, `@magic-sdk/provider@4.0.1`, `@magic-sdk/react-native@4.0.1`, `@magic-sdk/types@3.0.1`, `magic-sdk@4.0.1`
+  - Fix incorrect TypeScript project references and update READMEs with changelog links [#151](https://github.com/magiclabs/magic-js/pull/151) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Tue Nov 17 2020)
 
 #### 💥 Breaking Change
