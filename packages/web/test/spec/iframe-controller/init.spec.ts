@@ -51,6 +51,7 @@ test.serial('Appends header with style, appends body with iframe, and resolves i
   t.true(classListAddStub.calledWith('magic-iframe'));
   t.deepEqual(iframe.dataset, { magicIframeLabel: 'auth.magic.link' });
   t.is(iframe.src, `${MAGIC_RELAYER_FULL_URL}/send?params=${ENCODED_QUERY_PARAMS}`);
+  t.is(iframe.title, 'Secure Modal');
 });
 
 test.serial('Displays warning in console upon duplicate iframes', async (t) => {

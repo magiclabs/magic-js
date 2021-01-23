@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-underscore-dangle */
 
 import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
@@ -46,6 +47,7 @@ function checkForSameSrcInstances(parameters: string) {
  */
 export class IframeController extends ViewController {
   private iframe!: Promise<HTMLIFrameElement>;
+  private activeElement: any = null;
 
   protected init() {
     this.iframe = new Promise((resolve) => {
@@ -54,6 +56,7 @@ export class IframeController extends ViewController {
           const iframe = document.createElement('iframe');
           iframe.classList.add('magic-iframe');
           iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
+          iframe.title = 'Secure Modal';
           iframe.src = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
@@ -76,11 +79,15 @@ export class IframeController extends ViewController {
   protected async showOverlay() {
     const iframe = await this.iframe;
     iframe.style.display = 'block';
+    this.activeElement = document.activeElement;
+    iframe.focus();
   }
 
   protected async hideOverlay() {
     const iframe = await this.iframe;
     iframe.style.display = 'none';
+    if (this.activeElement?.focus) this.activeElement.focus();
+    this.activeElement = null;
   }
 
   public async postMessage(data: any) {
