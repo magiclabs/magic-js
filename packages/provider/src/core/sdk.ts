@@ -95,7 +95,47 @@ export interface MagicSDKAdditionalConfiguration<
   TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> } = any
 > {
   endpoint?: string;
-  locale?: 'en_US' | 'pl_PL';
+  locale?:
+    | 'en_US'
+    | 'pl_PL'
+    | 'af'
+    | 'az'
+    | 'ca'
+    | 'cy'
+    | 'da'
+    | 'de'
+    | 'et'
+    | 'en'
+    | 'es'
+    | 'fr'
+    | 'hr'
+    | 'id'
+    | 'it'
+    | 'lv'
+    | 'lt'
+    | 'hu'
+    | 'nl'
+    | 'no'
+    | 'pl'
+    | 'pt'
+    | 'ro'
+    | 'sk'
+    | 'sl'
+    | 'fi'
+    | 'sv'
+    | 'tr'
+    | 'vi'
+    | 'cs'
+    | 'el'
+    | 'bg'
+    | 'mk'
+    | 'ru'
+    | 'sr'
+    | 'th'
+    | 'zh_TW'
+    | 'zh_CN'
+    | 'ja'
+    | 'ko';
   network?: EthNetworkConfiguration;
   extensions?: TExt;
 }
