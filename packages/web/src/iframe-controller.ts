@@ -47,6 +47,7 @@ function checkForSameSrcInstances(parameters: string) {
  */
 export class IframeController extends ViewController {
   private iframe!: Promise<HTMLIFrameElement>;
+  private activeElement: any = null;
 
   protected init() {
     this.iframe = new Promise((resolve) => {
@@ -78,12 +79,15 @@ export class IframeController extends ViewController {
   protected async showOverlay() {
     const iframe = await this.iframe;
     iframe.style.display = 'block';
+    this.activeElement = document.activeElement;
     iframe.focus();
   }
 
   protected async hideOverlay() {
     const iframe = await this.iframe;
     iframe.style.display = 'none';
+    if (this.activeElement?.focus) this.activeElement.focus();
+    this.activeElement = null;
   }
 
   public async postMessage(data: any) {
