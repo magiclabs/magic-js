@@ -1,3 +1,24 @@
+# (Sat Jan 23 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/commons@1.1.0`, `magic-sdk@4.1.0`
+  - Iframe accessibility improvements: Add `title` attribute and auto-focus when UI is showing [#158](https://github.com/magiclabs/magic-js/pull/158) ([@smithki](https://github.com/smithki))
+- `@magic-sdk/provider@4.1.0`
+  - Improve i18n Support [#157](https://github.com/magiclabs/magic-js/pull/157) ([@Dizigen](https://github.com/Dizigen) [@smithki](https://github.com/smithki))
+
+#### 🔩 Dependency Updates
+
+- [Snyk] Security upgrade snyk from 1.360.0 to 1.425.4 [#153](https://github.com/magiclabs/magic-js/pull/153) ([@snyk-bot](https://github.com/snyk-bot) [@smithki](https://github.com/smithki))
+
+#### Authors: 3
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Ian K Smith ([@smithki](https://github.com/smithki))
+- Snyk bot ([@snyk-bot](https://github.com/snyk-bot))
+
+---
+
 # (Wed Dec 02 2020)
 
 #### 🐛 Bug Fix

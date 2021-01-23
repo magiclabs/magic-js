@@ -1,3 +1,16 @@
+# v4.1.0 (Sat Jan 23 2021)
+
+#### 🚀 Enhancement
+
+- Improve i18n Support [#157](https://github.com/magiclabs/magic-js/pull/157) ([@Dizigen](https://github.com/Dizigen) [@smithki](https://github.com/smithki))
+
+#### Authors: 2
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v4.0.2 (Wed Dec 02 2020)
 
 #### 🐛 Bug Fix

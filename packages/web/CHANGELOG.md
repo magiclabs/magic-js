@@ -1,3 +1,15 @@
+# v4.1.0 (Sat Jan 23 2021)
+
+#### 🚀 Enhancement
+
+- Iframe accessibility improvements: Add `title` attribute and auto-focus when UI is showing [#158](https://github.com/magiclabs/magic-js/pull/158) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v4.0.1 (Tue Dec 01 2020)
 
 #### 🐛 Bug Fix
