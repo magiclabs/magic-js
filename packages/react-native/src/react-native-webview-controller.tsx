@@ -119,7 +119,7 @@ export class ReactNativeWebViewController extends ViewController<ReactNativeTran
       <View ref={containerRef} style={containerStyles}>
         <WebView
           ref={webViewRef}
-          source={{ uri: `${this.endpoint}/send/?params=${this.parameters}` }}
+          source={{ uri: `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` }}
           onMessage={handleWebViewMessage}
           style={this.styles['magic-webview']}
         />

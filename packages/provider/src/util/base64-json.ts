@@ -7,7 +7,7 @@ function byteToPercent(b: string) {
 }
 
 /**
- * Encodes a URI-safe Base64 string. Safe for UTF-8 characters.
+ * Encodes a Base64 string. Safe for UTF-8 characters.
  * Original source is from the `universal-base64` NPM package.
  *
  * @source https://github.com/blakeembrey/universal-base64/blob/master/src/browser.ts
@@ -17,7 +17,7 @@ function btoaUTF8(str: string): string {
 }
 
 /**
- * Decodes a URI-safe Base64 string. Safe for UTF-8 characters.
+ * Decodes a Base64 string. Safe for UTF-8 characters.
  * Original source is from the `universal-base64` NPM package.
  *
  * @source https://github.com/blakeembrey/universal-base64/blob/master/src/browser.ts
