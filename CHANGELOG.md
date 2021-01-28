@@ -1,3 +1,16 @@
+# (Thu Jan 28 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@4.1.1`
+  - Support UTF-8 characters when encoding iframe options to Base64 [#160](https://github.com/magiclabs/magic-js/pull/160) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Sat Jan 23 2021)
 
 #### 🚀 Enhancement
