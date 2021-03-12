@@ -15,6 +15,8 @@ import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { Extension } from '../../../../src/modules/base-extension';
+import { TestingAuthModule } from '../../../../src/modules/testing-auth';
+import { TestingUserModule } from '../../../../src/modules/testing-user';
 
 test.beforeEach((t) => {
   browserEnv.restore();
@@ -107,6 +109,16 @@ test.serial('Initialize `MagicSDK` with custom locale', (t) => {
     locale: 'pl_PL',
   });
   assertModuleInstanceTypes(t, magic);
+});
+
+test.serial('Initialize `MagicSDK` with test mode', (t) => {
+  const magic = new TestMagicSDK(TEST_API_KEY, { testMode: true });
+
+  t.is(magic.apiKey, TEST_API_KEY);
+  t.is((magic as any).endpoint, MAGIC_RELAYER_FULL_URL);
+  t.true(magic.auth instanceof TestingAuthModule);
+  t.true(magic.user instanceof TestingUserModule);
+  t.true(magic.rpcProvider instanceof RPCProviderModule);
 });
 
 class NoopExtNoConfig extends Extension<'noop'> {

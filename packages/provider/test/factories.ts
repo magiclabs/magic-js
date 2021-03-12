@@ -66,3 +66,7 @@ export const TestMagicSDK = createSDK(SDKBase, {
 export function createMagicSDK(endpoint = MAGIC_RELAYER_FULL_URL) {
   return new TestMagicSDK(TEST_API_KEY, { endpoint });
 }
+
+export function createMagicSDKTestMode(endpoint = MAGIC_RELAYER_FULL_URL) {
+  return new TestMagicSDK(TEST_API_KEY, { endpoint, testMode: true });
+}
