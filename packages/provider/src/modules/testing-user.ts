@@ -19,7 +19,7 @@ type UpdateEmailEvents = {
 export class TestingUserModule extends BaseModule {
   /** */
   public getIdToken(configuration?: GetIdTokenConfiguration) {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GenerateIdToken, [configuration]);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetIdTokenTestMode, [configuration]);
     return this.request<string>(requestPayload);
   }
 
