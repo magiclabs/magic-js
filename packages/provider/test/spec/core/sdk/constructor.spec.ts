@@ -15,8 +15,6 @@ import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { Extension } from '../../../../src/modules/base-extension';
-import { TestingAuthModule } from '../../../../src/modules/testing-auth';
-import { TestingUserModule } from '../../../../src/modules/testing-user';
 
 test.beforeEach((t) => {
   browserEnv.restore();
@@ -116,8 +114,8 @@ test.serial('Initialize `MagicSDK` with test mode', (t) => {
 
   t.is(magic.apiKey, TEST_API_KEY);
   t.is((magic as any).endpoint, MAGIC_RELAYER_FULL_URL);
-  t.true(magic.auth instanceof TestingAuthModule);
-  t.true(magic.user instanceof TestingUserModule);
+  t.true(magic.auth instanceof AuthModule);
+  t.true(magic.user instanceof UserModule);
   t.true(magic.rpcProvider instanceof RPCProviderModule);
 });
 

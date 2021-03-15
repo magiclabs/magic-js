@@ -11,14 +11,12 @@ import {
 import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
-import { TestingAuthModule } from '../modules/testing-auth';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
 import { Extension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
-import { TestingUserModule } from '../modules/testing-user';
 
 /**
  * Checks if the given `ext` is compatible with the platform & version of Magic
@@ -149,17 +147,18 @@ export class SDKBase {
 
   protected readonly endpoint: string;
   protected readonly parameters: string;
+  public readonly testMode: boolean;
 
   /**
    * Contains methods for starting a Magic SDK authentication flow.
    */
-  public readonly auth: AuthModule | TestingAuthModule;
+  public readonly auth: AuthModule;
 
   /**
    * Contains methods for interacting with user data, checking login
    * status, generating cryptographically-secure ID tokens, and more.
    */
-  public readonly user: UserModule | TestingUserModule;
+  public readonly user: UserModule;
 
   /**
    * Contains a Web3-compliant provider. Pass this module to your Web3/Ethers
@@ -178,12 +177,12 @@ export class SDKBase {
     }
 
     const { defaultEndpoint, version } = SDKEnvironment;
+    this.testMode = !!options?.testMode;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
 
     // Prepare built-in modules
-    this.auth = options?.testMode ? new TestingAuthModule(this) : new AuthModule(this);
-
-    this.user = options?.testMode ? new TestingUserModule(this) : new UserModule(this);
+    this.auth = new AuthModule(this);
+    this.user = new UserModule(this);
     this.rpcProvider = new RPCProviderModule(this);
 
     // Prepare extensions

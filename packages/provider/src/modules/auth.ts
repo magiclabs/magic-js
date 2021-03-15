@@ -17,9 +17,10 @@ export class AuthModule extends BaseModule {
    */
   public loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
     const { email, showUI = true, redirectURI } = configuration;
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.LoginWithMagicLink, [
-      { email, showUI, redirectURI },
-    ]);
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
+      [{ email, showUI, redirectURI }],
+    );
     return this.request<string | null, LoginWithMagicLinkEvents>(requestPayload);
   }
 
@@ -44,7 +45,10 @@ export class AuthModule extends BaseModule {
       window.history.replaceState(null, '', urlWithoutQuery);
     }
 
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.LoginWithCredential, [credentialResolved]);
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.LoginWithCredentialTestMode : MagicPayloadMethod.LoginWithCredential,
+      [credentialResolved],
+    );
 
     return this.request<string | null>(requestPayload);
   }
