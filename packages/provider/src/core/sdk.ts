@@ -138,6 +138,7 @@ export interface MagicSDKAdditionalConfiguration<
     | 'ko';
   network?: EthNetworkConfiguration;
   extensions?: TExt;
+  testMode?: boolean;
 }
 
 export class SDKBase {
@@ -146,6 +147,7 @@ export class SDKBase {
 
   protected readonly endpoint: string;
   protected readonly parameters: string;
+  public readonly testMode: boolean;
 
   /**
    * Contains methods for starting a Magic SDK authentication flow.
@@ -175,6 +177,7 @@ export class SDKBase {
     }
 
     const { defaultEndpoint, version } = SDKEnvironment;
+    this.testMode = !!options?.testMode;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
 
     // Prepare built-in modules

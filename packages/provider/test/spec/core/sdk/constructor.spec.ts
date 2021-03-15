@@ -109,6 +109,16 @@ test.serial('Initialize `MagicSDK` with custom locale', (t) => {
   assertModuleInstanceTypes(t, magic);
 });
 
+test.serial('Initialize `MagicSDK` with test mode', (t) => {
+  const magic = new TestMagicSDK(TEST_API_KEY, { testMode: true });
+
+  t.is(magic.apiKey, TEST_API_KEY);
+  t.is((magic as any).endpoint, MAGIC_RELAYER_FULL_URL);
+  t.true(magic.auth instanceof AuthModule);
+  t.true(magic.user instanceof UserModule);
+  t.true(magic.rpcProvider instanceof RPCProviderModule);
+});
+
 class NoopExtNoConfig extends Extension<'noop'> {
   name = 'noop' as const;
   helloWorld() {}

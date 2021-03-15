@@ -5,7 +5,7 @@ import test from 'ava';
 import sinon from 'sinon';
 import { getPayloadIdStub, mockSDKEnvironmentConstant } from '../../../mocks';
 import { BaseModule } from '../../../../src/modules/base-module';
-import { createMagicSDK } from '../../../factories';
+import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 
 test.beforeEach((t) => {
   browserEnv.restore();
@@ -69,4 +69,19 @@ test.serial('If no parameter is given & platform target is NOT "web", credential
   t.is(requestPayload.id, 777);
   t.is(requestPayload.method, 'magic_auth_login_with_credential');
   t.deepEqual(requestPayload.params, ['']);
+});
+
+test.serial('If `testMode` is enabled, testing-specific RPC method is used', async (t) => {
+  const magic = createMagicSDKTestMode();
+
+  const idStub = getPayloadIdStub();
+  idStub.returns(456);
+
+  await magic.auth.loginWithCredential('helloworld');
+
+  const requestPayload = (magic.user as any).request.args[0][0];
+  t.is(requestPayload.jsonrpc, '2.0');
+  t.is(requestPayload.id, 456);
+  t.is(requestPayload.method, 'magic_auth_login_with_credential_testing_mode');
+  t.deepEqual(requestPayload.params, ['helloworld']);
 });

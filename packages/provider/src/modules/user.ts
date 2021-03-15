@@ -19,38 +19,53 @@ type UpdateEmailEvents = {
 export class UserModule extends BaseModule {
   /** */
   public getIdToken(configuration?: GetIdTokenConfiguration) {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetIdToken, [configuration]);
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.GetIdTokenTestMode : MagicPayloadMethod.GetIdToken,
+      [configuration],
+    );
     return this.request<string>(requestPayload);
   }
 
   /** */
   public generateIdToken(configuration?: GenerateIdTokenConfiguration) {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GenerateIdToken, [configuration]);
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.GenerateIdTokenTestMode : MagicPayloadMethod.GenerateIdToken,
+      [configuration],
+    );
     return this.request<string>(requestPayload);
   }
 
   /** */
   public getMetadata() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetMetadata);
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.GetMetadataTestMode : MagicPayloadMethod.GetMetadata,
+    );
     return this.request<MagicUserMetadata>(requestPayload);
   }
 
   /** */
   public updateEmail(configuration: UpdateEmailConfiguration) {
     const { email, showUI = true } = configuration;
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.UpdateEmail, [{ email, showUI }]);
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
+      [{ email, showUI }],
+    );
     return this.request<string | null, UpdateEmailEvents>(requestPayload);
   }
 
   /** */
   public isLoggedIn() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.IsLoggedIn);
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.IsLoggedInTestMode : MagicPayloadMethod.IsLoggedIn,
+    );
     return this.request<boolean>(requestPayload);
   }
 
   /** */
   public logout() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Logout);
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
+    );
     return this.request<boolean>(requestPayload);
   }
 }
