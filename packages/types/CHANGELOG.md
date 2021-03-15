@@ -1,3 +1,17 @@
+# v3.1.0 (Mon Mar 15 2021)
+
+#### 🚀 Enhancement
+
+- Add testing framework [#168](https://github.com/magiclabs/magic-js/pull/168) (harry [@smithki](https://github.com/smithki) [@harryEth](https://github.com/harryEth))
+
+#### Authors: 3
+
+- [@harryEth](https://github.com/harryEth)
+- harry (harry)
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v3.0.1 (Tue Dec 01 2020)
 
 #### 🐛 Bug Fix
