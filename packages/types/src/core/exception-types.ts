@@ -30,6 +30,7 @@ export enum RPCErrorCode {
   UserAlreadyLoggedIn = -10003,
   UpdateEmailFailed = -10004,
   UserRequestEditEmail = -10005,
+  InactiveRecipient = -10010,
 }
 
 export type ErrorCode = SDKErrorCode | RPCErrorCode;
