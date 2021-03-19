@@ -1,3 +1,15 @@
+# v3.1.1 (Fri Mar 19 2021)
+
+#### 🐛 Bug Fix
+
+- register "inactive recipient" rpc error code [#170](https://github.com/magiclabs/magic-js/pull/170) ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v3.1.0 (Mon Mar 15 2021)
 
 #### 🚀 Enhancement
