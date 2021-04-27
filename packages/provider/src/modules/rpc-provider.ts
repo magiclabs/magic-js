@@ -129,21 +129,14 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
    * Prefixes Ethereum RPC methods with a `testMode` identifier. This is done so
    * that Magic's <iframe> can handle signing methods using test-specific keys.
    */
-  private prefixPayloadMethodForTestMode(payload: Partial<JsonRpcRequestPayload> | Partial<JsonRpcRequestPayload>[]) {
+  private prefixPayloadMethodForTestMode(payload: Partial<JsonRpcRequestPayload>) {
     const testModePrefix = 'testMode/eth/';
 
     // In test mode, we prefix all RPC methods with `test/` so that the
     // Magic <iframe> can handle them without requiring network calls.
     if (this.sdk.testMode) {
-      if (Array.isArray(payload)) {
-        payload.forEach((p) => {
-          // eslint-disable-next-line no-param-reassign
-          p.method = `${testModePrefix}${p.method}`;
-        });
-      } else {
-        // eslint-disable-next-line no-param-reassign
-        payload.method = `${testModePrefix}${payload.method}`;
-      }
+      // eslint-disable-next-line no-param-reassign
+      payload.method = `${testModePrefix}${payload.method}`;
     }
   }
 

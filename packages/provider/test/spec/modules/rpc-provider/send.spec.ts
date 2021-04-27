@@ -3,15 +3,14 @@
 import browserEnv from '@ikscodes/browser-env';
 import test from 'ava';
 import sinon from 'sinon';
-import { createMagicSDK } from '../../../factories';
+import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { getPayloadIdStub } from '../../../mocks';
-import { BaseModule } from '../../../../src/modules/base-module';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { createSynchronousWeb3MethodWarning } from '../../../../src/core/sdk-exceptions';
 
 test.beforeEach((t) => {
   browserEnv.restore();
-  (BaseModule as any).prototype.request = sinon.stub();
+  (RPCProviderModule as any).prototype.request = sinon.stub();
   (RPCProviderModule as any).prototype.sendAsync = sinon.stub();
 });
 
