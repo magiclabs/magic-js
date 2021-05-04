@@ -1,3 +1,15 @@
+# v4.3.0 (Tue May 04 2021)
+
+#### 🚀 Enhancement
+
+- Add test-mode prefix to Ethereum RPC methods [#181](https://github.com/magiclabs/magic-js/pull/181) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v4.2.0 (Mon Mar 15 2021)
 
 #### 🚀 Enhancement
