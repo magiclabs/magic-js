@@ -11,7 +11,7 @@ import { BaseModule } from './base-module';
 import { createInvalidArgumentError, MagicRPCError, createSynchronousWeb3MethodWarning } from '../core/sdk-exceptions';
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload, JsonRpcResponse } from '../core/json-rpc';
 import { PromiEvent } from '../util/promise-tools';
-import { createTypedEmitter, TypedEmitter } from '../util/events';
+import { createTypedEmitter, EventsDefinition, TypedEmitter } from '../util/events';
 
 const { createBoundEmitterMethod, createChainingEmitterMethod } = createTypedEmitter();
 
@@ -45,7 +45,11 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
         .post(
           this.overlay,
           MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
-          payload.map((p) => standardizeJsonRpcRequestPayload(p)),
+          payload.map((p) => {
+            const standardizedPayload = standardizeJsonRpcRequestPayload(p);
+            this.prefixPayloadMethodForTestMode(standardizedPayload);
+            return standardizedPayload;
+          }),
         )
         .then((batchResponse) => {
           (onRequestComplete as JsonRpcBatchRequestCallback)(
@@ -58,6 +62,7 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
         });
     } else {
       const finalPayload = standardizeJsonRpcRequestPayload(payload);
+      this.prefixPayloadMethodForTestMode(finalPayload);
       this.transport
         .post(this.overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, finalPayload)
         .then((response) => {
@@ -85,7 +90,6 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
         payloadOrMethod,
         Array.isArray(onRequestCompleteOrParams) ? onRequestCompleteOrParams : [],
       );
-
       return this.request(payload) as any;
     }
 
@@ -110,6 +114,30 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
   public enable() {
     const requestPayload = createJsonRpcRequestPayload('eth_accounts');
     return this.request<string[]>(requestPayload);
+  }
+
+  /**
+   * Here, we wrap `BaseModule.request` with an additional check
+   * to determine if the RPC method requires a test-mode prefix.
+   */
+  protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
+    this.prefixPayloadMethodForTestMode(payload);
+    return super.request<ResultType, Events>(payload);
+  }
+
+  /**
+   * Prefixes Ethereum RPC methods with a `testMode` identifier. This is done so
+   * that Magic's <iframe> can handle signing methods using test-specific keys.
+   */
+  private prefixPayloadMethodForTestMode(payload: Partial<JsonRpcRequestPayload>) {
+    const testModePrefix = 'testMode/eth/';
+
+    // In test mode, we prefix all RPC methods with `test/` so that the
+    // Magic <iframe> can handle them without requiring network calls.
+    if (this.sdk.testMode) {
+      // eslint-disable-next-line no-param-reassign
+      payload.method = `${testModePrefix}${payload.method}`;
+    }
   }
 
   public on = createChainingEmitterMethod('on', this);
