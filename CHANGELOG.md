@@ -1,3 +1,16 @@
+# (Fri Jun 11 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native@4.3.1`
+  - Upgrade @aveq-research/localforage-asyncstorage-driver [#183](https://github.com/magiclabs/magic-js/pull/183) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Tue May 04 2021)
 
 #### 🚀 Enhancement

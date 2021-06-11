@@ -1,3 +1,15 @@
+# v4.3.1 (Fri Jun 11 2021)
+
+#### 🐛 Bug Fix
+
+- Upgrade @aveq-research/localforage-asyncstorage-driver [#183](https://github.com/magiclabs/magic-js/pull/183) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v4.0.1 (Tue Dec 01 2020)
 
 #### 🐛 Bug Fix
