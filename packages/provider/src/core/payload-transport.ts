@@ -7,6 +7,8 @@ import {
 import { JsonRpcResponse } from './json-rpc';
 import { ViewController } from './view-controller';
 import { createPromise } from '../util/promise-tools';
+import { getItem, setItem } from '../util/storage';
+import { getPublicKey, signData } from '../util/web-crypto';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -50,6 +52,32 @@ function standardizeResponse(
   }
 
   return {};
+}
+
+async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayload | JsonRpcRequestPayload[]) {
+  const rtr = await getItem<string>('RTR');
+  let webcryptoPublicKey;
+
+  try {
+    webcryptoPublicKey = await getPublicKey();
+  } catch (e) {
+    console.error('web crypto error creating keypair', e);
+  }
+
+  if (!rtr || !webcryptoPublicKey) {
+    return { msgType, payload };
+  }
+
+  const sig = await signData(rtr);
+
+  return { msgType, payload, sig, rtr };
+}
+
+async function persistMagicEventRtr(event: MagicMessageEvent) {
+  if (!event?.data?.rtr) {
+    return;
+  }
+  await setItem('RTR', event.data.rtr);
 }
 
 export abstract class PayloadTransport {
@@ -97,12 +125,13 @@ export abstract class PayloadTransport {
 
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
-
-      await overlay.postMessage({ msgType: `${msgType}-${this.parameters}`, payload });
+      const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload);
+      await overlay.postMessage(msg);
 
       /** Collect successful RPC responses and resolve. */
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
         const { id, response } = standardizeResponse(payload, event);
+        persistMagicEventRtr(event);
 
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
           batchData.push(response);

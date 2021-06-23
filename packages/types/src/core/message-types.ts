@@ -16,12 +16,15 @@ export enum MagicOutgoingWindowMessage {
 export interface MagicMessageRequest {
   msgType: string;
   payload: JsonRpcRequestPayload | JsonRpcRequestPayload[];
+  rtr?: string;
+  sig?: string;
 }
 
 /** The shape of responding window message datas from the Magic iframe context. */
 export interface MagicMessageResponse<ResultType = any> {
   msgType: string;
   response: Partial<JsonRpcError> & Partial<JsonRpcResponsePayload<ResultType>>;
+  rtr?: string;
 }
 
 /** The expected message event returned by the Magic iframe context. */

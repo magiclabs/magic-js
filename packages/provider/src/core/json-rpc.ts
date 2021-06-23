@@ -71,6 +71,7 @@ export class JsonRpcResponse<ResultType = any> {
   private readonly _id: string | number | null;
   private _result?: ResultType | null;
   private _error?: JsonRpcError | null;
+  // add RTR
 
   constructor(responsePayload: JsonRpcResponsePayload);
   constructor(response: JsonRpcResponse<ResultType>);
