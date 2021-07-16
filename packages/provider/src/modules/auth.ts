@@ -2,7 +2,6 @@ import { MagicPayloadMethod, LoginWithMagicLinkConfiguration } from '@magic-sdk/
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
-import { getPublicKey } from '../util/web-crypto';
 
 type LoginWithMagicLinkEvents = {
   'email-sent': () => void;
@@ -18,17 +17,10 @@ export class AuthModule extends BaseModule {
    */
   public async loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
     const { email, showUI = true, redirectURI } = configuration;
-    let jwk;
-
-    try {
-      jwk = await getPublicKey();
-    } catch (e) {
-      console.error('webcrypto error when getting keypair', e);
-    }
 
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
-      [{ email, showUI, redirectURI, jwk }],
+      [{ email, showUI, redirectURI }],
     );
     return this.request<string | null, LoginWithMagicLinkEvents>(requestPayload);
   }

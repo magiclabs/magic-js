@@ -8,7 +8,7 @@ import { JsonRpcResponse } from './json-rpc';
 import { ViewController } from './view-controller';
 import { createPromise } from '../util/promise-tools';
 import { getItem, setItem } from '../util/storage';
-import { getPublicKey, signData } from '../util/web-crypto';
+import { createJwt } from '../util/web-crypto';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -55,29 +55,32 @@ function standardizeResponse(
 }
 
 async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayload | JsonRpcRequestPayload[]) {
-  const rtr = await getItem<string>('RTR');
-  let webcryptoPublicKey;
+  const rt = await getItem<string>('rt');
+  let jwt;
 
   try {
-    webcryptoPublicKey = await getPublicKey();
+    jwt = await createJwt();
   } catch (e) {
-    console.error('web crypto error creating keypair', e);
+    console.error('webcrypto error', e);
   }
 
-  if (!rtr || !webcryptoPublicKey) {
+  if (!jwt) {
     return { msgType, payload };
   }
 
-  const sig = await signData(rtr);
+  if (!rt) {
+    return { msgType, payload, jwt };
+  }
 
-  return { msgType, payload, sig, rtr };
+  return { msgType, payload, jwt, rt };
 }
 
-async function persistMagicEventRtr(event: MagicMessageEvent) {
-  if (!event?.data?.rtr) {
+async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
+  if (!event.data.rt) {
     return;
   }
-  await setItem('RTR', event.data.rtr);
+
+  await setItem('rt', event.data.rt);
 }
 
 export abstract class PayloadTransport {
@@ -126,12 +129,13 @@ export abstract class PayloadTransport {
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
       const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload);
+
       await overlay.postMessage(msg);
 
       /** Collect successful RPC responses and resolve. */
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
         const { id, response } = standardizeResponse(payload, event);
-        persistMagicEventRtr(event);
+        persistMagicEventRefreshToken(event);
 
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
           batchData.push(response);

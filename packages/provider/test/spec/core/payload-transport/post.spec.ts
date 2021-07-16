@@ -8,6 +8,8 @@ import { PayloadTransport } from '../../../../src/core/payload-transport';
 import { createPayloadTransport } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import { ViewController } from '../../../../src/core/view-controller';
+import * as storage from '../../../../src/util/storage';
+import * as webCryptoUtils from '../../../../src/util/web-crypto';
 
 /**
  * Stub `IframeController` for `PayloadTransport` testing requirements.
@@ -73,9 +75,26 @@ function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomin
   return { handlerSpy, onSpy };
 }
 
+const FAKE_JWT_TOKEN = 'hot tokens';
+const FAKE_RT = 'will freshen';
+let FAKE_STORE: any = {};
+const createJwtStub: sinon.SinonStub = sinon.stub(webCryptoUtils, 'createJwt');
+
+test.before(() => {
+  sinon.stub(storage, 'getItem').callsFake(async (key: string) => FAKE_STORE[key]);
+  sinon.stub(storage, 'setItem').callsFake(async (key: string, value: any) => {
+    FAKE_STORE[key] = value;
+  });
+});
+
 test.beforeEach((t) => {
   browserEnv();
   browserEnv.stub('addEventListener', sinon.stub());
+});
+
+test.afterEach(() => {
+  FAKE_STORE = {};
+  createJwtStub.reset();
 });
 
 test.serial('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async (t) => {
@@ -93,8 +112,94 @@ test.serial('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves respon
   t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
 });
 
+test.serial('Sends payload with jwt when web crypto is supported', async (t) => {
+  createJwtStub.returns(Promise.resolve(FAKE_JWT_TOKEN));
+  const transport = createPayloadTransport('asdf');
+  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
+  const overlay = overlayStub();
+  const payload = requestPayload();
+
+  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+
+  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  t.true(handlerSpy.calledOnce);
+  t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
+  t.true(createJwtStub.calledWith());
+  t.true((overlay.postMessage as sinon.SinonStub).calledWithMatch({ jwt: FAKE_JWT_TOKEN }));
+});
+
+test.serial('Sends payload with rt and jwt when rt is saved', async (t) => {
+  createJwtStub.returns(Promise.resolve(FAKE_JWT_TOKEN));
+  FAKE_STORE.rt = FAKE_RT;
+
+  const transport = createPayloadTransport('asdf');
+  stubPayloadTransport(transport, [[MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()]]);
+  const overlay = overlayStub();
+  const payload = requestPayload();
+  await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+
+  t.true(createJwtStub.calledWith());
+  t.true((overlay.postMessage as sinon.SinonStub).calledWithMatch({ jwt: FAKE_JWT_TOKEN, rt: FAKE_RT }));
+});
+
+test.serial('Sends payload without rt if no jwt can be made', async (t) => {
+  createJwtStub.returns(Promise.resolve(undefined));
+  FAKE_STORE.rt = FAKE_RT;
+
+  const transport = createPayloadTransport('asdf');
+  stubPayloadTransport(transport, [[MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()]]);
+  const overlay = overlayStub();
+  const payload = requestPayload();
+
+  await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  t.false((overlay.postMessage as sinon.SinonStub).calledWithMatch({ rt: FAKE_RT }));
+});
+
+test.serial('Sends payload when web crypto jwt fails', async (t) => {
+  const consoleErrorStub = sinon.stub(global.console, 'error');
+  createJwtStub.throws('danger');
+  FAKE_STORE.rt = FAKE_RT;
+
+  const transport = createPayloadTransport('asdf');
+  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
+  const overlay = overlayStub();
+  const payload = requestPayload();
+
+  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+
+  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  t.true(handlerSpy.calledOnce);
+  t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
+
+  t.true(createJwtStub.calledWith());
+  t.true(consoleErrorStub.called);
+  t.false((overlay.postMessage as sinon.SinonStub).calledWithMatch({ jwt: FAKE_JWT_TOKEN }));
+});
+
+test.serial('Sends payload and stores rt if response event contains rt', async (t) => {
+  const eventWithRt = { data: { ...responseEvent().data, rt: FAKE_RT } };
+  const transport = createPayloadTransport('asdf');
+  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
+  ]);
+  const overlay = overlayStub();
+  const payload = requestPayload();
+
+  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+
+  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  t.true(handlerSpy.calledOnce);
+  t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
+
+  t.deepEqual(FAKE_STORE.rt, FAKE_RT, 'should have persisted rt');
+});
+
 test.serial(
-  'Sends payload; recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response',
+  'Sends payload recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response',
   async (t) => {
     const transport = createPayloadTransport('asdf');
     const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
