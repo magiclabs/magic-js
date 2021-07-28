@@ -10,7 +10,9 @@
   },
   "homepage": "https://magic.link",
   "files": [
-    "dist/*"
+    "dist/**/*.js",
+    "dist/**/*.js.map",
+    "dist/**/*.d.ts"
   ],
   "umdGlobal": "Magic",
   "target": "web",
