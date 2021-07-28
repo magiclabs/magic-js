@@ -3,18 +3,19 @@
 
   "references": [
     { "path": "./packages/provider/tsconfig.json" },
-    { "path": "./packages/provider/tsconfig.module.json" },
+    { "path": "./packages/provider/tsconfig.cjs.json" },
 
     { "path": "./packages/commons/tsconfig.json" },
-    { "path": "./packages/commons/tsconfig.module.json" },
+    { "path": "./packages/commons/tsconfig.cjs.json" },
 
     { "path": "./packages/react-native/tsconfig.json" },
-    { "path": "./packages/react-native/tsconfig.module.json" },
+    { "path": "./packages/react-native/tsconfig.cjs.json" },
 
     { "path": "./packages/types/tsconfig.json" },
-    { "path": "./packages/types/tsconfig.module.json" },
+    { "path": "./packages/types/tsconfig.cjs.json" },
 
     { "path": "./packages/web/tsconfig.json" },
-    { "path": "./packages/web/tsconfig.module.json" },
+    { "path": "./packages/web/tsconfig.cjs.json" },
+    { "path": "./packages/web/tsconfig.cdn.json" },
   ]
 }
