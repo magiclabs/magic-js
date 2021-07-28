@@ -2,14 +2,14 @@
   "extends": "../../tsconfig.settings.json",
 
   "compilerOptions": {
-    "module": "esnext", // Microbundle will output ES5
-    "declaration": false,
-    "sourceMap": false,
-    "composite": false,
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist/cjs"
   },
 
   "include": [
     "./src/**/*.ts",
+    "./src/**/*.tsx",
   ],
 
   "references": [
@@ -18,3 +18,4 @@
     { "path": "../commons/tsconfig.cjs.json" },
   ]
 }
+

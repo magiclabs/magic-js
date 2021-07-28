@@ -3,7 +3,7 @@
 
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./dist/commonjs"
+    "outDir": "./dist/es"
   },
 
   "include": [
@@ -12,6 +12,6 @@
   ],
 
   "references": [
-    { "path": "../types/tsconfig.json" }
+    { "path": "../types/tsconfig.json" },
   ]
 }

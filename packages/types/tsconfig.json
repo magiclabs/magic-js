@@ -3,10 +3,11 @@
 
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./dist/commonjs"
+    "outDir": "./dist/es"
   },
 
   "include": [
     "./src/**/*.ts",
   ],
 }
+
