@@ -1,3 +1,16 @@
+# (Wed Jul 28 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/commons@1.2.0`, `@magic-sdk/provider@4.4.0`, `@magic-sdk/react-native@4.4.0`, `@magic-sdk/types@3.2.0`, `magic-sdk@4.4.0`
+  - Add explicit JSDelivr entry-point for `magic-sdk` [#191](https://github.com/magiclabs/magic-js/pull/191) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Fri Jun 11 2021)
 
 #### 🐛 Bug Fix

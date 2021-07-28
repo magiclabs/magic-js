@@ -1,3 +1,15 @@
+# v1.2.0 (Wed Jul 28 2021)
+
+#### 🚀 Enhancement
+
+- Add explicit JSDelivr entry-point for `magic-sdk` [#191](https://github.com/magiclabs/magic-js/pull/191) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v1.1.0 (Sat Jan 23 2021)
 
 #### 🚀 Enhancement
