@@ -1,4 +1,4 @@
-import { MagicPayloadMethod, LoginWithMagicLinkConfiguration } from '@magic-sdk/types';
+import { MagicPayloadMethod, LoginWithMagicLinkConfiguration, LoginWithSmsConfiguration } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
@@ -22,6 +22,20 @@ export class AuthModule extends BaseModule {
       [{ email, showUI, redirectURI }],
     );
     return this.request<string | null, LoginWithMagicLinkEvents>(requestPayload);
+  }
+
+  /**
+   * Initiate an SMS login flow for a user. If successful,
+   * this method will return a Decenteralized ID token (with a default lifespan
+   * of 15 minutes)
+   */
+  public loginWithSMS(configuration: LoginWithSmsConfiguration) {
+    const { phoneNumber } = configuration;
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
+      [{ phoneNumber, showUI: true }],
+    );
+    return this.request<string | null>(requestPayload);
   }
 
   /**
