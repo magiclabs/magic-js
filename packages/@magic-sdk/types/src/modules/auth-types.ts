@@ -19,3 +19,7 @@ export interface LoginWithMagicLinkConfiguration {
    */
   redirectURI?: string;
 }
+
+export interface LoginWithSmsConfiguration {
+  phoneNumber: string;
+}
