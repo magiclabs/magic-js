@@ -31,7 +31,7 @@ export enum RPCErrorCode {
   UpdateEmailFailed = -10004,
   UserRequestEditEmail = -10005,
   InactiveRecipient = -10010,
-  UserEmailAccessDenied = -10011,
+  AccessDeniedToUser = -10011,
 }
 
 export type ErrorCode = SDKErrorCode | RPCErrorCode;
