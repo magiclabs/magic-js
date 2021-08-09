@@ -1,3 +1,15 @@
+# v3.2.1 (Mon Aug 09 2021)
+
+#### 🐛 Bug Fix
+
+- register access control rpc error code [#193](https://github.com/magiclabs/magic-js/pull/193) ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v3.2.0 (Wed Jul 28 2021)
 
 #### 🚀 Enhancement
