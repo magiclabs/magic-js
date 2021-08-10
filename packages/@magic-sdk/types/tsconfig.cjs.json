@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.settings.json",
+  "extends": "../../../tsconfig.settings.json",
 
   "compilerOptions": {
     "module": "commonjs",
@@ -9,10 +9,5 @@
 
   "include": [
     "./src/**/*.ts",
-    "./src/**/*.js",
   ],
-
-  "references": [
-    { "path": "../types/tsconfig.cjs.json" }
-  ]
 }

@@ -10,10 +10,8 @@
     "clean": "$INIT_CWD/scripts/clean.sh",
     "lint": "$INIT_CWD/scripts/lint.sh",
     "test": "$INIT_CWD/scripts/test.sh",
-    "paths": "yarn --silent wsrun --parallel --no-prefix -r -c $INIT_CWD/scripts/wsrun/resolve-paths.ts"
-  },
-  "dependencies": {
-    "snyk": "^1.425.4"
+    "paths": "yarn --silent wsrun --parallel --no-prefix -r -c $INIT_CWD/scripts/wsrun/resolve-paths.ts",
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
@@ -40,8 +38,10 @@
     "eslint-plugin-react-hooks": "~4.0.4",
     "find-glob": "^2.1.0",
     "glob": "^7.1.6",
-    "husky": "^4.3.0",
+    "husky": "^7.0.1",
     "import-fresh": "^3.2.1",
+    "jest-codemods": "^0.23.1",
+    "jscodeshift": "^0.13.0",
     "lerna": "^3.21.0",
     "lint-staged": "^10.0.7",
     "microbundle": "0.12.0",
@@ -60,15 +60,10 @@
     "typescript": "~3.8.3",
     "wsrun": "^5.2.1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn wsrun --concurrency 1 --changedSince HEAD -c lint-staged"
-    }
-  },
-  "snyk": true,
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/@magic-sdk/*",
+      "packages/magic-sdk"
     ],
     "nohoist": [
       "@magic-sdk/react-native/buffer",

@@ -5,8 +5,8 @@
 > Magic empowers developers to protect their users via an innovative, passwordless authentication flow without the UX compromises that burden traditional OAuth implementations.
 
 <p align="center">
-  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/web/LICENSE">License</a> ·
-  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/web/CHANGELOG.md">Changelog</a> ·
+  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/magic-sdk/LICENSE">License</a> ·
+  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/magic-sdk/CHANGELOG.md">Changelog</a> ·
   <a href="https://github.com/magiclabs/magic-js/blob/master/CONTRIBUTING.md">Contributing Guide</a>
 </p>
 
