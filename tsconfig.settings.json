@@ -19,5 +19,7 @@
     "skipLibCheck": true,
     "composite": true,
     "importHelpers": true
-  }
+  },
+
+  "exclude": ["**/node_modules", "**/jest.config.ts"]
 }
