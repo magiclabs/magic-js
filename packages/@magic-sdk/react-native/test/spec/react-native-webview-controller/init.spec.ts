@@ -1,36 +1,35 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv();
   reactNativeStyleSheetStub();
 });
 
-test("Intializes 'webView' with null", (t) => {
+test("Intializes 'webView' with null", () => {
   const overlay = createReactNativeWebViewController();
-  t.is((overlay as any).webView, null);
+  expect((overlay as any).webView).toBe(null);
 });
 
-test("Intializes 'container' with null", (t) => {
+test("Intializes 'container' with null", () => {
   const overlay = createReactNativeWebViewController();
-  t.is((overlay as any).container, null);
+  expect((overlay as any).container).toBe(null);
 });
 
-test("Intializes 'styles' with the result of React Native's StyleSheet.create", (t) => {
+test("Intializes 'styles' with the result of React Native's StyleSheet.create", () => {
   reactNativeStyleSheetStub().returns('hello world');
 
   const overlay = createReactNativeWebViewController();
-  t.is((overlay as any).styles, 'hello world');
+  expect((overlay as any).styles).toBe('hello world');
 });
 
-test('Stylesheet.create is called with the expected style object', (t) => {
+test('Stylesheet.create is called with the expected style object', () => {
   const stylesheetCreateStub = reactNativeStyleSheetStub();
 
   createReactNativeWebViewController();
 
-  t.deepEqual(stylesheetCreateStub.args[0], [
+  expect(stylesheetCreateStub.args[0]).toEqual([
     {
       'magic-webview': {
         flex: 1,

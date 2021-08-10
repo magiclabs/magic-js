@@ -1,16 +1,15 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import { createMagicSDK } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
-test.beforeEach(() => {
+beforeEach(() => {
   browserEnv.restore();
   reactNativeStyleSheetStub();
 });
 
-test('SDKBaseReactNative.Relayer aliases to ReactNativeWebViewController.Relayer', (t) => {
+test('SDKBaseReactNative.Relayer aliases to ReactNativeWebViewController.Relayer', () => {
   const magic = createMagicSDK();
 
   (magic as any).overlay.Relayer = 'hello world';
-  t.is(magic.Relayer, 'hello world' as any);
+  expect(magic.Relayer).toBe('hello world' as any);
 });

@@ -1,33 +1,30 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
-import sinon from 'sinon';
-import { createModalNotReadyError, MagicSDKError } from '@magic-sdk/provider';
+import { createModalNotReadyError } from '@magic-sdk/provider';
 import { createIframeController } from '../../factories';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
-  browserEnv.stub('addEventListener', sinon.stub());
+  browserEnv.stub('addEventListener', jest.fn());
+  // Don't let JSDOM try to load the iframe
+  browserEnv.stub('document.body.appendChild', jest.fn());
 });
 
-test('Calls iframe.contentWindow.postMessage with the expected arguments', async (t) => {
+test('Calls iframe.contentWindow.postMessage with the expected arguments', async () => {
   const overlay = createIframeController('http://example.com');
 
-  const postMessageStub = sinon.stub();
+  const postMessageStub = jest.fn();
   (overlay as any).iframe = { contentWindow: { postMessage: postMessageStub } };
 
   await overlay.postMessage({ thisIsData: 'hello world' });
 
-  t.deepEqual(postMessageStub.args[0], [{ thisIsData: 'hello world' }, 'http://example.com']);
+  expect(postMessageStub.mock.calls[0]).toEqual([{ thisIsData: 'hello world' }, 'http://example.com']);
 });
 
-test('Throws MODAL_NOT_READY error if iframe.contentWindow is nil', async (t) => {
+test('Throws MODAL_NOT_READY error if iframe.contentWindow is nil', async () => {
   const overlay = createIframeController();
 
   (overlay as any).iframe = undefined;
 
   const expectedError = createModalNotReadyError();
-  const error = await t.throwsAsync<MagicSDKError>(() => overlay.postMessage({ thisIsData: 'hello world' }));
-
-  t.is(error.code, expectedError.code);
-  t.is(error.message, expectedError.message);
+  expect(() => overlay.postMessage({ thisIsData: 'hello world' })).rejects.toThrow(expectedError);
 });

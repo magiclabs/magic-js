@@ -1,41 +1,38 @@
 /* eslint-disable no-underscore-dangle, @typescript-eslint/no-empty-function */
 
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { createMagicSDK } from '../../../factories';
 import { MagicSDKError } from '../../../../src/core/sdk-exceptions';
 import { getPayloadIdStub } from '../../../mocks';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
 });
 
-test.serial('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `undefined`', (t) => {
+test('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `undefined`', () => {
   const magic = createMagicSDK();
 
-  const error: MagicSDKError = t.throws(() => magic.rpcProvider.sendAsync({} as any, undefined as any));
+  const error: MagicSDKError = expect(() => magic.rpcProvider.sendAsync({} as any, undefined as any)).toThrow();
 
-  t.is(
-    error.rawMessage,
+  expect(error.rawMessage).toBe(
     'Invalid 2nd argument given to `Magic.rpcProvider.sendAsync`.\n  Expected: `function`\n  Received: `undefined`',
   );
-  t.is(error.code, 'INVALID_ARGUMENT');
+  expect(error.code).toBe('INVALID_ARGUMENT');
 });
 
-test.serial('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `null`', (t) => {
+test('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `null`', () => {
   const magic = createMagicSDK();
 
-  const error: MagicSDKError = t.throws(() => magic.rpcProvider.sendAsync({} as any, null as any));
+  const error: MagicSDKError = expect(() => magic.rpcProvider.sendAsync({} as any, null as any)).toThrow();
 
-  t.is(
-    error.rawMessage,
+  expect(error.rawMessage).toBe(
     'Invalid 2nd argument given to `Magic.rpcProvider.sendAsync`.\n  Expected: `function`\n  Received: `null`',
   );
-  t.is(error.code, 'INVALID_ARGUMENT');
+  expect(error.code).toBe('INVALID_ARGUMENT');
 });
 
-test.serial.cb('Async, with full RPC payload + callback; success response', (t) => {
+test('Async, with full RPC payload + callback; success response', (done) => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();
@@ -47,22 +44,22 @@ test.serial.cb('Async, with full RPC payload + callback; success response', (t) 
 
   const payload = { jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] };
   const onRequestComplete = sinon.spy((error, response) => {
-    t.is(error, null);
-    t.deepEqual(response, 'test');
-    t.end();
+    expect(error).toBe(null);
+    expect(response).toEqual('test');
+    done();
   });
   magic.rpcProvider.sendAsync(payload, onRequestComplete);
 
   const [overlay, msgType, requestPayload] = postStub.args[0];
 
-  t.is(overlay, (magic.rpcProvider as any).overlay);
-  t.is(msgType, 'MAGIC_HANDLE_REQUEST');
-  t.is(requestPayload.id, 999);
-  t.is(requestPayload.method, 'eth_call');
-  t.deepEqual(requestPayload.params, ['hello world']);
+  expect(overlay).toBe((magic.rpcProvider as any).overlay);
+  expect(msgType).toBe('MAGIC_HANDLE_REQUEST');
+  expect(requestPayload.id).toBe(999);
+  expect(requestPayload.method).toBe('eth_call');
+  expect(requestPayload.params).toEqual(['hello world']);
 });
 
-test.serial.cb('Async, with full RPC payload + callback; error response', (t) => {
+test('Async, with full RPC payload + callback; error response', (done) => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();
@@ -76,23 +73,23 @@ test.serial.cb('Async, with full RPC payload + callback; error response', (t) =>
 
   const payload = { jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] };
   const onRequestComplete = sinon.spy((error, response) => {
-    t.is(error.code, -32603);
-    t.is(error.rawMessage, 'test');
-    t.deepEqual(response, { error: { code: -32603, message: 'test' }, result: null });
-    t.end();
+    expect(error.code).toBe(-32603);
+    expect(error.rawMessage).toBe('test');
+    expect(response).toEqual({ error: { code: -32603, message: 'test' }, result: null });
+    done();
   });
   magic.rpcProvider.sendAsync(payload, onRequestComplete);
 
   const [overlay, msgType, requestPayload] = postStub.args[0];
 
-  t.is(overlay, (magic.rpcProvider as any).overlay);
-  t.is(msgType, 'MAGIC_HANDLE_REQUEST');
-  t.is(requestPayload.id, 999);
-  t.is(requestPayload.method, 'eth_call');
-  t.deepEqual(requestPayload.params, ['hello world']);
+  expect(overlay).toBe((magic.rpcProvider as any).overlay);
+  expect(msgType).toBe('MAGIC_HANDLE_REQUEST');
+  expect(requestPayload.id).toBe(999);
+  expect(requestPayload.method).toBe('eth_call');
+  expect(requestPayload.params).toEqual(['hello world']);
 });
 
-test.serial.cb('Async, with batch RPC payload + callback; success responses', (t) => {
+test('Async, with batch RPC payload + callback; success responses', (done) => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();
@@ -108,28 +105,28 @@ test.serial.cb('Async, with batch RPC payload + callback; success responses', (t
   const payload1 = { jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] };
   const payload2 = { jsonrpc: '2.0', id: 2, method: 'eth_call', params: ['hello world'] };
   const onRequestComplete = sinon.spy((_, responses) => {
-    t.is(_, null);
-    t.deepEqual(responses, [
+    expect(_).toBe(null);
+    expect(responses).toEqual([
       { result: 'test1', error: null },
       { result: 'test2', error: null },
     ]);
-    t.end();
+    done();
   });
   magic.rpcProvider.sendAsync([payload1, payload2], onRequestComplete);
 
   const [overlay, msgType, requestPayloads] = postStub.args[0];
 
-  t.is(overlay, (magic.rpcProvider as any).overlay);
-  t.is(msgType, 'MAGIC_HANDLE_REQUEST');
-  t.is(requestPayloads[0].id, 123);
-  t.is(requestPayloads[0].method, 'eth_call');
-  t.deepEqual(requestPayloads[0].params, ['hello world']);
-  t.is(requestPayloads[1].id, 456);
-  t.is(requestPayloads[1].method, 'eth_call');
-  t.deepEqual(requestPayloads[1].params, ['hello world']);
+  expect(overlay).toBe((magic.rpcProvider as any).overlay);
+  expect(msgType).toBe('MAGIC_HANDLE_REQUEST');
+  expect(requestPayloads[0].id).toBe(123);
+  expect(requestPayloads[0].method).toBe('eth_call');
+  expect(requestPayloads[0].params).toEqual(['hello world']);
+  expect(requestPayloads[1].id).toBe(456);
+  expect(requestPayloads[1].method).toBe('eth_call');
+  expect(requestPayloads[1].params).toEqual(['hello world']);
 });
 
-test.serial.cb('Async, with full RPC payload + callback; error responses', (t) => {
+test('Async, with full RPC payload + callback; error responses', (done) => {
   const magic = createMagicSDK();
 
   const postStub = sinon.stub();
@@ -145,23 +142,23 @@ test.serial.cb('Async, with full RPC payload + callback; error responses', (t) =
   const payload1 = { jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] };
   const payload2 = { jsonrpc: '2.0', id: 2, method: 'eth_call', params: ['hello world'] };
   const onRequestComplete = sinon.spy((_, responses) => {
-    t.is(_, null);
-    t.is(responses[0].error.code, -32603);
-    t.is(responses[0].error.rawMessage, 'test1');
-    t.is(responses[1].error.code, -32603);
-    t.is(responses[1].error.rawMessage, 'test2');
-    t.end();
+    expect(_).toBe(null);
+    expect(responses[0].error.code).toBe(-32603);
+    expect(responses[0].error.rawMessage).toBe('test1');
+    expect(responses[1].error.code).toBe(-32603);
+    expect(responses[1].error.rawMessage).toBe('test2');
+    done();
   });
   magic.rpcProvider.sendAsync([payload1, payload2], onRequestComplete);
 
   const [overlay, msgType, requestPayloads] = postStub.args[0];
 
-  t.is(overlay, (magic.rpcProvider as any).overlay);
-  t.is(msgType, 'MAGIC_HANDLE_REQUEST');
-  t.is(requestPayloads[0].id, 123);
-  t.is(requestPayloads[0].method, 'eth_call');
-  t.deepEqual(requestPayloads[0].params, ['hello world']);
-  t.is(requestPayloads[1].id, 456);
-  t.is(requestPayloads[1].method, 'eth_call');
-  t.deepEqual(requestPayloads[1].params, ['hello world']);
+  expect(overlay).toBe((magic.rpcProvider as any).overlay);
+  expect(msgType).toBe('MAGIC_HANDLE_REQUEST');
+  expect(requestPayloads[0].id).toBe(123);
+  expect(requestPayloads[0].method).toBe('eth_call');
+  expect(requestPayloads[0].params).toEqual(['hello world']);
+  expect(requestPayloads[1].id).toBe(456);
+  expect(requestPayloads[1].method).toBe('eth_call');
+  expect(requestPayloads[1].params).toEqual(['hello world']);
 });

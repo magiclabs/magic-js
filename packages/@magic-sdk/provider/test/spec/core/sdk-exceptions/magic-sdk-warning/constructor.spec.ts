@@ -1,16 +1,15 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import { MagicSDKWarning } from '../../../../../src/core/sdk-exceptions';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv();
 });
 
-test('Instantiate `MagicSDKWarning`', (t) => {
+test('Instantiate `MagicSDKWarning`', () => {
   const warning = new MagicSDKWarning('TEST_CODE' as any, 'test message');
 
-  t.true(warning instanceof MagicSDKWarning);
-  t.is(warning.message, 'Magic SDK Warning: [TEST_CODE] test message');
-  t.is(warning.rawMessage, 'test message');
-  t.is(warning.code, 'TEST_CODE');
+  expect(warning instanceof MagicSDKWarning).toBe(true);
+  expect(warning.message).toBe('Magic SDK Warning: [TEST_CODE] test message');
+  expect(warning.rawMessage).toBe('test message');
+  expect(warning.code).toBe('TEST_CODE');
 });

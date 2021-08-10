@@ -1,16 +1,15 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { getPayloadIdStub } from '../../../mocks';
 import { createMagicSDK } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-test('Generates a JSON RPC request payload with method `eth_accounts`', async (t) => {
+test('Generates a JSON RPC request payload with method `eth_accounts`', async () => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -19,7 +18,7 @@ test('Generates a JSON RPC request payload with method `eth_accounts`', async (t
   magic.rpcProvider.enable();
 
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.id, 999);
-  t.is(requestPayload.method, 'eth_accounts');
-  t.deepEqual(requestPayload.params, []);
+  expect(requestPayload.id).toBe(999);
+  expect(requestPayload.method).toBe('eth_accounts');
+  expect(requestPayload.params).toEqual([]);
 });

@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-script
+#!/usr/bin/env ts-node-script
 
 /*
   eslint-disable

@@ -1,53 +1,68 @@
+/* eslint-disable func-names */
+
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
-import sinon from 'sinon';
 import { createIframeController } from '../../factories';
+import { IframeController } from '../../../src/iframe-controller';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
-  browserEnv.stub('addEventListener', sinon.stub());
+  browserEnv.stub('addEventListener', jest.fn());
+  browserEnv.stub('console.warn', jest.fn());
 });
 
-test('Change display style to `block`', async (t) => {
-  const overlay = createIframeController();
+test('Change display style to `block`', async () => {
+  (IframeController.prototype as any).init = function () {
+    this.iframe = {
+      style: { display: 'none' },
+      focus: () => {},
+    };
 
-  (overlay as any).iframe = {
-    style: { display: 'none' },
-    focus: () => {},
+    return Promise.resolve();
   };
+
+  const overlay = createIframeController();
 
   await (overlay as any).showOverlay();
 
-  t.is((overlay as any).iframe.style.display, 'block');
+  expect((overlay as any).iframe.style.display).toBe('block');
 });
 
-test('Calls `iframe.focus()`', async (t) => {
-  const overlay = createIframeController();
+test('Calls `iframe.focus()`', async () => {
+  const focusStub = jest.fn();
 
-  const focusStub = sinon.stub();
-  (overlay as any).iframe = {
-    style: { display: 'none' },
-    focus: focusStub,
+  (IframeController.prototype as any).init = function () {
+    this.iframe = {
+      style: { display: 'none' },
+      focus: focusStub,
+    };
+
+    return Promise.resolve();
   };
+
+  const overlay = createIframeController();
 
   await (overlay as any).showOverlay();
 
-  t.true(focusStub.calledOnce);
+  expect(focusStub).toBeCalledTimes(1);
 });
 
-test('Saves the current `document.activeElement`', async (t) => {
+test('Saves the current `document.activeElement`', async () => {
+  (IframeController.prototype as any).init = function () {
+    this.iframe = {
+      style: { display: 'none' },
+      focus: () => {},
+    };
+
+    return Promise.resolve();
+  };
+
   const overlay = createIframeController();
 
   browserEnv.stub('document.activeElement', 'qwertyqwerty');
 
-  (overlay as any).iframe = {
-    style: { display: 'none' },
-    focus: () => {},
-  };
-
-  t.is((overlay as any).activeElement, null);
+  expect((overlay as any).activeElement).toBe(null);
 
   await (overlay as any).showOverlay();
 
-  t.is((overlay as any).activeElement, 'qwertyqwerty');
+  expect((overlay as any).activeElement).toBe('qwertyqwerty');
 });

@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import { JsonRpcError, JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
 
@@ -21,23 +20,23 @@ function createJsonRcpError(): JsonRpcError {
   };
 }
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Add a formatted error to the response with `JsonRpcError` object as argument', (t) => {
+test('Add a formatted error to the response with `JsonRpcError` object as argument', () => {
   const payload = createSourcePayload();
   const error = createJsonRcpError();
 
   const response = new JsonRpcResponse(payload);
 
-  t.false(response.hasError);
+  expect(response.hasError).toBe(false);
   response.applyError(error);
-  t.deepEqual((response as any)._error, error);
-  t.true(response.hasError);
+  expect((response as any)._error).toEqual(error);
+  expect(response.hasError).toBe(true);
 });
 
-test('Apply `null` or `undefined` errors explicitly', (t) => {
+test('Apply `null` or `undefined` errors explicitly', () => {
   const payload = createSourcePayload();
   const nullError = null;
   const undefinedError = undefined;
@@ -45,14 +44,14 @@ test('Apply `null` or `undefined` errors explicitly', (t) => {
   const response1 = new JsonRpcResponse(payload);
   const response2 = new JsonRpcResponse(payload);
 
-  t.false(response1.hasError);
-  t.false(response2.hasError);
+  expect(response1.hasError).toBe(false);
+  expect(response2.hasError).toBe(false);
 
   response1.applyError(nullError);
   response2.applyError(undefinedError);
 
-  t.is((response1 as any)._error, null);
-  t.is((response2 as any)._error, undefined);
-  t.false(response1.hasError);
-  t.false(response2.hasError);
+  expect((response1 as any)._error).toBe(null);
+  expect((response2 as any)._error).toBe(undefined);
+  expect(response1.hasError).toBe(false);
+  expect(response2.hasError).toBe(false);
 });

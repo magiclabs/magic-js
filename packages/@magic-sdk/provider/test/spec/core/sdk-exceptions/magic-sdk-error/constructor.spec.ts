@@ -1,16 +1,15 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import { MagicSDKError } from '../../../../../src/core/sdk-exceptions';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv();
 });
 
-test('Instantiate `MagicSDKError`', (t) => {
+test('Instantiate `MagicSDKError`', () => {
   const error = new MagicSDKError('TEST_CODE' as any, 'test message');
 
-  t.true(error instanceof MagicSDKError);
-  t.is(error.message, 'Magic SDK Error: [TEST_CODE] test message');
-  t.is(error.rawMessage, 'test message');
-  t.is(error.code, 'TEST_CODE');
+  expect(error instanceof MagicSDKError).toBe(true);
+  expect(error.message).toBe('Magic SDK Error: [TEST_CODE] test message');
+  expect(error.rawMessage).toBe('test message');
+  expect(error.code).toBe('TEST_CODE');
 });

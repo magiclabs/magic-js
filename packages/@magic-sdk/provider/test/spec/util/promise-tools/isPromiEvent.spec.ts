@@ -1,19 +1,18 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import { createPromiEvent, isPromiEvent } from '../../../../src/util/promise-tools';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Returns `true` for valid `PromiEvent` object', (t) => {
+test('Returns `true` for valid `PromiEvent` object', () => {
   const p = createPromiEvent((resolve) => resolve());
 
-  t.true(isPromiEvent(p));
+  expect(isPromiEvent(p)).toBe(true);
 });
 
-test('Returns `false` for invalid `PromiEvent` object', (t) => {
+test('Returns `false` for invalid `PromiEvent` object', () => {
   const p = {};
 
-  t.false(isPromiEvent(p));
+  expect(isPromiEvent(p)).toBe(false);
 });

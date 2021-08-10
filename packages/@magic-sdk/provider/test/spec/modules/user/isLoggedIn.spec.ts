@@ -1,16 +1,15 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { getPayloadIdStub } from '../../../mocks';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-test(' Generate JSON RPC request payload with method `magic_auth_is_logged_in`', async (t) => {
+test(' Generate JSON RPC request payload with method `magic_auth_is_logged_in`', async () => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -20,12 +19,12 @@ test(' Generate JSON RPC request payload with method `magic_auth_is_logged_in`',
 
   /* Assertion */
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.id, 999);
-  t.is(requestPayload.method, 'magic_auth_is_logged_in');
-  t.deepEqual(requestPayload.params, []);
+  expect(requestPayload.id).toBe(999);
+  expect(requestPayload.method).toBe('magic_auth_is_logged_in');
+  expect(requestPayload.params).toEqual([]);
 });
 
-test.serial('If `testMode` is enabled, testing-specific RPC method is used', async (t) => {
+test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
   const magic = createMagicSDKTestMode();
 
   const idStub = getPayloadIdStub();
@@ -35,7 +34,7 @@ test.serial('If `testMode` is enabled, testing-specific RPC method is used', asy
 
   /* Assertion */
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.id, 999);
-  t.is(requestPayload.method, 'magic_auth_is_logged_in_testing_mode');
-  t.deepEqual(requestPayload.params, []);
+  expect(requestPayload.id).toBe(999);
+  expect(requestPayload.method).toBe('magic_auth_is_logged_in_testing_mode');
+  expect(requestPayload.params).toEqual([]);
 });

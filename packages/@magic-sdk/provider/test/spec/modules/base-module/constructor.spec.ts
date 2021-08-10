@@ -1,15 +1,14 @@
 /* eslint-disable no-new, global-require */
 
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import { createMagicSDK } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
 });
 
-test.serial('Initialize `BaseModule`', (t) => {
+test('Initialize `BaseModule`', () => {
   const sdk = createMagicSDK();
 
   const baseModule = new BaseModule(sdk);
@@ -20,7 +19,7 @@ test.serial('Initialize `BaseModule`', (t) => {
   const overlayA = (baseModule as any).overlay;
   const overlayB = (baseModule as any).sdk.overlay;
 
-  t.true(baseModule instanceof BaseModule);
-  t.is(transportA, transportB);
-  t.is(overlayA, overlayB);
+  expect(baseModule instanceof BaseModule).toBe(true);
+  expect(transportA).toBe(transportB);
+  expect(overlayA).toBe(overlayB);
 });

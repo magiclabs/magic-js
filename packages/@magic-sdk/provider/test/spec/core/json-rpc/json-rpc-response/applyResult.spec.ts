@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
 
@@ -14,35 +13,35 @@ function createSourcePayload(): JsonRpcRequestPayload {
   };
 }
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Applies a result to the response.', (t) => {
+test('Applies a result to the response.', () => {
   const payload = createSourcePayload();
   const result = 123;
 
   const response = new JsonRpcResponse(payload);
 
-  t.false(response.hasResult);
+  expect(response.hasResult).toBe(false);
   response.applyResult(result);
-  t.is((response as any)._result, result);
-  t.true(response.hasResult);
+  expect((response as any)._result).toBe(result);
+  expect(response.hasResult).toBe(true);
 });
 
-test('`null` can be a valid a result..', (t) => {
+test('`null` can be a valid a result..', () => {
   const payload = createSourcePayload();
   const result = null;
 
   const response = new JsonRpcResponse(payload);
 
-  t.false(response.hasResult);
+  expect(response.hasResult).toBe(false);
   response.applyResult(result);
-  t.is((response as any)._result, result);
-  t.true(response.hasResult);
+  expect((response as any)._result).toBe(result);
+  expect(response.hasResult).toBe(true);
 });
 
-test('Applies `null` or `undefined` results explicitly', (t) => {
+test('Applies `null` or `undefined` results explicitly', () => {
   const payload = createSourcePayload();
   const nullResult = null;
   const undefinedResult = undefined;
@@ -50,14 +49,14 @@ test('Applies `null` or `undefined` results explicitly', (t) => {
   const response1 = new JsonRpcResponse(payload);
   const response2 = new JsonRpcResponse(payload);
 
-  t.false(response1.hasResult);
-  t.false(response2.hasResult);
+  expect(response1.hasResult).toBe(false);
+  expect(response2.hasResult).toBe(false);
 
   response1.applyResult(nullResult);
   response2.applyResult(undefinedResult);
 
-  t.is((response1 as any)._result, null);
-  t.is((response2 as any)._result, undefined);
-  t.true(response1.hasResult);
-  t.false(response2.hasResult);
+  expect((response1 as any)._result).toBe(null);
+  expect((response2 as any)._result).toBe(undefined);
+  expect(response1.hasResult).toBe(true);
+  expect(response2.hasResult).toBe(false);
 });

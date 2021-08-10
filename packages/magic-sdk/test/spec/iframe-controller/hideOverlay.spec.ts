@@ -1,40 +1,53 @@
-import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
-import sinon from 'sinon';
-import { createIframeController } from '../../factories';
+/* eslint-disable func-names */
 
-test.beforeEach((t) => {
+import browserEnv from '@ikscodes/browser-env';
+import { createIframeController } from '../../factories';
+import { IframeController } from '../../../src/iframe-controller';
+
+beforeEach(() => {
   browserEnv.restore();
-  browserEnv.stub('addEventListener', sinon.stub());
+  browserEnv.stub('addEventListener', jest.fn());
+  browserEnv.stub('console.log', jest.fn());
 });
 
-test('Change display style to `none`', async (t) => {
-  const overlay = createIframeController();
+test('Change display style to `none`', async () => {
+  (IframeController.prototype as any).init = function () {
+    this.iframe = {
+      style: { display: 'block' },
+    };
 
-  (overlay as any).iframe = {
-    style: { display: 'block' },
+    return Promise.resolve();
   };
+
+  const overlay = createIframeController();
 
   await (overlay as any).hideOverlay();
 
-  t.deepEqual((overlay as any).iframe, { style: { display: 'none' } });
+  expect((overlay as any).iframe).toEqual({ style: { display: 'none' } });
 });
 
-test('If `activeElement` exists and can be focused, calls `activeElement.focus()`', async (t) => {
+test('If `activeElement` exists and can be focused, calls `activeElement.focus()`', async () => {
+  (IframeController.prototype as any).init = function () {
+    this.iframe = {
+      style: { display: 'block' },
+    };
+
+    this.activeElement = {
+      focus: focusStub,
+    };
+
+    return Promise.resolve();
+  };
+
   const overlay = createIframeController();
 
-  const focusStub = sinon.stub();
-
+  const focusStub = jest.fn();
   (overlay as any).activeElement = {
     focus: focusStub,
   };
 
-  (overlay as any).iframe = {
-    style: { display: 'block' },
-  };
-
   await (overlay as any).hideOverlay();
 
-  t.true(focusStub.calledOnce);
-  t.is((overlay as any).activeElement, null);
+  expect(focusStub).toBeCalledTimes(1);
+  expect((overlay as any).activeElement).toBe(null);
 });

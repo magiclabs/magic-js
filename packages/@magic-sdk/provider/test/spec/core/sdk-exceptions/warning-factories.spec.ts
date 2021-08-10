@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
 import browserEnv from '@ikscodes/browser-env';
-import test, { ExecutionContext } from 'ava';
 import {
   MagicSDKWarning,
   createDuplicateIframeWarning,
@@ -17,22 +16,22 @@ function warningAssertions<T extends ExecutionContext<any>>(
   expectedCode: string,
   expectedMessage: string,
 ) {
-  t.true(warning instanceof MagicSDKWarning);
-  t.is(warning.code, expectedCode);
-  t.is(warning.message, `Magic SDK Warning: [${expectedCode}] ${expectedMessage}`);
-  t.is(warning.rawMessage, expectedMessage);
+  expect(warning instanceof MagicSDKWarning).toBe(true);
+  expect(warning.code).toBe(expectedCode);
+  expect(warning.message).toBe(`Magic SDK Warning: [${expectedCode}] ${expectedMessage}`);
+  expect(warning.rawMessage).toBe(expectedMessage);
 }
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
 });
 
-test.serial('Creates a `DUPLICATE_IFRAME` warning', async (t) => {
+test('Creates a `DUPLICATE_IFRAME` warning', async () => {
   const warning = createDuplicateIframeWarning();
   warningAssertions(t, warning, 'DUPLICATE_IFRAME', 'Duplicate iframes found.');
 });
 
-test.serial('Creates a `SYNC_WEB3_METHOD` warning', async (t) => {
+test('Creates a `SYNC_WEB3_METHOD` warning', async () => {
   const warning = createSynchronousWeb3MethodWarning();
   warningAssertions(
     t,
@@ -42,7 +41,7 @@ test.serial('Creates a `SYNC_WEB3_METHOD` warning', async (t) => {
   );
 });
 
-test.serial('Creates a `REACT_NATIVE_ENDPOINT_CONFIGURATION` warning', async (t) => {
+test('Creates a `REACT_NATIVE_ENDPOINT_CONFIGURATION` warning', async () => {
   mockSDKEnvironmentConstant('defaultEndpoint', 'https://example.com');
 
   const warning = createReactNativeEndpointConfigurationWarning();
@@ -54,7 +53,7 @@ test.serial('Creates a `REACT_NATIVE_ENDPOINT_CONFIGURATION` warning', async (t)
   );
 });
 
-test.serial('Creates a `DEPRECATION_NOTICE` warning for `magic-sdk`', async (t) => {
+test('Creates a `DEPRECATION_NOTICE` warning for `magic-sdk`', async () => {
   mockSDKEnvironmentConstant('sdkName', 'magic-sdk');
 
   const warning = createDeprecationWarning({
@@ -65,7 +64,7 @@ test.serial('Creates a `DEPRECATION_NOTICE` warning for `magic-sdk`', async (t) 
   warningAssertions(t, warning, 'DEPRECATION_NOTICE', '`test()` will be removed from `magic-sdk` in version `v999`.');
 });
 
-test.serial('Creates a `DEPRECATION_NOTICE` warning for `@magic-sdk/react-native`', async (t) => {
+test('Creates a `DEPRECATION_NOTICE` warning for `@magic-sdk/react-native`', async () => {
   mockSDKEnvironmentConstant('sdkName', '@magic-sdk/react-native');
 
   const warning = createDeprecationWarning({
@@ -81,7 +80,7 @@ test.serial('Creates a `DEPRECATION_NOTICE` warning for `@magic-sdk/react-native
   );
 });
 
-test.serial('Creates a `DEPRECATION_NOTICE` warning with `useInstead` suffix', async (t) => {
+test('Creates a `DEPRECATION_NOTICE` warning with `useInstead` suffix', async () => {
   mockSDKEnvironmentConstant('sdkName', 'magic-sdk');
 
   const warning = createDeprecationWarning({

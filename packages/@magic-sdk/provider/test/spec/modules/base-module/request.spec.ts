@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
@@ -32,13 +31,13 @@ const requestPayload: JsonRpcRequestPayload = {
   method: 'test',
 };
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
   // Silence the "duplicate iframes" warning.
   browserEnv.stub('console.warn', () => {});
 });
 
-test.serial('Resolves with a successful response', async (t) => {
+test('Resolves with a successful response', async () => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
@@ -47,10 +46,10 @@ test.serial('Resolves with a successful response', async (t) => {
 
   const result = await baseModule.request(requestPayload);
 
-  t.is(result, 'hello world');
+  expect(result).toBe('hello world');
 });
 
-test.serial('Rejects with a `MagicRPCError` upon request failed', async (t) => {
+test('Rejects with a `MagicRPCError` upon request failed', async () => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyError({ code: -32603, message: 'hello world' });
@@ -58,12 +57,12 @@ test.serial('Rejects with a `MagicRPCError` upon request failed', async (t) => {
   postStub.returns(Promise.resolve(response));
 
   const err: MagicRPCError = await t.throwsAsync(baseModule.request(requestPayload));
-  t.true(err instanceof MagicRPCError);
-  t.is(err.code, -32603);
-  t.is(err.message, 'Magic RPC Error: [-32603] hello world');
+  expect(err instanceof MagicRPCError).toBe(true);
+  expect(err.code).toBe(-32603);
+  expect(err.message).toBe('Magic RPC Error: [-32603] hello world');
 });
 
-test.serial('Rejects with `MALFORMED_RESPONSE` error if response cannot be parsed correctly', async (t) => {
+test('Rejects with `MALFORMED_RESPONSE` error if response cannot be parsed correctly', async () => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload);
@@ -71,12 +70,12 @@ test.serial('Rejects with `MALFORMED_RESPONSE` error if response cannot be parse
   postStub.returns(Promise.resolve(response));
 
   const err: MagicSDKError = await t.throwsAsync(baseModule.request(requestPayload));
-  t.true(err instanceof MagicSDKError);
-  t.is(err.code, 'MALFORMED_RESPONSE');
-  t.is(err.message, 'Magic SDK Error: [MALFORMED_RESPONSE] Response from the Magic iframe is malformed.');
+  expect(err instanceof MagicSDKError).toBe(true);
+  expect(err.code).toBe('MALFORMED_RESPONSE');
+  expect(err.message).toBe('Magic SDK Error: [MALFORMED_RESPONSE] Response from the Magic iframe is malformed.');
 });
 
-test.serial('Return value is a `PromiEvent`', async (t) => {
+test('Return value is a `PromiEvent`', async () => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
@@ -85,10 +84,10 @@ test.serial('Return value is a `PromiEvent`', async (t) => {
 
   const result = baseModule.request(requestPayload);
 
-  t.true(isPromiEvent(result));
+  expect(isPromiEvent(result)).toBe(true);
 });
 
-test.serial.cb('Emits events received from the `PayloadTransport`', (t) => {
+test('Emits events received from the `PayloadTransport`', (done) => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
@@ -102,8 +101,8 @@ test.serial.cb('Emits events received from the `PayloadTransport`', (t) => {
   );
 
   baseModule.request(requestPayload).on('hello', (result) => {
-    t.is(result, 'world');
-    t.end();
+    expect(result).toBe('world');
+    done();
   });
 
   window.postMessage(
@@ -115,8 +114,8 @@ test.serial.cb('Emits events received from the `PayloadTransport`', (t) => {
   );
 });
 
-test.serial('Receive no further events after the response from `PayloadTransport` resolves', async (t) => {
-  t.plan(1);
+test('Receive no further events after the response from `PayloadTransport` resolves', async (done) => {
+  expect.assertions(1);
 
   const { baseModule, postStub } = createBaseModule();
 
@@ -133,10 +132,10 @@ test.serial('Receive no further events after the response from `PayloadTransport
   const request = baseModule
     .request(requestPayload)
     .on('hello', (result) => {
-      t.is(result, 'world');
+      expect(result).toBe('world');
     })
     .on('hello2', () => {
-      t.fail();
+      done.fail();
     });
 
   window.postMessage(
@@ -158,7 +157,7 @@ test.serial('Receive no further events after the response from `PayloadTransport
   );
 });
 
-test.serial.cb('Falls back to empty array if `params` is missing from event', (t) => {
+test('Falls back to empty array if `params` is missing from event', (done) => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
@@ -172,8 +171,8 @@ test.serial.cb('Falls back to empty array if `params` is missing from event', (t
   );
 
   baseModule.request(requestPayload).on('hello', (...args) => {
-    t.deepEqual(args, []);
-    t.end();
+    expect(args).toEqual([]);
+    done();
   });
 
   window.postMessage(
@@ -185,7 +184,7 @@ test.serial.cb('Falls back to empty array if `params` is missing from event', (t
   );
 });
 
-test.serial.cb('Ignores events with malformed response', (t) => {
+test('Ignores events with malformed response', (done) => {
   const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
@@ -201,10 +200,10 @@ test.serial.cb('Ignores events with malformed response', (t) => {
   baseModule
     .request(requestPayload)
     .on('hello', () => {
-      t.fail();
+      done.fail();
     })
     .then(() => {
-      t.end();
+      done();
     });
 
   window.postMessage(

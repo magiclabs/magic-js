@@ -1,30 +1,29 @@
 import * as _ from 'lodash';
-import test, { ExecutionContext } from 'ava';
 import { requireIndex } from '../mocks';
 
 function assertGlobalPolyfill(t: ExecutionContext, globalKey: string) {
   delete global[globalKey];
 
-  t.is(typeof global[globalKey], 'undefined');
+  expect(typeof global[globalKey]).toBe('undefined');
 
   requireIndex();
 
-  t.is(typeof global[globalKey], 'function');
+  expect(typeof global[globalKey]).toBe('function');
 }
 
-test.serial('Defines global `btoa` function if none exists', (t) => {
+test('Defines global `btoa` function if none exists', () => {
   assertGlobalPolyfill(t, 'btoa');
 });
 
-test.serial('Defines global `atob` function if none exists', (t) => {
+test('Defines global `atob` function if none exists', () => {
   assertGlobalPolyfill(t, 'atob');
 });
 
 // It's impossible to cover process of undefined, as import requires process */
-test('Defines global.process.version if none exists (Web3 case)', (t) => {
+test('Defines global.process.version if none exists (Web3 case)', () => {
   // process.version is ready only, only checks the result
   requireIndex();
-  t.is(typeof global.process.version, 'string');
+  expect(typeof global.process.version).toBe('string');
 });
 
 // We can't effectively test the following without breaking Ava and TS Node.

@@ -1,23 +1,22 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { ENCODED_QUERY_PARAMS } from '../../constants';
 import { createWebTransport } from '../../factories';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv();
 });
 
-test.serial('Adds `message` event listener', (t) => {
+test('Adds `message` event listener', () => {
   const addEventListenerStub = sinon.stub();
   browserEnv.stub('addEventListener', addEventListenerStub);
 
   createWebTransport();
 
-  t.is(addEventListenerStub.args[0][0], 'message');
+  expect(addEventListenerStub.args[0][0]).toBe('message');
 });
 
-test.cb('Ignores events with different origin than expected', (t) => {
+test('Ignores events with different origin than expected', (done) => {
   const transport = createWebTransport('asdf');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -25,12 +24,12 @@ test.cb('Ignores events with different origin than expected', (t) => {
   window.postMessage(undefined, '*');
 
   setTimeout(() => {
-    t.true(onHandlerStub.notCalled);
-    t.end();
+    expect(onHandlerStub.notCalled).toBe(true);
+    done();
   }, 0);
 });
 
-test.cb('Ignores events with undefined `data` attribute', (t) => {
+test('Ignores events with undefined `data` attribute', (done) => {
   const transport = createWebTransport('');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -38,12 +37,12 @@ test.cb('Ignores events with undefined `data` attribute', (t) => {
   window.postMessage(undefined, '*');
 
   setTimeout(() => {
-    t.true(onHandlerStub.notCalled);
-    t.end();
+    expect(onHandlerStub.notCalled).toBe(true);
+    done();
   }, 0);
 });
 
-test.cb('Ignores events with undefined `data.msgType`', (t) => {
+test('Ignores events with undefined `data.msgType`', (done) => {
   const transport = createWebTransport('');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -51,12 +50,12 @@ test.cb('Ignores events with undefined `data.msgType`', (t) => {
   window.postMessage({}, '*');
 
   setTimeout(() => {
-    t.true(onHandlerStub.notCalled);
-    t.end();
+    expect(onHandlerStub.notCalled).toBe(true);
+    done();
   }, 0);
 });
 
-test.cb('Executes events where `messageHandlers` size is > 0', (t) => {
+test('Executes events where `messageHandlers` size is > 0', (done) => {
   const transport = createWebTransport('');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -64,19 +63,19 @@ test.cb('Executes events where `messageHandlers` size is > 0', (t) => {
   window.postMessage({ msgType: `asdfasdf-${ENCODED_QUERY_PARAMS}` }, '*');
 
   setTimeout(() => {
-    t.true(onHandlerStub.calledOnce);
-    t.deepEqual(onHandlerStub.args[0][0].data, { msgType: `asdfasdf-${ENCODED_QUERY_PARAMS}`, response: {} });
-    t.end();
+    expect(onHandlerStub.calledOnce).toBe(true);
+    expect(onHandlerStub.args[0][0].data).toEqual({ msgType: `asdfasdf-${ENCODED_QUERY_PARAMS}`, response: {} });
+    done();
   }, 0);
 });
 
-test.cb('Ignores events where `messageHandlers` size is === 0', (t) => {
+test('Ignores events where `messageHandlers` size is === 0', (done) => {
   const transport = createWebTransport('');
   (transport as any).messageHandlers = { size: 0 };
 
   window.postMessage({ msgType: `asdfasdf-${ENCODED_QUERY_PARAMS}` }, '*');
 
   setTimeout(() => {
-    t.end();
+    done();
   }, 0);
 });

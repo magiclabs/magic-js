@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { ViewController } from '../../../../src/core/view-controller';
 import { createViewController } from '../../../factories';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Instantiates `ViewController`', async (t) => {
+test('Instantiates `ViewController`', async () => {
   const initStub = sinon.stub();
   initStub.returns(new Promise(() => {}));
   const listenStub = sinon.stub();
@@ -23,11 +22,11 @@ test('Instantiates `ViewController`', async (t) => {
 
   const overlay = createViewController();
 
-  t.true(overlay instanceof ViewController);
-  t.true((overlay as any).transport instanceof PayloadTransport);
-  t.is((overlay as any).endpoint, (overlay as any).transport.endpoint);
-  t.is((overlay as any).parameters, (overlay as any).transport.parameters);
-  t.true(initStub.calledOnce);
-  t.true(listenStub.calledOnce);
-  t.true(waitForReadyStub.calledOnce);
+  expect(overlay instanceof ViewController).toBe(true);
+  expect((overlay as any).transport instanceof PayloadTransport).toBe(true);
+  expect((overlay as any).endpoint).toBe((overlay as any).transport.endpoint);
+  expect((overlay as any).parameters).toBe((overlay as any).transport.parameters);
+  expect(initStub.calledOnce).toBe(true);
+  expect(listenStub.calledOnce).toBe(true);
+  expect(waitForReadyStub.calledOnce).toBe(true);
 });

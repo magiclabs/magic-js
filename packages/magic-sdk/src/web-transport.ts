@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import { PayloadTransport } from '@magic-sdk/provider';
 
 export class WebTransport extends PayloadTransport {
@@ -10,7 +12,7 @@ export class WebTransport extends PayloadTransport {
         if (event.data && event.data.msgType && this.messageHandlers.size) {
           // If the response object is undefined, we ensure it's at least an
           // empty object before passing to the event listener.
-          /* eslint-disable-next-line no-param-reassign */
+          /* istanbul ignore next */
           event.data.response = event.data.response ?? {};
           for (const handler of this.messageHandlers.values()) {
             handler(event);

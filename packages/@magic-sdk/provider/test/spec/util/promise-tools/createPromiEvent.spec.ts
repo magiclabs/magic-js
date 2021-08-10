@@ -1,6 +1,5 @@
 import browserEnv from '@ikscodes/browser-env';
 import sinon from 'sinon';
-import test from 'ava';
 import { createPromiEvent } from '../../../../src/util/promise-tools';
 import { TypedEmitter } from '../../../../src/util/events';
 
@@ -9,87 +8,87 @@ const nonChainingEmitterMethods = ['emit', 'eventNames', 'listeners', 'listenerC
 const typedEmitterMethods = [...chainingEmitterMethods, ...nonChainingEmitterMethods];
 const promiseMethods = ['then', 'catch', 'finally'];
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Creates a native `Promise`', (t) => {
+test('Creates a native `Promise`', () => {
   const p = createPromiEvent((resolve) => resolve());
 
-  t.true(p instanceof Promise);
+  expect(p instanceof Promise).toBe(true);
 });
 
-test('Attaches `TypedEmitter` methods to the initial value', (t) => {
+test('Attaches `TypedEmitter` methods to the initial value', () => {
   const p = createPromiEvent((resolve) => resolve());
 
   typedEmitterMethods.forEach((method) => {
-    t.true(typeof p[method] === 'function');
+    expect(typeof p[method] === 'function').toBe(true);
   });
 });
 
-test('Attaches `TypedEmitter` methods to `Promise.then` result', (t) => {
+test('Attaches `TypedEmitter` methods to `Promise.then` result', () => {
   const p = createPromiEvent((resolve) => resolve()).then();
 
   typedEmitterMethods.forEach((method) => {
-    t.true(typeof p[method] === 'function');
+    expect(typeof p[method] === 'function').toBe(true);
   });
 });
 
-test('Attaches `TypedEmitter` methods to `Promise.catch` result', (t) => {
+test('Attaches `TypedEmitter` methods to `Promise.catch` result', () => {
   const p = createPromiEvent((resolve) => resolve()).catch();
 
   typedEmitterMethods.forEach((method) => {
-    t.true(typeof p[method] === 'function');
+    expect(typeof p[method] === 'function').toBe(true);
   });
 });
 
-test('Attaches `TypedEmitter` methods to `Promise.finally` result', (t) => {
+test('Attaches `TypedEmitter` methods to `Promise.finally` result', () => {
   const p = createPromiEvent((resolve) => resolve()).catch();
 
   typedEmitterMethods.forEach((method) => {
-    t.true(typeof p[method] === 'function');
+    expect(typeof p[method] === 'function').toBe(true);
   });
 });
 
-test('Attaches `Promise` methods to `TypedEmitter` results', (t) => {
+test('Attaches `Promise` methods to `TypedEmitter` results', () => {
   chainingEmitterMethods.forEach((emitterMethod) => {
     const emitterStub = sinon.stub(TypedEmitter.prototype, emitterMethod as any);
     const p = createPromiEvent((resolve) => resolve())[emitterMethod]();
 
     promiseMethods.forEach((promiseMethod) => {
-      t.true(typeof p[promiseMethod] === 'function');
+      expect(typeof p[promiseMethod] === 'function').toBe(true);
     });
 
     emitterStub.restore();
   });
 });
 
-test.cb('Emits "done" event upon Promise resolution', (t) => {
+test('Emits "done" event upon Promise resolution', (done) => {
   createPromiEvent((resolve) => resolve('hello')).on('done', (result) => {
-    t.is(result, 'hello');
-    t.end();
+    expect(result).toBe('hello');
+    done();
   });
 });
 
-test.cb('Emits "settled" event upon Promise resolution', (t) => {
+test('Emits "settled" event upon Promise resolution', (done) => {
   createPromiEvent((resolve) => resolve()).on('settled', () => {
-    t.end();
+    done();
   });
 });
 
-test.cb('Emits "error" event upon Promise reject', (t) => {
+test('Emits "error" event upon Promise reject', (done) => {
   createPromiEvent((resolve, reject) => reject('goodbye'))
     .on('error', (err) => {
-      t.is(err, 'goodbye' as any);
-      t.end();
+      expect(err).toBe('goodbye' as any);
+      done();
     })
     .catch(() => {});
 });
 
-test.cb('Emits "settled" event upon Promise reject', (t) => {
+test('Emits "settled" event upon Promise reject', (done) => {
   createPromiEvent((resolve, reject) => reject())
     .on('settled', () => {
-      t.end();
+      done();
     })
     .catch(() => {});
 });

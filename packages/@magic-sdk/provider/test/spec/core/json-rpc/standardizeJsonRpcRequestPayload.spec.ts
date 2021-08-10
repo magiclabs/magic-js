@@ -1,24 +1,23 @@
-import test from 'ava';
 import { standardizeJsonRpcRequestPayload } from '../../../../src/core/json-rpc';
 import { getPayloadIdStub } from '../../../mocks';
 
-test('Mutate the payload object given as the argument', (t) => {
+test('Mutate the payload object given as the argument', () => {
   const originalPayload = {};
   const finalPayload = standardizeJsonRpcRequestPayload(originalPayload);
-  t.is(originalPayload, finalPayload);
+  expect(originalPayload).toBe(finalPayload);
 });
 
-test('Create a JSON RPC payload, preserving the current value of `payload.jsonrpc`', (t) => {
+test('Create a JSON RPC payload, preserving the current value of `payload.jsonrpc`', () => {
   const payload = standardizeJsonRpcRequestPayload({ jsonrpc: 'hello world' });
-  t.is(payload.jsonrpc, 'hello world');
+  expect(payload.jsonrpc).toBe('hello world');
 });
 
-test('Create a JSON RPC payload, replacing the missing value of `payload.jsonrpc`', (t) => {
+test('Create a JSON RPC payload, replacing the missing value of `payload.jsonrpc`', () => {
   const payload = standardizeJsonRpcRequestPayload({});
-  t.is(payload.jsonrpc, '2.0');
+  expect(payload.jsonrpc).toBe('2.0');
 });
 
-test('Create a JSON RPC payload, replacing the value of `payload.id`', (t) => {
+test('Create a JSON RPC payload, replacing the value of `payload.id`', () => {
   const randomIdStub = getPayloadIdStub();
   randomIdStub.returns(999);
 
@@ -31,30 +30,30 @@ test('Create a JSON RPC payload, replacing the value of `payload.id`', (t) => {
     params: ['hello world'],
   };
 
-  t.deepEqual(payload, expectedPayload);
+  expect(payload).toEqual(expectedPayload);
 });
 
-test('Create a JSON RPC payload, preserving the current value of `payload.method`', (t) => {
+test('Create a JSON RPC payload, preserving the current value of `payload.method`', () => {
   const payload = standardizeJsonRpcRequestPayload({ method: 'test' });
-  t.is(payload.method, 'test');
+  expect(payload.method).toBe('test');
 });
 
-test('Create a JSON RPC payload, replacing the missing value of `payload.method`', (t) => {
+test('Create a JSON RPC payload, replacing the missing value of `payload.method`', () => {
   const payload = standardizeJsonRpcRequestPayload({});
-  t.is(payload.method, 'noop');
+  expect(payload.method).toBe('noop');
 });
 
-test('Create a JSON RPC payload, preserving the current value of `payload.params`', (t) => {
+test('Create a JSON RPC payload, preserving the current value of `payload.params`', () => {
   const payload = standardizeJsonRpcRequestPayload({ params: ['test'] });
-  t.deepEqual(payload.params, ['test']);
+  expect(payload.params).toEqual(['test']);
 });
 
-test('Create a JSON RPC payload, replacing the missing value of `payload.params`', (t) => {
+test('Create a JSON RPC payload, replacing the missing value of `payload.params`', () => {
   const payload = standardizeJsonRpcRequestPayload({});
-  t.deepEqual(payload.params, []);
+  expect(payload.params).toEqual([]);
 });
 
-test('Calling upon the same payload twice does not mutate the payload ID', (t) => {
+test('Calling upon the same payload twice does not mutate the payload ID', () => {
   const originalPayload = {
     id: 999,
   };
@@ -65,9 +64,9 @@ test('Calling upon the same payload twice does not mutate the payload ID', (t) =
 
   standardizeJsonRpcRequestPayload(originalPayload);
 
-  t.is(originalPayload.id, 1);
+  expect(originalPayload.id).toBe(1);
 
   standardizeJsonRpcRequestPayload(originalPayload);
 
-  t.is(originalPayload.id, 1);
+  expect(originalPayload.id).toBe(1);
 });

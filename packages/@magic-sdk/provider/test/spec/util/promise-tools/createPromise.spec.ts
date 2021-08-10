@@ -1,43 +1,42 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import { createPromise } from '../../../../src/util/promise-tools';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Creates a native `Promise`', (t) => {
+test('Creates a native `Promise`', () => {
   const p = createPromise((resolve) => resolve());
 
-  t.true(p instanceof Promise);
+  expect(p instanceof Promise).toBe(true);
 });
 
-test.cb('Resolves the `Promise`', (t) => {
+test('Resolves the `Promise`', (done) => {
   createPromise((resolve) => resolve()).then(() => {
-    t.end();
+    done();
   });
 });
 
-test.cb('Rejects the `Promise`', (t) => {
+test('Rejects the `Promise`', (done) => {
   createPromise((resolve, reject) => reject()).catch(() => {
-    t.end();
+    done();
   });
 });
 
-test.cb('Rejects the `Promise` if an async executor is given and throws', (t) => {
+test('Rejects the `Promise` if an async executor is given and throws', (done) => {
   createPromise(async () => {
     throw new Error('Oops');
   }).catch((err) => {
-    t.is(err.message, 'Oops');
-    t.end();
+    expect(err.message).toBe('Oops');
+    done();
   });
 });
 
-test.cb('Rejects the `Promise` if a sync executor is given and throws', (t) => {
+test('Rejects the `Promise` if a sync executor is given and throws', (done) => {
   createPromise(() => {
     throw new Error('Oops');
   }).catch((err) => {
-    t.is(err.message, 'Oops');
-    t.end();
+    expect(err.message).toBe('Oops');
+    done();
   });
 });

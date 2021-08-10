@@ -1,14 +1,13 @@
-import test from 'ava';
 import { getPayloadId } from '../../../src/util/get-payload-id';
 
-test('Returns an incremental, integer ID', async (t) => {
+test('Returns an incremental, integer ID', async () => {
   const id = getPayloadId();
-  t.is(typeof id, 'number');
-  t.true(Number.isInteger(id));
+  expect(typeof id).toBe('number');
+  expect(Number.isInteger(id)).toBe(true);
 });
 
-test('Does not have ID conflicts for at least 1,000,000 cycles', async (t) => {
+test('Does not have ID conflicts for at least 1,000,000 cycles', async () => {
   const allIds = new Set<number>();
   for (let i = 0; i < 1e6; i++) allIds.add(getPayloadId());
-  t.is(allIds.size, 1e6);
+  expect(allIds.size).toBe(1e6);
 });

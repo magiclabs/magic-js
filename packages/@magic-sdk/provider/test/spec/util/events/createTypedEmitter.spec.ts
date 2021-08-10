@@ -1,21 +1,20 @@
 import browserEnv from '@ikscodes/browser-env';
 import sinon from 'sinon';
-import test from 'ava';
 import { TypedEmitter, createTypedEmitter } from '../../../../src/util/events';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Returns an object containing a `TypedEmitter` instance & two helper functions', (t) => {
+test('Returns an object containing a `TypedEmitter` instance & two helper functions', () => {
   const { emitter, createBoundEmitterMethod, createChainingEmitterMethod } = createTypedEmitter();
 
-  t.true(emitter instanceof TypedEmitter);
-  t.is(typeof createBoundEmitterMethod, 'function');
-  t.is(typeof createChainingEmitterMethod, 'function');
+  expect(emitter instanceof TypedEmitter).toBe(true);
+  expect(typeof createBoundEmitterMethod).toBe('function');
+  expect(typeof createChainingEmitterMethod).toBe('function');
 });
 
-test('`createBoundEmitterMethod` helper creates a function that calls the underlying `TypedEmitter` method', (t) => {
+test('`createBoundEmitterMethod` helper creates a function that calls the underlying `TypedEmitter` method', () => {
   const { emitter, createBoundEmitterMethod } = createTypedEmitter();
 
   const emitStub = sinon.stub().returns('foobar');
@@ -27,11 +26,11 @@ test('`createBoundEmitterMethod` helper creates a function that calls the underl
 
   const result = testObj.foo('hello world');
 
-  t.true(emitStub.calledWith('hello world'));
-  t.is(result, 'foobar' as any);
+  expect(emitStub.calledWith('hello world')).toBe(true);
+  expect(result).toBe('foobar' as any);
 });
 
-test('`createChainingEmitterMethod` helper creates a function that calls the underlying `TypedEmitter` method', (t) => {
+test('`createChainingEmitterMethod` helper creates a function that calls the underlying `TypedEmitter` method', () => {
   const { emitter, createChainingEmitterMethod } = createTypedEmitter();
 
   const onStub = sinon.stub().returns('foobar');
@@ -42,6 +41,6 @@ test('`createChainingEmitterMethod` helper creates a function that calls the und
 
   const result = testObj.foo('hello world');
 
-  t.true(onStub.calledWith('hello world'));
-  t.is(result, testObj);
+  expect(onStub.calledWith('hello world')).toBe(true);
+  expect(result).toBe(testObj);
 });

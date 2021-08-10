@@ -1,7 +1,6 @@
 /* eslint-disable prefer-spread */
 
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '@magic-sdk/types';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
@@ -73,12 +72,12 @@ function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomin
   return { handlerSpy, onSpy };
 }
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv();
   browserEnv.stub('addEventListener', sinon.stub());
 });
 
-test.serial('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async (t) => {
+test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async () => {
   const transport = createPayloadTransport('asdf');
   const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
@@ -88,31 +87,28 @@ test.serial('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves respon
 
   const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  t.true(handlerSpy.calledOnce);
-  t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
+  expect(onSpy.args[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy.calledOnce).toBe(true);
+  expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
 });
 
-test.serial(
-  'Sends payload; recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response',
-  async (t) => {
-    const transport = createPayloadTransport('asdf');
-    const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
-      [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent({ id: 1234 })], // Should be skipped
-      [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
-    ]);
-    const overlay = overlayStub();
-    const payload = requestPayload();
+test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response', async () => {
+  const transport = createPayloadTransport('asdf');
+  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent({ id: 1234 })], // Should be skipped
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
+  const overlay = overlayStub();
+  const payload = requestPayload();
 
-    const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-    t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-    t.true(handlerSpy.calledOnce);
-    t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
-  },
-);
+  expect(onSpy.args[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy.calledOnce).toBe(true);
+  expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
+});
 
-test.serial('Sends payload and standardizes malformed response', async (t) => {
+test('Sends payload and standardizes malformed response', async () => {
   const transport = createPayloadTransport('asdf');
   const overlay = overlayStub();
   const payload = requestPayload();
@@ -123,10 +119,10 @@ test.serial('Sends payload and standardizes malformed response', async (t) => {
 
   transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-  t.true(true);
+  expect(true).toBe(true);
 });
 
-test.serial('Sends a batch payload and resolves with multiple responses', async (t) => {
+test('Sends a batch payload and resolves with multiple responses', async () => {
   const response1 = responseEvent({ result: 'one', id: 1 });
   const response2 = responseEvent({ result: 'two', id: 2 });
   const response3 = responseEvent({ result: 'three', id: 3 });
@@ -149,9 +145,9 @@ test.serial('Sends a batch payload and resolves with multiple responses', async 
     payload3,
   ]);
 
-  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  t.true(handlerSpy.calledOnce);
-  t.deepEqual(response, [
+  expect(onSpy.args[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy.calledOnce).toBe(true);
+  expect(response).toEqual([
     new JsonRpcResponse(response1.data.response),
     new JsonRpcResponse(response2.data.response),
     new JsonRpcResponse(response3.data.response),

@@ -1,14 +1,13 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { createViewController } from '../../../factories';
 import { MSG_TYPES } from '../../../constants';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv();
 });
 
-test.cb('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', (t) => {
+test('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', (done) => {
   const overlay = createViewController('');
   const hideOverlayStub = sinon.stub();
   (overlay as any).hideOverlay = hideOverlayStub;
@@ -16,12 +15,12 @@ test.cb('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', (t) => {
   window.postMessage({ msgType: MSG_TYPES().MAGIC_HIDE_OVERLAY }, '*');
 
   setTimeout(() => {
-    t.true(hideOverlayStub.calledOnce);
-    t.end();
+    expect(hideOverlayStub.calledOnce).toBe(true);
+    done();
   }, 0);
 });
 
-test.cb('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', (t) => {
+test('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', (done) => {
   const overlay = createViewController('');
   const showOverlayStub = sinon.stub();
   (overlay as any).showOverlay = showOverlayStub;
@@ -29,7 +28,7 @@ test.cb('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', (t) => {
   window.postMessage({ msgType: MSG_TYPES().MAGIC_SHOW_OVERLAY }, '*');
 
   setTimeout(() => {
-    t.true(showOverlayStub.calledOnce);
-    t.end();
+    expect(showOverlayStub.calledOnce).toBe(true);
+    done();
   }, 0);
 });

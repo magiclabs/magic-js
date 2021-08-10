@@ -1,18 +1,17 @@
-import test from 'ava';
 import { isEmpty } from '../../../../src/util/type-guards';
 
-test('Given `undefined`, returns true', async (t) => {
-  t.true(isEmpty(undefined));
+test('Given `undefined`, returns true', async () => {
+  expect(isEmpty(undefined)).toBe(true);
 });
 
-test('Given `null`, returns true', async (t) => {
-  t.true(isEmpty(null));
+test('Given `null`, returns true', async () => {
+  expect(isEmpty(null)).toBe(true);
 });
 
-test('Given empty object, returns true', async (t) => {
-  t.true(isEmpty({}));
+test('Given empty object, returns true', async () => {
+  expect(isEmpty({})).toBe(true);
 });
 
-test('Given non-empty object, returns false', async (t) => {
-  t.false(isEmpty({ hello: 'world' }));
+test('Given non-empty object, returns false', async () => {
+  expect(isEmpty({ hello: 'world' })).toBe(false);
 });

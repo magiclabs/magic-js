@@ -1,13 +1,12 @@
-import test from 'ava';
 import { createURL } from '../../../src/util/url';
 
-test('Creates a URL object', async (t) => {
+test('Creates a URL object', async () => {
   const url = createURL('https://example.com');
-  t.true(url instanceof URL);
+  expect(url instanceof URL).toBe(true);
 });
 
-test('Creates a URL object with a base', async (t) => {
+test('Creates a URL object with a base', async () => {
   const url = createURL('/test', 'https://example.com');
-  t.true(url instanceof URL);
-  t.is(url.pathname, '/test');
+  expect(url instanceof URL).toBe(true);
+  expect(url.pathname).toBe('/test');
 });

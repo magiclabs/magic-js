@@ -1,18 +1,17 @@
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { getPayloadIdStub } from '../../../mocks';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-test.serial('Generates JSON RPC request payload with `email` parameter', async (t) => {
+test('Generates JSON RPC request payload with `email` parameter', async () => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -21,13 +20,13 @@ test.serial('Generates JSON RPC request payload with `email` parameter', async (
   await magic.auth.loginWithMagicLink({ email: 'test' });
 
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.jsonrpc, '2.0');
-  t.is(requestPayload.id, 222);
-  t.is(requestPayload.method, 'magic_auth_login_with_magic_link');
-  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: true, redirectURI: undefined }]);
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.id).toBe(222);
+  expect(requestPayload.method).toBe('magic_auth_login_with_magic_link');
+  expect(requestPayload.params).toEqual([{ email: 'test', showUI: true, redirectURI: undefined }]);
 });
 
-test.serial('Generates JSON RPC request payload with `showUI` parameter', async (t) => {
+test('Generates JSON RPC request payload with `showUI` parameter', async () => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -36,13 +35,13 @@ test.serial('Generates JSON RPC request payload with `showUI` parameter', async 
   await magic.auth.loginWithMagicLink({ email: 'test', showUI: false });
 
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.jsonrpc, '2.0');
-  t.is(requestPayload.id, 777);
-  t.is(requestPayload.method, 'magic_auth_login_with_magic_link');
-  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: false, redirectURI: undefined }]);
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.id).toBe(777);
+  expect(requestPayload.method).toBe('magic_auth_login_with_magic_link');
+  expect(requestPayload.params).toEqual([{ email: 'test', showUI: false, redirectURI: undefined }]);
 });
 
-test.serial('Generates JSON RPC request payload with `redirectURI` parameter', async (t) => {
+test('Generates JSON RPC request payload with `redirectURI` parameter', async () => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -51,13 +50,13 @@ test.serial('Generates JSON RPC request payload with `redirectURI` parameter', a
   await magic.auth.loginWithMagicLink({ email: 'test', showUI: true, redirectURI: 'helloworld' });
 
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.jsonrpc, '2.0');
-  t.is(requestPayload.id, 999);
-  t.is(requestPayload.method, 'magic_auth_login_with_magic_link');
-  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: true, redirectURI: 'helloworld' }]);
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.id).toBe(999);
+  expect(requestPayload.method).toBe('magic_auth_login_with_magic_link');
+  expect(requestPayload.params).toEqual([{ email: 'test', showUI: true, redirectURI: 'helloworld' }]);
 });
 
-test.serial('If `testMode` is enabled, testing-specific RPC method is used', async (t) => {
+test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
   const magic = createMagicSDKTestMode();
 
   const idStub = getPayloadIdStub();
@@ -66,8 +65,8 @@ test.serial('If `testMode` is enabled, testing-specific RPC method is used', asy
   await magic.auth.loginWithMagicLink({ email: 'test' });
 
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.jsonrpc, '2.0');
-  t.is(requestPayload.id, 456);
-  t.is(requestPayload.method, 'magic_login_with_magic_link_testing_mode');
-  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: true, redirectURI: undefined }]);
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.id).toBe(456);
+  expect(requestPayload.method).toBe('magic_login_with_magic_link_testing_mode');
+  expect(requestPayload.params).toEqual([{ email: 'test', showUI: true, redirectURI: undefined }]);
 });

@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-script
+#!/usr/bin/env ts-node-script
 
 import { relative, join } from 'path';
 import { existsSync } from 'fs';

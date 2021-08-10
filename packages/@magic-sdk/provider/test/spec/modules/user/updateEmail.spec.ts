@@ -1,16 +1,15 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { getPayloadIdStub } from '../../../mocks';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
   (BaseModule as any).prototype.request = sinon.stub();
 });
 
-test.serial('Generate JSON RPC request payload with method `magic_auth_update_email`', async (t) => {
+test('Generate JSON RPC request payload with method `magic_auth_update_email`', async () => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -19,13 +18,13 @@ test.serial('Generate JSON RPC request payload with method `magic_auth_update_em
   await magic.user.updateEmail({ email: 'test' });
 
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.jsonrpc, '2.0');
-  t.is(requestPayload.id, 333);
-  t.is(requestPayload.method, 'magic_auth_update_email');
-  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: true }]);
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.id).toBe(333);
+  expect(requestPayload.method).toBe('magic_auth_update_email');
+  expect(requestPayload.params).toEqual([{ email: 'test', showUI: true }]);
 });
 
-test.serial('Accepts a `showUI` parameter', async (t) => {
+test('Accepts a `showUI` parameter', async () => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -34,13 +33,13 @@ test.serial('Accepts a `showUI` parameter', async (t) => {
   await magic.user.updateEmail({ email: 'test', showUI: false });
 
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.jsonrpc, '2.0');
-  t.is(requestPayload.id, 888);
-  t.is(requestPayload.method, 'magic_auth_update_email');
-  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: false }]);
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.id).toBe(888);
+  expect(requestPayload.method).toBe('magic_auth_update_email');
+  expect(requestPayload.params).toEqual([{ email: 'test', showUI: false }]);
 });
 
-test.serial('If `testMode` is enabled, testing-specific RPC method is used', async (t) => {
+test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
   const magic = createMagicSDKTestMode();
 
   const idStub = getPayloadIdStub();
@@ -49,8 +48,8 @@ test.serial('If `testMode` is enabled, testing-specific RPC method is used', asy
   await magic.user.updateEmail({ email: 'test', showUI: false });
 
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.jsonrpc, '2.0');
-  t.is(requestPayload.id, 888);
-  t.is(requestPayload.method, 'magic_auth_update_email_testing_mode');
-  t.deepEqual(requestPayload.params, [{ email: 'test', showUI: false }]);
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.id).toBe(888);
+  expect(requestPayload.method).toBe('magic_auth_update_email_testing_mode');
+  expect(requestPayload.params).toEqual([{ email: 'test', showUI: false }]);
 });

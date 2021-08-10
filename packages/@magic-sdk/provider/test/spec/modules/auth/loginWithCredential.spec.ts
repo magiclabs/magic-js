@@ -1,19 +1,18 @@
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { getPayloadIdStub, mockSDKEnvironmentConstant } from '../../../mocks';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
   (BaseModule as any).prototype.request = sinon.stub();
   mockSDKEnvironmentConstant('platform', 'web');
 });
 
-test.serial('Generates JSON RPC request payload with the given parameter as the credential', async (t) => {
+test('Generates JSON RPC request payload with the given parameter as the credential', async () => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -22,39 +21,36 @@ test.serial('Generates JSON RPC request payload with the given parameter as the 
   await magic.auth.loginWithCredential('helloworld');
 
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.jsonrpc, '2.0');
-  t.is(requestPayload.id, 222);
-  t.is(requestPayload.method, 'magic_auth_login_with_credential');
-  t.deepEqual(requestPayload.params, ['helloworld']);
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.id).toBe(222);
+  expect(requestPayload.method).toBe('magic_auth_login_with_credential');
+  expect(requestPayload.params).toEqual(['helloworld']);
 });
 
-test.serial(
-  'If no parameter is given & platform target is "web", URL search string is included in the payload params',
-  async (t) => {
-    const magic = createMagicSDK();
+test('If no parameter is given & platform target is "web", URL search string is included in the payload params', async () => {
+  const magic = createMagicSDK();
 
-    const idStub = getPayloadIdStub();
-    idStub.returns(777);
+  const idStub = getPayloadIdStub();
+  idStub.returns(777);
 
-    browserEnv.stub('window.history.replaceState', () => {});
+  browserEnv.stub('window.history.replaceState', () => {});
 
-    browserEnv.stub('window.location', {
-      search: '?magic_credential=asdf',
-      origin: 'http://example.com',
-      pathname: '/hello/world',
-    });
+  browserEnv.stub('window.location', {
+    search: '?magic_credential=asdf',
+    origin: 'http://example.com',
+    pathname: '/hello/world',
+  });
 
-    await magic.auth.loginWithCredential();
+  await magic.auth.loginWithCredential();
 
-    const requestPayload = (magic.user as any).request.args[0][0];
-    t.is(requestPayload.jsonrpc, '2.0');
-    t.is(requestPayload.id, 777);
-    t.is(requestPayload.method, 'magic_auth_login_with_credential');
-    t.deepEqual(requestPayload.params, ['?magic_credential=asdf']);
-  },
-);
+  const requestPayload = (magic.user as any).request.args[0][0];
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.id).toBe(777);
+  expect(requestPayload.method).toBe('magic_auth_login_with_credential');
+  expect(requestPayload.params).toEqual(['?magic_credential=asdf']);
+});
 
-test.serial('If no parameter is given & platform target is NOT "web", credential is empty string', async (t) => {
+test('If no parameter is given & platform target is NOT "web", credential is empty string', async () => {
   const magic = createMagicSDK();
 
   const idStub = getPayloadIdStub();
@@ -65,13 +61,13 @@ test.serial('If no parameter is given & platform target is NOT "web", credential
   await magic.auth.loginWithCredential();
 
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.jsonrpc, '2.0');
-  t.is(requestPayload.id, 777);
-  t.is(requestPayload.method, 'magic_auth_login_with_credential');
-  t.deepEqual(requestPayload.params, ['']);
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.id).toBe(777);
+  expect(requestPayload.method).toBe('magic_auth_login_with_credential');
+  expect(requestPayload.params).toEqual(['']);
 });
 
-test.serial('If `testMode` is enabled, testing-specific RPC method is used', async (t) => {
+test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
   const magic = createMagicSDKTestMode();
 
   const idStub = getPayloadIdStub();
@@ -80,8 +76,8 @@ test.serial('If `testMode` is enabled, testing-specific RPC method is used', asy
   await magic.auth.loginWithCredential('helloworld');
 
   const requestPayload = (magic.user as any).request.args[0][0];
-  t.is(requestPayload.jsonrpc, '2.0');
-  t.is(requestPayload.id, 456);
-  t.is(requestPayload.method, 'magic_auth_login_with_credential_testing_mode');
-  t.deepEqual(requestPayload.params, ['helloworld']);
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.id).toBe(456);
+  expect(requestPayload.method).toBe('magic_auth_login_with_credential_testing_mode');
+  expect(requestPayload.params).toEqual(['helloworld']);
 });

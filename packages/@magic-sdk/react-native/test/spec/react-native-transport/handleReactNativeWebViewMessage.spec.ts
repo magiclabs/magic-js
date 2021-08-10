@@ -1,14 +1,13 @@
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import sinon from 'sinon';
 import { ENCODED_QUERY_PARAMS } from '../../constants';
 import { createReactNativeTransport } from '../../factories';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv();
 });
 
-test.cb('Ignores events with different origin than expected', (t) => {
+test('Ignores events with different origin than expected', (done) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -21,12 +20,12 @@ test.cb('Ignores events with different origin than expected', (t) => {
   } as any);
 
   setTimeout(() => {
-    t.true(onHandlerStub.notCalled);
-    t.end();
+    expect(onHandlerStub.notCalled).toBe(true);
+    done();
   }, 0);
 });
 
-test.cb('Ignores events with non-string data', (t) => {
+test('Ignores events with non-string data', (done) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -39,8 +38,8 @@ test.cb('Ignores events with non-string data', (t) => {
   } as any);
 
   setTimeout(() => {
-    t.true(onHandlerStub.notCalled);
-    t.end();
+    expect(onHandlerStub.notCalled).toBe(true);
+    done();
   }, 0);
 });
 
@@ -70,7 +69,7 @@ test.cb('Ignores events with non-string data', (t) => {
 //   }, 0);
 // });
 
-test.cb('Replaces `undefined` or `null` response with an empty object', (t) => {
+test('Replaces `undefined` or `null` response with an empty object', (done) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -83,13 +82,13 @@ test.cb('Replaces `undefined` or `null` response with an empty object', (t) => {
   } as any);
 
   setTimeout(() => {
-    t.true(onHandlerStub.calledOnce);
-    t.deepEqual(onHandlerStub.args[0][0].data, { msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} });
-    t.end();
+    expect(onHandlerStub.calledOnce).toBe(true);
+    expect(onHandlerStub.args[0][0].data).toEqual({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} });
+    done();
   }, 0);
 });
 
-test.cb('Executes event handlers where `messageHandlers` size is > 0', (t) => {
+test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
   (transport as any).messageHandlers.add(onHandlerStub);
@@ -102,13 +101,13 @@ test.cb('Executes event handlers where `messageHandlers` size is > 0', (t) => {
   } as any);
 
   setTimeout(() => {
-    t.true(onHandlerStub.calledOnce);
-    t.deepEqual(onHandlerStub.args[0][0].data, { msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} });
-    t.end();
+    expect(onHandlerStub.calledOnce).toBe(true);
+    expect(onHandlerStub.args[0][0].data).toEqual({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} });
+    done();
   }, 0);
 });
 
-test.cb('Ignores event handlers where `messageHandlers` size is === 0', (t) => {
+test('Ignores event handlers where `messageHandlers` size is === 0', (done) => {
   const transport = createReactNativeTransport('asdf');
   (transport as any).messageHandlers = { size: 0 };
 
@@ -120,6 +119,6 @@ test.cb('Ignores event handlers where `messageHandlers` size is === 0', (t) => {
   } as any);
 
   setTimeout(() => {
-    t.end();
+    done();
   }, 0);
 });

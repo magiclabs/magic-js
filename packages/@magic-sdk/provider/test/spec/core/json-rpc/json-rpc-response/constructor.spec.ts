@@ -1,14 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 
 import browserEnv from '@ikscodes/browser-env';
-import test from 'ava';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
 
-test.beforeEach((t) => {
+beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Initialize JsonRpcResponse instance if argument is `instanceof` JsonRpcReponse', (t) => {
+test('Initialize JsonRpcResponse instance if argument is `instanceof` JsonRpcReponse', () => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,
@@ -19,14 +18,14 @@ test('Initialize JsonRpcResponse instance if argument is `instanceof` JsonRpcRep
   const first = new JsonRpcResponse(payload);
   const second = new JsonRpcResponse(first);
 
-  t.deepEqual(first, second);
-  t.is((second as any)._jsonrpc, '2.0');
-  t.is((second as any)._id, 1);
-  t.is((second as any)._result, 123);
-  t.is((second as any)._error, null);
+  expect(first).toEqual(second);
+  expect((second as any)._jsonrpc).toBe('2.0');
+  expect((second as any)._id).toBe(1);
+  expect((second as any)._result).toBe(123);
+  expect((second as any)._error).toBe(null);
 });
 
-test('Initialize JsonRpcResponse instance if argument is a JsonRpcResponsePayload', (t) => {
+test('Initialize JsonRpcResponse instance if argument is a JsonRpcResponsePayload', () => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,
@@ -36,13 +35,13 @@ test('Initialize JsonRpcResponse instance if argument is a JsonRpcResponsePayloa
 
   const response = new JsonRpcResponse(payload);
 
-  t.is((response as any)._jsonrpc, '2.0');
-  t.is((response as any)._id, 1);
-  t.is((response as any)._result, 123);
-  t.is((response as any)._error, null);
+  expect((response as any)._jsonrpc).toBe('2.0');
+  expect((response as any)._id).toBe(1);
+  expect((response as any)._result).toBe(123);
+  expect((response as any)._error).toBe(null);
 });
 
-test('Initialize JsonRpcResponse instance if argument is a JsonRpcRequestPayload', (t) => {
+test('Initialize JsonRpcResponse instance if argument is a JsonRpcRequestPayload', () => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,
@@ -52,13 +51,13 @@ test('Initialize JsonRpcResponse instance if argument is a JsonRpcRequestPayload
 
   const response = new JsonRpcResponse(payload);
 
-  t.is((response as any)._jsonrpc, '2.0');
-  t.is((response as any)._id, 1);
-  t.is((response as any)._result, undefined);
-  t.is((response as any)._error, undefined);
+  expect((response as any)._jsonrpc).toBe('2.0');
+  expect((response as any)._id).toBe(1);
+  expect((response as any)._result).toBe(undefined);
+  expect((response as any)._error).toBe(undefined);
 });
 
-test('Initialize `JsonRpcResponse` instance if argument is a `JsonRpcBatchRequestPayload`', (t) => {
+test('Initialize `JsonRpcResponse` instance if argument is a `JsonRpcBatchRequestPayload`', () => {
   const payload = {
     jsonrpc: '2.0',
     id: 1,
@@ -68,8 +67,8 @@ test('Initialize `JsonRpcResponse` instance if argument is a `JsonRpcBatchReques
 
   const response = new JsonRpcResponse(payload);
 
-  t.is((response as any)._jsonrpc, '2.0');
-  t.is((response as any)._id, 1);
-  t.is((response as any)._result, undefined);
-  t.is((response as any)._error, undefined);
+  expect((response as any)._jsonrpc).toBe('2.0');
+  expect((response as any)._id).toBe(1);
+  expect((response as any)._result).toBe(undefined);
+  expect((response as any)._error).toBe(undefined);
 });
