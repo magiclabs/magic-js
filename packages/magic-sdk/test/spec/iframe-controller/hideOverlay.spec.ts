@@ -32,10 +32,6 @@ test('If `activeElement` exists and can be focused, calls `activeElement.focus()
       style: { display: 'block' },
     };
 
-    this.activeElement = {
-      focus: focusStub,
-    };
-
     return Promise.resolve();
   };
 
