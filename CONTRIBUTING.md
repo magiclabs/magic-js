@@ -18,6 +18,22 @@ Please note we have a **code of conduct**, please follow it in all your interact
 5. Add `./node_modules/.bin` to your system's [`PATH`](https://en.wikipedia.org/wiki/PATH_(variable)), if it's not already listed.
 6. Start building for development: `yarn dev`
 
+### ESLint + VS Code
+
+To ensure ESLint is able to properly lint source files in your VS Code development environment, add the following configuration to your `.vscode/settings.json` file:
+
+```json
+{
+  "eslint.workingDirectories": [
+    { "directory" : "./packages/@magic-sdk/commons", "changeProcessCWD": true },
+    { "directory" : "./packages/@magic-sdk/provider", "changeProcessCWD": true },
+    { "directory" : "./packages/@magic-sdk/react-native", "changeProcessCWD": true },
+    { "directory" : "./packages/@magic-sdk/types", "changeProcessCWD": true },
+    { "directory" : "./packages/magic-sdk", "changeProcessCWD": true },
+  ],
+}
+```
+
 ### Development Scripts
 
 | NPM Script | Usage | Description |
