@@ -13,7 +13,7 @@
     "paths": "yarn --silent wsrun --parallel --no-prefix -r -c $INIT_CWD/scripts/wsrun/resolve-paths.ts"
   },
   "dependencies": {
-    "snyk": "^1.425.4"
+    "snyk": "^1.667.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
