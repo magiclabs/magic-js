@@ -5,6 +5,7 @@
   @typescript-eslint/no-var-requires,
   no-underscore-dangle
  */
+/* istanbul ignore file */
 
 import { createSDK } from '@magic-sdk/provider';
 import * as processPolyfill from 'process';

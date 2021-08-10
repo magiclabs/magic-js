@@ -1,36 +1,13 @@
-/*
-  eslint-disable
-
-  global-require,
-  @typescript-eslint/no-var-requires
- */
-
-import sinon from 'sinon';
-import mockery from 'mockery';
-import importFresh from 'import-fresh';
-
-export function requireIndex() {
-  return importFresh('../src/index') as typeof import('../src/index');
-}
-
 export function reactNativeStyleSheetStub() {
-  const ReactNative = require('react-native');
-
-  const createStub = sinon.stub();
-
-  ReactNative.StyleSheet = {
-    create: createStub,
-  };
-
-  return createStub;
+  const { StyleSheet } = jest.requireActual('react-native');
+  return jest.spyOn(StyleSheet, 'create');
 }
 
-const noopModule = {};
+const noopModule = () => ({});
 
 export function removeReactDependencies() {
-  mockery.registerMock('react', noopModule);
-  mockery.registerMock('react-native', noopModule);
-  mockery.registerMock('react-native-webview', noopModule);
+  jest.mock('react', noopModule);
+  jest.mock('react-native-webview', noopModule);
 
   // The `localforage` driver we use to enable React Native's `AsyncStorage`
   // currently uses an `import` statement at the top of it's index file, this is
@@ -39,10 +16,5 @@ export function removeReactDependencies() {
   //
   // Relevant issue:
   // https://github.com/aveq-research/localforage-asyncstorage-driver/issues/1
-  mockery.registerMock('@aveq-research/localforage-asyncstorage-driver', noopModule);
-
-  mockery.enable({
-    warnOnReplace: false,
-    warnOnUnregistered: false,
-  });
+  jest.mock('@aveq-research/localforage-asyncstorage-driver', noopModule);
 }

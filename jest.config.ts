@@ -1,5 +1,4 @@
 import type { Config } from '@jest/types';
-import { compilerOptions } from './tsconfig.settings.json';
 
 const config: Config.InitialOptions = {
   maxWorkers: 2,
@@ -18,7 +17,7 @@ const config: Config.InitialOptions = {
   setupFilesAfterEnv: ['./test/setup.ts'],
   globals: {
     'ts-jest': {
-      tsconfig: { ...compilerOptions, jsx: 'react' },
+      tsconfig: './test/tsconfig.json',
       isolatedModules: true,
     },
   },

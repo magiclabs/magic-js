@@ -4,32 +4,24 @@ import { reactNativeStyleSheetStub } from '../../mocks';
 
 beforeEach(() => {
   browserEnv();
-  reactNativeStyleSheetStub();
 });
 
 test("Intializes 'webView' with null", () => {
   const overlay = createReactNativeWebViewController();
-  expect((overlay as any).webView).toBe(null);
+  expect(overlay.webView).toEqual(null);
 });
 
 test("Intializes 'container' with null", () => {
   const overlay = createReactNativeWebViewController();
-  expect((overlay as any).container).toBe(null);
+  expect(overlay.container).toEqual(null);
 });
 
 test("Intializes 'styles' with the result of React Native's StyleSheet.create", () => {
-  reactNativeStyleSheetStub().returns('hello world');
-
-  const overlay = createReactNativeWebViewController();
-  expect((overlay as any).styles).toBe('hello world');
-});
-
-test('Stylesheet.create is called with the expected style object', () => {
   const stylesheetCreateStub = reactNativeStyleSheetStub();
 
   createReactNativeWebViewController();
 
-  expect(stylesheetCreateStub.args[0]).toEqual([
+  expect(stylesheetCreateStub.mock.calls[0]).toEqual([
     {
       'magic-webview': {
         flex: 1,
