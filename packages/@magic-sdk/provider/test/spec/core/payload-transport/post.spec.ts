@@ -11,7 +11,7 @@ import { ViewController } from '../../../../src/core/view-controller';
 /**
  * Stub `IframeController` for `PayloadTransport` testing requirements.
  */
-function overlayStub(hasContentWindow = true): ViewController {
+function overlayStub(): ViewController {
   const stub = {
     ready: Promise.resolve(),
     postMessage: sinon.stub(),
@@ -60,7 +60,7 @@ function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomin
   const onSpy = sinon.spy((msgType, handler) => {
     events.forEach((event, i) => {
       if (msgType === event[0]) {
-        timeouts.push(setTimeout(() => handler(event[1]), 1000 * (i + 1)));
+        timeouts.push(setTimeout(() => handler(event[1]), 100 * (i + 1)));
       }
     });
     return handlerSpy;

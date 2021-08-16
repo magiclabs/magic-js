@@ -3,7 +3,7 @@
 import browserEnv from '@ikscodes/browser-env';
 import { TEST_API_KEY } from '../../../constants';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
-import { TestMagicSDK } from '../../../factories';
+import { createMagicSDKCtor } from '../../../factories';
 import { SDKBase } from '../../../../src/core/sdk';
 
 beforeEach(() => {
@@ -11,11 +11,12 @@ beforeEach(() => {
 });
 
 test('`MagicSDK.transport` is lazy loaded', async () => {
-  const magic = new TestMagicSDK(TEST_API_KEY);
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY);
 
   expect((SDKBase as any).__transports__.size).toBe(0);
 
-  const { transport: A } = magic as any;
+  const { transport: A } = magic;
   const B = (SDKBase as any).__transports__.values().next().value;
 
   expect((SDKBase as any).__transports__.size).toBe(1);
@@ -24,21 +25,23 @@ test('`MagicSDK.transport` is lazy loaded', async () => {
 });
 
 test('`MagicSDK.transport` is shared between `MagicSDK` instances with same parameters', async () => {
-  const magicA = new TestMagicSDK(TEST_API_KEY);
-  const magicB = new TestMagicSDK(TEST_API_KEY);
+  const Ctor = createMagicSDKCtor();
+  const magicA = new Ctor(TEST_API_KEY);
+  const magicB = new Ctor(TEST_API_KEY);
 
-  const { transport: A } = magicA as any;
-  const { transport: B } = magicB as any;
+  const { transport: A } = magicA;
+  const { transport: B } = magicB;
 
   expect(A).toBe(B);
 });
 
 test('`MagicSDK.transport` is unique between `MagicSDK` instances with different parameters', async () => {
-  const magicA = new TestMagicSDK(TEST_API_KEY);
-  const magicB = new TestMagicSDK('asdfasdf');
+  const Ctor = createMagicSDKCtor();
+  const magicA = new Ctor(TEST_API_KEY);
+  const magicB = new Ctor('asdfasdf');
 
-  const { transport: A } = magicA as any;
-  const { transport: B } = magicB as any;
+  const { transport: A } = magicA;
+  const { transport: B } = magicB;
 
   expect(A).not.toBe(B);
 });

@@ -1,15 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-new, class-methods-use-this, global-require */
 
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
 import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
-import { TestMagicSDK } from '../../../factories';
-import { mockSDKEnvironmentConstant, restoreSDKEnvironmentConstants } from '../../../mocks';
-import {
-  createReactNativeEndpointConfigurationWarning,
-  createIncompatibleExtensionsError,
-  MagicSDKError,
-} from '../../../../src/core/sdk-exceptions';
+import { createMagicSDKCtor } from '../../../factories';
 import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
@@ -17,10 +11,10 @@ import { Extension } from '../../../../src/modules/base-extension';
 
 beforeEach(() => {
   browserEnv.restore();
-  restoreSDKEnvironmentConstants();
+  jest.resetAllMocks();
 });
 
-function assertEncodedQueryParams(t: ExecutionContext, parameters: string, expectedParams: any = {}) {
+function assertEncodedQueryParams(parameters: string, expectedParams: any = {}) {
   const defaultExpectedParams = {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
@@ -36,24 +30,26 @@ function assertEncodedQueryParams(t: ExecutionContext, parameters: string, expec
   });
 }
 
-function assertModuleInstanceTypes(t: ExecutionContext, sdk: any) {
+function assertModuleInstanceTypes(sdk: any) {
   expect(sdk.auth instanceof AuthModule).toBe(true);
   expect(sdk.user instanceof UserModule).toBe(true);
   expect(sdk.rpcProvider instanceof RPCProviderModule).toBe(true);
 }
 
 test('Initialize `MagicSDK`', () => {
-  const magic = new TestMagicSDK(TEST_API_KEY);
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY);
 
   expect(magic.apiKey).toBe(TEST_API_KEY);
-  expect((magic as any).endpoint).toBe(MAGIC_RELAYER_FULL_URL);
-  assertEncodedQueryParams(t, (magic as any).parameters);
-  assertModuleInstanceTypes(t, magic);
+  expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
+  assertEncodedQueryParams(magic.parameters);
+  assertModuleInstanceTypes(magic);
 });
 
 test('Fail to initialize `MagicSDK`', () => {
   try {
-    new TestMagicSDK(undefined as any);
+    const Ctor = createMagicSDKCtor();
+    new Ctor(undefined as any);
   } catch (err) {
     expect(err.message).toBe(
       'Magic SDK Error: [MISSING_API_KEY] Please provide an API key that you acquired from the Magic developer dashboard.',
@@ -62,56 +58,53 @@ test('Fail to initialize `MagicSDK`', () => {
 });
 
 test('Initialize `MagicSDK` with custom endpoint', () => {
-  const magic = new TestMagicSDK(TEST_API_KEY, { endpoint: 'https://example.com' });
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY, { endpoint: 'https://example.com' });
 
   expect(magic.apiKey).toBe(TEST_API_KEY);
-  expect((magic as any).endpoint).toBe('https://example.com');
-  assertEncodedQueryParams(t, (magic as any).parameters, {
-    host: 'example.com',
-  });
-  assertModuleInstanceTypes(t, magic);
+  expect(magic.endpoint).toBe('https://example.com');
+  assertEncodedQueryParams(magic.parameters, { host: 'example.com' });
+  assertModuleInstanceTypes(magic);
 });
 
 test('Initialize `MagicSDK` when `window.location` is missing', () => {
   browserEnv.stub('location', undefined);
 
-  const magic = new TestMagicSDK(TEST_API_KEY);
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY);
 
   expect(magic.apiKey).toBe(TEST_API_KEY);
-  expect((magic as any).endpoint).toBe(MAGIC_RELAYER_FULL_URL);
-  assertEncodedQueryParams(t, (magic as any).parameters, {
-    DOMAIN_ORIGIN: '',
-  });
-  assertModuleInstanceTypes(t, magic);
+  expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
+  assertEncodedQueryParams(magic.parameters, { DOMAIN_ORIGIN: '' });
+  assertModuleInstanceTypes(magic);
 });
 
 test('Initialize `MagicSDK` with custom Web3 network', () => {
-  const magic = new TestMagicSDK(TEST_API_KEY, { network: 'mainnet' });
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY, { network: 'mainnet' });
 
   expect(magic.apiKey).toBe(TEST_API_KEY);
-  expect((magic as any).endpoint).toBe(MAGIC_RELAYER_FULL_URL);
-  assertEncodedQueryParams(t, (magic as any).parameters, {
-    ETH_NETWORK: 'mainnet',
-  });
-  assertModuleInstanceTypes(t, magic);
+  expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
+  assertEncodedQueryParams(magic.parameters, { ETH_NETWORK: 'mainnet' });
+  assertModuleInstanceTypes(magic);
 });
 
 test('Initialize `MagicSDK` with custom locale', () => {
-  const magic = new TestMagicSDK(TEST_API_KEY, { locale: 'pl_PL' });
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY, { locale: 'pl_PL' });
 
   expect(magic.apiKey).toBe(TEST_API_KEY);
-  expect((magic as any).endpoint).toBe(MAGIC_RELAYER_FULL_URL);
-  assertEncodedQueryParams(t, (magic as any).parameters, {
-    locale: 'pl_PL',
-  });
-  assertModuleInstanceTypes(t, magic);
+  expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
+  assertEncodedQueryParams(magic.parameters, { locale: 'pl_PL' });
+  assertModuleInstanceTypes(magic);
 });
 
 test('Initialize `MagicSDK` with test mode', () => {
-  const magic = new TestMagicSDK(TEST_API_KEY, { testMode: true });
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY, { testMode: true });
 
   expect(magic.apiKey).toBe(TEST_API_KEY);
-  expect((magic as any).endpoint).toBe(MAGIC_RELAYER_FULL_URL);
+  expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
   expect(magic.auth instanceof AuthModule).toBe(true);
   expect(magic.user instanceof UserModule).toBe(true);
   expect(magic.rpcProvider instanceof RPCProviderModule).toBe(true);
@@ -153,16 +146,18 @@ class NoopExtSupportingReactNative extends Extension<'noop'> {
 }
 
 test('Initialize `MagicSDK` with config-less extensions via array', () => {
-  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: [new NoopExtNoConfig()] });
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY, { extensions: [new NoopExtNoConfig()] });
 
-  assertEncodedQueryParams(t, (magic as any).parameters);
+  assertEncodedQueryParams(magic.parameters);
   expect(magic.noop instanceof NoopExtNoConfig).toBe(true);
 });
 
 test('Initialize `MagicSDK` with config-ful extensions via array (non-empty config)', () => {
-  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithConfig()] });
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY, { extensions: [new NoopExtWithConfig()] });
 
-  assertEncodedQueryParams(t, (magic as any).parameters, {
+  assertEncodedQueryParams(magic.parameters, {
     ext: { noop: { hello: 'world' } },
   });
 
@@ -170,25 +165,28 @@ test('Initialize `MagicSDK` with config-ful extensions via array (non-empty conf
 });
 
 test('Initialize `MagicSDK` with config-ful extensions via array (empty config)', () => {
-  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: [new NoopExtWithEmptyConfig()] });
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY, { extensions: [new NoopExtWithEmptyConfig()] });
 
-  assertEncodedQueryParams(t, (magic as any).parameters);
+  assertEncodedQueryParams(magic.parameters);
 
   expect(magic.noop instanceof NoopExtWithEmptyConfig).toBe(true);
 });
 
 test('Initialize `MagicSDK` with config-less extensions via dictionary', () => {
-  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtNoConfig() } });
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY, { extensions: { foobar: new NoopExtNoConfig() } });
 
-  assertEncodedQueryParams(t, (magic as any).parameters);
+  assertEncodedQueryParams(magic.parameters);
 
   expect(magic.foobar instanceof NoopExtNoConfig).toBe(true);
 });
 
 test('Initialize `MagicSDK` with config-ful extensions via dictionary (non-empty config)', () => {
-  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithConfig() } });
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY, { extensions: { foobar: new NoopExtWithConfig() } });
 
-  assertEncodedQueryParams(t, (magic as any).parameters, {
+  assertEncodedQueryParams(magic.parameters, {
     ext: { noop: { hello: 'world' } },
   });
 
@@ -196,121 +194,90 @@ test('Initialize `MagicSDK` with config-ful extensions via dictionary (non-empty
 });
 
 test('Initialize `MagicSDK` with config-ful extensions via dictionary (empty config)', () => {
-  const magic = new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: new NoopExtWithEmptyConfig() } });
-
-  assertEncodedQueryParams(t, (magic as any).parameters);
-
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY, { extensions: { foobar: new NoopExtWithEmptyConfig() } });
+  assertEncodedQueryParams(magic.parameters);
   expect(magic.foobar instanceof NoopExtWithEmptyConfig).toBe(true);
 });
 
 test('Initialize `MagicSDK` with incompatible web extension (platform) via array', () => {
+  const Ctor = createMagicSDKCtor();
   const ext = new NoopExtSupportingReactNative();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
-  const error: MagicSDKError = expect(() => new TestMagicSDK(TEST_API_KEY, { extensions: [ext] })).toThrow();
-
-  expect(error.code).toBe(expectedError.code);
-  expect(error.message).toBe(expectedError.message);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: [ext] })).toThrow(expectedError);
 });
 
 test('Initialize `MagicSDK` with incompatible web extension (platform) via dictionary', () => {
+  const Ctor = createMagicSDKCtor();
   const ext = new NoopExtSupportingReactNative();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
-  const error: MagicSDKError = expect(() => new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow();
-
-  expect(error.code).toBe(expectedError.code);
-  expect(error.message).toBe(expectedError.message);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow(expectedError);
 });
 
 test('Initialize `MagicSDK` with incompatible React Native extension (platform) via array', () => {
-  mockSDKEnvironmentConstant('sdkName', '@magic-sdk/react-native');
-  mockSDKEnvironmentConstant('platform', 'react-native');
-
+  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native', platform: 'react-native' });
   const ext = new NoopExtSupportingWeb();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
-  const error: MagicSDKError = expect(() => new TestMagicSDK(TEST_API_KEY, { extensions: [ext] })).toThrow();
-
-  expect(error.code).toBe(expectedError.code);
-  expect(error.message).toBe(expectedError.message);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: [ext] })).toThrow(expectedError);
 });
 
 test('Initialize `MagicSDK` with incompatible React Native extension (platform) via dictionary', () => {
-  mockSDKEnvironmentConstant('sdkName', '@magic-sdk/react-native');
-  mockSDKEnvironmentConstant('platform', 'react-native');
-
+  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native', platform: 'react-native' });
   const ext = new NoopExtSupportingWeb();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
-  const error: MagicSDKError = expect(() => new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow();
-
-  expect(error.code).toBe(expectedError.code);
-  expect(error.message).toBe(expectedError.message);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow(expectedError);
 });
 
 test('Initialize `MagicSDK` with incompatible web extension (version) via array', () => {
-  mockSDKEnvironmentConstant('version', '0.1.0');
-
+  const Ctor = createMagicSDKCtor({ version: '0.1.0' });
   const ext = new NoopExtSupportingWeb();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
-  const error: MagicSDKError = expect(() => new TestMagicSDK(TEST_API_KEY, { extensions: [ext] })).toThrow();
-
-  expect(error.code).toBe(expectedError.code);
-  expect(error.message).toBe(expectedError.message);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: [ext] })).toThrow(expectedError);
 });
 
 test('Initialize `MagicSDK` with incompatible web extension (version) via dictionary', () => {
-  mockSDKEnvironmentConstant('version', '0.1.0');
-
+  const Ctor = createMagicSDKCtor({ version: '0.1.0' });
   const ext = new NoopExtSupportingWeb();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
-  const error: MagicSDKError = expect(() => new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow();
-
-  expect(error.code).toBe(expectedError.code);
-  expect(error.message).toBe(expectedError.message);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow(expectedError);
 });
 
 test('Initialize `MagicSDK` with incompatible React Native extension (version) via array', () => {
-  mockSDKEnvironmentConstant('sdkName', '@magic-sdk/react-native');
-  mockSDKEnvironmentConstant('platform', 'react-native');
-  mockSDKEnvironmentConstant('version', '0.1.0');
-
+  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native', platform: 'react-native', version: '0.1.0' });
   const ext = new NoopExtSupportingReactNative();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
-  const error: MagicSDKError = expect(() => new TestMagicSDK(TEST_API_KEY, { extensions: [ext] })).toThrow();
-
-  expect(error.code).toBe(expectedError.code);
-  expect(error.message).toBe(expectedError.message);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: [ext] })).toThrow(expectedError);
 });
 
 test('Initialize `MagicSDK` with incompatible React Native extension (version) via dictionary', () => {
-  mockSDKEnvironmentConstant('sdkName', '@magic-sdk/react-native');
-  mockSDKEnvironmentConstant('platform', 'react-native');
-  mockSDKEnvironmentConstant('version', '0.1.0');
+  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native', platform: 'react-native', version: '0.1.0' });
   const ext = new NoopExtSupportingReactNative();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
-  const error: MagicSDKError = expect(() => new TestMagicSDK(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow();
-
-  expect(error.code).toBe(expectedError.code);
-  expect(error.message).toBe(expectedError.message);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow(expectedError);
 });
 
 test('Warns upon construction of `MagicSDK` instance if `endpoint` parameter is provided with `react-native` target.', () => {
-  mockSDKEnvironmentConstant('platform', 'react-native');
-
-  const consoleWarnStub = sinon.stub();
+  const Ctor = createMagicSDKCtor({ platform: 'react-native' });
+  const consoleWarnStub = jest.fn();
   browserEnv.stub('console.warn', consoleWarnStub);
+  const { createReactNativeEndpointConfigurationWarning } = require('../../../../src/core/sdk-exceptions');
   const expectedWarning = createReactNativeEndpointConfigurationWarning();
-
-  new TestMagicSDK(TEST_API_KEY, { endpoint: 'https://example.com' } as any);
-
-  expect(consoleWarnStub.calledWith(expectedWarning.message)).toBe(true);
+  new Ctor(TEST_API_KEY, { endpoint: 'https://example.com' } as any);
+  expect(consoleWarnStub).toBeCalledWith(expectedWarning.message);
 });
 
 test('Does not warn upon construction of `MagicSDK` instance if `endpoint` parameter is omitted with `react-native` target.', () => {
-  mockSDKEnvironmentConstant('platform', 'react-native');
-
-  const consoleWarnStub = sinon.stub();
+  const Ctor = createMagicSDKCtor({ platform: 'react-native' });
+  const consoleWarnStub = jest.fn();
   browserEnv.stub('console.warn', consoleWarnStub);
-
-  new TestMagicSDK(TEST_API_KEY);
-
-  expect(consoleWarnStub.called).toBe(false);
+  new Ctor(TEST_API_KEY);
+  expect(consoleWarnStub).not.toBeCalled();
 });

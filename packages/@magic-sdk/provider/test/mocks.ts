@@ -1,29 +1,25 @@
-/*
-  eslint-disable
+import type { SDKEnvironment } from '../src/core/sdk-environment';
 
-  global-require,
-  @typescript-eslint/no-var-requires
- */
-
-import sinon from 'sinon';
-import { getPayloadId } from '../src/util/get-payload-id';
-import { SDKEnvironment } from '../src/core/sdk-environment';
-
-export function getPayloadIdStub() {
-  const stub = sinon.stub();
-  (getPayloadId as any) = stub;
+export function getPayloadIdStub(mockID: number) {
+  const stub = jest.fn().mockImplementation(() => mockID);
+  jest.mock('../src/util/get-payload-id', () => ({
+    getPayloadId: stub,
+  }));
   return stub;
 }
 
-const originalSDKEnvironment: any = {};
+const originalSDKEnvironment = jest.requireActual('../src/core/sdk-environment');
 
-export function mockSDKEnvironmentConstant(key: keyof typeof SDKEnvironment, value: any) {
-  if (!originalSDKEnvironment[key]) originalSDKEnvironment[key] = SDKEnvironment[key];
-  (SDKEnvironment as any)[key] = value;
+export function mockSDKEnvironmentConstant(environment: { [P in keyof SDKEnvironment]?: any } = {}) {
+  jest.mock('../src/core/sdk-environment', () => ({
+    // ...originalSDKEnvironment,
+    SDKEnvironment: {
+      ...originalSDKEnvironment.SDKEnvironment,
+      ...environment,
+    },
+  }));
 }
 
 export function restoreSDKEnvironmentConstants() {
-  Object.keys(originalSDKEnvironment).forEach((key) => {
-    (SDKEnvironment as any)[key] = originalSDKEnvironment[key];
-  });
+  jest.unmock('../src/core/sdk-environment');
 }

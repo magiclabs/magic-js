@@ -13,10 +13,8 @@ test('`baseExtension.init` is no-op if already initialized', () => {
   const baseExtension = new (Extension as any)();
 
   baseExtension.init(sdk);
-
   expect(baseExtension.sdk).toBe(sdk);
 
   baseExtension.init('hello world');
-
   expect(baseExtension.sdk).toBe(sdk);
 });

@@ -1,37 +1,28 @@
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
-import { getPayloadIdStub, mockSDKEnvironmentConstant } from '../../../mocks';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 
 beforeEach(() => {
   browserEnv.restore();
-  (BaseModule as any).prototype.request = sinon.stub();
-  mockSDKEnvironmentConstant('platform', 'web');
+  jest.restoreAllMocks();
+  (BaseModule as any).prototype.request = jest.fn();
 });
 
 test('Generates JSON RPC request payload with the given parameter as the credential', async () => {
-  const magic = createMagicSDK();
-
-  const idStub = getPayloadIdStub();
-  idStub.returns(222);
+  const magic = createMagicSDK({ platform: 'web' });
 
   await magic.auth.loginWithCredential('helloworld');
 
-  const requestPayload = (magic.user as any).request.args[0][0];
+  const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.jsonrpc).toBe('2.0');
-  expect(requestPayload.id).toBe(222);
   expect(requestPayload.method).toBe('magic_auth_login_with_credential');
   expect(requestPayload.params).toEqual(['helloworld']);
 });
 
 test('If no parameter is given & platform target is "web", URL search string is included in the payload params', async () => {
-  const magic = createMagicSDK();
-
-  const idStub = getPayloadIdStub();
-  idStub.returns(777);
+  const magic = createMagicSDK({ platform: 'web' });
 
   browserEnv.stub('window.history.replaceState', () => {});
 
@@ -43,41 +34,30 @@ test('If no parameter is given & platform target is "web", URL search string is 
 
   await magic.auth.loginWithCredential();
 
-  const requestPayload = (magic.user as any).request.args[0][0];
+  const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.jsonrpc).toBe('2.0');
-  expect(requestPayload.id).toBe(777);
   expect(requestPayload.method).toBe('magic_auth_login_with_credential');
   expect(requestPayload.params).toEqual(['?magic_credential=asdf']);
 });
 
 test('If no parameter is given & platform target is NOT "web", credential is empty string', async () => {
-  const magic = createMagicSDK();
-
-  const idStub = getPayloadIdStub();
-  idStub.returns(777);
-
-  mockSDKEnvironmentConstant('platform', 'react-native');
+  const magic = createMagicSDK({ platform: 'react-native' });
 
   await magic.auth.loginWithCredential();
 
-  const requestPayload = (magic.user as any).request.args[0][0];
+  const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.jsonrpc).toBe('2.0');
-  expect(requestPayload.id).toBe(777);
   expect(requestPayload.method).toBe('magic_auth_login_with_credential');
   expect(requestPayload.params).toEqual(['']);
 });
 
 test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
-  const magic = createMagicSDKTestMode();
-
-  const idStub = getPayloadIdStub();
-  idStub.returns(456);
+  const magic = createMagicSDKTestMode({ platform: 'web' });
 
   await magic.auth.loginWithCredential('helloworld');
 
-  const requestPayload = (magic.user as any).request.args[0][0];
+  const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.jsonrpc).toBe('2.0');
-  expect(requestPayload.id).toBe(456);
   expect(requestPayload.method).toBe('magic_auth_login_with_credential_testing_mode');
   expect(requestPayload.params).toEqual(['helloworld']);
 });

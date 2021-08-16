@@ -10,7 +10,7 @@ type ConstructorOf<C> = { new (...args: any[]): C };
  * A structure containing details about the current environment.
  * This is guaranteed to be populated before the SDK is instantiated.
  */
-interface SDKEnvironment {
+export interface SDKEnvironment {
   sdkName: 'magic-sdk' | '@magic-sdk/react-native';
   version: string;
   platform: 'web' | 'react-native';

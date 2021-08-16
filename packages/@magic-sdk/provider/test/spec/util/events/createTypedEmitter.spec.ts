@@ -1,5 +1,4 @@
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
 import { TypedEmitter, createTypedEmitter } from '../../../../src/util/events';
 
 beforeEach(() => {
@@ -17,7 +16,7 @@ test('Returns an object containing a `TypedEmitter` instance & two helper functi
 test('`createBoundEmitterMethod` helper creates a function that calls the underlying `TypedEmitter` method', () => {
   const { emitter, createBoundEmitterMethod } = createTypedEmitter();
 
-  const emitStub = sinon.stub().returns('foobar');
+  const emitStub = jest.fn().mockImplementation(() => 'foobar');
   emitter.emit = emitStub;
 
   const testObj = {
@@ -26,14 +25,14 @@ test('`createBoundEmitterMethod` helper creates a function that calls the underl
 
   const result = testObj.foo('hello world');
 
-  expect(emitStub.calledWith('hello world')).toBe(true);
+  expect(emitStub).toBeCalledWith('hello world');
   expect(result).toBe('foobar' as any);
 });
 
 test('`createChainingEmitterMethod` helper creates a function that calls the underlying `TypedEmitter` method', () => {
   const { emitter, createChainingEmitterMethod } = createTypedEmitter();
 
-  const onStub = sinon.stub().returns('foobar');
+  const onStub = jest.fn().mockImplementation(() => 'foobar');
   emitter.on = onStub;
 
   const testObj: any = {};
@@ -41,6 +40,6 @@ test('`createChainingEmitterMethod` helper creates a function that calls the und
 
   const result = testObj.foo('hello world');
 
-  expect(onStub.calledWith('hello world')).toBe(true);
+  expect(onStub).toBeCalledWith('hello world');
   expect(result).toBe(testObj);
 });

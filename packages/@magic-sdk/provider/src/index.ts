@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 export { SDKBase, MagicSDKAdditionalConfiguration } from './core/sdk';
 export { createSDK } from './core/sdk-environment';
 export { PayloadTransport } from './core/payload-transport';

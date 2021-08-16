@@ -1,25 +1,18 @@
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
-import { getPayloadIdStub } from '../../../mocks';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
 beforeEach(() => {
   browserEnv.restore();
-  (BaseModule as any).prototype.request = sinon.stub();
+  (BaseModule as any).prototype.request = jest.fn();
 });
 
 test('Generate JSON RPC request payload with method `magic_auth_generate_id_token`', async () => {
   const magic = createMagicSDK();
 
-  const idStub = getPayloadIdStub();
-  idStub.returns(999);
-
   magic.user.generateIdToken();
 
-  /* Assertion */
-  const requestPayload = (magic.user as any).request.args[0][0];
-  expect(requestPayload.id).toBe(999);
+  const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_generate_id_token');
   expect(requestPayload.params).toEqual([undefined]);
 });
@@ -27,14 +20,9 @@ test('Generate JSON RPC request payload with method `magic_auth_generate_id_toke
 test('Accepts a `lifespan` parameter', async () => {
   const magic = createMagicSDK();
 
-  const idStub = getPayloadIdStub();
-  idStub.returns(222);
-
   magic.user.generateIdToken({ lifespan: 900 });
 
-  /* Assertion */
-  const requestPayload = (magic.user as any).request.args[0][0];
-  expect(requestPayload.id).toBe(222);
+  const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_generate_id_token');
   expect(requestPayload.params).toEqual([{ lifespan: 900 }]);
 });
@@ -42,14 +30,9 @@ test('Accepts a `lifespan` parameter', async () => {
 test('Accepts an `attachment` parameter', async () => {
   const magic = createMagicSDK();
 
-  const idStub = getPayloadIdStub();
-  idStub.returns(222);
-
   magic.user.generateIdToken({ attachment: 'hello world' });
 
-  /* Assertion */
-  const requestPayload = (magic.user as any).request.args[0][0];
-  expect(requestPayload.id).toBe(222);
+  const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_generate_id_token');
   expect(requestPayload.params).toEqual([{ attachment: 'hello world' }]);
 });
@@ -57,14 +40,9 @@ test('Accepts an `attachment` parameter', async () => {
 test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
   const magic = createMagicSDKTestMode();
 
-  const idStub = getPayloadIdStub();
-  idStub.returns(999);
-
   magic.user.generateIdToken();
 
-  /* Assertion */
-  const requestPayload = (magic.user as any).request.args[0][0];
-  expect(requestPayload.id).toBe(999);
+  const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_generate_id_token_testing_mode');
   expect(requestPayload.params).toEqual([undefined]);
 });

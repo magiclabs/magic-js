@@ -1,5 +1,4 @@
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
 import { createPromiEvent } from '../../../../src/util/promise-tools';
 import { TypedEmitter } from '../../../../src/util/events';
 
@@ -52,14 +51,15 @@ test('Attaches `TypedEmitter` methods to `Promise.finally` result', () => {
 
 test('Attaches `Promise` methods to `TypedEmitter` results', () => {
   chainingEmitterMethods.forEach((emitterMethod) => {
-    const emitterStub = sinon.stub(TypedEmitter.prototype, emitterMethod as any);
+    const emitterStub = jest.spyOn(TypedEmitter.prototype, emitterMethod as any).mockImplementation();
     const p = createPromiEvent((resolve) => resolve())[emitterMethod]();
 
     promiseMethods.forEach((promiseMethod) => {
       expect(typeof p[promiseMethod] === 'function').toBe(true);
     });
 
-    emitterStub.restore();
+    emitterStub.mockReset();
+    emitterStub.mockRestore();
   });
 });
 

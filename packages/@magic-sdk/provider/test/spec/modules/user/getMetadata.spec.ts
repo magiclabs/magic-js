@@ -1,25 +1,18 @@
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
-import { getPayloadIdStub } from '../../../mocks';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 
 beforeEach(() => {
   browserEnv.restore();
-  (BaseModule as any).prototype.request = sinon.stub();
+  (BaseModule as any).prototype.request = jest.fn();
 });
 
 test('Generate JSON RPC request payload with method `magic_auth_get_metadata`', async () => {
   const magic = createMagicSDK();
 
-  const idStub = getPayloadIdStub();
-  idStub.returns(999);
-
   magic.user.getMetadata();
 
-  /* Assertion */
-  const requestPayload = (magic.user as any).request.args[0][0];
-  expect(requestPayload.id).toBe(999);
+  const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_get_metadata');
   expect(requestPayload.params).toEqual([]);
 });
@@ -27,14 +20,9 @@ test('Generate JSON RPC request payload with method `magic_auth_get_metadata`', 
 test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
   const magic = createMagicSDKTestMode();
 
-  const idStub = getPayloadIdStub();
-  idStub.returns(999);
-
   magic.user.getMetadata();
 
-  /* Assertion */
-  const requestPayload = (magic.user as any).request.args[0][0];
-  expect(requestPayload.id).toBe(999);
+  const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_get_metadata_testing_mode');
   expect(requestPayload.params).toEqual([]);
 });

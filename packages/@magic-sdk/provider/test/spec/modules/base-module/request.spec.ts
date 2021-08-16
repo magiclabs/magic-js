@@ -1,19 +1,18 @@
 /* eslint-disable global-require */
 
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
 import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import { createPayloadTransport, createMagicSDK } from '../../../factories';
-import { MagicRPCError, MagicSDKError } from '../../../../src/core/sdk-exceptions';
+import { MagicRPCError, createMalformedResponseError } from '../../../../src/core/sdk-exceptions';
 import { isPromiEvent } from '../../../../src/util/promise-tools';
 import { MSG_TYPES } from '../../../constants';
 import { BaseModule } from '../../../../src/modules/base-module';
 
-function createBaseModule() {
+function createBaseModule(postStub: jest.Mock) {
   const sdk = createMagicSDK();
   const payloadTransport = createPayloadTransport('');
-  const postStub = sinon.stub();
+
   (payloadTransport as any).post = postStub;
   Object.defineProperty(sdk, 'transport', {
     get: () => payloadTransport,
@@ -21,7 +20,7 @@ function createBaseModule() {
 
   const baseModule: any = new BaseModule(sdk);
 
-  return { baseModule, postStub };
+  return { baseModule };
 }
 
 const requestPayload: JsonRpcRequestPayload = {
@@ -38,69 +37,48 @@ beforeEach(() => {
 });
 
 test('Resolves with a successful response', async () => {
-  const { baseModule, postStub } = createBaseModule();
-
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
-
-  postStub.returns(Promise.resolve(response));
-
+  const { baseModule } = createBaseModule(jest.fn().mockImplementation(() => Promise.resolve(response)));
   const result = await baseModule.request(requestPayload);
-
   expect(result).toBe('hello world');
 });
 
 test('Rejects with a `MagicRPCError` upon request failed', async () => {
-  const { baseModule, postStub } = createBaseModule();
-
   const response = new JsonRpcResponse(requestPayload).applyError({ code: -32603, message: 'hello world' });
-
-  postStub.returns(Promise.resolve(response));
-
-  const err: MagicRPCError = await t.throwsAsync(baseModule.request(requestPayload));
-  expect(err instanceof MagicRPCError).toBe(true);
-  expect(err.code).toBe(-32603);
-  expect(err.message).toBe('Magic RPC Error: [-32603] hello world');
+  const { baseModule } = createBaseModule(jest.fn().mockImplementation(() => Promise.resolve(response)));
+  const expectedError = new MagicRPCError({ code: -32603, message: 'hello world' });
+  await expect(() => baseModule.request(requestPayload)).rejects.toThrow(expectedError);
 });
 
 test('Rejects with `MALFORMED_RESPONSE` error if response cannot be parsed correctly', async () => {
-  const { baseModule, postStub } = createBaseModule();
-
   const response = new JsonRpcResponse(requestPayload);
-
-  postStub.returns(Promise.resolve(response));
-
-  const err: MagicSDKError = await t.throwsAsync(baseModule.request(requestPayload));
-  expect(err instanceof MagicSDKError).toBe(true);
-  expect(err.code).toBe('MALFORMED_RESPONSE');
-  expect(err.message).toBe('Magic SDK Error: [MALFORMED_RESPONSE] Response from the Magic iframe is malformed.');
+  const { baseModule } = createBaseModule(jest.fn().mockImplementation(() => Promise.resolve(response)));
+  const expectedError = createMalformedResponseError();
+  await expect(() => baseModule.request(requestPayload)).rejects.toThrow(expectedError);
 });
 
 test('Return value is a `PromiEvent`', async () => {
-  const { baseModule, postStub } = createBaseModule();
-
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
-
-  postStub.returns(Promise.resolve(response));
-
+  const { baseModule } = createBaseModule(jest.fn().mockImplementation(() => Promise.resolve(response)));
   const result = baseModule.request(requestPayload);
-
   expect(isPromiEvent(result)).toBe(true);
 });
 
 test('Emits events received from the `PayloadTransport`', (done) => {
-  const { baseModule, postStub } = createBaseModule();
-
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
-  postStub.returns(
-    new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(response);
-      }, 1000);
-    }),
+  const { baseModule } = createBaseModule(
+    jest.fn().mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(response);
+          }, 1000);
+        }),
+    ),
   );
 
-  baseModule.request(requestPayload).on('hello', (result) => {
+  baseModule.request(requestPayload).on('hello_a', (result) => {
     expect(result).toBe('world');
     done();
   });
@@ -108,69 +86,79 @@ test('Emits events received from the `PayloadTransport`', (done) => {
   window.postMessage(
     {
       msgType: MSG_TYPES().MAGIC_HANDLE_EVENT,
-      response: { id: requestPayload.id, result: { event: 'hello', params: ['world'] } },
+      response: { id: requestPayload.id, result: { event: 'hello_a', params: ['world'] } },
     },
     '*',
   );
 });
 
-test('Receive no further events after the response from `PayloadTransport` resolves', async (done) => {
+test('Receive no further events after the response from `PayloadTransport` resolves', (done) => {
   expect.assertions(1);
-
-  const { baseModule, postStub } = createBaseModule();
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
-  postStub.returns(
-    new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(response);
-      }, 1000);
+  const postStubPromises = [];
+  const { baseModule } = createBaseModule(
+    jest.fn().mockImplementation(() => {
+      const promise = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(response);
+        }, 100);
+      });
+      postStubPromises.push(promise);
+      return promise;
     }),
   );
 
   const request = baseModule
     .request(requestPayload)
-    .on('hello', (result) => {
+    .on('hello_b', (result) => {
       expect(result).toBe('world');
     })
-    .on('hello2', () => {
+    .on('hello_b2', () => {
       done.fail();
     });
 
   window.postMessage(
     {
       msgType: MSG_TYPES().MAGIC_HANDLE_EVENT,
-      response: { id: requestPayload.id, result: { event: 'hello', params: ['world'] } },
+      response: { id: requestPayload.id, result: { event: 'hello_b', params: ['world'] } },
     },
     '*',
   );
 
-  await request;
+  request.then(() => {
+    window.postMessage(
+      {
+        msgType: MSG_TYPES().MAGIC_HANDLE_EVENT,
+        response: { id: requestPayload.id, result: { event: 'hello_b2' } },
+      },
+      '*',
+    );
 
-  window.postMessage(
-    {
-      msgType: MSG_TYPES().MAGIC_HANDLE_EVENT,
-      response: { id: requestPayload.id, result: { event: 'hello2' } },
-    },
-    '*',
-  );
+    Promise.all(postStubPromises).then(() => {
+      setTimeout(() => {
+        done();
+      }, 100);
+    });
+  });
 });
 
 test('Falls back to empty array if `params` is missing from event', (done) => {
-  const { baseModule, postStub } = createBaseModule();
-
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
-  postStub.returns(
-    new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(response);
-      }, 1000);
-    }),
+  const { baseModule } = createBaseModule(
+    jest.fn().mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(response);
+          }, 1000);
+        }),
+    ),
   );
 
-  baseModule.request(requestPayload).on('hello', (...args) => {
+  baseModule.request(requestPayload).on('hello_c', (...args) => {
     expect(args).toEqual([]);
     done();
   });
@@ -178,28 +166,29 @@ test('Falls back to empty array if `params` is missing from event', (done) => {
   window.postMessage(
     {
       msgType: MSG_TYPES().MAGIC_HANDLE_EVENT,
-      response: { id: requestPayload.id, result: { event: 'hello' } },
+      response: { id: requestPayload.id, result: { event: 'hello_c' } },
     },
     '*',
   );
 });
 
 test('Ignores events with malformed response', (done) => {
-  const { baseModule, postStub } = createBaseModule();
-
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
-  postStub.returns(
-    new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(response);
-      }, 1000);
-    }),
+  const { baseModule } = createBaseModule(
+    jest.fn().mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(response);
+          }, 1000);
+        }),
+    ),
   );
 
   baseModule
     .request(requestPayload)
-    .on('hello', () => {
+    .on('hello_d', () => {
       done.fail();
     })
     .then(() => {

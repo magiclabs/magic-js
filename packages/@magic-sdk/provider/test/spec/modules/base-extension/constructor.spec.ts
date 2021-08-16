@@ -2,7 +2,7 @@
 
 import browserEnv from '@ikscodes/browser-env';
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../../../../src/core/json-rpc';
-import { createExtensionNotInitializedError, MagicSDKError } from '../../../../src/core/sdk-exceptions';
+import { createExtensionNotInitializedError } from '../../../../src/core/sdk-exceptions';
 import { createMagicSDK } from '../../../factories';
 import { Extension } from '../../../../src/modules/base-extension';
 import { BaseModule } from '../../../../src/modules/base-module';
@@ -10,6 +10,7 @@ import { createPromiEvent, encodeJSON, decodeJSON, isPromiEvent } from '../../..
 
 beforeEach(() => {
   browserEnv.restore();
+  jest.restoreAllMocks();
 });
 
 test('Initialize `Extension`', () => {
@@ -30,12 +31,9 @@ test('Disallows `Extension.sdk` access before extension is initialized', () => {
   const baseExtension = new (Extension as any)();
 
   const expectedErr = createExtensionNotInitializedError('sdk');
-  const err: MagicSDKError = expect(() => baseExtension.sdk).toThrow();
-  expect(err.code).toBe(expectedErr.code);
-  expect(err.message).toBe(expectedErr.message);
+  expect(() => baseExtension.sdk).toThrow(expectedErr);
 
   baseExtension.init(sdk);
-
   expect(() => baseExtension.sdk).not.toThrow();
 });
 
@@ -44,12 +42,9 @@ test('Disallows `Extension.request` access before extension is initialized', () 
   const baseExtension = new (Extension as any)();
 
   const expectedErr = createExtensionNotInitializedError('request');
-  const err: MagicSDKError = expect(() => baseExtension.request).toThrow();
-  expect(err.code).toBe(expectedErr.code);
-  expect(err.message).toBe(expectedErr.message);
+  expect(() => baseExtension.request).toThrow(expectedErr);
 
   baseExtension.init(sdk);
-
   expect(() => baseExtension.request).not.toThrow();
 });
 
@@ -58,12 +53,9 @@ test('Disallows `Extension.transport` access before extension is initialized', (
   const baseExtension = new (Extension as any)();
 
   const expectedErr = createExtensionNotInitializedError('transport');
-  const err: MagicSDKError = expect(() => baseExtension.transport).toThrow();
-  expect(err.code).toBe(expectedErr.code);
-  expect(err.message).toBe(expectedErr.message);
+  expect(() => baseExtension.transport).toThrow(expectedErr);
 
   baseExtension.init(sdk);
-
   expect(() => baseExtension.transport).not.toThrow();
 });
 
@@ -72,11 +64,8 @@ test('Disallows `Extension.overlay` access before extension is initialized', () 
   const baseExtension = new (Extension as any)();
 
   const expectedErr = createExtensionNotInitializedError('overlay');
-  const err: MagicSDKError = expect(() => baseExtension.overlay).toThrow();
-  expect(err.code).toBe(expectedErr.code);
-  expect(err.message).toBe(expectedErr.message);
+  expect(() => baseExtension.overlay).toThrow(expectedErr);
 
   baseExtension.init(sdk);
-
   expect(() => baseExtension.overlay).not.toThrow();
 });

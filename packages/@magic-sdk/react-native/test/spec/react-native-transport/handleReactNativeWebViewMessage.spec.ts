@@ -10,7 +10,7 @@ beforeEach(() => {
 test('Ignores events with different origin than expected', (done) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
-  (transport as any).messageHandlers.add(onHandlerStub);
+  transport.messageHandlers.add(onHandlerStub);
 
   transport.handleReactNativeWebViewMessage({
     nativeEvent: {
@@ -28,11 +28,11 @@ test('Ignores events with different origin than expected', (done) => {
 test('Ignores events with non-string data', (done) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
-  (transport as any).messageHandlers.add(onHandlerStub);
+  transport.messageHandlers.add(onHandlerStub);
 
   transport.handleReactNativeWebViewMessage({
     nativeEvent: {
-      url: `qwerty/send/?params=${(transport as any).parameters}`,
+      url: `qwerty/send/?params=${transport.parameters}`,
       data: 123,
     },
   } as any);
@@ -43,36 +43,10 @@ test('Ignores events with non-string data', (done) => {
   }, 0);
 });
 
-// test.cb('Ignores events with undefined `data` attribute', t => {
-//   const transport = createPayloadTransport('');
-//   const onHandlerStub = sinon.stub();
-//   (transport as any).messageHandlers.add(onHandlerStub);
-
-//   window.postMessage(undefined, '*');
-
-//   setTimeout(() => {
-//     t.true(onHandlerStub.notCalled);
-//     t.end();
-//   }, 0);
-// });
-
-// test.cb('Ignores events with undefined `data.msgType`', t => {
-//   const transport = createPayloadTransport('');
-//   const onHandlerStub = sinon.stub();
-//   (transport as any).messageHandlers.add(onHandlerStub);
-
-//   window.postMessage({}, '*');
-
-//   setTimeout(() => {
-//     t.true(onHandlerStub.notCalled);
-//     t.end();
-//   }, 0);
-// });
-
 test('Replaces `undefined` or `null` response with an empty object', (done) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
-  (transport as any).messageHandlers.add(onHandlerStub);
+  transport.messageHandlers.add(onHandlerStub);
 
   transport.handleReactNativeWebViewMessage({
     nativeEvent: {
@@ -91,7 +65,7 @@ test('Replaces `undefined` or `null` response with an empty object', (done) => {
 test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
   const transport = createReactNativeTransport('asdf');
   const onHandlerStub = sinon.stub();
-  (transport as any).messageHandlers.add(onHandlerStub);
+  transport.messageHandlers.add(onHandlerStub);
 
   transport.handleReactNativeWebViewMessage({
     nativeEvent: {
@@ -109,7 +83,7 @@ test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
 
 test('Ignores event handlers where `messageHandlers` size is === 0', (done) => {
   const transport = createReactNativeTransport('asdf');
-  (transport as any).messageHandlers = { size: 0 };
+  transport.messageHandlers = { size: 0 };
 
   transport.handleReactNativeWebViewMessage({
     nativeEvent: {

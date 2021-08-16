@@ -18,19 +18,17 @@ test('Create a JSON RPC payload, replacing the missing value of `payload.jsonrpc
 });
 
 test('Create a JSON RPC payload, replacing the value of `payload.id`', () => {
-  const randomIdStub = getPayloadIdStub();
-  randomIdStub.returns(999);
-
   const payload = standardizeJsonRpcRequestPayload({ jsonrpc: '2.0', method: 'test', params: ['hello world'] });
 
   const expectedPayload = {
     jsonrpc: '2.0',
-    id: 999,
     method: 'test',
     params: ['hello world'],
   };
 
-  expect(payload).toEqual(expectedPayload);
+  expect(payload.jsonrpc).toEqual(expectedPayload.jsonrpc);
+  expect(payload.method).toEqual(expectedPayload.method);
+  expect(payload.params).toEqual(expectedPayload.params);
 });
 
 test('Create a JSON RPC payload, preserving the current value of `payload.method`', () => {
@@ -54,19 +52,11 @@ test('Create a JSON RPC payload, replacing the missing value of `payload.params`
 });
 
 test('Calling upon the same payload twice does not mutate the payload ID', () => {
-  const originalPayload = {
-    id: 999,
-  };
-
-  const randomIdStub = getPayloadIdStub();
-  randomIdStub.onFirstCall().returns(1);
-  randomIdStub.onSecondCall().returns(2);
+  const originalPayload: any = {};
 
   standardizeJsonRpcRequestPayload(originalPayload);
-
-  expect(originalPayload.id).toBe(1);
-
+  const savedID = originalPayload.id;
+  expect(savedID).toBeDefined();
   standardizeJsonRpcRequestPayload(originalPayload);
-
-  expect(originalPayload.id).toBe(1);
+  expect(originalPayload.id).toBe(savedID);
 });

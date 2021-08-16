@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
 import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
@@ -15,23 +14,23 @@ const requestPayload: JsonRpcRequestPayload = {
 
 beforeEach(() => {
   browserEnv.restore();
-  (BaseModule as any).prototype.request = sinon.stub();
+  (BaseModule as any).prototype.request = jest.fn();
 });
 
 test('Calls `BaseModule.request` WITHOUT test-mode prefix', async () => {
   const magic = createMagicSDK();
 
-  await (magic.rpcProvider as any).request(requestPayload);
+  await magic.rpcProvider.request(requestPayload);
 
-  expect((BaseModule as any).prototype.request.args[0][0]).toEqual(requestPayload);
+  expect((BaseModule as any).prototype.request.mock.calls[0][0]).toEqual(requestPayload);
 });
 
 test('Calls `BaseModule.request` WITH test-mode prefix', async () => {
   const magic = createMagicSDKTestMode();
 
-  await (magic.rpcProvider as any).request(requestPayload);
+  await magic.rpcProvider.request(requestPayload);
 
-  expect((BaseModule as any).prototype.request.args[0][0]).toEqual({
+  expect((BaseModule as any).prototype.request.mock.calls[0][0]).toEqual({
     ...requestPayload,
     method: 'testMode/eth/foobar',
   });

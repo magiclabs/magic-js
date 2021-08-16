@@ -1,19 +1,17 @@
 /* eslint-disable no-underscore-dangle */
 
-import sinon from 'sinon';
 import * as memoryDriver from 'localforage-driver-memory';
 import localForage from 'localforage';
 import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS, TEST_API_KEY } from './constants';
 import { PayloadTransport } from '../src/core/payload-transport';
-import { SDKBase } from '../src/core/sdk';
-import { createSDK } from '../src/core/sdk-environment';
 import { ViewController } from '../src/core/view-controller';
+import type { SDKEnvironment } from '../src/core/sdk-environment';
 
 export class TestViewController extends ViewController {
-  public init = sinon.stub();
-  public showOverlay = sinon.stub();
-  public hideOverlay = sinon.stub();
-  public postMessage = sinon.stub();
+  public init = jest.fn();
+  public showOverlay = jest.fn();
+  public hideOverlay = jest.fn();
+  public postMessage = jest.fn();
 }
 
 export class TestPayloadTransport extends PayloadTransport {
@@ -45,28 +43,38 @@ export function createViewController(endpoint = MAGIC_RELAYER_FULL_URL) {
   return new TestViewController(createPayloadTransport(endpoint));
 }
 
-export const TestMagicSDK = createSDK(SDKBase, {
-  sdkName: 'magic-sdk',
-  platform: 'web',
-  version: '1.0.0-test',
-  defaultEndpoint: MAGIC_RELAYER_FULL_URL,
-  ViewController: TestViewController,
-  PayloadTransport: TestPayloadTransport,
-  configureStorage: async () => {
-    const lf = localForage.createInstance({});
+export function createMagicSDKCtor(environment: { [P in keyof SDKEnvironment]?: any } = {}) {
+  const { createSDK } = jest.requireActual('../src/core/sdk-environment');
+  const { SDKBase } = jest.requireActual('../src/core/sdk');
 
-    await lf.defineDriver(memoryDriver);
-    await localForage.setDriver([memoryDriver._driver]);
-    await lf.setDriver([memoryDriver._driver]);
+  const TestMagicSDK = createSDK(SDKBase, {
+    sdkName: 'magic-sdk',
+    platform: 'web',
+    version: '1.0.0-test',
+    defaultEndpoint: MAGIC_RELAYER_FULL_URL,
+    ViewController: TestViewController,
+    PayloadTransport: TestPayloadTransport,
+    configureStorage: async () => {
+      const lf = localForage.createInstance({});
 
-    return lf;
-  },
-});
+      await lf.defineDriver(memoryDriver);
+      await localForage.setDriver([memoryDriver._driver]);
+      await lf.setDriver([memoryDriver._driver]);
 
-export function createMagicSDK(endpoint = MAGIC_RELAYER_FULL_URL) {
-  return new TestMagicSDK(TEST_API_KEY, { endpoint });
+      return lf;
+    },
+    ...environment,
+  });
+
+  return TestMagicSDK;
 }
 
-export function createMagicSDKTestMode(endpoint = MAGIC_RELAYER_FULL_URL) {
-  return new TestMagicSDK(TEST_API_KEY, { endpoint, testMode: true });
+export function createMagicSDK(environment: { [P in keyof SDKEnvironment]?: any } = {}) {
+  const Ctor = createMagicSDKCtor(environment);
+  return new Ctor(TEST_API_KEY);
+}
+
+export function createMagicSDKTestMode(environment: { [P in keyof SDKEnvironment]?: any } = {}) {
+  const Ctor = createMagicSDKCtor(environment);
+  return new Ctor(TEST_API_KEY, { testMode: true });
 }

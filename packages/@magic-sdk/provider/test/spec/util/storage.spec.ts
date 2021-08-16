@@ -1,22 +1,29 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable global-require */
 /* eslint-disable no-underscore-dangle */
 
-import sinon from 'sinon';
+import browserEnv from '@ikscodes/browser-env';
 import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
-import * as storage from '../../../src/util/storage';
 import { mockSDKEnvironmentConstant } from '../../mocks';
 
-beforeAll(() => {
-  mockSDKEnvironmentConstant('configureStorage', async () => {
-    const lf = localForage.createInstance({
-      driver: [],
-    });
+beforeEach(() => {
+  browserEnv.restore();
+  browserEnv.stub('console.info', jest.fn()); // Silence LocalForage info logs
+  jest.resetModules();
 
-    await lf.defineDriver(memoryDriver);
-    await localForage.setDriver(memoryDriver._driver);
-    await lf.setDriver([memoryDriver._driver]);
+  mockSDKEnvironmentConstant({
+    configureStorage: async () => {
+      const lf = localForage.createInstance({
+        driver: [],
+      });
 
-    return lf;
+      await lf.defineDriver(memoryDriver);
+      await localForage.setDriver(memoryDriver._driver);
+      await lf.setDriver([memoryDriver._driver]);
+
+      return lf;
+    },
   });
 });
 
@@ -25,43 +32,43 @@ beforeAll(() => {
  * storage utility calls it successfully.
  */
 async function assertLocalForageDbMethodCalled<T extends keyof LocalForageDbMethods>(
-  t: ExecutionContext,
   method: T,
   ...args: Parameters<LocalForageDbMethods[T]>
 ) {
-  const localForageStub = sinon.spy(memoryDriver, method);
+  const localForageStub = jest.spyOn(memoryDriver, method).mockImplementation();
+  const storage = require('../../../src/util/storage');
   await storage[method as keyof LocalForageDbMethods](...args);
-  expect(localForageStub.called).toBe(true);
+  expect(localForageStub).toBeCalled();
 }
 
 test('getItem', async () => {
-  await assertLocalForageDbMethodCalled(t, 'getItem', 'test');
+  await assertLocalForageDbMethodCalled('getItem', 'test');
 });
 
 test('setItem', async () => {
-  await assertLocalForageDbMethodCalled(t, 'setItem', 'hello', 'world');
+  await assertLocalForageDbMethodCalled('setItem', 'hello', 'world');
 });
 
 test('removeItem', async () => {
-  await assertLocalForageDbMethodCalled(t, 'removeItem', 'hello');
+  await assertLocalForageDbMethodCalled('removeItem', 'hello');
 });
 
 test('clear', async () => {
-  await assertLocalForageDbMethodCalled(t, 'clear');
+  await assertLocalForageDbMethodCalled('clear');
 });
 
 test('length', async () => {
-  await assertLocalForageDbMethodCalled(t, 'length');
+  await assertLocalForageDbMethodCalled('length');
 });
 
 test('key', async () => {
-  await assertLocalForageDbMethodCalled(t, 'key', 0);
+  await assertLocalForageDbMethodCalled('key', 0);
 });
 
 test('keys', async () => {
-  await assertLocalForageDbMethodCalled(t, 'keys');
+  await assertLocalForageDbMethodCalled('keys');
 });
 
 test('iterate', async () => {
-  await assertLocalForageDbMethodCalled(t, 'iterate', () => {});
+  await assertLocalForageDbMethodCalled('iterate', () => {});
 });
