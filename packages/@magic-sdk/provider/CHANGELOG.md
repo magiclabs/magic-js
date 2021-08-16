@@ -1,3 +1,15 @@
+# v4.4.2 (Mon Aug 16 2021)
+
+#### 🐛 Bug Fix
+
+- Migrate unit tests to Jest [#194](https://github.com/magiclabs/magic-js/pull/194) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v4.4.0 (Wed Jul 28 2021)
 
 #### 🚀 Enhancement
