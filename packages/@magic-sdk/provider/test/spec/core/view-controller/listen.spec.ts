@@ -1,5 +1,4 @@
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
 import { createViewController } from '../../../factories';
 import { MSG_TYPES } from '../../../constants';
 
@@ -9,26 +8,26 @@ beforeEach(() => {
 
 test('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', (done) => {
   const overlay = createViewController('');
-  const hideOverlayStub = sinon.stub();
+  const hideOverlayStub = jest.fn();
   (overlay as any).hideOverlay = hideOverlayStub;
 
   window.postMessage({ msgType: MSG_TYPES().MAGIC_HIDE_OVERLAY }, '*');
 
   setTimeout(() => {
-    expect(hideOverlayStub.calledOnce).toBe(true);
+    expect(hideOverlayStub).toBeCalledTimes(1);
     done();
   }, 0);
 });
 
 test('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', (done) => {
   const overlay = createViewController('');
-  const showOverlayStub = sinon.stub();
+  const showOverlayStub = jest.fn();
   (overlay as any).showOverlay = showOverlayStub;
 
   window.postMessage({ msgType: MSG_TYPES().MAGIC_SHOW_OVERLAY }, '*');
 
   setTimeout(() => {
-    expect(showOverlayStub.calledOnce).toBe(true);
+    expect(showOverlayStub).toBeCalledTimes(1);
     done();
   }, 0);
 });

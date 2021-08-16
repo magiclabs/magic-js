@@ -1,5 +1,4 @@
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
@@ -10,19 +9,20 @@ beforeEach(() => {
 
 test('Call `container.hideOverlay` if present', () => {
   const overlay = createReactNativeWebViewController('asdf');
-  const hideOverlayStub = sinon.stub();
-  (overlay as any).container = {
+  const hideOverlayStub = jest.fn();
+
+  overlay.container = {
     hideOverlay: hideOverlayStub,
   };
 
-  (overlay as any).hideOverlay();
+  overlay.hideOverlay();
 
-  expect(hideOverlayStub.calledOnce).toBe(true);
+  expect(hideOverlayStub).toBeCalledTimes(1);
 });
 
 test('Not call `container.hideOverlay` if `container` is nil', () => {
   const overlay = createReactNativeWebViewController('asdf');
-  (overlay as any).container = undefined;
+  overlay.container = undefined;
 
-  (overlay as any).hideOverlay();
+  overlay.hideOverlay();
 });

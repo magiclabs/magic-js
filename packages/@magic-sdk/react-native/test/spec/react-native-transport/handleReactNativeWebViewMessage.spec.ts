@@ -1,5 +1,4 @@
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
 import { ENCODED_QUERY_PARAMS } from '../../constants';
 import { createReactNativeTransport } from '../../factories';
 
@@ -9,7 +8,7 @@ beforeEach(() => {
 
 test('Ignores events with different origin than expected', (done) => {
   const transport = createReactNativeTransport('asdf');
-  const onHandlerStub = sinon.stub();
+  const onHandlerStub = jest.fn();
   transport.messageHandlers.add(onHandlerStub);
 
   transport.handleReactNativeWebViewMessage({
@@ -20,14 +19,14 @@ test('Ignores events with different origin than expected', (done) => {
   } as any);
 
   setTimeout(() => {
-    expect(onHandlerStub.notCalled).toBe(true);
+    expect(onHandlerStub).not.toBeCalled();
     done();
   }, 0);
 });
 
 test('Ignores events with non-string data', (done) => {
   const transport = createReactNativeTransport('asdf');
-  const onHandlerStub = sinon.stub();
+  const onHandlerStub = jest.fn();
   transport.messageHandlers.add(onHandlerStub);
 
   transport.handleReactNativeWebViewMessage({
@@ -38,14 +37,14 @@ test('Ignores events with non-string data', (done) => {
   } as any);
 
   setTimeout(() => {
-    expect(onHandlerStub.notCalled).toBe(true);
+    expect(onHandlerStub).not.toBeCalled();
     done();
   }, 0);
 });
 
 test('Replaces `undefined` or `null` response with an empty object', (done) => {
   const transport = createReactNativeTransport('asdf');
-  const onHandlerStub = sinon.stub();
+  const onHandlerStub = jest.fn();
   transport.messageHandlers.add(onHandlerStub);
 
   transport.handleReactNativeWebViewMessage({
@@ -56,15 +55,15 @@ test('Replaces `undefined` or `null` response with an empty object', (done) => {
   } as any);
 
   setTimeout(() => {
-    expect(onHandlerStub.calledOnce).toBe(true);
-    expect(onHandlerStub.args[0][0].data).toEqual({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} });
+    expect(onHandlerStub).toBeCalledTimes(1);
+    expect(onHandlerStub.mock.calls[0][0].data).toEqual({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} });
     done();
   }, 0);
 });
 
 test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
   const transport = createReactNativeTransport('asdf');
-  const onHandlerStub = sinon.stub();
+  const onHandlerStub = jest.fn();
   transport.messageHandlers.add(onHandlerStub);
 
   transport.handleReactNativeWebViewMessage({
@@ -75,8 +74,8 @@ test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
   } as any);
 
   setTimeout(() => {
-    expect(onHandlerStub.calledOnce).toBe(true);
-    expect(onHandlerStub.args[0][0].data).toEqual({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} });
+    expect(onHandlerStub).toBeCalledTimes(1);
+    expect(onHandlerStub.mock.calls[0][0].data).toEqual({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} });
     done();
   }, 0);
 });

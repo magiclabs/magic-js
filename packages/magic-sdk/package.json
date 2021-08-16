@@ -21,6 +21,9 @@
   "types": "dist/es/index.d.ts",
   "umd:main": "dist/magic.js",
   "jsdelivr": "dist/magic.js",
+  "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.9.0"
+  },
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",

@@ -1,7 +1,6 @@
 /* eslint-disable prefer-spread */
 
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '@magic-sdk/types';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
 import { createPayloadTransport } from '../../../factories';
@@ -14,7 +13,7 @@ import { ViewController } from '../../../../src/core/view-controller';
 function overlayStub(): ViewController {
   const stub = {
     ready: Promise.resolve(),
-    postMessage: sinon.stub(),
+    postMessage: jest.fn(),
   } as any;
 
   Object.setPrototypeOf(stub, ViewController.prototype);
@@ -56,8 +55,8 @@ function responseEvent(values: { result?: any; error?: any; id?: number } = {}) 
  */
 function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomingWindowMessage, any][]) {
   const timeouts = [];
-  const handlerSpy = sinon.spy(() => timeouts.forEach((t) => t && clearTimeout(t)));
-  const onSpy = sinon.spy((msgType, handler) => {
+  const handlerSpy = jest.fn(() => timeouts.forEach((t) => t && clearTimeout(t)));
+  const onSpy = jest.fn((msgType, handler) => {
     events.forEach((event, i) => {
       if (msgType === event[0]) {
         timeouts.push(setTimeout(() => handler(event[1]), 100 * (i + 1)));
@@ -74,7 +73,7 @@ function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomin
 
 beforeEach(() => {
   browserEnv();
-  browserEnv.stub('addEventListener', sinon.stub());
+  browserEnv.stub('addEventListener', jest.fn());
 });
 
 test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async () => {
@@ -87,8 +86,8 @@ test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', as
 
   const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-  expect(onSpy.args[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  expect(handlerSpy.calledOnce).toBe(true);
+  expect(onSpy.mock.calls[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy).toBeCalledTimes(1);
   expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
 });
 
@@ -103,8 +102,8 @@ test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; skips payloads with no
 
   const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-  expect(onSpy.args[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  expect(handlerSpy.calledOnce).toBe(true);
+  expect(onSpy.mock.calls[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy).toBeCalledTimes(1);
   expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
 });
 
@@ -145,8 +144,8 @@ test('Sends a batch payload and resolves with multiple responses', async () => {
     payload3,
   ]);
 
-  expect(onSpy.args[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  expect(handlerSpy.calledOnce).toBe(true);
+  expect(onSpy.mock.calls[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy).toBeCalledTimes(1);
   expect(response).toEqual([
     new JsonRpcResponse(response1.data.response),
     new JsonRpcResponse(response2.data.response),

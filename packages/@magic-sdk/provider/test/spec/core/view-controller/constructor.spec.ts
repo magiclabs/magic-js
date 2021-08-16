@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import browserEnv from '@ikscodes/browser-env';
-import sinon from 'sinon';
 import { ViewController } from '../../../../src/core/view-controller';
 import { createViewController } from '../../../factories';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
@@ -11,10 +10,9 @@ beforeEach(() => {
 });
 
 test('Instantiates `ViewController`', async () => {
-  const initStub = sinon.stub();
-  initStub.returns(new Promise(() => {}));
-  const listenStub = sinon.stub();
-  const waitForReadyStub = sinon.stub();
+  const initStub = jest.fn().mockImplementation(() => new Promise(() => {}));
+  const listenStub = jest.fn();
+  const waitForReadyStub = jest.fn();
 
   (ViewController.prototype as any).init = initStub;
   (ViewController.prototype as any).listen = listenStub;
@@ -26,7 +24,7 @@ test('Instantiates `ViewController`', async () => {
   expect((overlay as any).transport instanceof PayloadTransport).toBe(true);
   expect((overlay as any).endpoint).toBe((overlay as any).transport.endpoint);
   expect((overlay as any).parameters).toBe((overlay as any).transport.parameters);
-  expect(initStub.calledOnce).toBe(true);
-  expect(listenStub.calledOnce).toBe(true);
-  expect(waitForReadyStub.calledOnce).toBe(true);
+  expect(initStub).toBeCalledTimes(1);
+  expect(listenStub).toBeCalledTimes(1);
+  expect(waitForReadyStub).toBeCalledTimes(1);
 });
