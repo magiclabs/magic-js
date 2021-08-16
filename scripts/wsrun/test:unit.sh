@@ -10,7 +10,7 @@ RAW_INPUT=$1
 
 runTests() {
   export TS_NODE_PROJECT="./test/tsconfig.json"
-  npx nyc --reporter=lcov --reporter=text-summary  ava -T 120000 $RAW_INPUT || exit 1
+  npx jest $@
 }
 
 echoNoTests() {

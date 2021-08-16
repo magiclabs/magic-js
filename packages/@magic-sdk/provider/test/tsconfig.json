@@ -1,0 +1,13 @@
+{
+  "extends": "../../../../tsconfig.settings.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "strict": false,
+    "noImplicitAny": false
+  },
+  "include": ["./**/*.ts"],
+  "references": [
+    { "path": ".." }
+  ]
+}

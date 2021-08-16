@@ -7,21 +7,21 @@ aliases: [
   # CircleCI workspace.
   &dependency-paths [
     "node_modules",
-    "packages/commons/node_modules",
-    "packages/provider/node_modules",
-    "packages/react-native/node_modules",
-    "packages/types/node_modules",
-    "packages/web/node_modules"
+    "packages/@magic-sdk/commons/node_modules",
+    "packages/@magic-sdk/provider/node_modules",
+    "packages/@magic-sdk/react-native/node_modules",
+    "packages/@magic-sdk/types/node_modules",
+    "packages/magic-sdk/node_modules"
   ],
 
   # List of build output paths that should be persisted to the
   # CircleCI workspace.
   &build-output-paths [
-    "packages/commons/dist",
-    "packages/provider/dist",
-    "packages/react-native/dist",
-    "packages/types/dist",
-    "packages/web/dist"
+    "packages/@magic-sdk/commons/dist",
+    "packages/@magic-sdk/provider/dist",
+    "packages/@magic-sdk/react-native/dist",
+    "packages/@magic-sdk/types/dist",
+    "packages/magic-sdk/dist"
   ],
 
   # NPM lockfile cache key (update "vN" => "vN+1" to cache-bust).
@@ -62,7 +62,7 @@ aliases: [
 executors:
   default:
     docker:
-      - image: circleci/node:10-browsers
+      - image: circleci/node:14.17.0-browsers
 
 # --- Job definitions -------------------------------------------------------- #
 
@@ -128,11 +128,11 @@ jobs:
           command: yarn run test
       # For display in CircleCI Artifacts: https://circleci.com/docs/2.0/artifacts/
       - store_artifacts:
-          path: packages/provider/coverage
+          path: packages/@magic-sdk/provider/coverage
       - store_artifacts:
-          path: packages/react-native/coverage
+          path: packages/@magic-sdk/react-native/coverage
       - store_artifacts:
-          path: packages/web/coverage
+          path: packages/magic-sdk/coverage
 
   # Publish all packages to NPM
   create-release:

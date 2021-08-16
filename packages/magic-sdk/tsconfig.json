@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.settings.json",
+
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist/es"
+  },
+
+  "include": [
+    "./src/**/*.ts",
+  ],
+
+  "references": [
+    { "path": "../@magic-sdk/types/tsconfig.json" },
+    { "path": "../@magic-sdk/provider/tsconfig.json" },
+    { "path": "../@magic-sdk/commons/tsconfig.json" },
+  ]
+}

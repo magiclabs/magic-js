@@ -1,0 +1,14 @@
+{
+  "extends": "../../../../tsconfig.settings.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react",
+    "strict": false,
+    "noImplicitAny": false
+  },
+  "include": ["./**/*.ts"],
+  "references": [
+    { "path": ".." }
+  ]
+}
