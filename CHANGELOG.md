@@ -1,3 +1,68 @@
+# (Mon Aug 16 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/commons@1.2.1`, `@magic-sdk/provider@4.4.2`, `@magic-sdk/react-native@4.4.2`, `@magic-sdk/types@3.2.2`, `magic-sdk@4.4.2`
+  - Migrate unit tests to Jest [#194](https://github.com/magiclabs/magic-js/pull/194) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Mon Aug 09 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@3.2.1`
+  - register access control rpc error code [#193](https://github.com/magiclabs/magic-js/pull/193) ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# (Wed Jul 28 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/commons@1.2.0`, `@magic-sdk/provider@4.4.0`, `@magic-sdk/react-native@4.4.0`, `@magic-sdk/types@3.2.0`, `magic-sdk@4.4.0`
+  - Add explicit JSDelivr entry-point for `magic-sdk` [#191](https://github.com/magiclabs/magic-js/pull/191) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Fri Jun 11 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native@4.3.1`
+  - Upgrade @aveq-research/localforage-asyncstorage-driver [#183](https://github.com/magiclabs/magic-js/pull/183) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Tue May 04 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@4.3.0`
+  - Add test-mode prefix to Ethereum RPC methods [#181](https://github.com/magiclabs/magic-js/pull/181) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Fri Mar 19 2021)
 
 #### 🐛 Bug Fix

@@ -56,20 +56,20 @@ await magic.auth.loginWithMagicLink({ email: 'your.email@example.com' });
 
 These are packages _you_ can install to enable Magic JS SDK functionality for your client-side application.
 
-| Package directory | Package Name | Changelog | Description |
-| ----------------- | ------------ | --------- | ----------- |
-| [`/web`](./packages/web) | [`magic-sdk`](https://www.npmjs.com/package/magic-sdk) | [CHANGELOG](./packages/web/CHANGELOG.md) | Web/browser entry-point for Magic SDK. |
-| [`/react-native`](./packages/react-native) | [`@magic-sdk/react-native`](https://www.npmjs.com/package/@magic-sdk/react-native) | [CHANGELOG](./packages/react-native/CHANGELOG.md) | React Native entry-point for Magic SDK. |
+| Package Name | Changelog | Description |
+| ------------ | --------- | ----------- |
+| [`magic-sdk`](https://www.npmjs.com/package/magic-sdk) | [CHANGELOG](./packages/magic-sdk/CHANGELOG.md) | Web/browser entry-point for Magic SDK. |
+| [`@magic-sdk/react-native`](https://www.npmjs.com/package/@magic-sdk/react-native) | [CHANGELOG](./packages/@magic-sdk/react-native/CHANGELOG.md) | React Native entry-point for Magic SDK. |
 
 ### Internals
 
 These are packages Magic JS SDK uses internally to work seamlessly across platforms.
 
-| Package directory | Package Name | Changelog | Description |
-| ----------------- | ------------ | --------- | ----------- |
-| [`/types`](./packages/types) | [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types) | [CHANGELOG](./packages/types/CHANGELOG.md) | Core typings shared between JavaScript entry-points of Magic SDK. |
-| [`/provider`](./packages/provider) | [`@magic-sdk/provider`](https://www.npmjs.com/package/@magic-sdk/provider) | [CHANGELOG](./packages/provider/CHANGELOG.md) | Core business logic shared between JavaScript entry-points of Magic SDK. |
-| [`/commons`](./packages/commons) | [`@magic-sdk/commons`](https://www.npmjs.com/package/@magic-sdk/commons) | [CHANGELOG](./packages/commons/CHANGELOG.md) | Exposes a listing of common public APIs from `@magic-sdk/provider` and `@magic-sdk/typings` to the platform-specific entry points. |
+| Package Name | Changelog | Description |
+| ------------ | --------- | ----------- |
+| [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types) | [CHANGELOG](./packages/@magic-sdk/types/CHANGELOG.md) | Core typings shared between JavaScript entry-points of Magic SDK. |
+| [`@magic-sdk/provider`](https://www.npmjs.com/package/@magic-sdk/provider) | [CHANGELOG](./packages/@magic-sdk/provider/CHANGELOG.md) | Core business logic shared between JavaScript entry-points of Magic SDK. |
+| [`@magic-sdk/commons`](https://www.npmjs.com/package/@magic-sdk/commons) | [CHANGELOG](./packages/@magic-sdk/commons/CHANGELOG.md) | Exposes a listing of common public APIs from `@magic-sdk/provider` and `@magic-sdk/typings` to the platform-specific entry points. |
 
 ## 🚦 Testing
 

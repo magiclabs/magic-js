@@ -1,0 +1,65 @@
+{
+  "name": "@magic-sdk/provider",
+  "version": "4.4.2",
+  "description": "Core business logic for Magic SDK packages.",
+  "author": "Magic Labs <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "homepage": "https://magic.link",
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.js.map",
+    "dist/**/*.d.ts"
+  ],
+  "target": "web",
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
+  "types": "dist/es/index.d.ts",
+  "dependencies": {
+    "@magic-sdk/types": "^3.2.2",
+    "eventemitter3": "^4.0.4",
+    "semver": "^7.3.2",
+    "tslib": "^2.0.3"
+  },
+  "peerDependencies": {
+    "localforage": "^1.7.4"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.9.6",
+    "@peculiar/webcrypto": "^1.1.7",
+    "@types/semver": "^7.3.4",
+    "localforage": "^1.7.4",
+    "localforage-driver-memory": "^1.0.5"
+  },
+  "ava": {
+    "require": [
+      "ts-node/register",
+      "./test/setup.ts"
+    ],
+    "files": [
+      "test/**/*.spec.ts"
+    ],
+    "extensions": [
+      "ts",
+      "tsx"
+    ],
+    "verbose": true
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": false,
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 99,
+    "statements": 99,
+    "functions": 99,
+    "branches": 99,
+    "reporter": [
+      "lcov"
+    ]
+  },
+  "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
+}

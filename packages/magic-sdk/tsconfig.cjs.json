@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.settings.json",
+
+  "compilerOptions": {
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist/cjs"
+  },
+
+  "include": [
+    "./src/**/*.ts",
+  ],
+
+  "references": [
+    { "path": "../@magic-sdk/types/tsconfig.cjs.json" },
+    { "path": "../@magic-sdk/provider/tsconfig.cjs.json" },
+    { "path": "../@magic-sdk/commons/tsconfig.cjs.json" },
+  ]
+}
+

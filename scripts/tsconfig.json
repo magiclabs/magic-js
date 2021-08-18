@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.settings.json",
   "compilerOptions": {
+    "module": "commonjs",
     "noImplicitAny": false,
     "composite": false,
   },

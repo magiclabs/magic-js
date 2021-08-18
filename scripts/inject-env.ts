@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-script
+#!/usr/bin/env ts-node-script
 
 /*
   eslint-disable
@@ -18,8 +18,8 @@ import path from 'path';
  * (FYI: it's best to encapsulate the interpolation as a string).
  */
 const environment = {
-  WEB_VERSION: require(path.resolve(__dirname, '../packages/web/package.json')).version,
-  REACT_NATIVE_VERSION: require(path.resolve(__dirname, '../packages/react-native/package.json')).version,
+  WEB_VERSION: require(path.resolve(__dirname, '../packages/magic-sdk/package.json')).version,
+  REACT_NATIVE_VERSION: require(path.resolve(__dirname, '../packages/@magic-sdk/react-native/package.json')).version,
 };
 
 const files = process.argv.slice(2).map((f) => path.resolve(__dirname, '..', f, 'dist/**/*'));

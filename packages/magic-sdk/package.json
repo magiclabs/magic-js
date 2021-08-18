@@ -1,0 +1,39 @@
+{
+  "name": "magic-sdk",
+  "version": "4.4.2",
+  "description": "Passwordless authentication for the web.",
+  "author": "Magic Labs <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "homepage": "https://magic.link",
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.js.map",
+    "dist/**/*.d.ts"
+  ],
+  "umdGlobal": "Magic",
+  "target": "web",
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
+  "types": "dist/es/index.d.ts",
+  "umd:main": "dist/magic.js",
+  "jsdelivr": "dist/magic.js",
+  "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.9.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/runtime": "^7.9.6",
+    "@magic-sdk/commons": "^1.2.1",
+    "@magic-sdk/provider": "^4.4.2",
+    "@magic-sdk/types": "^3.2.2",
+    "localforage": "^1.7.4",
+    "localforage-driver-memory": "^1.0.5",
+    "regenerator-runtime": "0.13.5",
+    "tslib": "^2.0.3"
+  },
+  "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
+}
