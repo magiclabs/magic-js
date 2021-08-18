@@ -46,8 +46,7 @@ export async function createJwt() {
   };
 
   const headers = {
-    // typ: 'dpop+jwt',
-    typ: 'JWT',
+    typ: 'dpop+jwt',
     alg: 'ES256',
     jwk: publicJwk,
   };
