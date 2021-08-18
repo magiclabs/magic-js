@@ -1,74 +1,73 @@
-import test from 'ava';
-import sinon from 'sinon';
 import { Crypto } from '@peculiar/webcrypto';
 import * as storage from '../../../src/util/storage';
 import { clearKeys, createJwt, STORE_KEY_PRIVATE_KEY, STORE_KEY_PUBLIC_JWK } from '../../../src/util/web-crypto';
 
 let FAKE_STORE = {};
 
-test.before(() => {
-  sinon.stub(storage, 'getItem').callsFake(async (key: string) => FAKE_STORE[key]);
-  sinon.stub(storage, 'setItem').callsFake(async (key: string, value: any) => {
+beforeAll(() => {
+  jest.spyOn(storage, 'getItem').mockImplementation(async (key: string) => FAKE_STORE[key]);
+  jest.spyOn(storage, 'setItem').mockImplementation(async (key: string, value: any) => {
     FAKE_STORE[key] = value;
   });
-  sinon.stub(storage, 'removeItem').callsFake(async (key: string) => {
+  jest.spyOn(storage, 'removeItem').mockImplementation(async (key: string) => {
     FAKE_STORE[key] = null;
   });
 });
 
-test.beforeEach(() => {
+beforeEach(() => {
   (window as any).crypto = new Crypto();
 });
 
-test.afterEach(() => {
+afterEach(() => {
   FAKE_STORE = {};
 });
 
-test.serial('should return undefined if unsupported', async (t) => {
+test('should return undefined if unsupported', async () => {
   (window as any).crypto = undefined;
+  jest.spyOn(global.console, 'info').mockImplementation();
   const jwt = await createJwt();
-  t.is(jwt, undefined);
+  expect(jwt).toEqual(undefined);
 });
 
-test.serial('should give undefined if missing private key', async (t) => {
+test('should give undefined if missing private key', async () => {
   await createJwt(); // create keys
   FAKE_STORE[STORE_KEY_PRIVATE_KEY] = null;
   const jwt = await createJwt();
-  t.is(jwt, undefined);
+  expect(jwt).toEqual(undefined);
 });
 
-test.serial('should return jwt if supported', async (t) => {
+test('should return jwt if supported', async () => {
   const jwt = await createJwt();
-  t.truthy(jwt);
-  t.is(jwt.split('.').length, 3, 'should have 3 parts to jwt string');
+  expect(jwt).toBeTruthy();
+  expect(jwt.split('.').length).toEqual(3);
 });
 
-test.serial('jwt is unique', async (t) => {
+test('jwt is unique', async () => {
   const jwtA = await createJwt();
   const jwtB = await createJwt();
-  t.false(jwtA === jwtB);
+  expect(jwtA).not.toEqual(jwtB);
 });
 
-test.serial('should store public and private keys after creating JWT', async (t) => {
+test('should store public and private keys after creating JWT', async () => {
   await createJwt();
-  t.truthy(FAKE_STORE[STORE_KEY_PUBLIC_JWK]);
-  t.truthy(FAKE_STORE[STORE_KEY_PRIVATE_KEY]);
+  expect(FAKE_STORE[STORE_KEY_PUBLIC_JWK]).toBeTruthy();
+  expect(FAKE_STORE[STORE_KEY_PRIVATE_KEY]).toBeTruthy();
 });
 
-test.serial('private key should be non exportable', async (t) => {
+test('private key should be non exportable', async () => {
   await createJwt();
   const privateKey = FAKE_STORE[STORE_KEY_PRIVATE_KEY];
-  t.throws(() => crypto.subtle.exportKey('jwk', privateKey));
+  expect(() => crypto.subtle.exportKey('jwk', privateKey)).toThrow();
 });
 
-test.serial('when asked should clear keys', async (t) => {
+test('when asked should clear keys', async () => {
   const jwk = await createJwt();
-  t.truthy(jwk);
-  t.truthy(FAKE_STORE[STORE_KEY_PUBLIC_JWK]);
-  t.truthy(FAKE_STORE[STORE_KEY_PRIVATE_KEY]);
+  expect(jwk).toBeTruthy();
+  expect(FAKE_STORE[STORE_KEY_PUBLIC_JWK]).toBeTruthy();
+  expect(FAKE_STORE[STORE_KEY_PRIVATE_KEY]).toBeTruthy();
 
   clearKeys();
 
-  t.falsy(FAKE_STORE[STORE_KEY_PUBLIC_JWK]);
-  t.falsy(FAKE_STORE[STORE_KEY_PRIVATE_KEY]);
+  expect(FAKE_STORE[STORE_KEY_PUBLIC_JWK]).toBeFalsy();
+  expect(FAKE_STORE[STORE_KEY_PRIVATE_KEY]).toBeFalsy();
 });

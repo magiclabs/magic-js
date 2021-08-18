@@ -2,6 +2,7 @@
 
 import browserEnv from '@ikscodes/browser-env';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '@magic-sdk/types';
+import _ from 'lodash';
 import { PayloadTransport } from '../../../../src/core/payload-transport';
 import { createPayloadTransport } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
@@ -73,29 +74,26 @@ function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomin
   return { handlerSpy, onSpy };
 }
 
+const createJwtStub = jest.spyOn(webCryptoUtils, 'createJwt');
 const FAKE_JWT_TOKEN = 'hot tokens';
 const FAKE_RT = 'will freshen';
 let FAKE_STORE: any = {};
-const createJwtStub: sinon.SinonStub = sinon.stub(webCryptoUtils, 'createJwt');
 
-test.before(() => {
-  sinon.stub(storage, 'getItem').callsFake(async (key: string) => FAKE_STORE[key]);
-  sinon.stub(storage, 'setItem').callsFake(async (key: string, value: any) => {
+beforeEach(() => {
+  browserEnv();
+  browserEnv.stub('addEventListener', jest.fn());
+  jest.spyOn(storage, 'getItem').mockImplementation((key: string) => FAKE_STORE[key]);
+  jest.spyOn(storage, 'setItem').mockImplementation(async (key: string, value: any) => {
     FAKE_STORE[key] = value;
   });
 });
 
-test.beforeEach((t) => {
-  browserEnv();
-  browserEnv.stub('addEventListener', jest.fn());
-});
-
-test.afterEach(() => {
+afterEach(() => {
   FAKE_STORE = {};
-  createJwtStub.reset();
 });
 
-test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async (t) => {
+test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async () => {
+  createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
   const transport = createPayloadTransport('asdf');
   const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
@@ -110,8 +108,8 @@ test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', as
   expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
 });
 
-test('Sends payload with jwt when web crypto is supported', async (t) => {
-  createJwtStub.returns(Promise.resolve(FAKE_JWT_TOKEN));
+test('Sends payload with jwt when web crypto is supported', async () => {
+  createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
   const transport = createPayloadTransport('asdf');
   const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
@@ -121,15 +119,15 @@ test('Sends payload with jwt when web crypto is supported', async (t) => {
 
   const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  t.true(handlerSpy.calledOnce);
-  t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
-  t.true(createJwtStub.calledWith());
-  t.true((overlay.postMessage as sinon.SinonStub).calledWithMatch({ jwt: FAKE_JWT_TOKEN }));
+  expect(onSpy.mock.calls[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy).toHaveBeenCalledTimes(1);
+  expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
+  expect(createJwtStub).toHaveBeenCalledWith();
+  expect(overlay.postMessage).toBeCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN }));
 });
 
-test('Sends payload with rt and jwt when rt is saved', async (t) => {
-  createJwtStub.returns(Promise.resolve(FAKE_JWT_TOKEN));
+test('Sends payload with rt and jwt when rt is saved', async () => {
+  createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
   FAKE_STORE.rt = FAKE_RT;
 
   const transport = createPayloadTransport('asdf');
@@ -138,12 +136,12 @@ test('Sends payload with rt and jwt when rt is saved', async (t) => {
   const payload = requestPayload();
   await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-  t.true(createJwtStub.calledWith());
-  t.true((overlay.postMessage as sinon.SinonStub).calledWithMatch({ jwt: FAKE_JWT_TOKEN, rt: FAKE_RT }));
+  expect(createJwtStub).toHaveBeenCalledWith();
+  expect(overlay.postMessage).toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN, rt: FAKE_RT }));
 });
 
-test('Sends payload without rt if no jwt can be made', async (t) => {
-  createJwtStub.returns(Promise.resolve(undefined));
+test('Sends payload without rt if no jwt can be made', async () => {
+  createJwtStub.mockImplementation(() => Promise.resolve(undefined));
   FAKE_STORE.rt = FAKE_RT;
 
   const transport = createPayloadTransport('asdf');
@@ -152,12 +150,12 @@ test('Sends payload without rt if no jwt can be made', async (t) => {
   const payload = requestPayload();
 
   await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
-  t.false((overlay.postMessage as sinon.SinonStub).calledWithMatch({ rt: FAKE_RT }));
+  expect(overlay.postMessage).not.toBeCalledWith(expect.objectContaining({ rt: FAKE_RT }));
 });
 
-test('Sends payload when web crypto jwt fails', async (t) => {
-  const consoleErrorStub = sinon.stub(global.console, 'error');
-  createJwtStub.throws('danger');
+test('Sends payload when web crypto jwt fails', async () => {
+  const consoleErrorStub = jest.spyOn(global.console, 'error').mockImplementationOnce(() => {});
+  createJwtStub.mockRejectedValueOnce('danger');
   FAKE_STORE.rt = FAKE_RT;
 
   const transport = createPayloadTransport('asdf');
@@ -169,16 +167,16 @@ test('Sends payload when web crypto jwt fails', async (t) => {
 
   const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  t.true(handlerSpy.calledOnce);
-  t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
+  expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy).toHaveBeenCalledTimes(1);
+  expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
 
-  t.true(createJwtStub.calledWith());
-  t.true(consoleErrorStub.called);
-  t.false((overlay.postMessage as sinon.SinonStub).calledWithMatch({ jwt: FAKE_JWT_TOKEN }));
+  expect(createJwtStub).toHaveBeenCalledWith();
+  expect(consoleErrorStub).toHaveBeenCalled();
+  expect(overlay.postMessage).not.toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN }));
 });
 
-test('Sends payload and stores rt if response event contains rt', async (t) => {
+test('Sends payload and stores rt if response event contains rt', async () => {
   const eventWithRt = { data: { ...responseEvent().data, rt: FAKE_RT } };
   const transport = createPayloadTransport('asdf');
   const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
@@ -189,14 +187,14 @@ test('Sends payload and stores rt if response event contains rt', async (t) => {
 
   const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  t.true(handlerSpy.calledOnce);
-  t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
+  expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy).toHaveBeenCalled();
+  expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
 
-  t.deepEqual(FAKE_STORE.rt, FAKE_RT, 'should have persisted rt');
+  expect(FAKE_STORE.rt).toEqual(FAKE_RT);
 });
 
-test('Sends payload recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response', async (t) => {
+test('Sends payload recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response', async () => {
   const transport = createPayloadTransport('asdf');
   const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent({ id: 1234 })], // Should be skipped
@@ -207,12 +205,12 @@ test('Sends payload recieves MAGIC_HANDLE_REQUEST event; skips payloads with non
 
   const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
-  t.is(onSpy.args[0][0], MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  t.true(handlerSpy.calledOnce);
-  t.deepEqual(response, new JsonRpcResponse(responseEvent().data.response));
+  expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy).toHaveBeenCalledTimes(1);
+  expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
 });
 
-test('Sends payload and standardizes malformed response', async (t) => {
+test('Sends payload and standardizes malformed response', async () => {
   const transport = createPayloadTransport('asdf');
   const overlay = overlayStub();
   const payload = requestPayload();
