@@ -39,7 +39,7 @@ aliases: [
   &filter-default-branches {
     filters: {
       branches: {
-        ignore: "/^master$|^next$/"
+        ignore: "/^master$|^next$/|^custom"
       }
     }
   },
