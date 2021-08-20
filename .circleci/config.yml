@@ -51,6 +51,7 @@ aliases: [
         only: [
           "master",
           "next",
+          "custom-session-duration"
         ]
       }
     }
