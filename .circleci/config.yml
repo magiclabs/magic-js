@@ -51,6 +51,7 @@ aliases: [
         only: [
           "master",
           "next",
+          # TODO remove once merged
           "custom-session-duration"
         ]
       }
