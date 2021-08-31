@@ -43,7 +43,7 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
   expect(requestPayload.params).toEqual([{ email: 'test', showUI: false }]);
 });
 
-test('method should be a promi event', () => {
+test('method should return a PromiEvent', () => {
   const magic = createMagicSDK();
   expect(isPromiEvent(magic.user.updateEmail({ email: 'test', showUI: false }))).toBeTruthy();
 });

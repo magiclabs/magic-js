@@ -66,7 +66,7 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
   expect(requestPayload.params).toEqual(['helloworld']);
 });
 
-test('method should be a promi event', () => {
+test('method should return a PromiEvent', () => {
   const magic = createMagicSDK({ platform: 'web' });
   expect(isPromiEvent(magic.auth.loginWithCredential('asdf'))).toBeTruthy();
 });
