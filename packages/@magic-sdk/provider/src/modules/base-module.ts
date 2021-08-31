@@ -53,6 +53,7 @@ export class BaseModule {
     // and emit those to `PromiEvent` subscribers.
     const cleanupEvents = this.transport.on(MagicIncomingWindowMessage.MAGIC_HANDLE_EVENT, (evt) => {
       const { response } = evt.data;
+
       if (response.id === payload.id && response.result?.event) {
         const { event, params = [] } = response.result;
         promiEvent.emit(event, ...params);

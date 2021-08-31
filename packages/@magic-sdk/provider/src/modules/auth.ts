@@ -17,6 +17,7 @@ export class AuthModule extends BaseModule {
    */
   public loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
     const { email, showUI = true, redirectURI } = configuration;
+
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
       [{ email, showUI, redirectURI }],
