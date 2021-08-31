@@ -39,7 +39,7 @@ aliases: [
   &filter-default-branches {
     filters: {
       branches: {
-        ignore: "/^master$|^next$/"
+        ignore: "/^master$|^next$/|^dgerrells"
       }
     }
   },
@@ -51,6 +51,7 @@ aliases: [
         only: [
           "master",
           "next",
+          "dgerrells-ch42053-sms-feature"
         ]
       }
     }
