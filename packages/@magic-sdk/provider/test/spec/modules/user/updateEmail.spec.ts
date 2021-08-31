@@ -1,14 +1,15 @@
 import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
+import { isPromiEvent } from '../../../../src/util';
 
 beforeEach(() => {
   browserEnv.restore();
-  (BaseModule as any).prototype.request = jest.fn();
 });
 
 test('Generate JSON RPC request payload with method `magic_auth_update_email`', async () => {
   const magic = createMagicSDK();
+  magic.user.request = jest.fn();
 
   await magic.user.updateEmail({ email: 'test' });
 
@@ -20,6 +21,7 @@ test('Generate JSON RPC request payload with method `magic_auth_update_email`', 
 
 test('Accepts a `showUI` parameter', async () => {
   const magic = createMagicSDK();
+  magic.user.request = jest.fn();
 
   await magic.user.updateEmail({ email: 'test', showUI: false });
 
@@ -31,6 +33,7 @@ test('Accepts a `showUI` parameter', async () => {
 
 test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
   const magic = createMagicSDKTestMode();
+  magic.user.request = jest.fn();
 
   await magic.user.updateEmail({ email: 'test', showUI: false });
 
@@ -38,4 +41,9 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
   expect(requestPayload.jsonrpc).toBe('2.0');
   expect(requestPayload.method).toBe('magic_auth_update_email_testing_mode');
   expect(requestPayload.params).toEqual([{ email: 'test', showUI: false }]);
+});
+
+test('method should be a promi event', () => {
+  const magic = createMagicSDK();
+  expect(isPromiEvent(magic.user.updateEmail({ email: 'test', showUI: false }))).toBeTruthy();
 });
