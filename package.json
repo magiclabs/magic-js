@@ -73,7 +73,6 @@
     "plugins": [
       "npm",
       "released"
-    ],
-    "prereleaseBranches": ["custom-session-duration"]
+    ]
   }
 }

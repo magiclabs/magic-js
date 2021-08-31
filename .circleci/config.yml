@@ -39,7 +39,7 @@ aliases: [
   &filter-default-branches {
     filters: {
       branches: {
-        ignore: "/^master$|^next$/|^custom"
+        ignore: "/^master$|^next$/"
       }
     }
   },
@@ -51,8 +51,6 @@ aliases: [
         only: [
           "master",
           "next",
-          # TODO remove later
-          "custom-session-duration"
         ]
       }
     }
