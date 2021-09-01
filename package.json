@@ -9,7 +9,7 @@
     "build": "$INIT_CWD/scripts/clean.ts && $INIT_CWD/scripts/build.ts",
     "clean": "$INIT_CWD/scripts/clean.ts",
     "lint": "$INIT_CWD/scripts/lint.ts",
-    "test": "$INIT_CWD/scripts/test.sh",
+    "test": "$INIT_CWD/scripts/test.ts",
     "paths": "yarn --silent wsrun --parallel --no-prefix -r -c $INIT_CWD/scripts/wsrun/resolve-paths.ts",
     "postinstall": "husky install"
   },
