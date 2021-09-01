@@ -2,6 +2,7 @@
 
 import { EthNetworkConfiguration, QueryParameters } from '@magic-sdk/types';
 import semverSatisfies from 'semver/functions/satisfies';
+import type { AbstractProvider } from 'web3-core';
 import { encodeJSON } from '../util/base64-json';
 import {
   createMissingApiKeyError,
@@ -164,7 +165,7 @@ export class SDKBase {
    * Contains a Web3-compliant provider. Pass this module to your Web3/Ethers
    * instance for automatic compatibility with Ethereum methods.
    */
-  public readonly rpcProvider: RPCProviderModule;
+  public readonly rpcProvider: RPCProviderModule & AbstractProvider;
 
   /**
    * Creates an instance of Magic SDK.
@@ -183,7 +184,7 @@ export class SDKBase {
     // Prepare built-in modules
     this.auth = new AuthModule(this);
     this.user = new UserModule(this);
-    this.rpcProvider = new RPCProviderModule(this);
+    this.rpcProvider = new RPCProviderModule(this) as any;
 
     // Prepare extensions
     const extConfig: any = prepareExtensions.call(this, options);
