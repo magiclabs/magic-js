@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../core/json-rpc';
 import { BaseModule } from './base-module';
 import { SDKBase, MagicSDKAdditionalConfiguration } from '../core/sdk';
@@ -17,7 +15,7 @@ interface BaseExtension<TName extends string> extends BaseModule {
   };
 }
 
-const sdkAccessFields = ['request', 'transport', 'overlay', 'sdk'];
+const sdkAccessFields = ['request', 'overlay', 'sdk'];
 
 /**
  * From the `BaseExtension`-derived instance, get the prototype

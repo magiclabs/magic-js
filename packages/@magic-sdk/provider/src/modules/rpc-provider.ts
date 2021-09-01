@@ -41,9 +41,8 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     }
 
     if (Array.isArray(payload)) {
-      this.transport
+      this.overlay
         .post(
-          this.overlay,
           MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
           payload.map((p) => {
             const standardizedPayload = standardizeJsonRpcRequestPayload(p);
@@ -63,14 +62,12 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     } else {
       const finalPayload = standardizeJsonRpcRequestPayload(payload);
       this.prefixPayloadMethodForTestMode(finalPayload);
-      this.transport
-        .post(this.overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, finalPayload)
-        .then((response) => {
-          (onRequestComplete as JsonRpcRequestCallback)(
-            response.hasError ? new MagicRPCError(response.payload.error) : null,
-            response.payload,
-          );
-        });
+      this.overlay.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, finalPayload).then((response) => {
+        (onRequestComplete as JsonRpcRequestCallback)(
+          response.hasError ? new MagicRPCError(response.payload.error) : null,
+          response.payload,
+        );
+      });
     }
   }
 

@@ -1,23 +1,10 @@
-/* eslint-disable no-underscore-dangle */
-
 import * as memoryDriver from 'localforage-driver-memory';
 import localForage from 'localforage';
 import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS, TEST_API_KEY } from './constants';
-import { PayloadTransport } from '../src/core/payload-transport';
 import { ViewController } from '../src/core/view-controller';
 import type { SDKEnvironment } from '../src/core/sdk-environment';
 
 export class TestViewController extends ViewController {
-  public init = jest.fn();
-  public showOverlay = jest.fn();
-  public hideOverlay = jest.fn();
-  public postMessage = jest.fn();
-}
-
-export class TestPayloadTransport extends PayloadTransport {
-  /**
-   * Test `init` implementation is the same as our web entry-point.
-   */
   public init() {
     window.addEventListener('message', (event: MessageEvent) => {
       if (event.origin === this.endpoint) {
@@ -33,14 +20,14 @@ export class TestPayloadTransport extends PayloadTransport {
       }
     });
   }
-}
 
-export function createPayloadTransport(endpoint = MAGIC_RELAYER_FULL_URL) {
-  return new TestPayloadTransport(endpoint, ENCODED_QUERY_PARAMS);
+  public showOverlay = jest.fn();
+  public hideOverlay = jest.fn();
+  public _post = jest.fn();
 }
 
 export function createViewController(endpoint = MAGIC_RELAYER_FULL_URL) {
-  return new TestViewController(createPayloadTransport(endpoint));
+  return new TestViewController(endpoint, ENCODED_QUERY_PARAMS);
 }
 
 export function createMagicSDKCtor(environment: { [P in keyof SDKEnvironment]?: any } = {}) {
@@ -53,7 +40,6 @@ export function createMagicSDKCtor(environment: { [P in keyof SDKEnvironment]?: 
     version: '1.0.0-test',
     defaultEndpoint: MAGIC_RELAYER_FULL_URL,
     ViewController: TestViewController,
-    PayloadTransport: TestPayloadTransport,
     configureStorage: async () => {
       const lf = localForage.createInstance({});
 

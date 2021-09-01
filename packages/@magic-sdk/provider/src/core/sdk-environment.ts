@@ -1,6 +1,5 @@
 import localForage from 'localforage';
 import { ViewController } from './view-controller';
-import { PayloadTransport } from './payload-transport';
 import { SDKBase } from './sdk';
 import { WithExtensions } from '../modules/base-extension';
 
@@ -16,7 +15,6 @@ export interface SDKEnvironment {
   platform: 'web' | 'react-native';
   defaultEndpoint: string;
   ViewController: ConstructorOf<ViewController>;
-  PayloadTransport: ConstructorOf<PayloadTransport>;
   configureStorage: () => Promise<typeof localForage>;
 }
 

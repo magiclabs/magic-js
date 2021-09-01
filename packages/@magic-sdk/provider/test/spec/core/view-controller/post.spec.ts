@@ -1,29 +1,14 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable prefer-spread */
 
 import browserEnv from '@ikscodes/browser-env';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '@magic-sdk/types';
 import _ from 'lodash';
-import { PayloadTransport } from '../../../../src/core/payload-transport';
-import { createPayloadTransport } from '../../../factories';
+import { createViewController } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
-import { ViewController } from '../../../../src/core/view-controller';
 import * as storage from '../../../../src/util/storage';
 import * as webCryptoUtils from '../../../../src/util/web-crypto';
 import { SDKEnvironment } from '../../../../src/core/sdk-environment';
-
-/**
- * Stub `IframeController` for `PayloadTransport` testing requirements.
- */
-function overlayStub(): ViewController {
-  const stub = {
-    ready: Promise.resolve(),
-    postMessage: jest.fn(),
-  } as any;
-
-  Object.setPrototypeOf(stub, ViewController.prototype);
-
-  return stub;
-}
 
 /**
  * Create a dummy request payload.
@@ -54,10 +39,10 @@ function responseEvent(values: { result?: any; error?: any; id?: number } = {}) 
 }
 
 /**
- * Stub the `PayloadTransport.on` method (hide implementation, only test
- * `PayloadTransport.post` logic).
+ * Stub the `ViewController.on` method (hide implementation, only test
+ * `ViewController.post` logic).
  */
-function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomingWindowMessage, any][]) {
+function stubViewController(viewController: any, events: [MagicIncomingWindowMessage, any][]) {
   const timeouts = [];
   const handlerSpy = jest.fn(() => timeouts.forEach((t) => t && clearTimeout(t)));
   const onSpy = jest.fn((msgType, handler) => {
@@ -68,11 +53,13 @@ function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomin
     });
     return handlerSpy;
   });
+  const postSpy = jest.fn();
 
-  /* eslint-disable-next-line no-param-reassign */
-  (transport as any).on = onSpy;
+  viewController.on = onSpy;
+  viewController.ready = Promise.resolve();
+  viewController._post = postSpy;
 
-  return { handlerSpy, onSpy };
+  return { handlerSpy, onSpy, postSpy };
 }
 
 let createJwtStub;
@@ -99,14 +86,13 @@ afterEach(() => {
 
 test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async () => {
   createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
-  const transport = createPayloadTransport('asdf');
-  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+  const viewController = createViewController('asdf');
+  const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
-  const overlay = overlayStub();
   const payload = requestPayload();
 
-  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  const response = await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
   expect(onSpy.mock.calls[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
   expect(handlerSpy).toBeCalledTimes(1);
@@ -115,47 +101,48 @@ test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', as
 
 test('Sends payload with jwt when web crypto is supported', async () => {
   createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
-  const transport = createPayloadTransport('asdf');
-  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+  const viewController = createViewController('asdf');
+  const { handlerSpy, onSpy, postSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
-  const overlay = overlayStub();
   const payload = requestPayload();
 
-  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  const response = await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
   expect(onSpy.mock.calls[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
   expect(handlerSpy).toHaveBeenCalledTimes(1);
   expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
   expect(createJwtStub).toHaveBeenCalledWith();
-  expect(overlay.postMessage).toBeCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN }));
+  expect(postSpy).toBeCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN }));
 });
 
 test('Sends payload with rt and jwt when rt is saved', async () => {
   createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
   FAKE_STORE.rt = FAKE_RT;
 
-  const transport = createPayloadTransport('asdf');
-  stubPayloadTransport(transport, [[MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()]]);
-  const overlay = overlayStub();
+  const viewController = createViewController('asdf');
+  const { postSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
   const payload = requestPayload();
-  await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
   expect(createJwtStub).toHaveBeenCalledWith();
-  expect(overlay.postMessage).toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN, rt: FAKE_RT }));
+  expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN, rt: FAKE_RT }));
 });
 
 test('Sends payload without rt if no jwt can be made', async () => {
   createJwtStub.mockImplementation(() => Promise.resolve(undefined));
   FAKE_STORE.rt = FAKE_RT;
 
-  const transport = createPayloadTransport('asdf');
-  stubPayloadTransport(transport, [[MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()]]);
-  const overlay = overlayStub();
+  const viewController = createViewController('asdf');
+  const { postSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
   const payload = requestPayload();
 
-  await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
-  expect(overlay.postMessage).not.toBeCalledWith(expect.objectContaining({ rt: FAKE_RT }));
+  await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  expect(postSpy).not.toBeCalledWith(expect.objectContaining({ rt: FAKE_RT }));
 });
 
 test('Sends payload when web crypto jwt fails', async () => {
@@ -163,14 +150,13 @@ test('Sends payload when web crypto jwt fails', async () => {
   createJwtStub.mockRejectedValueOnce('danger');
   FAKE_STORE.rt = FAKE_RT;
 
-  const transport = createPayloadTransport('asdf');
-  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+  const viewController = createViewController('asdf');
+  const { handlerSpy, onSpy, postSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
-  const overlay = overlayStub();
   const payload = requestPayload();
 
-  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  const response = await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
   expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
   expect(handlerSpy).toHaveBeenCalledTimes(1);
@@ -178,19 +164,18 @@ test('Sends payload when web crypto jwt fails', async () => {
 
   expect(createJwtStub).toHaveBeenCalledWith();
   expect(consoleErrorStub).toHaveBeenCalled();
-  expect(overlay.postMessage).not.toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN }));
+  expect(postSpy).not.toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN }));
 });
 
 test('Sends payload and stores rt if response event contains rt', async () => {
   const eventWithRt = { data: { ...responseEvent().data, rt: FAKE_RT } };
-  const transport = createPayloadTransport('asdf');
-  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+  const viewController = createViewController('asdf');
+  const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
   ]);
-  const overlay = overlayStub();
   const payload = requestPayload();
 
-  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  const response = await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
   expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
   expect(handlerSpy).toHaveBeenCalled();
@@ -202,14 +187,13 @@ test('Sends payload and stores rt if response event contains rt', async () => {
 test('does not call web crypto api if platform is not web', async () => {
   SDKEnvironment.platform = 'react-native';
   const eventWithRt = { data: { ...responseEvent().data } };
-  const transport = createPayloadTransport('asdf');
-  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+  const viewController = createViewController('asdf');
+  const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
   ]);
-  const overlay = overlayStub();
   const payload = requestPayload();
 
-  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  const response = await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
   expect(createJwtStub).not.toHaveBeenCalledWith();
   expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
@@ -218,15 +202,14 @@ test('does not call web crypto api if platform is not web', async () => {
 });
 
 test('Sends payload recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response', async () => {
-  const transport = createPayloadTransport('asdf');
-  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+  const viewController = createViewController('asdf');
+  const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent({ id: 1234 })], // Should be skipped
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
-  const overlay = overlayStub();
   const payload = requestPayload();
 
-  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  const response = await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
   expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
   expect(handlerSpy).toHaveBeenCalledTimes(1);
@@ -234,15 +217,14 @@ test('Sends payload recieves MAGIC_HANDLE_REQUEST event; skips payloads with non
 });
 
 test('Sends payload and standardizes malformed response', async () => {
-  const transport = createPayloadTransport('asdf');
-  const overlay = overlayStub();
+  const viewController = createViewController('asdf');
   const payload = requestPayload();
 
-  stubPayloadTransport(transport, [
+  stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, { data: { response: undefined } }],
   ]);
 
-  transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
   expect(true).toBe(true);
 });
@@ -252,19 +234,18 @@ test('Sends a batch payload and resolves with multiple responses', async () => {
   const response2 = responseEvent({ result: 'two', id: 2 });
   const response3 = responseEvent({ result: 'three', id: 3 });
 
-  const transport = createPayloadTransport('asdf');
-  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+  const viewController = createViewController('asdf');
+  const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, response1],
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, response2],
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, response3],
   ]);
-  const overlay = overlayStub();
 
   const payload1 = requestPayload(1);
   const payload2 = requestPayload(2);
   const payload3 = requestPayload(3);
 
-  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, [
+  const response = await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, [
     payload1,
     payload2,
     payload3,

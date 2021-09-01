@@ -2,8 +2,6 @@
 
 import browserEnv from '@ikscodes/browser-env';
 import { ViewController } from '../../../../src/core/view-controller';
-import { createViewController } from '../../../factories';
-import { PayloadTransport } from '../../../../src/core/payload-transport';
 
 beforeEach(() => {
   browserEnv.restore();
@@ -18,12 +16,11 @@ test('Instantiates `ViewController`', async () => {
   (ViewController.prototype as any).listen = listenStub;
   (ViewController.prototype as any).waitForReady = waitForReadyStub;
 
-  const overlay = createViewController();
+  const overlay = new (ViewController as any)('testing123', 'qwerty');
 
   expect(overlay instanceof ViewController).toBe(true);
-  expect((overlay as any).transport instanceof PayloadTransport).toBe(true);
-  expect((overlay as any).endpoint).toBe((overlay as any).transport.endpoint);
-  expect((overlay as any).parameters).toBe((overlay as any).transport.parameters);
+  expect(overlay.endpoint).toBe('testing123');
+  expect(overlay.parameters).toBe('qwerty');
   expect(initStub).toBeCalledTimes(1);
   expect(listenStub).toBeCalledTimes(1);
   expect(waitForReadyStub).toBeCalledTimes(1);

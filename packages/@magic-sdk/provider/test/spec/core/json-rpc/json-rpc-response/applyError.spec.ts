@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import browserEnv from '@ikscodes/browser-env';
 import { JsonRpcError, JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';

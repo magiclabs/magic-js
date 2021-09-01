@@ -3,7 +3,7 @@
 import browserEnv from '@ikscodes/browser-env';
 import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
-import { createPayloadTransport, createMagicSDK } from '../../../factories';
+import { createViewController, createMagicSDK } from '../../../factories';
 import { MagicRPCError, createMalformedResponseError } from '../../../../src/core/sdk-exceptions';
 import { isPromiEvent } from '../../../../src/util/promise-tools';
 import { MSG_TYPES } from '../../../constants';
@@ -11,11 +11,11 @@ import { BaseModule } from '../../../../src/modules/base-module';
 
 function createBaseModule(postStub: jest.Mock) {
   const sdk = createMagicSDK();
-  const payloadTransport = createPayloadTransport('');
+  const viewController = createViewController('');
 
-  (payloadTransport as any).post = postStub;
-  Object.defineProperty(sdk, 'transport', {
-    get: () => payloadTransport,
+  viewController.post = postStub;
+  Object.defineProperty(sdk, 'overlay', {
+    get: () => viewController,
   });
 
   const baseModule: any = new BaseModule(sdk);
@@ -64,7 +64,7 @@ test('Return value is a `PromiEvent`', async () => {
   expect(isPromiEvent(result)).toBe(true);
 });
 
-test('Emits events received from the `PayloadTransport`', (done) => {
+test('Emits events received from the `ViewController`', (done) => {
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
   const { baseModule } = createBaseModule(
@@ -92,7 +92,7 @@ test('Emits events received from the `PayloadTransport`', (done) => {
   );
 });
 
-test('Receive no further events after the response from `PayloadTransport` resolves', (done) => {
+test('Receive no further events after the response from `ViewController` resolves', (done) => {
   expect.assertions(1);
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');

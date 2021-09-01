@@ -8,15 +8,15 @@ beforeEach(() => {
   reactNativeStyleSheetStub();
 });
 
-test('Calls webView.postMessage with the expected arguments', async () => {
+test('Calls webView._post with the expected arguments', async () => {
   const overlay = createReactNativeWebViewController('http://example.com');
 
-  const postMessageStub = jest.fn();
-  overlay.webView = { postMessage: postMessageStub };
+  const postStub = jest.fn();
+  overlay.webView = { _post: postStub };
 
-  await overlay.postMessage({ thisIsData: 'hello world' });
+  await overlay._post({ thisIsData: 'hello world' });
 
-  expect(postMessageStub.mock.calls[0]).toEqual([JSON.stringify({ thisIsData: 'hello world' }), 'http://example.com']);
+  expect(postStub.mock.calls[0]).toEqual([JSON.stringify({ thisIsData: 'hello world' }), 'http://example.com']);
 });
 
 test('Throws MODAL_NOT_READY error if webView is nil', async () => {
@@ -26,5 +26,5 @@ test('Throws MODAL_NOT_READY error if webView is nil', async () => {
 
   const expectedError = createModalNotReadyError();
 
-  expect(() => overlay.postMessage({ thisIsData: 'hello world' })).rejects.toThrow(expectedError);
+  expect(() => overlay._post({ thisIsData: 'hello world' })).rejects.toThrow(expectedError);
 });

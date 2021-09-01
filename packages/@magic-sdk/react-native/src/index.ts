@@ -2,9 +2,9 @@
   eslint-disable
 
   global-require,
-  @typescript-eslint/no-var-requires,
-  no-underscore-dangle
+  @typescript-eslint/no-var-requires
  */
+
 /* istanbul ignore file */
 
 import { createSDK } from '@magic-sdk/provider';
@@ -16,7 +16,6 @@ import * as _ from 'lodash';
 import { driverWithoutSerialization } from '@aveq-research/localforage-asyncstorage-driver';
 import * as memoryDriver from 'localforage-driver-memory';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
-import { ReactNativeTransport } from './react-native-transport';
 import { SDKBaseReactNative } from './react-native-sdk-base';
 
 // We expect `global.process` to be a Node Process for web3.js usage
@@ -48,7 +47,6 @@ export const Magic = createSDK(SDKBaseReactNative, {
   version: '%REACT_NATIVE_VERSION%',
   defaultEndpoint: 'https://box.magic.link/',
   ViewController: ReactNativeWebViewController,
-  PayloadTransport: ReactNativeTransport,
   configureStorage: /* istanbul ignore next */ async () => {
     const lf = localForage.createInstance({
       name: 'MagicAuthLocalStorageDB',

@@ -109,3 +109,76 @@ test('Assumes the iframe is not yet initialized if `src` is `undefined`', async 
   expect(iframe.dataset).toEqual({ magicIframeLabel: 'auth.magic.link' });
   expect(iframe.src).toBe(`${MAGIC_RELAYER_FULL_URL}/send?params=${ENCODED_QUERY_PARAMS}`);
 });
+
+test('Adds `message` event listener', () => {
+  const addEventListenerStub = jest.fn();
+  browserEnv.stub('addEventListener', addEventListenerStub);
+
+  createIframeController();
+
+  expect(addEventListenerStub.mock.calls[0][0]).toBe('message');
+});
+
+test('Ignores events with different origin than expected', (done) => {
+  const viewController = createIframeController('asdf');
+  const onHandlerStub = jest.fn();
+  (viewController as any).messageHandlers.add(onHandlerStub);
+
+  window.postMessage(undefined, '*');
+
+  setTimeout(() => {
+    expect(onHandlerStub).not.toBeCalled();
+    done();
+  }, 0);
+});
+
+test('Ignores events with undefined `data` attribute', (done) => {
+  const viewController = createIframeController('');
+  const onHandlerStub = jest.fn();
+  (viewController as any).messageHandlers.add(onHandlerStub);
+
+  window.postMessage(undefined, '*');
+
+  setTimeout(() => {
+    expect(onHandlerStub).not.toBeCalled();
+    done();
+  }, 0);
+});
+
+test('Ignores events with undefined `data.msgType`', (done) => {
+  const viewController = createIframeController('');
+  const onHandlerStub = jest.fn();
+  (viewController as any).messageHandlers.add(onHandlerStub);
+
+  window.postMessage({}, '*');
+
+  setTimeout(() => {
+    expect(onHandlerStub).not.toBeCalled();
+    done();
+  }, 0);
+});
+
+test('Executes events where `messageHandlers` size is > 0', (done) => {
+  const viewController = createIframeController('');
+  const onHandlerStub = jest.fn();
+  (viewController as any).messageHandlers.add(onHandlerStub);
+
+  window.postMessage({ msgType: `asdfasdf-${ENCODED_QUERY_PARAMS}` }, '*');
+
+  setTimeout(() => {
+    expect(onHandlerStub).toBeCalledTimes(1);
+    expect(onHandlerStub.mock.calls[0][0].data).toEqual({ msgType: `asdfasdf-${ENCODED_QUERY_PARAMS}`, response: {} });
+    done();
+  }, 0);
+});
+
+test('Ignores events where `messageHandlers` size is === 0', (done) => {
+  const viewController = createIframeController('');
+  (viewController as any).messageHandlers = { size: 0 };
+
+  window.postMessage({ msgType: `asdfasdf-${ENCODED_QUERY_PARAMS}` }, '*');
+
+  setTimeout(() => {
+    done();
+  }, 0);
+});
