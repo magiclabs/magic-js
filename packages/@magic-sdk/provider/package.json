@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/provider",
-  "version": "4.4.2",
+  "version": "5.0.0",
   "description": "Core business logic for Magic SDK packages.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -19,7 +19,7 @@
   "module": "dist/es/index.js",
   "types": "dist/es/index.d.ts",
   "dependencies": {
-    "@magic-sdk/types": "^3.2.2",
+    "@magic-sdk/types": "^4.0.0",
     "eventemitter3": "^4.0.4",
     "semver": "^7.3.2",
     "tslib": "^2.0.3"
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.9.6",
+    "@peculiar/webcrypto": "^1.1.7",
     "@types/semver": "^7.3.4",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5"

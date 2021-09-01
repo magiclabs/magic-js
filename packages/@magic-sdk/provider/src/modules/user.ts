@@ -7,6 +7,7 @@ import {
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
+import { clearKeys } from '../util/web-crypto';
 
 type UpdateEmailEvents = {
   'email-sent': () => void;
@@ -63,6 +64,7 @@ export class UserModule extends BaseModule {
 
   /** */
   public logout() {
+    clearKeys();
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
     );

@@ -1,3 +1,15 @@
+# v4.0.0 (Tue Aug 31 2021)
+
+#### 💥 Breaking Change
+
+- Custom session duration [#199](https://github.com/magiclabs/magic-js/pull/199) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+
+#### Authors: 1
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+
+---
+
 # v3.2.2 (Mon Aug 16 2021)
 
 #### 🐛 Bug Fix

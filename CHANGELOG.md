@@ -1,3 +1,21 @@
+# (Tue Aug 31 2021)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@5.0.0`, `@magic-sdk/types@4.0.0`
+  - Custom session duration [#199](https://github.com/magiclabs/magic-js/pull/199) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+
+#### 🔩 Dependency Updates
+
+- Update `auto` [#195](https://github.com/magiclabs/magic-js/pull/195) ([@smithki](https://github.com/smithki))
+
+#### Authors: 2
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Mon Aug 16 2021)
 
 #### 🐛 Bug Fix
