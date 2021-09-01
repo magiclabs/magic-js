@@ -22,7 +22,8 @@
     "@magic-sdk/types": "^4.0.0",
     "eventemitter3": "^4.0.4",
     "semver": "^7.3.2",
-    "tslib": "^2.0.3"
+    "tslib": "^2.0.3",
+    "web3-core": "1.5.2"
   },
   "peerDependencies": {
     "localforage": "^1.7.4"
