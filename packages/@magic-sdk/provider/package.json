@@ -35,32 +35,5 @@
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5"
   },
-  "ava": {
-    "require": [
-      "ts-node/register",
-      "./test/setup.ts"
-    ],
-    "files": [
-      "test/**/*.spec.ts"
-    ],
-    "extensions": [
-      "ts",
-      "tsx"
-    ],
-    "verbose": true
-  },
-  "nyc": {
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "all": false,
-    "check-coverage": true,
-    "per-file": true,
-    "lines": 99,
-    "statements": 99,
-    "functions": 99,
-    "branches": 99,
-    "reporter": [
-      "lcov"
-    ]
-  },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
 }
