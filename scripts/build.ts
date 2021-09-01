@@ -3,12 +3,13 @@
 import ora from 'ora';
 import execa from 'execa';
 import chalk from 'chalk';
+import path from 'path';
 
 type CatchFn<TResult = never> = (reason: any) => TResult | PromiseLike<TResult>;
 
-function handleExecaError<TResult = never>(spinner?: ora.Ora, message?: string): CatchFn<TResult>;
-function handleExecaError<TResult = never>(message?: string): CatchFn<TResult>;
-function handleExecaError<TResult = never>(messageOrSpinner?: ora.Ora | string, message?: string): CatchFn<TResult> {
+function handleError<TResult = never>(spinner?: ora.Ora, message?: string): CatchFn<TResult>;
+function handleError<TResult = never>(message?: string): CatchFn<TResult>;
+function handleError<TResult = never>(messageOrSpinner?: ora.Ora | string, message?: string): CatchFn<TResult> {
   return (err: any) => {
     if (messageOrSpinner) {
       if (typeof messageOrSpinner === 'string') {
@@ -31,7 +32,7 @@ async function getTSConfigs() {
       spinner.succeed('Found TypeScript projects to build!');
       return subprocess.stdout.split('\n');
     })
-    .catch(handleExecaError(spinner, 'Failed to discover TypeScript projects to build.'));
+    .catch(handleError(spinner, 'Failed to discover TypeScript projects to build.'));
 
   return tsconfigs;
 }
@@ -42,7 +43,7 @@ async function compileTypeScripts(tsconfigs: string[]) {
     .then(() => {
       spinner.succeed('TypeScripts successfully compiled!');
     })
-    .catch(handleExecaError(spinner, 'TypeScripts failed to compile.'));
+    .catch(handleError(spinner, 'TypeScripts failed to compile.'));
 }
 
 async function bundleForCDN() {
@@ -51,12 +52,12 @@ async function bundleForCDN() {
     stdio: 'inherit',
   })
     .then(() => console.log())
-    .catch(handleExecaError('CDN bundles failed to build.'));
+    .catch(handleError('CDN bundles failed to build.'));
 }
 
 async function injectENV() {
   const spinner = ora('Injecting environment variables...').start();
-  const onCatch = handleExecaError(spinner, 'Failed to inject environment variables.');
+  const onCatch = handleError(spinner, 'Failed to inject environment variables.');
   const allPkgs = await execa('yarn', ['--silent', 'paths'])
     .then((subprocess) => subprocess.stdout.split('\n'))
     .catch(onCatch);
@@ -72,7 +73,15 @@ async function main() {
   const tsconfigs = await getTSConfigs();
 
   console.log(
-    tsconfigs.reduce((prev, next) => `${prev}\n    - ${next}`, ''),
+    tsconfigs
+      .slice()
+      .sort()
+      .map((cfgPath) => {
+        const prefix = 'packages/';
+        const basename = `/${path.basename(cfgPath)}`;
+        return cfgPath.replace(prefix, chalk`{gray ${prefix}}`).replace(basename, chalk`{gray ${basename}}`);
+      })
+      .reduce((prev, next) => chalk`${prev}\n    {gray -} ${next}`, ''),
     '\n',
   );
 
