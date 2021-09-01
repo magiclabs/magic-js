@@ -9,6 +9,7 @@ import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import { ViewController } from '../../../../src/core/view-controller';
 import * as storage from '../../../../src/util/storage';
 import * as webCryptoUtils from '../../../../src/util/web-crypto';
+import { SDKEnvironment } from '../../../../src/core/sdk-environment';
 
 /**
  * Stub `IframeController` for `PayloadTransport` testing requirements.
@@ -74,18 +75,22 @@ function stubPayloadTransport(transport: PayloadTransport, events: [MagicIncomin
   return { handlerSpy, onSpy };
 }
 
-const createJwtStub = jest.spyOn(webCryptoUtils, 'createJwt');
+let createJwtStub;
 const FAKE_JWT_TOKEN = 'hot tokens';
 const FAKE_RT = 'will freshen';
 let FAKE_STORE: any = {};
 
 beforeEach(() => {
+  jest.restoreAllMocks();
+  createJwtStub = jest.spyOn(webCryptoUtils, 'createJwt');
+  jest.spyOn(global.console, 'info').mockImplementation(() => {});
   browserEnv();
   browserEnv.stub('addEventListener', jest.fn());
   jest.spyOn(storage, 'getItem').mockImplementation((key: string) => FAKE_STORE[key]);
   jest.spyOn(storage, 'setItem').mockImplementation(async (key: string, value: any) => {
     FAKE_STORE[key] = value;
   });
+  SDKEnvironment.platform = 'web';
 });
 
 afterEach(() => {
@@ -192,6 +197,24 @@ test('Sends payload and stores rt if response event contains rt', async () => {
   expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
 
   expect(FAKE_STORE.rt).toEqual(FAKE_RT);
+});
+
+test('does not call web crypto api if platform is not web', async () => {
+  SDKEnvironment.platform = 'react-native';
+  const eventWithRt = { data: { ...responseEvent().data } };
+  const transport = createPayloadTransport('asdf');
+  const { handlerSpy, onSpy } = stubPayloadTransport(transport, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
+  ]);
+  const overlay = overlayStub();
+  const payload = requestPayload();
+
+  const response = await transport.post(overlay, MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+
+  expect(createJwtStub).not.toHaveBeenCalledWith();
+  expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy).toHaveBeenCalled();
+  expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
 });
 
 test('Sends payload recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response', async () => {

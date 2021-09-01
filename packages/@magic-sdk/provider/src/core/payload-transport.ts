@@ -9,6 +9,7 @@ import { ViewController } from './view-controller';
 import { createPromise } from '../util/promise-tools';
 import { getItem, setItem } from '../util/storage';
 import { createJwt } from '../util/web-crypto';
+import { SDKEnvironment } from './sdk-environment';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -58,10 +59,13 @@ async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayloa
   const rt = await getItem<string>('rt');
   let jwt;
 
-  try {
-    jwt = await createJwt();
-  } catch (e) {
-    console.error('webcrypto error', e);
+  // only for webcrypto platforms
+  if (SDKEnvironment.platform === 'web') {
+    try {
+      jwt = await createJwt();
+    } catch (e) {
+      console.error('webcrypto error', e);
+    }
   }
 
   if (!jwt) {
