@@ -3,10 +3,23 @@
 import ora from 'ora';
 import execa from 'execa';
 import TscWatchClient from 'tsc-watch/client';
+import chalk from 'chalk';
+import path from 'path';
 
-function handleExecaError(spinner?: ora.Ora, message?: string) {
-  return (err?: any) => {
-    if (spinner) spinner.fail(message);
+type CatchFn<TResult = never> = (reason: any) => TResult | PromiseLike<TResult>;
+
+function handleError<TResult = never>(spinner?: ora.Ora, message?: string): CatchFn<TResult>;
+function handleError<TResult = never>(message?: string): CatchFn<TResult>;
+function handleError<TResult = never>(messageOrSpinner?: ora.Ora | string, message?: string): CatchFn<TResult> {
+  return (err: any) => {
+    if (messageOrSpinner) {
+      if (typeof messageOrSpinner === 'string') {
+        console.error(messageOrSpinner);
+      } else {
+        messageOrSpinner.fail(message);
+      }
+    }
+
     if (err) console.error(err);
     process.exit(1);
   };
@@ -26,14 +39,14 @@ async function getTSConfigs() {
       spinner.succeed('Found TypeScript projects to build for development!');
       return res;
     })
-    .catch(handleExecaError(spinner, 'Failed to discover TypeScript project to build.'));
+    .catch(handleError(spinner, 'Failed to discover TypeScript project to build.'));
 
   return { tsconfigs, allPkgs };
 }
 
 async function injectENV(allPkgs: string[]) {
   await execa(`${process.env.INIT_CWD}/scripts/inject-env.ts`, [...allPkgs]).then(() => {
-    console.log('Injected environment variables.');
+    console.log('Environment variables successfully injected!');
   });
 }
 
@@ -67,7 +80,15 @@ async function main() {
   const { tsconfigs, allPkgs } = await getTSConfigs();
 
   console.log(
-    tsconfigs.reduce((prev, next) => `${prev}\n    - ${next}`, ''),
+    tsconfigs
+      .slice()
+      .sort()
+      .map((cfgPath) => {
+        const prefix = 'packages/';
+        const basename = `/${path.basename(cfgPath)}`;
+        return cfgPath.replace(prefix, chalk`{gray ${prefix}}`).replace(basename, chalk`{gray ${basename}}`);
+      })
+      .reduce((prev, next) => chalk`${prev}\n    {gray -} ${next}`, ''),
     '\n',
   );
 
