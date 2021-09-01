@@ -10,6 +10,6 @@ beforeEach(() => {
 test('SDKBaseReactNative.Relayer aliases to ReactNativeWebViewController.Relayer', () => {
   const magic = createMagicSDK();
 
-  (magic as any).overlay.Relayer = 'hello world';
+  magic.overlay.Relayer = 'hello world';
   expect(magic.Relayer).toBe('hello world' as any);
 });
