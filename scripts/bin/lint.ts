@@ -2,7 +2,7 @@
 
 import chalk from 'chalk';
 import execa from 'execa';
-import { runAsyncProcess } from './utils/run-async-process';
+import { runAsyncProcess } from '../utils/run-async-process';
 
 async function main() {
   console.log(chalk`\n{dim ❮❮❮} Linting TypeScripts {dim ❯❯❯}\n`);

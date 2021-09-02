@@ -181,11 +181,7 @@ type UnwrapArray<T extends any[]> = T extends Array<infer P> ? P : never;
  * Create a union type of Extension names from an
  * array of Extension types given by `TExt`.
  */
-type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<
-  {
-    [P in keyof TExt]: TExt[P] extends Extension<infer K> ? K : never;
-  }
->;
+type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<TExt> extends Extension<infer R> ? R : never;
 
 /**
  * From the literal Extension name type given by `TExtName`,
@@ -203,7 +199,7 @@ export type WithExtensions<SDK extends SDKBase> = {
   new <
     TCustomExtName extends string,
     TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> },
-    TExtName extends string = TExt extends Extension<string>[] ? ExtensionNames<TExt> : keyof TExt
+    TExtName extends string = TExt extends Extension<string>[] ? ExtensionNames<TExt> : keyof TExt,
   >(
     apiKey: string,
     options?: MagicSDKAdditionalConfiguration<TCustomExtName, TExt>,

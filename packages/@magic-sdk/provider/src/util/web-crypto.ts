@@ -86,8 +86,8 @@ async function generateWCKP() {
   );
 
   // export keys so we can send the public key.
-  const jwkPrivateKey = await subtle.exportKey('jwk', kp.privateKey);
-  const jwkPublicKey = await subtle.exportKey('jwk', kp.publicKey);
+  const jwkPrivateKey = await subtle.exportKey('jwk', kp.privateKey!);
+  const jwkPublicKey = await subtle.exportKey('jwk', kp.publicKey!);
 
   // reimport the private key so it becomes non exportable when persisting.
   const nonExportPrivateKey = await subtle.importKey('jwk', jwkPrivateKey, EC_IMPORT_PARAMS, false, ['sign']);

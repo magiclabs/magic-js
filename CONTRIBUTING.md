@@ -40,12 +40,12 @@ To ensure ESLint is able to properly lint source files in your VS Code developme
 | ---------- | ----- | ----------- |
 | `bootstrap` | `yarn bootstrap` | Install dependencies/set up a local development environment. |
 | `wsrun` | `PKG=$PACKAGE_TARGET yarn wsrun` | Execute arbitrary scripts via `wsrun` for the specified package. |
+| `wsrun:paths` | `PKG=$PACKAGE_TARGET yarn paths` | Print the relative paths to each project based on the value of `$PKG`. |
 | `dev` | `PKG=$PACKAGE_TARGET yarn dev` | Start the specified package in development mode. |
 | `build` | `PKG=$PACKAGE_TARGET yarn build` | Build the specified package for production, or all packages if `$PKG` is omitted. |
 | `clean` | `PKG=$PACKAGE_TARGET yarn clean` | Run cleaning scripts for the specified package, or all packages if `$PKG` is omitted. Available flags: (`--cache`, `--test-artifacts`, `--deps`) |
 | `lint` | `PKG=$PACKAGE_TARGET yarn lint` | Run the linter for the specified package, or all packages if `$PKG` is omitted. |
 | `test` | `PKG=$PACKAGE_TARGET yarn test` | Run tests for the specified package, or all packages if `$PKG` is omitted. |
-| `paths` | `PKG=$PACKAGE_TARGET yarn paths` | Print the relative paths to each project based on the value of `$PKG`. |
 
 ## Opening a Pull Request
 

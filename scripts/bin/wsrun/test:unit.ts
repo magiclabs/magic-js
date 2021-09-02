@@ -2,7 +2,7 @@
 
 import execa from 'execa';
 import fs from 'fs';
-import { runAsyncProcess } from '../utils/run-async-process';
+import { runAsyncProcess } from '../../utils/run-async-process';
 
 function existsAsync(path: string) {
   return new Promise((resolve) => {

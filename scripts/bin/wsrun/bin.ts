@@ -5,7 +5,7 @@
 /* eslint-disable import/no-dynamic-require */
 
 import execa from 'execa';
-import { runAsyncProcess } from '../utils/run-async-process';
+import { runAsyncProcess } from '../../utils/run-async-process';
 
 /**
  * The binary which `wsrun` uses to consume inputs and run actions.

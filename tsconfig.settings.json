@@ -21,5 +21,13 @@
     "importHelpers": true
   },
 
-  "exclude": ["**/node_modules", "**/jest.config.ts"]
+  "exclude": ["**/node_modules", "**/jest.config.ts"],
+
+  "ts-node": {
+    "files": true,
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }

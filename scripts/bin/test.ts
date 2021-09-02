@@ -2,7 +2,7 @@
 
 import chalk from 'chalk';
 import execa from 'execa';
-import { runAsyncProcess } from './utils/run-async-process';
+import { runAsyncProcess } from '../utils/run-async-process';
 
 async function main() {
   console.log(chalk`\n{dim ❮❮❮} Running tests {dim ❯❯❯}\n`);
@@ -10,7 +10,7 @@ async function main() {
 
   await execa(
     'yarn',
-    ['--silent', 'wsrun', '--serial', `${process.env.INIT_CWD}/scripts/wsrun/test:unit.ts`, ...args],
+    ['--silent', 'wsrun', '--serial', `${process.env.INIT_CWD}/scripts/bin/wsrun/test:unit.ts`, ...args],
     {
       stdio: 'inherit',
     },
