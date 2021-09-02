@@ -1,11 +1,11 @@
 #!/usr/bin/env ts-node-script
 
-import chalk from 'chalk';
 import execa from 'execa';
+import { printSeparator } from '../utils/print-separator';
 import { runAsyncProcess } from '../utils/run-async-process';
 
 async function main() {
-  console.log(chalk`\n{dim ❮❮❮} Running tests {dim ❯❯❯}\n`);
+  printSeparator('Running tests');
   const args = process.argv.slice(2);
 
   await execa(

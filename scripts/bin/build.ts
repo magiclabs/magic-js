@@ -2,11 +2,10 @@
 
 import ora from 'ora';
 import execa from 'execa';
-import chalk from 'chalk';
-import path from 'path';
 import { runAsyncProcess } from '../utils/run-async-process';
 import { handleError } from '../utils/handle-script-error';
 import { getTSConfigs, logTSConfigs } from '../utils/get-tsconfigs';
+import { printSeparator } from '../utils/print-separator';
 
 async function compileTypeScripts(tsconfigs: string[]) {
   const spinner = ora('Compiling TypeScripts...').start();
@@ -18,7 +17,7 @@ async function compileTypeScripts(tsconfigs: string[]) {
 }
 
 async function bundleForCDN() {
-  console.log(chalk`\n{dim ❮❮❮} Building CDN bundles {dim ❯❯❯}\n`);
+  printSeparator('Building CDN bundles');
   await execa('yarn', ['--silent', 'wsrun', '--serial', `${process.env.INIT_CWD}/scripts/bin/wsrun/build:cdn.ts`], {
     stdio: 'inherit',
   })

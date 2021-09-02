@@ -12,11 +12,11 @@ type TSConfigPattern = `tsconfig.json` | `tsconfig.${TSConfigType}.json`;
  * packages specified by the `PKG` environment variable.
  */
 export async function getTSConfigs(targets: TSConfigPattern[]) {
-  const spinner = ora('Determining TypeScript projects to build for development...').start();
+  const spinner = ora('Determining TypeScript projects to build...').start();
 
   const tsconfigs = await execa('yarn', ['--silent', 'wsrun:paths', ...targets])
     .then((subprocess) => {
-      spinner.succeed('Found TypeScript projects to build for development!');
+      spinner.succeed('Found TypeScript projects to build!');
       return subprocess.stdout.split('\n');
     })
     .catch(handleError(spinner, 'Failed to discover TypeScript project to build.'));
