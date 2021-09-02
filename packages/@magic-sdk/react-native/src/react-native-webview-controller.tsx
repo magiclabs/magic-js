@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
-import { ReactNativeTransport } from './react-native-transport';
+import { MagicMessageEvent } from '@magic-sdk/types';
 
 /**
  * Builds the Magic `<WebView>` overlay styles. These base styles enable
@@ -50,7 +50,7 @@ interface ViewWrapper extends View {
 /**
  * View controller for the Magic `<WebView>` overlay.
  */
-export class ReactNativeWebViewController extends ViewController<ReactNativeTransport> {
+export class ReactNativeWebViewController extends ViewController {
   private webView!: WebView | null;
   private container!: ViewWrapper | null;
   private styles: any;
@@ -112,7 +112,7 @@ export class ReactNativeWebViewController extends ViewController<ReactNativeTran
     }, [show]);
 
     const handleWebViewMessage = useCallback((event: any) => {
-      this.transport.handleReactNativeWebViewMessage(event);
+      this.handleReactNativeWebViewMessage(event);
     }, []);
 
     return (
@@ -127,6 +127,33 @@ export class ReactNativeWebViewController extends ViewController<ReactNativeTran
     );
   };
 
+  /**
+   * Route incoming messages from a React Native `<WebView>`.
+   */
+  private handleReactNativeWebViewMessage(event: any) {
+    if (
+      event.nativeEvent &&
+      typeof event.nativeEvent.data === 'string' &&
+      /* Backward comaptible */
+      (event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` ||
+        event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}`)
+    ) {
+      const data: any = JSON.parse(event.nativeEvent.data);
+      if (data && data.msgType && this.messageHandlers.size) {
+        // If the response object is undefined, we ensure it's at least an
+        // empty object before passing to the event listener.
+        /* eslint-disable-next-line no-param-reassign */
+        data.response = data.response ?? {};
+
+        // Reconstruct event from RN event
+        const magicEvent: MagicMessageEvent = { data } as MagicMessageEvent;
+        for (const handler of this.messageHandlers.values()) {
+          handler(magicEvent);
+        }
+      }
+    }
+  }
+
   protected hideOverlay() {
     if (this.container) this.container.hideOverlay();
   }
@@ -135,7 +162,7 @@ export class ReactNativeWebViewController extends ViewController<ReactNativeTran
     if (this.container) this.container.showOverlay();
   }
 
-  public async postMessage(data: any) {
+  protected async _post(data: any) {
     if (this.webView && (this.webView as any).postMessage) {
       (this.webView as any).postMessage(JSON.stringify(data), this.endpoint);
     } else {

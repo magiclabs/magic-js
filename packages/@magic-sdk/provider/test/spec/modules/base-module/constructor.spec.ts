@@ -13,13 +13,9 @@ test('Initialize `BaseModule`', () => {
 
   const baseModule = new BaseModule(sdk);
 
-  const transportA = (baseModule as any).transport;
-  const transportB = (baseModule as any).sdk.transport;
-
   const overlayA = (baseModule as any).overlay;
   const overlayB = (baseModule as any).sdk.overlay;
 
   expect(baseModule instanceof BaseModule).toBe(true);
-  expect(transportA).toBe(transportB);
   expect(overlayA).toBe(overlayB);
 });

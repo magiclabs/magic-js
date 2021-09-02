@@ -2,6 +2,7 @@
 
 import execa from 'execa';
 import fs from 'fs';
+import { runAsyncProcess } from '../utils/run-async-process';
 
 function existsAsync(path: string) {
   return new Promise((resolve) => {
@@ -13,6 +14,7 @@ function existsAsync(path: string) {
 
 async function main() {
   const args = process.argv.slice(2);
+
   if (await existsAsync(`${process.cwd()}/test`)) {
     await execa('yarn', ['--silent', 'jest', ...args], {
       stdio: 'inherit',
@@ -25,4 +27,4 @@ async function main() {
   }
 }
 
-main();
+runAsyncProcess(main);

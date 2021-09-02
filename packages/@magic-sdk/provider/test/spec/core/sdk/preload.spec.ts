@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import browserEnv from '@ikscodes/browser-env';
 import { ViewController } from '../../../../src/core/view-controller';
 import { createMagicSDK } from '../../../factories';

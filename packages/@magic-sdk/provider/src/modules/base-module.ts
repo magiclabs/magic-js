@@ -1,6 +1,5 @@
 import { JsonRpcRequestPayload, MagicOutgoingWindowMessage, MagicIncomingWindowMessage } from '@magic-sdk/types';
 import { createMalformedResponseError, MagicRPCError } from '../core/sdk-exceptions';
-import { PayloadTransport } from '../core/payload-transport';
 import { SDKBase } from '../core/sdk';
 import { standardizeJsonRpcRequestPayload } from '../core/json-rpc';
 import { createPromiEvent } from '../util/promise-tools';
@@ -9,13 +8,6 @@ import { EventsDefinition } from '../util/events';
 
 export class BaseModule {
   constructor(protected sdk: SDKBase) {}
-
-  /**
-   * The `PayloadTransport` for the SDK instance registered to this module.
-   */
-  protected get transport(): PayloadTransport {
-    return (this.sdk as any).transport;
-  }
 
   /**
    * The `ViewController` for the SDK instance registered to this module.
@@ -28,8 +20,7 @@ export class BaseModule {
    * Emits promisified requests to the Magic `<iframe>` context.
    */
   protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
-    const responsePromise = this.transport.post<ResultType>(
-      this.overlay,
+    const responsePromise = this.overlay.post<ResultType>(
       MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
       standardizeJsonRpcRequestPayload(payload),
     );
@@ -51,7 +42,7 @@ export class BaseModule {
 
     // Listen for events from the `<iframe>` associated with the current payload
     // and emit those to `PromiEvent` subscribers.
-    const cleanupEvents = this.transport.on(MagicIncomingWindowMessage.MAGIC_HANDLE_EVENT, (evt) => {
+    const cleanupEvents = this.overlay.on(MagicIncomingWindowMessage.MAGIC_HANDLE_EVENT, (evt) => {
       const { response } = evt.data;
 
       if (response.id === payload.id && response.result?.event) {

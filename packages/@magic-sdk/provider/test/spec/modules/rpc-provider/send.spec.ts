@@ -1,4 +1,4 @@
-/* eslint-disable no-underscore-dangle, @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-empty-function */
 
 import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';

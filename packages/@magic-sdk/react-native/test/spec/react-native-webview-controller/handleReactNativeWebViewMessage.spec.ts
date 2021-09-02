@@ -1,17 +1,17 @@
 import browserEnv from '@ikscodes/browser-env';
 import { ENCODED_QUERY_PARAMS } from '../../constants';
-import { createReactNativeTransport } from '../../factories';
+import { createReactNativeWebViewController } from '../../factories';
 
 beforeEach(() => {
   browserEnv();
 });
 
 test('Ignores events with different origin than expected', (done) => {
-  const transport = createReactNativeTransport('asdf');
+  const viewController = createReactNativeWebViewController('asdf');
   const onHandlerStub = jest.fn();
-  transport.messageHandlers.add(onHandlerStub);
+  viewController.messageHandlers.add(onHandlerStub);
 
-  transport.handleReactNativeWebViewMessage({
+  viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
       url: `qwerty/send/?params=${ENCODED_QUERY_PARAMS}`,
       data: '{}',
@@ -25,13 +25,13 @@ test('Ignores events with different origin than expected', (done) => {
 });
 
 test('Ignores events with non-string data', (done) => {
-  const transport = createReactNativeTransport('asdf');
+  const viewController = createReactNativeWebViewController('asdf');
   const onHandlerStub = jest.fn();
-  transport.messageHandlers.add(onHandlerStub);
+  viewController.messageHandlers.add(onHandlerStub);
 
-  transport.handleReactNativeWebViewMessage({
+  viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
-      url: `qwerty/send/?params=${transport.parameters}`,
+      url: `qwerty/send/?params=${viewController.parameters}`,
       data: 123,
     },
   } as any);
@@ -43,11 +43,11 @@ test('Ignores events with non-string data', (done) => {
 });
 
 test('Replaces `undefined` or `null` response with an empty object', (done) => {
-  const transport = createReactNativeTransport('asdf');
+  const viewController = createReactNativeWebViewController('asdf');
   const onHandlerStub = jest.fn();
-  transport.messageHandlers.add(onHandlerStub);
+  viewController.messageHandlers.add(onHandlerStub);
 
-  transport.handleReactNativeWebViewMessage({
+  viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
       url: `asdf/send/?params=${ENCODED_QUERY_PARAMS}`,
       data: JSON.stringify({ msgType: `asdf-${ENCODED_QUERY_PARAMS}` }),
@@ -62,11 +62,11 @@ test('Replaces `undefined` or `null` response with an empty object', (done) => {
 });
 
 test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
-  const transport = createReactNativeTransport('asdf');
+  const viewController = createReactNativeWebViewController('asdf');
   const onHandlerStub = jest.fn();
-  transport.messageHandlers.add(onHandlerStub);
+  viewController.messageHandlers.add(onHandlerStub);
 
-  transport.handleReactNativeWebViewMessage({
+  viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
       url: `asdf/send/?params=${ENCODED_QUERY_PARAMS}`,
       data: JSON.stringify({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} }),
@@ -81,10 +81,10 @@ test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
 });
 
 test('Ignores event handlers where `messageHandlers` size is === 0', (done) => {
-  const transport = createReactNativeTransport('asdf');
-  transport.messageHandlers = { size: 0 };
+  const viewController = createReactNativeWebViewController('asdf');
+  viewController.messageHandlers = { size: 0 };
 
-  transport.handleReactNativeWebViewMessage({
+  viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
       url: `asdf/send/?params=${ENCODED_QUERY_PARAMS}`,
       data: JSON.stringify({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} }),
