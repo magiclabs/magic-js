@@ -4,6 +4,7 @@ import execa from 'execa';
 import meow from 'meow';
 import ora from 'ora';
 import chalk from 'chalk';
+import { runAsyncProcess } from './utils/run-async-process';
 
 const spinner = ora();
 
@@ -109,4 +110,4 @@ async function main() {
     });
 }
 
-main();
+runAsyncProcess(main);

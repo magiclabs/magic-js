@@ -37,14 +37,14 @@ function createOverlayElementsStub() {
 
 beforeEach(() => {
   browserEnv.restore();
-  browserEnv.stub('addEventListener', jest.fn());
-  browserEnv.stub('removeEventListener', jest.fn());
   (IframeController.prototype as any).listen = jest.fn();
 });
 
 test('Appends header with style, appends body with iframe, and resolves iframe', async () => {
   const { appendChildStub, classListAddStub, createElementStub } = createOverlayElementsStub();
 
+  browserEnv.stub('addEventListener', jest.fn());
+  browserEnv.stub('removeEventListener', jest.fn());
   browserEnv.stub('document.querySelectorAll', () => ({ length: 0 }));
   browserEnv.stub('document.createElement', createElementStub);
   browserEnv.stub('document.readyState', 'loaded');
@@ -65,6 +65,8 @@ test('Appends header with style, appends body with iframe, and resolves iframe',
 test('Displays warning in console upon duplicate iframes', async () => {
   const { appendChildStub, createElementStub } = createOverlayElementsStub();
 
+  browserEnv.stub('addEventListener', jest.fn());
+  browserEnv.stub('removeEventListener', jest.fn());
   browserEnv.stub('document.querySelectorAll', () => [{ src: ENCODED_QUERY_PARAMS }]);
   browserEnv.stub('document.createElement', createElementStub);
   browserEnv.stub('document.readyState', 'loaded');
@@ -80,6 +82,8 @@ test('Displays warning in console upon duplicate iframes', async () => {
 test('Waits until `document` is loaded/ready', async () => {
   const { appendChildStub, createElementStub } = createOverlayElementsStub();
 
+  browserEnv.stub('addEventListener', jest.fn());
+  browserEnv.stub('removeEventListener', jest.fn());
   browserEnv.stub('document.querySelectorAll', () => ({ length: 0 }));
   browserEnv.stub('document.createElement', createElementStub);
   browserEnv.stub('document.readyState', 'initializing');
@@ -87,13 +91,15 @@ test('Waits until `document` is loaded/ready', async () => {
 
   createIframeController();
 
-  expect((window as any).addEventListener.mock.calls[1][0]).toBe('load');
+  expect((window as any).addEventListener.mock.calls[0][0]).toBe('load');
 });
 
 test('Assumes the iframe is not yet initialized if `src` is `undefined`', async () => {
   const { classListAddStub, createElementStub } = createOverlayElementsStub();
   const appendChildStub = jest.fn();
 
+  browserEnv.stub('addEventListener', jest.fn());
+  browserEnv.stub('removeEventListener', jest.fn());
   browserEnv.stub('document.querySelectorAll', () => ({ length: 0 }));
   browserEnv.stub('document.createElement', createElementStub);
   browserEnv.stub('document.readyState', 'loaded');
@@ -113,6 +119,7 @@ test('Assumes the iframe is not yet initialized if `src` is `undefined`', async 
 test('Adds `message` event listener', () => {
   const addEventListenerStub = jest.fn();
   browserEnv.stub('addEventListener', addEventListenerStub);
+  browserEnv.stub('removeEventListener', jest.fn());
 
   createIframeController();
 
@@ -120,7 +127,10 @@ test('Adds `message` event listener', () => {
 });
 
 test('Ignores events with different origin than expected', (done) => {
-  const viewController = createIframeController('asdf');
+  browserEnv.stub('addEventListener', jest.fn());
+  browserEnv.stub('removeEventListener', jest.fn());
+
+  const viewController = createIframeController('http://asdf');
   const onHandlerStub = jest.fn();
   (viewController as any).messageHandlers.add(onHandlerStub);
 
@@ -133,7 +143,10 @@ test('Ignores events with different origin than expected', (done) => {
 });
 
 test('Ignores events with undefined `data` attribute', (done) => {
-  const viewController = createIframeController('');
+  browserEnv.stub('addEventListener', jest.fn());
+  browserEnv.stub('removeEventListener', jest.fn());
+
+  const viewController = createIframeController();
   const onHandlerStub = jest.fn();
   (viewController as any).messageHandlers.add(onHandlerStub);
 
@@ -146,7 +159,10 @@ test('Ignores events with undefined `data` attribute', (done) => {
 });
 
 test('Ignores events with undefined `data.msgType`', (done) => {
-  const viewController = createIframeController('');
+  browserEnv.stub('addEventListener', jest.fn());
+  browserEnv.stub('removeEventListener', jest.fn());
+
+  const viewController = createIframeController();
   const onHandlerStub = jest.fn();
   (viewController as any).messageHandlers.add(onHandlerStub);
 
@@ -159,9 +175,10 @@ test('Ignores events with undefined `data.msgType`', (done) => {
 });
 
 test('Executes events where `messageHandlers` size is > 0', (done) => {
-  const viewController = createIframeController('');
+  const viewController = createIframeController();
   const onHandlerStub = jest.fn();
-  (viewController as any).messageHandlers.add(onHandlerStub);
+  (viewController as any).endpoint = ''; // Force `event.origin` and `this.endpoint` to be equivalent
+  (viewController as any).on('asdfasdf', onHandlerStub);
 
   window.postMessage({ msgType: `asdfasdf-${ENCODED_QUERY_PARAMS}` }, '*');
 
@@ -173,7 +190,23 @@ test('Executes events where `messageHandlers` size is > 0', (done) => {
 });
 
 test('Ignores events where `messageHandlers` size is === 0', (done) => {
-  const viewController = createIframeController('');
+  browserEnv.stub('location', new URL(MAGIC_RELAYER_FULL_URL));
+
+  const viewController = createIframeController();
+  (viewController as any).endpoint = ''; // Force `event.origin` and `this.endpoint` to be equivalent
+  (viewController as any).messageHandlers = { size: 0 };
+
+  window.postMessage({ msgType: `asdfasdf-${ENCODED_QUERY_PARAMS}` }, '*');
+
+  setTimeout(() => {
+    done();
+  }, 0);
+});
+
+test('Ignores events where `event.origin` and `this.endpoint` are not equivalent', (done) => {
+  browserEnv.stub('location', new URL(MAGIC_RELAYER_FULL_URL));
+
+  const viewController = createIframeController();
   (viewController as any).messageHandlers = { size: 0 };
 
   window.postMessage({ msgType: `asdfasdf-${ENCODED_QUERY_PARAMS}` }, '*');

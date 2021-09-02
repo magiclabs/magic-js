@@ -5,6 +5,7 @@ import execa from 'execa';
 import TscWatchClient from 'tsc-watch/client';
 import chalk from 'chalk';
 import path from 'path';
+import { runAsyncProcess } from './utils/run-async-process';
 
 type CatchFn<TResult = never> = (reason: any) => TResult | PromiseLike<TResult>;
 
@@ -95,4 +96,4 @@ async function main() {
   await runDevServer(tsconfigs, allPkgs);
 }
 
-main();
+runAsyncProcess(main);

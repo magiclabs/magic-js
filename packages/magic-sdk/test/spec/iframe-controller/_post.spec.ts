@@ -15,7 +15,7 @@ test('Calls iframe.contentWindow.postMessage with the expected arguments', async
   const postMessageStub = jest.fn();
   (overlay as any).iframe = { contentWindow: { postMessage: postMessageStub } };
 
-  await overlay._post({ thisIsData: 'hello world' });
+  await (overlay as any)._post({ thisIsData: 'hello world' });
 
   expect(postMessageStub.mock.calls[0]).toEqual([{ thisIsData: 'hello world' }, 'http://example.com']);
 });
@@ -26,5 +26,5 @@ test('Throws MODAL_NOT_READY error if iframe.contentWindow is nil', async () => 
   (overlay as any).iframe = undefined;
 
   const expectedError = createModalNotReadyError();
-  expect(() => overlay._post({ thisIsData: 'hello world' })).rejects.toThrow(expectedError);
+  expect(() => (overlay as any)._post({ thisIsData: 'hello world' })).rejects.toThrow(expectedError);
 });

@@ -12,7 +12,7 @@ test('Calls webView._post with the expected arguments', async () => {
   const overlay = createReactNativeWebViewController('http://example.com');
 
   const postStub = jest.fn();
-  overlay.webView = { _post: postStub };
+  overlay.webView = { postMessage: postStub };
 
   await overlay._post({ thisIsData: 'hello world' });
 

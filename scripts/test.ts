@@ -2,6 +2,7 @@
 
 import chalk from 'chalk';
 import execa from 'execa';
+import { runAsyncProcess } from './utils/run-async-process';
 
 async function main() {
   console.log(chalk`\n{dim ❮❮❮} Running tests {dim ❯❯❯}\n`);
@@ -16,4 +17,4 @@ async function main() {
   );
 }
 
-main();
+runAsyncProcess(main);
