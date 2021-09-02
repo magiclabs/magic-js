@@ -25,7 +25,10 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
   /* eslint-disable prettier/prettier */
   public sendAsync(payload: Partial<JsonRpcRequestPayload>, onRequestComplete: JsonRpcRequestCallback): void;
   public sendAsync(payload: Partial<JsonRpcRequestPayload>[], onRequestComplete: JsonRpcBatchRequestCallback): void;
-  public sendAsync(payload: Partial<JsonRpcRequestPayload> | Partial<JsonRpcRequestPayload>[], onRequestComplete: JsonRpcRequestCallback | JsonRpcBatchRequestCallback): void;
+  public sendAsync(
+    payload: Partial<JsonRpcRequestPayload> | Partial<JsonRpcRequestPayload>[],
+    onRequestComplete: JsonRpcRequestCallback | JsonRpcBatchRequestCallback,
+  ): void;
   /* eslint-enable prettier/prettier */
   public sendAsync(
     payload: Partial<JsonRpcRequestPayload> | Partial<JsonRpcRequestPayload>[],
@@ -75,10 +78,13 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
   }
 
   /* eslint-disable prettier/prettier */
-   public send<ResultType = any>(method: string, params?: any[]): PromiEvent<ResultType>;
-   public send(payload: JsonRpcRequestPayload | JsonRpcRequestPayload[], onRequestComplete: JsonRpcRequestCallback): void;
-   public send<ResultType>(payload: JsonRpcRequestPayload, none: void): JsonRpcResponsePayload<ResultType>;
-   /* eslint-enable prettier/prettier */
+  public send<ResultType = any>(method: string, params?: any[]): PromiEvent<ResultType>;
+  public send(
+    payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
+    onRequestComplete: JsonRpcRequestCallback,
+  ): void;
+  public send<ResultType>(payload: JsonRpcRequestPayload, none: void): JsonRpcResponsePayload<ResultType>;
+  /* eslint-enable prettier/prettier */
   public send<ResultType = any>(
     payloadOrMethod: string | JsonRpcRequestPayload | JsonRpcRequestPayload[],
     onRequestCompleteOrParams: JsonRpcRequestCallback | any[] | void,
