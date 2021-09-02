@@ -20,7 +20,7 @@ const environment = {
 };
 
 async function main() {
-  const files = process.argv.slice(2).map((f) => path.resolve(__dirname, '..', f, 'dist/**/*'));
+  const files = process.argv.slice(2).map((f) => path.resolve(__dirname, '..', '..', f, 'dist/**/*'));
 
   Object.keys(environment).forEach(async (envVar) => {
     if (environment[envVar]) {
