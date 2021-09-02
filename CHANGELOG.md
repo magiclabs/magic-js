@@ -1,3 +1,19 @@
+# (Thu Sep 02 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@5.1.0`
+  - [Feat]: Update type signature of `RpcProviderModule` to implement Web3's `AbstractProvider` [#201](https://github.com/magiclabs/magic-js/pull/201) ([@adenekan41](https://github.com/adenekan41) [@smithki](https://github.com/smithki))
+  - bypass webcrypto on non web platforms [#200](https://github.com/magiclabs/magic-js/pull/200) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+
+#### Authors: 3
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+- Adenekan Wonderful ([@adenekan41](https://github.com/adenekan41))
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Tue Aug 31 2021)
 
 #### 💥 Breaking Change
