@@ -29,10 +29,7 @@ async function cleanTestArtifacts() {
 }
 
 async function cleanNodeModules() {
-  await Promise.all([
-    execa('yarn', ['wsrun', '--parallel', '-r', 'rimraf', 'node_modules']),
-    execa('rimraf', ['node_modules']),
-  ]);
+  await Promise.all([execa('rimraf', ['**/node_modules'])]);
 }
 
 const helpText = `
@@ -80,34 +77,47 @@ async function main() {
   }
 
   const enabledCleaners: string[] = [chalk.rgb(0, 255, 255)('dist')];
-  const promises: (() => Promise<any>)[] = [cleanDist];
+  const concurrent: (() => Promise<any>)[] = [cleanDist];
+  const sequential: (() => Promise<any>)[] = [];
 
   if (cli.flags.cache) {
     enabledCleaners.push(chalk.rgb(0, 255, 255)('cache'));
-    promises.push(cleanCache);
+    concurrent.push(cleanCache);
   }
 
   if (cli.flags.testArtifacts) {
     enabledCleaners.push(chalk.rgb(0, 255, 255)('test artifacts'));
-    promises.push(cleanTestArtifacts);
+    concurrent.push(cleanTestArtifacts);
   }
 
   if (cli.flags.deps) {
     enabledCleaners.push(chalk.rgb(0, 255, 255)('node_modules'));
-    promises.push(cleanNodeModules);
+    sequential.push(cleanNodeModules);
   }
 
   spinner.start(`Cleaning ${enabledCleaners.join(', ')}...`);
 
-  Promise.all(promises.map((p) => p()))
+  const handleError = (err: any) => {
+    spinner.fail('Failed!');
+    if (err) console.error(err);
+    process.exit(1);
+  }
+
+  await Promise.all(concurrent.map((p) => p()))
+    .catch(handleError)
+
+  await new Promise<void>((resolve, reject) => {
+    sequential
+      .reduce(async (curr, next) => {
+        return curr.then(next);
+      }, Promise.resolve())
+      .then(() => resolve())
+      .catch(reject);
+  })
     .then(() => {
       spinner.succeed(`Cleaned ${enabledCleaners.join(', ')}!`);
     })
-    .catch((err) => {
-      spinner.fail('Failed!');
-      if (err) console.error(err);
-      process.exit(1);
-    });
+    .catch(handleError);
 }
 
 runAsyncProcess(main);
