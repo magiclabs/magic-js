@@ -6,25 +6,7 @@ import TscWatchClient from 'tsc-watch/client';
 import chalk from 'chalk';
 import path from 'path';
 import { runAsyncProcess } from './utils/run-async-process';
-
-type CatchFn<TResult = never> = (reason: any) => TResult | PromiseLike<TResult>;
-
-function handleError<TResult = never>(spinner?: ora.Ora, message?: string): CatchFn<TResult>;
-function handleError<TResult = never>(message?: string): CatchFn<TResult>;
-function handleError<TResult = never>(messageOrSpinner?: ora.Ora | string, message?: string): CatchFn<TResult> {
-  return (err: any) => {
-    if (messageOrSpinner) {
-      if (typeof messageOrSpinner === 'string') {
-        console.error(messageOrSpinner);
-      } else {
-        messageOrSpinner.fail(message);
-      }
-    }
-
-    if (err) console.error(err);
-    process.exit(1);
-  };
-}
+import { handleError } from './utils/handle-script-error';
 
 async function getTSConfigs() {
   const spinner = ora('Determining TypeScript projects to build for development...').start();

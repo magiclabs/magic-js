@@ -101,10 +101,9 @@ async function main() {
     spinner.fail('Failed!');
     if (err) console.error(err);
     process.exit(1);
-  }
+  };
 
-  await Promise.all(concurrent.map((p) => p()))
-    .catch(handleError)
+  await Promise.all(concurrent.map((p) => p())).catch(handleError);
 
   await new Promise<void>((resolve, reject) => {
     sequential
