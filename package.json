@@ -36,8 +36,6 @@
     "eslint-plugin-react": "~7.20.0",
     "eslint-plugin-react-hooks": "~4.0.4",
     "execa": "~5.1.1",
-    "find-glob": "^2.1.0",
-    "glob": "^7.1.6",
     "husky": "^7.0.1",
     "jest": "^27.0.6",
     "lerna": "^3.21.0",
@@ -55,7 +53,6 @@
     "ts-jest": "^27.0.4",
     "ts-node": "^10.2.0",
     "tsc-watch": "^4.2.9",
-    "typed-emitter": "^1.0.0",
     "typescript": "~4.4.2",
     "wsrun": "^5.2.1"
   },
