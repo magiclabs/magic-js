@@ -14,26 +14,24 @@
     "dist/**/*.js.map",
     "dist/**/*.d.ts"
   ],
+  "builder": "tsc",
   "target": "web",
-  "main": "dist/cjs/index.js",
-  "module": "dist/es/index.js",
-  "types": "dist/es/index.d.ts",
-  "dependencies": {
-    "@magic-sdk/types": "^4.0.0",
-    "eventemitter3": "^4.0.4",
-    "semver": "^7.3.2",
-    "tslib": "^2.3.1",
-    "web3-core": "1.5.2"
-  },
-  "peerDependencies": {
-    "localforage": "^1.7.4"
-  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.9.6",
     "@peculiar/webcrypto": "^1.1.7",
     "@types/semver": "^7.3.4",
+    "@magic-sdk/types": "^4.0.0",
+    "eventemitter3": "^4.0.4",
+    "semver": "^7.3.2",
+    "web3-core": "1.5.2",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5"
+  },
+  "peerDependencies": {
+    "localforage": "^1.7.4"
   },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
 }

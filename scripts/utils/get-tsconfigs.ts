@@ -45,7 +45,6 @@ export function logTSConfigs(tsconfigs: string[]) {
         return cfgPath.replace(prefix, chalk`{gray ${prefix}}`).replace(basename, chalk`{gray ${basename}}`);
       })
       .reduce((prev, next) => chalk`${prev}\n    {gray -} ${next}`, ''),
-    '\n',
   );
 }
 

@@ -4,9 +4,9 @@ import execa from 'execa';
 import fs from 'fs';
 import { runAsyncProcess } from '../../utils/run-async-process';
 
-function existsAsync(path: string) {
+function existsAsync(input: string) {
   return new Promise((resolve) => {
-    fs.exists(path, (exists) => {
+    fs.exists(input, (exists) => {
       resolve(exists);
     });
   });

@@ -3,8 +3,6 @@
 import ora from 'ora';
 import execa from 'execa';
 import TscWatchClient from 'tsc-watch/client';
-import chalk from 'chalk';
-import path from 'path';
 import { runAsyncProcess } from '../utils/run-async-process';
 import { getTSConfigs, logTSConfigs } from '../utils/get-tsconfigs';
 
@@ -44,6 +42,7 @@ async function main() {
   const { tsconfigs, packages } = await getTSConfigs(['tsconfig.json', 'tsconfig.cjs.json']);
 
   logTSConfigs(tsconfigs);
+  console.log();
   await runDevServer(tsconfigs, packages);
 }
 

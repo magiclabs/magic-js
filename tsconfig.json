@@ -15,7 +15,5 @@
     { "path": "./packages/@magic-sdk/types/tsconfig.cjs.json" },
 
     { "path": "./packages/magic-sdk/tsconfig.json" },
-    { "path": "./packages/magic-sdk/tsconfig.cjs.json" },
-    { "path": "./packages/magic-sdk/tsconfig.cdn.json" },
   ]
 }

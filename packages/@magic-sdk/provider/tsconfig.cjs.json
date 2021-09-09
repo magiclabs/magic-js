@@ -3,16 +3,17 @@
 
   "compilerOptions": {
     "module": "commonjs",
-    "rootDir": "./src",
-    "outDir": "./dist/cjs"
+    "rootDir": "src",
+    "outDir": "dist/cjs",
+    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo/cjs",
   },
 
   "include": [
-    "./src/**/*.ts",
-    "./src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.js",
   ],
 
   "references": [
-    { "path": "../types/tsconfig.cjs.json" }
+    { "path": "../types/tsconfig.cjs.json" },
   ]
 }

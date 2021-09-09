@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["es2018", "dom"],
-    "module": "es6",
+    "module": "es2015",
     "moduleResolution": "node",
     "target": "es5",
     "strict": true,

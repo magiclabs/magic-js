@@ -7,22 +7,17 @@ import { handleError } from '../utils/handle-script-error';
 import { getTSConfigs, logTSConfigs } from '../utils/get-tsconfigs';
 import { printSeparator } from '../utils/print-separator';
 
-async function compileTypeScripts(tsconfigs: string[]) {
-  const spinner = ora('Compiling TypeScripts...').start();
-  await execa('tsc', ['-b', ...tsconfigs])
-    .then(() => {
-      spinner.succeed('TypeScripts successfully compiled!');
-    })
-    .catch(handleError(spinner, 'TypeScripts failed to compile.'));
-}
-
-async function bundleForCDN() {
-  printSeparator('Building CDN bundles');
-  await execa('yarn', ['--silent', 'wsrun', '--serial', `${process.env.INIT_CWD}/scripts/bin/wsrun/build:cdn.ts`], {
-    stdio: 'inherit',
-  })
+async function buildPkgs() {
+  printSeparator('Building libraries');
+  await execa(
+    'yarn',
+    ['--silent', 'wsrun', '-r', '--serial', `${process.env.INIT_CWD}/scripts/bin/wsrun/build-package.ts`],
+    {
+      stdio: 'inherit',
+    },
+  )
     .then(() => console.log())
-    .catch(handleError('CDN bundles failed to build.'));
+    .catch(handleError('Failed to build libraries.'));
 }
 
 async function injectENV(allPkgs: string[]) {
@@ -40,8 +35,7 @@ async function main() {
   const { tsconfigs, packages } = await getTSConfigs(['tsconfig.json', 'tsconfig.cjs.json']);
 
   logTSConfigs(tsconfigs);
-  await compileTypeScripts(tsconfigs);
-  await bundleForCDN();
+  await buildPkgs();
   await injectENV(packages);
 }
 

@@ -2,13 +2,15 @@
   "extends": "../../../tsconfig.settings.json",
 
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist/es"
+    "rootDir": "src",
+    "outDir": "dist/es",
+    "declarationDir": "dist/types",
+    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo/es",
   },
 
   "include": [
-    "./src/**/*.ts",
-    "./src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.js",
   ],
 
   "references": [

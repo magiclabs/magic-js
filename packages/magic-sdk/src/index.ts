@@ -1,3 +1,7 @@
+/* istanbul ignore file */
+
+import 'regenerator-runtime/runtime';
+
 import { SDKBase, createSDK } from '@magic-sdk/provider';
 import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
