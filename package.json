@@ -75,7 +75,7 @@
   "author": "Magic Labs <team@magic.link>",
   "auto": {
     "plugins": [
-      "npm",
+      ["npm", { "forcePublish": true }],
       "released"
     ]
   }
