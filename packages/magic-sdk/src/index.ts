@@ -1,7 +1,5 @@
 /* istanbul ignore file */
 
-// Forcing a change 🤷‍♂️
-
 import { SDKBase, createSDK } from '@magic-sdk/provider';
 import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
