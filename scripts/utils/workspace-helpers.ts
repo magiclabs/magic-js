@@ -53,7 +53,6 @@ export async function promptForPackage(options: { allowAll?: boolean } = {}) {
  */
 export async function getPackages(pkgQuery: string) {
   const workspaces = await getAllWorkspaces();
-  console.log('arr', pkgQuery);
 
   const entrypoints = workspaces
     .filter((i) => i.name === pkgQuery || pkgQuery === '*')
