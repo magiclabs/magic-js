@@ -15,11 +15,6 @@ export async function microbundle(
     external?: string;
   } = {},
 ) {
-  console.log(
-    Object.entries(environment)
-      .map(([key, value]) => `${key}=${value}`)
-      .join(','),
-  );
   if (options.output) {
     /* eslint-disable prettier/prettier */
     const args = [

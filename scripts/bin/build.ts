@@ -6,6 +6,7 @@ import { runAsyncProcess } from '../utils/run-async-process';
 import { handleError } from '../utils/handle-script-error';
 import { printSeparator } from '../utils/print-separator';
 import { getPackages, logPackages, promptForPackage } from '../utils/workspace-helpers';
+import { environment, logEnvironment } from '../utils/environment';
 
 async function buildPkgs(PKG: string) {
   printSeparator('Building');
@@ -25,8 +26,11 @@ async function main() {
   const PKG = await promptForPackage();
   const { packages } = await getPackages(PKG);
 
-  console.log(`\nFound ${packages.length} packages to build:\n`);
+  console.log(`\nFound ${packages.length} packages to build:`);
   logPackages(packages);
+
+  console.log(`\nBuilding with the following environment:`);
+  logEnvironment();
 
   await buildPkgs(PKG);
 }
