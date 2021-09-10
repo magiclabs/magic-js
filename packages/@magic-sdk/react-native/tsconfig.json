@@ -2,18 +2,19 @@
   "extends": "../../../tsconfig.settings.json",
 
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist/es"
+    "rootDir": "src",
+    "outDir": "dist/es",
+    "declarationDir": "dist/types",
   },
 
   "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
   ],
 
   "references": [
-    { "path": "../types/tsconfig.json" },
-    { "path": "../provider/tsconfig.json" },
-    { "path": "../commons/tsconfig.json" },
+    { "path": "../types" },
+    { "path": "../provider" },
+    { "path": "../commons" },
   ]
 }

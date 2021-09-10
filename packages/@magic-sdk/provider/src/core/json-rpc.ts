@@ -1,4 +1,4 @@
-/* eslint-disable no-underscore-dangle, no-param-reassign */
+/* eslint-disable no-param-reassign */
 
 import { JsonRpcRequestPayload, JsonRpcResponsePayload, JsonRpcError } from '@magic-sdk/types';
 import { isJsonRpcResponsePayload } from '../util/type-guards';

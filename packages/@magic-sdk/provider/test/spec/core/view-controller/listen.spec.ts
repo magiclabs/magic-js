@@ -9,7 +9,7 @@ beforeEach(() => {
 test('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', (done) => {
   const overlay = createViewController('');
   const hideOverlayStub = jest.fn();
-  (overlay as any).hideOverlay = hideOverlayStub;
+  overlay.hideOverlay = hideOverlayStub;
 
   window.postMessage({ msgType: MSG_TYPES().MAGIC_HIDE_OVERLAY }, '*');
 
@@ -22,7 +22,7 @@ test('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', (done) => {
 test('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', (done) => {
   const overlay = createViewController('');
   const showOverlayStub = jest.fn();
-  (overlay as any).showOverlay = showOverlayStub;
+  overlay.showOverlay = showOverlayStub;
 
   window.postMessage({ msgType: MSG_TYPES().MAGIC_SHOW_OVERLAY }, '*');
 

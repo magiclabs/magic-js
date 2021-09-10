@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["es2018", "dom"],
-    "module": "es6",
+    "module": "es2015",
     "moduleResolution": "node",
     "target": "es5",
     "strict": true,
@@ -17,9 +17,16 @@
     "sourceMap": true,
     "declaration": true,
     "skipLibCheck": true,
-    "composite": true,
-    "importHelpers": true
+    "composite": true
   },
 
-  "exclude": ["**/node_modules", "**/jest.config.ts"]
+  "exclude": ["**/node_modules", "**/jest.config.ts"],
+
+  "ts-node": {
+    "files": true,
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }

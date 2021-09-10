@@ -48,17 +48,6 @@ test('Disallows `Extension.request` access before extension is initialized', () 
   expect(() => baseExtension.request).not.toThrow();
 });
 
-test('Disallows `Extension.transport` access before extension is initialized', () => {
-  const sdk = createMagicSDK();
-  const baseExtension = new (Extension as any)();
-
-  const expectedErr = createExtensionNotInitializedError('transport');
-  expect(() => baseExtension.transport).toThrow(expectedErr);
-
-  baseExtension.init(sdk);
-  expect(() => baseExtension.transport).not.toThrow();
-});
-
 test('Disallows `Extension.overlay` access before extension is initialized', () => {
   const sdk = createMagicSDK();
   const baseExtension = new (Extension as any)();

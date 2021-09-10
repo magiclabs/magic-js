@@ -1,34 +1,200 @@
-import { MagicIncomingWindowMessage, MagicMessageRequest } from '@magic-sdk/types';
-import { PayloadTransport } from './payload-transport';
+import {
+  MagicIncomingWindowMessage,
+  MagicOutgoingWindowMessage,
+  JsonRpcRequestPayload,
+  MagicMessageEvent,
+  MagicMessageRequest,
+} from '@magic-sdk/types';
+import { JsonRpcResponse } from './json-rpc';
+import { createPromise } from '../util/promise-tools';
+import { getItem, setItem } from '../util/storage';
+import { createJwt } from '../util/web-crypto';
+import { SDKEnvironment } from './sdk-environment';
 
-export abstract class ViewController<Transport extends PayloadTransport = PayloadTransport> {
+interface RemoveEventListenerFunction {
+  (): void;
+}
+
+interface StandardizedResponse {
+  id?: string | number;
+  response?: JsonRpcResponse;
+}
+
+/**
+ * Get the originating payload from a batch request using the specified `id`.
+ */
+function getRequestPayloadFromBatch(
+  requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
+  id?: string | number | null,
+): JsonRpcRequestPayload | undefined {
+  return id && Array.isArray(requestPayload)
+    ? requestPayload.find((p) => p.id === id)
+    : (requestPayload as JsonRpcRequestPayload);
+}
+
+/**
+ * Ensures the incoming response follows the expected schema and parses for a
+ * JSON RPC payload ID.
+ */
+function standardizeResponse(
+  requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
+  event: MagicMessageEvent,
+): StandardizedResponse {
+  const id = event.data.response?.id;
+  const requestPayloadResolved = getRequestPayloadFromBatch(requestPayload, id);
+
+  if (id && requestPayloadResolved) {
+    // Build a standardized response object
+    const response = new JsonRpcResponse(requestPayloadResolved)
+      .applyResult(event.data.response.result)
+      .applyError(event.data.response.error);
+
+    return { id, response };
+  }
+
+  return {};
+}
+
+async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayload | JsonRpcRequestPayload[]) {
+  const rt = await getItem<string>('rt');
+  let jwt;
+
+  // only for webcrypto platforms
+  if (SDKEnvironment.platform === 'web') {
+    try {
+      jwt = await createJwt();
+    } catch (e) {
+      console.error('webcrypto error', e);
+    }
+  }
+
+  if (!jwt) {
+    return { msgType, payload };
+  }
+
+  if (!rt) {
+    return { msgType, payload, jwt };
+  }
+
+  return { msgType, payload, jwt, rt };
+}
+
+async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
+  if (!event.data.rt) {
+    return;
+  }
+
+  await setItem('rt', event.data.rt);
+}
+
+export abstract class ViewController {
   public ready: Promise<void>;
-  protected readonly endpoint: string;
-  protected readonly parameters: string;
+  protected readonly messageHandlers = new Set<(event: MagicMessageEvent) => any>();
 
-  constructor(protected readonly transport: Transport) {
-    // Get the `endpoint` and `parameters` value
-    // from the underlying `transport` instance.
-    this.endpoint = (transport as any).endpoint;
-    this.parameters = (transport as any).parameters;
-
-    // Create a promise that resolves when
-    // the view is ready for messages.
+  /**
+   * Create an instance of `ViewController`
+   *
+   * @param endpoint - The URL for the relevant iframe context.
+   * @param parameters - The unique, encoded query parameters for the
+   * relevant iframe context.
+   */
+  constructor(protected readonly endpoint: string, protected readonly parameters: string) {
     this.ready = this.waitForReady();
-
-    if (this.init) this.init();
-
     this.listen();
   }
 
   protected abstract init(): void;
-  public abstract postMessage(data: MagicMessageRequest): Promise<void>;
+  protected abstract _post(data: MagicMessageRequest): Promise<void>;
   protected abstract hideOverlay(): void;
   protected abstract showOverlay(): void;
 
+  /**
+   * Send a payload to the Magic `<iframe>` for processing and automatically
+   * handle the acknowledging follow-up event(s).
+   *
+   * @param msgType - The type of message to encode with the data.
+   * @param payload - The JSON RPC payload to emit via `window.postMessage`.
+   */
+  public async post<ResultType = any>(
+    msgType: MagicOutgoingWindowMessage,
+    payload: JsonRpcRequestPayload[],
+  ): Promise<JsonRpcResponse<ResultType>[]>;
+
+  public async post<ResultType = any>(
+    msgType: MagicOutgoingWindowMessage,
+    payload: JsonRpcRequestPayload,
+  ): Promise<JsonRpcResponse<ResultType>>;
+
+  public async post<ResultType = any>(
+    msgType: MagicOutgoingWindowMessage,
+    payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
+  ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
+    return createPromise(async (resolve) => {
+      await this.ready;
+
+      const batchData: JsonRpcResponse[] = [];
+      const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
+      const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload);
+
+      await this._post(msg);
+
+      /**
+       * Collect successful RPC responses and resolve.
+       */
+      const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
+        const { id, response } = standardizeResponse(payload, event);
+        persistMagicEventRefreshToken(event);
+
+        if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
+          batchData.push(response);
+
+          // For batch requests, we wait for all responses before resolving.
+          if (batchData.length === payload.length) {
+            removeEventListener();
+            resolve(batchData);
+          }
+        } else if (id && response && !Array.isArray(payload) && id === payload.id) {
+          removeEventListener();
+          resolve(response);
+        }
+      };
+
+      // Listen for and handle responses.
+      const removeResponseListener = this.on(
+        MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE,
+        acknowledgeResponse(() => removeResponseListener()),
+      );
+    });
+  }
+
+  /**
+   * Listen for events received with the given `msgType`.
+   *
+   * @param msgType - The `msgType` encoded with the event data.
+   * @param handler - A handler function to execute on each event received.
+   * @return A `void` function to remove the attached event.
+   */
+  public on(
+    msgType: MagicIncomingWindowMessage,
+    handler: (this: Window, event: MagicMessageEvent) => any,
+  ): RemoveEventListenerFunction {
+    const boundHandler = handler.bind(window);
+
+    // We cannot effectively cover this function because it never gets reference
+    // by value. The functionality of this callback is tested within
+    // `initMessageListener`.
+    /* istanbul ignore next */
+    const listener = (event: MagicMessageEvent) => {
+      if (event.data.msgType === `${msgType}-${this.parameters}`) boundHandler(event);
+    };
+
+    this.messageHandlers.add(listener);
+    return () => this.messageHandlers.delete(listener);
+  }
+
   private waitForReady() {
     return new Promise<void>((resolve) => {
-      this.transport.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
+      this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
     });
   }
 
@@ -36,11 +202,11 @@ export abstract class ViewController<Transport extends PayloadTransport = Payloa
    * Listen for messages sent from the underlying Magic `<WebView>`.
    */
   private listen() {
-    this.transport.on(MagicIncomingWindowMessage.MAGIC_HIDE_OVERLAY, () => {
+    this.on(MagicIncomingWindowMessage.MAGIC_HIDE_OVERLAY, () => {
       this.hideOverlay();
     });
 
-    this.transport.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
+    this.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
       this.showOverlay();
     });
   }

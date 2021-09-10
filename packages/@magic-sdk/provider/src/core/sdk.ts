@@ -1,6 +1,6 @@
-/* eslint-disable no-underscore-dangle, no-param-reassign  */
+/* eslint-disable no-param-reassign  */
 
-import { EthNetworkConfiguration, QueryParameters } from '@magic-sdk/types';
+import { EthNetworkConfiguration, QueryParameters, SupportedLocale } from '@magic-sdk/types';
 import semverSatisfies from 'semver/functions/satisfies';
 import type { AbstractProvider } from 'web3-core';
 import { encodeJSON } from '../util/base64-json';
@@ -9,7 +9,6 @@ import {
   createReactNativeEndpointConfigurationWarning,
   createIncompatibleExtensionsError,
 } from './sdk-exceptions';
-import { PayloadTransport } from './payload-transport';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { RPCProviderModule } from '../modules/rpc-provider';
@@ -93,57 +92,16 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
 
 export interface MagicSDKAdditionalConfiguration<
   TCustomExtName extends string = string,
-  TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> } = any
+  TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> } = any,
 > {
   endpoint?: string;
-  locale?:
-    | 'en_US'
-    | 'pl_PL'
-    | 'af'
-    | 'az'
-    | 'ca'
-    | 'cy'
-    | 'da'
-    | 'de'
-    | 'et'
-    | 'en'
-    | 'es'
-    | 'fr'
-    | 'hr'
-    | 'id'
-    | 'it'
-    | 'lv'
-    | 'lt'
-    | 'hu'
-    | 'nl'
-    | 'no'
-    | 'pl'
-    | 'pt'
-    | 'ro'
-    | 'sk'
-    | 'sl'
-    | 'fi'
-    | 'sv'
-    | 'tr'
-    | 'vi'
-    | 'cs'
-    | 'el'
-    | 'bg'
-    | 'mk'
-    | 'ru'
-    | 'sr'
-    | 'th'
-    | 'zh_TW'
-    | 'zh_CN'
-    | 'ja'
-    | 'ko';
+  locale?: SupportedLocale;
   network?: EthNetworkConfiguration;
   extensions?: TExt;
   testMode?: boolean;
 }
 
 export class SDKBase {
-  private static readonly __transports__: Map<string, PayloadTransport> = new Map();
   private static readonly __overlays__: Map<string, ViewController> = new Map();
 
   protected readonly endpoint: string;
@@ -203,23 +161,17 @@ export class SDKBase {
   }
 
   /**
-   * Represents the JSON RPC payload message channel associated with this
-   * `MagicSDK` instance.
-   */
-  protected get transport(): PayloadTransport {
-    if (!SDKBase.__transports__.has(this.parameters)) {
-      SDKBase.__transports__.set(this.parameters, new SDKEnvironment.PayloadTransport(this.endpoint, this.parameters));
-    }
-
-    return SDKBase.__transports__.get(this.parameters)!;
-  }
-
-  /**
    * Represents the view controller associated with this `MagicSDK` instance.
    */
   protected get overlay(): ViewController {
     if (!SDKBase.__overlays__.has(this.parameters)) {
-      const controller = new SDKEnvironment.ViewController(this.transport);
+      const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters);
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore - We don't want to expose this method to the user, but we
+      // need to invoke in here so that the `ViewController` is ready for use.
+      controller.init();
+
       SDKBase.__overlays__.set(this.parameters, controller);
     }
 
