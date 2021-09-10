@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node-script
 
 import execa from 'execa';
+import isCI from 'is-ci';
 import { runAsyncProcess } from '../utils/run-async-process';
 import { handleError } from '../utils/handle-script-error';
 import { printSeparator } from '../utils/print-separator';
@@ -8,7 +9,11 @@ import { getPackages, logPackages, promptForPackage } from '../utils/workspace-h
 
 async function buildPkgs(PKG: string) {
   printSeparator('Building');
-  await execa('yarn', ['wsrun', '-r', '--stages', `${process.env.INIT_CWD}/scripts/bin/wsrun/build-package.ts`], {
+
+  // We need to limit concurrency in CI to avoid ENOMEM errors.
+  const wsrunConcurrency = isCI ? '--serial' : '--stages';
+
+  await execa('yarn', ['wsrun', '-r', wsrunConcurrency, `${process.env.INIT_CWD}/scripts/bin/wsrun/build-package.ts`], {
     stdio: 'inherit',
     env: { PKG },
   })

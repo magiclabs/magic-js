@@ -5,6 +5,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
 
+import pLimit from 'p-limit';
+import isCI from 'is-ci';
 import { microbundle } from '../../utils/microbundle';
 import { runAsyncProcess } from '../../utils/run-async-process';
 
@@ -48,7 +50,11 @@ async function cdn() {
 }
 
 async function main() {
-  await Promise.all([cjs(), esm(), modern(), cdn()]);
+  // We need to limit concurrency in CI to avoid ENOMEM errors.
+  const limit = pLimit(isCI ? 2 : 4);
+
+  const builders = [limit(cjs), limit(esm), limit(modern), limit(cdn)];
+  await Promise.all(builders);
 }
 
 runAsyncProcess(main);
