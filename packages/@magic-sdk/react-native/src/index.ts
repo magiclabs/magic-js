@@ -7,6 +7,8 @@
 
 /* istanbul ignore file */
 
+// Forcing a change 🤷‍♂️
+
 import 'regenerator-runtime/runtime';
 
 import { createSDK } from '@magic-sdk/provider';
