@@ -15,6 +15,11 @@ export async function microbundle(
     external?: string;
   } = {},
 ) {
+  console.log(
+    Object.entries(environment)
+      .map(([key, value]) => `${key}=${value}`)
+      .join(','),
+  );
   if (options.output) {
     /* eslint-disable prettier/prettier */
     const args = [
@@ -26,7 +31,7 @@ export async function microbundle(
       '--sourcemap', options.sourcemap ? 'true' : 'false',
       options.external && '--external', options.external,
       '--output', options.output,
-      '--define', Object.entries(environment).map(([key, value]) => `${key}=${value}`).join(','),
+      '--define', Object.entries(environment).map(([key, value]) => `process.env.${key}=${value}`).join(','),
       options.name && '--name', options.name,
     ].filter(Boolean);
     /* eslint-enable prettier/prettier */
