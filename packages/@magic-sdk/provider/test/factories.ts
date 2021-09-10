@@ -27,7 +27,9 @@ export class TestViewController extends ViewController {
 }
 
 export function createViewController(endpoint = MAGIC_RELAYER_FULL_URL) {
-  return new TestViewController(endpoint, ENCODED_QUERY_PARAMS);
+  const viewController = new TestViewController(endpoint, ENCODED_QUERY_PARAMS);
+  viewController.init();
+  return viewController;
 }
 
 export function createMagicSDKCtor(environment: { [P in keyof SDKEnvironment]?: any } = {}) {
