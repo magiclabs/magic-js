@@ -29,7 +29,13 @@ async function main() {
     ...input,
   ]).filter(Boolean);
 
-  await execa('wsrun', args as any, { stdio: 'inherit', env: { PKG: PKG.join(',') } });
+  await execa('wsrun', args as any, {
+    stdio: 'inherit',
+    env: {
+      PKG: PKG.join(','),
+      NODE_OPTIONS: '--max_old_space_size=4096',
+    },
+  });
 }
 
 runAsyncProcess(main);
