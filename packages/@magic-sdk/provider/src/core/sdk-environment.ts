@@ -1,7 +1,7 @@
-import localForage from 'localforage';
-import { ViewController } from './view-controller';
-import { SDKBase } from './sdk';
-import { WithExtensions } from '../modules/base-extension';
+import type localForage from 'localforage';
+import type { ViewController } from './view-controller';
+import type { SDKBase } from './sdk';
+import type { WithExtensions } from '../modules/base-extension';
 
 type ConstructorOf<C> = { new (...args: any[]): C };
 

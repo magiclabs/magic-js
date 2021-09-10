@@ -5,7 +5,6 @@
     "rootDir": "src",
     "outDir": "dist/es",
     "declarationDir": "dist/types",
-    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo/es",
   },
 
   "include": [
@@ -14,8 +13,8 @@
   ],
 
   "references": [
-    { "path": "../types/tsconfig.json" },
-    { "path": "../provider/tsconfig.json" },
-    { "path": "../commons/tsconfig.json" },
+    { "path": "../types" },
+    { "path": "../provider" },
+    { "path": "../commons" },
   ]
 }

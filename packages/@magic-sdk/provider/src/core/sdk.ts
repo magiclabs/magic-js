@@ -166,6 +166,12 @@ export class SDKBase {
   protected get overlay(): ViewController {
     if (!SDKBase.__overlays__.has(this.parameters)) {
       const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters);
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore - We don't want to expose this method to the user, but we
+      // need to invoke in here so that the `ViewController` is ready for use.
+      controller.init();
+
       SDKBase.__overlays__.set(this.parameters, controller);
     }
 

@@ -1,10 +1,10 @@
 import { JsonRpcRequestPayload, MagicOutgoingWindowMessage, MagicIncomingWindowMessage } from '@magic-sdk/types';
 import { createMalformedResponseError, MagicRPCError } from '../core/sdk-exceptions';
-import { SDKBase } from '../core/sdk';
+import type { SDKBase } from '../core/sdk';
 import { standardizeJsonRpcRequestPayload } from '../core/json-rpc';
 import { createPromiEvent } from '../util/promise-tools';
-import { ViewController } from '../core/view-controller';
-import { EventsDefinition } from '../util/events';
+import type { ViewController } from '../core/view-controller';
+import type { EventsDefinition } from '../util/events';
 
 export class BaseModule {
   constructor(protected sdk: SDKBase) {}

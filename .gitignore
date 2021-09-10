@@ -17,6 +17,13 @@
 /package-lock.json
 /**/package-lock.json
 /**/yarn-error.log
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 
 # Output files
 /**/dist

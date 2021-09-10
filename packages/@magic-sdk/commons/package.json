@@ -14,7 +14,6 @@
     "dist/**/*.js.map",
     "dist/**/*.d.ts"
   ],
-  "builder": "tsc",
   "target": "web",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",

@@ -16,7 +16,7 @@ async function main() {
   const args = process.argv.slice(2);
 
   if (await existsAsync(`${process.cwd()}/test`)) {
-    await execa('yarn', ['--silent', 'jest', ...args], {
+    await execa('yarn', ['jest', ...args], {
       stdio: 'inherit',
       env: {
         TS_NODE_PROJECT: './test/tsconfig.json',

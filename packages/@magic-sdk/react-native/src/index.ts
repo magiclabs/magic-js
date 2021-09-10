@@ -7,6 +7,8 @@
 
 /* istanbul ignore file */
 
+import 'regenerator-runtime/runtime';
+
 import { createSDK } from '@magic-sdk/provider';
 import * as processPolyfill from 'process';
 import localForage from 'localforage';
@@ -17,6 +19,9 @@ import { driverWithoutSerialization } from '@aveq-research/localforage-asyncstor
 import * as memoryDriver from 'localforage-driver-memory';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { SDKBaseReactNative } from './react-native-sdk-base';
+
+// Web3 assumes a browser context, so we need
+// to provide `btoa` and `atob` shims.
 
 // We expect `global.process` to be a Node Process for web3.js usage
 // so we replace it here.
@@ -31,9 +36,6 @@ global.Buffer = Buffer;
 global.URL = URLPolyfill as any;
 global.URLSearchParams = URLSearchParamsPolyfill as any;
 
-// Web3 assumes a browser context, so we need
-// to provide `btoa` and `atob` shims.
-
 /* istanbul ignore next */
 global.btoa = (str) => Buffer.from(str, 'binary').toString('base64');
 /* istanbul ignore next */
@@ -44,7 +46,7 @@ export * from '@magic-sdk/commons';
 export const Magic = createSDK(SDKBaseReactNative, {
   platform: 'react-native',
   sdkName: '@magic-sdk/react-native',
-  version: '%REACT_NATIVE_VERSION%',
+  version: process.env.REACT_NATIVE_VERSION!,
   defaultEndpoint: 'https://box.magic.link/',
   ViewController: ReactNativeWebViewController,
   configureStorage: /* istanbul ignore next */ async () => {

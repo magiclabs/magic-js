@@ -100,7 +100,6 @@ export abstract class ViewController {
    */
   constructor(protected readonly endpoint: string, protected readonly parameters: string) {
     this.ready = this.waitForReady();
-    this.init();
     this.listen();
   }
 

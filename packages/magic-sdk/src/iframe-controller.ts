@@ -54,7 +54,7 @@ export class IframeController extends ViewController {
    * Initializes the underlying `Window.onmessage` event listener.
    */
   protected init() {
-    console.log('INIT CALLED');
+    (this as any).test = 'hello';
     this.iframe = new Promise((resolve) => {
       const onload = () => {
         if (!checkForSameSrcInstances(encodeURIComponent(this.parameters))) {
@@ -79,8 +79,6 @@ export class IframeController extends ViewController {
         window.addEventListener('load', onload, false);
       }
     });
-
-    console.log('INIT CALLED2', this.iframe);
 
     window.addEventListener('message', (event: MessageEvent) => {
       if (event.origin === this.endpoint) {
@@ -112,9 +110,7 @@ export class IframeController extends ViewController {
   }
 
   protected async _post(data: any) {
-    console.log('here', this.iframe);
     const iframe = await this.iframe;
-    console.log('here2', iframe);
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);
     } else {

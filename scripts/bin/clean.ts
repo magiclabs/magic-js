@@ -11,7 +11,7 @@ const spinner = ora();
 async function abstractCleanFn(label: string, patterns: string[]) {
   await Promise.all(
     patterns.map(async (pattern) => {
-      await execa('yarn', ['wsrun', '--parallel', '-r', 'rimraf', pattern]);
+      await execa('yarn', ['wsrun:all', '--parallel', '-r', 'rimraf', pattern]);
     }),
   );
 }

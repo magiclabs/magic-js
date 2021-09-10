@@ -5,7 +5,6 @@
     "module": "commonjs",
     "rootDir": "src",
     "outDir": "dist/cjs",
-    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo/cjs",
   },
 
   "include": [

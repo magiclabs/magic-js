@@ -3,17 +3,9 @@
 
   "references": [
     { "path": "./packages/@magic-sdk/provider/tsconfig.json" },
-    { "path": "./packages/@magic-sdk/provider/tsconfig.cjs.json" },
-
     { "path": "./packages/@magic-sdk/commons/tsconfig.json" },
-    { "path": "./packages/@magic-sdk/commons/tsconfig.cjs.json" },
-
     { "path": "./packages/@magic-sdk/react-native/tsconfig.json" },
-    { "path": "./packages/@magic-sdk/react-native/tsconfig.cjs.json" },
-
     { "path": "./packages/@magic-sdk/types/tsconfig.json" },
-    { "path": "./packages/@magic-sdk/types/tsconfig.cjs.json" },
-
     { "path": "./packages/magic-sdk/tsconfig.json" },
   ]
 }

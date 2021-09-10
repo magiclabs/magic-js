@@ -11,7 +11,7 @@ import { IframeController } from './iframe-controller';
 const Magic = createSDK(SDKBase, {
   platform: 'web',
   sdkName: 'magic-sdk',
-  version: '%WEB_VERSION%',
+  version: process.env.WEB_VERSION!,
   defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
   configureStorage: /* istanbul ignore next */ async () => {

@@ -8,11 +8,9 @@ beforeEach(() => {
 });
 
 test('Instantiates `ViewController`', async () => {
-  const initStub = jest.fn().mockImplementation(() => new Promise(() => {}));
   const listenStub = jest.fn();
   const waitForReadyStub = jest.fn();
 
-  (ViewController.prototype as any).init = initStub;
   (ViewController.prototype as any).listen = listenStub;
   (ViewController.prototype as any).waitForReady = waitForReadyStub;
 
@@ -21,7 +19,6 @@ test('Instantiates `ViewController`', async () => {
   expect(overlay instanceof ViewController).toBe(true);
   expect(overlay.endpoint).toBe('testing123');
   expect(overlay.parameters).toBe('qwerty');
-  expect(initStub).toBeCalledTimes(1);
   expect(listenStub).toBeCalledTimes(1);
   expect(waitForReadyStub).toBeCalledTimes(1);
 });
