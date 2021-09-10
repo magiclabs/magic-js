@@ -64,7 +64,7 @@ executors:
   default:
     docker:
       - image: circleci/node:14.17.0-browsers
-    resource_class: medium+
+    resource_class: medium
 
 # --- Job definitions -------------------------------------------------------- #
 
