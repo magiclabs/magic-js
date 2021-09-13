@@ -9,8 +9,6 @@
 
 import 'regenerator-runtime/runtime';
 
-// Force-publish
-
 import { createSDK } from '@magic-sdk/provider';
 import * as processPolyfill from 'process';
 import localForage from 'localforage';

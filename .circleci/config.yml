@@ -108,7 +108,9 @@ jobs:
           name: Apply semver updates (if any)
           command: |
             AUTO_VERSION=$(yarn auto version)
-            if [[ $AUTO_VERSION ]]; then
+            if [[ $AUTO_VERSION == pre* ]]; then
+              yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --no-push --yes --preid $(echo $CIRCLE_BRANCH)
+            elif [[ $AUTO_VERSION ]]; then
               yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --no-push --yes
             fi
 

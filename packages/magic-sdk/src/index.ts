@@ -7,8 +7,6 @@ import { IframeController } from './iframe-controller';
 
 export * from '@magic-sdk/commons';
 
-// Force-publish
-
 export const Magic = createSDK(SDKBase, {
   platform: 'web',
   sdkName: 'magic-sdk',
