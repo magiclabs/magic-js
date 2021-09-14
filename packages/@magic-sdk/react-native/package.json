@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native",
-  "version": "5.1.0",
+  "version": "6.0.0",
   "description": "Passwordless authentication for React Native.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -38,9 +38,9 @@
     "whatwg-url": "~8.1.0"
   },
   "dependencies": {
-    "@magic-sdk/commons": "^1.2.1",
-    "@magic-sdk/provider": "^5.1.0",
-    "@magic-sdk/types": "^4.0.0"
+    "@magic-sdk/commons": "^2.0.0",
+    "@magic-sdk/provider": "^6.0.0",
+    "@magic-sdk/types": "^5.0.0"
   },
   "peerDependencies": {
     "react": ">=16",

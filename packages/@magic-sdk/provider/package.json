@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/provider",
-  "version": "5.1.0",
+  "version": "6.0.0",
   "description": "Core business logic for Magic SDK packages.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "web3-core": "1.5.2"
   },
   "dependencies": {
-    "@magic-sdk/types": "^4.0.0"
+    "@magic-sdk/types": "^5.0.0"
   },
   "peerDependencies": {
     "localforage": "^1.7.4"
