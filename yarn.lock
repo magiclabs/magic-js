@@ -168,7 +168,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.15.5, @babel/core@npm:^7.12.10":
+"@babel/core@npm:7.15.5, @babel/core@npm:^7.12.10, @babel/core@npm:^7.15.0":
   version: 7.15.5
   resolution: "@babel/core@npm:7.15.5"
   dependencies:
@@ -215,30 +215,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:~7.10.4":
-  version: 7.10.5
-  resolution: "@babel/core@npm:7.10.5"
-  dependencies:
-    "@babel/code-frame": ^7.10.4
-    "@babel/generator": ^7.10.5
-    "@babel/helper-module-transforms": ^7.10.5
-    "@babel/helpers": ^7.10.4
-    "@babel/parser": ^7.10.5
-    "@babel/template": ^7.10.4
-    "@babel/traverse": ^7.10.5
-    "@babel/types": ^7.10.5
-    convert-source-map: ^1.7.0
-    debug: ^4.1.0
-    gensync: ^1.0.0-beta.1
-    json5: ^2.1.2
-    lodash: ^4.17.19
-    resolve: ^1.3.2
-    semver: ^5.4.1
-    source-map: ^0.5.0
-  checksum: 30e479edc6b5f505a6e6b8331ff135192a28bdb9ccf3ed9fa91d0da5817523ea1594d6ded6e5077fd043f27ebc9037cce973c57f33a6284d9f344d1dc94ba303
-  languageName: node
-  linkType: hard
-
 "@babel/generator@npm:^7.10.4, @babel/generator@npm:^7.4.0, @babel/generator@npm:^7.5.0":
   version: 7.10.4
   resolution: "@babel/generator@npm:7.10.4"
@@ -251,7 +227,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:^7.10.5, @babel/generator@npm:^7.15.0, @babel/generator@npm:^7.7.2":
+"@babel/generator@npm:^7.15.0, @babel/generator@npm:^7.7.2":
   version: 7.15.0
   resolution: "@babel/generator@npm:7.15.0"
   dependencies:
@@ -637,7 +613,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-module-transforms@npm:^7.10.5, @babel/helper-module-transforms@npm:^7.14.5, @babel/helper-module-transforms@npm:^7.15.0":
+"@babel/helper-module-transforms@npm:^7.14.5, @babel/helper-module-transforms@npm:^7.15.0":
   version: 7.15.0
   resolution: "@babel/helper-module-transforms@npm:7.15.0"
   dependencies:
@@ -984,7 +960,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.10.5, @babel/parser@npm:^7.14.5, @babel/parser@npm:^7.15.0, @babel/parser@npm:^7.7.2":
+"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.5, @babel/parser@npm:^7.15.0, @babel/parser@npm:^7.7.2":
   version: 7.15.2
   resolution: "@babel/parser@npm:7.15.2"
   bin:
@@ -1947,7 +1923,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-modules-commonjs@npm:^7.15.4":
+"@babel/plugin-transform-modules-commonjs@npm:^7.15.4, @babel/plugin-transform-modules-commonjs@npm:^7.9.6":
   version: 7.15.4
   resolution: "@babel/plugin-transform-modules-commonjs@npm:7.15.4"
   dependencies:
@@ -2624,7 +2600,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/traverse@npm:^7.1.0, @babel/traverse@npm:^7.10.5, @babel/traverse@npm:^7.13.0, @babel/traverse@npm:^7.14.5, @babel/traverse@npm:^7.14.8, @babel/traverse@npm:^7.15.0, @babel/traverse@npm:^7.7.2":
+"@babel/traverse@npm:^7.1.0, @babel/traverse@npm:^7.13.0, @babel/traverse@npm:^7.14.5, @babel/traverse@npm:^7.14.8, @babel/traverse@npm:^7.15.0, @babel/traverse@npm:^7.7.2":
   version: 7.15.0
   resolution: "@babel/traverse@npm:7.15.0"
   dependencies:
@@ -2669,7 +2645,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.10.5, @babel/types@npm:^7.14.5, @babel/types@npm:^7.14.8, @babel/types@npm:^7.14.9, @babel/types@npm:^7.15.0, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3":
+"@babel/types@npm:^7.14.5, @babel/types@npm:^7.14.8, @babel/types@npm:^7.14.9, @babel/types@npm:^7.15.0, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3":
   version: 7.15.0
   resolution: "@babel/types@npm:7.15.0"
   dependencies:
@@ -4142,30 +4118,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magic-sdk/commons@^1.2.1, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
+"@magic-sdk/commons@^2.0.0, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/commons@workspace:packages/@magic-sdk/commons"
   dependencies:
-    "@magic-sdk/provider": ">=4.3.0"
-    "@magic-sdk/types": ">=3.1.1"
+    "@magic-sdk/provider": ^6.0.0
+    "@magic-sdk/types": ^5.0.0
   peerDependencies:
     "@magic-sdk/provider": ">=4.3.0"
     "@magic-sdk/types": ">=3.1.1"
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@>=4.3.0, @magic-sdk/provider@^5.1.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+"@magic-sdk/provider@^6.0.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
+    "@babel/plugin-transform-modules-commonjs": ^7.9.6
     "@babel/plugin-transform-runtime": ^7.9.6
-    "@magic-sdk/types": ^4.0.0
+    "@magic-sdk/types": ^5.0.0
     "@peculiar/webcrypto": ^1.1.7
-    "@types/semver": ^7.3.4
     eventemitter3: ^4.0.4
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
-    semver: ^7.3.2
     tslib: ^2.3.1
     web3-core: 1.5.2
   peerDependencies:
@@ -4178,15 +4153,14 @@ __metadata:
   resolution: "@magic-sdk/react-native@workspace:packages/@magic-sdk/react-native"
   dependencies:
     "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
-    "@babel/core": ~7.10.4
+    "@babel/core": ^7.15.0
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/runtime": ~7.10.4
-    "@magic-sdk/commons": ^1.2.1
-    "@magic-sdk/provider": ^5.1.0
-    "@magic-sdk/types": ^4.0.0
+    "@magic-sdk/commons": ^2.0.0
+    "@magic-sdk/provider": ^6.0.0
+    "@magic-sdk/types": ^5.0.0
     "@react-native-async-storage/async-storage": ^1.15.5
     "@types/lodash": ^4.14.158
-    babel-jest: ^27.0.6
     buffer: ~5.6.0
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
@@ -4196,6 +4170,7 @@ __metadata:
     react: ^16.13.1
     react-native: ^0.62.2
     react-native-webview: 8.1.2
+    tslib: ^2.0.3
     whatwg-url: ~8.1.0
   peerDependencies:
     react: ">=16"
@@ -4204,7 +4179,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/types@>=3.1.1, @magic-sdk/types@^4.0.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
+"@magic-sdk/types@^5.0.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
   languageName: unknown
@@ -4720,9 +4695,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-commonjs@npm:18.1.0":
-  version: 18.1.0
-  resolution: "@rollup/plugin-commonjs@npm:18.1.0"
+"@rollup/plugin-commonjs@npm:^17.0.0":
+  version: 17.1.0
+  resolution: "@rollup/plugin-commonjs@npm:17.1.0"
   dependencies:
     "@rollup/pluginutils": ^3.1.0
     commondir: ^1.0.1
@@ -4733,7 +4708,7 @@ __metadata:
     resolve: ^1.17.0
   peerDependencies:
     rollup: ^2.30.0
-  checksum: 7bb553119b0dcc1860e1c0b74ccc81b9519f5163c15660649191622e5911c6d3a1b1ecd743c510dcc28b8c88cd6c3df4776131a384719b9502328ff5f30cb8d6
+  checksum: b83f05c7923ecc0f946eef3ef63b7cde090a7205b06aa7f43d29c06823c9848243691f4a799da9d6f07fb4915a9b12c66261c60913ea6f48441ff0715fb689a9
   languageName: node
   linkType: hard
 
@@ -5186,13 +5161,6 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: 1bd10b9afa724084b655dc81b7b315def3d2d0e272014ef16009fa76e17537411c07c0695fdea412bc7b36d2a02687f5fea33522d55b8ef29eda42992f812913
-  languageName: node
-  linkType: hard
-
-"@types/semver@npm:^7.3.4":
-  version: 7.3.4
-  resolution: "@types/semver@npm:7.3.4"
-  checksum: 577dc7f607fbf46cf185f61ba726e4cfecea41c4b17e55069e70a64b6cd92658f8286aa075a607303455658e87ed045d3d14c32a513c0eff381d64aecd7b72a7
   languageName: node
   linkType: hard
 
@@ -13734,6 +13702,7 @@ fsevents@^1.2.7:
     "@types/whatwg-url": ^6.4.0
     "@typescript-eslint/eslint-plugin": ~3.4.0
     auto: ^10.31.0
+    babel-jest: ^27.0.6
     chalk: ~4.1.2
     eslint: ~7.3.1
     eslint-import-resolver-typescript: ~2.0.0
@@ -13778,9 +13747,9 @@ fsevents@^1.2.7:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-    "@magic-sdk/commons": ^1.2.1
-    "@magic-sdk/provider": ^5.1.0
-    "@magic-sdk/types": ^4.0.0
+    "@magic-sdk/commons": ^2.0.0
+    "@magic-sdk/provider": ^6.0.0
+    "@magic-sdk/types": ^5.0.0
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
   languageName: unknown

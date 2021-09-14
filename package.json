@@ -30,6 +30,7 @@
     "@types/whatwg-url": "^6.4.0",
     "@typescript-eslint/eslint-plugin": "~3.4.0",
     "auto": "^10.31.0",
+    "babel-jest": "^27.0.6",
     "chalk": "~4.1.2",
     "eslint": "~7.3.1",
     "eslint-import-resolver-typescript": "~2.0.0",
@@ -72,7 +73,7 @@
     ]
   },
   "resolutions": {
-    "@rollup/plugin-commonjs": "18.1.0"
+    "@rollup/plugin-commonjs": "^17.0.0"
   },
   "repository": "magiclabs/magic-js",
   "author": "Magic Labs <team@magic.link>",
