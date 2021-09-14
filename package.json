@@ -71,6 +71,9 @@
       "packages/magic-sdk"
     ]
   },
+  "resolutions": {
+    "@rollup/plugin-commonjs": "18.1.0"
+  },
   "repository": "magiclabs/magic-js",
   "author": "Magic Labs <team@magic.link>",
   "auto": {

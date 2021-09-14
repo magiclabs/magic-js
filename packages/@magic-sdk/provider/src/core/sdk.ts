@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign  */
 
 import { EthNetworkConfiguration, QueryParameters, SupportedLocale } from '@magic-sdk/types';
-import semverSatisfies from 'semver/functions/satisfies';
 import type { AbstractProvider } from 'web3-core';
+import { SemVer, coerce, satisfies } from '../util/semver';
 import { encodeJSON } from '../util/base64-json';
 import {
   createMissingApiKeyError,
@@ -23,23 +23,10 @@ import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
  * SDK currently in use.
  */
 function checkExtensionCompat(ext: Extension<string>) {
-  if (ext.compat) {
-    // Check web compatibility
-    if (SDKEnvironment.sdkName === 'magic-sdk') {
-      return typeof ext.compat['magic-sdk'] === 'string'
-        ? semverSatisfies(SDKEnvironment.version, ext.compat['magic-sdk'])
-        : !!ext.compat['magic-sdk'];
-    }
-
-    // Check React Native compatibility
-    /* istanbul ignore else */
-    if (SDKEnvironment.sdkName === '@magic-sdk/react-native') {
-      return typeof ext.compat['@magic-sdk/react-native'] === 'string'
-        ? semverSatisfies(SDKEnvironment.version, ext.compat['@magic-sdk/react-native'])
-        : !!ext.compat['@magic-sdk/react-native'];
-    }
-
-    // Else case should be impossible here...
+  if (ext.compat && ext.compat[SDKEnvironment.sdkName] != null) {
+    return typeof ext.compat[SDKEnvironment.sdkName] === 'string'
+      ? satisfies(coerce(SDKEnvironment.version) as SemVer, ext.compat[SDKEnvironment.sdkName] as string)
+      : !!ext.compat[SDKEnvironment.sdkName];
   }
 
   // To gracefully support older extensions, we assume
