@@ -1,3 +1,15 @@
+# v2.0.2 (Tue Sep 14 2021)
+
+#### 🐛 Bug Fix
+
+- Import regeneratorRuntime in Magic JS (non-CDN version) [#210](https://github.com/magiclabs/magic-js/pull/210) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v2.0.0 (Tue Sep 14 2021)
 
 #### 💥 Breaking Change
