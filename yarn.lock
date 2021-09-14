@@ -4142,24 +4142,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magic-sdk/commons@^1.2.1, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
+"@magic-sdk/commons@^2.0.0, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/commons@workspace:packages/@magic-sdk/commons"
   dependencies:
-    "@magic-sdk/provider": ">=4.3.0"
-    "@magic-sdk/types": ">=3.1.1"
+    "@magic-sdk/provider": ^6.0.0
+    "@magic-sdk/types": ^5.0.0
   peerDependencies:
     "@magic-sdk/provider": ">=4.3.0"
     "@magic-sdk/types": ">=3.1.1"
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@>=4.3.0, @magic-sdk/provider@^5.1.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+"@magic-sdk/provider@^6.0.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
     "@babel/plugin-transform-runtime": ^7.9.6
-    "@magic-sdk/types": ^4.0.0
+    "@magic-sdk/types": ^5.0.0
     "@peculiar/webcrypto": ^1.1.7
     "@types/semver": ^7.3.4
     eventemitter3: ^4.0.4
@@ -4181,9 +4181,9 @@ __metadata:
     "@babel/core": ~7.10.4
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/runtime": ~7.10.4
-    "@magic-sdk/commons": ^1.2.1
-    "@magic-sdk/provider": ^5.1.0
-    "@magic-sdk/types": ^4.0.0
+    "@magic-sdk/commons": ^2.0.0
+    "@magic-sdk/provider": ^6.0.0
+    "@magic-sdk/types": ^5.0.0
     "@react-native-async-storage/async-storage": ^1.15.5
     "@types/lodash": ^4.14.158
     babel-jest: ^27.0.6
@@ -4204,7 +4204,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/types@>=3.1.1, @magic-sdk/types@^4.0.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
+"@magic-sdk/types@^5.0.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
   languageName: unknown
@@ -4720,9 +4720,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-commonjs@npm:18.1.0":
-  version: 18.1.0
-  resolution: "@rollup/plugin-commonjs@npm:18.1.0"
+"@rollup/plugin-commonjs@npm:^17.0.0":
+  version: 17.1.0
+  resolution: "@rollup/plugin-commonjs@npm:17.1.0"
   dependencies:
     "@rollup/pluginutils": ^3.1.0
     commondir: ^1.0.1
@@ -4733,7 +4733,7 @@ __metadata:
     resolve: ^1.17.0
   peerDependencies:
     rollup: ^2.30.0
-  checksum: 7bb553119b0dcc1860e1c0b74ccc81b9519f5163c15660649191622e5911c6d3a1b1ecd743c510dcc28b8c88cd6c3df4776131a384719b9502328ff5f30cb8d6
+  checksum: b83f05c7923ecc0f946eef3ef63b7cde090a7205b06aa7f43d29c06823c9848243691f4a799da9d6f07fb4915a9b12c66261c60913ea6f48441ff0715fb689a9
   languageName: node
   linkType: hard
 
@@ -5190,9 +5190,9 @@ __metadata:
   linkType: hard
 
 "@types/semver@npm:^7.3.4":
-  version: 7.3.4
-  resolution: "@types/semver@npm:7.3.4"
-  checksum: 577dc7f607fbf46cf185f61ba726e4cfecea41c4b17e55069e70a64b6cd92658f8286aa075a607303455658e87ed045d3d14c32a513c0eff381d64aecd7b72a7
+  version: 7.3.8
+  resolution: "@types/semver@npm:7.3.8"
+  checksum: bc90f5a9d5430e36f766c08c898e3c28af88830ebc7736baef8ffc74783bad2efb32f29c40d450e85fc341847ee74e2dd97b76cfc7da407e4232ba9ecae4ff9c
   languageName: node
   linkType: hard
 
@@ -13778,9 +13778,9 @@ fsevents@^1.2.7:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-    "@magic-sdk/commons": ^1.2.1
-    "@magic-sdk/provider": ^5.1.0
-    "@magic-sdk/types": ^4.0.0
+    "@magic-sdk/commons": ^2.0.0
+    "@magic-sdk/provider": ^6.0.0
+    "@magic-sdk/types": ^5.0.0
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
   languageName: unknown

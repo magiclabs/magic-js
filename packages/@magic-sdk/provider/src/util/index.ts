@@ -2,7 +2,7 @@ export * from './base64-json';
 export * from './events';
 export * from './get-payload-id';
 export * from './promise-tools';
-export * from './semver';
+export * as semver from './semver';
 export * as storage from './storage';
 export * from './type-guards';
 export * from './url';

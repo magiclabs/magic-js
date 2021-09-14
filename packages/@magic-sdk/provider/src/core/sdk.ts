@@ -2,7 +2,7 @@
 
 import { EthNetworkConfiguration, QueryParameters, SupportedLocale } from '@magic-sdk/types';
 import type { AbstractProvider } from 'web3-core';
-import { SemVer, coerce, satisfies } from '../util/semver';
+import { coerce, satisfies } from '../util/semver';
 import { encodeJSON } from '../util/base64-json';
 import {
   createMissingApiKeyError,
@@ -25,7 +25,7 @@ import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
 function checkExtensionCompat(ext: Extension<string>) {
   if (ext.compat && ext.compat[SDKEnvironment.sdkName] != null) {
     return typeof ext.compat[SDKEnvironment.sdkName] === 'string'
-      ? satisfies(coerce(SDKEnvironment.version) as SemVer, ext.compat[SDKEnvironment.sdkName] as string)
+      ? satisfies(coerce(SDKEnvironment.version), ext.compat[SDKEnvironment.sdkName] as string)
       : !!ext.compat[SDKEnvironment.sdkName];
   }
 
