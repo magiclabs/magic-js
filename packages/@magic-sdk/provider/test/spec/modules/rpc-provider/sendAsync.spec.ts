@@ -1,4 +1,4 @@
-/* eslint-disable no-underscore-dangle, @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-empty-function */
 
 import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
@@ -38,7 +38,7 @@ test('Async, with full RPC payload + callback; success response', (done) => {
   const magic = createMagicSDK();
 
   const postStub = jest.fn().mockImplementation(() => Promise.resolve({ hasError: false, payload: 'test' }));
-  magic.rpcProvider.transport.post = postStub;
+  magic.rpcProvider.overlay.post = postStub;
 
   const payload = { jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] };
   const onRequestComplete = jest.fn((error, response) => {
@@ -48,9 +48,8 @@ test('Async, with full RPC payload + callback; success response', (done) => {
   });
   magic.rpcProvider.sendAsync(payload, onRequestComplete);
 
-  const [overlay, msgType, requestPayload] = postStub.mock.calls[0];
+  const [msgType, requestPayload] = postStub.mock.calls[0];
 
-  expect(overlay).toBe(magic.rpcProvider.overlay);
   expect(msgType).toBe('MAGIC_HANDLE_REQUEST');
   expect(requestPayload.method).toBe('eth_call');
   expect(requestPayload.params).toEqual(['hello world']);
@@ -62,7 +61,7 @@ test('Async, with full RPC payload + callback; error response', (done) => {
   const postStub = jest.fn(() =>
     Promise.resolve({ hasError: true, payload: { error: { code: -32603, message: 'test' }, result: null } }),
   );
-  magic.rpcProvider.transport.post = postStub;
+  magic.rpcProvider.overlay.post = postStub;
 
   const payload = { jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] };
   const onRequestComplete = jest.fn().mockImplementation((error, response) => {
@@ -73,9 +72,8 @@ test('Async, with full RPC payload + callback; error response', (done) => {
   });
   magic.rpcProvider.sendAsync(payload, onRequestComplete);
 
-  const [overlay, msgType, requestPayload] = postStub.mock.calls[0] as any;
+  const [msgType, requestPayload] = postStub.mock.calls[0] as any;
 
-  expect(overlay).toBe(magic.rpcProvider.overlay);
   expect(msgType).toBe('MAGIC_HANDLE_REQUEST');
   expect(requestPayload.method).toBe('eth_call');
   expect(requestPayload.params).toEqual(['hello world']);
@@ -87,7 +85,7 @@ test('Async, with batch RPC payload + callback; success responses', (done) => {
   const response1 = { hasError: false, payload: { result: 'test1' } };
   const response2 = { hasError: false, payload: { result: 'test2' } };
   const postStub = jest.fn().mockImplementation(() => Promise.resolve([response1, response2]));
-  magic.rpcProvider.transport.post = postStub;
+  magic.rpcProvider.overlay.post = postStub;
 
   const payload1 = { jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] };
   const payload2 = { jsonrpc: '2.0', id: 2, method: 'eth_call', params: ['hello world'] };
@@ -101,9 +99,8 @@ test('Async, with batch RPC payload + callback; success responses', (done) => {
   });
   magic.rpcProvider.sendAsync([payload1, payload2], onRequestComplete);
 
-  const [overlay, msgType, requestPayloads] = postStub.mock.calls[0];
+  const [msgType, requestPayloads] = postStub.mock.calls[0];
 
-  expect(overlay).toBe(magic.rpcProvider.overlay);
   expect(msgType).toBe('MAGIC_HANDLE_REQUEST');
   expect(requestPayloads[0].method).toBe('eth_call');
   expect(requestPayloads[0].params).toEqual(['hello world']);
@@ -117,7 +114,7 @@ test('Async, with full RPC payload + callback; error responses', (done) => {
   const response1 = { hasError: true, payload: { error: { code: -32603, message: 'test1' }, result: null } };
   const response2 = { hasError: true, payload: { error: { code: -32603, message: 'test2' }, result: null } };
   const postStub = jest.fn().mockImplementation(() => Promise.resolve([response1, response2]));
-  magic.rpcProvider.transport.post = postStub;
+  magic.rpcProvider.overlay.post = postStub;
 
   const payload1 = { jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] };
   const payload2 = { jsonrpc: '2.0', id: 2, method: 'eth_call', params: ['hello world'] };
@@ -131,9 +128,8 @@ test('Async, with full RPC payload + callback; error responses', (done) => {
   });
   magic.rpcProvider.sendAsync([payload1, payload2], onRequestComplete);
 
-  const [overlay, msgType, requestPayloads] = postStub.mock.calls[0];
+  const [msgType, requestPayloads] = postStub.mock.calls[0];
 
-  expect(overlay).toBe(magic.rpcProvider.overlay);
   expect(msgType).toBe('MAGIC_HANDLE_REQUEST');
   expect(requestPayloads[0].method).toBe('eth_call');
   expect(requestPayloads[0].params).toEqual(['hello world']);

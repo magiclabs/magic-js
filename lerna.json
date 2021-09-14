@@ -1,6 +1,4 @@
 {
-  "packages": ["packages/@magic-sdk/*", "packages/magic-sdk"],
-  "workspaces": ["packages/@magic-sdk/*", "packages/magic-sdk"],
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true

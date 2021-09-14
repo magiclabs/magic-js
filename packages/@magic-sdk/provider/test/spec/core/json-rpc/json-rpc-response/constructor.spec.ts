@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import browserEnv from '@ikscodes/browser-env';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
 

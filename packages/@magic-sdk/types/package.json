@@ -15,11 +15,8 @@
     "dist/**/*.d.ts"
   ],
   "target": "web",
-  "main": "dist/cjs/index.js",
-  "module": "dist/es/index.js",
-  "types": "dist/es/index.d.ts",
-  "dependencies": {
-    "tslib": "^2.0.3"
-  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
 }

@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import browserEnv from '@ikscodes/browser-env';
 import { TEST_API_KEY } from '../../../constants';
 import { ViewController } from '../../../../src/core/view-controller';

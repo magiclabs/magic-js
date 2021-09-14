@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
-/* eslint-disable no-underscore-dangle */
 
 import browserEnv from '@ikscodes/browser-env';
 import localForage from 'localforage';

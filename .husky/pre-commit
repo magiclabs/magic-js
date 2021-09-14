@@ -1,1 +1,1 @@
-yarn wsrun --concurrency 1 --changedSince HEAD -c lint-staged
+yarn wsrun:all --concurrency 1 --changedSince HEAD -c lint-staged

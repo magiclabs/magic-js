@@ -36,7 +36,7 @@ type DefaultEvents<TResult> = {
  * A `Promise` executor with can be optionally asynchronous.
  */
 type AsyncPromiseExecutor<TResult> = (
-  resolve: (value?: TResult | PromiseLike<TResult>) => void,
+  resolve: (value: TResult | PromiseLike<TResult>) => void,
   reject: (reason?: any) => void,
 ) => void | Promise<void>;
 
@@ -71,13 +71,12 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
    * Ensures the next object in the `PromiEvent` chain is overloaded with
    * `EventEmitter` methods.
    */
-  const createChainingPromiseMethod = (
-    method: typeof thenSymbol | typeof catchSymbol | typeof finallySymbol,
-    source: Promise<any>,
-  ) => (...args: any[]) => {
-    const nextPromise = (source as any)[method].apply(source, args);
-    return promiEvent(nextPromise);
-  };
+  const createChainingPromiseMethod =
+    (method: typeof thenSymbol | typeof catchSymbol | typeof finallySymbol, source: Promise<any>) =>
+    (...args: any[]) => {
+      const nextPromise = (source as any)[method].apply(source, args);
+      return promiEvent(nextPromise);
+    };
 
   /**
    * Builds a `PromiEvent` by assigning `EventEmitter` methods to a native
