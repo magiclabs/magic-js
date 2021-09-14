@@ -1,9 +1,9 @@
 /* eslint-disable no-underscore-dangle, no-param-reassign  */
 
 import { EthNetworkConfiguration, QueryParameters } from '@magic-sdk/types';
-import semverSatisfies from 'semver/functions/satisfies';
+import { satisfies, coerce, SemVer } from 'semver';
 import type { AbstractProvider } from 'web3-core';
-import { encodeJSON } from '../util/base64-json';
+import { has } from 'lodash';
 import {
   createMissingApiKeyError,
   createReactNativeEndpointConfigurationWarning,
@@ -14,9 +14,8 @@ import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
-import { createURL } from '../util/url';
+import { createURL, isEmpty, encodeJSON } from '../util';
 import { Extension } from '../modules/base-extension';
-import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
 
 /**
@@ -24,23 +23,10 @@ import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
  * SDK currently in use.
  */
 function checkExtensionCompat(ext: Extension<string>) {
-  if (ext.compat) {
-    // Check web compatibility
-    if (SDKEnvironment.sdkName === 'magic-sdk') {
-      return typeof ext.compat['magic-sdk'] === 'string'
-        ? semverSatisfies(SDKEnvironment.version, ext.compat['magic-sdk'])
-        : !!ext.compat['magic-sdk'];
-    }
-
-    // Check React Native compatibility
-    /* istanbul ignore else */
-    if (SDKEnvironment.sdkName === '@magic-sdk/react-native') {
-      return typeof ext.compat['@magic-sdk/react-native'] === 'string'
-        ? semverSatisfies(SDKEnvironment.version, ext.compat['@magic-sdk/react-native'])
-        : !!ext.compat['@magic-sdk/react-native'];
-    }
-
-    // Else case should be impossible here...
+  if (ext.compat && has(ext.compat, SDKEnvironment.sdkName)) {
+    return typeof ext.compat[SDKEnvironment.sdkName] === 'string'
+      ? satisfies(coerce(SDKEnvironment.version) as SemVer, ext.compat[SDKEnvironment.sdkName] as string)
+      : !!ext.compat[SDKEnvironment.sdkName];
   }
 
   // To gracefully support older extensions, we assume

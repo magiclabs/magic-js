@@ -3,8 +3,7 @@
 import * as memoryDriver from 'localforage-driver-memory';
 import localForage from 'localforage';
 import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS, TEST_API_KEY } from './constants';
-import { PayloadTransport } from '../src/core/payload-transport';
-import { ViewController } from '../src/core/view-controller';
+import { PayloadTransport, ViewController } from '../src';
 import type { SDKEnvironment } from '../src/core/sdk-environment';
 
 export class TestViewController extends ViewController {
