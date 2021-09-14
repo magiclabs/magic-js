@@ -1,3 +1,15 @@
+# v5.0.0 (Tue Sep 14 2021)
+
+#### 💥 Breaking Change
+
+- v6.0.0 [#208](https://github.com/magiclabs/magic-js/pull/208) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v4.0.0 (Tue Aug 31 2021)
 
 #### 💥 Breaking Change
