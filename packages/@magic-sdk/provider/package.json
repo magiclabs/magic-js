@@ -17,10 +17,10 @@
   "target": "web",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
+  "exports": "./dist/modern/index.js",
   "types": "./dist/types/index.d.ts",
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.9.6",
-    "@babel/plugin-transform-runtime": "^7.9.6",
     "@peculiar/webcrypto": "^1.1.7",
     "eventemitter3": "^4.0.4",
     "localforage": "^1.7.4",
