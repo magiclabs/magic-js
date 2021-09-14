@@ -1923,7 +1923,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-modules-commonjs@npm:^7.15.4":
+"@babel/plugin-transform-modules-commonjs@npm:^7.15.4, @babel/plugin-transform-modules-commonjs@npm:^7.9.6":
   version: 7.15.4
   resolution: "@babel/plugin-transform-modules-commonjs@npm:7.15.4"
   dependencies:
@@ -4134,6 +4134,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
+    "@babel/plugin-transform-modules-commonjs": ^7.9.6
     "@babel/plugin-transform-runtime": ^7.9.6
     "@magic-sdk/types": ^5.0.0
     "@peculiar/webcrypto": ^1.1.7
@@ -4160,7 +4161,6 @@ __metadata:
     "@magic-sdk/types": ^5.0.0
     "@react-native-async-storage/async-storage": ^1.15.5
     "@types/lodash": ^4.14.158
-    babel-jest: ^27.0.6
     buffer: ~5.6.0
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
@@ -13702,6 +13702,7 @@ fsevents@^1.2.7:
     "@types/whatwg-url": ^6.4.0
     "@typescript-eslint/eslint-plugin": ~3.4.0
     auto: ^10.31.0
+    babel-jest: ^27.0.6
     chalk: ~4.1.2
     eslint: ~7.3.1
     eslint-import-resolver-typescript: ~2.0.0
