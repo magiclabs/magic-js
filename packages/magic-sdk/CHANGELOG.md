@@ -1,3 +1,15 @@
+# v6.0.1 (Tue Sep 14 2021)
+
+#### 🐛 Bug Fix
+
+- Fix SemVer cyclic dependency issues with some hacks [#209](https://github.com/magiclabs/magic-js/pull/209) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v6.0.0 (Tue Sep 14 2021)
 
 #### 💥 Breaking Change

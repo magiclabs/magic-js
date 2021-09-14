@@ -1,5 +1,18 @@
 # (Tue Sep 14 2021)
 
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@6.0.1`, `@magic-sdk/react-native@6.0.1`, `magic-sdk@6.0.1`
+  - Fix SemVer cyclic dependency issues with some hacks [#209](https://github.com/magiclabs/magic-js/pull/209) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Tue Sep 14 2021)
+
 #### 💥 Breaking Change
 
 - `@magic-sdk/commons@2.0.0`, `@magic-sdk/provider@6.0.0`, `@magic-sdk/react-native@6.0.0`, `@magic-sdk/types@5.0.0`, `magic-sdk@6.0.0`
