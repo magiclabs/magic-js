@@ -21,11 +21,9 @@
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.9.6",
     "@peculiar/webcrypto": "^1.1.7",
-    "@types/semver": "^7.3.4",
     "eventemitter3": "^4.0.4",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5",
-    "semver": "^7.3.2",
     "tslib": "^2.3.1",
     "web3-core": "1.5.2"
   },
