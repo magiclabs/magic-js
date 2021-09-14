@@ -2207,7 +2207,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-runtime@npm:^7.0.0, @babel/plugin-transform-runtime@npm:^7.9.6":
+"@babel/plugin-transform-runtime@npm:^7.0.0":
   version: 7.10.4
   resolution: "@babel/plugin-transform-runtime@npm:7.10.4"
   dependencies:
@@ -4118,11 +4118,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magic-sdk/commons@^2.0.0, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
+"@magic-sdk/commons@^2.0.1, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/commons@workspace:packages/@magic-sdk/commons"
   dependencies:
-    "@magic-sdk/provider": ^6.0.0
+    "@magic-sdk/provider": ^6.0.1
     "@magic-sdk/types": ^5.0.0
   peerDependencies:
     "@magic-sdk/provider": ">=4.3.0"
@@ -4130,12 +4130,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@^6.0.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+"@magic-sdk/provider@^6.0.1, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
     "@babel/plugin-transform-modules-commonjs": ^7.9.6
-    "@babel/plugin-transform-runtime": ^7.9.6
     "@magic-sdk/types": ^5.0.0
     "@peculiar/webcrypto": ^1.1.7
     eventemitter3: ^4.0.4
@@ -4156,8 +4155,8 @@ __metadata:
     "@babel/core": ^7.15.0
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/runtime": ~7.10.4
-    "@magic-sdk/commons": ^2.0.0
-    "@magic-sdk/provider": ^6.0.0
+    "@magic-sdk/commons": ^2.0.1
+    "@magic-sdk/provider": ^6.0.1
     "@magic-sdk/types": ^5.0.0
     "@react-native-async-storage/async-storage": ^1.15.5
     "@types/lodash": ^4.14.158
@@ -13747,8 +13746,8 @@ fsevents@^1.2.7:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-    "@magic-sdk/commons": ^2.0.0
-    "@magic-sdk/provider": ^6.0.0
+    "@magic-sdk/commons": ^2.0.1
+    "@magic-sdk/provider": ^6.0.1
     "@magic-sdk/types": ^5.0.0
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5

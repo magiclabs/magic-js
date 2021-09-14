@@ -20,8 +20,6 @@
   "types": "./dist/types/index.d.ts",
   "dependencies": {
     "@aveq-research/localforage-asyncstorage-driver": "^3.0.1",
-    "@babel/core": "~7.10.4",
-    "@babel/runtime": "~7.10.4",
     "@magic-sdk/commons": "^2.0.1",
     "@magic-sdk/provider": "^6.0.1",
     "@magic-sdk/types": "^5.0.0",
@@ -38,6 +36,7 @@
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/plugin-transform-flow-strip-types": "^7.14.5",
+    "@babel/runtime": "~7.10.4",
     "metro-react-native-babel-preset": "^0.66.2",
     "react": "^16.13.1",
     "react-native": "^0.62.2",

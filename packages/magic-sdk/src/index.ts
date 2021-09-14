@@ -1,5 +1,7 @@
 /* istanbul ignore file */
 
+import 'regenerator-runtime/runtime';
+
 import { SDKBase, createSDK } from '@magic-sdk/provider';
 import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
@@ -13,7 +15,7 @@ export const Magic = createSDK(SDKBase, {
   version: process.env.WEB_VERSION!,
   defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
-  configureStorage: /* istanbul ignore next */ async () => {
+  configureStorage: async () => {
     const lf = localForage.createInstance({
       name: 'MagicAuthLocalStorageDB',
       storeName: 'MagicAuthLocalStorage',
