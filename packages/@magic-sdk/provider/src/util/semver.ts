@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 // We have to wrap `semver` functions due to a long-standing cyclic dependency
 // which causes Rollup to break the `satisfies` function.
 // See:
