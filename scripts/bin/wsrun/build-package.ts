@@ -10,11 +10,23 @@ import isCI from 'is-ci';
 import { microbundle } from '../../utils/microbundle';
 import { runAsyncProcess } from '../../utils/run-async-process';
 
+function getExternalsFromPkgJson(pkgJson: any): string {
+  const dependencies = Object.keys(pkgJson.dependencies || []);
+  const peerDependencies = Object.keys(pkgJson.peerDependencies || []);
+  const includes = pkgJson.externals?.include || [];
+  const excludes = pkgJson.externals?.exclude || [];
+
+  const defaultExternals = [...dependencies, ...peerDependencies, ...includes];
+
+  return defaultExternals.filter((dep) => !excludes.includes(dep)).join(',');
+}
+
 async function cjs() {
   await microbundle('build', {
     format: 'cjs',
     target: require(`${process.cwd()}/package.json`).target,
     output: require(`${process.cwd()}/package.json`).main,
+    external: getExternalsFromPkgJson(require(`${process.cwd()}/package.json`)),
     sourcemap: true,
   });
 }
@@ -24,6 +36,7 @@ async function esm() {
     format: 'es',
     target: require(`${process.cwd()}/package.json`).target,
     output: require(`${process.cwd()}/package.json`).module,
+    external: getExternalsFromPkgJson(require(`${process.cwd()}/package.json`)),
     sourcemap: true,
   });
 }
@@ -33,6 +46,7 @@ async function modern() {
     format: 'modern',
     target: require(`${process.cwd()}/package.json`).target,
     output: require(`${process.cwd()}/package.json`).exports,
+    external: getExternalsFromPkgJson(require(`${process.cwd()}/package.json`)),
     sourcemap: true,
   });
 }

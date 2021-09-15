@@ -6,7 +6,7 @@ import { runAsyncProcess } from '../utils/run-async-process';
 import { handleError } from '../utils/handle-script-error';
 import { printSeparator } from '../utils/print-separator';
 import { getPackages, logPackages, promptForPackage } from '../utils/workspace-helpers';
-import { environment, logEnvironment } from '../utils/environment';
+import { logEnvironment } from '../utils/environment';
 
 async function buildPkgs(PKG: string) {
   printSeparator('Building');

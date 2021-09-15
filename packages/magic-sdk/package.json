@@ -22,16 +22,19 @@
   "types": "./dist/types/index.d.ts",
   "umd:main": "./dist/magic.js",
   "jsdelivr": "./dist/magic.js",
+  "externals": {
+    "exclude": ["localforage"]
+  },
   "dependencies": {
     "@magic-sdk/commons": "^2.0.2",
     "@magic-sdk/provider": "^6.0.2",
-    "@magic-sdk/types": "^5.0.1"
+    "@magic-sdk/types": "^5.0.1",
+    "localforage": "^1.7.4"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "@babel/runtime": "^7.9.6",
-    "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5"
   },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
