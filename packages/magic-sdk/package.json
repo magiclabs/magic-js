@@ -23,7 +23,9 @@
   "umd:main": "./dist/magic.js",
   "jsdelivr": "./dist/magic.js",
   "externals": {
-    "exclude": ["localforage"]
+    "exclude": [
+      "localforage"
+    ]
   },
   "dependencies": {
     "@magic-sdk/commons": "^2.0.2",

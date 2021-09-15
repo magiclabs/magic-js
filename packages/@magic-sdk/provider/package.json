@@ -20,7 +20,10 @@
   "exports": "./dist/modern/index.js",
   "types": "./dist/types/index.d.ts",
   "externals": {
-    "exclude": ["web3-core", "eventemitter3"]
+    "exclude": [
+      "web3-core",
+      "eventemitter3"
+    ]
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.9.6",
