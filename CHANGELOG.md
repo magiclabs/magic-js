@@ -1,3 +1,55 @@
+# (Thu Sep 16 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@6.0.3`, `magic-sdk@6.0.3`
+  - Enable `skipLibCheck: false` to work with Magic SDK + TypeScript projects [#212](https://github.com/magiclabs/magic-js/pull/212) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Tue Sep 14 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/commons@2.0.2`, `@magic-sdk/provider@6.0.2`, `@magic-sdk/react-native@6.0.2`, `@magic-sdk/types@5.0.1`, `magic-sdk@6.0.2`
+  - Import regeneratorRuntime in Magic JS (non-CDN version) [#210](https://github.com/magiclabs/magic-js/pull/210) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Tue Sep 14 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@6.0.1`, `@magic-sdk/react-native@6.0.1`, `magic-sdk@6.0.1`
+  - Fix SemVer cyclic dependency issues with some hacks [#209](https://github.com/magiclabs/magic-js/pull/209) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Tue Sep 14 2021)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/commons@2.0.0`, `@magic-sdk/provider@6.0.0`, `@magic-sdk/react-native@6.0.0`, `@magic-sdk/types@5.0.0`, `magic-sdk@6.0.0`
+  - v6.0.0 [#208](https://github.com/magiclabs/magic-js/pull/208) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Thu Sep 02 2021)
 
 #### 🚀 Enhancement

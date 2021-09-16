@@ -1,21 +1,21 @@
-/* eslint-disable no-underscore-dangle */
+/* istanbul ignore file */
+
+import 'regenerator-runtime/runtime';
 
 import { SDKBase, createSDK } from '@magic-sdk/provider';
 import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
-import { WebTransport } from './web-transport';
 
 export * from '@magic-sdk/commons';
 
 export const Magic = createSDK(SDKBase, {
   platform: 'web',
   sdkName: 'magic-sdk',
-  version: '%WEB_VERSION%',
+  version: process.env.WEB_VERSION!,
   defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
-  PayloadTransport: WebTransport,
-  configureStorage: /* istanbul ignore next */ async () => {
+  configureStorage: async () => {
     const lf = localForage.createInstance({
       name: 'MagicAuthLocalStorageDB',
       storeName: 'MagicAuthLocalStorage',

@@ -1,5 +1,5 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-expressions */
-/* eslint-disable no-underscore-dangle */
 
 import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
 
@@ -49,7 +49,12 @@ export class IframeController extends ViewController {
   private iframe!: Promise<HTMLIFrameElement>;
   private activeElement: any = null;
 
+  /**
+   * Initializes the underlying `<iframe>` element.
+   * Initializes the underlying `Window.onmessage` event listener.
+   */
   protected init() {
+    (this as any).test = 'hello';
     this.iframe = new Promise((resolve) => {
       const onload = () => {
         if (!checkForSameSrcInstances(encodeURIComponent(this.parameters))) {
@@ -74,6 +79,20 @@ export class IframeController extends ViewController {
         window.addEventListener('load', onload, false);
       }
     });
+
+    window.addEventListener('message', (event: MessageEvent) => {
+      if (event.origin === this.endpoint) {
+        if (event.data && event.data.msgType && this.messageHandlers.size) {
+          // If the response object is undefined, we ensure it's at least an
+          // empty object before passing to the event listener.
+          /* istanbul ignore next */
+          event.data.response = event.data.response ?? {};
+          for (const handler of this.messageHandlers.values()) {
+            handler(event);
+          }
+        }
+      }
+    });
   }
 
   protected async showOverlay() {
@@ -90,7 +109,7 @@ export class IframeController extends ViewController {
     this.activeElement = null;
   }
 
-  public async postMessage(data: any) {
+  protected async _post(data: any) {
     const iframe = await this.iframe;
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);

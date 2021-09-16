@@ -3,11 +3,11 @@
 
   "compilerOptions": {
     "module": "commonjs",
-    "rootDir": "./src",
-    "outDir": "./dist/cjs"
+    "rootDir": "src",
+    "outDir": "dist/cjs",
   },
 
   "include": [
-    "./src/**/*.ts",
+    "src/**/*.ts",
   ],
 }

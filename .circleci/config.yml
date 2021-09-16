@@ -7,24 +7,25 @@ aliases: [
   # CircleCI workspace.
   &dependency-paths [
     "node_modules",
-    "packages/@magic-sdk/commons/node_modules",
-    "packages/@magic-sdk/provider/node_modules",
-    "packages/@magic-sdk/react-native/node_modules",
-    "packages/@magic-sdk/types/node_modules",
-    "packages/magic-sdk/node_modules"
+    "packages/@magic-sdk/*/node_modules",
+    "packages/*/node_modules",
+  ],
+
+  # List of Yarn cache paths that should be persisted to the
+  # CircleCI workspace cache.
+  &yarn-cache-paths [
+    ".yarn/cache",
+    ".yarn/unplugged",
   ],
 
   # List of build output paths that should be persisted to the
   # CircleCI workspace.
   &build-output-paths [
-    "packages/@magic-sdk/commons/dist",
-    "packages/@magic-sdk/provider/dist",
-    "packages/@magic-sdk/react-native/dist",
-    "packages/@magic-sdk/types/dist",
-    "packages/magic-sdk/dist"
+    "packages/@magic-sdk/*/dist",
+    "packages/*/dist",
   ],
 
-  # NPM lockfile cache key (update "vN" => "vN+1" to cache-bust).
+  # Yarn lockfile cache key (update "vN" => "vN+1" to cache-bust).
   &dependency-cache-key "v3-dependency-cache-{{ checksum \"yarn.lock\" }}",
 
   &workspace-root "/home/circleci/project",
@@ -64,6 +65,7 @@ executors:
   default:
     docker:
       - image: circleci/node:14.17.0-browsers
+    resource_class: medium
 
 # --- Job definitions -------------------------------------------------------- #
 
@@ -81,7 +83,7 @@ jobs:
           name: Install Module Dependencies
           command: yarn install
       - save_cache:
-          paths: *dependency-paths
+          paths: *yarn-cache-paths
           key: *dependency-cache-key
       - persist_to_workspace:
           paths: *dependency-paths
@@ -106,9 +108,11 @@ jobs:
       - run:
           name: Apply semver updates (if any)
           command: |
-            AUTO_VERSION=$(yarn --silent auto version)
-            if [[ $AUTO_VERSION ]]; then
-              yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --yes
+            AUTO_VERSION=$(yarn auto version)
+            if [[ $AUTO_VERSION == pre* ]]; then
+              yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --no-push --yes --preid $(echo $CIRCLE_BRANCH)
+            elif [[ $AUTO_VERSION ]]; then
+              yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --no-push --yes
             fi
 
       - run:

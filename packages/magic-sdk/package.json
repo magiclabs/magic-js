@@ -1,6 +1,6 @@
 {
   "name": "magic-sdk",
-  "version": "5.1.0",
+  "version": "6.0.3",
   "description": "Passwordless authentication for the web.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -16,24 +16,28 @@
   ],
   "umdGlobal": "Magic",
   "target": "web",
-  "main": "dist/cjs/index.js",
-  "module": "dist/es/index.js",
-  "types": "dist/es/index.d.ts",
-  "umd:main": "dist/magic.js",
-  "jsdelivr": "dist/magic.js",
-  "devDependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.9.0"
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "exports": "./dist/modern/index.js",
+  "types": "./dist/types/index.d.ts",
+  "umd:main": "./dist/magic.js",
+  "jsdelivr": "./dist/magic.js",
+  "externals": {
+    "exclude": [
+      "localforage"
+    ]
   },
   "dependencies": {
+    "@magic-sdk/commons": "^2.0.3",
+    "@magic-sdk/provider": "^6.0.3",
+    "@magic-sdk/types": "^5.0.1",
+    "localforage": "^1.7.4"
+  },
+  "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "@babel/runtime": "^7.9.6",
-    "@magic-sdk/commons": "^1.2.1",
-    "@magic-sdk/provider": "^5.1.0",
-    "@magic-sdk/types": "^4.0.0",
-    "localforage": "^1.7.4",
-    "localforage-driver-memory": "^1.0.5",
-    "regenerator-runtime": "0.13.5",
-    "tslib": "^2.0.3"
+    "localforage-driver-memory": "^1.0.5"
   },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
 }
