@@ -8,6 +8,8 @@ import {
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
+import { SettingsModule } from './settings';
+import { SDKBase } from '../core/sdk';
 
 type UpdateEmailEvents = {
   'email-sent': () => void;
@@ -18,6 +20,13 @@ type UpdateEmailEvents = {
 };
 
 export class UserModule extends BaseModule {
+  public settings: SettingsModule;
+
+  constructor(protected sdk: SDKBase) {
+    super(sdk);
+    this.settings = new SettingsModule(sdk);
+  }
+
   /** */
   public getIdToken(configuration?: GetIdTokenConfiguration) {
     const requestPayload = createJsonRpcRequestPayload(

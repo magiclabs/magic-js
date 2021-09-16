@@ -40,6 +40,8 @@ export interface JsonRpcResponsePayload<ResultType = any> {
  * relayer.
  */
 export enum MagicPayloadMethod {
+  EnableMfa = 'magic_auth_enable_mfa_flow',
+  DisableMfa = 'magic_auth_disable_mfa_flow',
   LoginWithSms = 'magic_auth_login_with_sms',
   LoginWithMagicLink = 'magic_auth_login_with_magic_link',
   LoginWithCredential = 'magic_auth_login_with_credential',
@@ -50,6 +52,8 @@ export enum MagicPayloadMethod {
   Logout = 'magic_auth_logout',
   UpdateEmail = 'magic_auth_update_email',
   LoginWithSmsTestMode = 'magic_auth_login_with_sms_testing_mode',
+  EnableMfaTestMode = 'magic_auth_enable_mfa_flow_testing_mode',
+  DisableMfaTestMode = 'magic_auth_disable_mfa_flow_testing_mode',
   LoginWithMagicLinkTestMode = 'magic_login_with_magic_link_testing_mode',
   LoginWithCredentialTestMode = 'magic_auth_login_with_credential_testing_mode',
   GetIdTokenTestMode = 'magic_auth_get_id_token_testing_mode',
