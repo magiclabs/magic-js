@@ -1,3 +1,15 @@
+# v6.0.3 (Thu Sep 16 2021)
+
+#### 🐛 Bug Fix
+
+- Enable `skipLibCheck: false` to work with Magic SDK + TypeScript projects [#212](https://github.com/magiclabs/magic-js/pull/212) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v6.0.2 (Tue Sep 14 2021)
 
 #### 🐛 Bug Fix
