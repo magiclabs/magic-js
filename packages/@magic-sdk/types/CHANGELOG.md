@@ -1,3 +1,15 @@
+# v5.0.2 (Fri Sep 17 2021)
+
+#### 🐛 Bug Fix
+
+- Fix CJS-dependent entry-points using the 'exports' field in package.json [#214](https://github.com/magiclabs/magic-js/pull/214) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v5.0.1 (Tue Sep 14 2021)
 
 #### 🐛 Bug Fix
