@@ -7,7 +7,7 @@
 
 import pLimit from 'p-limit';
 import isCI from 'is-ci';
-import { microbundle } from '../../utils/microbundle';
+import { build } from '../../utils/microbundle';
 import { runAsyncProcess } from '../../utils/run-async-process';
 
 function getExternalsFromPkgJson(pkgJson: any): string {
@@ -22,42 +22,46 @@ function getExternalsFromPkgJson(pkgJson: any): string {
 }
 
 async function cjs() {
-  await microbundle('build', {
+  const pkgJson = require(`${process.cwd()}/package.json`);
+  await build({
     format: 'cjs',
-    target: require(`${process.cwd()}/package.json`).target,
-    output: require(`${process.cwd()}/package.json`).main,
-    external: getExternalsFromPkgJson(require(`${process.cwd()}/package.json`)),
+    target: pkgJson.target,
+    output: pkgJson.exports?.require ?? pkgJson.main,
+    external: getExternalsFromPkgJson(pkgJson),
     sourcemap: true,
   });
 }
 
 async function esm() {
-  await microbundle('build', {
+  const pkgJson = require(`${process.cwd()}/package.json`);
+  await build({
     format: 'es',
-    target: require(`${process.cwd()}/package.json`).target,
-    output: require(`${process.cwd()}/package.json`).module,
-    external: getExternalsFromPkgJson(require(`${process.cwd()}/package.json`)),
+    target: pkgJson.target,
+    output: pkgJson.module,
+    external: getExternalsFromPkgJson(pkgJson),
     sourcemap: true,
   });
 }
 
 async function modern() {
-  await microbundle('build', {
+  const pkgJson = require(`${process.cwd()}/package.json`);
+  await build({
     format: 'modern',
-    target: require(`${process.cwd()}/package.json`).target,
-    output: require(`${process.cwd()}/package.json`).exports,
+    target: pkgJson.target,
+    output: typeof pkgJson.exports === 'string' ? pkgJson.exports : pkgJson.exports?.import,
     external: getExternalsFromPkgJson(require(`${process.cwd()}/package.json`)),
     sourcemap: true,
   });
 }
 
 async function cdn() {
-  await microbundle('build', {
+  const pkgJson = require(`${process.cwd()}/package.json`);
+  await build({
     source: 'src/index.cdn.ts',
     format: 'iife',
-    target: require(`${process.cwd()}/package.json`).target,
-    output: require(`${process.cwd()}/package.json`)['umd:main'],
-    name: require(`${process.cwd()}/package.json`).umdGlobal,
+    target: pkgJson.target,
+    output: pkgJson['umd:main'],
+    name: pkgJson.umdGlobal,
     external: 'none',
     sourcemap: false,
   });

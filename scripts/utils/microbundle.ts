@@ -3,8 +3,7 @@ import { environment } from './environment';
 
 type MicrobundleFormat = 'modern' | 'es' | 'cjs' | 'umd' | 'iife';
 
-export async function microbundle(
-  cmd: 'build' | 'watch',
+export async function build(
   options: {
     source?: string;
     target?: string;
@@ -18,7 +17,7 @@ export async function microbundle(
   if (options.output) {
     /* eslint-disable prettier/prettier */
     const args = [
-      cmd, options.source ?? 'src/index.ts',
+      'build', options.source ?? 'src/index.ts',
       '--tsconfig', 'tsconfig.json',
       '--target', options.target ?? 'web',
       '--jsx', 'React.createElement',
