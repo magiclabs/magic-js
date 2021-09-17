@@ -1,11 +1,12 @@
 import execa from 'execa';
+import path from 'path';
 import { environment } from './environment';
+import { existsAsync } from './exists-async';
 
-type MicrobundleFormat = 'modern' | 'es' | 'cjs' | 'umd' | 'iife';
+type MicrobundleFormat = 'modern' | 'es' | 'cjs' | 'cdn';
 
 export async function build(
   options: {
-    source?: string;
     target?: string;
     format?: MicrobundleFormat;
     output?: string;
@@ -17,11 +18,11 @@ export async function build(
   if (options.output) {
     /* eslint-disable prettier/prettier */
     const args = [
-      'build', options.source ?? 'src/index.ts',
+      'build', await getFormatSpecificEntrypoint(options.format),
       '--tsconfig', 'tsconfig.json',
       '--target', options.target ?? 'web',
       '--jsx', 'React.createElement',
-      '--format', options.format ?? 'cjs',
+      '--format', getFormatForMicrobundle(options.format),
       '--sourcemap', options.sourcemap ? 'true' : 'false',
       options.external && '--external', options.external,
       '--output', options.output,
@@ -31,5 +32,26 @@ export async function build(
     /* eslint-enable prettier/prettier */
 
     await execa('microbundle', args as any, { stdio: 'inherit' });
+  }
+}
+
+async function getFormatSpecificEntrypoint(format?: MicrobundleFormat) {
+  if (await existsAsync(path.resolve(process.cwd(), `./src/index.${format}.ts`))) {
+    return `src/index.${format}.ts`;
+  }
+
+  return 'src/index.ts';
+}
+
+function getFormatForMicrobundle(format?: MicrobundleFormat) {
+  switch (format) {
+    case 'cdn':
+      return 'iife';
+
+    case 'modern':
+    case 'es':
+    case 'cjs':
+    default:
+      return format ?? 'cjs';
   }
 }
