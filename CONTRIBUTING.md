@@ -4,7 +4,7 @@ When contributing to this repository, please first discuss the change you wish t
 
 Please note we have a **code of conduct**, please follow it in all your interactions with the project.
 
-## Setting up for Local Development
+## Setting up for local development
 
 1. Fork this repostiory.
 2. Clone your fork.
@@ -14,9 +14,11 @@ Please note we have a **code of conduct**, please follow it in all your interact
 - For features: `feature/[package_name]/[issue_number]/[descriptive_feature_name]`
 - For chores/the rest: `chore/[package_name]/[descriptive_chore_name]`
 
-4. Install & hoist dependencies with Yarn + Lerna: `yarn bootstrap`
+4. Install & hoist dependencies with Yarn + Lerna: `yarn install`
 5. Add `./node_modules/.bin` to your system's [`PATH`](https://en.wikipedia.org/wiki/PATH_(variable)), if it's not already listed.
-6. Start building for development: `yarn dev`
+6. Start building for development: `yarn build`
+
+> Note: There is no hot-reloading development script for now (which sucks, I know). Recently, the build system in Magic JS SDK changed to use a bundler as opposed to delivering TSC-transpiled files. This has complicated the matter of serving a development-specific flow. We will revisit this problem in the future.
 
 ### ESLint + VS Code
 
@@ -27,25 +29,23 @@ To ensure ESLint is able to properly lint source files in your VS Code developme
   "eslint.workingDirectories": [
     { "directory" : "./packages/@magic-sdk/commons", "changeProcessCWD": true },
     { "directory" : "./packages/@magic-sdk/provider", "changeProcessCWD": true },
-    { "directory" : "./packages/@magic-sdk/react-native", "changeProcessCWD": true },
-    { "directory" : "./packages/@magic-sdk/types", "changeProcessCWD": true },
+    { "directory" : "./packages/@magic-sdk/...", "changeProcessCWD": true },
     { "directory" : "./packages/magic-sdk", "changeProcessCWD": true },
   ],
 }
 ```
 
-### Development Scripts
+### Development scripts
 
 | NPM Script | Usage | Description |
 | ---------- | ----- | ----------- |
 | `bootstrap` | `yarn bootstrap` | Install dependencies/set up a local development environment. |
 | `wsrun` | `PKG=$PACKAGE_TARGET yarn wsrun` | Execute arbitrary scripts via `wsrun` for the specified package. |
 | `wsrun:paths` | `PKG=$PACKAGE_TARGET yarn paths` | Print the relative paths to each project based on the value of `$PKG`. |
-| `dev` | `PKG=$PACKAGE_TARGET yarn dev` | Start the specified package in development mode. |
-| `build` | `PKG=$PACKAGE_TARGET yarn build` | Build the specified package for production, or all packages if `$PKG` is omitted. |
-| `clean` | `PKG=$PACKAGE_TARGET yarn clean` | Run cleaning scripts for the specified package, or all packages if `$PKG` is omitted. Available flags: (`--cache`, `--test-artifacts`, `--deps`) |
-| `lint` | `PKG=$PACKAGE_TARGET yarn lint` | Run the linter for the specified package, or all packages if `$PKG` is omitted. |
-| `test` | `PKG=$PACKAGE_TARGET yarn test` | Run tests for the specified package, or all packages if `$PKG` is omitted. |
+| `build` | `PKG=$PACKAGE_TARGET yarn build` | Build the specified package for production, or interactively select a package if `$PKG` is omitted. |
+| `clean` | `PKG=$PACKAGE_TARGET yarn clean` | Run cleaning scripts for the specified package,or interactively select a package if `$PKG` is omitted. Available flags: (`--cache`, `--test-artifacts`, `--deps`) |
+| `lint` | `PKG=$PACKAGE_TARGET yarn lint` | Run the linter for the specified package, or interactively select a package if `$PKG` is omitted. |
+| `test` | `PKG=$PACKAGE_TARGET yarn test` | Run tests for the specified package, or interactively select a package if `$PKG` is omitted. |
 
 ## Opening a Pull Request
 
@@ -56,6 +56,8 @@ To ensure ESLint is able to properly lint source files in your VS Code developme
 ## Cutting a release
 
 We use [`auto`](https://github.com/intuit/auto) as our continous delivery tool. Cutting a release is just a matter of merging to `master`. For pre-releases, you can create a `next` branch as the base for your experimental/W.I.P. feature. Please familiarize yourself with the [documentation for `auto`](https://intuit.github.io/auto/docs) if you are in a position to cut a release.
+
+---
 
 ## Contributor Covenant Code of Conduct
 

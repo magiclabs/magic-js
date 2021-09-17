@@ -17,7 +17,10 @@
   "target": "web",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
-  "exports": "./dist/modern/index.js",
   "types": "./dist/types/index.d.ts",
+  "exports": {
+    "import": "./dist/modern/index.js",
+    "require": "./dist/cjs/index.js"
+  },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
 }

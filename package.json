@@ -6,7 +6,6 @@
     "wsrun": "$INIT_CWD/scripts/bin/wsrun-wrapper.ts",
     "wsrun:all": "$INIT_CWD/scripts/bin/wsrun-wrapper.ts --all",
     "wsrun:paths": "yarn wsrun --stages --no-prefix -r -c $INIT_CWD/scripts/bin/wsrun/resolve-paths.ts",
-    "dev": "$INIT_CWD/scripts/bin/clean.ts && $INIT_CWD/scripts/bin/dev.ts",
     "build": "$INIT_CWD/scripts/bin/clean.ts && $INIT_CWD/scripts/bin/build.ts",
     "clean": "$INIT_CWD/scripts/bin/clean.ts",
     "lint": "$INIT_CWD/scripts/bin/lint.ts",
