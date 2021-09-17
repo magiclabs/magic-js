@@ -3,7 +3,7 @@ import path from 'path';
 import { environment } from './environment';
 import { existsAsync } from './exists-async';
 
-type MicrobundleFormat = 'modern' | 'es' | 'cjs' | 'umd' | 'iife';
+type MicrobundleFormat = 'modern' | 'es' | 'cjs' | 'cdn';
 
 export async function build(
   options: {
@@ -22,7 +22,7 @@ export async function build(
       '--tsconfig', 'tsconfig.json',
       '--target', options.target ?? 'web',
       '--jsx', 'React.createElement',
-      '--format', options.format ?? 'cjs',
+      '--format', getFormatForMicrobundle(options.format),
       '--sourcemap', options.sourcemap ? 'true' : 'false',
       options.external && '--external', options.external,
       '--output', options.output,
@@ -36,25 +36,22 @@ export async function build(
 }
 
 async function getFormatSpecificEntrypoint(format?: MicrobundleFormat) {
+  if (await existsAsync(path.resolve(process.cwd(), `./src/index.${format}.ts`))) {
+    return `src/index.${format}.ts`;
+  }
+
+  return 'src/index.ts';
+}
+
+function getFormatForMicrobundle(format?: MicrobundleFormat) {
   switch (format) {
-    case 'iife': {
-      if (await existsAsync(path.resolve(process.cwd(), './src/index.cdn.ts'))) {
-        return 'src/index.cdn.ts';
-      }
-      break;
-    }
+    case 'cdn':
+      return 'iife';
 
     case 'modern':
     case 'es':
     case 'cjs':
-    case 'umd':
-    default: {
-      if (await existsAsync(path.resolve(process.cwd(), `./src/index.${format}.ts`))) {
-        return `src/index.${format}.ts`;
-      }
-      break;
-    }
+    default:
+      return format ?? 'cjs';
   }
-
-  return 'src/index.ts';
 }
