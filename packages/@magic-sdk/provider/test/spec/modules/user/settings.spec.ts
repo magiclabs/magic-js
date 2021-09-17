@@ -14,7 +14,7 @@ test('Generate JSON RPC request payload with method `magic_auth_enable_mfa_flow`
 
   const requestPayload = magic.user.settings.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_enable_mfa_flow');
-  expect(requestPayload.params).toEqual([]);
+  expect(requestPayload.params).toEqual([{ showUI: true }]);
 });
 
 test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
@@ -25,7 +25,7 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
 
   const requestPayload = magic.user.settings.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_enable_mfa_flow_testing_mode');
-  expect(requestPayload.params).toEqual([]);
+  expect(requestPayload.params).toEqual([{ showUI: true }]);
 });
 
 test('method should return a PromiEvent', () => {

@@ -6,6 +6,7 @@ export class SettingsModule extends BaseModule {
   public enableMfa() {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.EnableMfaTestMode : MagicPayloadMethod.EnableMfa,
+      [{ showUI: true }],
     );
     return this.request<boolean>(requestPayload);
   }
