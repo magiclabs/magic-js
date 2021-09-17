@@ -1,3 +1,15 @@
+# v6.0.5 (Fri Sep 17 2021)
+
+#### 🐛 Bug Fix
+
+- Fix `regeneratorRuntime` is not defined in `@magic-sdk/provider` [#215](https://github.com/magiclabs/magic-js/pull/215) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v6.0.4 (Fri Sep 17 2021)
 
 #### 🐛 Bug Fix
