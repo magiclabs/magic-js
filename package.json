@@ -82,6 +82,8 @@
       "npm",
       "released"
     ],
-    "prereleaseBranches": ["dgerrells-ch42053-sms-feature"]
+    "prereleaseBranches": [
+      "dgerrells-ch42053-sms-feature"
+    ]
   }
 }
