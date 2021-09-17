@@ -1,3 +1,16 @@
+# (Fri Sep 17 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/commons@2.0.4`, `@magic-sdk/provider@6.0.4`, `@magic-sdk/types@5.0.2`, `magic-sdk@6.0.4`
+  - Fix CJS-dependent entry-points using the 'exports' field in package.json [#214](https://github.com/magiclabs/magic-js/pull/214) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Thu Sep 16 2021)
 
 #### 🐛 Bug Fix
