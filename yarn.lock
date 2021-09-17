@@ -4118,32 +4118,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-<<<<<<< HEAD
-"@magic-sdk/commons@^2.0.4, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
+"@magic-sdk/commons@^2.0.5, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/commons@workspace:packages/@magic-sdk/commons"
   dependencies:
-    "@magic-sdk/provider": ^6.0.4
+    "@magic-sdk/provider": ^6.0.5
     "@magic-sdk/types": ^5.0.2
-=======
-"@magic-sdk/commons@^2.0.3, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
-  version: 0.0.0-use.local
-  resolution: "@magic-sdk/commons@workspace:packages/@magic-sdk/commons"
-  dependencies:
-    "@magic-sdk/provider": ^6.0.3
-    "@magic-sdk/types": ^5.0.1
->>>>>>> update yarn lock file
   peerDependencies:
     "@magic-sdk/provider": ">=4.3.0"
     "@magic-sdk/types": ">=3.1.1"
   languageName: unknown
   linkType: soft
 
-<<<<<<< HEAD
-"@magic-sdk/provider@^6.0.4, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
-=======
-"@magic-sdk/provider@^6.0.3, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
->>>>>>> update yarn lock file
+"@magic-sdk/provider@^6.0.5, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
@@ -4168,15 +4155,9 @@ __metadata:
     "@babel/core": ^7.15.0
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/runtime": ~7.10.4
-<<<<<<< HEAD
-    "@magic-sdk/commons": ^2.0.4
-    "@magic-sdk/provider": ^6.0.4
+    "@magic-sdk/commons": ^2.0.5
+    "@magic-sdk/provider": ^6.0.5
     "@magic-sdk/types": ^5.0.2
-=======
-    "@magic-sdk/commons": ^2.0.3
-    "@magic-sdk/provider": ^6.0.3
-    "@magic-sdk/types": ^5.0.1
->>>>>>> update yarn lock file
     "@react-native-async-storage/async-storage": ^1.15.5
     "@types/lodash": ^4.14.158
     buffer: ~5.6.0
@@ -13765,15 +13746,9 @@ fsevents@^1.2.7:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-<<<<<<< HEAD
-    "@magic-sdk/commons": ^2.0.4
-    "@magic-sdk/provider": ^6.0.4
+    "@magic-sdk/commons": ^2.0.5
+    "@magic-sdk/provider": ^6.0.5
     "@magic-sdk/types": ^5.0.2
-=======
-    "@magic-sdk/commons": ^2.0.3
-    "@magic-sdk/provider": ^6.0.3
-    "@magic-sdk/types": ^5.0.1
->>>>>>> update yarn lock file
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
   languageName: unknown
