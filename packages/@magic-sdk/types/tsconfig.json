@@ -3,12 +3,8 @@
 
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist/es",
-    "declarationDir": "dist/types",
   },
 
-  "include": [
-    "src/**/*.ts",
-  ],
+  "include": ["src/**/*.ts"],
 }
 

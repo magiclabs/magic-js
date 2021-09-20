@@ -14,17 +14,16 @@
     "dist/**/*.js.map",
     "dist/**/*.d.ts"
   ],
-  "umdGlobal": "Magic",
   "target": "web",
+  "global": "Magic",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
+  "jsdelivr": "./dist/magic.js",
   "exports": {
     "import": "./dist/modern/index.js",
     "require": "./dist/cjs/index.js"
   },
-  "umd:main": "./dist/magic.js",
-  "jsdelivr": "./dist/magic.js",
   "externals": {
     "exclude": [
       "localforage"

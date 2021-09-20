@@ -57,10 +57,10 @@ async function modern() {
 async function cdn() {
   const pkgJson = require(`${process.cwd()}/package.json`);
   await build({
-    format: 'cdn',
+    format: 'iife',
     target: pkgJson.target,
-    output: pkgJson['umd:main'],
-    name: pkgJson.umdGlobal,
+    output: pkgJson.jsdelivr,
+    name: pkgJson.global,
     external: 'none',
     sourcemap: false,
   });

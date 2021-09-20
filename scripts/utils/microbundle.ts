@@ -3,7 +3,7 @@ import path from 'path';
 import { environment } from './environment';
 import { existsAsync } from './exists-async';
 
-type MicrobundleFormat = 'modern' | 'es' | 'cjs' | 'cdn';
+type MicrobundleFormat = 'modern' | 'es' | 'cjs' | 'iife';
 
 export async function build(
   options: {
@@ -22,7 +22,7 @@ export async function build(
       '--tsconfig', 'tsconfig.json',
       '--target', options.target ?? 'web',
       '--jsx', 'React.createElement',
-      '--format', getFormatForMicrobundle(options.format),
+      '--format', options.format ?? 'cjs',
       '--sourcemap', options.sourcemap ? 'true' : 'false',
       options.external && '--external', options.external,
       '--output', options.output,
@@ -36,22 +36,22 @@ export async function build(
 }
 
 async function getFormatSpecificEntrypoint(format?: MicrobundleFormat) {
-  if (await existsAsync(path.resolve(process.cwd(), `./src/index.${format}.ts`))) {
-    return `src/index.${format}.ts`;
-  }
+  const findEntrypoint = async (indexTarget?: string) => {
+    if (format && (await existsAsync(path.resolve(process.cwd(), `./src/index.${indexTarget}.ts`)))) {
+      return `src/index.${indexTarget}.ts`;
+    }
 
-  return 'src/index.ts';
-}
+    return 'src/index.ts';
+  };
 
-function getFormatForMicrobundle(format?: MicrobundleFormat) {
   switch (format) {
-    case 'cdn':
-      return 'iife';
+    case 'iife':
+      return findEntrypoint('cdn');
 
     case 'modern':
     case 'es':
     case 'cjs':
     default:
-      return format ?? 'cjs';
+      return findEntrypoint(format);
   }
 }
