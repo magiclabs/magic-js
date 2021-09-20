@@ -11,7 +11,7 @@ async function main() {
     await execa('jest', args, {
       stdio: 'inherit',
       env: {
-        TS_NODE_PROJECT: './tsconfig.json',
+        TS_NODE_PROJECT: './test/tsconfig.json',
       },
     });
   } else {
