@@ -1,3 +1,9 @@
-import { Magic } from 'magic-sdk';
+import type { Magic } from 'magic-sdk';
 
-console.log('hello', new Magic('api-key'));
+declare global {
+  interface Window {
+    Magic: typeof Magic;
+  }
+}
+
+console.log('hello', new window.Magic('api-key'));

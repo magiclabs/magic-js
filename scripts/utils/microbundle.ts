@@ -12,7 +12,8 @@ export async function build(
     output?: string;
     sourcemap?: boolean;
     name?: string;
-    external?: string;
+    globals?: Record<string, string>;
+    externals?: string[];
   } = {},
 ) {
   if (options.output) {
@@ -24,8 +25,9 @@ export async function build(
       '--jsx', 'React.createElement',
       '--format', options.format ?? 'cjs',
       '--sourcemap', options.sourcemap ? 'true' : 'false',
-      options.external && '--external', options.external,
+      options.externals && options.externals.length && '--external', options.externals?.join(','),
       '--output', options.output,
+      options.globals && '--globals', options.globals && Object.entries(options.globals).map(([key, value]) => `${key}=${value}`).join(','),
       '--define', Object.entries(environment).map(([key, value]) => `process.env.${key}=${value}`).join(','),
       options.name && '--name', options.name,
     ].filter(Boolean);

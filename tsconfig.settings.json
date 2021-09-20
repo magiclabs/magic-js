@@ -18,6 +18,7 @@
     "declaration": true,
     "skipLibCheck": true,
     "composite": true,
+    "noEmit": true,
     "outDir": "node_modules/.temp"
   },
 

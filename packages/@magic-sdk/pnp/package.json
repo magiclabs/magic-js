@@ -13,7 +13,7 @@
     "dist"
   ],
   "target": "web",
-  "global": "MagicPlugNPlay",
+  "bundleName": "MagicPlugNPlay",
   "jsdelivr": "./dist/magic-pnp.js",
   "dependencies": {
     "magic-sdk": "^6.0.5"
