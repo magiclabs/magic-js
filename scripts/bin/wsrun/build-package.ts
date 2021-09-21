@@ -60,7 +60,7 @@ async function cdn() {
     format: 'iife',
     target: pkgJson.target,
     output: pkgJson.jsdelivr,
-    name: pkgJson.bundleName,
+    name: pkgJson.cdnGlobalName,
     externals: ['none'],
     globals: pkgJson.globals,
     sourcemap: false,

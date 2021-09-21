@@ -4118,6 +4118,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@magic-ext/oauth@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "@magic-ext/oauth@npm:0.9.0"
+  dependencies:
+    "@magic-sdk/types": ^1.1.0
+    crypto-js: ^3.3.0
+  checksum: 181c3c7509335f7c314f497348a9494435811875b88eb3eefb90de4c986bfad62acea6506a54065738cc23a4c4a199dc6bc6bbdabdc680d381b6c81e59b1d79c
+  languageName: node
+  linkType: hard
+
 "@magic-sdk/commons@^2.0.5, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/commons@workspace:packages/@magic-sdk/commons"
@@ -4137,6 +4147,7 @@ __metadata:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
+    "@magic-ext/oauth": ^0.9.0
     magic-sdk: ^6.0.5
   languageName: unknown
   linkType: soft
@@ -4194,6 +4205,13 @@ __metadata:
   resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
   languageName: unknown
   linkType: soft
+
+"@magic-sdk/types@npm:^1.1.0":
+  version: 1.6.0
+  resolution: "@magic-sdk/types@npm:1.6.0"
+  checksum: e505687e756f62afc965022a735aaaf072b7493de0d635e9c9cdf5632e30a36136f74b4c621e8640e2756eb9bf244ffa07b69d60605cdb17bf62792ed98543f4
+  languageName: node
+  linkType: hard
 
 "@mrmlnc/readdir-enhanced@npm:^2.2.1":
   version: 2.2.1
@@ -8015,6 +8033,13 @@ __metadata:
     shebang-command: ^2.0.0
     which: ^2.0.1
   checksum: 671cc7c7288c3a8406f3c69a3ae2fc85555c04169e9d611def9a675635472614f1c0ed0ef80955d5b6d4e724f6ced67f0ad1bb006c2ea643488fcfef994d7f52
+  languageName: node
+  linkType: hard
+
+"crypto-js@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "crypto-js@npm:3.3.0"
+  checksum: 193923143a4784b2f974366068d96fe8280168fd3fef2bfea9551a5c3e32096f5a8fa49ff4eeb5bd0b9716d325618d38cfbe6125e359a4ef488fbca93e600824
   languageName: node
   linkType: hard
 

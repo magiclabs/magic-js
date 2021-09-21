@@ -15,7 +15,7 @@
     "dist/**/*.d.ts"
   ],
   "target": "web",
-  "bundleName": "Magic",
+  "cdnGlobalName": "Magic",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
