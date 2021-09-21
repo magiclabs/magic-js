@@ -5,21 +5,25 @@ import { existsAsync } from './exists-async';
 
 type MicrobundleFormat = 'modern' | 'es' | 'cjs' | 'iife';
 
-export async function build(
-  options: {
-    target?: string;
-    format?: MicrobundleFormat;
-    output?: string;
-    sourcemap?: boolean;
-    name?: string;
-    globals?: Record<string, string>;
-    externals?: string[];
-  } = {},
-) {
+interface MicrobundleOptions {
+  target?: string;
+  format?: MicrobundleFormat;
+  output?: string;
+  sourcemap?: boolean;
+  name?: string;
+  globals?: Record<string, string>;
+  externals?: string[];
+}
+
+export async function build(options?: MicrobundleOptions) {
+  await microbundle('build', options);
+}
+
+async function microbundle(command: 'build' | 'watch', options: MicrobundleOptions = {}) {
   if (options.output) {
     /* eslint-disable prettier/prettier */
     const args = [
-      'build', await getFormatSpecificEntrypoint(options.format),
+      command, await getFormatSpecificEntrypoint(options.format),
       '--tsconfig', 'tsconfig.json',
       '--target', options.target ?? 'web',
       '--jsx', 'React.createElement',

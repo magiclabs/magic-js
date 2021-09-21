@@ -39,9 +39,8 @@ To ensure ESLint is able to properly lint source files in your VS Code developme
 
 | NPM Script | Usage | Description |
 | ---------- | ----- | ----------- |
-| `bootstrap` | `yarn bootstrap` | Install dependencies/set up a local development environment. |
-| `wsrun` | `PKG=$PACKAGE_TARGET yarn wsrun` | Execute arbitrary scripts via `wsrun` for the specified package. |
-| `wsrun:paths` | `PKG=$PACKAGE_TARGET yarn paths` | Print the relative paths to each project based on the value of `$PKG`. |
+| `wsrun` | `PKG=$PACKAGE_TARGET yarn wsrun` | Execute arbitrary scripts via `wsrun` for the specified package, or interactively select a package if `$PKG` is omitted. |
+| `wsrun:all` | `yarn wsrun` | Execute arbitrary scripts via `wsrun` for the all packages in the monorepo (same as `PKG=* yarn wsrun ...`). |
 | `build` | `PKG=$PACKAGE_TARGET yarn build` | Build the specified package for production, or interactively select a package if `$PKG` is omitted. |
 | `clean` | `PKG=$PACKAGE_TARGET yarn clean` | Run cleaning scripts for the specified package,or interactively select a package if `$PKG` is omitted. Available flags: (`--cache`, `--test-artifacts`, `--deps`) |
 | `lint` | `PKG=$PACKAGE_TARGET yarn lint` | Run the linter for the specified package, or interactively select a package if `$PKG` is omitted. |

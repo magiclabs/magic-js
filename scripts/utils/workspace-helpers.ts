@@ -3,7 +3,7 @@ import execa from 'execa';
 import { prompt } from 'inquirer';
 import isCI from 'is-ci';
 
-interface YarnWorkspace {
+export interface YarnWorkspace {
   location: string;
   name: string;
   workspaceDependencies: string[];

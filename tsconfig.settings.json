@@ -19,7 +19,6 @@
     "skipLibCheck": true,
     "composite": true,
     "noEmit": true,
-    "outDir": "node_modules/.temp"
   },
 
   "exclude": ["**/node_modules", "**/jest.config.ts", "**/coverage", "**/dist"],
