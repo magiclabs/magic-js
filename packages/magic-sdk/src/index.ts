@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import { SDKBase, createSDK } from '@magic-sdk/provider';
+import { SDKBase, createSDK, InstanceWithExtensions, MagicSDKExtensionsOption } from '@magic-sdk/provider';
 import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
@@ -26,4 +26,7 @@ export const Magic = createSDK(SDKBase, {
   },
 });
 
-export type Magic = InstanceType<typeof Magic>;
+export type Magic<T extends MagicSDKExtensionsOption<any> = MagicSDKExtensionsOption> = InstanceWithExtensions<
+  SDKBase,
+  T
+>;

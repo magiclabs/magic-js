@@ -1,10 +1,12 @@
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../core/json-rpc';
 import { BaseModule } from './base-module';
-import { SDKBase, MagicSDKAdditionalConfiguration } from '../core/sdk';
+import { SDKBase, MagicSDKAdditionalConfiguration, MagicSDKExtensionsOption } from '../core/sdk';
 import { createExtensionNotInitializedError, MagicExtensionError, MagicExtensionWarning } from '../core/sdk-exceptions';
 import { createPromiEvent, encodeJSON, decodeJSON, storage, isPromiEvent } from '../util';
 
-interface BaseExtension<TName extends string> extends BaseModule {
+type AnonymousExtension = 'anonymous extension';
+
+interface BaseExtension<TName extends string = AnonymousExtension> extends BaseModule {
   /**
    * A structure describing the platform and version compatiblity of this
    * extension.
@@ -33,7 +35,7 @@ function getPrototypeChain<T extends BaseExtension<string>>(instance: T) {
   return protos;
 }
 
-abstract class BaseExtension<TName extends string> extends BaseModule {
+abstract class BaseExtension<TName extends string = AnonymousExtension> extends BaseModule {
   public abstract readonly name: TName;
 
   private __sdk_access_field_descriptors__ = new Map<
@@ -153,7 +155,7 @@ abstract class InternalExtension<TName extends string, TConfig extends any = any
  * A base class representing "extensions" to the core Magic JS APIs. Extensions
  * enable new functionality by composing Magic endpoints methods together.
  */
-export abstract class Extension<TName extends string> extends BaseExtension<TName> {
+export abstract class Extension<TName extends string = AnonymousExtension> extends BaseExtension<TName> {
   /**
    * This is a special constructor used to mark "official" extensions. These
    * extensions are designed for special interaction with the Magic iframe using
@@ -164,6 +166,7 @@ export abstract class Extension<TName extends string> extends BaseExtension<TNam
    * @internal
    */
   public static Internal = InternalExtension;
+  public static Anonymous: AnonymousExtension = 'anonymous extension';
 }
 
 /**
@@ -196,19 +199,25 @@ type GetExtensionFromName<TExt extends Extension<string>[], TExtName extends str
  * information to support a strongly-typed `Extension` interface.
  */
 export type WithExtensions<SDK extends SDKBase> = {
-  new <
-    TCustomExtName extends string,
-    TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> },
-    TExtName extends string = TExt extends Extension<string>[] ? ExtensionNames<TExt> : keyof TExt,
-  >(
+  new <TCustomExtName extends string, TExt extends MagicSDKExtensionsOption<TCustomExtName>>(
     apiKey: string,
     options?: MagicSDKAdditionalConfiguration<TCustomExtName, TExt>,
-  ): SDK &
-    {
-      [P in TExtName]: TExt extends Extension<string>[]
-        ? Omit<GetExtensionFromName<TExt, P>, HiddenExtensionFields>
-        : TExt extends { [P in TExtName]: Extension<string> }
-        ? Omit<TExt[P], HiddenExtensionFields>
-        : never;
-    };
+  ): InstanceWithExtensions<SDK, TExt>;
 };
+
+export type InstanceWithExtensions<SDK extends SDKBase, TExt extends MagicSDKExtensionsOption> = SDK &
+  {
+    [P in Exclude<
+      TExt extends Extension<string>[] ? ExtensionNames<TExt> : keyof TExt,
+      number | AnonymousExtension
+    >]: TExt extends Extension<string>[]
+      ? Omit<GetExtensionFromName<TExt, P>, HiddenExtensionFields>
+      : TExt extends {
+          [P in Exclude<
+            TExt extends Extension<string>[] ? ExtensionNames<TExt> : keyof TExt,
+            number | AnonymousExtension
+          >]: Extension<string>;
+        }
+      ? Omit<TExt[P], HiddenExtensionFields>
+      : never;
+  };
