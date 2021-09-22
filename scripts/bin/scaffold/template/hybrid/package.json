@@ -2,7 +2,7 @@
   "name": "@magic-ext/<%= extName %>",
   "version": "0.1.0",
   "description": "<%= extDescription %>",
-  "author": "Magic <hello@magic.link> (https://magic.link/)",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
     "type": "git",

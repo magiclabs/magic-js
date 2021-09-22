@@ -4129,6 +4129,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/react-native-oauth@workspace:packages/@magic-ext/react-native-oauth":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/react-native-oauth@workspace:packages/@magic-ext/react-native-oauth"
+  dependencies:
+    "@magic-sdk/react-native": ^6.0.5
+    "@magic-sdk/types": ^5.0.2
+    "@types/crypto-js": ~3.1.47
+    crypto-js: ^3.3.0
+    expo-web-browser: ^8.3.1
+  languageName: unknown
+  linkType: soft
+
 "@magic-sdk/commons@^2.0.5, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/commons@workspace:packages/@magic-sdk/commons"
@@ -4170,7 +4182,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native@workspace:packages/@magic-sdk/react-native":
+"@magic-sdk/react-native@^6.0.5, @magic-sdk/react-native@workspace:packages/@magic-sdk/react-native":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native@workspace:packages/@magic-sdk/react-native"
   dependencies:
@@ -7583,6 +7595,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"compare-urls@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "compare-urls@npm:2.0.0"
+  dependencies:
+    normalize-url: ^2.0.1
+  checksum: 706a305fcbafac63e3e3dafe71283b2fbef05ed18f64636e13bf201cdca164ff16463a7004023535497828f69b822ce44c3b43fcaa0e99d8976b26b1f326595c
+  languageName: node
+  linkType: hard
+
 "component-emitter@npm:^1.2.1":
   version: 1.3.0
   resolution: "component-emitter@npm:1.3.0"
@@ -9738,6 +9759,18 @@ __metadata:
     jest-message-util: ^27.0.6
     jest-regex-util: ^27.0.6
   checksum: 26e63420b00620dffd3a7e98db9e815a31b2787930823a89d01fcc008b9827bd734e8104c58b91493054636fbc3b123cbaa48da5dc24b16ebe641b7ee98adeab
+  languageName: node
+  linkType: hard
+
+"expo-web-browser@npm:^8.3.1":
+  version: 8.6.0
+  resolution: "expo-web-browser@npm:8.6.0"
+  dependencies:
+    compare-urls: ^2.0.0
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: e4c105e91751ed9074903d05d1dd0ff69e6c52a46c0b62c131a104a2a8388783accb07dee73d920948bad8c6d9dbe355ac261afe121202e073f7a2f1c487eee3
   languageName: node
   linkType: hard
 
@@ -15219,6 +15252,17 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"normalize-url@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "normalize-url@npm:2.0.1"
+  dependencies:
+    prepend-http: ^2.0.0
+    query-string: ^5.0.1
+    sort-keys: ^2.0.0
+  checksum: 30e337ee03fc7f360c7d2b966438657fabd2628925cc58bffc893982fe4d2c59b397ae664fa2c319cd83565af73eee88906e80bc5eec91bc32b601920e770d75
+  languageName: node
+  linkType: hard
+
 "normalize-url@npm:^3.3.0":
   version: 3.3.0
   resolution: "normalize-url@npm:3.3.0"
@@ -16818,6 +16862,13 @@ fsevents@^1.2.7:
   version: 1.1.2
   resolution: "prelude-ls@npm:1.1.2"
   checksum: c4867c87488e4a0c233e158e4d0d5565b609b105d75e4c05dc760840475f06b731332eb93cc8c9cecb840aa8ec323ca3c9a56ad7820ad2e63f0261dadcb154e4
+  languageName: node
+  linkType: hard
+
+"prepend-http@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "prepend-http@npm:2.0.0"
+  checksum: 7694a9525405447662c1ffd352fcb41b6410c705b739b6f4e3a3e21cf5fdede8377890088e8934436b8b17ba55365a615f153960f30877bf0d0392f9e93503ea
   languageName: node
   linkType: hard
 
