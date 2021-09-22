@@ -14,17 +14,16 @@
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
-  "jsdelivr": "./dist/extension.js",
   "exports": {
     "import": "./dist/modern/index.js",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
     "include": [
-      "magic-sdk"
+      "@magic-sdk/react-native"
     ]
   },
   "devDependencies": {
-    "magic-sdk": "<%= magicSdkVersion %>"
+    "@magic-sdk/react-native": "<%= magicSdkReactVersion %>"
   }
 }
