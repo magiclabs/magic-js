@@ -17,17 +17,17 @@
     "sourceMap": true,
     "declaration": true,
     "skipLibCheck": true,
-    "composite": true,
     "noEmit": true,
-    "baseUrl": ".",
+    "baseUrl": "./packages",
     "paths": {
-      "%HYBRID_MAGIC_SDK_IMPORT%": [
-        "packages/magic-sdk",
-        "packages/@magic-sdk/react-native",
-      ]
+      "@magic-ext/*": ["@magic-ext/*/src"],
+      "@magic-sdk/*": ["@magic-sdk/*/src"],
+      "magic-sdk": ["magic-sdk/src"],
+      "%HYBRID_MAGIC_SDK_IMPORT%": ["magic-sdk", "@magic-sdk/react-native"]
     }
   },
 
+  "include": ["**/src/**/*.ts", "**/src/**/*.tsx", "**/src/**/*.js"],
   "exclude": ["**/node_modules", "**/jest.config.ts", "**/coverage", "**/dist"],
 
   "ts-node": {

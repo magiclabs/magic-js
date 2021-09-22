@@ -1,5 +1,6 @@
 import execa from 'execa';
 import path from 'path';
+import fse from 'fs-extra';
 import { environment } from './environment';
 import { existsAsync } from './exists-async';
 
@@ -25,7 +26,7 @@ async function microbundle(command: 'build' | 'watch', options: MicrobundleOptio
     /* eslint-disable prettier/prettier */
     const args = [
       command, await getEntrypoint(options.format, options.output),
-      '--tsconfig', 'tsconfig.json',
+      '--tsconfig', 'node_modules/.temp/tsconfig.build.json',
       '--target', options.target ?? 'web',
       '--jsx', 'React.createElement',
       '--format', options.format ?? 'cjs',
@@ -66,4 +67,31 @@ async function getEntrypoint(format?: MicrobundleFormat, output?: string) {
     default:
       return findEntrypoint(format);
   }
+}
+
+/**
+ * During the build step, we create an ephermeral "tsconfig.build.json" file
+ * containing confierrides to resolve "packages/.../src" as the "rootDir".
+ */
+export async function createTemporaryTSConfigFile() {
+  const baseTSConfigPath = path.resolve(__dirname, '../../tsconfig.settings.json');
+  const tempTSConfigPath = path.join(process.cwd(), 'node_modules/.temp/tsconfig.build.json');
+
+  const configuration = {
+    extends: path.relative(path.dirname(tempTSConfigPath), baseTSConfigPath),
+    compilerOptions: {
+      rootDir: path.join(path.relative(path.dirname(tempTSConfigPath), process.cwd()), 'src'),
+      paths: {
+        // We have to replicate `%HYBRID_MAGIC_SDK_IMPORT%` here because we
+        // don't want to lose it when building, however we do want to discard
+        // the rest of what's configured for "paths" inside the root
+        // "tsconfig.settings.json" file.
+        '%HYBRID_MAGIC_SDK_IMPORT%': ['magic-sdk', '@magic-sdk/react-native'],
+      },
+    },
+    include: ['src/**/*.ts', 'src/**/*.tsx', 'src/**/*.js'],
+  };
+
+  await fse.ensureDir(path.dirname(tempTSConfigPath));
+  await fse.writeJSON(tempTSConfigPath, configuration, { encoding: 'utf8' });
 }

@@ -7,7 +7,7 @@
 
 import pLimit from 'p-limit';
 import isCI from 'is-ci';
-import { build } from '../../utils/microbundle';
+import { build, createTemporaryTSConfigFile } from '../../utils/microbundle';
 import { runAsyncProcess } from '../../utils/run-async-process';
 
 function getExternalsFromPkgJson(pkgJson: any): string[] {
@@ -86,9 +86,10 @@ async function reactNativeHybridExtension() {
 }
 
 async function main() {
+  await createTemporaryTSConfigFile();
+
   // We need to limit concurrency in CI to avoid ENOMEM errors.
   const limit = pLimit(isCI ? 2 : 4);
-
   const builders = [limit(cjs), limit(esm), limit(modern), limit(cdn), limit(reactNativeHybridExtension)];
   await Promise.all(builders);
 }
