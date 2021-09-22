@@ -1,9 +1,10 @@
 {
   "extends": "../tsconfig.settings.json",
   "compilerOptions": {
+    "rootDir": ".",
     "module": "commonjs",
     "noImplicitAny": false,
     "composite": false,
   },
-  "include": ["./**/*.ts"]
+  "include": ["**/*.ts"]
 }

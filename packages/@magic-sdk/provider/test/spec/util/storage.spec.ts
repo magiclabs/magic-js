@@ -36,7 +36,7 @@ async function assertLocalForageDbMethodCalled<T extends keyof LocalForageDbMeth
 ) {
   const localForageStub = jest.spyOn(memoryDriver, method).mockImplementation();
   const storage = require('../../../src/util/storage');
-  await storage[method as keyof LocalForageDbMethods](...args);
+  await storage[method](...args);
   expect(localForageStub).toBeCalled();
 }
 

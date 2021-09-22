@@ -9,7 +9,7 @@
 
 import 'regenerator-runtime/runtime';
 
-import { createSDK } from '@magic-sdk/provider';
+import { createSDK, InstanceWithExtensions, MagicSDKExtensionsOption } from '@magic-sdk/provider';
 import * as processPolyfill from 'process';
 import localForage from 'localforage';
 import { URL as URLPolyfill, URLSearchParams as URLSearchParamsPolyfill } from 'whatwg-url';
@@ -63,4 +63,7 @@ export const Magic = createSDK(SDKBaseReactNative, {
   },
 });
 
-export type Magic = InstanceType<typeof Magic>;
+export type Magic<T extends MagicSDKExtensionsOption<any> = MagicSDKExtensionsOption> = InstanceWithExtensions<
+  SDKBaseReactNative,
+  T
+>;

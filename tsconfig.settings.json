@@ -17,10 +17,11 @@
     "sourceMap": true,
     "declaration": true,
     "skipLibCheck": true,
-    "composite": true
+    "composite": true,
+    "noEmit": true,
   },
 
-  "exclude": ["**/node_modules", "**/jest.config.ts"],
+  "exclude": ["**/node_modules", "**/jest.config.ts", "**/coverage", "**/dist"],
 
   "ts-node": {
     "files": true,

@@ -3,16 +3,7 @@
 
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist/es",
-    "declarationDir": "dist/types",
   },
 
-  "include": [
-    "src/**/*.ts",
-  ],
-
-  "references": [
-    { "path": "../types/tsconfig.json" },
-    { "path": "../provider/tsconfig.json" },
-  ]
+  "include": ["src/**/*.ts"],
 }

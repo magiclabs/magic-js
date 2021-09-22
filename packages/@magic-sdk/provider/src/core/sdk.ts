@@ -47,7 +47,10 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
     extensions.forEach((ext) => {
       if (checkExtensionCompat(ext)) {
         ext.init(this);
-        (this as any)[ext.name] = ext;
+        if (ext.name || ext.name !== Extension.Anonymous) {
+          // Only apply extensions with a known, defined `name` parameter.
+          (this as any)[ext.name] = ext;
+        }
         if (ext instanceof Extension.Internal) {
           if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
         }
@@ -77,9 +80,13 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
   return extConfig;
 }
 
+export type MagicSDKExtensionsOption<TCustomExtName extends string = string> =
+  | Extension<string>[]
+  | { [P in TCustomExtName]: Extension<string> };
+
 export interface MagicSDKAdditionalConfiguration<
   TCustomExtName extends string = string,
-  TExt extends Extension<string>[] | { [P in TCustomExtName]: Extension<string> } = any,
+  TExt extends MagicSDKExtensionsOption<TCustomExtName> = any,
 > {
   endpoint?: string;
   locale?: SupportedLocale;

@@ -3,18 +3,7 @@
 
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist/es",
-    "declarationDir": "dist/types",
   },
 
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-  ],
-
-  "references": [
-    { "path": "../types" },
-    { "path": "../provider" },
-    { "path": "../commons" },
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
 }
