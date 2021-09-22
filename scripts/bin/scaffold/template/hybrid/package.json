@@ -9,21 +9,25 @@
     "url": "https://github.com/magiclabs/magic-js"
   },
   "files": ["dist"],
-  "target": "node",
+  "target": "web",
   "cdnGlobalName": "<%= cdnGlobalName %>",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
+  "jsdelivr": "./dist/extension.js",
+  "react-native": "./dist/react-native/index.native.js",
   "exports": {
     "import": "./dist/modern/index.js",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
     "include": [
+      "magic-sdk",
       "@magic-sdk/react-native"
     ]
   },
   "devDependencies": {
+    "magic-sdk": "<%= magicSdkVersion %>",
     "@magic-sdk/react-native": "<%= magicSdkReactVersion %>"
   }
 }

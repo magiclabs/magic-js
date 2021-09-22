@@ -22,10 +22,8 @@
     "baseUrl": ".",
     "paths": {
       "%HYBRID_MAGIC_SDK_IMPORT%": [
-        "node_modules/magic-sdk",
-        "node_modules/@magic-sdk/react-native",
-        "packages/*/node_modules/magic-sdk",
-        "packages/*/node_modules/@magic-sdk/react-native",
+        "packages/magic-sdk",
+        "packages/@magic-sdk/react-native",
       ]
     }
   },

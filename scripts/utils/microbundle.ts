@@ -13,6 +13,7 @@ interface MicrobundleOptions {
   name?: string;
   globals?: Record<string, string>;
   externals?: string[];
+  alias?: Record<string, string>;
 }
 
 export async function build(options?: MicrobundleOptions) {
@@ -23,7 +24,7 @@ async function microbundle(command: 'build' | 'watch', options: MicrobundleOptio
   if (options.output) {
     /* eslint-disable prettier/prettier */
     const args = [
-      command, await getFormatSpecificEntrypoint(options.format),
+      command, await getEntrypoint(options.format, options.output),
       '--tsconfig', 'tsconfig.json',
       '--target', options.target ?? 'web',
       '--jsx', 'React.createElement',
@@ -32,6 +33,7 @@ async function microbundle(command: 'build' | 'watch', options: MicrobundleOptio
       options.externals && options.externals.length && '--external', options.externals?.join(','),
       '--output', options.output,
       options.globals && '--globals', options.globals && Object.entries(options.globals).map(([key, value]) => `${key}=${value}`).join(','),
+      options.alias && '--alias', options.alias && Object.entries(options.alias).map(([key, value]) => `${key}=${value}`).join(','),
       '--define', Object.entries(environment).map(([key, value]) => `process.env.${key}=${value}`).join(','),
       options.name && '--name', options.name,
     ].filter(Boolean);
@@ -41,7 +43,7 @@ async function microbundle(command: 'build' | 'watch', options: MicrobundleOptio
   }
 }
 
-async function getFormatSpecificEntrypoint(format?: MicrobundleFormat) {
+async function getEntrypoint(format?: MicrobundleFormat, output?: string) {
   const findEntrypoint = async (indexTarget?: string) => {
     if (format && (await existsAsync(path.resolve(process.cwd(), `./src/index.${indexTarget}.ts`)))) {
       return `src/index.${indexTarget}.ts`;
@@ -49,6 +51,10 @@ async function getFormatSpecificEntrypoint(format?: MicrobundleFormat) {
 
     return 'src/index.ts';
   };
+
+  if (output === 'react-native') {
+    return findEntrypoint('native');
+  }
 
   switch (format) {
     case 'iife':

@@ -28,6 +28,7 @@ async function cjs() {
     target: pkgJson.target,
     output: pkgJson.exports?.require ?? pkgJson.main,
     externals: getExternalsFromPkgJson(pkgJson),
+    alias: { '%HYBRID_MAGIC_SDK_IMPORT%': 'magic-sdk' },
     sourcemap: true,
   });
 }
@@ -39,6 +40,7 @@ async function esm() {
     target: pkgJson.target,
     output: pkgJson.module,
     externals: getExternalsFromPkgJson(pkgJson),
+    alias: { '%HYBRID_MAGIC_SDK_IMPORT%': 'magic-sdk' },
     sourcemap: true,
   });
 }
@@ -50,6 +52,7 @@ async function modern() {
     target: pkgJson.target,
     output: typeof pkgJson.exports === 'string' ? pkgJson.exports : pkgJson.exports?.import,
     externals: getExternalsFromPkgJson(pkgJson),
+    alias: { '%HYBRID_MAGIC_SDK_IMPORT%': 'magic-sdk' },
     sourcemap: true,
   });
 }
@@ -69,11 +72,24 @@ async function cdn() {
   });
 }
 
+async function reactNativeHybridExtension() {
+  const pkgJson = require(`${process.cwd()}/package.json`);
+
+  await build({
+    format: 'cjs',
+    target: pkgJson.target,
+    output: pkgJson['react-native'],
+    externals: getExternalsFromPkgJson(pkgJson),
+    alias: { '%HYBRID_MAGIC_SDK_IMPORT%': '@magic-sdk/react-native' },
+    sourcemap: true,
+  });
+}
+
 async function main() {
   // We need to limit concurrency in CI to avoid ENOMEM errors.
   const limit = pLimit(isCI ? 2 : 4);
 
-  const builders = [limit(cjs), limit(esm), limit(modern), limit(cdn)];
+  const builders = [limit(cjs), limit(esm), limit(modern), limit(cdn), limit(reactNativeHybridExtension)];
   await Promise.all(builders);
 }
 
