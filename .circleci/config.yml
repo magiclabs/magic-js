@@ -7,6 +7,7 @@ aliases: [
   # CircleCI workspace.
   &dependency-paths [
     "node_modules",
+    "packages/@magic-ext/*/node_modules",
     "packages/@magic-sdk/*/node_modules",
     "packages/*/node_modules",
   ],
@@ -21,6 +22,7 @@ aliases: [
   # List of build output paths that should be persisted to the
   # CircleCI workspace.
   &build-output-paths [
+    "packages/@magic-ext/*/dist",
     "packages/@magic-sdk/*/dist",
     "packages/*/dist",
   ],

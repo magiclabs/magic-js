@@ -4118,15 +4118,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magic-ext/oauth@npm:^0.9.0":
-  version: 0.9.0
-  resolution: "@magic-ext/oauth@npm:0.9.0"
+"@magic-ext/oauth@^0.9.0, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
   dependencies:
-    "@magic-sdk/types": ^1.1.0
+    "@magic-sdk/types": ^5.0.2
+    "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
-  checksum: 181c3c7509335f7c314f497348a9494435811875b88eb3eefb90de4c986bfad62acea6506a54065738cc23a4c4a199dc6bc6bbdabdc680d381b6c81e59b1d79c
-  languageName: node
-  linkType: hard
+    magic-sdk: ^6.0.5
+  languageName: unknown
+  linkType: soft
 
 "@magic-sdk/commons@^2.0.5, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
   version: 0.0.0-use.local
@@ -4205,13 +4206,6 @@ __metadata:
   resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
   languageName: unknown
   linkType: soft
-
-"@magic-sdk/types@npm:^1.1.0":
-  version: 1.6.0
-  resolution: "@magic-sdk/types@npm:1.6.0"
-  checksum: e505687e756f62afc965022a735aaaf072b7493de0d635e9c9cdf5632e30a36136f74b4c621e8640e2756eb9bf244ffa07b69d60605cdb17bf62792ed98543f4
-  languageName: node
-  linkType: hard
 
 "@mrmlnc/readdir-enhanced@npm:^2.2.1":
   version: 2.2.1
@@ -4924,6 +4918,13 @@ __metadata:
   version: 5.0.1
   resolution: "@types/command-line-usage@npm:5.0.1"
   checksum: f16e532c7bae1a80a6ac85ce8ee9aa90da018b20ff98ff06a7280402e6e2569de3ead10482f78cebf012e845e78d4cba829144143bc098d782e2af495f255dc4
+  languageName: node
+  linkType: hard
+
+"@types/crypto-js@npm:~3.1.47":
+  version: 3.1.47
+  resolution: "@types/crypto-js@npm:3.1.47"
+  checksum: fdeabd526cb3bf3a37300752a2a7313d360292a08b40c97709981ba520cf66b90b872672e32da3c5f0ad29faa8dcd22d14a8f418e24ba6a1e154acd5a123d050
   languageName: node
   linkType: hard
 

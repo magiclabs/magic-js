@@ -56,13 +56,15 @@ async function modern() {
 
 async function cdn() {
   const pkgJson = require(`${process.cwd()}/package.json`);
+
   await build({
     format: 'iife',
     target: pkgJson.target,
     output: pkgJson.jsdelivr,
     name: pkgJson.cdnGlobalName,
-    externals: ['none'],
-    globals: pkgJson.globals,
+    // For CDN targets, we assume `magic-sdk` & `@magic-sdk/react-native` are external/global.
+    externals: ['magic-sdk', '%HYBRID_MAGIC_SDK_IMPORT%'],
+    globals: { 'magic-sdk': 'Magic', '%HYBRID_MAGIC_SDK_IMPORT%': 'Magic' },
     sourcemap: false,
   });
 }

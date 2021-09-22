@@ -19,6 +19,15 @@
     "skipLibCheck": true,
     "composite": true,
     "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "%HYBRID_MAGIC_SDK_IMPORT%": [
+        "node_modules/magic-sdk",
+        "node_modules/@magic-sdk/react-native",
+        "packages/*/node_modules/magic-sdk",
+        "packages/*/node_modules/@magic-sdk/react-native",
+      ]
+    }
   },
 
   "exclude": ["**/node_modules", "**/jest.config.ts", "**/coverage", "**/dist"],
