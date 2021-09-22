@@ -3,3 +3,4 @@
 **/dist
 **/.eslintrc.js
 **/jest.config.ts
+/scripts/bin/scaffold/template/**/*

@@ -1,18 +1,16 @@
 {
-  "name": "@magic-ext/oauth",
-  "version": "0.9.0",
-  "description": "Magic SDK OAuth Extension for Web environments.",
-  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "name": "@magic-ext/<%= extName %>",
+  "version": "0.1.0",
+  "description": "<%= extDescription %>",
+  "author": "Magic <hello@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/fortmatic/magic-sdk-extensions"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "target": "web",
-  "cdnGlobalName": "MagicOAuthExtension",
+  "cdnGlobalName": "<%= cdnGlobalName %>",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
@@ -26,12 +24,7 @@
       "magic-sdk"
     ]
   },
-  "dependencies": {
-    "@magic-sdk/types": "^5.0.2",
-    "crypto-js": "^3.3.0"
-  },
   "devDependencies": {
-    "@types/crypto-js": "~3.1.47",
-    "magic-sdk": "^6.0.5"
+    "magic-sdk": "<%= magicSdkVersion %>"
   }
 }

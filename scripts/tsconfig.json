@@ -6,5 +6,6 @@
     "noImplicitAny": false,
     "composite": false,
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["scaffold/template/**/*.ts", "scaffold/template/**/*.tsx"],
 }
