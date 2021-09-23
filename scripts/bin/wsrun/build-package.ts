@@ -7,7 +7,7 @@
 
 import pLimit from 'p-limit';
 import isCI from 'is-ci';
-import { build } from '../../utils/microbundle';
+import { build, createTemporaryTSConfigFile } from '../../utils/microbundle';
 import { runAsyncProcess } from '../../utils/run-async-process';
 
 function getExternalsFromPkgJson(pkgJson: any): string[] {
@@ -56,22 +56,37 @@ async function modern() {
 
 async function cdn() {
   const pkgJson = require(`${process.cwd()}/package.json`);
+
   await build({
     format: 'iife',
     target: pkgJson.target,
     output: pkgJson.jsdelivr,
     name: pkgJson.cdnGlobalName,
-    externals: ['none'],
-    globals: pkgJson.globals,
+    // For CDN targets, we assume `magic-sdk`, `@magic-sdk/commons` are external/global.
+    externals: ['magic-sdk', '@magic-sdk/commons'],
+    globals: { 'magic-sdk': 'Magic', '@magic-sdk/commons': 'Magic' },
     sourcemap: false,
   });
 }
 
+async function reactNativeHybridExtension() {
+  const pkgJson = require(`${process.cwd()}/package.json`);
+
+  await build({
+    format: 'cjs',
+    target: pkgJson.target,
+    output: pkgJson['react-native'],
+    externals: getExternalsFromPkgJson(pkgJson),
+    sourcemap: true,
+  });
+}
+
 async function main() {
+  await createTemporaryTSConfigFile();
+
   // We need to limit concurrency in CI to avoid ENOMEM errors.
   const limit = pLimit(isCI ? 2 : 4);
-
-  const builders = [limit(cjs), limit(esm), limit(modern), limit(cdn)];
+  const builders = [limit(cjs), limit(esm), limit(modern), limit(cdn), limit(reactNativeHybridExtension)];
   await Promise.all(builders);
 }
 

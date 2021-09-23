@@ -27,6 +27,8 @@ To ensure ESLint is able to properly lint source files in your VS Code developme
 ```json
 {
   "eslint.workingDirectories": [
+    { "directory" : "./packages/@magic-ext/oauth", "changeProcessCWD": true },
+    { "directory" : "./packages/@magic-ext/...", "changeProcessCWD": true },
     { "directory" : "./packages/@magic-sdk/commons", "changeProcessCWD": true },
     { "directory" : "./packages/@magic-sdk/provider", "changeProcessCWD": true },
     { "directory" : "./packages/@magic-sdk/...", "changeProcessCWD": true },

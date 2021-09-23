@@ -1,0 +1,31 @@
+{
+  "name": "@magic-ext/<%= extName %>",
+  "version": "0.1.0",
+  "description": "<%= extDescription %>",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "files": ["dist"],
+  "target": "web",
+  "cdnGlobalName": "<%= cdnGlobalName %>",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "jsdelivr": "./dist/extension.js",
+  "react-native": "./dist/react-native/index.native.js",
+  "exports": {
+    "import": "./dist/modern/index.js",
+    "require": "./dist/cjs/index.js"
+  },
+  "externals": {
+    "include": [
+      "@magic-sdk/commons"
+    ]
+  },
+  "devDependencies": {
+    "@magic-sdk/commons": "<%= magicSdkCommonsVersion %>"
+  }
+}

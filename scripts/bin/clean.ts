@@ -17,7 +17,7 @@ async function abstractCleanFn(patterns: string[]) {
 }
 
 async function cleanDist() {
-  await abstractCleanFn(['dist']);
+  await abstractCleanFn(['dist', 'node_modules/.temp']);
 }
 
 async function cleanCache() {
