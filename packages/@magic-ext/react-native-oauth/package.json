@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/react-native-oauth",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Magic SDK OAuth Extension for React Native environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -25,12 +25,12 @@
     ]
   },
   "dependencies": {
-    "@magic-sdk/types": "^5.0.2",
+    "@magic-sdk/types": "^5.0.3",
     "crypto-js": "^3.3.0",
     "expo-web-browser": "^8.3.1"
   },
   "devDependencies": {
-    "@magic-sdk/react-native": "^6.0.5",
+    "@magic-sdk/react-native": "^6.0.6",
     "@types/crypto-js": "~3.1.47"
   }
 }
