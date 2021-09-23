@@ -22,8 +22,7 @@
     "paths": {
       "@magic-ext/*": ["@magic-ext/*/src"],
       "@magic-sdk/*": ["@magic-sdk/*/src"],
-      "magic-sdk": ["magic-sdk/src"],
-      "%HYBRID_MAGIC_SDK_IMPORT%": ["magic-sdk", "@magic-sdk/react-native"]
+      "magic-sdk": ["magic-sdk/src"]
     }
   },
 

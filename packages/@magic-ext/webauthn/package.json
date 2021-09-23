@@ -1,16 +1,18 @@
 {
-  "name": "@magic-ext/<%= extName %>",
+  "name": "@magic-ext/webauthn",
   "version": "0.1.0",
-  "description": "<%= extDescription %>",
+  "description": "Magic SDK WabAuthn Extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/magiclabs/magic-js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "target": "web",
-  "cdnGlobalName": "<%= cdnGlobalName %>",
+  "cdnGlobalName": "MagicWebAuthnExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
@@ -26,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "<%= magicSdkCommonsVersion %>"
+    "@magic-sdk/commons": "^2.0.5"
   }
 }

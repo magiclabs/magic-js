@@ -1,5 +1,8 @@
 #!/usr/bin/env ts-node-script
 
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable global-require */
+
 import React from 'react';
 import { Zombi, Template, Directory, scaffold } from 'zombi';
 import execa from 'execa';
@@ -57,6 +60,7 @@ const template = (
             cdnGlobalName: `Magic${props.className}`,
             magicSdkVersion: `^${environment.WEB_VERSION}`,
             magicSdkReactVersion: `^${environment.REACT_NATIVE_VERSION}`,
+            magicSdkCommonsVersion: `^${require('../../../packages/@magic-sdk/commons/package.json').version}`,
           }}
         />
       </Directory>

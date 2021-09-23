@@ -28,7 +28,6 @@ async function cjs() {
     target: pkgJson.target,
     output: pkgJson.exports?.require ?? pkgJson.main,
     externals: getExternalsFromPkgJson(pkgJson),
-    alias: { '%HYBRID_MAGIC_SDK_IMPORT%': 'magic-sdk' },
     sourcemap: true,
   });
 }
@@ -40,7 +39,6 @@ async function esm() {
     target: pkgJson.target,
     output: pkgJson.module,
     externals: getExternalsFromPkgJson(pkgJson),
-    alias: { '%HYBRID_MAGIC_SDK_IMPORT%': 'magic-sdk' },
     sourcemap: true,
   });
 }
@@ -52,7 +50,6 @@ async function modern() {
     target: pkgJson.target,
     output: typeof pkgJson.exports === 'string' ? pkgJson.exports : pkgJson.exports?.import,
     externals: getExternalsFromPkgJson(pkgJson),
-    alias: { '%HYBRID_MAGIC_SDK_IMPORT%': 'magic-sdk' },
     sourcemap: true,
   });
 }
@@ -65,9 +62,9 @@ async function cdn() {
     target: pkgJson.target,
     output: pkgJson.jsdelivr,
     name: pkgJson.cdnGlobalName,
-    // For CDN targets, we assume `magic-sdk` & `@magic-sdk/react-native` are external/global.
-    externals: ['magic-sdk', '%HYBRID_MAGIC_SDK_IMPORT%'],
-    globals: { 'magic-sdk': 'Magic', '%HYBRID_MAGIC_SDK_IMPORT%': 'Magic' },
+    // For CDN targets, we assume `magic-sdk`, `@magic-sdk/commons` are external/global.
+    externals: ['magic-sdk', '@magic-sdk/commons'],
+    globals: { 'magic-sdk': 'Magic', '@magic-sdk/commons': 'Magic' },
     sourcemap: false,
   });
 }
@@ -80,7 +77,6 @@ async function reactNativeHybridExtension() {
     target: pkgJson.target,
     output: pkgJson['react-native'],
     externals: getExternalsFromPkgJson(pkgJson),
-    alias: { '%HYBRID_MAGIC_SDK_IMPORT%': '@magic-sdk/react-native' },
     sourcemap: true,
   });
 }

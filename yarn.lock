@@ -4141,6 +4141,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/webauthn@workspace:packages/@magic-ext/webauthn":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/webauthn@workspace:packages/@magic-ext/webauthn"
+  dependencies:
+    "@magic-sdk/commons": ^2.0.5
+  languageName: unknown
+  linkType: soft
+
 "@magic-sdk/commons@^2.0.5, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/commons@workspace:packages/@magic-sdk/commons"

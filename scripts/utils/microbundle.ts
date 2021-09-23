@@ -81,13 +81,9 @@ export async function createTemporaryTSConfigFile() {
     extends: path.relative(path.dirname(tempTSConfigPath), baseTSConfigPath),
     compilerOptions: {
       rootDir: path.join(path.relative(path.dirname(tempTSConfigPath), process.cwd()), 'src'),
-      paths: {
-        // We have to replicate `%HYBRID_MAGIC_SDK_IMPORT%` here because we
-        // don't want to lose it when building, however we do want to discard
-        // the rest of what's configured for "paths" inside the root
-        // "tsconfig.settings.json" file.
-        '%HYBRID_MAGIC_SDK_IMPORT%': ['magic-sdk', '@magic-sdk/react-native'],
-      },
+      // Discard what's configured for "paths" inside the root
+      // "tsconfig.settings.json" file.
+      paths: {},
     },
     include: ['src/**/*.ts', 'src/**/*.tsx', 'src/**/*.js'],
   };
