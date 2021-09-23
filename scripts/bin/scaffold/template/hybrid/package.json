@@ -9,7 +9,7 @@
     "url": "https://github.com/magiclabs/magic-js"
   },
   "files": ["dist"],
-  "target": "web",
+  "target": "neutral",
   "cdnGlobalName": "<%= cdnGlobalName %>",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",

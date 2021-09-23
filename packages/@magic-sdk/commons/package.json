@@ -14,7 +14,7 @@
     "dist/**/*.js.map",
     "dist/**/*.d.ts"
   ],
-  "target": "web",
+  "target": "browser",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",

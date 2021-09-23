@@ -7,7 +7,7 @@
 
 import pLimit from 'p-limit';
 import isCI from 'is-ci';
-import { build, createTemporaryTSConfigFile } from '../../utils/microbundle';
+import { build, createTemporaryTSConfigFile, emitTypes } from '../../utils/esbuild';
 import { runAsyncProcess } from '../../utils/run-async-process';
 
 function getExternalsFromPkgJson(pkgJson: any): string[] {
@@ -35,20 +35,9 @@ async function cjs() {
 async function esm() {
   const pkgJson = require(`${process.cwd()}/package.json`);
   await build({
-    format: 'es',
+    format: 'esm',
     target: pkgJson.target,
     output: pkgJson.module,
-    externals: getExternalsFromPkgJson(pkgJson),
-    sourcemap: true,
-  });
-}
-
-async function modern() {
-  const pkgJson = require(`${process.cwd()}/package.json`);
-  await build({
-    format: 'modern',
-    target: pkgJson.target,
-    output: typeof pkgJson.exports === 'string' ? pkgJson.exports : pkgJson.exports?.import,
     externals: getExternalsFromPkgJson(pkgJson),
     sourcemap: true,
   });
@@ -92,7 +81,7 @@ async function main() {
 
   // We need to limit concurrency in CI to avoid ENOMEM errors.
   const limit = pLimit(isCI ? 2 : 4);
-  const builders = [limit(cjs), limit(esm), limit(modern), limit(cdn), limit(reactNativeHybridExtension)];
+  const builders = [limit(cjs), limit(esm), limit(cdn), limit(reactNativeHybridExtension), limit(emitTypes)];
   await Promise.all(builders);
 }
 

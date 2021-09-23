@@ -11,7 +11,7 @@
   "files": [
     "dist"
   ],
-  "target": "web",
+  "target": "browser",
   "cdnGlobalName": "MagicOAuthExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
