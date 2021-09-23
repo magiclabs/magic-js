@@ -52,7 +52,6 @@
     "lint-staged": "^10.0.7",
     "lodash": "^4.17.21",
     "meow": "9.0.0",
-    "microbundle": "0.13.3",
     "npm-run-all": "^4.1.5",
     "nyc": "13.1.0",
     "ora": "~5.4.1",
