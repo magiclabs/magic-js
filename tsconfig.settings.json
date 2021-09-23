@@ -18,6 +18,7 @@
     "declaration": true,
     "skipLibCheck": true,
     "noEmit": true,
+    "isolatedModules": true,
     "baseUrl": "./packages",
     "paths": {
       "@magic-ext/*": ["@magic-ext/*/src"],

@@ -21,7 +21,7 @@
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/magic.js",
   "exports": {
-    "import": "./dist/modern/index.js",
+    "import": "./dist/es/index.js",
     "require": "./dist/cjs/index.js"
   },
   "externals": {

@@ -35,6 +35,7 @@ export async function build(options: ESBuildOptions) {
         outfile: options.output,
         tsconfig: 'node_modules/.temp/tsconfig.build.json',
         external: options.externals,
+        loader: { '.ts': 'ts', '.tsx': 'tsx' },
         define: Object.fromEntries(
           Object.entries(environment).map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)]),
         ),
@@ -58,7 +59,7 @@ export async function build(options: ESBuildOptions) {
  */
 export async function emitTypes() {
   try {
-    await execa('tsc', ['-p', 'node_modules/.temp/tsconfig.build.json', '--emitDeclarationOnly']);
+    await execa('tsc', ['-p', 'node_modules/.temp/tsconfig.build.json']);
   } catch (e) {
     console.error(e);
     throw e;
@@ -105,7 +106,9 @@ export async function createTemporaryTSConfigFile() {
     compilerOptions: {
       rootDir: path.join(relativeBaseUrl, 'src'),
       noEmit: false,
-      declarationDir: path.join(relativeBaseUrl, '/dist/types'),
+      emitDeclarationOnly: true,
+      baseUrl: undefined,
+      declarationDir: path.join(relativeBaseUrl, 'dist/types'),
       // Discard what's configured for "paths" inside the root
       // "tsconfig.settings.json" file.
       paths: {},
