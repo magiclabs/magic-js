@@ -1,3 +1,18 @@
+# (Thu Sep 23 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@0.9.1`, `@magic-ext/react-native-oauth@0.4.1`, `@magic-ext/webauthn@0.1.1`, `@magic-sdk/commons@2.0.6`, `@magic-sdk/provider@6.0.6`, `@magic-sdk/react-native@6.0.6`, `@magic-sdk/types@5.0.3`, `magic-sdk@6.0.6`
+  - Port `@magic-ext/oauth`, `@magic-ext/react-native-oauth`, `@magic-ext/webauthn` extensions to Magic SDK monorepo [#218](https://github.com/magiclabs/magic-js/pull/218) ([@smithki](https://github.com/smithki))
+- `@magic-sdk/commons@2.0.6`, `@magic-sdk/provider@6.0.6`, `@magic-sdk/react-native@6.0.6`, `@magic-sdk/types@5.0.3`, `magic-sdk@6.0.6`
+  - Add `@magic-sdk/pnp` package for out-of-the-box login page UIs [#217](https://github.com/magiclabs/magic-js/pull/217) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Fri Sep 17 2021)
 
 #### 🐛 Bug Fix
