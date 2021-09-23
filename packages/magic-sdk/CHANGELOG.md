@@ -1,3 +1,15 @@
+# v6.0.7 (Thu Sep 23 2021)
+
+#### 🐛 Bug Fix
+
+- Change 'externals' and 'global' condition in magic-sdk > CDN build [#219](https://github.com/magiclabs/magic-js/pull/219) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v6.0.6 (Thu Sep 23 2021)
 
 #### 🐛 Bug Fix
