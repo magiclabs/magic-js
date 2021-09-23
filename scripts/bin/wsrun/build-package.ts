@@ -57,14 +57,20 @@ async function modern() {
 async function cdn() {
   const pkgJson = require(`${process.cwd()}/package.json`);
 
+  const isMagicSDK = process.cwd().endsWith('packages/magic-sdk');
+
+  // For CDN targets outside of `magic-sdk` itself,
+  // we assume `magic-sdk` & `@magic-sdk/commons` are external/global.
+  const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/commons'];
+  const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/commons': 'Magic' };
+
   await build({
     format: 'iife',
     target: pkgJson.target,
     output: pkgJson.jsdelivr,
     name: pkgJson.cdnGlobalName,
-    // For CDN targets, we assume `magic-sdk`, `@magic-sdk/commons` are external/global.
-    externals: ['magic-sdk', '@magic-sdk/commons'],
-    globals: { 'magic-sdk': 'Magic', '@magic-sdk/commons': 'Magic' },
+    externals,
+    globals,
     sourcemap: false,
   });
 }
