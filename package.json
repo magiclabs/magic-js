@@ -33,6 +33,7 @@
     "babel-jest": "^27.0.6",
     "brotli-size": "^4.0.0",
     "chalk": "~4.1.2",
+    "enquirer": "^2.3.6",
     "esbuild": "^0.13.2",
     "eslint": "~7.3.1",
     "eslint-import-resolver-typescript": "~2.0.0",
