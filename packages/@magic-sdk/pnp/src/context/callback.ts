@@ -16,27 +16,32 @@ export async function callback(): Promise<void> {
     window.history.replaceState(null, '', urlWithoutQuery);
   }
 
-  function dispatchReadyEvent(data: any) {
+  function dispatchReadyEvent(loginProvider: string, data: any) {
     const evt = new CustomEvent('@magic/ready', { detail: { magic, ...data } });
     window.dispatchEvent(evt);
+    magic.pnp.saveLastUsedProvider(loginProvider);
   }
 
   async function handleOAuthCallback() {
     const res = await magic.oauth.getRedirectResult();
-    dispatchReadyEvent({ idToken: res.magic.idToken, userMetadata: res.magic.userMetadata, oauth: res.oauth });
+    dispatchReadyEvent('oauth2', {
+      idToken: res.magic.idToken,
+      userMetadata: res.magic.userMetadata,
+      oauth: res.oauth,
+    });
   }
 
   async function handleMagicLinkRedirectCallback() {
     const idToken = await magic.auth.loginWithCredential();
     const userMetadata = await magic.user.getMetadata();
-    dispatchReadyEvent({ idToken, userMetadata });
+    dispatchReadyEvent('email_link', { idToken, userMetadata });
   }
 
   async function handleMagicLinkCallback() {
     const idToken = urlParams.get('didt') || (await magic.user.getIdToken());
     clearURLQuery();
     const userMetadata = await magic.user.getMetadata();
-    dispatchReadyEvent({ idToken: decodeURIComponent(idToken), userMetadata });
+    dispatchReadyEvent('email_link', { idToken: decodeURIComponent(idToken), userMetadata });
   }
 
   if (isOAuthCallback) {

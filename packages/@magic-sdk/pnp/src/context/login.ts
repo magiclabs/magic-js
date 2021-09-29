@@ -17,10 +17,10 @@ export async function login(): Promise<void> {
   const [loginType, arg] = await magic.pnp.getLoginMethod();
 
   switch (loginType) {
-    case 'oauth':
+    case 'oauth2':
       return handleOAuthLogin(arg).catch(login);
 
-    case 'email-link':
+    case 'email_link':
       return handleEmailLinkLogin(arg).catch(login);
 
     default:
