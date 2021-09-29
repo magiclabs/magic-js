@@ -12,13 +12,13 @@ export class PlugNPlayExtension extends window.Magic.Extension.Internal<'pnp', {
         PlugNPlayExtension.storageKeys.lastUsedProvider,
       );
 
-      const result = await this.request<[string, string | undefined]>(
-        this.utils.createJsonRpcRequestPayload('pnp/login', [{ lastUsedProvider }]),
-      );
-
-      await this.utils.storage.setItem(PlugNPlayExtension.storageKeys.lastUsedProvider, result[0]);
-
-      resolve(result);
+      resolve(await this.request(this.utils.createJsonRpcRequestPayload('pnp/login', [{ lastUsedProvider }])));
     });
+  }
+
+  async saveLastUsedProvider(provider?: string) {
+    if (provider) {
+      await this.utils.storage.setItem(PlugNPlayExtension.storageKeys.lastUsedProvider, provider);
+    }
   }
 }

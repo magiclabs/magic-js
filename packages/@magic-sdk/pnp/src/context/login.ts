@@ -6,10 +6,12 @@ export async function login(): Promise<void> {
   const magic = createMagicInstance(apiKey, src.origin);
 
   async function handleOAuthLogin(provider: any) {
+    await magic.pnp.saveLastUsedProvider(provider);
     await magic.oauth.loginWithRedirect({ provider, redirectURI });
   }
 
   async function handleEmailLinkLogin(email: any) {
+    await magic.pnp.saveLastUsedProvider('email_link');
     const didt = await magic.auth.loginWithMagicLink({ email, redirectURI });
     window.location.href = `${redirectURI}?didt=${encodeURIComponent(didt!)}`;
   }
