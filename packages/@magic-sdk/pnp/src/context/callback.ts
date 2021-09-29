@@ -16,15 +16,14 @@ export async function callback(): Promise<void> {
     window.history.replaceState(null, '', urlWithoutQuery);
   }
 
-  function dispatchReadyEvent(loginProvider: string, data: any) {
+  function dispatchReadyEvent(data: any) {
     const evt = new CustomEvent('@magic/ready', { detail: { magic, ...data } });
     window.dispatchEvent(evt);
-    magic.pnp.saveLastUsedProvider(loginProvider);
   }
 
   async function handleOAuthCallback() {
     const res = await magic.oauth.getRedirectResult();
-    dispatchReadyEvent('oauth2', {
+    dispatchReadyEvent({
       idToken: res.magic.idToken,
       userMetadata: res.magic.userMetadata,
       oauth: res.oauth,
@@ -34,14 +33,14 @@ export async function callback(): Promise<void> {
   async function handleMagicLinkRedirectCallback() {
     const idToken = await magic.auth.loginWithCredential();
     const userMetadata = await magic.user.getMetadata();
-    dispatchReadyEvent('email_link', { idToken, userMetadata });
+    dispatchReadyEvent({ idToken, userMetadata });
   }
 
   async function handleMagicLinkCallback() {
     const idToken = urlParams.get('didt') || (await magic.user.getIdToken());
     clearURLQuery();
     const userMetadata = await magic.user.getMetadata();
-    dispatchReadyEvent('email_link', { idToken: decodeURIComponent(idToken), userMetadata });
+    dispatchReadyEvent({ idToken: decodeURIComponent(idToken), userMetadata });
   }
 
   if (isOAuthCallback) {
