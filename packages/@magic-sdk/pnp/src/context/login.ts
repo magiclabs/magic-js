@@ -1,7 +1,7 @@
 import { createMagicInstance, getScriptData } from '../utils';
 
 export async function login(): Promise<void> {
-  const { src, apiKey, redirectURI = `${window.location.origin}/callback` } = getScriptData();
+  const { src, apiKey, redirectURI = `${window.location.origin}/callback`, debug } = getScriptData();
 
   const magic = createMagicInstance(apiKey, src.origin);
 
@@ -16,7 +16,7 @@ export async function login(): Promise<void> {
     window.location.href = `${redirectURI}?didt=${encodeURIComponent(didt!)}`;
   }
 
-  const [loginType, arg] = await magic.pnp.getLoginMethod();
+  const [loginType, arg] = await magic.pnp.getLoginMethod(debug);
 
   switch (loginType) {
     case 'oauth2':

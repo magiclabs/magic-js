@@ -25,8 +25,9 @@ export function getScriptData() {
   const src = new URL(thisScript.getAttribute('src')!);
   const apiKey = thisScript.dataset.magicPublishableApiKey;
   const redirectURI = thisScript.dataset.redirectUri;
+  const debug = !!thisScript.dataset.debug;
 
-  return { script: thisScript, src, apiKey, redirectURI };
+  return { script: thisScript, src, apiKey, redirectURI, debug };
 }
 
 export type ScriptData = ReturnType<typeof getScriptData>;
