@@ -1,3 +1,15 @@
+# v5.1.0 (Fri Oct 01 2021)
+
+#### 🚀 Enhancement
+
+- Enable SMS login [#223](https://github.com/magiclabs/magic-js/pull/223) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+
+#### Authors: 1
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+
+---
+
 # v5.0.3 (Thu Sep 23 2021)
 
 #### 🐛 Bug Fix
