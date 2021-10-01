@@ -7,10 +7,10 @@
 
 import pLimit from 'p-limit';
 import isCI from 'is-ci';
-import { build } from '../../utils/microbundle';
+import { build, createTemporaryTSConfigFile } from '../../utils/microbundle';
 import { runAsyncProcess } from '../../utils/run-async-process';
 
-function getExternalsFromPkgJson(pkgJson: any): string {
+function getExternalsFromPkgJson(pkgJson: any): string[] {
   const dependencies = Object.keys(pkgJson.dependencies || []);
   const peerDependencies = Object.keys(pkgJson.peerDependencies || []);
   const includes = pkgJson.externals?.include || [];
@@ -18,7 +18,7 @@ function getExternalsFromPkgJson(pkgJson: any): string {
 
   const defaultExternals = [...dependencies, ...peerDependencies, ...includes];
 
-  return defaultExternals.filter((dep) => !excludes.includes(dep)).join(',');
+  return defaultExternals.filter((dep) => !excludes.includes(dep));
 }
 
 async function cjs() {
@@ -27,7 +27,7 @@ async function cjs() {
     format: 'cjs',
     target: pkgJson.target,
     output: pkgJson.exports?.require ?? pkgJson.main,
-    external: getExternalsFromPkgJson(pkgJson),
+    externals: getExternalsFromPkgJson(pkgJson),
     sourcemap: true,
   });
 }
@@ -38,7 +38,7 @@ async function esm() {
     format: 'es',
     target: pkgJson.target,
     output: pkgJson.module,
-    external: getExternalsFromPkgJson(pkgJson),
+    externals: getExternalsFromPkgJson(pkgJson),
     sourcemap: true,
   });
 }
@@ -49,28 +49,50 @@ async function modern() {
     format: 'modern',
     target: pkgJson.target,
     output: typeof pkgJson.exports === 'string' ? pkgJson.exports : pkgJson.exports?.import,
-    external: getExternalsFromPkgJson(require(`${process.cwd()}/package.json`)),
+    externals: getExternalsFromPkgJson(pkgJson),
     sourcemap: true,
   });
 }
 
 async function cdn() {
   const pkgJson = require(`${process.cwd()}/package.json`);
+
+  const isMagicSDK = process.cwd().endsWith('packages/magic-sdk');
+
+  // For CDN targets outside of `magic-sdk` itself,
+  // we assume `magic-sdk` & `@magic-sdk/commons` are external/global.
+  const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/commons'];
+  const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/commons': 'Magic' };
+
   await build({
-    format: 'cdn',
+    format: 'iife',
     target: pkgJson.target,
-    output: pkgJson['umd:main'],
-    name: pkgJson.umdGlobal,
-    external: 'none',
+    output: pkgJson.jsdelivr,
+    name: pkgJson.cdnGlobalName,
+    externals,
+    globals,
     sourcemap: false,
   });
 }
 
+async function reactNativeHybridExtension() {
+  const pkgJson = require(`${process.cwd()}/package.json`);
+
+  await build({
+    format: 'cjs',
+    target: pkgJson.target,
+    output: pkgJson['react-native'],
+    externals: getExternalsFromPkgJson(pkgJson),
+    sourcemap: true,
+  });
+}
+
 async function main() {
+  await createTemporaryTSConfigFile();
+
   // We need to limit concurrency in CI to avoid ENOMEM errors.
   const limit = pLimit(isCI ? 2 : 4);
-
-  const builders = [limit(cjs), limit(esm), limit(modern), limit(cdn)];
+  const builders = [limit(cjs), limit(esm), limit(modern), limit(cdn), limit(reactNativeHybridExtension)];
   await Promise.all(builders);
 }
 

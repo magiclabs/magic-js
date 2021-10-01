@@ -3,7 +3,7 @@ import execa from 'execa';
 import { prompt } from 'inquirer';
 import isCI from 'is-ci';
 
-interface YarnWorkspace {
+export interface YarnWorkspace {
   location: string;
   name: string;
   workspaceDependencies: string[];
@@ -63,9 +63,27 @@ export async function getPackages(pkgQuery: string) {
       });
     });
 
-  const dependencies = workspaces.filter((workspace) => {
-    return entrypoints.some((entrypoint) => entrypoint.workspaceDependencies.includes(workspace.location));
-  });
+  const recursiveDependencyReducer = (acc: YarnWorkspace[], workspace: YarnWorkspace) => {
+    const result = [
+      ...acc,
+      ...workspace.workspaceDependencies.map((i) => workspaces.find((j) => j.location === i)).filter(Boolean),
+    ] as YarnWorkspace[];
+
+    const nextDependencies = workspace.workspaceDependencies
+      .map((location) => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+        return workspaces.find((ws) => ws.location === location);
+      })
+      .filter(Boolean) as YarnWorkspace[];
+
+    if (nextDependencies.length) {
+      return nextDependencies.reduce(recursiveDependencyReducer, result);
+    }
+
+    return [...new Set(result)];
+  };
+
+  const dependencies = entrypoints.reduce(recursiveDependencyReducer, []);
 
   const packages = [...dependencies, ...entrypoints].sort((a, b) => {
     if (a.workspaceDependencies.includes(b.location)) return 1;

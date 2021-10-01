@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/commons",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Exposes a listing of common public APIs from the Magic JS SDK ecosystem.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -23,8 +23,8 @@
     "require": "./dist/cjs/index.js"
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^6.0.5",
-    "@magic-sdk/types": "^5.0.2"
+    "@magic-sdk/provider": "^6.0.6",
+    "@magic-sdk/types": "^5.0.3"
   },
   "peerDependencies": {
     "@magic-sdk/provider": ">=4.3.0",

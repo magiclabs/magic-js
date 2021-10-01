@@ -1,16 +1,8 @@
 #!/usr/bin/env ts-node-script
 
 import execa from 'execa';
-import fs from 'fs';
+import { existsAsync } from '../../utils/exists-async';
 import { runAsyncProcess } from '../../utils/run-async-process';
-
-function existsAsync(input: string) {
-  return new Promise((resolve) => {
-    fs.exists(input, (exists) => {
-      resolve(exists);
-    });
-  });
-}
 
 async function main() {
   const args = process.argv.slice(2);

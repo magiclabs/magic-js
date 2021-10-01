@@ -1,18 +1,3 @@
 {
   "extends": "../../../tsconfig.settings.json",
-
-  "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist/es",
-    "declarationDir": "dist/types",
-  },
-
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.js",
-  ],
-
-  "references": [
-    { "path": "../types/tsconfig.json" },
-  ]
 }

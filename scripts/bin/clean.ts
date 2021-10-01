@@ -8,7 +8,7 @@ import { runAsyncProcess } from '../utils/run-async-process';
 
 const spinner = ora();
 
-async function abstractCleanFn(label: string, patterns: string[]) {
+async function abstractCleanFn(patterns: string[]) {
   await Promise.all(
     patterns.map(async (pattern) => {
       await execa('yarn', ['wsrun:all', '--parallel', '-r', 'rimraf', pattern]);
@@ -17,15 +17,15 @@ async function abstractCleanFn(label: string, patterns: string[]) {
 }
 
 async function cleanDist() {
-  await abstractCleanFn('dist files', ['dist']);
+  await abstractCleanFn(['dist', 'node_modules/.temp']);
 }
 
 async function cleanCache() {
-  await abstractCleanFn('cache files', ['node_modules/.cache']);
+  await abstractCleanFn(['node_modules/.cache']);
 }
 
 async function cleanTestArtifacts() {
-  await abstractCleanFn('test artifacts', ['coverage', '.nyc_output']);
+  await abstractCleanFn(['coverage', '.nyc_output']);
 }
 
 async function cleanNodeModules() {

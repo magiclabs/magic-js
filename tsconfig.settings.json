@@ -17,10 +17,17 @@
     "sourceMap": true,
     "declaration": true,
     "skipLibCheck": true,
-    "composite": true
+    "noEmit": true,
+    "baseUrl": "./packages",
+    "paths": {
+      "@magic-ext/*": ["@magic-ext/*/src"],
+      "@magic-sdk/*": ["@magic-sdk/*/src"],
+      "magic-sdk": ["magic-sdk/src"]
+    }
   },
 
-  "exclude": ["**/node_modules", "**/jest.config.ts"],
+  "include": ["**/src/**/*.ts", "**/src/**/*.tsx", "**/src/**/*.js"],
+  "exclude": ["**/node_modules", "**/jest.config.ts", "**/coverage", "**/dist"],
 
   "ts-node": {
     "files": true,
