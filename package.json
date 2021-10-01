@@ -80,9 +80,6 @@
     "plugins": [
       "npm",
       "released"
-    ],
-    "prereleaseBranches": [
-      "dgerrells-ch42053-sms-feature"
     ]
   }
 }
