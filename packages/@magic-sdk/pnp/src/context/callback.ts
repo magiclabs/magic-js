@@ -36,7 +36,17 @@ export async function callback(): Promise<void> {
     dispatchReadyEvent({ idToken, userMetadata });
   }
 
-  async function handleMagicLinkCallback() {
+  /**
+   * Generically handles auth callback for methods where
+   * a redirect in not applicable. Examples include:
+   *
+   * - SMS login
+   * - Magic link login w/o `redirectURI`
+   * - WebAuthn login
+   * - Cases where the user has landed direclty
+   *   on the callback page without a redirect
+   */
+  async function handleGenericCallback() {
     const idToken = urlParams.get('didt') || (await magic.user.getIdToken());
     clearURLQuery();
     const userMetadata = await magic.user.getMetadata();
@@ -48,6 +58,6 @@ export async function callback(): Promise<void> {
   } else if (isMagicLinkRedirectCallback) {
     await handleMagicLinkRedirectCallback().catch(() => {});
   } else {
-    await handleMagicLinkCallback().catch(() => {});
+    await handleGenericCallback().catch(() => {});
   }
 }

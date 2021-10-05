@@ -16,6 +16,12 @@ export async function login(): Promise<void> {
     window.location.href = `${redirectURI}?didt=${encodeURIComponent(didt!)}`;
   }
 
+  async function handleSMSLogin(phoneNumber: any) {
+    await magic.pnp.saveLastUsedProvider('sms');
+    const didt = await magic.auth.loginWithSMS({ phoneNumber });
+    window.location.href = `${redirectURI}?didt=${encodeURIComponent(didt!)}`;
+  }
+
   const [loginType, arg] = await magic.pnp.getLoginMethod(debug);
 
   switch (loginType) {
@@ -24,6 +30,9 @@ export async function login(): Promise<void> {
 
     case 'email_link':
       return handleEmailLinkLogin(arg).catch(login);
+
+    case 'sms':
+      return handleSMSLogin(arg).catch(login);
 
     default:
       return login();
