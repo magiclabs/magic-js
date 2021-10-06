@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@magic-sdk/pnp",
   "version": "0.2.0",
   "description": "Passwordless authentication for the web with an out-of-the-box UI.",
