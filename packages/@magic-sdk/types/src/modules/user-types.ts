@@ -18,6 +18,7 @@ export interface MagicUserMetadata {
   issuer: string | null;
   publicAddress: string | null;
   email: string | null;
+  phoneNumber: string | null;
 }
 
 export interface UpdateEmailConfiguration {
