@@ -1,3 +1,18 @@
+# (Tue Oct 19 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@6.1.1`
+  - Fix bug with `d.generateKey is undefined` build bug [#228](https://github.com/magiclabs/magic-js/pull/228) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+- `@magic-sdk/types@5.1.1`
+  - add typing for metadata phone number [#225](https://github.com/magiclabs/magic-js/pull/225) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+
+#### Authors: 1
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+
+---
+
 # (Fri Oct 01 2021)
 
 #### 🚀 Enhancement

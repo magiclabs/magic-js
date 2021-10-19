@@ -1,3 +1,15 @@
+# v5.1.1 (Tue Oct 19 2021)
+
+#### 🐛 Bug Fix
+
+- add typing for metadata phone number [#225](https://github.com/magiclabs/magic-js/pull/225) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+
+#### Authors: 1
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+
+---
+
 # v5.1.0 (Fri Oct 01 2021)
 
 #### 🚀 Enhancement

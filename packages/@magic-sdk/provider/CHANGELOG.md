@@ -1,3 +1,15 @@
+# v6.1.1 (Tue Oct 19 2021)
+
+#### 🐛 Bug Fix
+
+- Fix bug with `d.generateKey is undefined` build bug [#228](https://github.com/magiclabs/magic-js/pull/228) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+
+#### Authors: 1
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+
+---
+
 # v6.1.0 (Fri Oct 01 2021)
 
 #### 🚀 Enhancement
