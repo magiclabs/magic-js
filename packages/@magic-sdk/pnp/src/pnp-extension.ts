@@ -2,7 +2,23 @@ export class PlugNPlayExtension extends window.Magic.Extension.Internal<'pnp', {
   config = { isPnP: true };
   name = 'pnp' as const;
 
-  getLoginMethod() {
-    return this.request(this.utils.createJsonRpcRequestPayload('pnp/login'));
+  static storageKeys = {
+    lastUsedProvider: 'pnp/lastUsedProvider',
+  };
+
+  getLoginMethod(debug?: boolean) {
+    return this.utils.createPromiEvent<[string, string | undefined], { yolo: () => void }>(async (resolve) => {
+      const lastUsedProvider = await this.utils.storage.getItem<string | undefined>(
+        PlugNPlayExtension.storageKeys.lastUsedProvider,
+      );
+
+      resolve(await this.request(this.utils.createJsonRpcRequestPayload('pnp/login', [{ lastUsedProvider, debug }])));
+    });
+  }
+
+  async saveLastUsedProvider(provider?: string) {
+    if (provider) {
+      await this.utils.storage.setItem(PlugNPlayExtension.storageKeys.lastUsedProvider, provider);
+    }
   }
 }
