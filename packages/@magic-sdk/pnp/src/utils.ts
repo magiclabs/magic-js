@@ -24,8 +24,13 @@ const thisScript = (document.currentScript ??
 export function getScriptData() {
   const src = new URL(thisScript.getAttribute('src')!);
   const apiKey = thisScript.dataset.magicPublishableApiKey;
-  const redirectURI = thisScript.dataset.redirectUri;
   const debug = !!thisScript.dataset.debug;
+
+  let redirectURI = thisScript.dataset.redirectUri;
+  // Resolve relative `redirectURI` path to absolute path against current origin
+  if (redirectURI?.startsWith('/')) {
+    redirectURI = `${window.location.origin}${redirectURI}`;
+  }
 
   return { script: thisScript, src, apiKey, redirectURI, debug };
 }
