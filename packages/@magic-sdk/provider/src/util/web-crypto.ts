@@ -56,7 +56,7 @@ export async function createJwt() {
   const data = strToUint8(`${jws.protected}.${jws.claims}`);
   const sigType = { name: ALGO_NAME, hash: { name: 'SHA-256' } };
 
-  const sig = uint8ToUrlBase64(new Uint8Array(await crypto.subtle.sign(sigType, privateJwk, data)));
+  const sig = uint8ToUrlBase64(new Uint8Array(await subtle.sign(sigType, privateJwk, data)));
   return `${jws.protected}.${jws.claims}.${sig}`;
 }
 
