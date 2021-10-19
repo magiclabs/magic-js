@@ -15,27 +15,24 @@ const EC_IMPORT_PARAMS: EcKeyImportParams = {
   namedCurve: ALGO_CURVE,
 };
 
-function getCryptoClient() {
-  return window.crypto;
-}
-
 export function clearKeys() {
   removeItem(STORE_KEY_PUBLIC_JWK);
   removeItem(STORE_KEY_PRIVATE_KEY);
 }
 
 export async function createJwt() {
+  // will return undefiend is webcrypto is not supported
   const publicJwk = await getPublicKey();
 
   if (!publicJwk) {
-    console.info('unable to create public key');
+    console.info('unable to create public key or webcrypto is unsupported');
     return undefined;
   }
 
-  const crypto = getCryptoClient();
+  const { subtle } = window.crypto;
   const privateJwk = await getItem<CryptoKey>(STORE_KEY_PRIVATE_KEY);
 
-  if (!privateJwk || !crypto) {
+  if (!privateJwk || !subtle) {
     console.info('unable to find private key or webcrypto unsupported');
     return undefined;
   }
@@ -59,7 +56,7 @@ export async function createJwt() {
   const data = strToUint8(`${jws.protected}.${jws.claims}`);
   const sigType = { name: ALGO_NAME, hash: { name: 'SHA-256' } };
 
-  const sig = uint8ToUrlBase64(new Uint8Array(await crypto.subtle.sign(sigType, privateJwk, data)));
+  const sig = uint8ToUrlBase64(new Uint8Array(await subtle.sign(sigType, privateJwk, data)));
   return `${jws.protected}.${jws.claims}.${sig}`;
 }
 
@@ -77,8 +74,10 @@ async function getPublicKey() {
 }
 
 async function generateWCKP() {
-  const crypto = getCryptoClient();
-  const { subtle } = crypto;
+  // to avoid a nasty babel bug we have to hoist this above the await ourselves
+  // https://github.com/rpetrich/babel-plugin-transform-async-to-promises/issues/20
+  let jwkPublicKey = null;
+  const { subtle } = window.crypto;
   const kp = await subtle.generateKey(
     EC_GEN_PARAMS,
     true, // need to export the public key which means private exports too
@@ -87,7 +86,7 @@ async function generateWCKP() {
 
   // export keys so we can send the public key.
   const jwkPrivateKey = await subtle.exportKey('jwk', kp.privateKey!);
-  const jwkPublicKey = await subtle.exportKey('jwk', kp.publicKey!);
+  jwkPublicKey = await subtle.exportKey('jwk', kp.publicKey!);
 
   // reimport the private key so it becomes non exportable when persisting.
   const nonExportPrivateKey = await subtle.importKey('jwk', jwkPrivateKey, EC_IMPORT_PARAMS, false, ['sign']);
