@@ -1,3 +1,16 @@
+# (Wed Oct 20 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/pnp@0.3.0`
+  - [HOLD MERGE] Enable opinionated "Plug & Play" implementation approach for web [#221](https://github.com/magiclabs/magic-js/pull/221) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Tue Oct 19 2021)
 
 #### 🐛 Bug Fix

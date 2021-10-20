@@ -1,3 +1,15 @@
+# v0.3.0 (Wed Oct 20 2021)
+
+#### 🚀 Enhancement
+
+- [HOLD MERGE] Enable opinionated "Plug & Play" implementation approach for web [#221](https://github.com/magiclabs/magic-js/pull/221) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v6.0.5 (Fri Sep 17 2021)
 
 #### 🐛 Bug Fix
