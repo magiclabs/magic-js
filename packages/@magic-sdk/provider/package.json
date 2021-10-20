@@ -10,9 +10,7 @@
   },
   "homepage": "https://magic.link",
   "files": [
-    "dist/**/*.js",
-    "dist/**/*.js.map",
-    "dist/**/*.d.ts"
+    "dist"
   ],
   "target": "web",
   "main": "./dist/cjs/index.js",
