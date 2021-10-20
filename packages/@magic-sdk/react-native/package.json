@@ -16,7 +16,7 @@
   ],
   "target": "node",
   "main": "./dist/cjs/index.js",
-  "module": "./dist/es/index.js",
+  "module": "./dist/es/index.mjs",
   "types": "./dist/types/index.d.ts",
   "dependencies": {
     "@aveq-research/localforage-asyncstorage-driver": "^3.0.1",
