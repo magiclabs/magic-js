@@ -1,3 +1,74 @@
+# (Wed Oct 20 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Update yarn.lock ([@smithki](https://github.com/smithki))
+- `@magic-sdk/commons@2.1.3`, `@magic-sdk/provider@6.1.3`, `@magic-sdk/react-native@6.1.3`, `@magic-sdk/types@5.1.3`, `magic-sdk@6.1.3`
+  - Fix dist files glob in package.json ([@smithki](https://github.com/smithki))
+- `@magic-ext/oauth@0.10.3`, `@magic-ext/react-native-oauth@0.5.3`, `@magic-ext/webauthn@0.2.3`, `@magic-sdk/commons@2.1.3`, `@magic-sdk/pnp@0.3.2`, `@magic-sdk/provider@6.1.3`, `@magic-sdk/react-native@6.1.3`, `@magic-sdk/types@5.1.3`, `magic-sdk@6.1.3`
+  - Merge branch 'master' of github.com:magiclabs/magic-js ([@smithki](https://github.com/smithki))
+  - Force re-publish ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Wed Oct 20 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@0.10.2`, `@magic-ext/react-native-oauth@0.5.2`, `@magic-ext/webauthn@0.2.2`, `@magic-sdk/commons@2.1.2`, `@magic-sdk/provider@6.1.2`, `@magic-sdk/react-native@6.1.2`, `@magic-sdk/types@5.1.2`, `magic-sdk@6.1.2`
+  - Use '.mjs' extension for ESM build files [#230](https://github.com/magiclabs/magic-js/pull/230) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Wed Oct 20 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/pnp@0.3.0`
+  - [HOLD MERGE] Enable opinionated "Plug & Play" implementation approach for web [#221](https://github.com/magiclabs/magic-js/pull/221) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Tue Oct 19 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@6.1.1`
+  - Fix bug with `d.generateKey is undefined` build bug [#228](https://github.com/magiclabs/magic-js/pull/228) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+- `@magic-sdk/types@5.1.1`
+  - add typing for metadata phone number [#225](https://github.com/magiclabs/magic-js/pull/225) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+
+#### Authors: 1
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+
+---
+
+# (Fri Oct 01 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@6.1.0`, `@magic-sdk/types@5.1.0`
+  - Enable SMS login [#223](https://github.com/magiclabs/magic-js/pull/223) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+
+#### Authors: 1
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+
+---
+
 # (Thu Sep 23 2021)
 
 #### 🐛 Bug Fix

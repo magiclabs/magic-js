@@ -21,7 +21,7 @@ test('Ignores events with different origin than expected', (done) => {
   setTimeout(() => {
     expect(onHandlerStub).not.toBeCalled();
     done();
-  }, 0);
+  }, 100);
 });
 
 test('Ignores events with non-string data', (done) => {
@@ -39,7 +39,7 @@ test('Ignores events with non-string data', (done) => {
   setTimeout(() => {
     expect(onHandlerStub).not.toBeCalled();
     done();
-  }, 0);
+  }, 100);
 });
 
 test('Replaces `undefined` or `null` response with an empty object', (done) => {
@@ -58,7 +58,7 @@ test('Replaces `undefined` or `null` response with an empty object', (done) => {
     expect(onHandlerStub).toBeCalledTimes(1);
     expect(onHandlerStub.mock.calls[0][0].data).toEqual({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} });
     done();
-  }, 0);
+  }, 100);
 });
 
 test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
@@ -77,7 +77,7 @@ test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
     expect(onHandlerStub).toBeCalledTimes(1);
     expect(onHandlerStub.mock.calls[0][0].data).toEqual({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} });
     done();
-  }, 0);
+  }, 100);
 });
 
 test('Ignores event handlers where `messageHandlers` size is === 0', (done) => {
@@ -93,5 +93,5 @@ test('Ignores event handlers where `messageHandlers` size is === 0', (done) => {
 
   setTimeout(() => {
     done();
-  }, 0);
+  }, 100);
 });

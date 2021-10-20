@@ -11,10 +11,10 @@
   "files": ["dist"],
   "target": "node",
   "main": "./dist/cjs/index.js",
-  "module": "./dist/es/index.js",
+  "module": "./dist/es/index.mjs",
   "types": "./dist/types/index.d.ts",
   "exports": {
-    "import": "./dist/es/index.js",
+    "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {

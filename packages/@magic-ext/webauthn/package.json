@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/webauthn",
-  "version": "0.1.1",
+  "version": "0.2.3",
   "description": "Magic SDK WabAuthn Extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -14,12 +14,12 @@
   "target": "neutral",
   "cdnGlobalName": "MagicWebAuthnExtension",
   "main": "./dist/cjs/index.js",
-  "module": "./dist/es/index.js",
+  "module": "./dist/es/index.mjs",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
   "react-native": "./dist/react-native/index.native.js",
   "exports": {
-    "import": "./dist/es/index.js",
+    "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^2.0.6"
+    "@magic-sdk/commons": "^2.1.3"
   }
 }

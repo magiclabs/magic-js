@@ -1,3 +1,53 @@
+# v5.1.3 (Wed Oct 20 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Fix dist files glob in package.json ([@smithki](https://github.com/smithki))
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@smithki](https://github.com/smithki))
+- Force re-publish ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v5.1.2 (Wed Oct 20 2021)
+
+#### 🐛 Bug Fix
+
+- Use '.mjs' extension for ESM build files [#230](https://github.com/magiclabs/magic-js/pull/230) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v5.1.1 (Tue Oct 19 2021)
+
+#### 🐛 Bug Fix
+
+- add typing for metadata phone number [#225](https://github.com/magiclabs/magic-js/pull/225) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+
+#### Authors: 1
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+
+---
+
+# v5.1.0 (Fri Oct 01 2021)
+
+#### 🚀 Enhancement
+
+- Enable SMS login [#223](https://github.com/magiclabs/magic-js/pull/223) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+
+#### Authors: 1
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+
+---
+
 # v5.0.3 (Thu Sep 23 2021)
 
 #### 🐛 Bug Fix

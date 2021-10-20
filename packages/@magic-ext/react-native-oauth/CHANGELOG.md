@@ -1,3 +1,28 @@
+# v0.5.3 (Wed Oct 20 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@smithki](https://github.com/smithki))
+- Force re-publish ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v0.5.2 (Wed Oct 20 2021)
+
+#### 🐛 Bug Fix
+
+- Use '.mjs' extension for ESM build files [#230](https://github.com/magiclabs/magic-js/pull/230) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v0.4.1 (Thu Sep 23 2021)
 
 #### 🐛 Bug Fix

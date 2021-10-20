@@ -1,3 +1,5 @@
+<!-- force publish -->
+
 # 🔒 Magic OAuth Extension for Web Browsers
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)

@@ -1,3 +1,29 @@
+# v2.1.3 (Wed Oct 20 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Fix dist files glob in package.json ([@smithki](https://github.com/smithki))
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@smithki](https://github.com/smithki))
+- Force re-publish ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v2.1.2 (Wed Oct 20 2021)
+
+#### 🐛 Bug Fix
+
+- Use '.mjs' extension for ESM build files [#230](https://github.com/magiclabs/magic-js/pull/230) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v2.0.6 (Thu Sep 23 2021)
 
 #### 🐛 Bug Fix
