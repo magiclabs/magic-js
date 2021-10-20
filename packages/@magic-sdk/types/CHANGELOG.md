@@ -1,3 +1,15 @@
+# v5.1.2 (Wed Oct 20 2021)
+
+#### 🐛 Bug Fix
+
+- Use '.mjs' extension for ESM build files [#230](https://github.com/magiclabs/magic-js/pull/230) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v5.1.1 (Tue Oct 19 2021)
 
 #### 🐛 Bug Fix

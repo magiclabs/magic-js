@@ -1,5 +1,18 @@
 # (Wed Oct 20 2021)
 
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@0.10.2`, `@magic-ext/react-native-oauth@0.5.2`, `@magic-ext/webauthn@0.2.2`, `@magic-sdk/commons@2.1.2`, `@magic-sdk/provider@6.1.2`, `@magic-sdk/react-native@6.1.2`, `@magic-sdk/types@5.1.2`, `magic-sdk@6.1.2`
+  - Use '.mjs' extension for ESM build files [#230](https://github.com/magiclabs/magic-js/pull/230) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Wed Oct 20 2021)
+
 #### 🚀 Enhancement
 
 - `@magic-sdk/pnp@0.3.0`
