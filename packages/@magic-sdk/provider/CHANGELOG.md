@@ -1,3 +1,17 @@
+# v6.1.3 (Wed Oct 20 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Fix dist files glob in package.json ([@smithki](https://github.com/smithki))
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@smithki](https://github.com/smithki))
+- Force re-publish ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v6.1.2 (Wed Oct 20 2021)
 
 #### 🐛 Bug Fix

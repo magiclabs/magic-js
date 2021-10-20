@@ -1,3 +1,16 @@
+# v0.3.2 (Wed Oct 20 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@smithki](https://github.com/smithki))
+- Force re-publish ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v0.3.0 (Wed Oct 20 2021)
 
 #### 🚀 Enhancement
