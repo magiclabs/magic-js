@@ -14,12 +14,12 @@
   "target": "web",
   "cdnGlobalName": "MagicWebAuthnExtension",
   "main": "./dist/cjs/index.js",
-  "module": "./dist/es/index.js",
+  "module": "./dist/es/index.mjs",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
   "react-native": "./dist/react-native/index.native.js",
   "exports": {
-    "import": "./dist/modern/index.js",
+    "import": "./dist/modern/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {

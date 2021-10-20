@@ -13,10 +13,10 @@
   ],
   "target": "node",
   "main": "./dist/cjs/index.js",
-  "module": "./dist/es/index.js",
+  "module": "./dist/es/index.mjs",
   "types": "./dist/types/index.d.ts",
   "exports": {
-    "import": "./dist/modern/index.js",
+    "import": "./dist/modern/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
