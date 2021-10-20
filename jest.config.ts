@@ -6,6 +6,7 @@ const config: Config.InitialOptions = {
   coverageReporters: ['text-summary', 'html'],
   collectCoverageFrom: ['./src/**/*.{ts,tsx,}'],
   collectCoverage: true,
+  testTimeout: 30000, // 30s
   coverageThreshold: {
     global: {
       lines: 99,
