@@ -70,4 +70,12 @@ export class UserModule extends BaseModule {
     );
     return this.request<boolean>(requestPayload);
   }
+
+  /** */
+  public settings() {
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.UserSettingsTestMode : MagicPayloadMethod.UserSettings,
+    );
+    return this.request<MagicUserMetadata>(requestPayload);
+  }
 }
