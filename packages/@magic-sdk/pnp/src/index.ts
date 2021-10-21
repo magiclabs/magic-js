@@ -1,10 +1,13 @@
 /* eslint-disable no-useless-return */
 /* eslint-disable consistent-return */
 
-import { getScriptData } from './utils';
+import { getScriptData } from './utils/script-data';
+
+// PnP contexts
 import { login } from './context/login';
 import { logout } from './context/logout';
 import { callback } from './context/callback';
+import { settings } from './context/settings';
 
 function main() {
   const { src } = getScriptData();
@@ -18,6 +21,9 @@ function main() {
 
     case '/pnp/callback':
       return callback();
+
+    case '/pnp/settings':
+      return settings();
 
     default:
       return;
