@@ -1,3 +1,15 @@
+# v2.1.4 (Thu Oct 21 2021)
+
+#### 🐛 Bug Fix
+
+- Revert to `.js` extension for ES module builds targeting webpack/CRA [#232](https://github.com/magiclabs/magic-js/pull/232) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v2.1.3 (Wed Oct 20 2021)
 
 #### ⚠️ Pushed to `master`
