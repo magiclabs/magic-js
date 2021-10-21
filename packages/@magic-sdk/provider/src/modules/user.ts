@@ -72,7 +72,7 @@ export class UserModule extends BaseModule {
   }
 
   /** */
-  public settings() {
+  public showSettings() {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.UserSettingsTestMode : MagicPayloadMethod.UserSettings,
     );

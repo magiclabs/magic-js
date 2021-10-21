@@ -10,7 +10,7 @@ test('Generate JSON RPC request payload with method `magic_auth_settings`', asyn
   const magic = createMagicSDK();
   magic.user.request = jest.fn();
 
-  magic.user.settings();
+  magic.user.showSettings();
 
   const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_settings');
@@ -21,7 +21,7 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
   const magic = createMagicSDKTestMode();
   magic.user.request = jest.fn();
 
-  magic.user.settings();
+  magic.user.showSettings();
 
   const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_settings_testing_mode');
@@ -30,5 +30,5 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
 
 test('method should return a PromiEvent', () => {
   const magic = createMagicSDK();
-  expect(isPromiEvent(magic.user.settings())).toBeTruthy();
+  expect(isPromiEvent(magic.user.showSettings())).toBeTruthy();
 });
