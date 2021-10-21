@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/oauth",
-  "version": "0.10.3",
+  "version": "0.10.4",
   "description": "Magic SDK OAuth Extension for Web environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -27,11 +27,11 @@
     ]
   },
   "dependencies": {
-    "@magic-sdk/types": "^5.1.3",
+    "@magic-sdk/types": "^5.1.4",
     "crypto-js": "^3.3.0"
   },
   "devDependencies": {
     "@types/crypto-js": "~3.1.47",
-    "magic-sdk": "^6.1.3"
+    "magic-sdk": "^6.1.4"
   }
 }
