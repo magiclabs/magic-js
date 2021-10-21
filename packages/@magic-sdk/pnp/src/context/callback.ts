@@ -9,7 +9,6 @@ export async function callback(): Promise<void> {
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const callbackType = getCallbackType(urlParams);
   const magic = createMagicInstance(apiKey, src.origin);
 
   function clearURLQuery() {
@@ -37,6 +36,7 @@ export async function callback(): Promise<void> {
     const prevUserMetadata = magic.pnp.decodeUserMetadata(urlParams.get('prev_user_metadata')) ?? undefined;
     const currUserMetadata =
       magic.pnp.decodeUserMetadata(urlParams.get('curr_user_metadata')) ?? (await magic.user.getMetadata());
+    clearURLQuery();
     dispatchReadyEvent(magic, { idToken, userMetadata: currUserMetadata, prevUserMetadata });
   }
 
@@ -61,7 +61,7 @@ export async function callback(): Promise<void> {
     window.location.href = loginURI || redirectURI;
   };
 
-  switch (callbackType) {
+  switch (getCallbackType(urlParams)) {
     case 'oauth':
       return handleOAuthCallback().catch(redirectToLoginURI);
 
