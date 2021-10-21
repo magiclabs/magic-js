@@ -34,13 +34,23 @@ async function cjs() {
 
 async function esm() {
   const pkgJson = require(`${process.cwd()}/package.json`);
-  await build({
-    format: 'esm',
-    target: pkgJson.target,
-    output: pkgJson.module,
-    externals: getExternalsFromPkgJson(pkgJson),
-    sourcemap: true,
-  });
+  await Promise.all([
+    build({
+      format: 'esm',
+      target: pkgJson.target,
+      output: pkgJson.module,
+      externals: getExternalsFromPkgJson(pkgJson),
+      sourcemap: true,
+    }),
+
+    build({
+      format: 'modern',
+      target: pkgJson.target,
+      output: pkgJson?.exports?.import,
+      externals: getExternalsFromPkgJson(pkgJson),
+      sourcemap: true,
+    }),
+  ]);
 }
 
 async function cdn() {

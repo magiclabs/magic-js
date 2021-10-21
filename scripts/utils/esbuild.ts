@@ -9,7 +9,7 @@ import execa from 'execa';
 import { environment } from './environment';
 import { existsAsync } from './exists-async';
 
-type ESBuildFormat = 'esm' | 'cjs' | 'iife';
+type ESBuildFormat = 'esm' | 'modern' | 'cjs' | 'iife';
 
 interface ESBuildOptions {
   target?: Platform;
@@ -29,7 +29,7 @@ export async function build(options: ESBuildOptions) {
         minify: true,
         legalComments: 'none',
         platform: options.target ?? 'browser',
-        format: options.format ?? 'cjs',
+        format: getFormat(options.format) ?? 'cjs',
         globalName: options.format === 'iife' ? options.name : undefined,
         entryPoints: [await getEntrypoint(options.format, options.output)],
         sourcemap: options.sourcemap,
@@ -67,6 +67,16 @@ export async function emitTypes() {
   }
 }
 
+function getFormat(format?: ESBuildFormat): Exclude<ESBuildFormat, 'modern'> | undefined {
+  switch (format) {
+    case 'modern':
+      return 'esm';
+
+    default:
+      return format;
+  }
+}
+
 async function getEntrypoint(format?: ESBuildFormat, output?: string) {
   const findEntrypoint = async (indexTarget?: string) => {
     if (format && (await existsAsync(path.resolve(process.cwd(), `./src/index.${indexTarget}.ts`)))) {
@@ -85,6 +95,7 @@ async function getEntrypoint(format?: ESBuildFormat, output?: string) {
       return findEntrypoint('cdn');
 
     case 'esm':
+    case 'modern':
       return findEntrypoint('es');
 
     case 'cjs':
