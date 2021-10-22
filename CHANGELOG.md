@@ -1,3 +1,16 @@
+# (Thu Oct 21 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@0.10.4`, `@magic-ext/react-native-oauth@0.5.4`, `@magic-ext/webauthn@0.2.4`, `@magic-sdk/commons@2.1.4`, `@magic-sdk/provider@6.1.4`, `@magic-sdk/react-native@6.1.4`, `@magic-sdk/types@5.1.4`, `magic-sdk@6.1.4`
+  - Revert to `.js` extension for ES module builds targeting webpack/CRA [#232](https://github.com/magiclabs/magic-js/pull/232) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Wed Oct 20 2021)
 
 #### ⚠️ Pushed to `master`
