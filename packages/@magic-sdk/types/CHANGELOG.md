@@ -1,3 +1,15 @@
+# v5.2.0 (Fri Oct 22 2021)
+
+#### 🚀 Enhancement
+
+- Add `UserModule#settings` endpoint [#231](https://github.com/magiclabs/magic-js/pull/231) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v5.1.4 (Thu Oct 21 2021)
 
 #### 🐛 Bug Fix

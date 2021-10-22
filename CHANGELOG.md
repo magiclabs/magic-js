@@ -1,3 +1,16 @@
+# (Fri Oct 22 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/pnp@0.4.0`, `@magic-sdk/provider@6.2.0`, `@magic-sdk/types@5.2.0`
+  - Add `UserModule#settings` endpoint [#231](https://github.com/magiclabs/magic-js/pull/231) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Thu Oct 21 2021)
 
 #### 🐛 Bug Fix
