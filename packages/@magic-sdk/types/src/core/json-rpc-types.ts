@@ -49,6 +49,8 @@ export enum MagicPayloadMethod {
   IsLoggedIn = 'magic_auth_is_logged_in',
   Logout = 'magic_auth_logout',
   UpdateEmail = 'magic_auth_update_email',
+  UserSettings = 'magic_auth_settings',
+  UserSettingsTestMode = 'magic_auth_settings_testing_mode',
   LoginWithSmsTestMode = 'magic_auth_login_with_sms_testing_mode',
   LoginWithMagicLinkTestMode = 'magic_login_with_magic_link_testing_mode',
   LoginWithCredentialTestMode = 'magic_auth_login_with_credential_testing_mode',

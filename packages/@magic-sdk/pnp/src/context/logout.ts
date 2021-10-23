@@ -1,8 +1,11 @@
-import { createMagicInstance, getScriptData } from '../utils';
+import { getScriptData } from '../utils/script-data';
+import { createMagicInstance } from '../utils/magic-instance';
 
 export async function logout(): Promise<void> {
-  const { src, apiKey, redirectURI = window.location.origin } = getScriptData();
+  // In this context, `loginURI` and `redirectURI` are the same.
+  // We simply need a location to redirect to after attempting to logout.
+  const { src, apiKey, loginURI, redirectURI = window.location.origin } = getScriptData();
   const magic = createMagicInstance(apiKey, src.origin);
   await magic.user.logout().catch(() => {});
-  window.location.href = redirectURI;
+  window.location.href = loginURI || redirectURI;
 }

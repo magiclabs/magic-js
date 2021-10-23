@@ -1,4 +1,5 @@
-import { createMagicInstance, getScriptData } from '../utils';
+import { getScriptData } from '../utils/script-data';
+import { createMagicInstance } from '../utils/magic-instance';
 
 export async function login(): Promise<void> {
   const { src, apiKey, redirectURI = `${window.location.origin}/callback`, debug } = getScriptData();
