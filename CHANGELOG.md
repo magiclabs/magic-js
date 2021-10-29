@@ -1,3 +1,16 @@
+# (Fri Oct 29 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/pnp@0.5.0`
+  - Add support for `data-locale` parameter in `@magic-sdk/pnp` [#234](https://github.com/magiclabs/magic-js/pull/234) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Wed Oct 27 2021)
 
 #### 💥 Breaking Change
