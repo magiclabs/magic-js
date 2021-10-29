@@ -2,9 +2,9 @@ import { getScriptData } from '../utils/script-data';
 import { createMagicInstance } from '../utils/magic-instance';
 
 export async function login(): Promise<void> {
-  const { src, apiKey, redirectURI = `${window.location.origin}/callback`, debug } = getScriptData();
+  const { src, apiKey, locale, redirectURI = `${window.location.origin}/callback`, debug } = getScriptData();
 
-  const magic = createMagicInstance(apiKey, src.origin);
+  const magic = createMagicInstance(apiKey, src.origin, locale);
 
   async function handleOAuthLogin(provider: any) {
     await magic.pnp.saveLastUsedProvider(provider);

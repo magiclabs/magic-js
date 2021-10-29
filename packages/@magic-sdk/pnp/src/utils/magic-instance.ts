@@ -1,7 +1,11 @@
 import { PlugNPlayExtension } from '../pnp-extension';
 import type { Magic, OAuthExtension } from '../types';
 
-export function createMagicInstance(apiKey?: string, endpoint?: string): Magic<[PlugNPlayExtension, OAuthExtension]> {
+export function createMagicInstance(
+  apiKey?: string,
+  endpoint?: string,
+  locale?: string,
+): Magic<[PlugNPlayExtension, OAuthExtension]> {
   const extensions = removeFalsey([
     new PlugNPlayExtension(),
     window.MagicOAuthExtension && new window.MagicOAuthExtension(),
@@ -9,6 +13,7 @@ export function createMagicInstance(apiKey?: string, endpoint?: string): Magic<[
 
   return new window.Magic(apiKey!, {
     endpoint,
+    locale: locale as any, // locale is strongly-typed as exact strings, so we have to cast to any here.
     extensions,
   });
 }
