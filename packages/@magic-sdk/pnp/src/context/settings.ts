@@ -8,11 +8,12 @@ export async function settings(): Promise<void> {
   const {
     src,
     apiKey,
+    locale,
     redirectURI = `${window.location.origin}/callback`,
     loginURI = window.location.origin,
   } = getScriptData();
 
-  const magic = createMagicInstance(apiKey, src.origin);
+  const magic = createMagicInstance(apiKey, src.origin, locale);
 
   try {
     const prevUserMetadata = magic.pnp.encodeUserMetadata(await magic.user.getMetadata());
