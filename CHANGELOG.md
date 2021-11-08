@@ -1,3 +1,16 @@
+# (Mon Nov 08 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@6.2.1`
+  - Remove 'semver' re-export from '@magic-sdk/provider' utils [#237](https://github.com/magiclabs/magic-js/pull/237) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Fri Oct 29 2021)
 
 #### 🚀 Enhancement
