@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/pnp",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Passwordless authentication for the web with an out-of-the-box UI.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
