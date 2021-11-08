@@ -12,6 +12,8 @@ export function getScriptData() {
   const locale = thisScript.dataset.locale;
   const redirectURI = getAbsoluteURL(thisScript.dataset.redirectUri);
   const loginURI = getAbsoluteURL(thisScript.dataset.loginUri);
+  const termsOfServiceURI = getAbsoluteURL(thisScript.dataset.termsOfServiceUri);
+  const privacyPolicyURI = getAbsoluteURL(thisScript.dataset.privacyPolicyUri);
   const debug = !!thisScript.dataset.debug;
 
   return {
@@ -21,6 +23,8 @@ export function getScriptData() {
     locale,
     redirectURI,
     loginURI,
+    termsOfServiceURI,
+    privacyPolicyURI,
     debug,
   };
 }
