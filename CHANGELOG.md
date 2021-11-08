@@ -1,5 +1,18 @@
 # (Mon Nov 08 2021)
 
+#### 🚀 Enhancement
+
+- `@magic-sdk/pnp@0.6.0`
+  - Add parameters for ToS and privacy links to `@magic-sdk/pnp` [#240](https://github.com/magiclabs/magic-js/pull/240) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Mon Nov 08 2021)
+
 #### 🐛 Bug Fix
 
 - `@magic-sdk/provider@6.2.1`
