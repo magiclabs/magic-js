@@ -1,5 +1,5 @@
 export enum CeloPayloadMethod {
-  CeloSendTransaction = 'celo_signTransaction',
+  CeloSendTransaction = 'celo_sendTransaction',
 }
 
 export interface CeloConfig {
