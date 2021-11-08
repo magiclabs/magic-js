@@ -8,13 +8,15 @@ export class PlugNPlayExtension extends window.Magic.Extension.Internal<'pnp', {
     lastUsedProvider: 'pnp/lastUsedProvider',
   };
 
-  public getLoginMethod(debug?: boolean) {
+  public getLoginMethod(options: { debug?: boolean; termsOfServiceURI?: string; privacyPolicyURI?: string }) {
     return this.utils.createPromiEvent<[string, string | undefined]>(async (resolve) => {
       const lastUsedProvider = await this.utils.storage.getItem<string | undefined>(
         PlugNPlayExtension.storageKeys.lastUsedProvider,
       );
 
-      resolve(await this.request(this.utils.createJsonRpcRequestPayload('pnp/login', [{ lastUsedProvider, debug }])));
+      resolve(
+        await this.request(this.utils.createJsonRpcRequestPayload('pnp/login', [{ lastUsedProvider, ...options }])),
+      );
     });
   }
 
