@@ -4126,7 +4126,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-ext/oauth@^0.11.1, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
+"@magic-ext/harmony@workspace:packages/@magic-ext/harmony":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/harmony@workspace:packages/@magic-ext/harmony"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+  languageName: unknown
+  linkType: soft
+
+"@magic-ext/oauth@^0.11.2, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
   dependencies:
@@ -4157,6 +4165,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/zilliqa@workspace:packages/@magic-ext/zilliqa":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/zilliqa@workspace:packages/@magic-ext/zilliqa"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+  languageName: unknown
+  linkType: soft
+
 "@magic-sdk/commons@^2.2.1, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/commons@workspace:packages/@magic-sdk/commons"
@@ -4176,7 +4192,7 @@ __metadata:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-    "@magic-ext/oauth": ^0.11.1
+    "@magic-ext/oauth": ^0.11.2
     magic-sdk: ^6.2.1
   languageName: unknown
   linkType: soft
