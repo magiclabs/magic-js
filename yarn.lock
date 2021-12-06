@@ -4118,6 +4118,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@magic-ext/avalanche@workspace:packages/@magic-ext/avalanche":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/avalanche@workspace:packages/@magic-ext/avalanche"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/bitcoin@workspace:packages/@magic-ext/bitcoin":
   version: 0.0.0-use.local
   resolution: "@magic-ext/bitcoin@workspace:packages/@magic-ext/bitcoin"
