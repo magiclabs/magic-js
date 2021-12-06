@@ -4134,6 +4134,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/cosmos@workspace:packages/@magic-ext/cosmos":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/cosmos@workspace:packages/@magic-ext/cosmos"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/harmony@workspace:packages/@magic-ext/harmony":
   version: 0.0.0-use.local
   resolution: "@magic-ext/harmony@workspace:packages/@magic-ext/harmony"
