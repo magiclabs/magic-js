@@ -4150,6 +4150,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/icon@workspace:packages/@magic-ext/icon":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/icon@workspace:packages/@magic-ext/icon"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/oauth@^0.11.2, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
