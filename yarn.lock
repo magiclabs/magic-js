@@ -4243,6 +4243,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/tezos@workspace:packages/@magic-ext/tezos":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/tezos@workspace:packages/@magic-ext/tezos"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/webauthn@workspace:packages/@magic-ext/webauthn":
   version: 0.0.0-use.local
   resolution: "@magic-ext/webauthn@workspace:packages/@magic-ext/webauthn"
