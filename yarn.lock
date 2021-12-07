@@ -4215,6 +4215,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/polkadot@workspace:packages/@magic-ext/polkadot":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/polkadot@workspace:packages/@magic-ext/polkadot"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/react-native-oauth@workspace:packages/@magic-ext/react-native-oauth":
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-oauth@workspace:packages/@magic-ext/react-native-oauth"
