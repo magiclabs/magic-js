@@ -1,0 +1,37 @@
+{
+  "name": "@magic-ext/flow",
+  "version": "1.0.0",
+  "description": "magic flow extension",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "files": [
+    "dist"
+  ],
+  "target": "web",
+  "cdnGlobalName": "MagicFlowExtension",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "jsdelivr": "./dist/extension.js",
+  "react-native": "./dist/react-native/index.native.js",
+  "exports": {
+    "import": "./dist/modern/index.mjs",
+    "require": "./dist/cjs/index.js"
+  },
+  "externals": {
+    "include": [
+      "@magic-sdk/commons",
+      "@onflow/fcl",
+      "@onflow/types"
+    ]
+  },
+  "devDependencies": {
+    "@magic-sdk/commons": "^2.2.1",
+    "@onflow/fcl": "0.0.41",
+    "@onflow/types": "0.0.3"
+  }
+}
