@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/solana",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "magic solana extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
