@@ -9,7 +9,7 @@ async function main() {
   const PKG = await promptForPackage();
 
   printSeparator('Linting TypeScripts');
-  await execa('yarn', ['wsrun', '--stages', 'eslint', '--fix', '.'], {
+  await execa('yarn', ['wsrun', '--stages', 'eslint', '--fix', '--debug', '.'], {
     stdio: 'inherit',
     env: { PKG },
   });
