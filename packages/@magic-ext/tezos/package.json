@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/tezos",
-  "version": "1.0.0",
+  "version": "0.1.8",
   "description": "magic tezos extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
