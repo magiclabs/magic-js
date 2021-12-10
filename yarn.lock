@@ -3004,6 +3004,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@improbable-eng/grpc-web-node-http-transport@npm:0.12.0":
+  version: 0.12.0
+  resolution: "@improbable-eng/grpc-web-node-http-transport@npm:0.12.0"
+  peerDependencies:
+    "@improbable-eng/grpc-web": ">=0.7.0"
+  checksum: cf220647b9c6c5aded52214f31ecdc4d015fe3d1bbed7ba49169943f39274390e9fe7dcac51c4b1e46dcdb259a5ff60b6edfba69a549facd90bfbd04f7e629bc
+  languageName: node
+  linkType: hard
+
+"@improbable-eng/grpc-web@npm:0.12.0, @improbable-eng/grpc-web@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "@improbable-eng/grpc-web@npm:0.12.0"
+  dependencies:
+    browser-headers: ^0.4.0
+  peerDependencies:
+    google-protobuf: ^3.2.0
+  checksum: 95c7a6476801424d4986dd73b6b8a454be10b3516073ddb8e9476ae7cd47118719597361d26e84e49e77ee619453a97d24be6fb2afae4162363308c6cb14efb2
+  languageName: node
+  linkType: hard
+
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.1.0
   resolution: "@istanbuljs/load-nyc-config@npm:1.1.0"
@@ -4118,6 +4138,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@magic-ext/algorand@workspace:packages/@magic-ext/algorand":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/algorand@workspace:packages/@magic-ext/algorand"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/avalanche@workspace:packages/@magic-ext/avalanche":
   version: 0.0.0-use.local
   resolution: "@magic-ext/avalanche@workspace:packages/@magic-ext/avalanche"
@@ -4142,9 +4170,35 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/flow@workspace:packages/@magic-ext/flow":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/flow@workspace:packages/@magic-ext/flow"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+    "@onflow/fcl": 0.0.41
+    "@onflow/types": 0.0.3
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/harmony@workspace:packages/@magic-ext/harmony":
   version: 0.0.0-use.local
   resolution: "@magic-ext/harmony@workspace:packages/@magic-ext/harmony"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+  languageName: unknown
+  linkType: soft
+
+"@magic-ext/icon@workspace:packages/@magic-ext/icon":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/icon@workspace:packages/@magic-ext/icon"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+  languageName: unknown
+  linkType: soft
+
+"@magic-ext/near@workspace:packages/@magic-ext/near":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/near@workspace:packages/@magic-ext/near"
   dependencies:
     "@magic-sdk/commons": ^2.2.1
   languageName: unknown
@@ -4158,6 +4212,14 @@ __metadata:
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
     magic-sdk: ^6.2.1
+  languageName: unknown
+  linkType: soft
+
+"@magic-ext/polkadot@workspace:packages/@magic-ext/polkadot":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/polkadot@workspace:packages/@magic-ext/polkadot"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
   languageName: unknown
   linkType: soft
 
@@ -4176,6 +4238,14 @@ __metadata:
 "@magic-ext/solana@workspace:packages/@magic-ext/solana":
   version: 0.0.0-use.local
   resolution: "@magic-ext/solana@workspace:packages/@magic-ext/solana"
+  dependencies:
+    "@magic-sdk/commons": ^2.2.1
+  languageName: unknown
+  linkType: soft
+
+"@magic-ext/tezos@workspace:packages/@magic-ext/tezos":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/tezos@workspace:packages/@magic-ext/tezos"
   dependencies:
     "@magic-sdk/commons": ^2.2.1
   languageName: unknown
@@ -4587,6 +4657,104 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@onflow/decode@npm:0.0.6":
+  version: 0.0.6
+  resolution: "@onflow/decode@npm:0.0.6"
+  checksum: ae011789d07b9d3f7d0c157d8859f12c33a5c594b704eae388dbc2d47fead4d04db3b9bb7e6b405918a2df33086276f48a6df00409b90d5613b3917579689c9e
+  languageName: node
+  linkType: hard
+
+"@onflow/encode@npm:0.0.4":
+  version: 0.0.4
+  resolution: "@onflow/encode@npm:0.0.4"
+  dependencies:
+    rlp: ^2.2.4
+  checksum: 89aced509228b078e91e88c50c2d39a2d6c5862e1358d64716db2d9d3d4ab8466356df54bd296333185ab0244173d19b4f38087bf29f59bc280fb8a1b1f3062f
+  languageName: node
+  linkType: hard
+
+"@onflow/fcl@npm:0.0.41":
+  version: 0.0.41
+  resolution: "@onflow/fcl@npm:0.0.41"
+  dependencies:
+    "@onflow/sdk": 0.0.27
+    "@onflow/types": 0.0.2
+    queue-microtask: 1.1.2
+  checksum: 91e3754d4bea12bb16769a88e67743964b49201ebc901e65b42d502042fd36da91fcc3a6027cdb13f032c45613005a493c0f406e2fce5db0a3aabbce0d6e56c2
+  languageName: node
+  linkType: hard
+
+"@onflow/interaction@npm:0.0.7":
+  version: 0.0.7
+  resolution: "@onflow/interaction@npm:0.0.7"
+  checksum: 2c64a7ce9e991fa2fea50b16eed97b168ad7e4ec34a732289c79aba0e04dfeb29d15abce99cf41ff770297c3344b60d064d988574835d3fab61552e0b27b55aa
+  languageName: node
+  linkType: hard
+
+"@onflow/interaction@npm:0.0.8":
+  version: 0.0.8
+  resolution: "@onflow/interaction@npm:0.0.8"
+  checksum: f8edc94b91e59213eadb7b0e50e7b1db865ed05e3a1a7c16c42ffbd83a5007bf3e75189ae1a41645b3a1c5aa17b5f4411424887b436a02c5f8375b7c5660de29
+  languageName: node
+  linkType: hard
+
+"@onflow/protobuf@npm:0.1.4":
+  version: 0.1.4
+  resolution: "@onflow/protobuf@npm:0.1.4"
+  dependencies:
+    "@improbable-eng/grpc-web": ^0.12.0
+    google-protobuf: ^3.11.4
+  checksum: e2d310344c7d487095f5c8b641a4fbdb903d0b35c86ed3817970ebb09d2862ff70a088800265c1db7802e06157bb3237d82969c42601cd80eb224c2fcb0ad586
+  languageName: node
+  linkType: hard
+
+"@onflow/response@npm:0.0.2":
+  version: 0.0.2
+  resolution: "@onflow/response@npm:0.0.2"
+  checksum: 476e34ba3c9f5a79e61c770f146aeaf3c818fcabec638c05dec371ddbf029dccc59befe74a28ce49b5ff51874970eee10a11177c9cc2e61c3391995fb425e6c6
+  languageName: node
+  linkType: hard
+
+"@onflow/sdk@npm:0.0.27":
+  version: 0.0.27
+  resolution: "@onflow/sdk@npm:0.0.27"
+  dependencies:
+    "@onflow/decode": 0.0.6
+    "@onflow/encode": 0.0.4
+    "@onflow/interaction": 0.0.8
+    "@onflow/send": 0.0.14
+    "@qvvg/templar": 0.0.1
+  checksum: 8361cc0e6f5f563047052c6c5a86e939c984f998a3d0c81d01c293dd8f0ebde9647cb94a5614f26297d260073f5a71b85f35ba28975c40c7ae3682b326aa57eb
+  languageName: node
+  linkType: hard
+
+"@onflow/send@npm:0.0.14":
+  version: 0.0.14
+  resolution: "@onflow/send@npm:0.0.14"
+  dependencies:
+    "@improbable-eng/grpc-web": 0.12.0
+    "@improbable-eng/grpc-web-node-http-transport": 0.12.0
+    "@onflow/interaction": 0.0.7
+    "@onflow/protobuf": 0.1.4
+    "@onflow/response": 0.0.2
+  checksum: 85be707868e5d23831792760219476207b5a2c6807fffcfedaf7ca5aad744a6c9b4bb6447f24c790bd5798a6ca550e61988960458ac2badb0626bf3c5dda3dc0
+  languageName: node
+  linkType: hard
+
+"@onflow/types@npm:0.0.2":
+  version: 0.0.2
+  resolution: "@onflow/types@npm:0.0.2"
+  checksum: bdda6f28deb0197adbc1cd239f22bab6c3d3bd3d9988b0dbee9672191409b3e5ac7b8377fd8d13076919c592051bb2365de4f297b7ee355a042a407c4ab0c15c
+  languageName: node
+  linkType: hard
+
+"@onflow/types@npm:0.0.3":
+  version: 0.0.3
+  resolution: "@onflow/types@npm:0.0.3"
+  checksum: 77c9f4b4b23d960ead1f8e2395d772307c8b5b9bc642aa626d6d1f0458c98c31ad827530b74daf26eeef261b1b7fd33bdb63b6506265873b20c923b72cf9f19d
+  languageName: node
+  linkType: hard
+
 "@peculiar/asn1-schema@npm:^2.0.27, @peculiar/asn1-schema@npm:^2.0.32":
   version: 2.0.38
   resolution: "@peculiar/asn1-schema@npm:2.0.38"
@@ -4618,6 +4786,13 @@ __metadata:
     tslib: ^2.2.0
     webcrypto-core: ^1.2.0
   checksum: 8b6e365aaed7494a7d0c655f2382b9e4a7096c06c349f37e48f0167e59ed3450a3ed29553e32546ef20ca1b08203ac03f7c697e7c9711a74e38f4b9e4ee1d7d8
+  languageName: node
+  linkType: hard
+
+"@qvvg/templar@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@qvvg/templar@npm:0.0.1"
+  checksum: 05a44153be0baa1a3830c3df3fbe2d72783b055053ce131edfabdfb6a225a41933f3badce3d311b6c9f00b4a2e0e8619b91e67d276c6b7e0835c2687da509aee
   languageName: node
   linkType: hard
 
@@ -6736,6 +6911,13 @@ __metadata:
   dependencies:
     duplexer: 0.1.1
   checksum: 2a9e08347668f97e8a0e6edfff8860468b4705cf2e18d072c3e849d24db24bc0946fdbab204f6085c3565b047cfc988104500f0f7b5ff77e987feab0f04fc52f
+  languageName: node
+  linkType: hard
+
+"browser-headers@npm:^0.4.0":
+  version: 0.4.1
+  resolution: "browser-headers@npm:0.4.1"
+  checksum: 28b927dd90e4882eeb0625cd4a20a8e868f892144bca794a9b027fad9d2094656daf46473cb9084d650590504c581dd6a711146243035b66e75ade61bbe4d3cf
   languageName: node
   linkType: hard
 
@@ -10883,6 +11065,13 @@ fsevents@^1.2.7:
   version: 0.1.2
   resolution: "globrex@npm:0.1.2"
   checksum: adca162494a176ce9ecf4dd232f7b802956bb1966b37f60c15e49d2e7d961b66c60826366dc2649093cad5a0d69970cfa8875bd1695b5a1a2f33dcd2aa88da3c
+  languageName: node
+  linkType: hard
+
+"google-protobuf@npm:^3.11.4":
+  version: 3.19.1
+  resolution: "google-protobuf@npm:3.19.1"
+  checksum: 9ec57e1bdff76f9aec0f855376c1e0aa07de5c1b856b490d5c72b9e69a9e6e6ad24879a14e148a1542dbf27444575ad88b0a96c779f0d11b94211d78e1e5c924
   languageName: node
   linkType: hard
 
@@ -17297,6 +17486,13 @@ pvutils@latest:
     object-assign: ^4.1.0
     strict-uri-encode: ^1.0.0
   checksum: 4ac760d9778d413ef5f94f030ed14b1a07a1708dd13fd3bc54f8b9ef7b425942c7577f30de0bf5a7d227ee65a9a0350dfa3a43d1d266880882fb7ce4c434a4dd
+  languageName: node
+  linkType: hard
+
+"queue-microtask@npm:1.1.2":
+  version: 1.1.2
+  resolution: "queue-microtask@npm:1.1.2"
+  checksum: 830603e60541cbea8bec997c9f09f201584fea5dbf7887c63e2c584bd37f19b58e2e66f308f630019842e2095591121c822ad74330f79ec8c5f5d3d93b27c5b1
   languageName: node
   linkType: hard
 
