@@ -11,26 +11,27 @@
   "files": [
     "dist"
   ],
-  "target": "web",
-  "cdnGlobalName": "MagicFlowExtension",
+  "target": "neutral",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
   "react-native": "./dist/react-native/index.native.js",
   "exports": {
-    "import": "./dist/modern/index.mjs",
+    "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons",
-      "@onflow/fcl",
-      "@onflow/types"
+      "@magic-sdk/commons"
     ]
   },
   "devDependencies": {
     "@magic-sdk/commons": "^2.2.1",
+    "@onflow/fcl": "0.0.41",
+    "@onflow/types": "0.0.3"
+  },
+  "peerDependencies": {
     "@onflow/fcl": "0.0.41",
     "@onflow/types": "0.0.3"
   }
