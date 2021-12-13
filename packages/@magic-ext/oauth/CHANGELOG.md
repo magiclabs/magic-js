@@ -1,3 +1,15 @@
+# v0.11.2 (Wed Nov 10 2021)
+
+#### 🐛 Bug Fix
+
+- move crypto-js to devDependencies to fix bundling error [#242](https://github.com/magiclabs/magic-js/pull/242) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v0.10.4 (Thu Oct 21 2021)
 
 #### 🐛 Bug Fix

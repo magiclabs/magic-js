@@ -1,10 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+
 import { getScriptData } from '../utils/script-data';
 import { createMagicInstance } from '../utils/magic-instance';
 
 export async function login(): Promise<void> {
-  const { src, apiKey, redirectURI = `${window.location.origin}/callback`, debug } = getScriptData();
+  const {
+    src,
+    apiKey,
+    locale,
+    redirectURI = `${window.location.origin}/callback`,
+    termsOfServiceURI,
+    privacyPolicyURI,
+    debug,
+  } = getScriptData();
 
-  const magic = createMagicInstance(apiKey, src.origin);
+  const magic = createMagicInstance(apiKey, src.origin, locale);
 
   async function handleOAuthLogin(provider: any) {
     await magic.pnp.saveLastUsedProvider(provider);
@@ -23,7 +33,7 @@ export async function login(): Promise<void> {
     window.location.href = `${redirectURI}?didt=${encodeURIComponent(didt!)}`;
   }
 
-  const [loginType, arg] = await magic.pnp.getLoginMethod(debug);
+  const [loginType, arg] = await magic.pnp.getLoginMethod({ debug, termsOfServiceURI, privacyPolicyURI });
 
   switch (loginType) {
     case 'oauth2':

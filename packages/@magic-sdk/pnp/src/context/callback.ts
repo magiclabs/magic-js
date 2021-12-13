@@ -5,11 +5,11 @@ import { dispatchReadyEvent } from '../utils/events';
 export async function callback(): Promise<void> {
   // In this context, `loginURI` and `redirectURI` are the same.
   // We simply need a location to redirect to upon callback failure.
-  const { src, apiKey, loginURI, redirectURI = window.location.origin } = getScriptData();
+  const { src, apiKey, locale, loginURI, redirectURI = window.location.origin } = getScriptData();
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const magic = createMagicInstance(apiKey, src.origin);
+  const magic = createMagicInstance(apiKey, src.origin, locale);
 
   function clearURLQuery() {
     const urlWithoutQuery = window.location.origin + window.location.pathname;

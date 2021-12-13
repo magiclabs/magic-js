@@ -1,3 +1,94 @@
+# (Fri Dec 10 2021)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/algorand@1.0.0`, `@magic-ext/flow@1.0.0`, `@magic-ext/icon@1.0.0`, `@magic-ext/near@1.0.0`, `@magic-ext/polkadot@1.0.0`, `@magic-ext/tezos@1.0.0`
+  - Jerryliu sc 44386 migrate web3 related magic ext repos to magic part 2 [#251](https://github.com/magiclabs/magic-js/pull/251) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Dec 09 2021)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/avalanche@1.0.0`, `@magic-ext/cosmos@1.0.0`, `@magic-ext/harmony@1.0.0`, `@magic-ext/solana@2.0.0`, `@magic-ext/zilliqa@1.0.0`
+  - Jerryliu sc 44386 migrate web3 related magic ext repos to magic (PART 1) [#248](https://github.com/magiclabs/magic-js/pull/248) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Wed Nov 10 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@0.11.2`
+  - move crypto-js to devDependencies to fix bundling error [#242](https://github.com/magiclabs/magic-js/pull/242) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# (Mon Nov 08 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/pnp@0.6.0`
+  - Add parameters for ToS and privacy links to `@magic-sdk/pnp` [#240](https://github.com/magiclabs/magic-js/pull/240) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Mon Nov 08 2021)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@6.2.1`
+  - Remove 'semver' re-export from '@magic-sdk/provider' utils [#237](https://github.com/magiclabs/magic-js/pull/237) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Fri Oct 29 2021)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/pnp@0.5.0`
+  - Add support for `data-locale` parameter in `@magic-sdk/pnp` [#234](https://github.com/magiclabs/magic-js/pull/234) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Wed Oct 27 2021)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/bitcoin@1.0.0`
+  - add bitcoin extension for web and react native [#233](https://github.com/magiclabs/magic-js/pull/233) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # (Fri Oct 22 2021)
 
 #### 🚀 Enhancement
