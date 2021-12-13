@@ -1,3 +1,4 @@
 import { TezosExtension } from './index';
 
-export { TezosExtension as default };
+export type { TezosExtension as default };
+module.exports = TezosExtension;

@@ -1,3 +1,4 @@
 import { BitcoinExtension } from './index';
 
-export { BitcoinExtension as default };
+export type { BitcoinExtension as default };
+module.exports = BitcoinExtension;

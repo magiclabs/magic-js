@@ -31,4 +31,5 @@ const Magic = Object.assign(
   { ...publicAPI },
 );
 
-export { Magic as default };
+module.exports = Magic;
+export type { Magic as default };

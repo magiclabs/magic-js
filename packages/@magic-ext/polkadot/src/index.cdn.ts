@@ -1,3 +1,4 @@
 import { PolkadotExtension } from './index';
 
-export { PolkadotExtension as default };
+export type { PolkadotExtension as default };
+module.exports = PolkadotExtension;

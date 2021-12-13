@@ -1,3 +1,4 @@
 import { HarmonyExtension } from './index';
 
-export { HarmonyExtension as default };
+export type { HarmonyExtension as default };
+module.exports = HarmonyExtension;

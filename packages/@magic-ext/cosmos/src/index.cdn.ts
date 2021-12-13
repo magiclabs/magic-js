@@ -1,3 +1,4 @@
 import { CosmosExtension } from './index';
 
-export { CosmosExtension as default };
+export type { CosmosExtension as default };
+module.exports = CosmosExtension;
