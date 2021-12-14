@@ -1,4 +1,5 @@
 /* istanbul ignore file */
+// Deprecate test API key in v7.0.0
 
 import { SDKBase, createSDK, InstanceWithExtensions, MagicSDKExtensionsOption } from '@magic-sdk/provider';
 import localForage from 'localforage';
