@@ -1,3 +1,16 @@
+# v7.0.0 (Tue Dec 14 2021)
+
+#### 💥 Breaking Change
+
+- Deprecate test API key [#252](https://github.com/magiclabs/magic-js/pull/252) (harry [@harryEth](https://github.com/harryEth))
+
+#### Authors: 2
+
+- [@harryEth](https://github.com/harryEth)
+- harry (harry)
+
+---
+
 # v6.1.4 (Thu Oct 21 2021)
 
 #### 🐛 Bug Fix
