@@ -1,5 +1,17 @@
 # v6.1.4 (Thu Oct 21 2021)
 
+# v6.0.0 (Tue Sep 14 2021)
+
+#### 💥 Breaking Change
+
+- v7.0.0 Deprecate test API key
+
+#### Authors: 1
+
+- Harry ([harryEth](https://github.com/harryEth))
+
+---
+
 #### 🐛 Bug Fix
 
 - Revert to `.js` extension for ES module builds targeting webpack/CRA [#232](https://github.com/magiclabs/magic-js/pull/232) ([@smithki](https://github.com/smithki))
