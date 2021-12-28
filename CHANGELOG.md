@@ -1,3 +1,17 @@
+# (Tue Dec 14 2021)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/types@6.0.0`, `magic-sdk@7.0.0`
+  - Deprecate test API key [#252](https://github.com/magiclabs/magic-js/pull/252) (harry [@harryEth](https://github.com/harryEth))
+
+#### Authors: 2
+
+- [@harryEth](https://github.com/harryEth)
+- harry (harry)
+
+---
+
 # (Fri Dec 10 2021)
 
 #### 💥 Breaking Change
