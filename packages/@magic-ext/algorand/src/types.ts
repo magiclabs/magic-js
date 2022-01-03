@@ -12,4 +12,5 @@ export enum AlgorandPayloadMethod {
   AlgorandSignBid = 'algod_signBid',
   AlgorandGetWallet = 'algod_getWallet',
   AlgorandSignGroupTransaction = 'algod_signGroupTransaction',
+  AlgorandSignGroupTransactionV2 = 'algod_signGroupTransactionV2',
 }
