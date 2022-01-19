@@ -1,1 +1,1 @@
-export * from './index';
+export {SolanaExtension} from './index.js';
