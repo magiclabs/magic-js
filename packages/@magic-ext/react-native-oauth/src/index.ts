@@ -17,6 +17,10 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     '@magic-sdk/react-native': '>=2.7.0',
   };
 
+  /**
+   * Login with AuthSession
+   * @param configuration
+   */
   public loginWithPopup(configuration: OAuthRedirectConfiguration) {
     return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
       try {
