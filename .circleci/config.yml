@@ -133,7 +133,7 @@ jobs:
           command: yarn run build
       - persist_to_workspace:
           paths: *build-output-paths
-          root: *workspace-root\
+          root: *workspace-root
 
   # Builds modules and persists the build output to the workspace (forked branches only).
   build-fork:
