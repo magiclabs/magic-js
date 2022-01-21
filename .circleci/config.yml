@@ -208,11 +208,11 @@ workflows:
 
       - lint:
           requires:
-            - build
+            - build-fork
 
       - test:
           requires:
-            - build
+            - build-fork
 
   # Builds modules, verifies code with the linter, runs unit tests, and
   # publishes the built packages to NPM.
