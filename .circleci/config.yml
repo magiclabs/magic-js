@@ -46,7 +46,7 @@ aliases: [
     filters: {
       branches: {
         # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
-        ignore: "/^master$|^next$|pull\/[0-9]+/"
+        ignore: "/^master$|^next$|pull\\/[0-9]+/"
       }
     }
   },
@@ -57,7 +57,7 @@ aliases: [
     filters: {
       branches: {
         # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
-        only: "/pull\/[0-9]+/"
+        only: "/pull\\/[0-9]+/"
       }
     }
   },
