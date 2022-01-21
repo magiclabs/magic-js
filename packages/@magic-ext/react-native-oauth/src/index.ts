@@ -18,7 +18,7 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   };
 
   /**
-   * Login with AuthSession
+   * Login with AuthSession in IOS and CustomTab in Android
    * @param configuration
    */
   public loginWithPopup(configuration: OAuthRedirectConfiguration) {
