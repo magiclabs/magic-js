@@ -3,7 +3,7 @@
 import { SDKBase, createSDK } from '@magic-sdk/provider';
 import * as publicAPI from '@magic-sdk/commons';
 import localForage from 'localforage';
-import memoryDriver from 'localforage-driver-memory';
+import * as memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
 
 // NOTE: enums are emitted by TypeScript -- in the CDN bundle we attach public
@@ -31,5 +31,4 @@ const Magic = Object.assign(
   { ...publicAPI },
 );
 
-module.exports = Magic;
-export type { Magic as default };
+export default Magic;

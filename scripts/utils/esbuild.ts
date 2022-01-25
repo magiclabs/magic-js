@@ -41,6 +41,14 @@ export async function build(options: ESBuildOptions) {
           Object.entries(environment).map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)]),
         ),
         plugins: [...globalsPlugin(options.globals || {})],
+
+        // We need this footer because: https://github.com/evanw/esbuild/issues/1182
+        footer:
+          options.format === 'iife'
+            ? {
+                js: `${options.name} = Object.assign(${options.name}.default, ${options.name}); delete ${options.name}.default;`,
+              }
+            : undefined,
       });
 
       // Log the type and size of the output(s)...
