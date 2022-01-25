@@ -46,7 +46,10 @@ export async function build(options: ESBuildOptions) {
         footer:
           options.format === 'iife'
             ? {
-                js: `${options.name} = Object.assign(${options.name}.default, ${options.name}); delete ${options.name}.default;`,
+                // This snippet replaces `window.{name}` with
+                // `window.{name}.default`, with any additional named exports
+                // assigned. Finally, it removes `window.{name}.default`.
+                js: `if (${options.name} && ${options.name}.default != null) { ${options.name} = Object.assign(${options.name}.default, ${options.name}); delete ${options.name}.default; }`,
               }
             : undefined,
       });
