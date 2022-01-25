@@ -1,3 +1,4 @@
 import { FlowExtension } from './index';
 
-export { FlowExtension as default };
+export type { FlowExtension as default };
+module.exports = FlowExtension;

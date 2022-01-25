@@ -13,7 +13,7 @@
     "dist/**/*.js.map",
     "dist/**/*.d.ts"
   ],
-  "target": "web",
+  "target": "neutral",
   "cdnGlobalName": "MagicHarmonyExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
@@ -21,7 +21,7 @@
   "jsdelivr": "./dist/extension.js",
   "react-native": "./dist/react-native/index.native.js",
   "exports": {
-    "import": "./dist/modern/index.mjs",
+    "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {

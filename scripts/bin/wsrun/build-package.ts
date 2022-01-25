@@ -7,7 +7,7 @@
 
 import pLimit from 'p-limit';
 import isCI from 'is-ci';
-import { build, createTemporaryTSConfigFile } from '../../utils/microbundle';
+import { build, createTemporaryTSConfigFile, emitTypes } from '../../utils/esbuild';
 import { runAsyncProcess } from '../../utils/run-async-process';
 
 function getExternalsFromPkgJson(pkgJson: any): string[] {
@@ -34,45 +34,46 @@ async function cjs() {
 
 async function esm() {
   const pkgJson = require(`${process.cwd()}/package.json`);
-  await build({
-    format: 'es',
-    target: pkgJson.target,
-    output: pkgJson.module,
-    externals: getExternalsFromPkgJson(pkgJson),
-    sourcemap: true,
-  });
-}
+  await Promise.all([
+    build({
+      format: 'esm',
+      target: pkgJson.target,
+      output: pkgJson.module,
+      externals: getExternalsFromPkgJson(pkgJson),
+      sourcemap: true,
+    }),
 
-async function modern() {
-  const pkgJson = require(`${process.cwd()}/package.json`);
-  await build({
-    format: 'modern',
-    target: pkgJson.target,
-    output: typeof pkgJson.exports === 'string' ? pkgJson.exports : pkgJson.exports?.import,
-    externals: getExternalsFromPkgJson(pkgJson),
-    sourcemap: true,
-  });
+    build({
+      format: 'modern',
+      target: pkgJson.target,
+      output: pkgJson?.exports?.import,
+      externals: getExternalsFromPkgJson(pkgJson),
+      sourcemap: true,
+    }),
+  ]);
 }
 
 async function cdn() {
   const pkgJson = require(`${process.cwd()}/package.json`);
 
-  const isMagicSDK = process.cwd().endsWith('packages/magic-sdk');
+  if (pkgJson.cdnGlobalName) {
+    const isMagicSDK = process.cwd().endsWith('packages/magic-sdk');
 
-  // For CDN targets outside of `magic-sdk` itself,
-  // we assume `magic-sdk` & `@magic-sdk/commons` are external/global.
-  const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/commons'];
-  const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/commons': 'Magic' };
+    // For CDN targets outside of `magic-sdk` itself,
+    // we assume `magic-sdk` & `@magic-sdk/commons` are external/global.
+    const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/commons'];
+    const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/commons': 'Magic' };
 
-  await build({
-    format: 'iife',
-    target: pkgJson.target,
-    output: pkgJson.jsdelivr,
-    name: pkgJson.cdnGlobalName,
-    externals,
-    globals,
-    sourcemap: false,
-  });
+    await build({
+      format: 'iife',
+      target: 'browser',
+      output: pkgJson.jsdelivr,
+      name: pkgJson.cdnGlobalName,
+      externals,
+      globals,
+      sourcemap: false,
+    });
+  }
 }
 
 async function reactNativeHybridExtension() {
@@ -92,7 +93,7 @@ async function main() {
 
   // We need to limit concurrency in CI to avoid ENOMEM errors.
   const limit = pLimit(isCI ? 2 : 4);
-  const builders = [limit(cjs), limit(esm), limit(modern), limit(cdn), limit(reactNativeHybridExtension)];
+  const builders = [limit(cjs), limit(esm), limit(cdn), limit(reactNativeHybridExtension), limit(emitTypes)];
   await Promise.all(builders);
 }
 

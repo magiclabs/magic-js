@@ -1,3 +1,4 @@
 import { ZilliqaExtension } from './index';
 
-export { ZilliqaExtension as default };
+export type { ZilliqaExtension as default };
+module.exports = ZilliqaExtension;

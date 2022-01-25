@@ -1,3 +1,4 @@
 import { AlgorandExtension } from './index';
 
-export { AlgorandExtension as default };
+export type { AlgorandExtension as default };
+module.exports = AlgorandExtension;

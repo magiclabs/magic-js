@@ -12,14 +12,14 @@
   "files": [
     "dist"
   ],
-  "target": "web",
+  "target": "browser",
   "cdnGlobalName": "Magic",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/magic.js",
   "exports": {
-    "import": "./dist/modern/index.mjs",
+    "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {

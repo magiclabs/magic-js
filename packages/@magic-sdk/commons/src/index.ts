@@ -8,10 +8,9 @@ export {
   MagicExtensionWarning as ExtensionWarning,
   MagicRPCError as RPCError,
   MagicSDKWarning as SDKWarning,
-  MagicSDKAdditionalConfiguration,
-  MagicSDKExtensionsOption,
-  PromiEvent,
   isPromiEvent,
 } from '@magic-sdk/provider';
+
+export type { MagicSDKAdditionalConfiguration, MagicSDKExtensionsOption, PromiEvent } from '@magic-sdk/provider';
 
 export * from '@magic-sdk/types';

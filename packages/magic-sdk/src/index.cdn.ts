@@ -1,7 +1,5 @@
 /* istanbul ignore file */
 
-import 'regenerator-runtime/runtime';
-
 import { SDKBase, createSDK } from '@magic-sdk/provider';
 import * as publicAPI from '@magic-sdk/commons';
 import localForage from 'localforage';
@@ -33,4 +31,5 @@ const Magic = Object.assign(
   { ...publicAPI },
 );
 
-export { Magic as default };
+module.exports = Magic;
+export type { Magic as default };

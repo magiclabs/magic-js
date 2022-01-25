@@ -1,3 +1,4 @@
 import { SolanaExtension } from './index';
 
-export { SolanaExtension as default };
+export type { SolanaExtension as default };
+module.exports = SolanaExtension;
