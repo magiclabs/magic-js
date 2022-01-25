@@ -1,3 +1,16 @@
+# (Tue Jan 25 2022)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/algorand@3.0.0`, `@magic-ext/avalanche@3.0.0`, `@magic-ext/bitcoin@3.0.0`, `@magic-ext/conflux@1.0.0`, `@magic-ext/cosmos@3.0.0`, `@magic-ext/flow@3.0.0`, `@magic-ext/harmony@3.0.0`, `@magic-ext/icon@3.0.0`, `@magic-ext/near@3.0.0`, `@magic-ext/oauth@2.0.0`, `@magic-ext/polkadot@3.0.0`, `@magic-ext/react-native-oauth@2.0.0`, `@magic-ext/solana@4.0.0`, `@magic-ext/tezos@3.0.0`, `@magic-ext/webauthn@2.0.0`, `@magic-ext/zilliqa@3.0.0`, `@magic-sdk/commons@4.0.0`, `@magic-sdk/pnp@2.0.0`, `@magic-sdk/provider@8.0.0`, `@magic-sdk/react-native@8.0.0`, `@magic-sdk/types@7.0.0`, `magic-sdk@8.0.0`
+  - Switch from `microbundle` to `esbuild` [#220](https://github.com/magiclabs/magic-js/pull/220) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Mon Jan 24 2022)
 
 #### 🐛 Bug Fix

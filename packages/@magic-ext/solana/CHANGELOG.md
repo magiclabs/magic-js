@@ -1,3 +1,23 @@
+# v4.0.0 (Tue Jan 25 2022)
+
+#### 💥 Breaking Change
+
+- Switch from `microbundle` to `esbuild` [#220](https://github.com/magiclabs/magic-js/pull/220) ([@smithki](https://github.com/smithki))
+
+#### 🐛 Bug Fix
+
+- Fix build ([@smithki](https://github.com/smithki))
+- Merge with master ([@smithki](https://github.com/smithki))
+- Merge branch 'master' into feat/faster-builds ([@smithki](https://github.com/smithki))
+- Modify CDN default exports ([@smithki](https://github.com/smithki))
+- Support newly added Magic JS extensions in ESBuild ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v3.0.1 (Mon Jan 24 2022)
 
 #### 🐛 Bug Fix

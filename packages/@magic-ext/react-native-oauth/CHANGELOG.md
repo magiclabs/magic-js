@@ -1,3 +1,21 @@
+# v2.0.0 (Tue Jan 25 2022)
+
+#### 💥 Breaking Change
+
+- Switch from `microbundle` to `esbuild` [#220](https://github.com/magiclabs/magic-js/pull/220) ([@smithki](https://github.com/smithki))
+
+#### 🐛 Bug Fix
+
+- Merge with master ([@smithki](https://github.com/smithki))
+- Merge branch 'master' into feat/faster-builds ([@smithki](https://github.com/smithki))
+- Fix build errors related to isolatedModules ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v0.5.4 (Thu Oct 21 2021)
 
 #### 🐛 Bug Fix
