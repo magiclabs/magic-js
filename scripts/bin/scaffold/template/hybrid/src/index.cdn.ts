@@ -1,3 +1,4 @@
 import { <%= className %> } from './index';
 
-export { <%= className %> as default };
+export type { <%= className %> as default };
+module.exports = <%= className %>;

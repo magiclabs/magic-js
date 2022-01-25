@@ -1,3 +1,4 @@
 import { NearExtension } from './index';
 
-export { NearExtension as default };
+export type { NearExtension as default };
+module.exports = NearExtension;

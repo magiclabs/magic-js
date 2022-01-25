@@ -1,3 +1,4 @@
 import { IconExtension } from './index';
 
-export { IconExtension as default };
+export type { IconExtension as default };
+module.exports = IconExtension;

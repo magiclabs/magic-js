@@ -1,3 +1,4 @@
 import { WebAuthnExtension } from './index';
 
-export { WebAuthnExtension as default };
+export type { WebAuthnExtension as default };
+module.exports = WebAuthnExtension;

@@ -1,5 +1,3 @@
-<!-- force publish -->
-
 # ✨ Magic JavaScript SDK Commons
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
