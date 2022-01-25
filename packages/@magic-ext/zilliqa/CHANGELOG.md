@@ -1,3 +1,16 @@
+# v3.0.1 (Tue Jan 25 2022)
+
+#### 🐛 Bug Fix
+
+- Fix CDN build targets [#270](https://github.com/magiclabs/magic-js/pull/270) ([@smithki](https://github.com/smithki))
+- Fix CDN issues related to ESBuild ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v3.0.0 (Tue Jan 25 2022)
 
 #### 💥 Breaking Change
