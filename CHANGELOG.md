@@ -1,3 +1,24 @@
+# (Mon Jan 24 2022)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/solana@3.0.1`
+  - Fixing solana react native [#266](https://github.com/magiclabs/magic-js/pull/266) ([@bmeeder22](https://github.com/bmeeder22) [@smithki](https://github.com/smithki))
+- `@magic-ext/conflux@0.1.1`
+  - magic-conflux extension [#263](https://github.com/magiclabs/magic-js/pull/263) ([@hcote](https://github.com/hcote))
+
+#### 🏠 Internal
+
+- Update CI to build forked branches without ENV vars [#267](https://github.com/magiclabs/magic-js/pull/267) ([@smithki](https://github.com/smithki))
+
+#### Authors: 3
+
+- Ben Meeder ([@bmeeder22](https://github.com/bmeeder22))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Tue Dec 14 2021)
 
 #### 💥 Breaking Change

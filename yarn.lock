@@ -3182,6 +3182,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/conflux@workspace:packages/@magic-ext/conflux":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/conflux@workspace:packages/@magic-ext/conflux"
+  dependencies:
+    "@magic-sdk/commons": ^3.0.0
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/cosmos@workspace:packages/@magic-ext/cosmos":
   version: 0.0.0-use.local
   resolution: "@magic-ext/cosmos@workspace:packages/@magic-ext/cosmos"

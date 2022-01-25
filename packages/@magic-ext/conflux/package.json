@@ -1,7 +1,7 @@
 {
-  "name": "@magic-ext/solana",
-  "version": "3.0.1",
-  "description": "magic solana extension",
+  "name": "@magic-ext/conflux",
+  "version": "0.1.1",
+  "description": "magic conflux extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
@@ -12,7 +12,7 @@
     "dist"
   ],
   "target": "neutral",
-  "cdnGlobalName": "MagicSolanaExtension",
+  "cdnGlobalName": "MagicConfluxExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
