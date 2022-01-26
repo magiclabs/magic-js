@@ -14,9 +14,7 @@ async function buildDeps(PKG: string) {
   await execa('yarn', ['wsrun', '-r', '--stages', `${process.env.INIT_CWD}/scripts/bin/wsrun/build-package.ts`], {
     stdio: 'inherit',
     env: { PKG },
-  })
-    .then(() => console.log())
-    .catch(handleError('Failed to build dependencies.'));
+  }).catch(handleError('Failed to build dependencies.'));
 }
 
 async function startDevServer(PKG: string) {
