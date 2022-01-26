@@ -20,7 +20,8 @@
   "react-native": "./dist/react-native/index.native.js",
   "exports": {
     "import": "./dist/es/index.mjs",
-    "require": "./dist/cjs/index.js"
+    "require": "./dist/cjs/index.js",
+    "./package.json": "./package.json"
   },
   "externals": {
     "include": [
