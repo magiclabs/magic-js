@@ -46,8 +46,10 @@ export async function promptForPackage(options: { allowAll?: boolean } = {}) {
     type: 'autocomplete',
     name: 'pkg',
     message: 'Select a workspace:',
-    choices: [allowAll && { name: 'all', value: '*' }, sep, ...sdkPkgs, sep, ...extPkgs].filter(Boolean),
-    initial: allowAll ? '*' : packages[0],
+    choices: [allowAll && { name: 'all', value: '*' }, allowAll && sep, ...sdkPkgs, sep, ...extPkgs, sep].filter(
+      Boolean,
+    ),
+    initial: allowAll ? '*' : 'magic-sdk',
   } as any);
 
   process.env.PKG = pkg;
@@ -110,7 +112,7 @@ export async function getPackages(pkgQuery: string) {
 /**
  * Log the given `packages` (a string of package names in the workspace).
  */
-export function logPackages(packages: string[]) {
+export function printPackages(packages: string[]) {
   console.log(
     packages
       .slice()

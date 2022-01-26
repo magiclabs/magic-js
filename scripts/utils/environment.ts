@@ -10,7 +10,7 @@ export const environment = {
   REACT_NATIVE_VERSION: require(path.resolve(__dirname, '../../packages/@magic-sdk/react-native/package.json')).version,
 };
 
-export function logEnvironment() {
+export function printEnvironment() {
   console.log(
     Object.entries(environment)
       .map(([key, value]) => {

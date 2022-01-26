@@ -21,9 +21,10 @@ function getExternalsFromPkgJson(pkgJson: any): string[] {
   return defaultExternals.filter((dep) => !excludes.includes(dep));
 }
 
-async function cjs() {
+async function cjs(watch?: boolean) {
   const pkgJson = require(`${process.cwd()}/package.json`);
   await build({
+    watch,
     format: 'cjs',
     target: pkgJson.target,
     output: pkgJson.exports?.require ?? pkgJson.main,
@@ -32,10 +33,11 @@ async function cjs() {
   });
 }
 
-async function esm() {
+async function esm(watch?: boolean) {
   const pkgJson = require(`${process.cwd()}/package.json`);
   await Promise.all([
     build({
+      watch,
       format: 'esm',
       target: pkgJson.target,
       output: pkgJson.module,
@@ -44,6 +46,7 @@ async function esm() {
     }),
 
     build({
+      watch,
       format: 'modern',
       target: pkgJson.target,
       output: pkgJson?.exports?.import,
@@ -53,7 +56,7 @@ async function esm() {
   ]);
 }
 
-async function cdn() {
+async function cdn(watch?: boolean) {
   const pkgJson = require(`${process.cwd()}/package.json`);
 
   if (pkgJson.cdnGlobalName) {
@@ -65,6 +68,7 @@ async function cdn() {
     const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/commons': 'Magic' };
 
     await build({
+      watch,
       format: 'iife',
       target: 'browser',
       output: pkgJson.jsdelivr,
@@ -76,10 +80,11 @@ async function cdn() {
   }
 }
 
-async function reactNativeHybridExtension() {
+async function reactNativeHybridExtension(watch?: boolean) {
   const pkgJson = require(`${process.cwd()}/package.json`);
 
   await build({
+    watch,
     format: 'cjs',
     target: pkgJson.target,
     output: pkgJson['react-native'],
@@ -91,10 +96,15 @@ async function reactNativeHybridExtension() {
 async function main() {
   await createTemporaryTSConfigFile();
 
-  // We need to limit concurrency in CI to avoid ENOMEM errors.
-  const limit = pLimit(isCI ? 2 : 4);
-  const builders = [limit(cjs), limit(esm), limit(cdn), limit(reactNativeHybridExtension), limit(emitTypes)];
-  await Promise.all(builders);
+  if (process.env.DEV_SERVER) {
+    const builders = [cjs(true), esm(true), cdn(true), reactNativeHybridExtension(true), emitTypes(true)];
+    await Promise.all(builders);
+  } else {
+    // We need to limit concurrency in CI to avoid ENOMEM errors.
+    const limit = pLimit(isCI ? 2 : 4);
+    const builders = [limit(cjs), limit(esm), limit(cdn), limit(reactNativeHybridExtension), limit(emitTypes)];
+    await Promise.all(builders);
+  }
 }
 
 runAsyncProcess(main);

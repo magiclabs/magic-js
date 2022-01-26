@@ -5,8 +5,8 @@ import isCI from 'is-ci';
 import { runAsyncProcess } from '../utils/run-async-process';
 import { handleError } from '../utils/handle-script-error';
 import { printSeparator } from '../utils/print-separator';
-import { getPackages, logPackages, promptForPackage } from '../utils/workspace-helpers';
-import { logEnvironment } from '../utils/environment';
+import { getPackages, printPackages, promptForPackage } from '../utils/workspace-helpers';
+import { printEnvironment } from '../utils/environment';
 
 async function buildPkgs(PKG: string) {
   printSeparator('Building');
@@ -27,10 +27,10 @@ async function main() {
   const { packages } = await getPackages(PKG);
 
   console.log(`\nFound ${packages.length} packages to build:`);
-  logPackages(packages);
+  printPackages(packages);
 
   console.log(`\nBuilding with the following environment:`);
-  logEnvironment();
+  printEnvironment();
 
   await buildPkgs(PKG);
 }
