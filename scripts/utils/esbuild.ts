@@ -1,4 +1,4 @@
-import { build as esbuild, Platform, Plugin } from 'esbuild';
+import { build as esbuild, BuildFailure, BuildResult, Platform, Plugin } from 'esbuild';
 import path from 'path';
 import fse from 'fs-extra';
 import gzipSize from 'gzip-size';
@@ -12,6 +12,7 @@ import { existsAsync } from './exists-async';
 type ESBuildFormat = 'esm' | 'modern' | 'cjs' | 'iife';
 
 interface ESBuildOptions {
+  watch?: boolean;
   target?: Platform;
   format?: ESBuildFormat;
   output?: string;
@@ -27,6 +28,7 @@ export async function build(options: ESBuildOptions) {
       await esbuild({
         bundle: true,
         minify: true,
+        watch: options.watch ? { onRebuild: onRebuildFactory(options) } : undefined,
         legalComments: 'none',
         platform: options.target ?? 'browser',
         format: getFormat(options.format) ?? 'cjs',
@@ -54,11 +56,7 @@ export async function build(options: ESBuildOptions) {
             : undefined,
       });
 
-      // Log the type and size of the output(s)...
-      const outputPath = path.resolve(process.cwd(), options.output);
-      const sizeInfo = await getSizeInfo((await fse.readFile(outputPath)).toString(), outputPath);
-      console.log(chalk`Built {rgb(0,255,255) ${options.format}} to {gray ${path.dirname(options.output)}}`);
-      console.log(sizeInfo);
+      await printOutputSizeInfo(options);
     } catch (e) {
       console.error(e);
       throw e;
@@ -67,17 +65,50 @@ export async function build(options: ESBuildOptions) {
 }
 
 /**
+ * Prints the size of the output file(s) produced by ESBuild.
+ */
+async function printOutputSizeInfo(options: ESBuildOptions) {
+  if (options.output) {
+    // Log the type and size of the output(s)...
+    const outputPath = path.resolve(process.cwd(), options.output);
+    const sizeInfo = await getSizeInfo((await fse.readFile(outputPath)).toString(), outputPath);
+    console.log(chalk`Built {rgb(0,255,255) ${options.format}} to {gray ${path.dirname(options.output)}}`);
+    console.log(sizeInfo);
+  }
+}
+
+/**
+ * Returns a function that can be used to handle rebuild events from ESBuild.
+ */
+function onRebuildFactory(options: ESBuildOptions) {
+  return async (error: BuildFailure | null, result: BuildResult | null) => {
+    if (error) {
+      console.error(error.message);
+    } else {
+      await printOutputSizeInfo(options);
+    }
+  };
+}
+
+/**
  * Emits TypeScript typings for the current package.
  */
-export async function emitTypes() {
+export async function emitTypes(watch?: boolean) {
   try {
-    await execa('tsc', ['-p', 'node_modules/.temp/tsconfig.build.json']);
+    if (watch) {
+      await execa('tsc', ['-w', '-p', 'node_modules/.temp/tsconfig.build.json']);
+    } else {
+      await execa('tsc', ['-p', 'node_modules/.temp/tsconfig.build.json']);
+    }
   } catch (e) {
     console.error(e);
     throw e;
   }
 }
 
+/**
+ * Gets a normalized ESBuild format string.
+ */
 function getFormat(format?: ESBuildFormat): Exclude<ESBuildFormat, 'modern'> | undefined {
   switch (format) {
     case 'modern':
@@ -88,6 +119,10 @@ function getFormat(format?: ESBuildFormat): Exclude<ESBuildFormat, 'modern'> | u
   }
 }
 
+/**
+ * Resolves the entrypoint file for ESBuild,
+ * based on the format and target platform.
+ */
 async function getEntrypoint(format?: ESBuildFormat, output?: string) {
   const findEntrypoint = async (indexTarget?: string) => {
     if (format && (await existsAsync(path.resolve(process.cwd(), `./src/index.${indexTarget}.ts`)))) {
