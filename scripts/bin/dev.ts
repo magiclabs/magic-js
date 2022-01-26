@@ -32,13 +32,19 @@ async function main() {
   const PKG = await promptForPackage({ allowAll: false });
   const { packages, dependencies } = await getPackages(PKG);
 
-  console.log(`\nFound ${dependencies.length} dependencies to build:`);
-  printPackages(packages);
+  if (dependencies.length) {
+    console.log(`\nFound ${dependencies.length} dependencies to build:`);
+    printPackages(packages);
 
-  console.log(`\nBuilding with the following environment:`);
-  printEnvironment();
+    console.log(`\nBuilding with the following environment:`);
+    printEnvironment();
 
-  await buildDeps(dependencies.join(','));
+    await buildDeps(dependencies.join(','));
+  } else {
+    console.log(`\nBuilding with the following environment:`);
+    printEnvironment();
+  }
+
   await startDevServer(PKG);
 }
 
