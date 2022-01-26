@@ -89,6 +89,7 @@ async function reactNativeHybridExtension(watch?: boolean) {
     target: pkgJson.target,
     output: pkgJson['react-native'],
     externals: getExternalsFromPkgJson(pkgJson),
+    isRN: true,
     sourcemap: true,
   });
 }

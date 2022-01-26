@@ -20,6 +20,7 @@ interface ESBuildOptions {
   name?: string;
   globals?: Record<string, string>;
   externals?: string[];
+  isRN?: boolean;
 }
 
 export async function build(options: ESBuildOptions) {
@@ -33,7 +34,7 @@ export async function build(options: ESBuildOptions) {
         platform: options.target ?? 'browser',
         format: getFormat(options.format) ?? 'cjs',
         globalName: options.format === 'iife' ? options.name : undefined,
-        entryPoints: [await getEntrypoint(options.format, options.output)],
+        entryPoints: [await getEntrypoint(options.format, options.isRN)],
         sourcemap: options.sourcemap,
         outfile: options.output,
         tsconfig: 'node_modules/.temp/tsconfig.build.json',
@@ -123,7 +124,7 @@ function getFormat(format?: ESBuildFormat): Exclude<ESBuildFormat, 'modern'> | u
  * Resolves the entrypoint file for ESBuild,
  * based on the format and target platform.
  */
-async function getEntrypoint(format?: ESBuildFormat, output?: string) {
+async function getEntrypoint(format?: ESBuildFormat, isRN?: boolean) {
   const findEntrypoint = async (indexTarget?: string) => {
     if (format && (await existsAsync(path.resolve(process.cwd(), `./src/index.${indexTarget}.ts`)))) {
       return `src/index.${indexTarget}.ts`;
@@ -132,7 +133,7 @@ async function getEntrypoint(format?: ESBuildFormat, output?: string) {
     return 'src/index.ts';
   };
 
-  if (output === 'react-native') {
+  if (isRN) {
     return findEntrypoint('native');
   }
 
