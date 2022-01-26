@@ -1,4 +1,4 @@
-import { build as esbuild, BuildFailure, BuildResult, Platform, Plugin } from 'esbuild';
+import { build as esbuild, BuildFailure, BuildResult, Platform, Plugin, Format } from 'esbuild';
 import path from 'path';
 import fse from 'fs-extra';
 import gzipSize from 'gzip-size';
@@ -9,12 +9,10 @@ import execa from 'execa';
 import { environment } from './environment';
 import { existsAsync } from './exists-async';
 
-type ESBuildFormat = 'esm' | 'modern' | 'cjs' | 'iife';
-
 interface ESBuildOptions {
   watch?: boolean;
   target?: Platform;
-  format?: ESBuildFormat;
+  format?: Format;
   output?: string;
   sourcemap?: boolean;
   name?: string;
@@ -32,7 +30,7 @@ export async function build(options: ESBuildOptions) {
         watch: options.watch ? { onRebuild: onRebuildFactory(options) } : undefined,
         legalComments: 'none',
         platform: options.target ?? 'browser',
-        format: getFormat(options.format) ?? 'cjs',
+        format: options.format ?? 'cjs',
         globalName: options.format === 'iife' ? options.name : undefined,
         entryPoints: [await getEntrypoint(options.format, options.isRN)],
         sourcemap: options.sourcemap,
@@ -108,23 +106,10 @@ export async function emitTypes(watch?: boolean) {
 }
 
 /**
- * Gets a normalized ESBuild format string.
- */
-function getFormat(format?: ESBuildFormat): Exclude<ESBuildFormat, 'modern'> | undefined {
-  switch (format) {
-    case 'modern':
-      return 'esm';
-
-    default:
-      return format;
-  }
-}
-
-/**
  * Resolves the entrypoint file for ESBuild,
  * based on the format and target platform.
  */
-async function getEntrypoint(format?: ESBuildFormat, isRN?: boolean) {
+async function getEntrypoint(format?: Format, isRN?: boolean) {
   const findEntrypoint = async (indexTarget?: string) => {
     if (format && (await existsAsync(path.resolve(process.cwd(), `./src/index.${indexTarget}.ts`)))) {
       return `src/index.${indexTarget}.ts`;
@@ -142,7 +127,6 @@ async function getEntrypoint(format?: ESBuildFormat, isRN?: boolean) {
       return findEntrypoint('cdn');
 
     case 'esm':
-    case 'modern':
       return findEntrypoint('es');
 
     case 'cjs':
@@ -153,7 +137,13 @@ async function getEntrypoint(format?: ESBuildFormat, isRN?: boolean) {
 
 /**
  * During the build step, we create an ephermeral "tsconfig.build.json" file
- * containing confierrides to resolve "packages/.../src" as the "rootDir".
+ * containing config overrides to resolve "packages/.../src" as the "rootDir".
+ *
+ * Why? This is our workaround to avoid tsconfig project references, which make
+ * dependency association difficult to maintain in a repo this size. Using this
+ * workaround, we can get the same benefits provided by tsconfig project
+ * references using `paths` resolutions. However, this doesn't work when
+ * actually building the libraries, so this corrects the behavior at build time.
  */
 export async function createTemporaryTSConfigFile() {
   const baseTSConfigPath = path.resolve(__dirname, '../../tsconfig.settings.json');

@@ -47,7 +47,7 @@ async function esm(watch?: boolean) {
 
     build({
       watch,
-      format: 'modern',
+      format: 'esm',
       target: pkgJson.target,
       output: pkgJson?.exports?.import,
       externals: getExternalsFromPkgJson(pkgJson),
@@ -60,10 +60,9 @@ async function cdn(watch?: boolean) {
   const pkgJson = require(`${process.cwd()}/package.json`);
 
   if (pkgJson.cdnGlobalName) {
-    const isMagicSDK = process.cwd().endsWith('packages/magic-sdk');
-
     // For CDN targets outside of `magic-sdk` itself,
     // we assume `magic-sdk` & `@magic-sdk/commons` are external/global.
+    const isMagicSDK = process.cwd().endsWith('packages/magic-sdk');
     const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/commons'];
     const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/commons': 'Magic' };
 
