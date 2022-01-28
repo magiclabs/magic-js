@@ -3,7 +3,7 @@
     "lib": ["es2018", "dom"],
     "module": "es2015",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es6",
     "strict": true,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
@@ -18,6 +18,7 @@
     "declaration": true,
     "skipLibCheck": true,
     "noEmit": true,
+    "isolatedModules": true,
     "baseUrl": "./packages",
     "paths": {
       "@magic-ext/*": ["@magic-ext/*/src"],

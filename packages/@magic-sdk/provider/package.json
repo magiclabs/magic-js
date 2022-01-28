@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/provider",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "description": "Core business logic for Magic SDK packages.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -12,12 +12,12 @@
   "files": [
     "dist"
   ],
-  "target": "web",
+  "target": "neutral",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
-    "import": "./dist/modern/index.mjs",
+    "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
@@ -34,7 +34,7 @@
     "tslib": "^2.3.1"
   },
   "dependencies": {
-    "@magic-sdk/types": "^6.0.0",
+    "@magic-sdk/types": "^7.0.0",
     "eventemitter3": "^4.0.4",
     "web3-core": "1.5.2"
   },

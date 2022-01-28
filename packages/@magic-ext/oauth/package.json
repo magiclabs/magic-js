@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/oauth",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "Magic SDK OAuth Extension for Web environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -11,14 +11,14 @@
   "files": [
     "dist"
   ],
-  "target": "web",
+  "target": "browser",
   "cdnGlobalName": "MagicOAuthExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
   "exports": {
-    "import": "./dist/modern/index.mjs",
+    "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
@@ -27,11 +27,11 @@
     ]
   },
   "dependencies": {
-    "@magic-sdk/types": "^6.0.0"
+    "@magic-sdk/types": "^7.0.0"
   },
   "devDependencies": {
     "@types/crypto-js": "~3.1.47",
     "crypto-js": "^3.3.0",
-    "magic-sdk": "^7.0.0"
+    "magic-sdk": "^8.0.1"
   }
 }

@@ -1,3 +1,3 @@
 import { AlgorandExtension } from './index';
 
-export { AlgorandExtension as default };
+export default AlgorandExtension;

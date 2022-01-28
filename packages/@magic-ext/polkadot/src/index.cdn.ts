@@ -1,3 +1,3 @@
 import { PolkadotExtension } from './index';
 
-export { PolkadotExtension as default };
+export default PolkadotExtension;

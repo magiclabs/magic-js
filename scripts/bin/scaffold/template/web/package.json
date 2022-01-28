@@ -9,14 +9,14 @@
     "url": "https://github.com/magiclabs/magic-js"
   },
   "files": ["dist"],
-  "target": "web",
+  "target": "browser",
   "cdnGlobalName": "<%= cdnGlobalName %>",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
   "exports": {
-    "import": "./dist/modern/index.mjs",
+    "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {

@@ -1,3 +1,3 @@
 import { SolanaExtension } from './index';
 
-export { SolanaExtension as default };
+export default SolanaExtension;

@@ -1,3 +1,3 @@
 import { HarmonyExtension } from './index';
 
-export { HarmonyExtension as default };
+export default HarmonyExtension;

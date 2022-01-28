@@ -38,23 +38,35 @@ aliases: [
     }
   },
 
-  # Filter pull requests not in "master" or "next" (development code)
+  # --- Filters --- #
+
+  # Filter pull requests not in "master" or "next" (development code).
+  # Filters ONLY NON-FORKED branches.
   &filter-default-branches {
     filters: {
       branches: {
-        ignore: "/^master$|^next$/"
+        # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
+        ignore: "/^master$|^next$|pull\\/[0-9]+/"
       }
     }
   },
 
-  # Filter pull requests in "master" only (production code).
+  # Filter pull requests not in "master" or "next" (development code).
+  # Filter ONLY FORKED branches.
+  &filter-forked-default-branches {
+    filters: {
+      branches: {
+        # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
+        only: "/pull\\/[0-9]+/"
+      }
+    }
+  },
+
+  # Filter pull requests in "master" or "next" only (production code).
   &filter-release-branches-only {
     filters: {
       branches: {
-        only: [
-          "master",
-          "next",
-        ]
+        only: "/^master$|^next$/"
       }
     }
   },
@@ -100,7 +112,7 @@ jobs:
           name: Lint source files
           command: yarn run lint
 
-  # Builds modules and persists the build output to the workspace.
+  # Builds modules and persists the build output to the workspace (non-forked branches only).
   build:
     executor: default
     steps:
@@ -116,6 +128,19 @@ jobs:
               yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --no-push --yes
             fi
 
+      - run:
+          name: Build modules
+          command: yarn run build
+      - persist_to_workspace:
+          paths: *build-output-paths
+          root: *workspace-root
+
+  # Builds modules and persists the build output to the workspace (forked branches only).
+  build-fork:
+    executor: default
+    steps:
+      - checkout
+      - *attach-workspace
       - run:
           name: Build modules
           command: yarn run build
@@ -154,7 +179,7 @@ jobs:
 
 workflows:
   # Builds modules, verifies code with the linter, runs unit tests, and builds a
-  # coverage report.
+  # coverage report (non-forked branches only).
   pull-request:
     jobs:
       - install-dependencies: *filter-default-branches
@@ -170,6 +195,24 @@ workflows:
       - test:
           requires:
             - build
+
+  # Builds modules, verifies code with the linter, runs unit tests, and builds a
+  # coverage report (forked branches only).
+  forked-pull-request:
+    jobs:
+      - install-dependencies: *filter-forked-default-branches
+
+      - build-fork:
+          requires:
+            - install-dependencies
+
+      - lint:
+          requires:
+            - build-fork
+
+      - test:
+          requires:
+            - build-fork
 
   # Builds modules, verifies code with the linter, runs unit tests, and
   # publishes the built packages to NPM.

@@ -1,3 +1,3 @@
 import { AvalancheExtension } from './index';
 
-export { AvalancheExtension as default };
+export default AvalancheExtension;

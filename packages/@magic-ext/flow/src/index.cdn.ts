@@ -1,3 +1,3 @@
 import { FlowExtension } from './index';
 
-export { FlowExtension as default };
+export default FlowExtension;

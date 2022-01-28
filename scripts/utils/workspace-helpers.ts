@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import execa from 'execa';
-import { prompt } from 'inquirer';
+import { prompt } from 'enquirer';
 import isCI from 'is-ci';
 
 export interface YarnWorkspace {
@@ -34,12 +34,22 @@ export async function promptForPackage(options: { allowAll?: boolean } = {}) {
 
   const packages = (await getAllWorkspaces()).map((i) => i.name);
 
-  const { pkg } = await prompt({
-    type: 'list',
+  const extPkgs = packages.filter((i) => i.includes('@magic-ext'));
+  const sdkPkgs = packages
+    .filter((i) => i.includes('@magic-sdk') || i === 'magic-sdk')
+    // sort `magic-sdk` first
+    .sort((i) => (i.startsWith('@') ? 0 : -1));
+
+  const sep = { role: 'separator' };
+
+  const { pkg } = await prompt<any>({
+    type: 'autocomplete',
     name: 'pkg',
     message: 'Select a workspace:',
-    choices: [allowAll && { name: 'all', value: '*' }, ...packages].filter(Boolean),
-    default: allowAll ? '*' : packages[0],
+    choices: [allowAll && { name: 'all', value: '*' }, allowAll && sep, ...sdkPkgs, sep, ...extPkgs, sep].filter(
+      Boolean,
+    ),
+    initial: allowAll ? '*' : 'magic-sdk',
   } as any);
 
   process.env.PKG = pkg;
@@ -102,7 +112,7 @@ export async function getPackages(pkgQuery: string) {
 /**
  * Log the given `packages` (a string of package names in the workspace).
  */
-export function logPackages(packages: string[]) {
+export function printPackages(packages: string[]) {
   console.log(
     packages
       .slice()

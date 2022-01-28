@@ -1,4 +1,4 @@
-import type { Magic } from 'magic-sdk/dist/types/index.es';
+import type { Magic } from 'magic-sdk/dist/types/index';
 import type OAuthExtension from '@magic-ext/oauth/dist/types/index.cdn';
 import type CDNMagic from 'magic-sdk/dist/types/index.cdn';
 

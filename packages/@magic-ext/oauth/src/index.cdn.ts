@@ -5,4 +5,4 @@ Object.assign(OAuthExtension, {
   ...types,
 });
 
-export { OAuthExtension as default };
+export default OAuthExtension;

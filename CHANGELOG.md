@@ -1,3 +1,50 @@
+# (Tue Jan 25 2022)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/algorand@3.0.1`, `@magic-ext/avalanche@3.0.1`, `@magic-ext/bitcoin@3.0.1`, `@magic-ext/cosmos@3.0.1`, `@magic-ext/flow@3.0.1`, `@magic-ext/harmony@3.0.1`, `@magic-ext/icon@3.0.1`, `@magic-ext/near@3.0.1`, `@magic-ext/oauth@2.0.1`, `@magic-ext/polkadot@3.0.1`, `@magic-ext/solana@4.0.1`, `@magic-ext/tezos@3.0.1`, `@magic-ext/webauthn@2.0.1`, `@magic-ext/zilliqa@3.0.1`, `magic-sdk@8.0.1`
+  - Fix CDN build targets [#270](https://github.com/magiclabs/magic-js/pull/270) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Tue Jan 25 2022)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/algorand@3.0.0`, `@magic-ext/avalanche@3.0.0`, `@magic-ext/bitcoin@3.0.0`, `@magic-ext/conflux@1.0.0`, `@magic-ext/cosmos@3.0.0`, `@magic-ext/flow@3.0.0`, `@magic-ext/harmony@3.0.0`, `@magic-ext/icon@3.0.0`, `@magic-ext/near@3.0.0`, `@magic-ext/oauth@2.0.0`, `@magic-ext/polkadot@3.0.0`, `@magic-ext/react-native-oauth@2.0.0`, `@magic-ext/solana@4.0.0`, `@magic-ext/tezos@3.0.0`, `@magic-ext/webauthn@2.0.0`, `@magic-ext/zilliqa@3.0.0`, `@magic-sdk/commons@4.0.0`, `@magic-sdk/pnp@2.0.0`, `@magic-sdk/provider@8.0.0`, `@magic-sdk/react-native@8.0.0`, `@magic-sdk/types@7.0.0`, `magic-sdk@8.0.0`
+  - Switch from `microbundle` to `esbuild` [#220](https://github.com/magiclabs/magic-js/pull/220) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# (Mon Jan 24 2022)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/solana@3.0.1`
+  - Fixing solana react native [#266](https://github.com/magiclabs/magic-js/pull/266) ([@bmeeder22](https://github.com/bmeeder22) [@smithki](https://github.com/smithki))
+- `@magic-ext/conflux@0.1.1`
+  - magic-conflux extension [#263](https://github.com/magiclabs/magic-js/pull/263) ([@hcote](https://github.com/hcote))
+
+#### 🏠 Internal
+
+- Update CI to build forked branches without ENV vars [#267](https://github.com/magiclabs/magic-js/pull/267) ([@smithki](https://github.com/smithki))
+
+#### Authors: 3
+
+- Ben Meeder ([@bmeeder22](https://github.com/bmeeder22))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Tue Dec 14 2021)
 
 #### 💥 Breaking Change
