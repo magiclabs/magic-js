@@ -149,9 +149,8 @@ export class ReactNativeWebViewController extends ViewController {
           }
 
           // silently handles exception and return the original copy
-        } catch (e) {
-          console.log(e);
-        }
+          // eslint-disable-next-line no-empty
+        } catch (e) {}
         return value;
       });
 
