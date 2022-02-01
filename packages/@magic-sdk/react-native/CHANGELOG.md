@@ -1,3 +1,15 @@
+# v8.1.0 (Mon Jan 31 2022)
+
+#### 🚀 Enhancement
+
+- Add special parsing logic to handle typed array in payload [#275](https://github.com/magiclabs/magic-js/pull/275) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v8.0.0 (Tue Jan 25 2022)
 
 #### 💥 Breaking Change

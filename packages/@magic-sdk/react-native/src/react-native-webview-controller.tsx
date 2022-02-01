@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
+import Global = NodeJS.Global;
 
 /**
  * Builds the Magic `<WebView>` overlay styles. These base styles enable
@@ -138,7 +139,21 @@ export class ReactNativeWebViewController extends ViewController {
       (event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` ||
         event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}`)
     ) {
-      const data: any = JSON.parse(event.nativeEvent.data);
+      // Special parsing logic when dealing with TypedArray in the payload
+      // Such change is required as JSON.stringify will manipulate the object and cause exceptions during parsing
+      // The typed Array is stringified in Mgbox with a flag as notation.
+      const data: any = JSON.parse(event.nativeEvent.data, (key, value) => {
+        try {
+          if (value && typeof value === 'object' && value.flag && value.flag === 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY') {
+            return new global[value.constructor as keyof Global](value.data.split(','));
+          }
+
+          // silently handles exception and return the original copy
+          // eslint-disable-next-line no-empty
+        } catch (e) {}
+        return value;
+      });
+
       if (data && data.msgType && this.messageHandlers.size) {
         // If the response object is undefined, we ensure it's at least an
         // empty object before passing to the event listener.
