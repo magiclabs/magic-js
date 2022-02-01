@@ -20,7 +20,7 @@ Please note we have a **code of conduct**, please follow it in all your interact
 
 > Note: There is no hot-reloading development script for now (which sucks, I know). Recently, the build system in Magic JS SDK changed to use a bundler as opposed to delivering TSC-transpiled files. This has complicated the matter of serving a development-specific flow. We will revisit this problem in the future.
 
-### ESLint + VS Code
+### ESLint + VS Code (Optional)
 
 To ensure ESLint is able to properly lint source files in your VS Code development environment, add the following configuration to your `.vscode/settings.json` file:
 
@@ -38,6 +38,8 @@ To ensure ESLint is able to properly lint source files in your VS Code developme
 ```
 
 ### Development scripts
+
+> Note: all development scripts are designed to be executed from the **repository root!**
 
 | NPM Script | Usage | Description |
 | ---------- | ----- | ----------- |
