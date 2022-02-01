@@ -1,3 +1,21 @@
+# (Mon Jan 31 2022)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/react-native@8.1.0`
+  - Add special parsing logic to handle typed array in payload [#275](https://github.com/magiclabs/magic-js/pull/275) ([@Ethella](https://github.com/Ethella))
+
+#### 🏠 Internal
+
+- Add 'dev' script [#271](https://github.com/magiclabs/magic-js/pull/271) ([@smithki](https://github.com/smithki))
+
+#### Authors: 2
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Tue Jan 25 2022)
 
 #### 🐛 Bug Fix
