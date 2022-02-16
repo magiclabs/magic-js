@@ -12,7 +12,7 @@
 
 ## 📖 Documentation
 
-See the [developer documentation](https://docs.magic.link) to learn how you can master the Magic SDK in a matter of minutes.
+See the [developer documentation](https://magic.link/docs) to learn how you can master the Magic SDK in a matter of minutes.
 
 ## 🔗 Installation
 
