@@ -61,6 +61,10 @@ These are packages _you_ can install to enable Magic JS SDK functionality for yo
 | [`magic-sdk`](https://www.npmjs.com/package/magic-sdk) | [CHANGELOG](./packages/magic-sdk/CHANGELOG.md) | Web/browser entry-point for Magic SDK. |
 | [`@magic-sdk/react-native`](https://www.npmjs.com/package/@magic-sdk/react-native) | [CHANGELOG](./packages/@magic-sdk/react-native/CHANGELOG.md) | React Native entry-point for Magic SDK. |
 
+## Extensions
+
+Extend Magic JS SDK functionality for your use-case through [`@magic-ext/*` packages](./packages/@magic-ext).
+
 ### Internals
 
 These are packages Magic JS SDK uses internally to work seamlessly across platforms.
@@ -68,8 +72,10 @@ These are packages Magic JS SDK uses internally to work seamlessly across platfo
 | Package Name | Changelog | Description |
 | ------------ | --------- | ----------- |
 | [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types) | [CHANGELOG](./packages/@magic-sdk/types/CHANGELOG.md) | Core typings shared between JavaScript entry-points of Magic SDK. |
+| [`@magic-sdk/pnp`](https://www.npmjs.com/package/@magic-sdk/pnp) | [CHANGELOG](./packages/@magic-sdk/pnp/CHANGELOG.md) | A lightweight connector that wraps Magic JS authentication with a beautiful, functional out-of-the-box login form. |
 | [`@magic-sdk/provider`](https://www.npmjs.com/package/@magic-sdk/provider) | [CHANGELOG](./packages/@magic-sdk/provider/CHANGELOG.md) | Core business logic shared between JavaScript entry-points of Magic SDK. |
-| [`@magic-sdk/commons`](https://www.npmjs.com/package/@magic-sdk/commons) | [CHANGELOG](./packages/@magic-sdk/commons/CHANGELOG.md) | Exposes a listing of common public APIs from `@magic-sdk/provider` and `@magic-sdk/typings` to the platform-specific entry points. |
+| [`@magic-sdk/commons`](https://www.npmjs.com/package/@magic-sdk/commons) | [CHANGELOG](./packages/@magic-sdk/commons/CHANGELOG.md) | Exposes a listing of common public APIs from `@magic-sdk/provider` and `@magic-sdk/types` to the platform-specific entry points. |
+| [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types) | [CHANGELOG](./packages/@magic-sdk/types/CHANGELOG.md) | Core typings for Magic SDK packages. |
 
 ## 🚦 Testing
 

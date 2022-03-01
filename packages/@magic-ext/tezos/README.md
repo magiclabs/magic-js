@@ -33,7 +33,7 @@ const magic = new Magic('YOUR_API_KEY', {
 ```
 
 ## Magic SDK
-See the [developer documentation](https://docs.magic.link) to learn how you can master the Magic SDK in a matter of minutes.
+See the [developer documentation](https://magic.link/docs) to learn how you can master the Magic SDK in a matter of minutes.
 
 
 ## Usage
@@ -78,7 +78,7 @@ const handleSendContractOrigination = async () => {
         {
            "prim":"code",
            "args":[
-              [  
+              [
                  { "prim":"CAR" },
                  { "prim":"NIL", "args":[ { "prim":"operation" } ] },
                  { "prim":"PAIR" }

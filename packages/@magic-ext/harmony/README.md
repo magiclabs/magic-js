@@ -32,7 +32,7 @@ const magic = new Magic('YOUR_API_KEY', {
 ```
 
 ## Magic SDK
-See the [developer documentation](https://docs.magic.link) to learn how you can master the Magic SDK in a matter of minutes.
+See the [developer documentation](https://magic.link/docs) to learn how you can master the Magic SDK in a matter of minutes.
 
 
 ## Usage
@@ -64,7 +64,7 @@ By passing transaction payload to `magic.harmony.sendTransaction()` method, it w
 ### Deploy Contract
 By passing deploy contract payload to `magic.harmony.sendTransaction()` method, it will automatically sign the transaction with current user and
  generate transaction object including signature, then send to Harmony node.
- 
+
 ```js
   const bin = '608060405234801561001057600080fd5b5060c68061001f6000396000f3fe6080604052348015600f576000' +
       '80fd5b506004361060325760003560e01c80636057361d146037578063b05784b8146062575b600080fd5b6060600480' +

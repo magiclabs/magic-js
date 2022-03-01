@@ -6,9 +6,9 @@ This monorepo implements a custom build system using a combination of tools:
 - [`wsrun`](https://github.com/hfour/wsrun) (for running workspace scripts)
 - [ESBuild](https://esbuild.github.io) (for transpilation, minifaction, and bundling of source codes)
 - [TypeScript](https://www.typescriptlang.org) (for static typing)
-- [ESLint](https://eslint.org) (for TypeScript/JavaScript linting)e
+- [ESLint](https://eslint.org) (for TypeScript/JavaScript linting)
 
-These tools work together based upon some ground rules around repo organization and architecture.
+These tools work together based upon strong opinions around repo organization and architecture. Read on to learn about these ground rules and how they are managed.
 
 ## Understanding Generated Files (`packages/**/dist`)
 
@@ -45,25 +45,26 @@ We generate multiple outputs in order to maximize backwards compatibility and in
 {
   // One of: node | browser | neutral
   //
-  //      node:  Targets Node-like runtimes; used for React Native libraries
-  //             (i.e.: `@magic-sdk/react-native`)
+  //      node:  Targets Node-like runtimes; used for React Native & server-side
+  //             packages (i.e.: `@magic-sdk/react-native`)
   //
-  //   browser:  Targets web-like runtimes; used for web-only libraries
+  //   browser:  Targets web-like runtimes; used for web-only packages
   //             (i.e.: `magic-sdk`)
   //
-  //   neutral:  Targets universal runtimes; used for libraries that are used
-  //             across React Native & web (i.e.: most `@magic-ext/*` packages)
+  //   neutral:  Targets universal runtimes; used for packages that are
+  //             interoperable across React Native & web
+  //             (i.e.: most `@magic-ext/*` packages)
   "target": "...",
 
   // If a CDN bundle should be required,
   // this determines its global variable name
-  // (attached to `window` in the browser)
+  // (attached to `window` in a browser-based context)
   "cdnGlobalName": "...",
 
   // Output location for CJS entrypoint
   "main": "./dist/cjs/index.js",
 
-  // Output location for ES entrypoint
+  // Output location for ES entrypoint (using `.js` extensions)
   "module": "./dist/es/index.js",
 
   // Output location for TypeScript definition files
@@ -77,7 +78,7 @@ We generate multiple outputs in order to maximize backwards compatibility and in
 
   // Here, we define a standard NodeJS "exports" field...
   "exports": {
-    // Output location for ES entrypoint using `.mjs` extensions.
+    // Output location for ES entrypoint (using `.mjs` extensions)
     "import": "./dist/es/index.mjs",
     // Output location for CJS entrypoint
     // (this should be exactly the same as the value defined in "main",
@@ -98,7 +99,7 @@ Each entrypoint type (**CJS**, **ES**, **React Native**, and **CDN**) can define
 - **React Native**: `src/index.native.ts`
 - **CDN**: `src/index.cdn.ts`
 
-All entrypoint types will fall back to `src/index.ts` if a type-specific source file undefined.
+All entrypoint types will fall back to `src/index.ts` if a type-specific source file is undefined.
 
 ## Defining External Dependencies
 
@@ -119,7 +120,7 @@ By default, `"dependencies"` and `"peerDependencies"` listed in `package.json` a
 }
 ```
 
-An exception to the default externals behavior applies to CDN-bundled packages, in which case **all referenced dependencies are bundled regardless of the `"exports"` field in `package.json`**. If a package depends upon `magic-sdk` and/or `@magic-sdk/commons`, these are **not included in the bundle** and instead compiled to reference a global variable: `window.Magic`. This supports a conventional CDN-based implementation in which consumers are expected to add a Magic SDK version themselves. For example:
+An exception to the default externals behavior applies to CDN-bundled packages, in which case **all referenced dependencies are bundled regardless of the `"exports"` field in `package.json`**. If a package depends upon `magic-sdk` and/or `@magic-sdk/commons`, these are **not included in the CDN bundle** and instead compiled to reference a global variable: `window.Magic`. This supports a conventional CDN-based implementation in which consumers are expected to add a Magic SDK version themselves. For example:
 
 ```html
 <!-- `window.Magic` is assigned here! -->
