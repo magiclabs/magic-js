@@ -1,3 +1,15 @@
+# v2.2.0 (Mon Mar 07 2022)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into smithki/better-build-system-documentation ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v2.0.0 (Tue Jan 25 2022)
 
 #### 💥 Breaking Change

@@ -1,3 +1,15 @@
+# v3.1.0 (Mon Mar 07 2022)
+
+#### 🚀 Enhancement
+
+- Add flow domain tag feature support [#293](https://github.com/magiclabs/magic-js/pull/293) ([@harryEth](https://github.com/harryEth))
+
+#### Authors: 1
+
+- [@harryEth](https://github.com/harryEth)
+
+---
+
 # v3.0.1 (Tue Jan 25 2022)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,26 @@
+# (Mon Mar 07 2022)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/flow@3.1.0`
+  - Add flow domain tag feature support [#293](https://github.com/magiclabs/magic-js/pull/293) ([@harryEth](https://github.com/harryEth))
+- `@magic-ext/algorand@3.1.0`
+  - Add `signGroupTransactionV2` for Algorand [#260](https://github.com/magiclabs/magic-js/pull/260) (harry [@smithki](https://github.com/smithki) [@harryEth](https://github.com/harryEth))
+
+#### 🏠 Internal
+
+- Add documentation about Magic JS's build system [#274](https://github.com/magiclabs/magic-js/pull/274) ([@smithki](https://github.com/smithki))
+- `@magic-ext/algorand@3.1.0`, `@magic-ext/harmony@3.1.0`, `@magic-ext/oauth@2.1.0`, `@magic-ext/polkadot@3.1.0`, `@magic-ext/tezos@3.1.0`, `@magic-ext/zilliqa@3.1.0`, `@magic-sdk/commons@4.1.0`, `@magic-sdk/pnp@2.1.0`, `@magic-sdk/provider@8.1.0`, `@magic-sdk/react-native@8.2.0`, `@magic-sdk/types@7.1.0`, `magic-sdk@8.1.0`
+  - Internal documentation updates (`BUILD_SYSTEM.md`) [#283](https://github.com/magiclabs/magic-js/pull/283) ([@smithki](https://github.com/smithki))
+
+#### Authors: 3
+
+- [@harryEth](https://github.com/harryEth)
+- harry (harry)
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # (Mon Jan 31 2022)
 
 #### 🚀 Enhancement

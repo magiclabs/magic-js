@@ -1,3 +1,19 @@
+# v3.1.0 (Mon Mar 07 2022)
+
+#### 🐛 Bug Fix
+
+- Update READMEs with outdated context/hyperlinks ([@smithki](https://github.com/smithki))
+
+#### 🏠 Internal
+
+- Internal documentation updates (`BUILD_SYSTEM.md`) [#283](https://github.com/magiclabs/magic-js/pull/283) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
 # v3.0.1 (Tue Jan 25 2022)
 
 #### 🐛 Bug Fix
