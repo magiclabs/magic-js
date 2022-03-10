@@ -8,8 +8,9 @@
 /* istanbul ignore file */
 
 import 'regenerator-runtime/runtime';
-import WebCrypto from 'crypto';
-import 'react-native-get-random-values';
+import NodeCrypto from 'crypto';
+import { polyfillWebCrypto } from 'expo-standard-web-crypto';
+
 import { createSDK, InstanceWithExtensions, MagicSDKExtensionsOption } from '@magic-sdk/provider';
 import * as processPolyfill from 'process';
 import localForage from 'localforage';
@@ -28,6 +29,8 @@ import { SDKBaseReactNative } from './react-native-sdk-base';
 // so we replace it here.
 global.process = _.merge(global.process, processPolyfill);
 
+console.log('version', global.process.version);
+
 (global.process as any).browser = false;
 
 // WHATWG URL requires global `Buffer` access.
@@ -37,10 +40,11 @@ global.Buffer = Buffer;
 global.URL = URLPolyfill as any;
 global.URLSearchParams = URLSearchParamsPolyfill as any;
 
+polyfillWebCrypto();
 Object.defineProperty(global, 'crypto', {
   configurable: true,
   enumerable: true,
-  get: () => WebCrypto,
+  get: () => _.merge(global.crypto, NodeCrypto),
 });
 
 /* istanbul ignore next */
