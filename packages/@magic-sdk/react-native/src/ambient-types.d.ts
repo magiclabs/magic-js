@@ -2,7 +2,7 @@ declare namespace NodeJS {
   export interface Global {
     btoa(data: string): string;
     atob(data: string): string;
-    crypto: WebCrypto;
+    // crypto: ;
   }
 
   export interface Process {
@@ -13,8 +13,4 @@ declare namespace NodeJS {
 
 declare module '@aveq-research/localforage-asyncstorage-driver' {
   export const driverWithoutSerialization: any;
-}
-
-interface WebCrypto extends Crypto {
-  ensureSecure(): Promise<any>;
 }

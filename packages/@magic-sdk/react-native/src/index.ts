@@ -8,7 +8,8 @@
 /* istanbul ignore file */
 
 import 'regenerator-runtime/runtime';
-import webCrypto from 'isomorphic-webcrypto';
+import WebCrypto from 'crypto';
+import 'react-native-get-random-values';
 import { createSDK, InstanceWithExtensions, MagicSDKExtensionsOption } from '@magic-sdk/provider';
 import * as processPolyfill from 'process';
 import localForage from 'localforage';
@@ -39,7 +40,7 @@ global.URLSearchParams = URLSearchParamsPolyfill as any;
 Object.defineProperty(global, 'crypto', {
   configurable: true,
   enumerable: true,
-  get: () => webCrypto,
+  get: () => WebCrypto,
 });
 
 /* istanbul ignore next */
@@ -60,9 +61,6 @@ export const Magic = createSDK(SDKBaseReactNative, {
       name: 'MagicAuthLocalStorageDB',
       storeName: 'MagicAuthLocalStorage',
     });
-
-    console.log('crypto ensureSecure');
-    await global.crypto.ensureSecure();
 
     const driver = driverWithoutSerialization();
     await Promise.all([lf.defineDriver(driver), lf.defineDriver(memoryDriver)]);
