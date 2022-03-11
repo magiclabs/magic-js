@@ -29,8 +29,6 @@ import { SDKBaseReactNative } from './react-native-sdk-base';
 // so we replace it here.
 global.process = _.merge(global.process, processPolyfill);
 
-console.log('version', global.process.version);
-
 (global.process as any).browser = false;
 
 // WHATWG URL requires global `Buffer` access.
@@ -41,10 +39,12 @@ global.URL = URLPolyfill as any;
 global.URLSearchParams = URLSearchParamsPolyfill as any;
 
 polyfillWebCrypto();
+
+const tempCrypto = global.crypto;
 Object.defineProperty(global, 'crypto', {
   configurable: true,
   enumerable: true,
-  get: () => _.merge(global.crypto, NodeCrypto),
+  get: () => _.merge(tempCrypto, NodeCrypto),
 });
 
 /* istanbul ignore next */
