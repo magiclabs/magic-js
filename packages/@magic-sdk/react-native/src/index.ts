@@ -10,7 +10,7 @@
 import 'regenerator-runtime/runtime';
 import NodeCrypto from 'crypto';
 import { polyfillWebCrypto } from 'expo-standard-web-crypto';
-
+import isoCrypto from 'isomorphic-webcrypto';
 import { createSDK, InstanceWithExtensions, MagicSDKExtensionsOption } from '@magic-sdk/provider';
 import * as processPolyfill from 'process';
 import localForage from 'localforage';
@@ -38,13 +38,23 @@ global.Buffer = Buffer;
 global.URL = URLPolyfill as any;
 global.URLSearchParams = URLSearchParamsPolyfill as any;
 
-polyfillWebCrypto();
+/**
+ Crypto polyfills
+ */
 
+polyfillWebCrypto();
 const tempCrypto = global.crypto;
+
+const polyfillCrypto = _.merge(
+  isoCrypto, // Provides crypto.subtle
+  NodeCrypto, // Node Crypto
+  tempCrypto, // Overwrites getRandomValues()
+);
+
 Object.defineProperty(global, 'crypto', {
   configurable: true,
   enumerable: true,
-  get: () => _.merge(tempCrypto, NodeCrypto),
+  get: () => polyfillCrypto,
 });
 
 /* istanbul ignore next */
