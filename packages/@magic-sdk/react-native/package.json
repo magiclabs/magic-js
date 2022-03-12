@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native",
-  "version": "8.2.0-custom-session-duration.4",
+  "version": "8.2.0-custom-session-duration.5",
   "description": "Passwordless authentication for React Native.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
