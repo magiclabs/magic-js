@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native",
-  "version": "8.2.0-custom-session-duration.6",
+  "version": "8.2.0-custom-session-duration.7",
   "description": "Passwordless authentication for React Native.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -21,6 +21,7 @@
     "@magic-sdk/commons": "^4.1.0",
     "@magic-sdk/provider": "^8.1.0",
     "@magic-sdk/types": "^7.1.0",
+    "@peculiar/webcrypto": "^1.3.2",
     "@react-native-async-storage/async-storage": "^1.15.5",
     "@types/lodash": "^4.14.158",
     "buffer": "~5.6.0",

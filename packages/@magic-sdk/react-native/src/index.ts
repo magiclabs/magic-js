@@ -9,8 +9,7 @@
 
 import 'regenerator-runtime/runtime';
 import NodeCrypto from 'crypto';
-import { polyfillWebCrypto } from 'expo-standard-web-crypto';
-import isoCrypto from 'isomorphic-webcrypto';
+import { Crypto } from '@peculiar/webcrypto';
 import { createSDK, InstanceWithExtensions, MagicSDKExtensionsOption } from '@magic-sdk/provider';
 import * as processPolyfill from 'process';
 import localForage from 'localforage';
@@ -19,6 +18,7 @@ import { Buffer } from 'buffer';
 import * as _ from 'lodash';
 import { driverWithoutSerialization } from '@aveq-research/localforage-asyncstorage-driver';
 import * as memoryDriver from 'localforage-driver-memory';
+// import getRandomValues from './getRandomValues';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { SDKBaseReactNative } from './react-native-sdk-base';
 
@@ -42,20 +42,25 @@ global.URLSearchParams = URLSearchParamsPolyfill as any;
  Crypto polyfills
  */
 
-polyfillWebCrypto();
-const tempCrypto = global.crypto;
+// const tempCrypto = { getRandomValues };
 
-const polyfillCrypto = _.merge(
-  isoCrypto, // Provides crypto.subtle
-  NodeCrypto, // Node Crypto
-  tempCrypto, // Overwrites getRandomValues()
-);
+// console.log('WebCrypto', WebCrypto);
+// console.log('NodeCrypto', NodeCrypto);
+// console.log('tempCrypto', tempCrypto);
 
-Object.defineProperty(global, 'crypto', {
-  configurable: true,
-  enumerable: true,
-  get: () => polyfillCrypto,
-});
+// const polyfillCrypto = _.merge(
+//   WebCrypto, // Provides crypto.subtle
+//   NodeCrypto, // Node Crypto
+//   tempCrypto, // Overwrites getRandomValues()
+// );
+
+(global as any).crypto = new Crypto();
+console.log('global.crypto after polyfill', global.crypto);
+// Object.defineProperty(global, 'crypto', {
+//   configurable: true,
+//   enumerable: true,
+//   get: () => polyfillCrypto,
+// });
 
 /* istanbul ignore next */
 global.btoa = (str) => Buffer.from(str, 'binary').toString('base64');
