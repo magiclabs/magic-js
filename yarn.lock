@@ -3262,7 +3262,7 @@ __metadata:
     "@magic-sdk/types": ^7.1.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
-    expo-web-browser: ^8.3.1
+    expo-web-browser: ^10.1.1
   languageName: unknown
   linkType: soft
 
@@ -8634,15 +8634,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-web-browser@npm:^8.3.1":
-  version: 8.6.0
-  resolution: "expo-web-browser@npm:8.6.0"
+"expo-web-browser@npm:^10.1.1":
+  version: 10.1.1
+  resolution: "expo-web-browser@npm:10.1.1"
   dependencies:
     compare-urls: ^2.0.0
   peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: e4c105e91751ed9074903d05d1dd0ff69e6c52a46c0b62c131a104a2a8388783accb07dee73d920948bad8c6d9dbe355ac261afe121202e073f7a2f1c487eee3
+    expo: "*"
+  checksum: dd2bfe2617a713902c46a4e1b7508f877950c29d65482419bd8dc2bb69f092cabcec4bcec6593d706b38e972c5118bd2ca5c0273978919b4919849f85c04cefd
   languageName: node
   linkType: hard
 
