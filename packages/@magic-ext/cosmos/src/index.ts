@@ -45,4 +45,13 @@ export class CosmosExtension extends Extension.Internal<'cosmos', any> {
       params: { recipientAddress, transferAmount, denom, memo },
     });
   };
+
+  public changeAddress = async (prefix: string) => {
+    return this.request({
+      id: 41,
+      jsonrpc: '2.0',
+      method: CosmosPayloadMethod.ChangeAddress,
+      params: { prefix },
+    });
+  };
 }
