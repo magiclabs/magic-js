@@ -21,5 +21,14 @@ export interface LoginWithMagicLinkConfiguration {
 }
 
 export interface LoginWithSmsConfiguration {
+  /**
+   * Specify the phone number of the user attempting to login.
+   */
   phoneNumber: string;
+}
+export interface LoginWithEmailOTPConfiguration {
+  /**
+   * Specify the email address of the user attempting to login.
+   */
+  email: string;
 }
