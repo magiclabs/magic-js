@@ -1,4 +1,9 @@
-import { MagicPayloadMethod, LoginWithMagicLinkConfiguration, LoginWithSmsConfiguration } from '@magic-sdk/types';
+import {
+  MagicPayloadMethod,
+  LoginWithMagicLinkConfiguration,
+  LoginWithSmsConfiguration,
+  LoginWithEmailOTPConfiguration,
+} from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
@@ -35,6 +40,20 @@ export class AuthModule extends BaseModule {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
       [{ phoneNumber, showUI: true }],
+    );
+    return this.request<string | null>(requestPayload);
+  }
+
+  /**
+   * Initiate an Email with OTP login flow for a user. If successful,
+   * this method will return a Decenteralized ID token (with a default lifespan
+   * of 15 minutes)
+   */
+  public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
+    const { email } = configuration;
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
+      [{ email, showUI: true }],
     );
     return this.request<string | null>(requestPayload);
   }
