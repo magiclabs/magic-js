@@ -3274,6 +3274,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/terra@workspace:packages/@magic-ext/terra":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/terra@workspace:packages/@magic-ext/terra"
+  dependencies:
+    "@magic-sdk/commons": ^4.1.0
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/tezos@workspace:packages/@magic-ext/tezos":
   version: 0.0.0-use.local
   resolution: "@magic-ext/tezos@workspace:packages/@magic-ext/tezos"
