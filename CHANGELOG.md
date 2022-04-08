@@ -1,3 +1,23 @@
+# (Fri Apr 08 2022)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/terra@0.1.0`
+  - terra support [#304](https://github.com/magiclabs/magic-js/pull/304) ([@harryEth](https://github.com/harryEth))
+- `@magic-ext/cosmos@3.2.0`
+  - Add cosmos change address function [#299](https://github.com/magiclabs/magic-js/pull/299) ([@harryEth](https://github.com/harryEth))
+
+#### 🐛 Bug Fix
+
+- add config to resolve an issue withauto/lerna inoperablitiy for npm n… [#303](https://github.com/magiclabs/magic-js/pull/303) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@harryEth](https://github.com/harryEth)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Mon Mar 07 2022)
 
 #### 🚀 Enhancement

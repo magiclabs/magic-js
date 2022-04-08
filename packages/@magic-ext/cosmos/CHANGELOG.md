@@ -1,3 +1,15 @@
+# v3.2.0 (Fri Apr 08 2022)
+
+#### 🚀 Enhancement
+
+- Add cosmos change address function [#299](https://github.com/magiclabs/magic-js/pull/299) ([@harryEth](https://github.com/harryEth))
+
+#### Authors: 1
+
+- [@harryEth](https://github.com/harryEth)
+
+---
+
 # v3.0.1 (Tue Jan 25 2022)
 
 #### 🐛 Bug Fix
