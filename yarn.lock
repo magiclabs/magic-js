@@ -3282,6 +3282,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/taquito@workspace:packages/@magic-ext/taquito":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/taquito@workspace:packages/@magic-ext/taquito"
+  dependencies:
+    "@magic-sdk/commons": ^4.1.0
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/tezos@workspace:packages/@magic-ext/tezos":
   version: 0.0.0-use.local
   resolution: "@magic-ext/tezos@workspace:packages/@magic-ext/tezos"
