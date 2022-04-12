@@ -1,3 +1,17 @@
+# (Tue Apr 12 2022)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/taquito@0.2.0`
+  - Update package.json [#307](https://github.com/magiclabs/magic-js/pull/307) ([@harryEth](https://github.com/harryEth))
+  - taquito support [#306](https://github.com/magiclabs/magic-js/pull/306) ([@harryEth](https://github.com/harryEth))
+
+#### Authors: 1
+
+- [@harryEth](https://github.com/harryEth)
+
+---
+
 # (Fri Apr 08 2022)
 
 #### 🚀 Enhancement
