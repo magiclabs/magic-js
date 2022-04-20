@@ -1,7 +1,8 @@
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 
 import browserEnv from '@ikscodes/browser-env';
-import { BaseModule } from '../../../../src/modules/base-module';
+import { MagicPayloadMethod } from '@magic-sdk/types';
+
 import { isPromiEvent } from '../../../../src/util';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 
@@ -18,7 +19,7 @@ test('Generates JSON RPC request payload with the given parameter as the credent
 
   const requestPayload = magic.auth.request.mock.calls[0][0];
   expect(requestPayload.jsonrpc).toBe('2.0');
-  expect(requestPayload.method).toBe('magic_auth_login_with_credential');
+  expect(requestPayload.method).toBe(MagicPayloadMethod.LoginWithCredential);
   expect(requestPayload.params).toEqual(['helloworld']);
 });
 
@@ -38,7 +39,7 @@ test('If no parameter is given & platform target is "web", URL search string is 
 
   const requestPayload = magic.auth.request.mock.calls[0][0];
   expect(requestPayload.jsonrpc).toBe('2.0');
-  expect(requestPayload.method).toBe('magic_auth_login_with_credential');
+  expect(requestPayload.method).toBe(MagicPayloadMethod.LoginWithCredential);
   expect(requestPayload.params).toEqual(['?magic_credential=asdf']);
 });
 
@@ -50,7 +51,7 @@ test('If no parameter is given & platform target is NOT "web", credential is emp
 
   const requestPayload = magic.auth.request.mock.calls[0][0];
   expect(requestPayload.jsonrpc).toBe('2.0');
-  expect(requestPayload.method).toBe('magic_auth_login_with_credential');
+  expect(requestPayload.method).toBe(MagicPayloadMethod.LoginWithCredential);
   expect(requestPayload.params).toEqual(['']);
 });
 
@@ -62,7 +63,7 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
 
   const requestPayload = magic.auth.request.mock.calls[0][0];
   expect(requestPayload.jsonrpc).toBe('2.0');
-  expect(requestPayload.method).toBe('magic_auth_login_with_credential_testing_mode');
+  expect(requestPayload.method).toBe(MagicPayloadMethod.LoginWithCredentialTestMode);
   expect(requestPayload.params).toEqual(['helloworld']);
 });
 

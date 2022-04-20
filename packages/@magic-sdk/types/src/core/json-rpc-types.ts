@@ -41,6 +41,7 @@ export interface JsonRpcResponsePayload<ResultType = any> {
  */
 export enum MagicPayloadMethod {
   LoginWithSms = 'magic_auth_login_with_sms',
+  LoginWithEmailOTP = 'magic_auth_login_with_email_otp',
   LoginWithMagicLink = 'magic_auth_login_with_magic_link',
   LoginWithCredential = 'magic_auth_login_with_credential',
   GetIdToken = 'magic_auth_get_id_token',
@@ -52,6 +53,7 @@ export enum MagicPayloadMethod {
   UserSettings = 'magic_auth_settings',
   UserSettingsTestMode = 'magic_auth_settings_testing_mode',
   LoginWithSmsTestMode = 'magic_auth_login_with_sms_testing_mode',
+  LoginWithEmailOTPTestMode = 'magic_auth_login_with_email_otp_testing_mode',
   LoginWithMagicLinkTestMode = 'magic_login_with_magic_link_testing_mode',
   LoginWithCredentialTestMode = 'magic_auth_login_with_credential_testing_mode',
   GetIdTokenTestMode = 'magic_auth_get_id_token_testing_mode',
