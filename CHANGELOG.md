@@ -1,3 +1,16 @@
+# (Wed Apr 20 2022)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@8.1.1`, `@magic-sdk/types@7.1.1`
+  - [Chore]: added `loginWithEmailOTP` method [#302](https://github.com/magiclabs/magic-js/pull/302) ([@adenekan41](https://github.com/adenekan41))
+
+#### Authors: 1
+
+- Adenekan Wonderful ([@adenekan41](https://github.com/adenekan41))
+
+---
+
 # (Tue Apr 12 2022)
 
 #### 🚀 Enhancement
