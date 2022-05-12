@@ -1,9 +1,10 @@
 {
   "name": "@magic-ext/connect",
-  "version": "2.1.1",
+  "version": "0.0.1",
   "description": "Magic SDK Connect Extension for Web environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
+  "private":"false",
   "repository": {
     "type": "git",
     "url": "https://github.com/magiclabs/magic-js"
