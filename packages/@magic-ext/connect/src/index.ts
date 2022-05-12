@@ -20,3 +20,5 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
     // implement me
   }
 }
+
+export * from './types';
