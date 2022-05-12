@@ -219,6 +219,7 @@ workflows:
   publish-to-npm:
     jobs:
       - build:
+
       - test:
           requires:
             - build
