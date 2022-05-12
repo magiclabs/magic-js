@@ -218,12 +218,7 @@ workflows:
   # publishes the built packages to NPM.
   publish-to-npm:
     jobs:
-      - install-dependencies: *filter-release-branches-only
-
       - build:
-          requires:
-            - install-dependencies
-
       - test:
           requires:
             - build
