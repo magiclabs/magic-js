@@ -1,9 +1,9 @@
 import { Extension } from 'magic-sdk';
 import { UserInformation } from './types';
 
-export class ConnectExtension extends Extension.Internal<'connect'> {
+export class ConnectExtension extends Extension.Internal<'connect', any> {
   name = 'connect' as const;
-  config = {
+  config: any = {
     mc: true,
   };
 
