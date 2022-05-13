@@ -17,8 +17,9 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
     return {} as UserInformation;
   }
 
-  public disconnect(): void {
-    // implement me
+  public disconnect() {
+    const requestPayload = this.utils.createJsonRpcRequestPayload('magic_auth_logout');
+    return this.request<boolean>(requestPayload);
   }
 }
 
