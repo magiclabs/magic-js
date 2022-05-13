@@ -12,9 +12,9 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
     return this.request<boolean>(requestPayload);
   }
 
-  public async promptUserForInformation(): Promise<UserInformation> {
-    // implement me
-    return {} as UserInformation;
+  public promptUserForInformation() {
+    const requestPayload = this.utils.createJsonRpcRequestPayload('mc_request_user_pii');
+    return this.request<boolean>(requestPayload);
   }
 
   public disconnect() {
