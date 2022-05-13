@@ -8,7 +8,7 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
   };
 
   public showWallet() {
-    const requestPayload = this.utils.createJsonRpcRequestPayload('magic_auth_settings');
+    const requestPayload = this.utils.createJsonRpcRequestPayload('mc_wallet');
     return this.request<boolean>(requestPayload);
   }
 
@@ -18,7 +18,7 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
   }
 
   public disconnect() {
-    const requestPayload = this.utils.createJsonRpcRequestPayload('magic_auth_logout');
+    const requestPayload = this.utils.createJsonRpcRequestPayload('mc_disconnect');
     return this.request<boolean>(requestPayload);
   }
 }
