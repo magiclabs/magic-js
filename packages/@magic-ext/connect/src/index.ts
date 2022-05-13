@@ -7,8 +7,9 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
     mc: true,
   };
 
-  public showWallet(): void {
-    // implement me
+  public showWallet() {
+    const requestPayload = this.utils.createJsonRpcRequestPayload('magic_auth_settings');
+    return this.request<boolean>(requestPayload);
   }
 
   public async promptUserForInformation(): Promise<UserInformation> {
