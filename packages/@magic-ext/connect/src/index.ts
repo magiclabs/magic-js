@@ -12,8 +12,8 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
     return this.request<boolean>(requestPayload);
   }
 
-  public promptUserForInformation() {
-    const requestPayload = this.utils.createJsonRpcRequestPayload('mc_request_user_pii');
+  public requestUserInfo() {
+    const requestPayload = this.utils.createJsonRpcRequestPayload('mc_request_user_info');
     return this.request<boolean>(requestPayload);
   }
 
