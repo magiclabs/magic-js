@@ -46,7 +46,7 @@ aliases: [
     filters: {
       branches: {
         # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
-        ignore: "early-release"
+        ignore: "/^master$|^next$|pull\\/[0-9]+/"
       }
     }
   },
@@ -222,7 +222,7 @@ workflows:
   # publishes the built packages to NPM.
   publish-to-npm:
     jobs:
-      - install-dependencies: *filter-release-branches-only
+      - install-dependencies
 
       - build:
           requires:
