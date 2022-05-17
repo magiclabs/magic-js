@@ -66,11 +66,7 @@ aliases: [
   &filter-release-branches-only {
     filters: {
       branches: {
-        only: [
-          "master",
-          "next",
-          "early-release"
-        ]
+        only: "/^master$|^next$/"
       }
     }
   },
@@ -222,7 +218,7 @@ workflows:
   # publishes the built packages to NPM.
   publish-to-npm:
     jobs:
-      - install-dependencies
+      - install-dependencies: *filter-release-branches-only
 
       - build:
           requires:
