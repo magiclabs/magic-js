@@ -2,7 +2,7 @@
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
 
-> With the Magic Connect JavaScript SDK extension, you can seamlessly onboard user to your dApp with one, easy-to-use API.
+> Magic Connect JavaScript SDK extension.
 
 <p align="center">
   <a href="https://github.com/magiclabs/magic-js/blob/master/packages/@magic-ext/connect/LICENSE">License</a> ·
