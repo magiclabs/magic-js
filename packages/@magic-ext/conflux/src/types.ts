@@ -1,6 +1,6 @@
 export interface ConfluxConfig {
   rpcUrl: string;
-  networkId: number;
+  networkId?: number;
 }
 
 export enum ConfluxPayloadMethod {
