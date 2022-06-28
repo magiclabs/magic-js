@@ -12,7 +12,7 @@ export class ConfluxExtension extends Extension.Internal<'conflux', any> {
       chainType: 'CONFLUX',
       options: {
         rpcUrl: confluxConfig.rpcUrl,
-        chainId: confluxConfig.networkId,
+        networkId: confluxConfig.networkId,
       },
     };
   }
