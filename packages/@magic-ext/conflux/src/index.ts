@@ -12,10 +12,7 @@ export class ConfluxExtension extends Extension.Internal<'conflux', any> {
       chainType: 'CONFLUX',
       options: {
         rpcUrl: confluxConfig.rpcUrl,
-        chainId: confluxConfig.chainId,
-        defaultGasPrice: confluxConfig.defaultGasPrice,
-        defaultGasRatio: confluxConfig.defaultGasRatio,
-        defaultStorageRatio: confluxConfig.defaultStorageRatio,
+        chainId: confluxConfig.networkId,
       },
     };
   }
