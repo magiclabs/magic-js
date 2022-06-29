@@ -1,3 +1,15 @@
+# v1.1.2 (Wed Jun 29 2022)
+
+#### 🐛 Bug Fix
+
+- update conflux constructor [#328](https://github.com/magiclabs/magic-js/pull/328) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v1.0.0 (Tue Jan 25 2022)
 
 #### 💥 Breaking Change
