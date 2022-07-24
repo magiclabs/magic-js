@@ -3369,6 +3369,7 @@ __metadata:
     "@react-native-async-storage/async-storage": ^1.15.5
     "@types/lodash": ^4.14.158
     buffer: ~5.6.0
+    expo-application: ^4.1.0
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
     lodash: ^4.17.19
@@ -8647,6 +8648,15 @@ __metadata:
     jest-message-util: ^27.0.6
     jest-regex-util: ^27.0.6
   checksum: 26e63420b00620dffd3a7e98db9e815a31b2787930823a89d01fcc008b9827bd734e8104c58b91493054636fbc3b123cbaa48da5dc24b16ebe641b7ee98adeab
+  languageName: node
+  linkType: hard
+
+"expo-application@npm:^4.1.0":
+  version: 4.2.2
+  resolution: "expo-application@npm:4.2.2"
+  peerDependencies:
+    expo: "*"
+  checksum: c6088014fb0c89f8c04633c50fed4515c5ec67b582b9660824cbd9b30de849b0be0ac8a858d49b63da73b6bb2171d29048321f25d8bbc89effbe31717eb8ee99
   languageName: node
   linkType: hard
 
