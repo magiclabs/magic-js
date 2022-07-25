@@ -298,3 +298,19 @@ test('Initialize `Magic RN SDK`', () => {
   assertEncodedQueryParams(magic.parameters, { bundleId: bundleIdMock, sdk: 'magic-sdk-rn' });
   assertModuleInstanceTypes(magic);
 });
+
+test('Initialize `Magic RN SDK without bundleId`', () => {
+  const Ctor = createMagicSDKCtor({
+    sdkName: '@magic-sdk/react-native',
+    platform: 'react-native',
+    bundleId: null,
+  });
+  const magic = new Ctor(TEST_API_KEY);
+
+  expect(magic.apiKey).toBe(TEST_API_KEY);
+
+  expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
+
+  assertEncodedQueryParams(magic.parameters, { sdk: 'magic-sdk-rn' });
+  assertModuleInstanceTypes(magic);
+});
