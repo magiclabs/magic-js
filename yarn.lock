@@ -3369,6 +3369,8 @@ __metadata:
     "@react-native-async-storage/async-storage": ^1.15.5
     "@types/lodash": ^4.14.158
     buffer: ~5.6.0
+    expo-application: ^4.1.0
+    expo-modules-core: 0.9.2
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
     lodash: ^4.17.19
@@ -3380,6 +3382,7 @@ __metadata:
     tslib: ^2.0.3
     whatwg-url: ~8.1.0
   peerDependencies:
+    expo: "*"
     react: ">=16"
     react-native: ">=0.60"
     react-native-webview: ">=8"
@@ -6569,6 +6572,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"compare-versions@npm:^3.4.0":
+  version: 3.6.0
+  resolution: "compare-versions@npm:3.6.0"
+  checksum: 7492a50cdaa2c27f5254eee7c4b38856e1c164991bab3d98d7fd067fe4b570d47123ecb92523b78338be86aa221668fd3868bfe8caa5587dc3ebbe1a03d52b5d
+  languageName: node
+  linkType: hard
+
 "component-emitter@npm:^1.2.1":
   version: 1.3.0
   resolution: "component-emitter@npm:1.3.0"
@@ -8647,6 +8657,25 @@ __metadata:
     jest-message-util: ^27.0.6
     jest-regex-util: ^27.0.6
   checksum: 26e63420b00620dffd3a7e98db9e815a31b2787930823a89d01fcc008b9827bd734e8104c58b91493054636fbc3b123cbaa48da5dc24b16ebe641b7ee98adeab
+  languageName: node
+  linkType: hard
+
+"expo-application@npm:^4.1.0":
+  version: 4.2.2
+  resolution: "expo-application@npm:4.2.2"
+  peerDependencies:
+    expo: "*"
+  checksum: c6088014fb0c89f8c04633c50fed4515c5ec67b582b9660824cbd9b30de849b0be0ac8a858d49b63da73b6bb2171d29048321f25d8bbc89effbe31717eb8ee99
+  languageName: node
+  linkType: hard
+
+"expo-modules-core@npm:0.9.2":
+  version: 0.9.2
+  resolution: "expo-modules-core@npm:0.9.2"
+  dependencies:
+    compare-versions: ^3.4.0
+    invariant: ^2.2.4
+  checksum: cc7a5efa50cdd193f3240c824276eae2aad4bbae256607529df6f039c9db3cea5bd898002096fb152026abeca33fc46755d3ea68644c7b25dfdb913d9cef383e
   languageName: node
   linkType: hard
 
