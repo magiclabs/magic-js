@@ -61,4 +61,15 @@ export class SolanaExtension extends Extension.Internal<'solana', any> {
       params,
     });
   };
+
+  public signMessage = (message: any) => {
+    return this.request({
+      id: 42,
+      jsonrpc: '2.0',
+      method: SolanaPayloadMethod.SignMessage,
+      params: {
+        message,
+      },
+    });
+  };
 }
