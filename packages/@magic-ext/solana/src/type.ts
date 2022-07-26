@@ -5,6 +5,7 @@ export interface SolanaConfig {
 export enum SolanaPayloadMethod {
   SignTransaction = 'sol_signTransaction',
   SendTransaction = 'sol_sendTransaction',
+  SignMessage = 'sol_signMessage',
 }
 
 export interface SerializeConfig {
