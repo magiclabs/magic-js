@@ -281,36 +281,3 @@ test('Does not warn upon construction of `MagicSDK` instance if `endpoint` param
   new Ctor(TEST_API_KEY);
   expect(consoleWarnStub).not.toBeCalled();
 });
-
-test('Initialize `Magic RN SDK`', () => {
-  const bundleIdMock = 'link.magic.test';
-  const Ctor = createMagicSDKCtor({
-    sdkName: '@magic-sdk/react-native',
-    platform: 'react-native',
-    bundleId: bundleIdMock,
-  });
-  const magic = new Ctor(TEST_API_KEY);
-
-  expect(magic.apiKey).toBe(TEST_API_KEY);
-
-  expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
-
-  assertEncodedQueryParams(magic.parameters, { bundleId: bundleIdMock, sdk: 'magic-sdk-rn' });
-  assertModuleInstanceTypes(magic);
-});
-
-test('Initialize `Magic RN SDK without bundleId`', () => {
-  const Ctor = createMagicSDKCtor({
-    sdkName: '@magic-sdk/react-native',
-    platform: 'react-native',
-    bundleId: null,
-  });
-  const magic = new Ctor(TEST_API_KEY);
-
-  expect(magic.apiKey).toBe(TEST_API_KEY);
-
-  expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
-
-  assertEncodedQueryParams(magic.parameters, { sdk: 'magic-sdk-rn' });
-  assertModuleInstanceTypes(magic);
-});
