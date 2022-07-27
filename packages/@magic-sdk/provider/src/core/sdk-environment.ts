@@ -16,7 +16,6 @@ export interface SDKEnvironment {
   defaultEndpoint: string;
   ViewController: ConstructorOf<ViewController>;
   configureStorage: () => Promise<typeof localForage>;
-  bundleId?: string | null;
 }
 
 export const SDKEnvironment: SDKEnvironment = {} as any;
