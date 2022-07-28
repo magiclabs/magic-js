@@ -12,5 +12,4 @@ export interface QueryParameters {
   version?: string;
   ext?: any;
   locale?: string;
-  bundleId?: string;
 }

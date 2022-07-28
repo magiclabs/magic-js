@@ -8,22 +8,7 @@ const config: Config.InitialOptions = {
     '^.+\\.(js|jsx)$': 'babel-jest',
     '\\.(ts|tsx)$': 'ts-jest',
   },
-  transformIgnorePatterns: [
-    "node_modules/(" +
-    "?!(jest-)?react-native" +
-    "|react-clone-referenced-element" +
-    "|@react-native-community" +
-    "|expo(nent)?" +
-    "|@expo(nent)?/.*" +
-    "|react-navigation" +
-    "|@react-navigation/.*" +
-    "|@unimodules/.*" +
-    "|unimodules" +
-    "|sentry-expo" +
-    "|native-base" +
-    "|@sentry/.*" +
-    "|native-base-*)"
-  ],
+  transformIgnorePatterns: ['node_modules/(?!react-native|react-native-webview)'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
 

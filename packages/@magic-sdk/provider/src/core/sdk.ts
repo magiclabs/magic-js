@@ -151,7 +151,6 @@ export class SDKBase {
       version,
       ext: isEmpty(extConfig) ? undefined : extConfig,
       locale: options?.locale || 'en_US',
-      ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
     });
   }
 
