@@ -10,6 +10,12 @@
   <a href="https://github.com/magiclabs/magic-js/blob/master/CONTRIBUTING.md">Contributing Guide</a>
 </p>
 
+## Package Split!! 
+
+Since `9.0.0`, @magic-sdk/react-native package drops the support of bare React Native. You may stay on `^8.0.0` to keep your bare RN app functional. We will release a new package to support bare-RN exclusively.
+
+This package will mainly support **Expo** framework in future releases.
+
 ## 📖 Documentation
 
 See the [developer documentation](https://magic.link/docs) to learn how you can master the Magic SDK in a matter of minutes.
