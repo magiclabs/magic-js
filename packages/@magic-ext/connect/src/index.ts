@@ -1,5 +1,5 @@
 import { Extension } from 'magic-sdk';
-import { UserInformation } from './types';
+import { MagicConnectPayloadMethod } from './types';
 
 export class ConnectExtension extends Extension.Internal<'connect', any> {
   name = 'connect' as const;
@@ -8,17 +8,17 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
   };
 
   public showWallet() {
-    const requestPayload = this.utils.createJsonRpcRequestPayload('mc_wallet');
+    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicConnectPayloadMethod.ShowWallet);
     return this.request<boolean>(requestPayload);
   }
 
   public requestUserInfo() {
-    const requestPayload = this.utils.createJsonRpcRequestPayload('mc_request_user_info');
+    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicConnectPayloadMethod.RequestUserInfo);
     return this.request<boolean>(requestPayload);
   }
 
   public disconnect() {
-    const requestPayload = this.utils.createJsonRpcRequestPayload('mc_disconnect');
+    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicConnectPayloadMethod.Disconnect);
     return this.request<boolean>(requestPayload);
   }
 }
