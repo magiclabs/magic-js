@@ -1,3 +1,16 @@
+# (Wed Jun 29 2022)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/conflux@1.1.2`
+  - update conflux constructor [#328](https://github.com/magiclabs/magic-js/pull/328) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # (Wed Apr 20 2022)
 
 #### 🐛 Bug Fix
