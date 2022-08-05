@@ -46,7 +46,7 @@ import { ConnectExtension } from '@magic-ext/connect';
 
 const magic = new Magic('YOUR_API_KEY', {
   extensions: [new ConnectExtension()],
-  network: testnetOrMainnet
+  network: 'mainnet' // 'mainnet' or 'testnet'
 });
 
 const web3 = new Web3(magic.rpcProvider);
