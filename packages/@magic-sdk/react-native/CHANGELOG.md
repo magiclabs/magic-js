@@ -1,3 +1,23 @@
+# v10.0.0 (Fri Aug 05 2022)
+
+#### 💥 Breaking Change
+
+- Revert "Revert "Enable bundle Id in Expo"" [#338](https://github.com/magiclabs/magic-js/pull/338) ([@Ethella](https://github.com/Ethella))
+- Enable bundle Id in Expo [#335](https://github.com/magiclabs/magic-js/pull/335) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into early-access ([@bcleary06](https://github.com/bcleary06))
+- Update Readme and manual version bump for releases [#339](https://github.com/magiclabs/magic-js/pull/339) ([@Ethella](https://github.com/Ethella))
+- Revert "Enable bundle Id in Expo" [#337](https://github.com/magiclabs/magic-js/pull/337) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v8.2.0 (Mon Mar 07 2022)
 
 #### 🐛 Bug Fix
