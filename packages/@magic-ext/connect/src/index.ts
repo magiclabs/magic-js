@@ -12,8 +12,11 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
     return this.request<boolean>(requestPayload);
   }
 
-  public requestUserInfo() {
-    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicConnectPayloadMethod.RequestUserInfo);
+  public requestUserInfo(options?: { isRequestRequired?: boolean }) {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(
+      MagicConnectPayloadMethod.RequestUserInfo,
+      options ? [options] : [],
+    );
     return this.request<boolean>(requestPayload);
   }
 
