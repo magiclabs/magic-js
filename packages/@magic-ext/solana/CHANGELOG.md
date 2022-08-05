@@ -1,3 +1,20 @@
+# v5.0.0 (Fri Aug 05 2022)
+
+#### 🚀 Enhancement
+
+- add signMessage for solana extension [#336](https://github.com/magiclabs/magic-js/pull/336) ([@hcote](https://github.com/hcote))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into early-access ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 2
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v4.0.1 (Tue Jan 25 2022)
 
 #### 🐛 Bug Fix

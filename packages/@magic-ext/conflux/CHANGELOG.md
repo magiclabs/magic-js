@@ -1,3 +1,15 @@
+# v2.0.0 (Fri Aug 05 2022)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into early-access ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 1
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
 # v1.1.2 (Wed Jun 29 2022)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,34 @@
+# (Fri Aug 05 2022)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/connect@2.0.0`
+  - initial commit for Connect Extenstion [#316](https://github.com/magiclabs/magic-js/pull/316) ([@bcleary06](https://github.com/bcleary06))
+- `@magic-sdk/provider@9.0.0`, `@magic-sdk/react-native@10.0.0`, `@magic-sdk/types@8.0.0`
+  - Revert "Revert "Enable bundle Id in Expo"" [#338](https://github.com/magiclabs/magic-js/pull/338) ([@Ethella](https://github.com/Ethella))
+  - Enable bundle Id in Expo [#335](https://github.com/magiclabs/magic-js/pull/335) ([@Ethella](https://github.com/Ethella))
+
+#### 🚀 Enhancement
+
+- `@magic-ext/solana@5.0.0`
+  - add signMessage for solana extension [#336](https://github.com/magiclabs/magic-js/pull/336) ([@hcote](https://github.com/hcote))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@9.0.0`, `@magic-sdk/react-native@10.0.0`, `@magic-sdk/types@8.0.0`
+  - Update Readme and manual version bump for releases [#339](https://github.com/magiclabs/magic-js/pull/339) ([@Ethella](https://github.com/Ethella))
+  - Revert "Enable bundle Id in Expo" [#337](https://github.com/magiclabs/magic-js/pull/337) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/connect@2.0.0`
+  - update copy [#319](https://github.com/magiclabs/magic-js/pull/319) ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 3
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Wed Jun 29 2022)
 
 #### 🐛 Bug Fix
