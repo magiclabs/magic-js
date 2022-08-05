@@ -3190,6 +3190,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/connect@workspace:packages/@magic-ext/connect":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/connect@workspace:packages/@magic-ext/connect"
+  dependencies:
+    magic-sdk: ^8.1.1
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/cosmos@workspace:packages/@magic-ext/cosmos":
   version: 0.0.0-use.local
   resolution: "@magic-ext/cosmos@workspace:packages/@magic-ext/cosmos"
