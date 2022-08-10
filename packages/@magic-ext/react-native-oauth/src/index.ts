@@ -27,7 +27,7 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
          * Response Type
          * https://docs.expo.io/versions/latest/sdk/webbrowser/#returns
          */
-        const res = await WebBrowser.openAuthSessionAsync(url, redirectURI);
+        const res = await WebBrowser.openAuthSessionAsync(url, redirectURI, {});
 
         if (res.type === 'success') {
           const queryString = new URL(res.url).search;
