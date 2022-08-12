@@ -1,3 +1,15 @@
+# v3.1.0 (Wed Aug 10 2022)
+
+#### 🚀 Enhancement
+
+- bump web-expo-browser version [#345](https://github.com/magiclabs/magic-js/pull/345) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v2.2.0 (Mon Mar 07 2022)
 
 #### 🐛 Bug Fix

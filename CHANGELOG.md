@@ -1,3 +1,16 @@
+# (Wed Aug 10 2022)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/react-native-oauth@3.1.0`
+  - bump web-expo-browser version [#345](https://github.com/magiclabs/magic-js/pull/345) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri Aug 05 2022)
 
 #### 💥 Breaking Change
