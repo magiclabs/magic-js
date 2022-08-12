@@ -3206,6 +3206,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/ed25519@workspace:packages/@magic-ext/ed25519":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/ed25519@workspace:packages/@magic-ext/ed25519"
+  dependencies:
+    "@magic-sdk/commons": ^5.0.0
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/flow@workspace:packages/@magic-ext/flow":
   version: 0.0.0-use.local
   resolution: "@magic-ext/flow@workspace:packages/@magic-ext/flow"
