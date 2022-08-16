@@ -3262,6 +3262,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/oidc@workspace:packages/@magic-ext/oidc":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/oidc@workspace:packages/@magic-ext/oidc"
+  dependencies:
+    magic-sdk: ^9.0.0
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/polkadot@workspace:packages/@magic-ext/polkadot":
   version: 0.0.0-use.local
   resolution: "@magic-ext/polkadot@workspace:packages/@magic-ext/polkadot"
