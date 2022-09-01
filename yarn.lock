@@ -3206,6 +3206,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/ed25519@workspace:packages/@magic-ext/ed25519":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/ed25519@workspace:packages/@magic-ext/ed25519"
+  dependencies:
+    "@magic-sdk/commons": ^5.0.0
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/flow@workspace:packages/@magic-ext/flow":
   version: 0.0.0-use.local
   resolution: "@magic-ext/flow@workspace:packages/@magic-ext/flow"
@@ -3270,7 +3278,7 @@ __metadata:
     "@magic-sdk/types": ^8.0.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
-    expo-web-browser: ^8.3.1
+    expo-web-browser: ^11.0.0
   languageName: unknown
   linkType: soft
 
@@ -8742,15 +8750,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-web-browser@npm:^8.3.1":
-  version: 8.6.0
-  resolution: "expo-web-browser@npm:8.6.0"
+"expo-web-browser@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "expo-web-browser@npm:11.0.0"
   dependencies:
     compare-urls: ^2.0.0
   peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: e4c105e91751ed9074903d05d1dd0ff69e6c52a46c0b62c131a104a2a8388783accb07dee73d920948bad8c6d9dbe355ac261afe121202e073f7a2f1c487eee3
+    expo: "*"
+  checksum: 93740703b138d4470786387772aafbe3f37e484f052ffeb7fed97d16077ce1fdbf3f1370c603ced6e134343bf5cc4e314eaedf22a6460a608e38a6a1af8deae4
   languageName: node
   linkType: hard
 

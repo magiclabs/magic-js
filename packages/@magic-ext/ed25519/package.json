@@ -1,7 +1,7 @@
 {
-  "name": "@magic-ext/react-native-oauth",
-  "version": "3.1.0",
-  "description": "Magic SDK OAuth Extension for React Native environments.",
+  "name": "@magic-ext/ed25519",
+  "version": "0.0.1",
+  "description": "magic ed25519 extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
@@ -11,26 +11,23 @@
   "files": [
     "dist"
   ],
-  "target": "node",
+  "target": "neutral",
+  "cdnGlobalName": "MagicEdExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
+  "jsdelivr": "./dist/extension.js",
+  "react-native": "./dist/react-native/index.native.js",
   "exports": {
     "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
     "include": [
-      "@magic-sdk/react-native"
+      "@magic-sdk/commons"
     ]
   },
-  "dependencies": {
-    "@magic-sdk/types": "^8.0.0",
-    "crypto-js": "^3.3.0",
-    "expo-web-browser": "^11.0.0"
-  },
   "devDependencies": {
-    "@magic-sdk/react-native": "^8.2.1",
-    "@types/crypto-js": "~3.1.47"
+    "@magic-sdk/commons": "^5.0.0"
   }
 }
