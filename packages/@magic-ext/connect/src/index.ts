@@ -1,7 +1,7 @@
-import { Extension } from 'magic-sdk';
+import { Extension } from '@magic-sdk/commons';
 import { MagicConnectPayloadMethod } from './types';
 
-export class ConnectExtension extends Extension.Internal<'connect', any> {
+export class ConnectExtension extends Extension.Internal<'connect', { mc: true }> {
   name = 'connect' as const;
   config: any = {
     mc: true,
