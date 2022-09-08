@@ -3,7 +3,10 @@ import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
+import { isTypedArray } from 'lodash';
 import Global = NodeJS.Global;
+
+const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 
 /**
  * Builds the Magic `<WebView>` overlay styles. These base styles enable
@@ -179,7 +182,20 @@ export class ReactNativeWebViewController extends ViewController {
 
   protected async _post(data: any) {
     if (this.webView && (this.webView as any).postMessage) {
-      (this.webView as any).postMessage(JSON.stringify(data), this.endpoint);
+      (this.webView as any).postMessage(
+        JSON.stringify(data, (key, value) => {
+          // parse Typed Array to Stringify object
+          if (isTypedArray(value)) {
+            return {
+              constructor: value.constructor.name,
+              data: value.toString(),
+              flag: MAGIC_PAYLOAD_FLAG_TYPED_ARRAY,
+            };
+          }
+          return value;
+        }),
+        this.endpoint,
+      );
     } else {
       throw createModalNotReadyError();
     }
