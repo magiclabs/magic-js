@@ -1,3 +1,19 @@
+# (Thu Sep 01 2022)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/connect@2.0.2`
+  - add options param to requestUserInfo [#342](https://github.com/magiclabs/magic-js/pull/342) ([@bcleary06](https://github.com/bcleary06))
+- `@magic-ext/ed25519@0.0.2`
+  - add @magic-ext/ed25519 [#346](https://github.com/magiclabs/magic-js/pull/346) ([@hcote](https://github.com/hcote) [@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 2
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # (Wed Aug 10 2022)
 
 #### 🚀 Enhancement
