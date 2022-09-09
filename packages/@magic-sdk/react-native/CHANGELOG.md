@@ -1,3 +1,15 @@
+# v10.0.1 (Fri Sep 09 2022)
+
+#### 🐛 Bug Fix
+
+- Add RN TypedArray stringify conversion logic [#357](https://github.com/magiclabs/magic-js/pull/357) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v10.0.0 (Fri Aug 05 2022)
 
 #### 💥 Breaking Change

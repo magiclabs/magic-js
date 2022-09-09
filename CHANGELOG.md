@@ -1,3 +1,16 @@
+# (Fri Sep 09 2022)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native@10.0.1`
+  - Add RN TypedArray stringify conversion logic [#357](https://github.com/magiclabs/magic-js/pull/357) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Thu Sep 01 2022)
 
 #### 🐛 Bug Fix
