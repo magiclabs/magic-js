@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native",
-  "version": "10.0.0",
+  "version": "10.0.1",
   "description": "Passwordless authentication for React Native.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
