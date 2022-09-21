@@ -1,4 +1,3 @@
-// add goerli support
 export type EthNetworkName = 'mainnet' | 'goerli' | 'rinkeby' | 'ropsten' | 'kovan';
 
 export enum EthChainType {
