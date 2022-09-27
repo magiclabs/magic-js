@@ -11,3 +11,4 @@ export interface CustomNodeConfiguration {
 }
 
 export type EthNetworkConfiguration = EthNetworkName | CustomNodeConfiguration;
+
