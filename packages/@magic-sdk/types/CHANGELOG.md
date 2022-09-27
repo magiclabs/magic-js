@@ -1,3 +1,15 @@
+# v8.1.0 (Tue Sep 27 2022)
+
+#### 🚀 Enhancement
+
+- Harryxue sc 61854 m2 magic sdk support goerli testnet and release [#362](https://github.com/magiclabs/magic-js/pull/362) ([@harryEth](https://github.com/harryEth))
+
+#### Authors: 1
+
+- [@harryEth](https://github.com/harryEth)
+
+---
+
 # v8.0.0 (Fri Aug 05 2022)
 
 #### 💥 Breaking Change
