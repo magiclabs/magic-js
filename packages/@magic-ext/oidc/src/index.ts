@@ -9,7 +9,7 @@ export class OpenIdExtension extends Extension.Internal<'openid', any> {
     const requestPayload = this.utils.createJsonRpcRequestPayload(MagicOpenIdConnectPayloadMethod.LoginWithOIDC, [
       params,
     ]);
-    return this.request<boolean>(requestPayload);
+    return this.request<string>(requestPayload);
   }
 }
 
