@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/connect",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Magic SDK Connect Extension for Web environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -27,6 +27,6 @@
     ]
   },
   "devDependencies": {
-    "magic-sdk": "^9.1.0"
+    "magic-sdk": "^10.0.0"
   }
 }
