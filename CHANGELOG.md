@@ -1,3 +1,58 @@
+# (Wed Sep 28 2022)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/types@9.0.0`
+  - drop legacy testnet support [#364](https://github.com/magiclabs/magic-js/pull/364) ([@harryEth](https://github.com/harryEth))
+
+#### Authors: 1
+
+- [@harryEth](https://github.com/harryEth)
+
+---
+
+# (Tue Sep 27 2022)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@8.1.0`
+  - Harryxue sc 61854 m2 magic sdk support goerli testnet and release [#362](https://github.com/magiclabs/magic-js/pull/362) ([@harryEth](https://github.com/harryEth))
+
+#### Authors: 1
+
+- [@harryEth](https://github.com/harryEth)
+
+---
+
+# (Fri Sep 09 2022)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native@10.0.1`
+  - Add RN TypedArray stringify conversion logic [#357](https://github.com/magiclabs/magic-js/pull/357) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Sep 01 2022)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/connect@2.0.2`
+  - add options param to requestUserInfo [#342](https://github.com/magiclabs/magic-js/pull/342) ([@bcleary06](https://github.com/bcleary06))
+- `@magic-ext/ed25519@0.0.2`
+  - add @magic-ext/ed25519 [#346](https://github.com/magiclabs/magic-js/pull/346) ([@hcote](https://github.com/hcote) [@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 2
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # (Wed Aug 10 2022)
 
 #### 🚀 Enhancement
