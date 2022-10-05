@@ -1,4 +1,4 @@
-import * as WebBrowser from 'expo-web-browser';
+import { InAppBrowser as WebBrowser } from 'react-native-inappbrowser-reborn';
 import { Extension } from '@magic-sdk/react-native';
 import { createCryptoChallenge } from './crypto';
 import {
@@ -27,7 +27,7 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
          * Response Type
          * https://docs.expo.io/versions/latest/sdk/webbrowser/#returns
          */
-        const res = await WebBrowser.openAuthSessionAsync(url, redirectURI, {});
+        const res = await WebBrowser.openAuth(url, redirectURI, {});
 
         if (res.type === 'success') {
           const queryString = new URL(res.url).search;
