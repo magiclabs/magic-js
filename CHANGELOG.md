@@ -1,3 +1,29 @@
+# (Wed Sep 28 2022)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/types@9.0.0`
+  - drop legacy testnet support [#364](https://github.com/magiclabs/magic-js/pull/364) ([@harryEth](https://github.com/harryEth))
+
+#### Authors: 1
+
+- [@harryEth](https://github.com/harryEth)
+
+---
+
+# (Tue Sep 27 2022)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@8.1.0`
+  - Harryxue sc 61854 m2 magic sdk support goerli testnet and release [#362](https://github.com/magiclabs/magic-js/pull/362) ([@harryEth](https://github.com/harryEth))
+
+#### Authors: 1
+
+- [@harryEth](https://github.com/harryEth)
+
+---
+
 # (Fri Sep 09 2022)
 
 #### 🐛 Bug Fix
