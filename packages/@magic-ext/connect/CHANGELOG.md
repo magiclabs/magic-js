@@ -1,3 +1,19 @@
+# v2.0.2 (Thu Sep 01 2022)
+
+#### 🐛 Bug Fix
+
+- add options param to requestUserInfo [#342](https://github.com/magiclabs/magic-js/pull/342) ([@bcleary06](https://github.com/bcleary06))
+- Merge branch 'master' into bc-sc-54489-add-required-flag-to-request-user-info ([@bcleary06](https://github.com/bcleary06))
+- bump connect version to 2.0.1 ([@bcleary06](https://github.com/bcleary06))
+- rename param option to isResponseRequired ([@bcleary06](https://github.com/bcleary06))
+- add options param to requestUserInfo ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 1
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
 # v2.0.0 (Fri Aug 05 2022)
 
 #### 💥 Breaking Change
