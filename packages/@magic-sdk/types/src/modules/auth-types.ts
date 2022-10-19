@@ -31,4 +31,14 @@ export interface LoginWithEmailOTPConfiguration {
    * Specify the email address of the user attempting to login.
    */
   email: string;
+
+  /**
+   * When `true`, a pre-built modal interface will show to the user, directing
+   * them to check their email for the one time passcode (OTP) to complete their
+   * authentication.
+   *
+   * When `false`, developers will be able to implement their own custom UI to
+   * continue the email OTP flow.
+   */
+  showUI?: boolean;
 }

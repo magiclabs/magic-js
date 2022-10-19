@@ -14,6 +14,15 @@ type LoginWithMagicLinkEvents = {
   retry: () => void;
 };
 
+type LoginWithEmailOTPEvents = {
+  'email-sent': () => void;
+  'email-not-deliverable': () => void;
+  'invalid-email-format': () => void;
+  'invalid-email-otp': () => void;
+  'lockout-too-many-failed-attempts': () => void;
+  'verify-email-otp': () => void;
+};
+
 export class AuthModule extends BaseModule {
   /**
    * Initiate the "magic link" login flow for a user. If the flow is successful,
@@ -50,12 +59,12 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
-    const { email } = configuration;
+    const { email, showUI } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
-      [{ email, showUI: true }],
+      [{ email, showUI }],
     );
-    return this.request<string | null>(requestPayload);
+    return this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
   }
 
   /**
