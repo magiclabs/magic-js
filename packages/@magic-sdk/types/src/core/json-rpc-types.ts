@@ -62,4 +62,5 @@ export enum MagicPayloadMethod {
   IsLoggedInTestMode = 'magic_auth_is_logged_in_testing_mode',
   LogoutTestMode = 'magic_auth_logout_testing_mode',
   UpdateEmailTestMode = 'magic_auth_update_email_testing_mode',
+  IntermediaryEvent = 'magic_intermediary_event',
 }

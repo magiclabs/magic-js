@@ -3,16 +3,12 @@ import {
   LoginWithMagicLinkConfiguration,
   LoginWithSmsConfiguration,
   LoginWithEmailOTPConfiguration,
+  LoginWithEmailOTPEvents,
+  LoginWithMagicLinkEvents,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
-
-type LoginWithMagicLinkEvents = {
-  'email-sent': () => void;
-  'email-not-deliverable': () => void;
-  retry: () => void;
-};
 
 export class AuthModule extends BaseModule {
   /**
@@ -50,12 +46,38 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
-    const { email } = configuration;
+    const { email, showUI } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
-      [{ email, showUI: true }],
+      [{ email, showUI }],
     );
-    return this.request<string | null>(requestPayload);
+    const handle = this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
+
+    if (!showUI) {
+      handle.on(
+        'verify-email-otp',
+        this.createIntermediaryEvent<LoginWithEmailOTPEvents['verify-email-otp']>(
+          'verify-email-otp',
+          requestPayload.id as string,
+        ),
+      );
+      handle.on(
+        'send-email-otp',
+        this.createIntermediaryEvent<LoginWithEmailOTPEvents['send-email-otp']>(
+          'send-email-otp',
+          requestPayload.id as string,
+        ),
+      );
+      handle.on(
+        'email-not-deliverable',
+        this.createIntermediaryEvent<LoginWithEmailOTPEvents['email-not-deliverable']>(
+          'email-not-deliverable',
+          requestPayload.id as string,
+        ),
+      );
+    }
+
+    return handle;
   }
 
   /**
