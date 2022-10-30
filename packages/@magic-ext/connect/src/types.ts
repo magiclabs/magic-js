@@ -3,7 +3,7 @@ export interface UserInformation {
 }
 
 export enum MagicConnectPayloadMethod {
-  GetWalletType = 'mc_get_wallet_type',
+  GetWalletInfo = 'mc_get_wallet_info',
   ShowWallet = 'mc_wallet',
   RequestUserInfo = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',

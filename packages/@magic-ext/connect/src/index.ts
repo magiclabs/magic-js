@@ -7,8 +7,8 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
     mc: true,
   };
 
-  public getWalletType() {
-    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicConnectPayloadMethod.GetWalletType);
+  public getWalletInfo() {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicConnectPayloadMethod.GetWalletInfo);
     return this.request<boolean>(requestPayload);
   }
 
