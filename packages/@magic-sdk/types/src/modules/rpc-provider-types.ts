@@ -1,4 +1,4 @@
-export type EthNetworkName = 'mainnet' | 'rinkeby' | 'ropsten' | 'kovan';
+export type EthNetworkName = 'mainnet' | 'goerli';
 
 export enum EthChainType {
   Harmony = 'HARMONY',
