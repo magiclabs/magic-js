@@ -1,11 +1,16 @@
 import { Extension } from 'magic-sdk';
-import { MagicConnectPayloadMethod } from './types';
+import { MagicConnectPayloadMethod, UserInfo, WalletInfo } from './types';
 
 export class ConnectExtension extends Extension.Internal<'connect', any> {
   name = 'connect' as const;
   config: any = {
     mc: true,
   };
+
+  public getWalletInfo() {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicConnectPayloadMethod.GetWalletInfo);
+    return this.request<WalletInfo>(requestPayload);
+  }
 
   public showWallet() {
     const requestPayload = this.utils.createJsonRpcRequestPayload(MagicConnectPayloadMethod.ShowWallet);
@@ -17,7 +22,7 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
       MagicConnectPayloadMethod.RequestUserInfo,
       options ? [options] : [],
     );
-    return this.request<boolean>(requestPayload);
+    return this.request<UserInfo>(requestPayload);
   }
 
   public disconnect() {
