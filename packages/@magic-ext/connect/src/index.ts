@@ -1,5 +1,5 @@
 import { Extension } from 'magic-sdk';
-import { MagicConnectPayloadMethod, UserInformation, WalletInfo } from './types';
+import { MagicConnectPayloadMethod, UserInfo, WalletInfo } from './types';
 
 export class ConnectExtension extends Extension.Internal<'connect', any> {
   name = 'connect' as const;
@@ -22,7 +22,7 @@ export class ConnectExtension extends Extension.Internal<'connect', any> {
       MagicConnectPayloadMethod.RequestUserInfo,
       options ? [options] : [],
     );
-    return this.request<UserInformation>(requestPayload);
+    return this.request<UserInfo>(requestPayload);
   }
 
   public disconnect() {
