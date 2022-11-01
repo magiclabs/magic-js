@@ -3,8 +3,8 @@ import {
   MagicOutgoingWindowMessage,
   MagicIncomingWindowMessage,
   MagicPayloadMethod,
+  IntermediaryEvents,
 } from '@magic-sdk/types';
-import { IntermediaryEvents } from '@magic-sdk/types/src/modules/intermediary-types';
 import { createMalformedResponseError, MagicRPCError } from '../core/sdk-exceptions';
 import type { SDKBase } from '../core/sdk';
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../core/json-rpc';
@@ -63,8 +63,8 @@ export class BaseModule {
   protected createIntermediaryEvent<T = Function>(eventType: IntermediaryEvents, payloadId: string) {
     const e = (args: any) => {
       const res = createJsonRpcRequestPayload(MagicPayloadMethod.IntermediaryEvent, [{ payloadId, eventType, args }]);
-      return this.request(res);
+      this.request(res);
     };
-    return e as T;
+    return e as unknown as T;
   }
 }

@@ -10,3 +10,4 @@ export * from './core/query-types';
 export * from './modules/auth-types';
 export * from './modules/rpc-provider-types';
 export * from './modules/user-types';
+export * from './modules/intermediary-types';
