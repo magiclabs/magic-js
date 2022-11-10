@@ -16,8 +16,6 @@ Since `v9.0.0`, `@magic-sdk/react-native` package drops support of bare React Na
 
 If this dependency causes you issues, consider enabling the expo library via `npx install-expo-modules@latest`. For more context, you may check: https://docs.expo.dev/bare/installing-expo-modules.
 
-Another work around currently [under review](https://github.com/magiclabs/magic-js/pull/366) is replacing `expo-web-browser` with  [react native in-app browser](https://www.npmjs.com/package/react-native-inappbrowser-reborn). We plan to release a new package to support bare-RN exclusively soon.
-
 This package will mainly support **Expo** framework in future releases.
 
 ## 📖 Documentation
