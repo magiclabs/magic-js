@@ -3278,6 +3278,7 @@ __metadata:
     "@magic-sdk/types": ^9.0.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
+    expo-application: ^5.0.1
     expo-web-browser: ^11.0.0
   languageName: unknown
   linkType: soft
@@ -8737,6 +8738,15 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: c6088014fb0c89f8c04633c50fed4515c5ec67b582b9660824cbd9b30de849b0be0ac8a858d49b63da73b6bb2171d29048321f25d8bbc89effbe31717eb8ee99
+  languageName: node
+  linkType: hard
+
+"expo-application@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "expo-application@npm:5.0.1"
+  peerDependencies:
+    expo: "*"
+  checksum: 1623356342cfa5f7c7214587b555e80594ef4310b647d6574fe81bbe064ed103472a3efeadcaec99e00678d6f1c8c4b8f966cffba32bffcceeddda6dd596497f
   languageName: node
   linkType: hard
 
