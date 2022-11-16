@@ -301,6 +301,5 @@ test('Resolves with an intermediary event with null args', async () => {
   const { baseModule } = createBaseModule(mock);
   const intermediaryEventFunc = baseModule.createIntermediaryEvent('event', requestPayload.id);
   intermediaryEventFunc(null);
-  console.log(mock.mock.calls[0]);
   expect(mock.mock.calls[0]).toEqual(expectedPayload);
 });
