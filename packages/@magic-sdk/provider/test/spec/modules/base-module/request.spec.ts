@@ -9,7 +9,7 @@ import { isPromiEvent } from '../../../../src/util/promise-tools';
 import { MSG_TYPES } from '../../../constants';
 import { BaseModule } from '../../../../src/modules/base-module';
 
-function createBaseModule(postStub: jest.Mock) {
+function createBaseModule(postStub: jest.Mock, requestStub?: jest.Mock) {
   const sdk = createMagicSDK();
   const viewController = createViewController('');
 
@@ -19,6 +19,10 @@ function createBaseModule(postStub: jest.Mock) {
   });
 
   const baseModule: any = new BaseModule(sdk);
+
+  if (requestStub) {
+    baseModule.request = requestStub;
+  }
 
   return { baseModule };
 }
@@ -202,4 +206,105 @@ test('Ignores events with malformed response', (done) => {
     },
     '*',
   );
+});
+
+test('Resolves with an intermediary event', async () => {
+  const expectedResult = 'monkey brains';
+  const expectedPayload = [
+    'MAGIC_HANDLE_REQUEST',
+    {
+      id: (requestPayload.id as number) + 1,
+      jsonrpc: requestPayload.jsonrpc,
+      method: 'magic_intermediary_event',
+      params: [
+        {
+          args: undefined,
+          eventType: 'event',
+          payloadId: requestPayload.id,
+        },
+      ],
+    },
+  ];
+  const response = new JsonRpcResponse(requestPayload).applyResult(expectedResult);
+  const mock = jest.fn().mockImplementation(() => Promise.resolve(response));
+  const { baseModule } = createBaseModule(mock);
+  const intermediaryEventFunc = baseModule.createIntermediaryEvent('event', requestPayload.id);
+  intermediaryEventFunc();
+  expect(mock.mock.calls[0]).toEqual(expectedPayload);
+});
+
+test('Resolves with an intermediary event with one matching args', async () => {
+  const expectedResult = 'monkey brains';
+  const expectedPayload = [
+    'MAGIC_HANDLE_REQUEST',
+    {
+      id: 3,
+      jsonrpc: requestPayload.jsonrpc,
+      method: 'magic_intermediary_event',
+      params: [
+        {
+          args: expectedResult,
+          eventType: 'event',
+          payloadId: requestPayload.id,
+        },
+      ],
+    },
+  ];
+  const response = new JsonRpcResponse(requestPayload).applyResult(expectedResult);
+  const mock = jest.fn().mockImplementation(() => Promise.resolve(response));
+  const { baseModule } = createBaseModule(mock);
+  const intermediaryEventFunc = baseModule.createIntermediaryEvent('event', requestPayload.id);
+  intermediaryEventFunc(expectedResult);
+  expect(mock.mock.calls[0]).toEqual(expectedPayload);
+});
+
+test('Resolves with an intermediary event with two matching args', async () => {
+  const expectedResult = 'monkey brains';
+  const expectedPayload = [
+    'MAGIC_HANDLE_REQUEST',
+    {
+      id: 4,
+      jsonrpc: requestPayload.jsonrpc,
+      method: 'magic_intermediary_event',
+      params: [
+        {
+          args: [expectedResult, 5],
+          eventType: 'event',
+          payloadId: requestPayload.id,
+        },
+      ],
+    },
+  ];
+  const response = new JsonRpcResponse(requestPayload).applyResult(expectedResult);
+  const mock = jest.fn().mockImplementation(() => Promise.resolve(response));
+  const { baseModule } = createBaseModule(mock);
+  const intermediaryEventFunc = baseModule.createIntermediaryEvent('event', requestPayload.id);
+  intermediaryEventFunc([expectedResult, 5]);
+  expect(mock.mock.calls[0]).toEqual(expectedPayload);
+});
+
+test('Resolves with an intermediary event with null args', async () => {
+  const expectedResult = 'monkey brains';
+  const expectedPayload = [
+    'MAGIC_HANDLE_REQUEST',
+    {
+      id: 5,
+      jsonrpc: requestPayload.jsonrpc,
+      method: 'magic_intermediary_event',
+      params: [
+        {
+          args: null,
+          eventType: 'event',
+          payloadId: requestPayload.id,
+        },
+      ],
+    },
+  ];
+  const response = new JsonRpcResponse(requestPayload).applyResult(expectedResult);
+  const mock = jest.fn().mockImplementation(() => Promise.resolve(response));
+  const { baseModule } = createBaseModule(mock);
+  const intermediaryEventFunc = baseModule.createIntermediaryEvent('event', requestPayload.id);
+  intermediaryEventFunc(null);
+  console.log(mock.mock.calls[0]);
+  expect(mock.mock.calls[0]).toEqual(expectedPayload);
 });
