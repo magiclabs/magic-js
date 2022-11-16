@@ -9,7 +9,7 @@ import { isPromiEvent } from '../../../../src/util/promise-tools';
 import { MSG_TYPES } from '../../../constants';
 import { BaseModule } from '../../../../src/modules/base-module';
 
-function createBaseModule(postStub: jest.Mock, requestStub?: jest.Mock) {
+function createBaseModule(postStub: jest.Mock) {
   const sdk = createMagicSDK();
   const viewController = createViewController('');
 
@@ -19,10 +19,6 @@ function createBaseModule(postStub: jest.Mock, requestStub?: jest.Mock) {
   });
 
   const baseModule: any = new BaseModule(sdk);
-
-  if (requestStub) {
-    baseModule.request = requestStub;
-  }
 
   return { baseModule };
 }
