@@ -22,7 +22,7 @@ test('Generates JSON RPC request payload with `email` parameter', async () => {
   const requestPayload = magic.auth.request.mock.calls[0][0];
   expect(requestPayload.jsonrpc).toBe('2.0');
   expect(requestPayload.method).toBe(MagicPayloadMethod.LoginWithEmailOTP);
-  expect(requestPayload.params).toEqual([{ email: expectedEmail }]);
+  expect(requestPayload.params).toEqual([{ email: expectedEmail, showUI: true }]);
 });
 
 test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
@@ -34,7 +34,7 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
   const requestPayload = magic.auth.request.mock.calls[0][0];
   expect(requestPayload.jsonrpc).toBe('2.0');
   expect(requestPayload.method).toBe(MagicPayloadMethod.LoginWithEmailOTPTestMode);
-  expect(requestPayload.params).toEqual([{ email: expectedEmail }]);
+  expect(requestPayload.params).toEqual([{ email: expectedEmail, showUI: true }]);
 });
 
 test('method should return a PromiEvent', () => {

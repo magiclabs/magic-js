@@ -49,7 +49,7 @@ export class AuthModule extends BaseModule {
     const { email } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
-      [{ email }],
+      [{ email, showUI: true }],
     );
     return this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
   }
