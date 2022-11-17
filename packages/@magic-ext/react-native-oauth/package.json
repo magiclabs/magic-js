@@ -27,6 +27,7 @@
   "dependencies": {
     "@magic-sdk/types": "^9.0.0",
     "crypto-js": "^3.3.0",
+    "expo-application": "^5.0.1",
     "expo-web-browser": "^11.0.0"
   },
   "devDependencies": {

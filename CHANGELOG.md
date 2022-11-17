@@ -1,3 +1,16 @@
+# (Tues Nov 15 2022)
+
+#### ➕ Version Bump
+
+- `@magic-sdk@10.0.0`
+	- Version bump, no major updates
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/ariflo))
+
+---
+
 # (Wed Sep 28 2022)
 
 #### 💥 Breaking Change
