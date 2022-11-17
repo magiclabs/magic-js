@@ -3,16 +3,12 @@ import {
   LoginWithMagicLinkConfiguration,
   LoginWithSmsConfiguration,
   LoginWithEmailOTPConfiguration,
+  LoginWithEmailOTPEvents,
+  LoginWithMagicLinkEvents,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
-
-type LoginWithMagicLinkEvents = {
-  'email-sent': () => void;
-  'email-not-deliverable': () => void;
-  retry: () => void;
-};
 
 export class AuthModule extends BaseModule {
   /**
@@ -55,7 +51,7 @@ export class AuthModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
       [{ email, showUI: true }],
     );
-    return this.request<string | null>(requestPayload);
+    return this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
   }
 
   /**
