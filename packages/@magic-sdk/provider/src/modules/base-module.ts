@@ -60,6 +60,7 @@ export class BaseModule {
     return promiEvent;
   }
 
+  // Creates an intermediary event which takes a typed event and a payload ID
   protected createIntermediaryEvent<T = Function>(eventType: IntermediaryEvents, payloadId: string) {
     const e = (args: any) => {
       const res = createJsonRpcRequestPayload(MagicPayloadMethod.IntermediaryEvent, [{ payloadId, eventType, args }]);
