@@ -7,7 +7,7 @@
 
 #### Authors: 1
 
-- Arian Flores ([@Ariflo](https://github.com/ariflo))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
 
 ---
 
