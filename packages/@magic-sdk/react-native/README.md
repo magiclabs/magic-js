@@ -57,3 +57,14 @@ export default function App() {
 // Somewhere else in your code...
 await magic.auth.loginWithMagicLink({ email: 'your.email@example.com' });
 ```
+## 🙌🏾 Troubleshooting
+
+### Symlinking in Monorepo w/ Metro (Expo Only)
+
+For React Native projects living within a monorepo that run into the following `TypeError: Undefined is not an object` error: 
+
+- Image Here 
+
+When attempting to import `Magic`, take note that the React Native metro bundler doesn’t work well with symlinks, which tend to be utilized by most package managers. 
+
+For this issue consider using Microsoft's [rnx-kit](https://microsoft.github.io/rnx-kit/docs/guides/bundling) suite of tools that include a plugin for metro that fixes this symlink related error. 
