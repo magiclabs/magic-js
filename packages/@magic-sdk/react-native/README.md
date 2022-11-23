@@ -61,7 +61,7 @@ await magic.auth.loginWithMagicLink({ email: 'your.email@example.com' });
 
 ### Symlinking in Monorepo w/ Metro (Expo Only)
 
-For React Native projects living within a monorepo that run into the following `TypeError: Undefined is not an object` error: 
+For React Native projects living within a **monorepo** that run into the following `TypeError: Undefined is not an object` error: 
 
 <img width="299" alt="Screenshot 2022-11-23 at 12 19 19 PM" src="https://user-images.githubusercontent.com/13407884/203641477-ec2e472e-86dc-4a22-b54a-eb694001617e.png">
 

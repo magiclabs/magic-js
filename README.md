@@ -12,7 +12,8 @@
 
 ## 📖 Documentation
 
-See the [developer documentation](https://docs.magic.link) to learn how you can master the Magic SDK in a matter of minutes.
+- See the [developer documentation](https://docs.magic.link) to learn how you can master the Magic SDK in a matter of minutes.
+- See the `@magic-sdk/react-native` [README](https://github.com/magiclabs/magic-js/tree/master/packages/%40magic-sdk/react-native#readme) for package specific information. 
 
 ## ⚡️ Quick Start
 
@@ -94,15 +95,3 @@ Test specific files
 ```bash
 yarn test /test/**/constructor.spec.ts
 ```
-
-## 🙌🏾 Troubleshooting
-
-### Symlinking in Monorepo w/ Metro (`@magic-sdk/react-native` Package)
-
-For React Native projects living within a monorepo that run into the following `TypeError: Undefined is not an object` error: 
-
-<img width="299" alt="Screenshot 2022-11-23 at 12 19 19 PM" src="https://user-images.githubusercontent.com/13407884/203641321-5abb3d9f-7161-43bc-8143-c5a360a1325f.png">
-
-When attempting to import `Magic`, take note that the React Native metro bundler doesn’t work well with symlinks, which tend to be utilized by most package managers. 
-
-For this issue consider using Microsoft's [rnx-kit](https://microsoft.github.io/rnx-kit/docs/guides/bundling) suite of tools that include a plugin for metro that fixes this symlink related error. 
