@@ -1,3 +1,16 @@
+# (Tuesday Nov 22 2022)
+
+#### ➕ Version Bump
+
+- `@magic-sdk@10.1.0`
+	- Added Bidirectional RPC Event Support
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # (Tues Nov 15 2022)
 
 #### ➕ Version Bump
