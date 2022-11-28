@@ -12,7 +12,8 @@
 
 ## 📖 Documentation
 
-See the [developer documentation](https://docs.magic.link) to learn how you can master the Magic SDK in a matter of minutes.
+- See the [developer documentation](https://docs.magic.link) to learn how you can master the Magic SDK in a matter of minutes.
+- See the `@magic-sdk/react-native` [README](https://github.com/magiclabs/magic-js/tree/master/packages/%40magic-sdk/react-native#readme) for package specific information. 
 
 ## ⚡️ Quick Start
 
