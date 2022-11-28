@@ -1,3 +1,20 @@
+# v4.0.0 (Tues Nov 15 2022)
+
+#### ➕ Version Bump
+
+- `@magic-ext/oauth@4.0.0`
+	- Version bump, no major updates
+
+🏠 Internal
+
+- Internal documentation updates (README.md) [#386](https://github.com/magiclabs/magic-js/pull/386) ([@Ariflo](https://github.com/ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/ariflo))
+
+---
+
 # v2.1.0 (Mon Mar 07 2022)
 
 #### 🐛 Bug Fix
