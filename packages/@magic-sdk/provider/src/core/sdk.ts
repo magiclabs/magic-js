@@ -89,6 +89,7 @@ export interface MagicSDKAdditionalConfiguration<
   TExt extends MagicSDKExtensionsOption<TCustomExtName> = any,
 > {
   endpoint?: string;
+  bundleId?: string | null;
   locale?: SupportedLocale;
   network?: EthNetworkConfiguration;
   extensions?: TExt;
@@ -151,7 +152,7 @@ export class SDKBase {
       version,
       ext: isEmpty(extConfig) ? undefined : extConfig,
       locale: options?.locale || 'en_US',
-      ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
+      ...(options?.bundleId ? { bundleId: options?.bundleId } : {}),
     });
   }
 
