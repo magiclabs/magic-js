@@ -15,7 +15,7 @@ import localForage from 'localforage';
 import { URL as URLPolyfill, URLSearchParams as URLSearchParamsPolyfill } from 'whatwg-url';
 import { Buffer } from 'buffer';
 import * as _ from 'lodash';
-// import * as Application from '@magic-sdk/device-info';
+import { getBundleId } from 'react-native-device-info';
 import { driverWithoutSerialization } from '@aveq-research/localforage-asyncstorage-driver';
 import * as memoryDriver from 'localforage-driver-memory';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
@@ -48,7 +48,7 @@ export const Magic = createSDK(SDKBaseReactNative, {
   platform: 'react-native',
   sdkName: '@magic-sdk/react-native',
   version: process.env.REACT_NATIVE_VERSION!,
-  // bundleId: Application.applicationId,
+  bundleId: getBundleId(),
   defaultEndpoint: 'https://box.magic.link/',
   ViewController: ReactNativeWebViewController,
   configureStorage: /* istanbul ignore next */ async () => {
