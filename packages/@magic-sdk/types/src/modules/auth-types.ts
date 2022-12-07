@@ -25,6 +25,16 @@ export interface LoginWithSmsConfiguration {
    * Specify the phone number of the user attempting to login.
    */
   phoneNumber: string;
+
+  /**
+   * When `true`, a pre-built modal interface will show to the user, directing
+   * them to check their email for the one time passcode (OTP) to complete their
+   * authentication.
+   *
+   * When `false`, developers will be able to implement their own custom UI to
+   * continue the email OTP flow.
+   */
+  showUI?: boolean;
 }
 export interface LoginWithEmailOTPConfiguration {
   /**
@@ -55,5 +65,13 @@ export type LoginWithEmailOTPEvents = {
   'email-not-deliverable': () => void;
   'invalid-email-format': () => void;
   'invalid-email-otp': () => void;
+  'lockout-too-many-failed-attempts': () => void;
+};
+
+export type LoginWithSMSEvents = {
+  'send-sms-otp': (phoneNumber: string) => void;
+  'verify-sms-otp': (otp: string) => void;
+  'sms-deliverable': () => void;
+  'invalid-sms-otp': () => void;
   'lockout-too-many-failed-attempts': () => void;
 };
