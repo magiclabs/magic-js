@@ -71,7 +71,7 @@ export type LoginWithEmailOTPEvents = {
 export type LoginWithSMSEvents = {
   'send-sms-otp': (phoneNumber: string) => void;
   'verify-sms-otp': (otp: string) => void;
-  'sms-deliverable': () => void;
+  'sms-not-deliverable': () => void;
   'invalid-sms-otp': () => void;
   'lockout-too-many-failed-attempts': () => void;
 };
