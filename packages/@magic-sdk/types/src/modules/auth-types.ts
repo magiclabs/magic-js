@@ -73,5 +73,7 @@ export type LoginWithSMSEvents = {
   'verify-sms-otp': (otp: string) => void;
   'sms-not-deliverable': () => void;
   'invalid-sms-otp': () => void;
-  'lockout-too-many-failed-attempts': () => void;
+  'too-many-sms-send-requests': () => void;
+  'cancel-flow': () => void;
+  'empired-sms-otp': () => void;
 };
