@@ -191,7 +191,7 @@ export function createReactNativeEndpointConfigurationWarning() {
 
 export function createDeprecationWarning(options: {
   method: string;
-  removalVersions: { [P in 'magic-sdk' | '@magic-sdk/react-native']: string };
+  removalVersions: { [P in 'magic-sdk' | '@magic-sdk/react-native-bare']: string };
   useInstead?: string;
 }) {
   const { method, removalVersions, useInstead } = options;

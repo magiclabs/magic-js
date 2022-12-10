@@ -46,7 +46,7 @@ export * from '@magic-sdk/commons';
 
 export const Magic = createSDK(SDKBaseReactNative, {
   platform: 'react-native',
-  sdkName: '@magic-sdk/react-native',
+  sdkName: '@magic-sdk/react-native-bare',
   version: process.env.REACT_NATIVE_VERSION!,
   bundleId: getBundleId(),
   defaultEndpoint: 'https://box.magic.link/',

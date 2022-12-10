@@ -161,7 +161,7 @@ jobs:
       - store_artifacts:
           path: packages/@magic-sdk/provider/coverage
       - store_artifacts:
-          path: packages/@magic-sdk/react-native/coverage
+          path: packages/@magic-sdk/react-native-bare/coverage
       - store_artifacts:
           path: packages/magic-sdk/coverage
 

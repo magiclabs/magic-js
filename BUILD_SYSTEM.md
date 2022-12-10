@@ -46,7 +46,7 @@ We generate multiple outputs in order to maximize backwards compatibility and in
   // One of: node | browser | neutral
   //
   //      node:  Targets Node-like runtimes; used for React Native & server-side
-  //             packages (i.e.: `@magic-sdk/react-native`)
+  //             packages (i.e.: `@magic-sdk/react-native-bare`)
   //
   //   browser:  Targets web-like runtimes; used for web-only packages
   //             (i.e.: `magic-sdk`)
