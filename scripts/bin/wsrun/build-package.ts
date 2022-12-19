@@ -93,16 +93,30 @@ async function reactNativeBareHybridExtension(watch?: boolean) {
   });
 }
 
+async function reactNativeExpoHybridExtension(watch?: boolean) {
+  const pkgJson = require(`${process.cwd()}/package.json`);
+
+  await build({
+    watch,
+    format: 'cjs',
+    target: pkgJson.target,
+    output: pkgJson['react-native-expo'],
+    externals: getExternalsFromPkgJson(pkgJson),
+    isRN: true,
+    sourcemap: true,
+  });
+}
+
 async function main() {
   await createTemporaryTSConfigFile();
 
   if (process.env.DEV_SERVER) {
-    const builders = [cjs(true), esm(true), cdn(true), reactNativeBareHybridExtension(true), emitTypes(true)];
+    const builders = [cjs(true), esm(true), cdn(true), reactNativeBareHybridExtension(true), reactNativeExpoHybridExtension(true), emitTypes(true)];
     await Promise.all(builders);
   } else {
     // We need to limit concurrency in CI to avoid ENOMEM errors.
     const limit = pLimit(isCI ? 2 : 4);
-    const builders = [limit(cjs), limit(esm), limit(cdn), limit(reactNativeBareHybridExtension), limit(emitTypes)];
+    const builders = [limit(cjs), limit(esm), limit(cdn), limit(reactNativeBareHybridExtension), limit(reactNativeExpoHybridExtension), limit(emitTypes)];
     await Promise.all(builders);
   }
 }
