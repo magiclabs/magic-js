@@ -132,6 +132,7 @@ class NoopExtSupportingWeb extends Extension<'noop'> {
   compat = {
     'magic-sdk': '>1.0.0',
     '@magic-sdk/react-native-bare': false,
+    '@magic-sdk/react-native-expo': false,
   };
   helloWorld() {}
 }
@@ -141,6 +142,17 @@ class NoopExtSupportingBareReactNative extends Extension<'noop'> {
   compat = {
     'magic-sdk': false,
     '@magic-sdk/react-native-bare': '>1.0.0',
+    '@magic-sdk/react-native-expo': false,
+  };
+  helloWorld() {}
+}
+
+class NoopExtSupportingExpoReactNative extends Extension<'noop'> {
+  name = 'noop' as const;
+  compat = {
+    'magic-sdk': false,
+    '@magic-sdk/react-native-bare': false,
+    '@magic-sdk/react-native-expo': '>1.0.0',
   };
   helloWorld() {}
 }
@@ -232,6 +244,22 @@ test('Initialize `MagicSDK` with incompatible React Native extension (platform) 
   expect(() => new Ctor(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow(expectedError);
 });
 
+test('Initialize `MagicSDK` with incompatible Expo React Native extension (platform) via array', () => {
+  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native-expo', platform: 'react-native' });
+  const ext = new NoopExtSupportingWeb();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: [ext] })).toThrow(expectedError);
+});
+
+test('Initialize `MagicSDK` with incompatible Expo React Native extension (platform) via dictionary', () => {
+  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native-expo', platform: 'react-native' });
+  const ext = new NoopExtSupportingWeb();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow(expectedError);
+});
+
 test('Initialize `MagicSDK` with incompatible web extension (version) via array', () => {
   const Ctor = createMagicSDKCtor({ version: '0.1.0' });
   const ext = new NoopExtSupportingWeb();
@@ -267,6 +295,30 @@ test('Initialize `MagicSDK` with incompatible React Native extension (version) v
     version: '0.1.0',
   });
   const ext = new NoopExtSupportingBareReactNative();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow(expectedError);
+});
+
+test('Initialize `MagicSDK` with incompatible Expo React Native extension (version) via array', () => {
+  const Ctor = createMagicSDKCtor({
+    sdkName: '@magic-sdk/react-native-expo',
+    platform: 'react-native',
+    version: '0.1.0',
+  });
+  const ext = new NoopExtSupportingExpoReactNative();
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
+  const expectedError = createIncompatibleExtensionsError([ext]);
+  expect(() => new Ctor(TEST_API_KEY, { extensions: [ext] })).toThrow(expectedError);
+});
+
+test('Initialize `MagicSDK` with incompatible Expo React Native extension (version) via dictionary', () => {
+  const Ctor = createMagicSDKCtor({
+    sdkName: '@magic-sdk/react-native-expo',
+    platform: 'react-native',
+    version: '0.1.0',
+  });
+  const ext = new NoopExtSupportingExpoReactNative();
   const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
   expect(() => new Ctor(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow(expectedError);
@@ -310,6 +362,39 @@ test('Initialize `Magic Bare RN SDK`', () => {
 test('Initialize `Magic Bare RN SDK without bundleId`', () => {
   const Ctor = createMagicSDKCtor({
     sdkName: '@magic-sdk/react-native-bare',
+    platform: 'react-native',
+    bundleId: null,
+  });
+  const magic = new Ctor(TEST_API_KEY);
+
+  expect(magic.apiKey).toBe(TEST_API_KEY);
+
+  expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
+
+  assertEncodedQueryParams(magic.parameters, { sdk: 'magic-sdk-rn' });
+  assertModuleInstanceTypes(magic);
+});
+
+test('Initialize `Magic Expo RN SDK`', () => {
+  const bundleIdMock = 'link.magic.test';
+  const Ctor = createMagicSDKCtor({
+    sdkName: '@magic-sdk/react-native-expo',
+    platform: 'react-native',
+    bundleId: bundleIdMock,
+  });
+  const magic = new Ctor(TEST_API_KEY);
+
+  expect(magic.apiKey).toBe(TEST_API_KEY);
+
+  expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
+
+  assertEncodedQueryParams(magic.parameters, { bundleId: bundleIdMock, sdk: 'magic-sdk-rn' });
+  assertModuleInstanceTypes(magic);
+});
+
+test('Initialize `Magic Expo RN SDK without bundleId`', () => {
+  const Ctor = createMagicSDKCtor({
+    sdkName: '@magic-sdk/react-native-expo',
     platform: 'react-native',
     bundleId: null,
   });

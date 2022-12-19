@@ -20,3 +20,4 @@ This package is an internal dependency of the Magic JavaScript SDK ecosystem. If
 
 - Web: [`magic-sdk`](https://github.com/magiclabs/magic-js/tree/master/packages/magic-sdk)
 - Bare React Native: [`@magic-sdk/react-native-bare`](https://github.com/magiclabs/magic-js/tree/master/packages/@magic-sdk/react-native-bare)
+- Expo React Native: [`@magic-sdk/react-native-expo`](https://github.com/magiclabs/magic-js/tree/master/packages/@magic-sdk/react-native-expo)
