@@ -14,6 +14,7 @@
 
 - See the [developer documentation](https://docs.magic.link) to learn how you can master the Magic SDK in a matter of minutes.
 - See the `@magic-sdk/react-native-bare` [README](https://github.com/magiclabs/magic-js/tree/master/packages/%40magic-sdk/react-native-bare#readme) for Bare React Native package specific information.
+- See the `@magic-sdk/react-native-expo` [README](https://github.com/magiclabs/magic-js/tree/master/packages/%40magic-sdk/react-native-expo#readme) for Expo React Native package specific information. 
 
 ## ⚡️ Quick Start
 
@@ -25,13 +26,15 @@ Integrating your app with Magic will require our client-side NPM package:
 # Via NPM:
 npm install --save magic-sdk # If you're targeting web browsers
 npm install --save @magic-sdk/react-native-bare # If you're targeting Bare React Native
+npm install --save @magic-sdk/react-native-expo # If you're targeting Expo React Native
 
 # Via Yarn:
 yarn add magic-sdk # If you're targeting web browsers
 yarn add @magic-sdk/react-native-bare # If you're targeting Bare React Native
+yarn add @magic-sdk/react-native-expo # If you're targeting Expo React Native
 ```
 
-Alternatively, you can load via CDN with by adding a script tag to your app’s `<head>`:
+Alternatively, you can load via CDN by adding a script tag to your app’s `<head>`:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/magic-sdk/dist/magic.js"></script>
@@ -61,6 +64,7 @@ These are packages _you_ can install to enable Magic JS SDK functionality for yo
 | ------------ | --------- | ----------- |
 | [`magic-sdk`](https://www.npmjs.com/package/magic-sdk) | [CHANGELOG](./packages/magic-sdk/CHANGELOG.md) | Web/browser entry-point for Magic SDK. |
 | [`@magic-sdk/react-native-bare`](https://www.npmjs.com/package/@magic-sdk/react-native-bare) | [CHANGELOG](./packages/@magic-sdk/react-native-bare/CHANGELOG.md) | Bare React Native entry-point for Magic SDK. |
+| [`@magic-sdk/react-native-expo`](https://www.npmjs.com/package/@magic-sdk/react-native-expo) | [CHANGELOG](./packages/@magic-sdk/react-native-expo/CHANGELOG.md) | Expo React Native entry-point for Magic SDK. |
 
 ## Extensions
 
@@ -89,6 +93,7 @@ Test an individual package
 ```bash
 PKG=magic-sdk yarn test
 PKG=@magic-sdk/react-native-bare yarn test
+PKG=@magic-sdk/react-native-expo yarn test
 ```
 
 Test specific files
