@@ -16,24 +16,6 @@ export class SolanaExtension extends Extension.Internal<'solana', any> {
     };
   }
 
-  public sendAndConfirmTransaction = (transaction: any, options?: any) => {
-    const { instructions } = transaction;
-
-    instructions.map((instruction: any) => {
-      instruction.programId = instruction.programId.toBase58();
-    });
-
-    return this.request({
-      id: 42,
-      jsonrpc: '2.0',
-      method: SolanaPayloadMethod.SendTransaction,
-      params: {
-        instructions,
-        options,
-      },
-    });
-  };
-
   public signTransaction = (transaction: any, serializeConfig?: SerializeConfig) => {
     const { instructions } = transaction;
 
