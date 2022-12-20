@@ -1,3 +1,15 @@
+# v7.0.0 (Tue Dec 20 2022)
+
+#### 💥 Breaking Change
+
+- Deprecate sendAndConfirmTransaction for @magic-ext/solana [#402](https://github.com/magiclabs/magic-js/pull/402) (justin@magic.link)
+
+#### Authors: 1
+
+- Justin Herrera ([@justinnout](https://github.com/justinnout))
+
+---
+
 # v5.0.0 (Fri Aug 05 2022)
 
 #### 🚀 Enhancement

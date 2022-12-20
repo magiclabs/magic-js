@@ -1,3 +1,21 @@
+# v12.0.0 (Tue Dec 20 2022)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into mushfichowdhury-sc-61149-implement-event-emitting-in-magic-sdk-based ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- Adds more Context about Expo dependency in `@magic-ext/react-native-oauth` to README [#386](https://github.com/magiclabs/magic-js/pull/386) ([@Ariflo](https://github.com/Ariflo))
+
+#### 📝 Documentation
+
+- Adds advice for fixing symlink error in RN projects inside of Monorepos to README [#395](https://github.com/magiclabs/magic-js/pull/395) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v10.0.1 (Fri Sep 09 2022)
 
 #### 🐛 Bug Fix

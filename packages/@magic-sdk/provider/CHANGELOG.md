@@ -1,3 +1,33 @@
+# v11.0.0 (Tue Dec 20 2022)
+
+#### 🚀 Enhancement
+
+- Updating SDK version [#393](https://github.com/magiclabs/magic-js/pull/393) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- added comment ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- Mushfichowdhury sc 61149 implement event emitting in magic sdk [#390](https://github.com/magiclabs/magic-js/pull/390) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- added showUI back to auth module for email otp ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- update loginwithemailotp unit test ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- Merge branch 'master' into mushfichowdhury-sc-61149-implement-event-emitting-in-magic-sdk-based ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- removed console.log ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- removed unused code in unit test ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- added unit test ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- updated auth.ts ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- adding in types ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- v1 of bidirectional rpc event support ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 📝 Documentation
+
+- Update CHANGELOG.md \[skip ci\] [#394](https://github.com/magiclabs/magic-js/pull/394) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v9.0.0 (Fri Aug 05 2022)
 
 #### 💥 Breaking Change

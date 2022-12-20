@@ -1,3 +1,22 @@
+# v5.0.0 (Tue Dec 20 2022)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into mushfichowdhury-sc-61149-implement-event-emitting-in-magic-sdk-based ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- Adds more Context about Expo dependency in `@magic-ext/react-native-oauth` to README [#386](https://github.com/magiclabs/magic-js/pull/386) ([@Ariflo](https://github.com/Ariflo))
+
+#### ⚠️ Pushed to `master`
+
+- Add bundleId to the OAuth query ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v3.1.0 (Wed Aug 10 2022)
 
 #### 🚀 Enhancement

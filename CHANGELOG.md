@@ -1,3 +1,49 @@
+# (Tue Dec 20 2022)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/solana@7.0.0`
+  - Deprecate sendAndConfirmTransaction for @magic-ext/solana [#402](https://github.com/magiclabs/magic-js/pull/402) (justin@magic.link)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@11.0.0`
+  - Updating SDK version [#393](https://github.com/magiclabs/magic-js/pull/393) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- `@magic-ext/connect@4.0.0`
+  - add getWalletInfo method [#352](https://github.com/magiclabs/magic-js/pull/352) ([@hcote](https://github.com/hcote))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@11.0.0`, `@magic-sdk/types@10.0.0`
+  - Mushfichowdhury sc 61149 implement event emitting in magic sdk [#390](https://github.com/magiclabs/magic-js/pull/390) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- `@magic-ext/react-native-oauth@5.0.0`, `@magic-sdk/react-native@12.0.0`
+  - Adds more Context about Expo dependency in `@magic-ext/react-native-oauth` to README [#386](https://github.com/magiclabs/magic-js/pull/386) ([@Ariflo](https://github.com/Ariflo))
+
+#### ⚠️ Pushed to `master`
+
+- `@magic-ext/react-native-oauth@5.0.0`
+  - Add bundleId to the OAuth query ([@Ethella](https://github.com/Ethella))
+
+#### 📝 Documentation
+
+- `@magic-sdk/react-native@12.0.0`
+  - Adds advice for fixing symlink error in RN projects inside of Monorepos to README [#395](https://github.com/magiclabs/magic-js/pull/395) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🔩 Dependency Updates
+
+- Bump minimatch from 3.0.4 to 3.1.2 [#387](https://github.com/magiclabs/magic-js/pull/387) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 6
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Justin Herrera ([@justinnout](https://github.com/justinnout))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # (Tuesday Nov 22 2022)
 
 #### ➕ Version Bump

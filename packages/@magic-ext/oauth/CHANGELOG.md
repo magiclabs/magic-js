@@ -1,3 +1,20 @@
+# v5.0.0 (Tue Dec 20 2022)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into mushfichowdhury-sc-61149-implement-event-emitting-in-magic-sdk-based ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 📝 Documentation
+
+- Update CHANGELOG.md \[skip ci\] [#391](https://github.com/magiclabs/magic-js/pull/391) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v4.0.0 (Tues Nov 15 2022)
 
 #### ➕ Version Bump
