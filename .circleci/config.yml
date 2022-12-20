@@ -127,7 +127,7 @@ jobs:
               yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --no-push --yes --preid $(echo $CIRCLE_BRANCH) --verbose
             elif [[ $AUTO_VERSION ]]; then
               yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --no-push --yes --verbose
-            fi
+            fi 
 
       - run:
           name: Build modules
