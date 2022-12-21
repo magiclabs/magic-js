@@ -49,4 +49,3 @@ export default function App() {
 // Somewhere else in your code...
 await magic.auth.loginWithMagicLink({ email: 'your.email@example.com' });
 ```
-## 🙌🏾 Troubleshooting
