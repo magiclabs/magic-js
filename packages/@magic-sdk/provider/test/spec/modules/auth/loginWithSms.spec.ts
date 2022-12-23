@@ -25,6 +25,18 @@ test('Generates JSON RPC request payload with `phone` parameter', async () => {
   expect(requestPayload.params).toEqual([{ phoneNumber: expectedPhoneNumber, showUI: true }]);
 });
 
+test('Generates JSON RPC request payload with `showUI` parameter', async () => {
+  const magic = createMagicSDK();
+  magic.auth.request = jest.fn();
+
+  await magic.auth.loginWithSMS({ phoneNumber: expectedPhoneNumber, showUI: false });
+
+  const requestPayload = magic.auth.request.mock.calls[0][0];
+  expect(requestPayload.jsonrpc).toBe('2.0');
+  expect(requestPayload.method).toBe(MagicPayloadMethod.LoginWithSms);
+  expect(requestPayload.params).toEqual([{ phoneNumber: expectedPhoneNumber, showUI: false }]);
+});
+
 test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
   const magic = createMagicSDKTestMode();
   magic.auth.request = jest.fn();
