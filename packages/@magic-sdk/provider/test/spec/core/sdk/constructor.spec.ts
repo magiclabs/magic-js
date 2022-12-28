@@ -355,7 +355,7 @@ test('Initialize `Magic Bare RN SDK`', () => {
 
   expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
 
-  assertEncodedQueryParams(magic.parameters, { bundleId: bundleIdMock, sdk: 'magic-sdk-rn' });
+  assertEncodedQueryParams(magic.parameters, { bundleId: bundleIdMock, sdk: 'magic-sdk-rn-bare' });
   assertModuleInstanceTypes(magic);
 });
 
@@ -371,7 +371,7 @@ test('Initialize `Magic Bare RN SDK without bundleId`', () => {
 
   expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
 
-  assertEncodedQueryParams(magic.parameters, { sdk: 'magic-sdk-rn' });
+  assertEncodedQueryParams(magic.parameters, { sdk: 'magic-sdk-rn-bare' });
   assertModuleInstanceTypes(magic);
 });
 
@@ -388,7 +388,7 @@ test('Initialize `Magic Expo RN SDK`', () => {
 
   expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
 
-  assertEncodedQueryParams(magic.parameters, { bundleId: bundleIdMock, sdk: 'magic-sdk-rn' });
+  assertEncodedQueryParams(magic.parameters, { bundleId: bundleIdMock, sdk: 'magic-sdk-rn-expo' });
   assertModuleInstanceTypes(magic);
 });
 
@@ -404,6 +404,6 @@ test('Initialize `Magic Expo RN SDK without bundleId`', () => {
 
   expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
 
-  assertEncodedQueryParams(magic.parameters, { sdk: 'magic-sdk-rn' });
+  assertEncodedQueryParams(magic.parameters, { sdk: 'magic-sdk-rn-expo' });
   assertModuleInstanceTypes(magic);
 });
