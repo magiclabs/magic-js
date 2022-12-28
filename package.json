@@ -38,7 +38,7 @@
     "esbuild": "^0.14.13",
     "eslint": "~7.3.1",
     "eslint-import-resolver-typescript": "~2.0.0",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import": "~2.21.0",
     "eslint-plugin-jsx-a11y": "~6.3.1",
     "eslint-plugin-prettier": "~3.1.4",
     "eslint-plugin-react": "~7.20.0",
