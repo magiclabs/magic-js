@@ -31,5 +31,5 @@ export function createSDK<SDK extends SDKBase>(
 
 export const sdkNameToEnvName = {
   'magic-sdk': 'magic-sdk' as const,
-  '@magic-sdk/react-native-bare': 'magic-sdk-rn' as const,
+  '@magic-sdk/react-native-bare': 'magic-sdk-rn-bare' as const,
 };
