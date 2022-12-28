@@ -1,0 +1,36 @@
+name: Publish
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  publish:
+    runs-on: ubuntu-20.04
+    name: Publish
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ADMIN_TOKEN }}
+
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - run: |
+          yarn -v
+          yarn
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          yarn
+          yarn build
+          yarn auto shipit

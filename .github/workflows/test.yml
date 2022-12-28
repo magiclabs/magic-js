@@ -1,0 +1,39 @@
+name: Tests
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    name: Run style/security checks & tests
+    container:
+      image: node:16-slim
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - run: |
+          yarn -v
+          yarn
+
+      - name: Lint
+        run: yarn run lint
+
+      - name: Audit Prod Dependencies
+        run: yarn audit --groups dependencies || true
+
+      - name: Build
+        run: yarn run build
+
+      - name: Test
+        run: yarn run test
