@@ -10,7 +10,7 @@ type ConstructorOf<C> = { new (...args: any[]): C };
  * This is guaranteed to be populated before the SDK is instantiated.
  */
 export interface SDKEnvironment {
-  sdkName: 'magic-sdk' | '@magic-sdk/react-native';
+  sdkName: 'magic-sdk' | '@magic-sdk/react-native-bare';
   version: string;
   platform: 'web' | 'react-native';
   defaultEndpoint: string;
@@ -31,5 +31,5 @@ export function createSDK<SDK extends SDKBase>(
 
 export const sdkNameToEnvName = {
   'magic-sdk': 'magic-sdk' as const,
-  '@magic-sdk/react-native': 'magic-sdk-rn' as const,
+  '@magic-sdk/react-native-bare': 'magic-sdk-rn-bare' as const,
 };

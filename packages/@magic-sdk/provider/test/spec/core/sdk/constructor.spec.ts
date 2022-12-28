@@ -131,16 +131,16 @@ class NoopExtSupportingWeb extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': '>1.0.0',
-    '@magic-sdk/react-native': false,
+    '@magic-sdk/react-native-bare': false,
   };
   helloWorld() {}
 }
 
-class NoopExtSupportingReactNative extends Extension<'noop'> {
+class NoopExtSupportingBareReactNative extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
-    '@magic-sdk/react-native': '>1.0.0',
+    '@magic-sdk/react-native-bare': '>1.0.0',
   };
   helloWorld() {}
 }
@@ -202,7 +202,7 @@ test('Initialize `MagicSDK` with config-ful extensions via dictionary (empty con
 
 test('Initialize `MagicSDK` with incompatible web extension (platform) via array', () => {
   const Ctor = createMagicSDKCtor();
-  const ext = new NoopExtSupportingReactNative();
+  const ext = new NoopExtSupportingBareReactNative();
   const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
   expect(() => new Ctor(TEST_API_KEY, { extensions: [ext] })).toThrow(expectedError);
@@ -210,14 +210,14 @@ test('Initialize `MagicSDK` with incompatible web extension (platform) via array
 
 test('Initialize `MagicSDK` with incompatible web extension (platform) via dictionary', () => {
   const Ctor = createMagicSDKCtor();
-  const ext = new NoopExtSupportingReactNative();
+  const ext = new NoopExtSupportingBareReactNative();
   const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
   expect(() => new Ctor(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow(expectedError);
 });
 
 test('Initialize `MagicSDK` with incompatible React Native extension (platform) via array', () => {
-  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native', platform: 'react-native' });
+  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native-bare', platform: 'react-native' });
   const ext = new NoopExtSupportingWeb();
   const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
@@ -225,7 +225,7 @@ test('Initialize `MagicSDK` with incompatible React Native extension (platform) 
 });
 
 test('Initialize `MagicSDK` with incompatible React Native extension (platform) via dictionary', () => {
-  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native', platform: 'react-native' });
+  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native-bare', platform: 'react-native' });
   const ext = new NoopExtSupportingWeb();
   const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
@@ -249,16 +249,24 @@ test('Initialize `MagicSDK` with incompatible web extension (version) via dictio
 });
 
 test('Initialize `MagicSDK` with incompatible React Native extension (version) via array', () => {
-  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native', platform: 'react-native', version: '0.1.0' });
-  const ext = new NoopExtSupportingReactNative();
+  const Ctor = createMagicSDKCtor({
+    sdkName: '@magic-sdk/react-native-bare',
+    platform: 'react-native',
+    version: '0.1.0',
+  });
+  const ext = new NoopExtSupportingBareReactNative();
   const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
   expect(() => new Ctor(TEST_API_KEY, { extensions: [ext] })).toThrow(expectedError);
 });
 
 test('Initialize `MagicSDK` with incompatible React Native extension (version) via dictionary', () => {
-  const Ctor = createMagicSDKCtor({ sdkName: '@magic-sdk/react-native', platform: 'react-native', version: '0.1.0' });
-  const ext = new NoopExtSupportingReactNative();
+  const Ctor = createMagicSDKCtor({
+    sdkName: '@magic-sdk/react-native-bare',
+    platform: 'react-native',
+    version: '0.1.0',
+  });
+  const ext = new NoopExtSupportingBareReactNative();
   const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const expectedError = createIncompatibleExtensionsError([ext]);
   expect(() => new Ctor(TEST_API_KEY, { extensions: { foobar: ext } })).toThrow(expectedError);
@@ -282,10 +290,10 @@ test('Does not warn upon construction of `MagicSDK` instance if `endpoint` param
   expect(consoleWarnStub).not.toBeCalled();
 });
 
-test('Initialize `Magic RN SDK`', () => {
+test('Initialize `Magic Bare RN SDK`', () => {
   const bundleIdMock = 'link.magic.test';
   const Ctor = createMagicSDKCtor({
-    sdkName: '@magic-sdk/react-native',
+    sdkName: '@magic-sdk/react-native-bare',
     platform: 'react-native',
     bundleId: bundleIdMock,
   });
@@ -299,9 +307,9 @@ test('Initialize `Magic RN SDK`', () => {
   assertModuleInstanceTypes(magic);
 });
 
-test('Initialize `Magic RN SDK without bundleId`', () => {
+test('Initialize `Magic Bare RN SDK without bundleId`', () => {
   const Ctor = createMagicSDKCtor({
-    sdkName: '@magic-sdk/react-native',
+    sdkName: '@magic-sdk/react-native-bare',
     platform: 'react-native',
     bundleId: null,
   });
