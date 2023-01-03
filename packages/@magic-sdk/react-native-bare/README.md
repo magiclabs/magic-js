@@ -11,7 +11,7 @@
 </p>
 
 ## ⚠️ Major Change: Package Split Beta ⚠️ 
-Please note that splitting the `Expo` and `Bare React Native` Magic packages is a part of a **beta** release. Take whatever precautions necessary to verify use before installing on your production application. As always, in the case something goes awry, you may open an issue and revert your package to the previous stable version `magic-sdk/react-native@x.x.x`.
+Please note that splitting the `Expo` and `Bare React Native` Magic packages is a part of a **beta** release. Take whatever precautions necessary to verify use before installing on your production application. As always, in the case something goes awry, you may open an issue and revert your package to the previous pre-split stable bare react native version `magic-sdk/react-native@^8.0.0`.
 
 ## 📖 Documentation
 
