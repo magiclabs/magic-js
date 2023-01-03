@@ -34,7 +34,7 @@ export class AlgorandExtension extends Extension.Internal<'algod', any> {
 
   public async signGroupTransactionV2(txns: any) {
     return this.request(
-        this.utils.createJsonRpcRequestPayload(AlgorandPayloadMethod.AlgorandSignGroupTransactionV2, txns),
+      this.utils.createJsonRpcRequestPayload(AlgorandPayloadMethod.AlgorandSignGroupTransactionV2, txns),
     );
   }
 }
