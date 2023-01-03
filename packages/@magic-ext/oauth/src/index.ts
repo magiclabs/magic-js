@@ -15,7 +15,8 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   config = {};
   compat = {
     'magic-sdk': '>=2.4.6',
-    '@magic-sdk/react-native': false,
+    '@magic-sdk/react-native-bare': false,
+    '@magic-sdk/react-native-expo': false,
   };
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
