@@ -13,7 +13,8 @@ interface BaseExtension<TName extends string = AnonymousExtension> extends BaseM
    */
   compat?: {
     'magic-sdk': boolean | string;
-    '@magic-sdk/react-native': boolean | string;
+    '@magic-sdk/react-native-bare': boolean | string;
+    '@magic-sdk/react-native-expo': boolean | string;
   };
 }
 

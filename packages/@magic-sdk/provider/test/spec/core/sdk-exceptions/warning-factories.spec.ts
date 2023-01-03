@@ -52,25 +52,49 @@ test('Creates a `DEPRECATION_NOTICE` warning for `magic-sdk`', async () => {
   const { createDeprecationWarning } = require('../../../../src/core/sdk-exceptions');
   const warning = createDeprecationWarning({
     method: 'test()',
-    removalVersions: { 'magic-sdk': 'v999', '@magic-sdk/react-native': 'v888' },
+    removalVersions: {
+      'magic-sdk': 'v999',
+      '@magic-sdk/react-native-bare': 'v888',
+      '@magic-sdk/react-native-expo': 'v777',
+    },
   });
 
   warningAssertions(warning, 'DEPRECATION_NOTICE', '`test()` will be removed from `magic-sdk` in version `v999`.');
 });
 
-test('Creates a `DEPRECATION_NOTICE` warning for `@magic-sdk/react-native`', async () => {
-  mockSDKEnvironmentConstant({ sdkName: '@magic-sdk/react-native' });
+test('Creates a `DEPRECATION_NOTICE` warning for `@magic-sdk/react-native-bare`', async () => {
+  mockSDKEnvironmentConstant({ sdkName: '@magic-sdk/react-native-bare' });
 
   const { createDeprecationWarning } = require('../../../../src/core/sdk-exceptions');
   const warning = createDeprecationWarning({
     method: 'test()',
-    removalVersions: { 'magic-sdk': 'v999', '@magic-sdk/react-native': 'v888' },
+    removalVersions: {
+      'magic-sdk': 'v999',
+      '@magic-sdk/react-native-bare': 'v888',
+      '@magic-sdk/react-native-expo': 'v777',
+    },
   });
 
   warningAssertions(
     warning,
     'DEPRECATION_NOTICE',
-    '`test()` will be removed from `@magic-sdk/react-native` in version `v888`.',
+    '`test()` will be removed from `@magic-sdk/react-native-bare` in version `v888`.',
+  );
+});
+
+test('Creates a `DEPRECATION_NOTICE` warning for `@magic-sdk/react-native-expo`', async () => {
+  mockSDKEnvironmentConstant({ sdkName: '@magic-sdk/react-native-expo' });
+
+  const { createDeprecationWarning } = require('../../../../src/core/sdk-exceptions');
+  const warning = createDeprecationWarning({
+    method: 'test()',
+    removalVersions: { 'magic-sdk': 'v999', '@magic-sdk/react-native': 'v888', '@magic-sdk/react-native-expo': 'v777' },
+  });
+
+  warningAssertions(
+    warning,
+    'DEPRECATION_NOTICE',
+    '`test()` will be removed from `@magic-sdk/react-native-expo` in version `v777`.',
   );
 });
 
@@ -80,7 +104,11 @@ test('Creates a `DEPRECATION_NOTICE` warning with `useInstead` suffix', async ()
   const { createDeprecationWarning } = require('../../../../src/core/sdk-exceptions');
   const warning = createDeprecationWarning({
     method: 'test()',
-    removalVersions: { 'magic-sdk': 'v999', '@magic-sdk/react-native': 'v888' },
+    removalVersions: {
+      'magic-sdk': 'v999',
+      '@magic-sdk/react-native-bare': 'v888',
+      '@magic-sdk/react-native-expo': 'v777',
+    },
     useInstead: 'test2()',
   });
 
