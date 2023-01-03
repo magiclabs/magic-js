@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native-expo",
-  "version": "13.0.1",
+  "version": "13.0.3",
   "description": "Passwordless authentication for React Native (Expo).",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
