@@ -36,8 +36,7 @@ export class AuthModule extends BaseModule {
     const { phoneNumber, showUI } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
-      [{ phoneNumber, showUI: false }],
-      // change this back to showUI
+      [{ phoneNumber, showUI }],
     );
     return this.request<string | null, LoginWithSMSEvents>(requestPayload);
   }
