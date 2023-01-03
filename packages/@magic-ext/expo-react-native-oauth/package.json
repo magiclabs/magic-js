@@ -1,0 +1,37 @@
+{
+  "name": "@magic-ext/expo-react-native-oauth",
+  "version": "7.0.0",
+  "description": "Magic SDK OAuth Extension for Expo React Native environments.",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "files": [
+    "dist"
+  ],
+  "target": "node",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    "import": "./dist/es/index.mjs",
+    "require": "./dist/cjs/index.js"
+  },
+  "externals": {
+    "include": [
+      "@magic-sdk/react-native-expo"
+    ]
+  },
+  "dependencies": {
+    "@magic-sdk/types": "^10.0.0",
+    "crypto-js": "^3.3.0",
+    "expo-application": "^5.0.1",
+    "expo-web-browser": "^11.0.0"
+  },
+  "devDependencies": {
+    "@magic-sdk/react-native-expo": "^13.0.1",
+    "@types/crypto-js": "~3.1.47"
+  }
+}
