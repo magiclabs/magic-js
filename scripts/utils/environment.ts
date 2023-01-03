@@ -7,7 +7,8 @@ import path from 'path';
 
 export const environment = {
   WEB_VERSION: require(path.resolve(__dirname, '../../packages/magic-sdk/package.json')).version,
-  REACT_NATIVE_VERSION: require(path.resolve(__dirname, '../../packages/@magic-sdk/react-native/package.json')).version,
+  BARE_REACT_NATIVE_VERSION: require(path.resolve(__dirname, '../../packages/@magic-sdk/react-native-bare/package.json')).version,
+  EXPO_REACT_NATIVE_VERSION: require(path.resolve(__dirname, '../../packages/@magic-sdk/react-native-expo/package.json')).version,
 };
 
 export function printEnvironment() {
