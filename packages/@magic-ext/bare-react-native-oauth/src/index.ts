@@ -15,7 +15,7 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   config = {};
   compat = {
     'magic-sdk': false,
-    '@magic-sdk/react-native-bare': '>=12.0.0',
+    '@magic-sdk/react-native-bare': '>=13.0.0',
     '@magic-sdk/react-native-expo': false,
   };
 
