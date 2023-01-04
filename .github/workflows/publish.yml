@@ -27,6 +27,8 @@ jobs:
           yarn
 
       - name: Apply semver updates (if any)
+        env:
+          GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
         run: |
           if yarn auto version; then
             AUTO_VERSION=$(yarn auto version)
