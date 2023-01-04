@@ -1,5 +1,5 @@
 {
-  "name": "@magic-ext/expo-react-native-oauth",
+  "name": "@magic-ext/react-native-expo-oauth",
   "version": "7.0.0",
   "description": "Magic SDK OAuth Extension for Expo React Native environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
@@ -33,5 +33,8 @@
   "devDependencies": {
     "@magic-sdk/react-native-expo": "^13.0.1",
     "@types/crypto-js": "~3.1.47"
+  },
+  "peerDependencies": {
+    "@magic-sdk/react-native-expo": ">=13.0.0"
   }
 }
