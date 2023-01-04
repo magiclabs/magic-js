@@ -46,10 +46,10 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
-    const { email } = configuration;
+    const { email, showUI } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
-      [{ email, showUI: true }],
+      [{ email, showUI }],
     );
     return this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
   }
