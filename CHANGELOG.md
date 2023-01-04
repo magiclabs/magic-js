@@ -1,3 +1,25 @@
+# (Wed Jan 04 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oidc@1.0.1`
+  - add oidc support [#349](https://github.com/magiclabs/magic-js/pull/349) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+- `@magic-ext/algorand@6.0.1`
+  - add github actions for testing and publishing packages [#409](https://github.com/magiclabs/magic-js/pull/409) ([@kgrubb](https://github.com/kgrubb))
+
+#### ⚠️ Pushed to `master`
+
+- make error output explicit in version publishing ([@kgrubb](https://github.com/kgrubb))
+- * Add GH_TOKEN env ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Keli (Madison) Grubb ([@kgrubb](https://github.com/kgrubb))
+
+---
+
 # (Tue Dec 20 2022)
 
 #### 💥 Breaking Change

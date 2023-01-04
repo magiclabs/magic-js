@@ -1,3 +1,16 @@
+# v6.0.1 (Wed Jan 04 2023)
+
+#### 🐛 Bug Fix
+
+- add github actions for testing and publishing packages [#409](https://github.com/magiclabs/magic-js/pull/409) ([@kgrubb](https://github.com/kgrubb))
+- clean up eslint outputs and run build before running lint stage ([@kgrubb](https://github.com/kgrubb))
+
+#### Authors: 1
+
+- Keli (Madison) Grubb ([@kgrubb](https://github.com/kgrubb))
+
+---
+
 # v3.1.0 (Mon Mar 07 2022)
 
 #### 🐛 Bug Fix
