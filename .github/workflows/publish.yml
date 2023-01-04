@@ -28,11 +28,14 @@ jobs:
 
       - name: Apply semver updates (if any)
         run: |
-          AUTO_VERSION=$(yarn auto version)
-          if [[ $AUTO_VERSION == pre* ]]; then
-            yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --no-push --yes --preid $(echo $GITHUB_REF)
-          elif [[ $AUTO_VERSION ]]; then
-            yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --no-push --yes
+          if yarn auto version; then
+            AUTO_VERSION=$(yarn auto version)
+            echo "Auto Version: $AUTO_VERSION"
+            if [[ $AUTO_VERSION == pre* ]]; then
+              yarn lerna version "$AUTO_VERSION" --no-git-tag-version --no-push --yes --preid "$GITHUB_REF"
+            elif [[ $AUTO_VERSION ]]; then
+              yarn lerna version "$AUTO_VERSION" --no-git-tag-version --no-push --yes
+            fi
           fi
 
       - name: Create Release
