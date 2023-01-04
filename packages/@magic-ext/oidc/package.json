@@ -1,0 +1,32 @@
+{
+  "name": "@magic-ext/oidc",
+  "version": "1.0.0",
+  "description": "Magic OIDC SDK Extension for Web environments.",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "files": [
+    "dist"
+  ],
+  "target": "browser",
+  "cdnGlobalName": "MagicOpenIdConnectExtension",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "jsdelivr": "./dist/extension.js",
+  "exports": {
+    "import": "./dist/es/index.mjs",
+    "require": "./dist/cjs/index.js"
+  },
+  "externals": {
+    "include": [
+      "magic-sdk"
+    ]
+  },
+  "devDependencies": {
+    "magic-sdk": "^9.0.0"
+  }
+}
