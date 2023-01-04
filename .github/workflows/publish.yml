@@ -38,6 +38,8 @@ jobs:
             elif [[ $AUTO_VERSION ]]; then
               yarn lerna version "$AUTO_VERSION" --no-git-tag-version --no-push --yes
             fi
+          else
+            echo "Unable to bump version successfully." && exit 1
           fi
 
       - name: Create Release
