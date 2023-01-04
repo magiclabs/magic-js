@@ -69,7 +69,7 @@ export type LoginWithEmailOTPEvents = {
 };
 
 export type LoginWithSMSEvents = {
-  'sms-otp-sent': () => void;
-  'verify-sms-otp': (otp: string) => void;
-  'invalid-sms-otp': () => void;
+  'sms-otc-sent': () => void;
+  'verify-sms-otc': (otp: string) => void;
+  'invalid-sms-otc': () => void;
 };
