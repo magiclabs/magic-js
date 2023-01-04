@@ -1,5 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import { Extension } from '@magic-sdk/react-native';
+import * as Application from 'expo-application';
 import { createCryptoChallenge } from './crypto';
 import {
   OAuthErrorData,
@@ -56,6 +57,7 @@ export async function createURI(this: OAuthExtension, configuration: OAuthRedire
   // Unpack configuration, generate crypto values, and persist to storage.
   const { provider, redirectURI, scope, loginHint } = configuration;
   const { verifier, challenge, state } = await createCryptoChallenge();
+  const bundleId = Application.applicationId;
 
   /* Stringify for RN Async storage */
   const storedData = JSON.stringify({
@@ -72,6 +74,8 @@ export async function createURI(this: OAuthExtension, configuration: OAuthRedire
   //   - `state`
   //   - `redirect_uri`
   //   - `platform`
+  // Optional fields:
+  //   - `bundleId`
 
   const query = [
     `magic_api_key=${encodeURIComponent(this.sdk.apiKey)}`,
@@ -81,6 +85,7 @@ export async function createURI(this: OAuthExtension, configuration: OAuthRedire
     scope && `scope=${encodeURIComponent(scope.join(' '))}`,
     redirectURI && `redirect_uri=${encodeURIComponent(redirectURI)}`,
     loginHint && `login_hint=${encodeURIComponent(loginHint)}`,
+    bundleId && `bundleId=${encodeURIComponent(bundleId)}`,
   ].reduce((prev, next) => (next ? `${prev}&${next}` : prev));
 
   return {

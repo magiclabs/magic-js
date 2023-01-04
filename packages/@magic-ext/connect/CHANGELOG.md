@@ -1,3 +1,20 @@
+# v4.0.0 (Tue Dec 20 2022)
+
+#### 🚀 Enhancement
+
+- add getWalletInfo method [#352](https://github.com/magiclabs/magic-js/pull/352) ([@hcote](https://github.com/hcote))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into mushfichowdhury-sc-61149-implement-event-emitting-in-magic-sdk-based ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 2
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v2.0.2 (Thu Sep 01 2022)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,18 @@
+# v10.0.0 (Tue Dec 20 2022)
+
+#### 🐛 Bug Fix
+
+- Mushfichowdhury sc 61149 implement event emitting in magic sdk [#390](https://github.com/magiclabs/magic-js/pull/390) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- Merge branch 'master' into mushfichowdhury-sc-61149-implement-event-emitting-in-magic-sdk-based ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- adding in types ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- v1 of bidirectional rpc event support ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v9.0.0 (Wed Sep 28 2022)
 
 #### 💥 Breaking Change

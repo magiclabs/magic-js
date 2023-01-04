@@ -1,0 +1,45 @@
+name: Publish
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  publish:
+    runs-on: ubuntu-20.04
+    name: Publish
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ADMIN_TOKEN }}
+
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - run: |
+          yarn -v
+          yarn
+
+      - name: Apply semver updates (if any)
+        run: |
+          AUTO_VERSION=$(yarn auto version)
+          if [[ $AUTO_VERSION == pre* ]]; then
+            yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --no-push --yes --preid $(echo $GITHUB_REF)
+          elif [[ $AUTO_VERSION ]]; then
+            yarn lerna version $(echo $AUTO_VERSION) --no-git-tag-version --no-push --yes
+          fi
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          yarn
+          yarn build
+          yarn auto shipit
