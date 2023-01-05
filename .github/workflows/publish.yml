@@ -4,6 +4,11 @@ on:
     branches:
       - "master"
 
+env:
+  GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+  GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 jobs:
   publish:
     runs-on: ubuntu-20.04
@@ -22,13 +27,12 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-      - run: |
+      - name: Install dependencies
+        run: |
           yarn -v
-          yarn
+          yarn install --immutable
 
       - name: Apply semver updates (if any)
-        env:
-          GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
         run: |
           if yarn auto version; then
             AUTO_VERSION=$(yarn auto version)
@@ -43,11 +47,7 @@ jobs:
           fi
 
       - name: Create Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-          GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
+          yarn install --immutable
           yarn build
-          yarn install --frozen-lockfile --non-interactive --cache-folder=~/.cache/yarn
-          yarn auto shipit
+          yarn auto shipit -vv
