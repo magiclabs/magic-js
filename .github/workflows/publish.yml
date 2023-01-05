@@ -27,6 +27,7 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+
       - name: Install dependencies
         run: |
           yarn -v
@@ -45,8 +46,10 @@ jobs:
           else
             echo "Unable to bump version successfully." && exit 1
           fi
+
       - name: Build
         run: yarn build
+
       - name: Upload Build Results
         uses: actions/upload-artifact@v3
         with:
@@ -73,6 +76,11 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+
+      - name: Install dependencies
+        run: |
+          yarn -v
+          yarn install --immutable
 
       - name: Download Build Results
         uses: actions/download-artifact@v3
