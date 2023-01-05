@@ -4,10 +4,15 @@ on:
     branches:
       - "master"
 
+env:
+  GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+  GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-20.04
-    name: Publish
+    name: Build
     if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
     steps:
       - uses: actions/checkout@v3
@@ -22,13 +27,12 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-      - run: |
+      - name: Install dependencies
+        run: |
           yarn -v
-          yarn
+          yarn install --immutable
 
       - name: Apply semver updates (if any)
-        env:
-          GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
         run: |
           if yarn auto version; then
             AUTO_VERSION=$(yarn auto version)
@@ -41,12 +45,39 @@ jobs:
           else
             echo "Unable to bump version successfully." && exit 1
           fi
+      - name: Build
+        run: yarn build
+      - name: Upload Build Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: |
+            packages/@magic-ext/*/dist
+            packages/@magic-sdk/*/dist
+            packages/*/dist
+
+  publish:
+    runs-on: ubuntu-20.04
+    name: Publish
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ADMIN_TOKEN }}
+
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Download Build Results
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output
 
       - name: Create Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-          GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          yarn build
-          yarn auto shipit
+        run: yarn auto shipit -vv
