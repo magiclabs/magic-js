@@ -1,6 +1,6 @@
-import { InAppBrowser } from 'react-native-inappbrowser-reborn';
-import { Extension } from '@magic-sdk/react-native-bare';
-import { getBundleId } from 'react-native-device-info';
+import * as WebBrowser from 'expo-web-browser';
+import { Extension } from '@magic-sdk/react-native-expo';
+import * as Application from 'expo-application';
 import { createCryptoChallenge } from './crypto';
 import {
   OAuthErrorData,
@@ -15,8 +15,8 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   config = {};
   compat = {
     'magic-sdk': false,
-    '@magic-sdk/react-native-bare': '>=13.0.0',
-    '@magic-sdk/react-native-expo': false,
+    '@magic-sdk/react-native-bare': false,
+    '@magic-sdk/react-native-expo': '>=13.0.0',
   };
 
   public loginWithPopup(configuration: OAuthRedirectConfiguration) {
@@ -26,10 +26,10 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
         const url = `https://auth.magic.link/v1/oauth2/${provider}/start?${query}`;
 
         /**
-         * Response Type Inspired by:
+         * Response Type
          * https://docs.expo.io/versions/latest/sdk/webbrowser/#returns
          */
-        const res = await InAppBrowser.openAuth(url, redirectURI, {});
+        const res = await WebBrowser.openAuthSessionAsync(url, redirectURI, {});
 
         if (res.type === 'success') {
           const queryString = new URL(res.url).search;
@@ -58,7 +58,7 @@ export async function createURI(this: OAuthExtension, configuration: OAuthRedire
   // Unpack configuration, generate crypto values, and persist to storage.
   const { provider, redirectURI, scope, loginHint } = configuration;
   const { verifier, challenge, state } = await createCryptoChallenge();
-  const bundleId = getBundleId();
+  const bundleId = Application.applicationId;
 
   /* Stringify for RN Async storage */
   const storedData = JSON.stringify({
@@ -98,7 +98,7 @@ export async function createURI(this: OAuthExtension, configuration: OAuthRedire
 
 export function getResult(this: OAuthExtension, queryString: string) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
-    const json: string = (await this.utils.storage.getItem(OAUTH_REDIRECT_METADATA_KEY)) || '';
+    const json: string = (await this.utils.storage.getItem(OAUTH_REDIRECT_METADATA_KEY)) as string;
 
     const { verifier, state } = JSON.parse(json);
 
