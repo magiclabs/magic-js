@@ -49,4 +49,5 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           yarn build
+          yarn install --frozen-lockfile --non-interactive --cache-folder=~/.cache/yarn
           yarn auto shipit
