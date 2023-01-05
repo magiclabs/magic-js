@@ -17,4 +17,9 @@ export function removeReactDependencies() {
   // Relevant issue:
   // https://github.com/aveq-research/localforage-asyncstorage-driver/issues/1
   jest.mock('@aveq-research/localforage-asyncstorage-driver', noopModule);
+  jest.mock('react-native-device-info', () => {
+    return {
+      getBundleId: () => 'com.apple.mockApp',
+    };
+  });
 }
