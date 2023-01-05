@@ -19,8 +19,8 @@ jobs:
         with:
           token: ${{ secrets.ADMIN_TOKEN }}
 
-      - name: Prepare repository
-        run: git fetch --unshallow --tags
+      # - name: Prepare repository
+      #   run: git fetch --unshallow --tags
 
       - name: Setup node
         uses: actions/setup-node@v3
@@ -48,6 +48,5 @@ jobs:
 
       - name: Create Release
         run: |
-          yarn install --immutable
           yarn build
-          yarn auto shipit -vv
+          yarn auto shipit -d -vv
