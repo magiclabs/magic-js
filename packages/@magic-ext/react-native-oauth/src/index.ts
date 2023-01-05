@@ -97,7 +97,7 @@ export async function createURI(this: OAuthExtension, configuration: OAuthRedire
 
 export function getResult(this: OAuthExtension, queryString: string) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
-    const json: string = await this.utils.storage.getItem(OAUTH_REDIRECT_METADATA_KEY);
+    const json: string = (await this.utils.storage.getItem(OAUTH_REDIRECT_METADATA_KEY)) as string;
 
     const { verifier, state } = JSON.parse(json);
 
