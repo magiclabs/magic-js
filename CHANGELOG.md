@@ -2,6 +2,25 @@
 
 #### 💥 Breaking Change
 
+- `@magic-sdk/commons@9.0.0`, `@magic-sdk/provider@13.0.0`, `@magic-sdk/types@11.0.0`
+  - Update Commons/Provider/Types Packages + Workflow [#427](https://github.com/magiclabs/magic-js/pull/427) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- [CHORE] extract build output files to packages directory [#426](https://github.com/magiclabs/magic-js/pull/426) ([@kgrubb](https://github.com/kgrubb) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Keli (Madison) Grubb ([@kgrubb](https://github.com/kgrubb))
+
+---
+
+# (Thu Jan 05 2023)
+
+#### 💥 Breaking Change
+
 - `@magic-sdk/provider@12.0.0`
   - Trigger CI Job to bump @magic-sdk/provider version [#417](https://github.com/magiclabs/magic-js/pull/417) ([@Ariflo](https://github.com/Ariflo))
 

@@ -1,3 +1,19 @@
+# v11.0.0 (Thu Jan 05 2023)
+
+#### 💥 Breaking Change
+
+- Update Commons/Provider/Types Packages + Workflow [#427](https://github.com/magiclabs/magic-js/pull/427) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update ReadMe to Triggger CI ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v10.0.0 (Tue Dec 20 2022)
 
 #### 🐛 Bug Fix
