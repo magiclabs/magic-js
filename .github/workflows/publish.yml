@@ -89,4 +89,6 @@ jobs:
           path: packages
 
       - name: Create Release
-        run: yarn auto shipit -vv
+        run: |
+          ls -R packages
+          yarn auto shipit -vv
