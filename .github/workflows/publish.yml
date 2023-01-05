@@ -86,6 +86,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-output
+          path: packages
 
       - name: Create Release
         run: yarn auto shipit -vv
