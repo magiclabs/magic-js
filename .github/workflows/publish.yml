@@ -10,17 +10,17 @@ env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-20.04
-    name: Publish
+    name: Build
     if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
     steps:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.ADMIN_TOKEN }}
 
-      # - name: Prepare repository
-      #   run: git fetch --unshallow --tags
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
 
       - name: Setup node
         uses: actions/setup-node@v3
@@ -45,8 +45,39 @@ jobs:
           else
             echo "Unable to bump version successfully." && exit 1
           fi
+      - name: Build
+        run: yarn build
+      - name: Upload Build Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: |
+            packages/@magic-ext/*/dist
+            packages/@magic-sdk/*/dist
+            packages/*/dist
+
+  publish:
+    runs-on: ubuntu-20.04
+    name: Publish
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ADMIN_TOKEN }}
+
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Download Build Results
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output
 
       - name: Create Release
-        run: |
-          yarn build
-          yarn auto shipit -d -vv
+        run: yarn auto shipit -vv
