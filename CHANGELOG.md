@@ -1,3 +1,28 @@
+# (Thu Jan 05 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@12.0.0`
+  - Trigger CI Job to bump @magic-sdk/provider version [#417](https://github.com/magiclabs/magic-js/pull/417) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- [CHORE ]add install step in publish stage. [#425](https://github.com/magiclabs/magic-js/pull/425) ([@kgrubb](https://github.com/kgrubb))
+- [CHORE] Resolve shipit release issue [#424](https://github.com/magiclabs/magic-js/pull/424) ([@Ariflo](https://github.com/Ariflo) [@kgrubb](https://github.com/kgrubb))
+- feat: [sc-68022] Fix github action  publishing process in magic-js [#420](https://github.com/magiclabs/magic-js/pull/420) ([@Ethella](https://github.com/Ethella))
+- Update Yarn.lock file [#418](https://github.com/magiclabs/magic-js/pull/418) ([@Ariflo](https://github.com/Ariflo))
+- [CHORE] Add gh_token env var to auto version step [#416](https://github.com/magiclabs/magic-js/pull/416) ([@kgrubb](https://github.com/kgrubb))
+- `@magic-ext/oauth@6.0.0`, `@magic-ext/react-native-oauth@6.0.0`, `@magic-sdk/react-native@13.0.0`
+  - Fix ESLint Issues [#419](https://github.com/magiclabs/magic-js/pull/419) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 3
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Keli (Madison) Grubb ([@kgrubb](https://github.com/kgrubb))
+
+---
+
 # (Wed Jan 04 2023)
 
 #### 🐛 Bug Fix

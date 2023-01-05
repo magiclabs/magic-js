@@ -1,3 +1,17 @@
+# v13.0.0 (Thu Jan 05 2023)
+
+#### 🐛 Bug Fix
+
+- Fix ESLint Issues [#419](https://github.com/magiclabs/magic-js/pull/419) ([@Ariflo](https://github.com/Ariflo))
+- Fix Test ([@Ariflo](https://github.com/Ariflo))
+- Removes new ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v12.0.0 (Tue Dec 20 2022)
 
 #### 🐛 Bug Fix

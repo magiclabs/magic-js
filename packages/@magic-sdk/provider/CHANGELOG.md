@@ -1,3 +1,19 @@
+# v12.0.0 (Thu Jan 05 2023)
+
+#### 💥 Breaking Change
+
+- Trigger CI Job to bump @magic-sdk/provider version [#417](https://github.com/magiclabs/magic-js/pull/417) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Whitespace commit to trigger ci job ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v11.0.0 (Tue Dec 20 2022)
 
 #### 🚀 Enhancement

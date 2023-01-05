@@ -1,3 +1,15 @@
+# v7.0.0 (Thu Jan 05 2023)
+
+#### 🐛 Bug Fix
+
+- [CHORE] Add gh_token env var to auto version step [#416](https://github.com/magiclabs/magic-js/pull/416) ([@kgrubb](https://github.com/kgrubb))
+
+#### Authors: 1
+
+- Keli (Madison) Grubb ([@kgrubb](https://github.com/kgrubb))
+
+---
+
 # v6.0.1 (Wed Jan 04 2023)
 
 #### 🐛 Bug Fix

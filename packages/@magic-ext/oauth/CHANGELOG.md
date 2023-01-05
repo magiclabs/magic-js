@@ -1,3 +1,16 @@
+# v6.0.0 (Thu Jan 05 2023)
+
+#### 🐛 Bug Fix
+
+- Fix ESLint Issues [#419](https://github.com/magiclabs/magic-js/pull/419) ([@Ariflo](https://github.com/Ariflo))
+- Cast json to string for oauth ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v5.0.0 (Tue Dec 20 2022)
 
 #### 🐛 Bug Fix
