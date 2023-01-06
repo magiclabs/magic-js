@@ -1,57 +1,65 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
-import { Extension } from 'magic-sdk';
+import * as WebBrowser from 'expo-web-browser';
+import { Extension } from '@magic-sdk/react-native-expo';
+import * as Application from 'expo-application';
+import { createCryptoChallenge } from './crypto';
 import {
   OAuthErrorData,
   OAuthPayloadMethods,
+  OAuthRedirectConfiguration,
   OAuthRedirectError,
   OAuthRedirectResult,
-  OAuthRedirectConfiguration,
 } from './types';
-import { createCryptoChallenge } from './crypto';
 
 export class OAuthExtension extends Extension.Internal<'oauth'> {
   name = 'oauth' as const;
   config = {};
   compat = {
-    'magic-sdk': '>=2.4.6',
+    'magic-sdk': false,
     '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': false,
-    '@magic-sdk/react-native-expo': false,
+    '@magic-sdk/react-native-expo': '>=13.0.0',
   };
 
-  public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
-    return this.utils.createPromiEvent<void>(async (resolve) => {
-      const { provider, query } = await createURI.call(this, configuration);
+  public loginWithPopup(configuration: OAuthRedirectConfiguration) {
+    return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
+      try {
+        const { provider, query, redirectURI } = await createURI.call(this, configuration);
+        const url = `https://auth.magic.link/v1/oauth2/${provider}/start?${query}`;
 
-      // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-      window.location.href = new URL(`/v1/oauth2/${provider}/start?${query}`, this.sdk.endpoint).href;
+        /**
+         * Response Type
+         * https://docs.expo.io/versions/latest/sdk/webbrowser/#returns
+         */
+        const res = await WebBrowser.openAuthSessionAsync(url, redirectURI, {});
 
-      resolve();
+        if (res.type === 'success') {
+          const queryString = new URL(res.url).search;
+
+          resolve(getResult.call(this, queryString.toString()));
+        } else {
+          reject(this.createError<object>(res.type, 'User has cancelled the authentication', {}));
+        }
+      } catch (err: any) {
+        reject(
+          this.createError<object>(err.message, 'An error has occurred', {
+            err,
+          }),
+        );
+      }
     });
-  }
-
-  public getRedirectResult() {
-    const queryString = window.location.search;
-
-    // Remove the query from the redirect callback as a precaution to prevent
-    // malicious parties from parsing it before we have a chance to use it.
-    const urlWithoutQuery = window.location.origin + window.location.pathname;
-    window.history.replaceState(null, '', urlWithoutQuery);
-
-    return getResult.call(this, queryString);
   }
 }
 
 const OAUTH_REDIRECT_METADATA_KEY = 'oauth_redirect_metadata';
 
-async function createURI(this: OAuthExtension, configuration: OAuthRedirectConfiguration) {
+export async function createURI(this: OAuthExtension, configuration: OAuthRedirectConfiguration) {
   // Bust any old, in-progress OAuth flows.
   await this.utils.storage.removeItem(OAUTH_REDIRECT_METADATA_KEY);
 
   // Unpack configuration, generate crypto values, and persist to storage.
   const { provider, redirectURI, scope, loginHint } = configuration;
   const { verifier, challenge, state } = await createCryptoChallenge();
+  const bundleId = Application.applicationId;
 
   /* Stringify for RN Async storage */
   const storedData = JSON.stringify({
@@ -68,15 +76,18 @@ async function createURI(this: OAuthExtension, configuration: OAuthRedirectConfi
   //   - `state`
   //   - `redirect_uri`
   //   - `platform`
+  // Optional fields:
+  //   - `bundleId`
 
   const query = [
     `magic_api_key=${encodeURIComponent(this.sdk.apiKey)}`,
     `magic_challenge=${encodeURIComponent(challenge)}`,
     `state=${encodeURIComponent(state)}`,
-    `platform=${encodeURIComponent('web')}`,
+    `platform=${encodeURIComponent('rn')}`,
     scope && `scope=${encodeURIComponent(scope.join(' '))}`,
     redirectURI && `redirect_uri=${encodeURIComponent(redirectURI)}`,
     loginHint && `login_hint=${encodeURIComponent(loginHint)}`,
+    bundleId && `bundleId=${encodeURIComponent(bundleId)}`,
   ].reduce((prev, next) => (next ? `${prev}&${next}` : prev));
 
   return {
@@ -86,7 +97,7 @@ async function createURI(this: OAuthExtension, configuration: OAuthRedirectConfi
   };
 }
 
-function getResult(this: OAuthExtension, queryString: string) {
+export function getResult(this: OAuthExtension, queryString: string) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
     const json: string = (await this.utils.storage.getItem(OAUTH_REDIRECT_METADATA_KEY)) as string;
 

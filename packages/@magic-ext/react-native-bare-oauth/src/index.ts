@@ -1,6 +1,6 @@
-import * as WebBrowser from 'expo-web-browser';
-import { Extension } from '@magic-sdk/react-native';
-import * as Application from 'expo-application';
+import { InAppBrowser } from 'react-native-inappbrowser-reborn';
+import { Extension } from '@magic-sdk/react-native-bare';
+import { getBundleId } from 'react-native-device-info';
 import { createCryptoChallenge } from './crypto';
 import {
   OAuthErrorData,
@@ -15,7 +15,9 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   config = {};
   compat = {
     'magic-sdk': false,
-    '@magic-sdk/react-native': '>=2.7.0',
+    '@magic-sdk/react-native-bare': '>=13.0.0',
+    '@magic-sdk/react-native-expo': false,
+    '@magic-sdk/react-native': false,
   };
 
   public loginWithPopup(configuration: OAuthRedirectConfiguration) {
@@ -25,10 +27,10 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
         const url = `https://auth.magic.link/v1/oauth2/${provider}/start?${query}`;
 
         /**
-         * Response Type
+         * Response Type Inspired by:
          * https://docs.expo.io/versions/latest/sdk/webbrowser/#returns
          */
-        const res = await WebBrowser.openAuthSessionAsync(url, redirectURI, {});
+        const res = await InAppBrowser.openAuth(url, redirectURI, {});
 
         if (res.type === 'success') {
           const queryString = new URL(res.url).search;
@@ -57,7 +59,7 @@ export async function createURI(this: OAuthExtension, configuration: OAuthRedire
   // Unpack configuration, generate crypto values, and persist to storage.
   const { provider, redirectURI, scope, loginHint } = configuration;
   const { verifier, challenge, state } = await createCryptoChallenge();
-  const bundleId = Application.applicationId;
+  const bundleId = getBundleId();
 
   /* Stringify for RN Async storage */
   const storedData = JSON.stringify({

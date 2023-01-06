@@ -19,4 +19,5 @@ See the [developer documentation](https://magic.link/docs) to learn how you can 
 This package is an internal dependency of the Magic JavaScript SDK ecosystem. If you're looking to get started with Magic's passwordless authentication for web or React native, check out one of these:
 
 - Web: [`magic-sdk`](https://github.com/magiclabs/magic-js/tree/master/packages/magic-sdk)
-- React Native: [`@magic-sdk/react-native`](https://github.com/magiclabs/magic-js/tree/master/packages/@magic-sdk/react-native)
+- Bare React Native: [`@magic-sdk/react-native-bare`](https://github.com/magiclabs/magic-js/tree/master/packages/@magic-sdk/react-native-bare)
+- Expo React Native: [`@magic-sdk/react-native-expo`](https://github.com/magiclabs/magic-js/tree/master/packages/@magic-sdk/react-native-expo)
