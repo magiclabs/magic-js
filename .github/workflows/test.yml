@@ -9,9 +9,9 @@ on:
   pull_request:
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-20.04
-    name: Run style/security checks & tests
+    name: Run linter and package audit
     container:
       image: node:16-slim
     steps:
@@ -26,13 +26,30 @@ jobs:
           yarn -v
           yarn
 
-      - name: Build & lint
+      - name: Lint
         run: |
           yarn run build
           yarn run lint
 
-      - name: Audit Prod Dependencies
+      - name: Audit Production Dependencies
         run: yarn audit --groups dependencies || true
+
+  test:
+    runs-on: ubuntu-20.04
+    name: Run tests
+    container:
+      image: node:16-slim
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - run: |
+          yarn -v
+          yarn
 
       - name: Test
         run: yarn run test
