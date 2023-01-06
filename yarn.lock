@@ -8331,12 +8331,12 @@ __metadata:
   linkType: hard
 
 "expo-modules-core@npm:^1.0.4":
-  version: 1.1.0
-  resolution: "expo-modules-core@npm:1.1.0"
+  version: 1.1.1
+  resolution: "expo-modules-core@npm:1.1.1"
   dependencies:
     compare-versions: ^3.4.0
     invariant: ^2.2.4
-  checksum: f5add659b2f43c2784dce86986ec709feac38a60881afd013049ef86b106eeba9217427d01b9da27e00b678e9f47518ffa5d7676f95408c6e3966093d48252e8
+  checksum: 6a2b6b5d1f56f197ddf8b3f3a638d8f15534657218bdf895bd96c07cb34fc8404761d6a9206527fa5b67baade60858b4530de147fe1f3b7db8205c5d9d059b31
   languageName: node
   linkType: hard
 

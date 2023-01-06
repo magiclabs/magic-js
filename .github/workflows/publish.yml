@@ -63,6 +63,7 @@ jobs:
     runs-on: ubuntu-20.04
     name: Publish
     needs: build
+    environment: production
     steps:
       - uses: actions/checkout@v3
         with:
@@ -89,6 +90,4 @@ jobs:
           path: packages
 
       - name: Create Release
-        run: |
-          ls -R packages
-          yarn auto shipit -vv
+        run: yarn auto shipit -v
