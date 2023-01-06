@@ -35,7 +35,7 @@ Please note that splitting the `Expo` and `Bare React Native` Magic package is a
 
  ```tsx
  import React from 'react';
- import { Magic } from '@magic-sdk/react-native-bare';
+ import { Magic } from '@magic-sdk/react-native-expo';
  const magic = new Magic('YOUR_API_KEY');
  export default function App() {
    return <>
