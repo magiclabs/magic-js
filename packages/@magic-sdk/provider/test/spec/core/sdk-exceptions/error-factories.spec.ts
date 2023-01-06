@@ -120,16 +120,28 @@ class NoopExtSupportingWeb extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': '>1.0.0',
-    '@magic-sdk/react-native': false,
+    '@magic-sdk/react-native-bare': false,
+    '@magic-sdk/react-native-expo': false,
   };
   helloWorld() {}
 }
 
-class NoopExtSupportingReactNative extends Extension<'noop'> {
+class NoopExtSupportingBareReactNative extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
-    '@magic-sdk/react-native': '>1.0.0',
+    '@magic-sdk/react-native-bare': '>1.0.0',
+    '@magic-sdk/react-native-expo': false,
+  };
+  helloWorld() {}
+}
+
+class NoopExtSupportingExpoReactNative extends Extension<'noop'> {
+  name = 'noop' as const;
+  compat = {
+    'magic-sdk': false,
+    '@magic-sdk/react-native-bare': false,
+    '@magic-sdk/react-native-expo': '>1.0.0',
   };
   helloWorld() {}
 }
@@ -147,19 +159,35 @@ test('Creates an `INCOMPATIBLE_EXTENSIONS` error for web (version-related)', asy
   );
 });
 
-test('Creates an `INCOMPATIBLE_EXTENSIONS` error for React Native (version-related)', async () => {
-  mockSDKEnvironmentConstant({ platform: 'react-native', sdkName: '@magic-sdk/react-native', version: '0.0.0' });
+test('Creates an `INCOMPATIBLE_EXTENSIONS` error for Bare React Native (version-related)', async () => {
+  mockSDKEnvironmentConstant({ platform: 'react-native', sdkName: '@magic-sdk/react-native-bare', version: '0.0.0' });
 
   const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const error = createIncompatibleExtensionsError([
-    new NoopExtSupportingReactNative(),
-    new NoopExtSupportingReactNative(),
+    new NoopExtSupportingBareReactNative(),
+    new NoopExtSupportingBareReactNative(),
   ]);
 
   errorAssertions(
     error,
     'INCOMPATIBLE_EXTENSIONS',
-    'Some extensions are incompatible with `@magic-sdk/react-native@0.0.0`:\n  - Extension `noop` supports version(s) `>1.0.0`\n  - Extension `noop` supports version(s) `>1.0.0`',
+    'Some extensions are incompatible with `@magic-sdk/react-native-bare@0.0.0`:\n  - Extension `noop` supports version(s) `>1.0.0`\n  - Extension `noop` supports version(s) `>1.0.0`',
+  );
+});
+
+test('Creates an `INCOMPATIBLE_EXTENSIONS` error for Expo React Native (version-related)', async () => {
+  mockSDKEnvironmentConstant({ platform: 'react-native', sdkName: '@magic-sdk/react-native-expo', version: '0.0.0' });
+
+  const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
+  const error = createIncompatibleExtensionsError([
+    new NoopExtSupportingExpoReactNative(),
+    new NoopExtSupportingExpoReactNative(),
+  ]);
+
+  errorAssertions(
+    error,
+    'INCOMPATIBLE_EXTENSIONS',
+    'Some extensions are incompatible with `@magic-sdk/react-native-expo@0.0.0`:\n  - Extension `noop` supports version(s) `>1.0.0`\n  - Extension `noop` supports version(s) `>1.0.0`',
   );
 });
 
@@ -167,7 +195,7 @@ test('Creates an `INCOMPATIBLE_EXTENSIONS` error for web (environment-related)',
   mockSDKEnvironmentConstant({ platform: 'web', sdkName: 'magic-sdk', version: '0.0.0' });
 
   const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
-  const error = createIncompatibleExtensionsError([new NoopExtSupportingReactNative()]);
+  const error = createIncompatibleExtensionsError([new NoopExtSupportingBareReactNative()]);
 
   errorAssertions(
     error,
@@ -176,8 +204,8 @@ test('Creates an `INCOMPATIBLE_EXTENSIONS` error for web (environment-related)',
   );
 });
 
-test('Creates an `INCOMPATIBLE_EXTENSIONS` error for React Native (environment-related)', async () => {
-  mockSDKEnvironmentConstant({ platform: 'react-native', sdkName: '@magic-sdk/react-native', version: '0.0.0' });
+test('Creates an `INCOMPATIBLE_EXTENSIONS` error for Bare React Native (environment-related)', async () => {
+  mockSDKEnvironmentConstant({ platform: 'react-native', sdkName: '@magic-sdk/react-native-bare', version: '0.0.0' });
 
   const { createIncompatibleExtensionsError } = require('../../../../src/core/sdk-exceptions');
   const error = createIncompatibleExtensionsError([new NoopExtSupportingWeb()]);
@@ -185,6 +213,6 @@ test('Creates an `INCOMPATIBLE_EXTENSIONS` error for React Native (environment-r
   errorAssertions(
     error,
     'INCOMPATIBLE_EXTENSIONS',
-    'Some extensions are incompatible with `@magic-sdk/react-native@0.0.0`:\n  - Extension `noop` does not support react-native environments.',
+    'Some extensions are incompatible with `@magic-sdk/react-native-bare@0.0.0`:\n  - Extension `noop` does not support react-native environments.',
   );
 });
