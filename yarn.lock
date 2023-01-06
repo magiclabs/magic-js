@@ -2939,16 +2939,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magic-sdk/commons@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "@magic-sdk/commons@npm:7.0.1"
-  peerDependencies:
-    "@magic-sdk/provider": ">=4.3.0"
-    "@magic-sdk/types": ">=3.1.1"
-  checksum: b6311fc23780a584de0e770be6be85812714436d33f23b403ef6c268e8bd2a1b1b8969b9e3cd4b6848c24a8e0372d73467f1b761ed44375c29ffea6ec85650fd
-  languageName: node
-  linkType: hard
-
 "@magic-sdk/pnp@workspace:packages/@magic-sdk/pnp":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/pnp@workspace:packages/@magic-sdk/pnp"
@@ -2978,19 +2968,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@npm:^11.1.0, @magic-sdk/provider@npm:^11.1.3":
-  version: 11.1.3
-  resolution: "@magic-sdk/provider@npm:11.1.3"
-  dependencies:
-    "@magic-sdk/types": ^10.0.0
-    eventemitter3: ^4.0.4
-    web3-core: 1.5.2
-  peerDependencies:
-    localforage: ^1.7.4
-  checksum: 23cf926f07625b62606fb9b3dd753dbdc90e35c6eae1b86f175568163e5e66d28355bf5ba1516955c95e211aafa9cc992b2039cb5c9f98e67e85d6fca359abb7
-  languageName: node
-  linkType: hard
-
 "@magic-sdk/provider@npm:^9.1.0":
   version: 9.1.0
   resolution: "@magic-sdk/provider@npm:9.1.0"
@@ -3012,9 +2989,9 @@ __metadata:
     "@babel/core": ^7.15.0
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/runtime": ~7.10.4
-    "@magic-sdk/commons": ^7.0.1
-    "@magic-sdk/provider": ^11.1.3
-    "@magic-sdk/types": ^10.0.1
+    "@magic-sdk/commons": ^9.0.0
+    "@magic-sdk/provider": ^13.0.0
+    "@magic-sdk/types": ^11.0.0
     "@react-native-async-storage/async-storage": ^1.15.5
     "@react-native-community/async-storage": ^1.12.1
     "@types/lodash": ^4.14.158
@@ -3047,9 +3024,9 @@ __metadata:
     "@babel/core": ^7.15.0
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/runtime": ~7.10.4
-    "@magic-sdk/commons": ^7.0.1
-    "@magic-sdk/provider": ^11.1.0
-    "@magic-sdk/types": ^10.0.1
+    "@magic-sdk/commons": ^9.0.0
+    "@magic-sdk/provider": ^13.0.0
+    "@magic-sdk/types": ^11.0.0
     "@react-native-async-storage/async-storage": ^1.15.5
     "@types/lodash": ^4.14.158
     buffer: ~5.6.0
