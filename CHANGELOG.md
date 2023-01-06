@@ -1,3 +1,16 @@
+# (Fri Jan 06 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth@7.1.0`, `@magic-ext/react-native-bare-oauth@7.1.0`, `@magic-ext/react-native-expo-oauth@7.1.0`, `@magic-sdk/commons@9.1.0`, `@magic-sdk/provider@13.1.0`, `@magic-sdk/react-native-bare@13.1.0`, `@magic-sdk/react-native-expo@13.1.0`, `@magic-sdk/types@11.1.0`
+  - Bare React Native / Expo React Native Package Split [#412](https://github.com/magiclabs/magic-js/pull/412) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Thu Jan 05 2023)
 
 #### 💥 Breaking Change

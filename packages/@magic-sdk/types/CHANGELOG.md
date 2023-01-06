@@ -1,3 +1,19 @@
+# v11.1.0 (Fri Jan 06 2023)
+
+#### 🚀 Enhancement
+
+- Bare React Native / Expo React Native Package Split [#412](https://github.com/magiclabs/magic-js/pull/412) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Updates @magic-sdk/types SDK ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v11.0.0 (Thu Jan 05 2023)
 
 #### 💥 Breaking Change

@@ -1,3 +1,20 @@
+# v7.1.0 (Fri Jan 06 2023)
+
+#### 🚀 Enhancement
+
+- Bare React Native / Expo React Native Package Split [#412](https://github.com/magiclabs/magic-js/pull/412) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Maintains backwards compatibility ([@Ariflo](https://github.com/Ariflo))
+- Update oauth package names and fix lint errors ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v5.0.0 (Tue Dec 20 2022)
 
 #### 🐛 Bug Fix

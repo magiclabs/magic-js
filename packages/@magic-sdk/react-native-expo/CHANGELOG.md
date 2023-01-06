@@ -1,3 +1,25 @@
+# v13.1.0 (Fri Jan 06 2023)
+
+#### 🚀 Enhancement
+
+- Bare React Native / Expo React Native Package Split [#412](https://github.com/magiclabs/magic-js/pull/412) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update core package versions ([@Ariflo](https://github.com/Ariflo))
+- Expo README Update ([@Ariflo](https://github.com/Ariflo))
+- fix lint errors ([@Ariflo](https://github.com/Ariflo))
+- Upates @magic-sdk/react-native-expo patch version ([@Ariflo](https://github.com/Ariflo))
+- Adds version patch to new SDKs ([@Ariflo](https://github.com/Ariflo))
+- Updates @magic-sdk/types SDK ([@Ariflo](https://github.com/Ariflo))
+- Create @magic-sdk/react-native-expo SDK ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v10.0.1 (Fri Sep 09 2022)
 
 #### 🐛 Bug Fix
