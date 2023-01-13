@@ -35,6 +35,7 @@
     "@types/crypto-js": "~3.1.47"
   },
   "peerDependencies": {
-    "@magic-sdk/react-native-bare": ">=13.0.0"
+    "@magic-sdk/react-native-bare": ">=13.0.0",
+    "react-native-inappbrowser-reborn": ">=3.7.0"
   }
 }
