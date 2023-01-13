@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
@@ -120,14 +121,14 @@ export class ReactNativeWebViewController extends ViewController {
     }, []);
 
     return (
-      <View ref={containerRef} style={containerStyles}>
+      <SafeAreaView ref={containerRef} style={containerStyles}>
         <WebView
           ref={webViewRef}
           source={{ uri: `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` }}
           onMessage={handleWebViewMessage}
           style={this.styles['magic-webview']}
         />
-      </View>
+      </SafeAreaView>
     );
   };
 
