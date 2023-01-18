@@ -23,8 +23,11 @@ Please note that splitting the `Expo` and `Bare React Native` Magic package is a
  ```bash
  # Via NPM:
  npm install --save @magic-sdk/react-native-expo
+ npm install --save react-native-webview@^8.0.0 # Required Peer Dependency
+
  # Via Yarn:
  yarn add @magic-sdk/react-native-expo
+ yarn add react-native-webview@^8.0.0 # Required Peer Dependency
  ```
 
  ## ⚡️ Quick Start

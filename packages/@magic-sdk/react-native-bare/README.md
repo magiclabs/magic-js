@@ -24,9 +24,13 @@ Integrating your app with Magic will require our client-side NPM package:
 ```bash
 # Via NPM:
 npm install --save @magic-sdk/react-native-bare
+npm install --save react-native-device-info # Required Peer Dependency
+npm install --save @react-native-community/async-storage # Required Peer Dependency
 
 # Via Yarn:
 yarn add @magic-sdk/react-native-bare
+⁠yarn add react-native-device-info # Required Peer Dependency
+yarn add @react-native-community/async-storage # Required Peer Dependency
 ```
 
 ## ⚡️ Quick Start
