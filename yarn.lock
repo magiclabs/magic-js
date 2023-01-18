@@ -2843,7 +2843,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-bare-oauth@workspace:packages/@magic-ext/react-native-bare-oauth"
   dependencies:
-    "@magic-sdk/react-native-bare": ^13.1.0
+    "@magic-sdk/react-native-bare": ^13.1.1
     "@magic-sdk/types": ^10.0.1
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
@@ -2859,7 +2859,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-expo-oauth@workspace:packages/@magic-ext/react-native-expo-oauth"
   dependencies:
-    "@magic-sdk/react-native-expo": ^13.1.0
+    "@magic-sdk/react-native-expo": ^13.1.1
     "@magic-sdk/types": ^10.0.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
@@ -2982,7 +2982,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magic-sdk/react-native-bare@^13.1.0, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
+"@magic-sdk/react-native-bare@^13.1.1, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
   dependencies:
@@ -3014,11 +3014,12 @@ __metadata:
     react: ">=16"
     react-native: ">=0.60"
     react-native-device-info: ">=10.3.0"
+    react-native-safe-area-context: ">=4.4.1"
     react-native-webview: ">=8"
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-expo@^13.1.0, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
+"@magic-sdk/react-native-expo@^13.1.1, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
@@ -3049,6 +3050,7 @@ __metadata:
     expo: "*"
     react: ">=16"
     react-native: ">=0.60"
+    react-native-safe-area-context: ">=4.4.1"
     react-native-webview: ">=8"
   languageName: unknown
   linkType: soft

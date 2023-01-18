@@ -41,16 +41,16 @@
     "react": "^16.13.1",
     "react-native": "^0.62.2",
     "react-native-device-info": "^10.3.0",
-    "react-native-webview": "8.1.2",
-    "react-native-safe-area-context": "^4.4.1"
+    "react-native-safe-area-context": "^4.4.1",
+    "react-native-webview": "8.1.2"
   },
   "peerDependencies": {
     "@react-native-community/async-storage": ">=1.12.1",
     "react": ">=16",
     "react-native": ">=0.60",
     "react-native-device-info": ">=10.3.0",
-    "react-native-webview": ">=8",
-    "react-native-safe-area-context": ">=4.4.1"
+    "react-native-safe-area-context": ">=4.4.1",
+    "react-native-webview": ">=8"
   },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
 }
