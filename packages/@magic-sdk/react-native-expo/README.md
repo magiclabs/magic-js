@@ -24,13 +24,15 @@ Please note that splitting the `Expo` and `Bare React Native` Magic package is a
  # Via NPM:
  npm install --save @magic-sdk/react-native-expo
  npm install --save react-native-webview@^8.0.0 # Required Peer Dependency
+ npm install --save react-native-safe-area-context # Required Peer Dependency
 
  # Via Yarn:
  yarn add @magic-sdk/react-native-expo
  yarn add react-native-webview@^8.0.0 # Required Peer Dependency
+ yarn add react-native-safe-area-context # Required Peer Dependency
  ```
 
- ## ⚡️ Quick Start
+## ⚡️ Quick Start
 
  Sign up or log in to the [developer dashboard](https://dashboard.magic.link) to receive API keys that will allow your application to interact with Magic's authentication APIs.
 
@@ -39,20 +41,29 @@ Please note that splitting the `Expo` and `Bare React Native` Magic package is a
  ```tsx
  import React from 'react';
  import { Magic } from '@magic-sdk/react-native-expo';
+ import { SafeAreaProvider } from 'react-native-safe-area-context';
+ 
  const magic = new Magic('YOUR_API_KEY');
+ 
  export default function App() {
-   return <>
-     {/* Render the Magic iframe! */}
-     <magic.Relayer />
-     {...}
+  return <>
+	  <SafeAreaProvider>
+	     {/* Render the Magic iframe! */}
+	     <magic.Relayer />
+	     {...}
+	  </SafeAreaProvider>
    </>
  }
  // Somewhere else in your code...
  await magic.auth.loginWithMagicLink({ email: 'your.email@example.com' });
  ```
- ## 🙌🏾 Troubleshooting
+ 
+## 👀 SafeAreaView
+Please note that as of **v14.0.0** our React Native package offerings wrap the `<magic.Relayer />` in [react-native-safe-area-context's](https://github.com/th3rdwave/react-native-safe-area-context) `<SafeAreaView />`. To prevent any adverse behavior in your app, please place the Magic iFrame React component at the root view of your application wrapped in a [SafeAreaProvider](https://github.com/th3rdwave/react-native-safe-area-context#safeareaprovider) as described in the documentation.
 
- ### Symlinking in Monorepo w/ Metro
+## 🙌🏾 Troubleshooting
+
+### Symlinking in Monorepo w/ Metro
 
 For React Native projects living within a **monorepo** that run into the following `TypeError: Undefined is not an object` error: 
 
