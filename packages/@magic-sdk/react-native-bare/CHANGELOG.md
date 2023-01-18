@@ -1,3 +1,25 @@
+# v13.1.1 (Wed Jan 18 2023)
+
+#### 🐛 Bug Fix
+
+- Adds react-native-inappbrowser-reborn as peer to Bare RN OAuth [#432](https://github.com/magiclabs/magic-js/pull/432) ([@Ariflo](https://github.com/Ariflo))
+- README Updates ([@Ariflo](https://github.com/Ariflo))
+- [CHORE] Clean up magic-js Deployment Stages [#429](https://github.com/magiclabs/magic-js/pull/429) ([@kgrubb](https://github.com/kgrubb))
+- sync with master branch ([@kgrubb](https://github.com/kgrubb))
+
+#### 🔩 Dependency Updates
+
+- Bump qs from 6.5.2 to 6.5.3 [#400](https://github.com/magiclabs/magic-js/pull/400) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump decode-uri-component from 0.2.0 to 0.2.2 [#399](https://github.com/magiclabs/magic-js/pull/399) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Keli (Madison) Grubb ([@kgrubb](https://github.com/kgrubb))
+
+---
+
 # v13.1.0 (Fri Jan 06 2023)
 
 #### 🚀 Enhancement
