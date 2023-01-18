@@ -8,6 +8,7 @@ const noopModule = () => ({});
 export function removeReactDependencies() {
   jest.mock('react', noopModule);
   jest.mock('react-native-webview', noopModule);
+  jest.mock('react-native-safe-area-context', noopModule);
 
   // The `localforage` driver we use to enable React Native's `AsyncStorage`
   // currently uses an `import` statement at the top of it's index file, this is

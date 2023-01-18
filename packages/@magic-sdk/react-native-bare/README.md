@@ -26,11 +26,13 @@ Integrating your app with Magic will require our client-side NPM package:
 npm install --save @magic-sdk/react-native-bare
 npm install --save react-native-device-info # Required Peer Dependency
 npm install --save @react-native-community/async-storage # Required Peer Dependency
+npm install --save react-native-safe-area-context # Required Peer Dependency
 
 # Via Yarn:
 yarn add @magic-sdk/react-native-bare
 ⁠yarn add react-native-device-info # Required Peer Dependency
 yarn add @react-native-community/async-storage # Required Peer Dependency
+yarn add react-native-safe-area-context # Required Peer Dependency
 ```
 
 ## ⚡️ Quick Start
@@ -42,17 +44,22 @@ Then, you can start authenticating users with _just one method!_
 ```tsx
 import React from 'react';
 import { Magic } from '@magic-sdk/react-native-bare';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const magic = new Magic('YOUR_API_KEY');
 
 export default function App() {
   return <>
-    {/* Render the Magic iframe! */}
-    <magic.Relayer />
-    {...}
+	 <SafeAreaProvider>
+	    {/* Render the Magic iframe! */}
+	    <magic.Relayer />
+	    {...}
+	 </SafeAreaProvider>
   </>
 }
 
 // Somewhere else in your code...
 await magic.auth.loginWithMagicLink({ email: 'your.email@example.com' });
 ```
+## 👀 SafeAreaView
+Please note that as of **v14.0.0** our React Native package offerings wrap the `<magic.Relayer />` in [react-native-safe-area-context's](https://github.com/th3rdwave/react-native-safe-area-context) `<SafeAreaView />`. To prevent any adverse behavior in your app, please place the Magic iFrame React component at the root view of your application wrapped in a [SafeAreaProvider](https://github.com/th3rdwave/react-native-safe-area-context#safeareaprovider) as described in the documentation. 
