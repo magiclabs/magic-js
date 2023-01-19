@@ -1,3 +1,22 @@
+# v14.0.0 (Thu Jan 19 2023)
+
+#### 💥 Breaking Change
+
+- Replaces WebView View wrapper with SafeAreaView [#431](https://github.com/magiclabs/magic-js/pull/431) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update Yarn.lock ([@Ariflo](https://github.com/Ariflo))
+- Adds react-native-safe-area-context as peer and updates README ([@Ariflo](https://github.com/Ariflo))
+- Fix tests ([@Ariflo](https://github.com/Ariflo))
+- Replaces WebView wrapper with SafeAreaView ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v13.1.1 (Wed Jan 18 2023)
 
 #### 🐛 Bug Fix

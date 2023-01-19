@@ -1,3 +1,16 @@
+# (Thu Jan 19 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/react-native-bare@14.0.0`, `@magic-sdk/react-native-expo@14.0.0`
+  - Replaces WebView View wrapper with SafeAreaView [#431](https://github.com/magiclabs/magic-js/pull/431) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Wed Jan 18 2023)
 
 #### 🐛 Bug Fix
