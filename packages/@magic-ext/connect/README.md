@@ -1,4 +1,4 @@
-# 🔒 Magic Connect Extension for Web Browsers
+# 🔒 Magic Connect Extension for Web Browsers and React Native Apps
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
 
@@ -20,10 +20,14 @@ Integrating your app with Magic will require our client-side NPM package and the
 
 ```bash
 # Via NPM:
-npm install --save magic-sdk @magic-ext/connect
+npm install --save magic-sdk @magic-ext/connect # If you're targeting web browsers
+npm install --save @magic-sdk/react-native-bare @magic-ext/connect # If you're targeting Bare React Native
+npm install --save @magic-sdk/react-native-expo @magic-ext/connect # If you're targeting Expo React Native
 
 # Via Yarn:
-yarn add magic-sdk @magic-ext/connect
+yarn add magic-sdk @magic-ext/connect # If you're targeting web browsers
+yarn add @magic-sdk/react-native-bare @magic-ext/connect # If you're targeting Bare React Native
+yarn add @magic-sdk/react-native-expo @magic-ext/connect # If you're targeting Expo React Native
 ```
 
 Alternatively, you can load via CDN with by adding a script tag to your app’s `<head>`:
@@ -41,7 +45,9 @@ From your login page:
 
 ```ts
 import Web3 from 'web3';
-import { Magic } from 'magic-sdk';
+import { Magic } from 'magic-sdk'; // web browsers
+import { Magic } from '@magic-sdk/react-native-bare'; // Bare React Native
+import { Magic } from '@magic-sdk/react-native-expo'; // Expo React Native
 import { ConnectExtension } from '@magic-ext/connect';
 
 const magic = new Magic('YOUR_API_KEY', {
