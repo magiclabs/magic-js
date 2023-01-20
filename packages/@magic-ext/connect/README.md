@@ -18,23 +18,35 @@ See the [developer documentation](https://magic.link/docs/connect) to learn how 
 
 Integrating your app with Magic will require our client-side NPM package and the Connect extension:
 
+### Web Browser:
 ```bash
 # Via NPM:
-npm install --save magic-sdk @magic-ext/connect # If you're targeting web browsers
-npm install --save @magic-sdk/react-native-bare @magic-ext/connect # If you're targeting Bare React Native
-npm install --save @magic-sdk/react-native-expo @magic-ext/connect # If you're targeting Expo React Native
+npm install --save magic-sdk @magic-ext/connect
 
 # Via Yarn:
-yarn add magic-sdk @magic-ext/connect # If you're targeting web browsers
-yarn add @magic-sdk/react-native-bare @magic-ext/connect # If you're targeting Bare React Native
-yarn add @magic-sdk/react-native-expo @magic-ext/connect # If you're targeting Expo React Native
+yarn add magic-sdk @magic-ext/connect
 ```
-
 Alternatively, you can load via CDN with by adding a script tag to your app’s `<head>`:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/magic-sdk/dist/magic.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@magic-ext/connect/dist/extension.js"></script>
+```
+### Bare React Native:
+```bash
+# Via NPM:
+npm install --save @magic-sdk/react-native-bare @magic-ext/connect
+
+# Via Yarn:
+yarn add @magic-sdk/react-native-bare @magic-ext/connect
+```
+### Expo React Native:
+```bash
+# Via NPM:
+npm install --save @magic-sdk/react-native-expo @magic-ext/connect
+
+# Via Yarn:
+yarn add @magic-sdk/react-native-expo @magic-ext/connect
 ```
 
 ## ⚡️ Quick Start
