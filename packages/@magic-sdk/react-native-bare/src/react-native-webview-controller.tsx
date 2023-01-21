@@ -127,6 +127,7 @@ export class ReactNativeWebViewController extends ViewController {
           source={{ uri: `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` }}
           onMessage={handleWebViewMessage}
           style={this.styles['magic-webview']}
+          autoManageStatusBarEnabled={false}
         />
       </SafeAreaView>
     );
