@@ -3015,7 +3015,7 @@ __metadata:
     react-native: ">=0.60"
     react-native-device-info: ">=10.3.0"
     react-native-safe-area-context: ">=4.4.1"
-    react-native-webview: ">=8"
+    react-native-webview: ">=11.0.0"
   languageName: unknown
   linkType: soft
 
@@ -3051,7 +3051,7 @@ __metadata:
     react: ">=16"
     react-native: ">=0.60"
     react-native-safe-area-context: ">=4.4.1"
-    react-native-webview: ">=8"
+    react-native-webview: ">=11.0.0"
   languageName: unknown
   linkType: soft
 
