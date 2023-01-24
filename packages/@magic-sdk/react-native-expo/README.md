@@ -57,6 +57,7 @@ Please note that splitting the `Expo` and `Bare React Native` Magic package is a
  // Somewhere else in your code...
  await magic.auth.loginWithMagicLink({ email: 'your.email@example.com' });
  ```
+ ⁠⁠👉 Check out some of our [React Native Demo apps](https://github.com/magiclabs/react-native-demo) for inspiration! 👀
  
 ## 👀 SafeAreaView
 Please note that as of **v14.0.0** our React Native package offerings wrap the `<magic.Relayer />` in [react-native-safe-area-context's](https://github.com/th3rdwave/react-native-safe-area-context) `<SafeAreaView />`. To prevent any adverse behavior in your app, please place the Magic iFrame React component at the root view of your application wrapped in a [SafeAreaProvider](https://github.com/th3rdwave/react-native-safe-area-context#safeareaprovider) as described in the documentation.
