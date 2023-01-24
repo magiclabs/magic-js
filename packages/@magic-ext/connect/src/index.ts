@@ -1,4 +1,4 @@
-import { Extension } from 'magic-sdk';
+import { Extension } from '@magic-sdk/commons';
 import { MagicConnectPayloadMethod, UserInfo, WalletInfo } from './types';
 
 export class ConnectExtension extends Extension.Internal<'connect', any> {

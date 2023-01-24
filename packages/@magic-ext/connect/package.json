@@ -23,10 +23,10 @@
   },
   "externals": {
     "include": [
-      "magic-sdk"
+      "@magic-sdk/commons"
     ]
   },
   "devDependencies": {
-    "magic-sdk": "^13.1.0"
+    "@magic-sdk/commons": "^9.1.0"
   }
 }
