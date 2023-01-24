@@ -42,7 +42,7 @@
     "react-native": "^0.62.2",
     "react-native-device-info": "^10.3.0",
     "react-native-safe-area-context": "^4.4.1",
-    "react-native-webview": "8.1.2"
+    "react-native-webview": "^11.26.0"
   },
   "peerDependencies": {
     "@react-native-community/async-storage": ">=1.12.1",
