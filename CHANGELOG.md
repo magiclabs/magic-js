@@ -1,3 +1,30 @@
+# (Wed Jan 25 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/connect@6.2.0`, `@magic-sdk/react-native-bare@14.1.0`, `@magic-sdk/react-native-expo@14.1.0`
+  - Bump Version of @magic-sdk/connect to 6.2.0, Again [#441](https://github.com/magiclabs/magic-js/pull/441) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/connect@6.2.0`
+  - Bump Version of `@magic-sdk/connect` to 6.2.0 [#438](https://github.com/magiclabs/magic-js/pull/438) ([@Ariflo](https://github.com/Ariflo))
+  - Permit React Native entry to Magic Connect Extension [#433](https://github.com/magiclabs/magic-js/pull/433) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@14.1.0`, `@magic-sdk/react-native-expo@14.1.0`
+  - Bumps `react-native-webview` peer dependency Requirement to `>=11.0.0` [#440](https://github.com/magiclabs/magic-js/pull/440) ([@Ariflo](https://github.com/Ariflo))
+  - Prevents Relayer from Overriding Status Bar Color [#436](https://github.com/magiclabs/magic-js/pull/436) ([@Ariflo](https://github.com/Ariflo))
+
+#### 📝 Documentation
+
+- `@magic-sdk/react-native-bare@14.1.0`, `@magic-sdk/react-native-expo@14.1.0`
+  - Add link to RN Demo Apps to READMEs [#435](https://github.com/magiclabs/magic-js/pull/435) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Thu Jan 19 2023)
 
 #### 💥 Breaking Change

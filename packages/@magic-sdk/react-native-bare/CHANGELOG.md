@@ -1,3 +1,29 @@
+# v14.1.0 (Wed Jan 25 2023)
+
+#### 🚀 Enhancement
+
+- Bump Version of @magic-sdk/connect to 6.2.0, Again [#441](https://github.com/magiclabs/magic-js/pull/441) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Release RN packages ([@Ariflo](https://github.com/Ariflo))
+- Bumps `react-native-webview` peer dependency Requirement to `>=11.0.0` [#440](https://github.com/magiclabs/magic-js/pull/440) ([@Ariflo](https://github.com/Ariflo))
+- sets react-native-webview peer to >=11.0.0 ([@Ariflo](https://github.com/Ariflo))
+- Prevents Relayer from Overriding Status Bar Color [#436](https://github.com/magiclabs/magic-js/pull/436) ([@Ariflo](https://github.com/Ariflo))
+- Sets autoManageStatusBarEnabled to false ([@Ariflo](https://github.com/Ariflo))
+- Upgrades react-native-webview to latest ([@Ariflo](https://github.com/Ariflo))
+- Add link to RN Demo Apps to READMEs ([@Ariflo](https://github.com/Ariflo))
+
+#### 📝 Documentation
+
+- Add link to RN Demo Apps to READMEs [#435](https://github.com/magiclabs/magic-js/pull/435) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v14.0.0 (Thu Jan 19 2023)
 
 #### 💥 Breaking Change
