@@ -34,7 +34,7 @@ Please note that splitting the `Expo` and `Bare React Native` Magic package is a
 
 ## ⚡️ Quick Start
 
- Sign up or log in to the [developer dashboard](https://dashboard.magic.link) to receive API keys that will allow your application to interact with Magic's authentication APIs.
+ Sign up or log in to the [developer dashboard](https://dashboard.magic.link ) to receive API keys that will allow your application to interact with Magic's authentication APIs.
 
  Then, you can start authenticating users with _just one method!_
 
