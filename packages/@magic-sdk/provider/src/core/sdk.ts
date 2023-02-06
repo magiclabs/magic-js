@@ -11,6 +11,7 @@ import {
 } from './sdk-exceptions';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
+import { WalletModule } from '../modules/wallet';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
@@ -114,6 +115,12 @@ export class SDKBase {
   public readonly user: UserModule;
 
   /**
+   * Contains methods previously under the `ConnectExtension`, including
+   * login, show wallet UI, request user info, and more.
+   */
+  public readonly wallet: WalletModule;
+
+  /**
    * Contains a Web3-compliant provider. Pass this module to your Web3/Ethers
    * instance for automatic compatibility with Ethereum methods.
    */
@@ -136,6 +143,7 @@ export class SDKBase {
     // Prepare built-in modules
     this.auth = new AuthModule(this);
     this.user = new UserModule(this);
+    this.wallet = new WalletModule(this);
     this.rpcProvider = new RPCProviderModule(this) as any;
 
     // Prepare extensions
