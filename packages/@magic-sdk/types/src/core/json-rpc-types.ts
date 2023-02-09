@@ -42,7 +42,9 @@ export interface WalletInfo {
 }
 
 export interface RequestUserInfoScope {
-  email?: 'required' | 'optional';
+  scope?: {
+    email?: 'required' | 'optional';
+  };
 }
 
 // --- Payload methods

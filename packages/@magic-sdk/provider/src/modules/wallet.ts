@@ -24,10 +24,7 @@ export class WalletModule extends BaseModule {
 
   /* Request email address from logged in user */
   public requestUserInfoWithUI(scope?: RequestUserInfoScope) {
-    const requestPayload = createJsonRpcRequestPayload(
-      MagicPayloadMethod.RequestUserInfoWithUI,
-      scope ? [{ scope }] : [],
-    );
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RequestUserInfoWithUI, scope ? [scope] : []);
     return this.request<UserInfo>(requestPayload);
   }
 
