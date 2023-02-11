@@ -1,0 +1,16 @@
+
+import { Magic } from 'magic-sdk';
+
+let m;
+
+// Construct with an API key:
+m = new Magic('pk_live_4AA2B80070D23364');
+
+// Construct with an API key and locale:
+m = new Magic('pk_live_4AA2B80070D23364', { locale: 'en' });
+
+// Construct with an API key and testMode enabled:
+m = new Magic('pk_live_4AA2B80070D23364', { testMode: true });
+
+// Construct with an API key plus options:
+m = new Magic('pk_live_4AA2B80070D23364', { network: 'rinkeby', endpoint: '...' });
