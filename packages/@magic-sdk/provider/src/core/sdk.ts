@@ -18,6 +18,7 @@ import { createURL } from '../util/url';
 import { Extension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
+import { NFTModule } from '../modules/nft';
 
 /**
  * Checks if the given `ext` is compatible with the platform & version of Magic
@@ -121,6 +122,11 @@ export class SDKBase {
   public readonly wallet: WalletModule;
 
   /**
+   * Contains methods for interacting with NFTs, including checkout.
+   */
+  public readonly nft: NFTModule;
+
+  /**
    * Contains a Web3-compliant provider. Pass this module to your Web3/Ethers
    * instance for automatic compatibility with Ethereum methods.
    */
@@ -144,6 +150,7 @@ export class SDKBase {
     this.auth = new AuthModule(this);
     this.user = new UserModule(this);
     this.wallet = new WalletModule(this);
+    this.nft = new NFTModule(this);
     this.rpcProvider = new RPCProviderModule(this) as any;
 
     // Prepare extensions

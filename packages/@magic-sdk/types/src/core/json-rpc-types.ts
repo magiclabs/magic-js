@@ -47,6 +47,38 @@ export interface RequestUserInfoScope {
   };
 }
 
+export interface NFTCheckoutRequest {
+  nft: {
+    name: string;
+    price: number;
+    currencyCode: string;
+    contractAddress: string;
+    collection?: string;
+    imageUrl?: string;
+  };
+  identityPrefill: {
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string; // YYYY-MM-DD
+    emailAddress: string;
+    phone: string;
+    address: {
+      street1: string;
+      street2: string;
+      city: string;
+      regionCode: string;
+      postalCode: string;
+      countryCode: string;
+    };
+  };
+}
+
+export type NFTCheckoutStatus = 'processed' | 'declined' | 'expired';
+
+export interface NFTCheckoutResponse {
+  status: NFTCheckoutStatus;
+}
+
 // --- Payload methods
 
 /**
@@ -80,6 +112,7 @@ export enum MagicPayloadMethod {
   RequestAccounts = 'eth_requestAccounts',
   GetInfo = 'mc_get_wallet_info',
   ShowUI = 'mc_wallet',
+  NFTCheckout = 'magic_nft_checkout',
   RequestUserInfoWithUI = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',
 }
