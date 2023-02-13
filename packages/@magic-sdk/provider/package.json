@@ -34,7 +34,10 @@
     "tslib": "^2.3.1"
   },
   "dependencies": {
+    "@coinbase/wallet-sdk": "3.6.3",
     "@magic-sdk/types": "^11.1.0",
+    "@walletconnect/universal-provider": "2.2.1",
+    "@web3modal/standalone": "2.0.0",
     "eventemitter3": "^4.0.4",
     "web3-core": "1.5.2"
   },
