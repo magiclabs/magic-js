@@ -4,6 +4,7 @@ import {
   MagicUserMetadata,
   GenerateIdTokenConfiguration,
   UpdateEmailConfiguration,
+  UpdateSmsConfiguration,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -14,6 +15,14 @@ type UpdateEmailEvents = {
   'email-not-deliverable': () => void;
   'old-email-confirmed': () => void;
   'new-email-confirmed': () => void;
+  retry: () => void;
+};
+
+type UpdateSmsEvents = {
+  'sms-sent': () => void;
+  'sms-not-deliverable': () => void;
+  'old-phone-number-confirmed': () => void;
+  'new-phone-number-confirmed': () => void;
   retry: () => void;
 };
 
@@ -77,5 +86,15 @@ export class UserModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.UserSettingsTestMode : MagicPayloadMethod.UserSettings,
     );
     return this.request<MagicUserMetadata>(requestPayload);
+  }
+
+  /** */
+  public updateSms(configuration: UpdateSmsConfiguration) {
+    const { phoneNumber, showUI = true } = configuration;
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.UpdateSmsTestMode : MagicPayloadMethod.UpdateSms,
+      [{ phoneNumber, showUI }],
+    );
+    return this.request<string | null, UpdateSmsEvents>(requestPayload);
   }
 }

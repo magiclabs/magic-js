@@ -46,3 +46,16 @@ export interface UpdateWebAuthnInfoConfiguration {
    */
   nickname: string;
 }
+export interface UpdateSmsConfiguration {
+  /**
+   * The new phone number to update to
+   */
+  phoneNumber: string;
+
+  /**
+   * When `true`, a pre-built pending modal interface will
+   * guide the user to check their new, followed by old phone number
+   * for confirmation texts.
+   */
+  showUI?: boolean;
+}
