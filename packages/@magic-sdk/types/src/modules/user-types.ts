@@ -46,7 +46,7 @@ export interface UpdateWebAuthnInfoConfiguration {
    */
   nickname: string;
 }
-export interface UpdateSmsConfiguration {
+export interface UpdatePhoneNumberConfiguration {
   /**
    * The new phone number to update to
    */

@@ -82,6 +82,6 @@ export enum MagicPayloadMethod {
   ShowUI = 'mc_wallet',
   RequestUserInfoWithUI = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',
-  UpdateSms = 'magic_auth_update_sms',
-  UpdateSmsTestMode = 'magic_auth_update_sms_testing_mode',
+  UpdatePhoneNumber = 'magic_auth_update_phone_number',
+  UpdatePhoneNumberTestMode = 'magic_auth_update_phone_number_testing_mode',
 }
