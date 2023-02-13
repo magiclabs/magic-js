@@ -1,3 +1,20 @@
+# v11.2.0 (Thu Feb 09 2023)
+
+#### 🚀 Enhancement
+
+- move connect methods to wallet module under magic-sdk [#446](https://github.com/magiclabs/magic-js/pull/446) ([@hcote](https://github.com/hcote))
+
+#### 🐛 Bug Fix
+
+- update RequestUserInfoScope ([@hcote](https://github.com/hcote))
+- move connect methods to wallet module under magic-sdk ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v11.1.0 (Fri Jan 06 2023)
 
 #### 🚀 Enhancement

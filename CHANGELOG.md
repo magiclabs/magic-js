@@ -1,3 +1,16 @@
+# (Thu Feb 09 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@13.2.0`, `@magic-sdk/types@11.2.0`
+  - move connect methods to wallet module under magic-sdk [#446](https://github.com/magiclabs/magic-js/pull/446) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # (Wed Jan 25 2023)
 
 #### 🚀 Enhancement
