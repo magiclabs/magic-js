@@ -79,6 +79,34 @@ export interface NFTCheckoutResponse {
   status: NFTCheckoutStatus;
 }
 
+export interface NFTAirdropParams {
+  contractAddress?: string;
+  walletAddress?: string;
+  email?: string;
+  quantity?: number;
+  contractArgs?: any;
+  mintMethod?: {
+    name?: string;
+    args?: {
+      to?: string;
+      quantity?: string;
+    };
+    payment?: {
+      value?: string;
+      currency?: string;
+      spender?: string;
+    };
+  };
+  eligibilityMethod?: {
+    name?: string;
+    args?: {
+      to?: string;
+      quantity?: string;
+    };
+  };
+  metadata?: any;
+}
+
 // --- Payload methods
 
 /**
@@ -113,6 +141,7 @@ export enum MagicPayloadMethod {
   GetInfo = 'mc_get_wallet_info',
   ShowUI = 'mc_wallet',
   NFTCheckout = 'magic_nft_checkout',
+  NFTAirdrop = 'magic_nft_airdrop',
   RequestUserInfoWithUI = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',
 }
