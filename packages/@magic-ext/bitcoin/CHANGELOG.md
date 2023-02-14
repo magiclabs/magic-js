@@ -1,3 +1,16 @@
+# v8.2.1 (Tue Feb 14 2023)
+
+#### 🐛 Bug Fix
+
+- Permit React Native SDK to Utlize Bitcoin extension [#451](https://github.com/magiclabs/magic-js/pull/451) ([@Ariflo](https://github.com/Ariflo))
+- Permit React Native SDK to Utlize Bitcoin extension ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v3.0.1 (Tue Jan 25 2022)
 
 #### 🐛 Bug Fix
