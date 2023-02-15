@@ -1,3 +1,22 @@
+# (Wed Feb 15 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@13.3.0`, `@magic-sdk/types@11.3.0`
+  - Update Package versions [#454](https://github.com/magiclabs/magic-js/pull/454) ([@Ariflo](https://github.com/Ariflo))
+  - Add updatePhoneNumber sdk method [#450](https://github.com/magiclabs/magic-js/pull/450) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- Updates PR Template warning about one label [#453](https://github.com/magiclabs/magic-js/pull/453) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # (Tue Feb 14 2023)
 
 #### 🐛 Bug Fix

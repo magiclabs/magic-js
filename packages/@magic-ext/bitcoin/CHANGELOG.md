@@ -1,3 +1,20 @@
+# v8.3.0 (Wed Feb 15 2023)
+
+#### 🚀 Enhancement
+
+- Add updatePhoneNumber sdk method [#450](https://github.com/magiclabs/magic-js/pull/450) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- Updates PR Template warning about one label [#453](https://github.com/magiclabs/magic-js/pull/453) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v8.2.1 (Tue Feb 14 2023)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,25 @@
+# v13.3.0 (Wed Feb 15 2023)
+
+#### 🚀 Enhancement
+
+- Update Package versions [#454](https://github.com/magiclabs/magic-js/pull/454) ([@Ariflo](https://github.com/Ariflo))
+- Add updatePhoneNumber sdk method [#450](https://github.com/magiclabs/magic-js/pull/450) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- Update Package versions ([@Ariflo](https://github.com/Ariflo))
+- Updates PR Template warning about one label [#453](https://github.com/magiclabs/magic-js/pull/453) ([@Ariflo](https://github.com/Ariflo))
+- removed arguments for updatePhoneNumber method ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- changed name from updateSms to updatePhoneNumber ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- added update sms sdk method ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v13.2.0 (Thu Feb 09 2023)
 
 #### 🚀 Enhancement
