@@ -6,18 +6,18 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Generate JSON RPC request payload with method `magic_nft_checkout`', async () => {
+test('Generate JSON RPC request payload with method `magic_nft_purchase`', async () => {
   const magic = createMagicSDK();
   magic.nft.request = jest.fn();
 
-  magic.nft.checkout();
+  magic.nft.purchase();
 
   const requestPayload = magic.nft.request.mock.calls[0][0];
-  expect(requestPayload.method).toBe('magic_nft_checkout');
+  expect(requestPayload.method).toBe('magic_nft_purchase');
   expect(requestPayload.params).toEqual([]);
 });
 
 test('method should return a PromiEvent', () => {
   const magic = createMagicSDK();
-  expect(isPromiEvent(magic.nft.checkout())).toBeTruthy();
+  expect(isPromiEvent(magic.nft.purchase())).toBeTruthy();
 });

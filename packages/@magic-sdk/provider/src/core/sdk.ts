@@ -122,7 +122,7 @@ export class SDKBase {
   public readonly wallet: WalletModule;
 
   /**
-   * Contains methods for interacting with NFTs, including checkout.
+   * Contains methods for interacting with NFTs, including purchase.
    */
   public readonly nft: NFTModule;
 
