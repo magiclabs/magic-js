@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/zilliqa",
-  "version": "8.2.0",
+  "version": "8.3.0",
   "description": "magic zilliqa extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^9.2.0"
+    "@magic-sdk/commons": "^9.3.0"
   }
 }
