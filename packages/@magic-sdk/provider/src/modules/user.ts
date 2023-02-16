@@ -16,7 +16,6 @@ type UpdateEmailEvents = {
   'new-email-confirmed': () => void;
   retry: () => void;
 };
-
 export class UserModule extends BaseModule {
   /** */
   public getIdToken(configuration?: GetIdTokenConfiguration) {
@@ -77,5 +76,13 @@ export class UserModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.UserSettingsTestMode : MagicPayloadMethod.UserSettings,
     );
     return this.request<MagicUserMetadata>(requestPayload);
+  }
+
+  /** */
+  public updatePhoneNumber() {
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.UpdatePhoneNumberTestMode : MagicPayloadMethod.UpdatePhoneNumber,
+    );
+    return this.request<string | null>(requestPayload);
   }
 }
