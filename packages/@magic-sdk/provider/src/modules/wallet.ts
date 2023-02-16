@@ -90,6 +90,7 @@ export class WalletModule extends BaseModule {
   /* Logout user */
   public async disconnect(): Promise<boolean> {
     clearKeys();
+    localStorage.removeItem(this.localStorageKey);
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Disconnect);
     return this.request<boolean>(requestPayload);
   }
@@ -137,6 +138,7 @@ export class WalletModule extends BaseModule {
       throw new Error(Errors.WalletConnectError);
     }
     const modal = new Web3Modal(this.sdk.thirdPartyWalletOptions?.walletConnect?.modal);
+    // Ensure Wallet Connect widget is displayed on top of Magic iframe
     modal.setTheme({ themeZIndex: 2147483660 } as ConfigCtrlState);
     const universalProvider = await this.getWalletConnectProvider();
 
