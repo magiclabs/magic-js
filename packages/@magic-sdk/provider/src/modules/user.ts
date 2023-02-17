@@ -79,7 +79,6 @@ export class UserModule extends BaseModule {
     return this.request<MagicUserMetadata>(requestPayload);
   }
 
-  /** */
   public updatePhoneNumber() {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.UpdatePhoneNumberTestMode : MagicPayloadMethod.UpdatePhoneNumber,
