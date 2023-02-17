@@ -10,11 +10,13 @@ test('Generate JSON RPC request payload with method `magic_nft_airdrop`', async 
   const magic = createMagicSDK();
   magic.nft.request = jest.fn();
 
-  magic.nft.airdrop();
+  const params = { contractAddress: '0x1234', walletAddress: '0x1234', email: 'hiro@magic.link' };
+
+  magic.nft.airdrop(params);
 
   const requestPayload = magic.nft.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_nft_airdrop');
-  expect(requestPayload.params).toEqual([]);
+  expect(requestPayload.params).toEqual([params]);
 });
 
 test('method should return a PromiEvent', () => {
