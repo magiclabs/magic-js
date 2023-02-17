@@ -18,7 +18,6 @@ type UpdateEmailEvents = {
   retry: () => void;
 };
 export class UserModule extends BaseModule {
-  /** */
   public getIdToken(configuration?: GetIdTokenConfiguration) {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.GetIdTokenTestMode : MagicPayloadMethod.GetIdToken,
@@ -27,7 +26,6 @@ export class UserModule extends BaseModule {
     return this.request<string>(requestPayload);
   }
 
-  /** */
   public generateIdToken(configuration?: GenerateIdTokenConfiguration) {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.GenerateIdTokenTestMode : MagicPayloadMethod.GenerateIdToken,
@@ -36,7 +34,6 @@ export class UserModule extends BaseModule {
     return this.request<string>(requestPayload);
   }
 
-  /** */
   public getMetadata() {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.GetMetadataTestMode : MagicPayloadMethod.GetMetadata,
@@ -44,7 +41,6 @@ export class UserModule extends BaseModule {
     return this.request<MagicUserMetadata>(requestPayload);
   }
 
-  /** */
   public updateEmail(configuration: UpdateEmailConfiguration) {
     const { email, showUI = true } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
@@ -54,7 +50,6 @@ export class UserModule extends BaseModule {
     return this.request<string | null, UpdateEmailEvents>(requestPayload);
   }
 
-  /** */
   public isLoggedIn() {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.IsLoggedInTestMode : MagicPayloadMethod.IsLoggedIn,
@@ -62,7 +57,6 @@ export class UserModule extends BaseModule {
     return this.request<boolean>(requestPayload);
   }
 
-  /** */
   public logout() {
     clearKeys();
     const requestPayload = createJsonRpcRequestPayload(
@@ -71,7 +65,6 @@ export class UserModule extends BaseModule {
     return this.request<boolean>(requestPayload);
   }
 
-  /** */
   public showSettings() {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.UserSettingsTestMode : MagicPayloadMethod.UserSettings,
@@ -86,7 +79,6 @@ export class UserModule extends BaseModule {
     return this.request<string | null>(requestPayload);
   }
 
-  /** */
   public recoverAccount(configuration: RecoverAccountConfiguration) {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.RecoverAccountTestMode : MagicPayloadMethod.RecoverAccount,
