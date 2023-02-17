@@ -85,4 +85,12 @@ export class UserModule extends BaseModule {
     );
     return this.request<string | null>(requestPayload);
   }
+
+  /** */
+  public recoverAccount() {
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.RecoverAccountTestMode : MagicPayloadMethod.RecoverAccount,
+    );
+    return this.request<boolean | null>(requestPayload);
+  }
 }
