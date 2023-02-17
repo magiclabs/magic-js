@@ -17,10 +17,11 @@ import type { ConfigCtrlState } from '@web3modal/core';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
+import { setItem, getItem, removeItem } from '../util/storage';
 
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
-  public async connectWithUI(): Promise<string[]> {
+  public connectWithUI() {
     // If within wallet browser, auto-connect without any UI
     if (this.isMetaMaskBrowser() || this.isCoinbaseWalletBrowser()) {
       return this.autoConnectIfWalletBrowser();
@@ -33,7 +34,7 @@ export class WalletModule extends BaseModule {
     loginRequest.on(Events.WalletSelected as any, async (params: { wallet: Wallets; showModal: boolean }) => {
       try {
         const address = await this.connectToThirdPartyWallet(params.wallet, loginRequestPayload.id, params.showModal);
-        localStorage.setItem(this.localStorageKey, params.wallet);
+        setItem(this.localStorageKey, params.wallet);
         this.createIntermediaryEvent(Events.WalletConnected as any, loginRequestPayload.id as any)(address);
       } catch (error) {
         this.createIntermediaryEvent(Events.WalletRejected as any, loginRequestPayload.id as any)();
@@ -45,7 +46,7 @@ export class WalletModule extends BaseModule {
 
   /* Returns the provider for the connected wallet */
   public async getProvider(): Promise<any> {
-    const activeWallet = localStorage.getItem(this.localStorageKey);
+    const activeWallet = await getItem(this.localStorageKey);
     switch (activeWallet) {
       case Wallets.MetaMask:
         return this.getMetaMaskProvider();
@@ -88,9 +89,9 @@ export class WalletModule extends BaseModule {
   }
 
   /* Logout user */
-  public async disconnect(): Promise<boolean> {
+  public disconnect() {
     clearKeys();
-    localStorage.removeItem(this.localStorageKey);
+    removeItem(this.localStorageKey);
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Disconnect);
     return this.request<boolean>(requestPayload);
   }
@@ -245,7 +246,7 @@ export class WalletModule extends BaseModule {
       try {
         wallet = Wallets.MetaMask;
         address = await this.getMetaMaskProvider().request({ method: 'eth_requestAccounts' });
-        localStorage.setItem(this.localStorageKey, Wallets.MetaMask);
+        setItem(this.localStorageKey, Wallets.MetaMask);
       } catch (error) {
         console.error(error);
       }
@@ -253,7 +254,7 @@ export class WalletModule extends BaseModule {
       try {
         wallet = Wallets.CoinbaseWallet;
         address = await this.getCoinbaseProvider().provider.request({ method: 'eth_requestAccounts' });
-        localStorage.setItem(this.localStorageKey, Wallets.CoinbaseWallet);
+        setItem(this.localStorageKey, Wallets.CoinbaseWallet);
       } catch (error) {
         console.error(error);
       }
