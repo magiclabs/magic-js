@@ -4,6 +4,7 @@ import {
   MagicUserMetadata,
   GenerateIdTokenConfiguration,
   UpdateEmailConfiguration,
+  RecoverAccountConfiguration,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -87,9 +88,10 @@ export class UserModule extends BaseModule {
   }
 
   /** */
-  public recoverAccount() {
+  public recoverAccount(configuration: RecoverAccountConfiguration) {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.RecoverAccountTestMode : MagicPayloadMethod.RecoverAccount,
+      [configuration],
     );
     return this.request<boolean | null>(requestPayload);
   }
