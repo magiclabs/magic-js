@@ -15,7 +15,9 @@ export class FlowExtension extends Extension.Internal<'flow', any> {
     this.config = {
       rpcUrl: flowConfig.rpcUrl,
       chainType: 'FLOW',
-      network: flowConfig.network,
+      options: {
+        network: flowConfig.network,
+      },
     };
   }
 
