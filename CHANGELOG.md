@@ -1,5 +1,18 @@
 # (Fri Feb 17 2023)
 
+#### 🐛 Bug Fix
+
+- `magic-sdk@13.3.1`
+  - updated readme with new description and quickstart code sample [#460](https://github.com/magiclabs/magic-js/pull/460) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 1
+
+- [@srinjoyc](https://github.com/srinjoyc)
+
+---
+
+# (Fri Feb 17 2023)
+
 #### 🚀 Enhancement
 
 - `@magic-ext/react-native-expo-oauth@8.4.0`

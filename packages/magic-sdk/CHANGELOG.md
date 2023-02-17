@@ -1,3 +1,17 @@
+# v13.3.1 (Fri Feb 17 2023)
+
+#### 🐛 Bug Fix
+
+- updated readme with new description and quickstart code sample [#460](https://github.com/magiclabs/magic-js/pull/460) ([@srinjoyc](https://github.com/srinjoyc))
+- keeping links to github from npm the same ([@srinjoyc](https://github.com/srinjoyc))
+- updated npm readme to be same as github ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 1
+
+- [@srinjoyc](https://github.com/srinjoyc)
+
+---
+
 # v8.1.0 (Mon Mar 07 2022)
 
 #### 🐛 Bug Fix
