@@ -2,7 +2,7 @@
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
 
-> Magic empowers developers to protect their users via an innovative, passwordless authentication flow without the UX compromises that burden traditional OAuth implementations.
+> The Magic JavaScript SDK empowers developers to provide frictionless web3 onboarding to their end-users while preserving their security and privacy using non-custodial wallets.
 
 <p align="center">
   <a href="https://github.com/magiclabs/magic-js/blob/master/LICENSE">License</a> ·
@@ -47,11 +47,15 @@ Sign up or log in to the [developer dashboard](https://dashboard.magic.link) to 
 Then, you can start authenticating users with _just one method!_ Magic works across all modern desktop, mobile Chrome, Safari and Firefox browsers.
 
 ```ts
-import { Magic } from 'magic-sdk';
+import { Magic } from "magic-sdk"
+import Web3 from 'web3';
 
-const magic = new Magic('YOUR_API_KEY');
+const magic = new Magic('YOUR_API_KEY', { 
+  network: "goerli",
+});
 
-await magic.auth.loginWithMagicLink({ email: 'your.email@example.com' });
+const web3 = new Web3(magic.rpcProvider);
+const accounts = await magic.wallet.connectWithUI();
 ```
 
 ## 📦 Package Ecosystem
