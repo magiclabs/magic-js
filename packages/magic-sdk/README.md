@@ -5,8 +5,8 @@
 > The Magic JavaScript SDK empowers developers to provide frictionless web3 onboarding to their end-users while preserving their security and privacy using non-custodial wallets.
 
 <p align="center">
-  <a href="https://github.com/magiclabs/magic-js/blob/master/LICENSE">License</a> ·
-  <a href="https://github.com/magiclabs/magic-js/blob/master/CHANGELOG.md">Changelog</a> ·
+  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/magic-sdk/LICENSE">License</a> ·
+  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/magic-sdk/CHANGELOG.md">Changelog</a> ·
   <a href="https://github.com/magiclabs/magic-js/blob/master/CONTRIBUTING.md">Contributing Guide</a>
 </p>
 
