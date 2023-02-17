@@ -107,6 +107,10 @@ export interface NFTAirdropParams {
   metadata?: any;
 }
 
+export interface NFTAirdropResponse {
+  jobId: string;
+}
+
 // --- Payload methods
 
 /**

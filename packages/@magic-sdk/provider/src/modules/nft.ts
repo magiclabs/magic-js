@@ -1,4 +1,4 @@
-import { MagicPayloadMethod, NFTAirdropParams, NFTCheckoutResponse } from '@magic-sdk/types';
+import { NFTAirdropResponse, MagicPayloadMethod, NFTAirdropParams, NFTCheckoutResponse } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 
@@ -11,6 +11,6 @@ export class NFTModule extends BaseModule {
 
   public airdrop(params: NFTAirdropParams) {
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.NFTAirdrop, [params]);
-    return this.request<boolean>(requestPayload);
+    return this.request<NFTAirdropResponse>(requestPayload);
   }
 }
