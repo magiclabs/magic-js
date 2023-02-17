@@ -47,7 +47,7 @@ export interface RequestUserInfoScope {
   };
 }
 
-export interface NFTCheckoutRequest {
+export interface NFTPurchaseRequest {
   nft: {
     name: string;
     price: number;
@@ -73,10 +73,10 @@ export interface NFTCheckoutRequest {
   };
 }
 
-export type NFTCheckoutStatus = 'processed' | 'declined' | 'expired';
+export type NFTPurchaseStatus = 'processed' | 'declined' | 'expired';
 
-export interface NFTCheckoutResponse {
-  status: NFTCheckoutStatus;
+export interface NFTPurchaseResponse {
+  status: NFTPurchaseStatus;
 }
 
 export interface NFTAirdropParams {
@@ -144,8 +144,8 @@ export enum MagicPayloadMethod {
   RequestAccounts = 'eth_requestAccounts',
   GetInfo = 'mc_get_wallet_info',
   ShowUI = 'mc_wallet',
-  NFTCheckout = 'magic_nft_checkout',
   NFTAirdrop = 'magic_nft_airdrop',
+  NFTPurchase = 'magic_nft_purchase',
   RequestUserInfoWithUI = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',
 }
