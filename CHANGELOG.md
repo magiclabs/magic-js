@@ -1,3 +1,16 @@
+# (Fri Feb 17 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/react-native-expo-oauth@8.4.0`
+  - Udpates `expo-web-browser` to the latest for `@magic-ext/react-native-expo-oauth` [#457](https://github.com/magiclabs/magic-js/pull/457) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Wed Feb 15 2023)
 
 #### 🚀 Enhancement
