@@ -46,3 +46,10 @@ export interface UpdateWebAuthnInfoConfiguration {
    */
   nickname: string;
 }
+
+export interface RecoverAccountConfiguration {
+  /**
+   * The email to recover
+   */
+  email: string;
+}
