@@ -1,3 +1,22 @@
+# (Tue Feb 21 2023)
+
+#### 🚀 Enhancement
+
+- * Update yarn.lock [#461](https://github.com/magiclabs/magic-js/pull/461) ([@Ethella](https://github.com/Ethella))
+- `@magic-sdk/provider@13.4.0`, `@magic-sdk/types@11.4.0`
+  - * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Update LICENSE [#459](https://github.com/magiclabs/magic-js/pull/459) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
 # (Fri Feb 17 2023)
 
 #### 🐛 Bug Fix

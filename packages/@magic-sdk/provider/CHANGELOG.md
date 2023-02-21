@@ -1,3 +1,23 @@
+# v13.4.0 (Tue Feb 21 2023)
+
+#### 🚀 Enhancement
+
+- * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- * Remove empty comments ([@Ethella](https://github.com/Ethella))
+- * NIT remove empty comment ([@Ethella](https://github.com/Ethella))
+- * Add test ([@Ethella](https://github.com/Ethella))
+- * Add configuration ([@Ethella](https://github.com/Ethella))
+- * Add recoverAccount api ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v13.3.0 (Wed Feb 15 2023)
 
 #### 🚀 Enhancement
