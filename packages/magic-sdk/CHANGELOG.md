@@ -1,3 +1,16 @@
+# v13.4.1 (Mon Feb 27 2023)
+
+#### 🐛 Bug Fix
+
+- removed 'authentication' from titles on readme [#464](https://github.com/magiclabs/magic-js/pull/464) ([@srinjoyc](https://github.com/srinjoyc))
+- removed 'authentication' from titles on readme ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 1
+
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
 # v13.4.0 (Tue Feb 21 2023)
 
 #### 🚀 Enhancement
