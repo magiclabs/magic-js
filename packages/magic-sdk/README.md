@@ -1,4 +1,4 @@
-# ✨ Magic Authentication JavaScript SDK
+# ✨ Magic JavaScript SDK
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
 
