@@ -79,38 +79,6 @@ export interface NFTPurchaseResponse {
   status: NFTPurchaseStatus;
 }
 
-export interface NFTAirdropParams {
-  contractAddress?: string;
-  walletAddress?: string;
-  email?: string;
-  quantity?: number;
-  contractArgs?: any;
-  mintMethod?: {
-    name?: string;
-    args?: {
-      to?: string;
-      quantity?: string;
-    };
-    payment?: {
-      value?: string;
-      currency?: string;
-      spender?: string;
-    };
-  };
-  eligibilityMethod?: {
-    name?: string;
-    args?: {
-      to?: string;
-      quantity?: string;
-    };
-  };
-  metadata?: any;
-}
-
-export interface NFTAirdropResponse {
-  jobId: string;
-}
-
 // --- Payload methods
 
 /**
@@ -144,7 +112,6 @@ export enum MagicPayloadMethod {
   RequestAccounts = 'eth_requestAccounts',
   GetInfo = 'mc_get_wallet_info',
   ShowUI = 'mc_wallet',
-  NFTAirdrop = 'magic_nft_airdrop',
   NFTPurchase = 'magic_nft_purchase',
   RequestUserInfoWithUI = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',
