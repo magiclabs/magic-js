@@ -1,3 +1,16 @@
+# (Tue Feb 28 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@13.5.0`, `@magic-sdk/types@11.5.0`
+  - LoginWithEmailOtp Whitelabeling [#414](https://github.com/magiclabs/magic-js/pull/414) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # (Mon Feb 27 2023)
 
 #### 🐛 Bug Fix

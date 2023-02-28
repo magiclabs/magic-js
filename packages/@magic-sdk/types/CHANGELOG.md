@@ -1,3 +1,20 @@
+# v11.5.0 (Tue Feb 28 2023)
+
+#### 🚀 Enhancement
+
+- LoginWithEmailOtp Whitelabeling [#414](https://github.com/magiclabs/magic-js/pull/414) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of github.com:magiclabs/magic-js into mushfichowdhury-login-with-email-otp-whitelabel ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- updated auth module and unit tests ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v11.4.0 (Tue Feb 21 2023)
 
 #### 🚀 Enhancement

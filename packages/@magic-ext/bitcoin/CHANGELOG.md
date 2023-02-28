@@ -1,3 +1,15 @@
+# v8.5.0 (Tue Feb 28 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of github.com:magiclabs/magic-js into mushfichowdhury-login-with-email-otp-whitelabel ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v8.3.0 (Wed Feb 15 2023)
 
 #### 🚀 Enhancement
