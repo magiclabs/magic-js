@@ -1,3 +1,50 @@
+# v7.4.0 (Tue Feb 21 2023)
+
+#### 🚀 Enhancement
+
+- * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Update LICENSE [#459](https://github.com/magiclabs/magic-js/pull/459) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
+# v7.1.0 (Fri Jan 06 2023)
+
+#### 🚀 Enhancement
+
+- Bare React Native / Expo React Native Package Split [#412](https://github.com/magiclabs/magic-js/pull/412) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Maintains backwards compatibility ([@Ariflo](https://github.com/Ariflo))
+- Updates @magic-ext/oauth compatibility settings ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# v6.0.0 (Thu Jan 05 2023)
+
+#### 🐛 Bug Fix
+
+- Fix ESLint Issues [#419](https://github.com/magiclabs/magic-js/pull/419) ([@Ariflo](https://github.com/Ariflo))
+- Cast json to string for oauth ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v5.0.0 (Tue Dec 20 2022)
 
 #### 🐛 Bug Fix

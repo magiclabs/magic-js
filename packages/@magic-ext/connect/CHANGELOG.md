@@ -1,3 +1,30 @@
+# v6.2.0 (Wed Jan 25 2023)
+
+#### 🚀 Enhancement
+
+- Bump Version of @magic-sdk/connect to 6.2.0, Again [#441](https://github.com/magiclabs/magic-js/pull/441) ([@Ariflo](https://github.com/Ariflo))
+- Bump Version of `@magic-sdk/connect` to 6.2.0 [#438](https://github.com/magiclabs/magic-js/pull/438) ([@Ariflo](https://github.com/Ariflo))
+- Permit React Native entry to Magic Connect Extension [#433](https://github.com/magiclabs/magic-js/pull/433) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Version Bump ([@Ariflo](https://github.com/Ariflo))
+- Prevents Relayer from Overriding Status Bar Color [#436](https://github.com/magiclabs/magic-js/pull/436) ([@Ariflo](https://github.com/Ariflo))
+- Bump Version to 6.2.1 ([@Ariflo](https://github.com/Ariflo))
+- Update README with platform delineation ([@Ariflo](https://github.com/Ariflo))
+- Update README ([@Ariflo](https://github.com/Ariflo))
+- Permit React Native entry to Magic Connect Extension ([@Ariflo](https://github.com/Ariflo))
+
+#### 📝 Documentation
+
+- Add link to RN Demo Apps to READMEs [#435](https://github.com/magiclabs/magic-js/pull/435) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v4.0.0 (Tue Dec 20 2022)
 
 #### 🚀 Enhancement

@@ -33,6 +33,20 @@ export interface JsonRpcResponsePayload<ResultType = any> {
   error?: JsonRpcError | null;
 }
 
+export interface UserInfo {
+  email?: string;
+}
+
+export interface WalletInfo {
+  walletType: 'magic' | 'metamask' | 'coinbase_wallet' | 'wallet_connect';
+}
+
+export interface RequestUserInfoScope {
+  scope?: {
+    email?: 'required' | 'optional';
+  };
+}
+
 // --- Payload methods
 
 /**
@@ -63,4 +77,13 @@ export enum MagicPayloadMethod {
   LogoutTestMode = 'magic_auth_logout_testing_mode',
   UpdateEmailTestMode = 'magic_auth_update_email_testing_mode',
   IntermediaryEvent = 'magic_intermediary_event',
+  RequestAccounts = 'eth_requestAccounts',
+  GetInfo = 'mc_get_wallet_info',
+  ShowUI = 'mc_wallet',
+  RequestUserInfoWithUI = 'mc_request_user_info',
+  Disconnect = 'mc_disconnect',
+  UpdatePhoneNumber = 'magic_auth_update_phone_number',
+  UpdatePhoneNumberTestMode = 'magic_auth_update_phone_number_testing_mode',
+  RecoverAccount = 'magic_auth_recover_account',
+  RecoverAccountTestMode = 'magic_auth_recover_account_testing_mode',
 }

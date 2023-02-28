@@ -1,3 +1,112 @@
+# v13.4.0 (Tue Feb 21 2023)
+
+#### 🚀 Enhancement
+
+- * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- * Remove empty comments ([@Ethella](https://github.com/Ethella))
+- * NIT remove empty comment ([@Ethella](https://github.com/Ethella))
+- * Add test ([@Ethella](https://github.com/Ethella))
+- * Add configuration ([@Ethella](https://github.com/Ethella))
+- * Add recoverAccount api ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v13.3.0 (Wed Feb 15 2023)
+
+#### 🚀 Enhancement
+
+- Update Package versions [#454](https://github.com/magiclabs/magic-js/pull/454) ([@Ariflo](https://github.com/Ariflo))
+- Add updatePhoneNumber sdk method [#450](https://github.com/magiclabs/magic-js/pull/450) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- Update Package versions ([@Ariflo](https://github.com/Ariflo))
+- Updates PR Template warning about one label [#453](https://github.com/magiclabs/magic-js/pull/453) ([@Ariflo](https://github.com/Ariflo))
+- removed arguments for updatePhoneNumber method ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- changed name from updateSms to updatePhoneNumber ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- added update sms sdk method ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
+# v13.2.0 (Thu Feb 09 2023)
+
+#### 🚀 Enhancement
+
+- move connect methods to wallet module under magic-sdk [#446](https://github.com/magiclabs/magic-js/pull/446) ([@hcote](https://github.com/hcote))
+
+#### 🐛 Bug Fix
+
+- add tests ([@hcote](https://github.com/hcote))
+- update RequestUserInfoScope ([@hcote](https://github.com/hcote))
+- move connect methods to wallet module under magic-sdk ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v13.1.0 (Fri Jan 06 2023)
+
+#### 🚀 Enhancement
+
+- Bare React Native / Expo React Native Package Split [#412](https://github.com/magiclabs/magic-js/pull/412) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Maintains backwards compatibility ([@Ariflo](https://github.com/Ariflo))
+- Updates @magic-sdk/provider SDK ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# v13.0.0 (Thu Jan 05 2023)
+
+#### 💥 Breaking Change
+
+- Update Commons/Provider/Types Packages + Workflow [#427](https://github.com/magiclabs/magic-js/pull/427) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update ReadMe to Triggger CI ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# v12.0.0 (Thu Jan 05 2023)
+
+#### 💥 Breaking Change
+
+- Trigger CI Job to bump @magic-sdk/provider version [#417](https://github.com/magiclabs/magic-js/pull/417) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Whitespace commit to trigger ci job ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v11.0.0 (Tue Dec 20 2022)
 
 #### 🚀 Enhancement

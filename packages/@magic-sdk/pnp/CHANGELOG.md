@@ -1,3 +1,20 @@
+# v7.4.0 (Tue Feb 21 2023)
+
+#### 🚀 Enhancement
+
+- * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Update LICENSE [#459](https://github.com/magiclabs/magic-js/pull/459) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
 # v2.1.0 (Mon Mar 07 2022)
 
 #### 🐛 Bug Fix

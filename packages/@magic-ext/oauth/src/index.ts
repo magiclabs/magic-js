@@ -16,6 +16,8 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   compat = {
     'magic-sdk': '>=2.4.6',
     '@magic-sdk/react-native': false,
+    '@magic-sdk/react-native-bare': false,
+    '@magic-sdk/react-native-expo': false,
   };
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
@@ -86,7 +88,7 @@ async function createURI(this: OAuthExtension, configuration: OAuthRedirectConfi
 
 function getResult(this: OAuthExtension, queryString: string) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
-    const json: string = await this.utils.storage.getItem(OAUTH_REDIRECT_METADATA_KEY);
+    const json: string = (await this.utils.storage.getItem(OAUTH_REDIRECT_METADATA_KEY)) as string;
 
     const { verifier, state } = JSON.parse(json);
 

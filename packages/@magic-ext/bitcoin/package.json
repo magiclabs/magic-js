@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/bitcoin",
-  "version": "6.0.0",
+  "version": "8.4.0",
   "description": "magic bitcoin extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -17,7 +17,6 @@
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
-  "react-native": "./dist/react-native/index.native.js",
   "exports": {
     "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
@@ -28,6 +27,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^7.0.0"
+    "@magic-sdk/commons": "^9.4.0"
   }
 }

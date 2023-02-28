@@ -1,3 +1,246 @@
+# (Mon Feb 27 2023)
+
+#### 🐛 Bug Fix
+
+- `magic-sdk@13.4.1`
+  - removed 'authentication' from titles on readme [#464](https://github.com/magiclabs/magic-js/pull/464) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 1
+
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
+# (Tue Feb 21 2023)
+
+#### 🚀 Enhancement
+
+- * Update yarn.lock [#461](https://github.com/magiclabs/magic-js/pull/461) ([@Ethella](https://github.com/Ethella))
+- `@magic-sdk/provider@13.4.0`, `@magic-sdk/types@11.4.0`
+  - * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Update LICENSE [#459](https://github.com/magiclabs/magic-js/pull/459) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
+# (Fri Feb 17 2023)
+
+#### 🐛 Bug Fix
+
+- `magic-sdk@13.3.1`
+  - updated readme with new description and quickstart code sample [#460](https://github.com/magiclabs/magic-js/pull/460) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 1
+
+- [@srinjoyc](https://github.com/srinjoyc)
+
+---
+
+# (Fri Feb 17 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/react-native-expo-oauth@8.4.0`
+  - Udpates `expo-web-browser` to the latest for `@magic-ext/react-native-expo-oauth` [#457](https://github.com/magiclabs/magic-js/pull/457) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Wed Feb 15 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@13.3.0`, `@magic-sdk/types@11.3.0`
+  - Update Package versions [#454](https://github.com/magiclabs/magic-js/pull/454) ([@Ariflo](https://github.com/Ariflo))
+  - Add updatePhoneNumber sdk method [#450](https://github.com/magiclabs/magic-js/pull/450) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- Updates PR Template warning about one label [#453](https://github.com/magiclabs/magic-js/pull/453) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
+# (Tue Feb 14 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/bitcoin@8.2.1`
+  - Permit React Native SDK to Utlize Bitcoin extension [#451](https://github.com/magiclabs/magic-js/pull/451) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Thu Feb 09 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@13.2.0`, `@magic-sdk/types@11.2.0`
+  - move connect methods to wallet module under magic-sdk [#446](https://github.com/magiclabs/magic-js/pull/446) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# (Wed Jan 25 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/connect@6.2.0`, `@magic-sdk/react-native-bare@14.1.0`, `@magic-sdk/react-native-expo@14.1.0`
+  - Bump Version of @magic-sdk/connect to 6.2.0, Again [#441](https://github.com/magiclabs/magic-js/pull/441) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/connect@6.2.0`
+  - Bump Version of `@magic-sdk/connect` to 6.2.0 [#438](https://github.com/magiclabs/magic-js/pull/438) ([@Ariflo](https://github.com/Ariflo))
+  - Permit React Native entry to Magic Connect Extension [#433](https://github.com/magiclabs/magic-js/pull/433) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@14.1.0`, `@magic-sdk/react-native-expo@14.1.0`
+  - Bumps `react-native-webview` peer dependency Requirement to `>=11.0.0` [#440](https://github.com/magiclabs/magic-js/pull/440) ([@Ariflo](https://github.com/Ariflo))
+  - Prevents Relayer from Overriding Status Bar Color [#436](https://github.com/magiclabs/magic-js/pull/436) ([@Ariflo](https://github.com/Ariflo))
+
+#### 📝 Documentation
+
+- `@magic-sdk/react-native-bare@14.1.0`, `@magic-sdk/react-native-expo@14.1.0`
+  - Add link to RN Demo Apps to READMEs [#435](https://github.com/magiclabs/magic-js/pull/435) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Thu Jan 19 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/react-native-bare@14.0.0`, `@magic-sdk/react-native-expo@14.0.0`
+  - Replaces WebView View wrapper with SafeAreaView [#431](https://github.com/magiclabs/magic-js/pull/431) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Wed Jan 18 2023)
+
+#### 🐛 Bug Fix
+
+- [CHORE] Clean up magic-js Deployment Stages [#429](https://github.com/magiclabs/magic-js/pull/429) ([@kgrubb](https://github.com/kgrubb))
+- `@magic-ext/react-native-bare-oauth@7.1.1`, `@magic-sdk/react-native-bare@13.1.1`, `@magic-sdk/react-native-expo@13.1.1`
+  - Adds react-native-inappbrowser-reborn as peer to Bare RN OAuth [#432](https://github.com/magiclabs/magic-js/pull/432) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🔩 Dependency Updates
+
+- Bump qs from 6.5.2 to 6.5.3 [#400](https://github.com/magiclabs/magic-js/pull/400) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump decode-uri-component from 0.2.0 to 0.2.2 [#399](https://github.com/magiclabs/magic-js/pull/399) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Keli (Madison) Grubb ([@kgrubb](https://github.com/kgrubb))
+
+---
+
+# (Fri Jan 06 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth@7.1.0`, `@magic-ext/react-native-bare-oauth@7.1.0`, `@magic-ext/react-native-expo-oauth@7.1.0`, `@magic-sdk/commons@9.1.0`, `@magic-sdk/provider@13.1.0`, `@magic-sdk/react-native-bare@13.1.0`, `@magic-sdk/react-native-expo@13.1.0`, `@magic-sdk/types@11.1.0`
+  - Bare React Native / Expo React Native Package Split [#412](https://github.com/magiclabs/magic-js/pull/412) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Thu Jan 05 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/commons@9.0.0`, `@magic-sdk/provider@13.0.0`, `@magic-sdk/types@11.0.0`
+  - Update Commons/Provider/Types Packages + Workflow [#427](https://github.com/magiclabs/magic-js/pull/427) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- [CHORE] extract build output files to packages directory [#426](https://github.com/magiclabs/magic-js/pull/426) ([@kgrubb](https://github.com/kgrubb) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Keli (Madison) Grubb ([@kgrubb](https://github.com/kgrubb))
+
+---
+
+# (Thu Jan 05 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@12.0.0`
+  - Trigger CI Job to bump @magic-sdk/provider version [#417](https://github.com/magiclabs/magic-js/pull/417) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- [CHORE ]add install step in publish stage. [#425](https://github.com/magiclabs/magic-js/pull/425) ([@kgrubb](https://github.com/kgrubb))
+- [CHORE] Resolve shipit release issue [#424](https://github.com/magiclabs/magic-js/pull/424) ([@Ariflo](https://github.com/Ariflo) [@kgrubb](https://github.com/kgrubb))
+- feat: [sc-68022] Fix github action  publishing process in magic-js [#420](https://github.com/magiclabs/magic-js/pull/420) ([@Ethella](https://github.com/Ethella))
+- Update Yarn.lock file [#418](https://github.com/magiclabs/magic-js/pull/418) ([@Ariflo](https://github.com/Ariflo))
+- [CHORE] Add gh_token env var to auto version step [#416](https://github.com/magiclabs/magic-js/pull/416) ([@kgrubb](https://github.com/kgrubb))
+- `@magic-ext/oauth@6.0.0`, `@magic-ext/react-native-oauth@6.0.0`, `@magic-sdk/react-native@13.0.0`
+  - Fix ESLint Issues [#419](https://github.com/magiclabs/magic-js/pull/419) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 3
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Keli (Madison) Grubb ([@kgrubb](https://github.com/kgrubb))
+
+---
+
+# (Wed Jan 04 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oidc@1.0.1`
+  - add oidc support [#349](https://github.com/magiclabs/magic-js/pull/349) ([@dgerrellsMagic](https://github.com/dgerrellsMagic))
+- `@magic-ext/algorand@6.0.1`
+  - add github actions for testing and publishing packages [#409](https://github.com/magiclabs/magic-js/pull/409) ([@kgrubb](https://github.com/kgrubb))
+
+#### ⚠️ Pushed to `master`
+
+- make error output explicit in version publishing ([@kgrubb](https://github.com/kgrubb))
+- * Add GH_TOKEN env ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@dgerrellsMagic](https://github.com/dgerrellsMagic)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Keli (Madison) Grubb ([@kgrubb](https://github.com/kgrubb))
+
+---
+
 # (Tue Dec 20 2022)
 
 #### 💥 Breaking Change

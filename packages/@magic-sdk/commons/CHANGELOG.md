@@ -1,3 +1,35 @@
+# v9.1.0 (Fri Jan 06 2023)
+
+#### 🚀 Enhancement
+
+- Bare React Native / Expo React Native Package Split [#412](https://github.com/magiclabs/magic-js/pull/412) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Updates @magic-sdk/commons SDK ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# v9.0.0 (Thu Jan 05 2023)
+
+#### 💥 Breaking Change
+
+- Update Commons/Provider/Types Packages + Workflow [#427](https://github.com/magiclabs/magic-js/pull/427) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update ReadMe to Triggger CI ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v4.1.0 (Mon Mar 07 2022)
 
 #### 🐛 Bug Fix

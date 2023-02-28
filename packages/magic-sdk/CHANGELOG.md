@@ -1,3 +1,47 @@
+# v13.4.1 (Mon Feb 27 2023)
+
+#### 🐛 Bug Fix
+
+- removed 'authentication' from titles on readme [#464](https://github.com/magiclabs/magic-js/pull/464) ([@srinjoyc](https://github.com/srinjoyc))
+- removed 'authentication' from titles on readme ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 1
+
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
+# v13.4.0 (Tue Feb 21 2023)
+
+#### 🚀 Enhancement
+
+- * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Update LICENSE [#459](https://github.com/magiclabs/magic-js/pull/459) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
+# v13.3.1 (Fri Feb 17 2023)
+
+#### 🐛 Bug Fix
+
+- updated readme with new description and quickstart code sample [#460](https://github.com/magiclabs/magic-js/pull/460) ([@srinjoyc](https://github.com/srinjoyc))
+- keeping links to github from npm the same ([@srinjoyc](https://github.com/srinjoyc))
+- updated npm readme to be same as github ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 1
+
+- [@srinjoyc](https://github.com/srinjoyc)
+
+---
+
 # v8.1.0 (Mon Mar 07 2022)
 
 #### 🐛 Bug Fix

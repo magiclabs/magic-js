@@ -19,10 +19,10 @@
   },
   "externals": {
     "include": [
-      "@magic-sdk/react-native"
+      "@magic-sdk/react-native-bare"
     ]
   },
   "devDependencies": {
-    "@magic-sdk/react-native": "<%= magicSdkReactVersion %>"
+    "@magic-sdk/react-native-bare": "<%= magicSdkReactVersion %>"
   }
 }

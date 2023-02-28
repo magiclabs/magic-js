@@ -10,8 +10,8 @@
 
 [Describe any additional context required to test the PR/feature/bug fix.]
 
-### ⚠️ Don't forget to add a [semver](https://semver.org/) label!
-
+### ⚠️ Don't forget to add a [semver](https://semver.org/) label! 
+Please only add **one** label:
 - `patch`: Bug Fix?
 - `minor`: New Feature?
 - `major`: Breaking Change?
