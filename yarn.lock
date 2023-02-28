@@ -2820,14 +2820,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-ext/oauth@^7.4.0, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
+"@magic-ext/oauth@^7.4.1, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
   dependencies:
     "@magic-sdk/types": ^11.4.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
-    magic-sdk: ^13.4.0
+    magic-sdk: ^13.4.1
   languageName: unknown
   linkType: soft
 
@@ -2955,8 +2955,8 @@ __metadata:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-    "@magic-ext/oauth": ^7.4.0
-    magic-sdk: ^13.4.0
+    "@magic-ext/oauth": ^7.4.1
+    magic-sdk: ^13.4.1
   languageName: unknown
   linkType: soft
 
@@ -7218,9 +7218,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.284":
-  version: 1.4.312
-  resolution: "electron-to-chromium@npm:1.4.312"
-  checksum: 6f76f7a92180715985f6008409f8cb21fdef4e63fcd80d88907c395afb5dad84d7cbc8e274f718ece8df9bdbdcf14e43d446f7bee2824131f21fe92b74df2c1b
+  version: 1.4.313
+  resolution: "electron-to-chromium@npm:1.4.313"
+  checksum: 694c379e0800e55e3e2966f73557bfc3bad66e1eb120928d33e8f0619b59ec057eb94ecb27a06e6f7ea1892565f6b8a87b03129a8243baa0d1ccea9579040a83
   languageName: node
   linkType: hard
 
@@ -12338,7 +12338,7 @@ fsevents@^2.3.2:
   languageName: unknown
   linkType: soft
 
-"magic-sdk@^13.4.0, magic-sdk@workspace:packages/magic-sdk":
+"magic-sdk@^13.4.1, magic-sdk@workspace:packages/magic-sdk":
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
