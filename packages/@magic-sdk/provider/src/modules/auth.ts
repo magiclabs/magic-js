@@ -51,15 +51,14 @@ export class AuthModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
       [{ email, showUI }],
     );
-    if(!showUI) {
+    if (!showUI) {
       const handle = this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
       handle.on('email-otp-sent', async () => {
         this.createIntermediaryEvent('verify-email-otp', requestPayload.id as any)('otp');
-      })
-      return handle
-    } else {
-      return this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
+      });
+      return handle;
     }
+    return this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
   }
 
   /**
