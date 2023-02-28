@@ -53,9 +53,11 @@ export class AuthModule extends BaseModule {
     );
     if (!showUI) {
       const handle = this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
-      handle.on('email-otp-sent', async () => {
-        this.createIntermediaryEvent('verify-email-otp', requestPayload.id as any)('otp');
-      });
+      if (handle) {
+        handle.on('email-otp-sent', async () => {
+          this.createIntermediaryEvent('verify-email-otp', requestPayload.id as any)('otp');
+        });
+      }
       return handle;
     }
     return this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
