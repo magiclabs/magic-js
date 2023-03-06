@@ -1,3 +1,16 @@
+# (Mon Mar 06 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/flow@8.6.0`
+  - flow getAccount and pass cadence in [#466](https://github.com/magiclabs/magic-js/pull/466) ([@harryEth](https://github.com/harryEth))
+
+#### Authors: 1
+
+- [@harryEth](https://github.com/harryEth)
+
+---
+
 # (Tue Feb 28 2023)
 
 #### 🚀 Enhancement
