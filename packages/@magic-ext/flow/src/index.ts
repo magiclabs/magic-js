@@ -3,7 +3,7 @@ import { Extension } from '@magic-sdk/commons';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import * as fcl from '@onflow/fcl';
-import { FlowConfig } from './type';
+import { FlowConfig, FlowPayloadMethod } from './type';
 
 export class FlowExtension extends Extension.Internal<'flow', any> {
   name = 'flow' as const;
@@ -19,14 +19,13 @@ export class FlowExtension extends Extension.Internal<'flow', any> {
     };
   }
 
+  getAccount = () => {
+    return this.request(this.utils.createJsonRpcRequestPayload(FlowPayloadMethod.FlowGetAccount, []));
+  };
+
   authorization = async (account: any = {}) => {
     fcl.config().put('accessNode.api', this.config.rpcUrl);
-    const addr = await this.request({
-      id: 42,
-      jsonrpc: '2.0',
-      method: 'flow_getAccount',
-      params: {},
-    });
+    const addr = await this.request(this.utils.createJsonRpcRequestPayload(FlowPayloadMethod.FlowGetAccount, []));
     const keyId = 0;
     let sequenceNum;
     if (account.role.proposer) {
@@ -42,6 +41,7 @@ export class FlowExtension extends Extension.Internal<'flow', any> {
         method: 'flow_signTransaction',
         params: {
           message: data.message,
+          cadence: data.cadence,
         },
       });
 

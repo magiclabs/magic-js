@@ -7,3 +7,7 @@ export interface ConfigType {
   rpcUrl: string;
   chainType: string;
 }
+
+export enum FlowPayloadMethod {
+  FlowGetAccount = 'flow_getAccount',
+}
