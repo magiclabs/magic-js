@@ -1,3 +1,16 @@
+# (Tue Mar 07 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@13.6.0`, `@magic-sdk/types@11.6.0`
+  - Updated events to properly send otp [#469](https://github.com/magiclabs/magic-js/pull/469) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # (Mon Mar 06 2023)
 
 #### 🚀 Enhancement

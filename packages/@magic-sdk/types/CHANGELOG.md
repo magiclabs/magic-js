@@ -1,3 +1,19 @@
+# v11.6.0 (Tue Mar 07 2023)
+
+#### 🚀 Enhancement
+
+- Updated events to properly send otp [#469](https://github.com/magiclabs/magic-js/pull/469) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- updated events to properly send otc ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v11.5.0 (Tue Feb 28 2023)
 
 #### 🚀 Enhancement
