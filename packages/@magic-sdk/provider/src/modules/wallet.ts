@@ -1,5 +1,4 @@
-import UniversalProvider from '@walletconnect/universal-provider';
-import { Web3Modal } from '@web3modal/standalone';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 import { CoinbaseWalletProvider, CoinbaseWalletSDK } from '@coinbase/wallet-sdk';
 import {
   Errors,
@@ -12,8 +11,6 @@ import {
   Wallets,
 } from '@magic-sdk/types';
 
-import type { ConfigCtrlState } from '@web3modal/core';
-
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
@@ -21,10 +18,35 @@ import { setItem, getItem, removeItem } from '../util/storage';
 
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
-  public connectWithUI() {
-    // If within wallet browser, auto-connect without any UI
-    if (this.isMetaMaskBrowser() || this.isCoinbaseWalletBrowser()) {
-      return this.autoConnectIfWalletBrowser();
+  // TODO: tests
+  public async connectWithUI() {
+    // If within metamask wallet browser, auto-connect without any UI (if dapp has metamask enabled)
+    if (this.isMetaMaskBrowser()) {
+      try {
+        const isMetaMaskEnabledPayload = createJsonRpcRequestPayload('mc_is_wallet_enabled', [
+          { wallet: Wallets.MetaMask },
+        ]);
+        const isMetaMaskEnabled = await this.request<boolean>(isMetaMaskEnabledPayload);
+        if (isMetaMaskEnabled) {
+          return this.autoConnectIfWalletBrowser(Wallets.MetaMask);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    // If within coinbase wallet browser, auto-connect without any UI (if dapp has coinbase enabled)
+    if (this.isCoinbaseWalletBrowser()) {
+      try {
+        const isCoinbaseWalletEnabledPayload = createJsonRpcRequestPayload('mc_is_wallet_enabled', [
+          { wallet: Wallets.CoinbaseWallet },
+        ]);
+        const isCoinbaseWalletEnabled = await this.request<boolean>(isCoinbaseWalletEnabledPayload);
+        if (isCoinbaseWalletEnabled) {
+          return this.autoConnectIfWalletBrowser(Wallets.CoinbaseWallet);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     const userEnv = this.getUserEnv();
@@ -34,7 +56,7 @@ export class WalletModule extends BaseModule {
     loginRequest.on(Events.WalletSelected as any, async (params: { wallet: Wallets; showModal: boolean }) => {
       try {
         const address = await this.connectToThirdPartyWallet(params.wallet, loginRequestPayload.id, params.showModal);
-        setItem(this.localStorageKey, params.wallet);
+        setItem(this.localForageKey, params.wallet);
         this.createIntermediaryEvent(Events.WalletConnected as any, loginRequestPayload.id as any)(address);
       } catch (error) {
         this.createIntermediaryEvent(Events.WalletRejected as any, loginRequestPayload.id as any)();
@@ -45,21 +67,17 @@ export class WalletModule extends BaseModule {
   }
 
   /* Returns the provider for the connected wallet */
+  // TODO: tests
   public async getProvider(): Promise<any> {
-    const activeWallet = await getItem(this.localStorageKey);
+    const activeWallet = await getItem(this.localForageKey);
     switch (activeWallet) {
       case Wallets.MetaMask:
         return this.getMetaMaskProvider();
       case Wallets.WalletConnect:
-        try {
-          if (!this.sdk.thirdPartyWalletOptions?.walletConnect) {
-            throw new Error(Errors.WalletConnectError);
-          }
-          return this.getWalletConnectProvider();
-        } catch (error) {
-          console.error(error);
-          return null;
+        if (!this.sdk.thirdPartyWalletOptions?.walletConnect) {
+          throw new Error(Errors.WalletConnectError);
         }
+        return this.getWalletConnectProvider(false);
       case Wallets.CoinbaseWallet:
         if (!this.sdk.thirdPartyWalletOptions?.coinbaseWallet) {
           throw new Error(Errors.CoinbaseWalletError);
@@ -77,8 +95,10 @@ export class WalletModule extends BaseModule {
   }
 
   /* Get user info such as the wallet type they are logged in with */
-  public getInfo(): Promise<WalletInfo> {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo);
+  // TODO: tests
+  public async getInfo(): Promise<WalletInfo> {
+    const activeWallet = await getItem(this.localForageKey);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, [{ walletType: activeWallet }]);
     return this.request<WalletInfo>(requestPayload);
   }
 
@@ -89,15 +109,25 @@ export class WalletModule extends BaseModule {
   }
 
   /* Logout user */
-  public disconnect() {
+  // TODO: tests
+  public async disconnect(): Promise<boolean> {
     clearKeys();
-    removeItem(this.localStorageKey);
+    const activeWallet = await getItem(this.localForageKey);
+    if (activeWallet === Wallets.WalletConnect) {
+      const provider = await this.getWalletConnectProvider(false);
+      provider.disconnect();
+    }
+    if (activeWallet === Wallets.CoinbaseWallet) {
+      const coinbase = this.getCoinbaseProvider();
+      coinbase.provider.disconnect();
+    }
+    removeItem(this.localForageKey);
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Disconnect);
     return this.request<boolean>(requestPayload);
   }
 
   /* Private methods */
-  private localStorageKey = 'mc_active_wallet';
+  private localForageKey = 'mc_active_wallet';
 
   /* MetaMask */
   private isMetaMaskInstalled(): boolean {
@@ -125,36 +155,37 @@ export class WalletModule extends BaseModule {
   }
 
   /* Wallet Connect */
-  private async getWalletConnectProvider(): Promise<UniversalProvider> {
-    const providerConfig = this.sdk.thirdPartyWalletOptions?.walletConnect?.provider;
+  private async getWalletConnectProvider(showModal: boolean): Promise<WalletConnectProvider> {
+    const providerConfig = this.sdk.thirdPartyWalletOptions?.walletConnect;
     if (!providerConfig) {
       throw new Error(Errors.WalletConnectError);
     }
-    const universalProvider = await UniversalProvider.init(providerConfig);
-    return universalProvider;
+    const provider = new WalletConnectProvider({
+      ...(providerConfig as any),
+      qrcode: showModal,
+    });
+    const activeWallet = await getItem(this.localForageKey);
+    const isConnected = localStorage.getItem('walletconnect');
+    // Only enable Wallet Connect provider if wallet is still connected
+    if (activeWallet && isConnected) {
+      await provider.enable();
+    }
+    return provider;
   }
 
+  // TODO: tests
   private async connectToWalletConnect(payloadId: any, showModal?: boolean): Promise<string[]> {
     if (!this.sdk.thirdPartyWalletOptions?.walletConnect) {
       throw new Error(Errors.WalletConnectError);
     }
-    const modal = new Web3Modal(this.sdk.thirdPartyWalletOptions?.walletConnect?.modal);
-    // Ensure Wallet Connect widget is displayed on top of Magic iframe
-    modal.setTheme({ themeZIndex: 2147483660 } as ConfigCtrlState);
-    const universalProvider = await this.getWalletConnectProvider();
-
-    universalProvider.on(Events.DisplayUri, async (uri: string) => {
-      if (showModal) {
-        modal.openModal({ uri });
-      } else {
+    const provider = await this.getWalletConnectProvider(!!showModal);
+    provider.connector.on(Events.DisplayUri, (err, payload: any) => {
+      if (!showModal) {
+        const uri = payload.params[0];
         this.createIntermediaryEvent(Events.Uri as any, payloadId)(uri);
       }
     });
-
-    // Triggers 'display_uri' event
-    await universalProvider.connect(this.sdk.thirdPartyWalletOptions?.walletConnect?.connect);
-    modal.closeModal();
-    return universalProvider.request({ method: 'eth_accounts' });
+    return provider.enable();
   }
 
   /* Coinbase Wallet */
@@ -166,10 +197,7 @@ export class WalletModule extends BaseModule {
   }
 
   private isCoinbaseWalletBrowser(): boolean {
-    return (
-      (window as any).ethereum?.isCoinbaseBrowser ||
-      !!(window as any).ethereum?.providers?.find((provider: any) => provider?.isCoinbaseBrowser)
-    );
+    return !!(window as any).ethereum?.isCoinbaseBrowser;
   }
 
   private getCoinbaseProvider(): { provider: CoinbaseWalletProvider; qrCodeUrl: string | null } {
@@ -206,8 +234,8 @@ export class WalletModule extends BaseModule {
 
   /* Helpers */
   private isMobile(): boolean {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
-      navigator.userAgent.toLocaleLowerCase(),
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Silk|Opera Mini/i.test(
+      navigator.userAgent,
     );
   }
 
@@ -220,44 +248,35 @@ export class WalletModule extends BaseModule {
     };
   }
 
-  private async connectToThirdPartyWallet(provider: Wallets, payloadId: any, showModal?: boolean): Promise<any> {
-    let address;
+  // TODO: tests
+  private connectToThirdPartyWallet(provider: Wallets, payloadId: any, showModal?: boolean): Promise<any> {
     switch (provider) {
       case Wallets.MetaMask:
-        address = await this.connectToMetaMask();
-        break;
+        return this.connectToMetaMask();
       case Wallets.WalletConnect:
-        address = await this.connectToWalletConnect(payloadId, showModal);
-        break;
+        return this.connectToWalletConnect(payloadId, showModal);
       case Wallets.CoinbaseWallet:
-        address = await this.connectToCoinbaseWallet(payloadId);
-        break;
+        return this.connectToCoinbaseWallet(payloadId);
       default:
-        break;
+        throw new Error(
+          `Invalid provider: ${provider}. Must be one of "metamask", "coinbase_wallet", or "wallet_connect".`,
+        );
     }
-    return address;
   }
 
-  private async autoConnectIfWalletBrowser(): Promise<string[]> {
-    let wallet;
+  // TODO: tests
+  private async autoConnectIfWalletBrowser(wallet: Wallets): Promise<string[]> {
     let address;
-
-    if (this.isMetaMaskBrowser()) {
-      try {
-        wallet = Wallets.MetaMask;
+    try {
+      if (wallet === Wallets.MetaMask) {
         address = await this.getMetaMaskProvider().request({ method: 'eth_requestAccounts' });
-        setItem(this.localStorageKey, Wallets.MetaMask);
-      } catch (error) {
-        console.error(error);
       }
-    } else if (this.isCoinbaseWalletBrowser()) {
-      try {
-        wallet = Wallets.CoinbaseWallet;
+      if (wallet === Wallets.CoinbaseWallet) {
         address = await this.getCoinbaseProvider().provider.request({ method: 'eth_requestAccounts' });
-        setItem(this.localStorageKey, Wallets.CoinbaseWallet);
-      } catch (error) {
-        console.error(error);
       }
+      setItem(this.localForageKey, wallet);
+    } catch (error) {
+      console.error(error);
     }
     const autoConnectPayload = createJsonRpcRequestPayload(MagicPayloadMethod.AutoConnect, [{ wallet, address }]);
     const autoConnectRequest = this.request<string[]>(autoConnectPayload);
