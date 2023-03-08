@@ -6,18 +6,21 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Generate JSON RPC request payload with method `eth_requestAccounts`', async () => {
+test('Generate JSON RPC request payload with method `mc_login` and `env` params as an object', async () => {
   const magic = createMagicSDK();
   magic.wallet.request = jest.fn();
 
-  magic.wallet.connectWithUI();
+  await magic.wallet.connectWithUI();
 
   const requestPayload = magic.wallet.request.mock.calls[0][0];
-  expect(requestPayload.method).toBe('eth_requestAccounts');
-  expect(requestPayload.params).toEqual([]);
-});
 
-test('method should return a PromiEvent', () => {
-  const magic = createMagicSDK();
-  expect(isPromiEvent(magic.wallet.connectWithUI())).toBeTruthy();
+  expect(requestPayload.method).toBe('mc_login');
+  expect(requestPayload.params).toEqual([
+    {
+      env: {
+        isCoinbaseWalletInstalled: false,
+        isMetaMaskInstalled: false,
+      },
+    },
+  ]);
 });

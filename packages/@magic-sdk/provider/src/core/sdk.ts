@@ -138,10 +138,10 @@ export class SDKBase {
       createReactNativeEndpointConfigurationWarning().log();
     }
 
-    const { defaultEndpoint, version } = SDKEnvironment;
+    const { defaultEndpoint, version, thirdPartyWalletOptions } = SDKEnvironment;
     this.testMode = !!options?.testMode;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
-    this.thirdPartyWalletOptions = options?.thirdPartyWalletOptions;
+    this.thirdPartyWalletOptions = thirdPartyWalletOptions || options?.thirdPartyWalletOptions;
 
     // Prepare built-in modules
     this.auth = new AuthModule(this);
