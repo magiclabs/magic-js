@@ -1356,7 +1356,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/transactions@npm:^5.0.0-beta.135":
+"@ethersproject/transactions@npm:^5.0.0-beta.135, @ethersproject/transactions@npm:^5.6.2":
   version: 5.7.0
   resolution: "@ethersproject/transactions@npm:5.7.0"
   dependencies:
@@ -2731,7 +2731,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/algorand@workspace:packages/@magic-ext/algorand"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2739,7 +2739,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/avalanche@workspace:packages/@magic-ext/avalanche"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2747,7 +2747,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/bitcoin@workspace:packages/@magic-ext/bitcoin"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2755,7 +2755,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/conflux@workspace:packages/@magic-ext/conflux"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2763,7 +2763,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/connect@workspace:packages/@magic-ext/connect"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2771,7 +2771,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/cosmos@workspace:packages/@magic-ext/cosmos"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2779,7 +2779,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/ed25519@workspace:packages/@magic-ext/ed25519"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2787,7 +2787,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/flow@workspace:packages/@magic-ext/flow"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
     "@onflow/fcl": 0.0.41
     "@onflow/types": 0.0.3
   peerDependencies:
@@ -2800,7 +2800,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/harmony@workspace:packages/@magic-ext/harmony"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2808,7 +2808,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/icon@workspace:packages/@magic-ext/icon"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2816,18 +2816,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/near@workspace:packages/@magic-ext/near"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
-"@magic-ext/oauth@^7.5.0, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
+"@magic-ext/oauth@^7.6.0, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
   dependencies:
-    "@magic-sdk/types": ^11.5.0
+    "@magic-sdk/types": ^11.6.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
-    magic-sdk: ^13.5.0
+    magic-sdk: ^13.6.0
   languageName: unknown
   linkType: soft
 
@@ -2843,7 +2843,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/polkadot@workspace:packages/@magic-ext/polkadot"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2851,7 +2851,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-bare-oauth@workspace:packages/@magic-ext/react-native-bare-oauth"
   dependencies:
-    "@magic-sdk/react-native-bare": ^14.5.0
+    "@magic-sdk/react-native-bare": ^14.6.0
     "@magic-sdk/types": ^10.0.1
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
@@ -2867,7 +2867,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-expo-oauth@workspace:packages/@magic-ext/react-native-expo-oauth"
   dependencies:
-    "@magic-sdk/react-native-expo": ^14.5.0
+    "@magic-sdk/react-native-expo": ^14.6.0
     "@magic-sdk/types": ^10.0.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
@@ -2882,7 +2882,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/solana@workspace:packages/@magic-ext/solana"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2890,7 +2890,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/taquito@workspace:packages/@magic-ext/taquito"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2898,7 +2898,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/terra@workspace:packages/@magic-ext/terra"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2906,7 +2906,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/tezos@workspace:packages/@magic-ext/tezos"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2914,7 +2914,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/webauthn@workspace:packages/@magic-ext/webauthn"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
@@ -2922,16 +2922,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/zilliqa@workspace:packages/@magic-ext/zilliqa"
   dependencies:
-    "@magic-sdk/commons": ^9.5.0
+    "@magic-sdk/commons": ^9.6.0
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/commons@^9.5.0, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
+"@magic-sdk/commons@^9.6.0, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/commons@workspace:packages/@magic-sdk/commons"
   dependencies:
-    "@magic-sdk/provider": ^13.5.0
-    "@magic-sdk/types": ^11.5.0
+    "@magic-sdk/provider": ^13.6.0
+    "@magic-sdk/types": ^11.6.0
   peerDependencies:
     "@magic-sdk/provider": ">=4.3.0"
     "@magic-sdk/types": ">=3.1.1"
@@ -2955,23 +2955,23 @@ __metadata:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-    "@magic-ext/oauth": ^7.5.0
-    magic-sdk: ^13.5.0
+    "@magic-ext/oauth": ^7.6.0
+    magic-sdk: ^13.6.0
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@^13.5.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+"@magic-sdk/provider@^13.6.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
     "@babel/plugin-transform-modules-commonjs": ^7.9.6
-    "@magic-sdk/types": ^11.5.0
+    "@magic-sdk/types": ^11.6.0
     "@peculiar/webcrypto": ^1.1.7
     eventemitter3: ^4.0.4
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
     tslib: ^2.3.1
-    web3-core: 1.5.2
+    web3-core: 1.8.2
   peerDependencies:
     localforage: ^1.7.4
   languageName: unknown
@@ -2990,7 +2990,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magic-sdk/react-native-bare@^14.5.0, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
+"@magic-sdk/react-native-bare@^14.6.0, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
   dependencies:
@@ -2998,9 +2998,9 @@ __metadata:
     "@babel/core": ^7.15.0
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/runtime": ~7.10.4
-    "@magic-sdk/commons": ^9.5.0
-    "@magic-sdk/provider": ^13.5.0
-    "@magic-sdk/types": ^11.5.0
+    "@magic-sdk/commons": ^9.6.0
+    "@magic-sdk/provider": ^13.6.0
+    "@magic-sdk/types": ^11.6.0
     "@react-native-async-storage/async-storage": ^1.15.5
     "@react-native-community/async-storage": ^1.12.1
     "@types/lodash": ^4.14.158
@@ -3027,7 +3027,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-expo@^14.5.0, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
+"@magic-sdk/react-native-expo@^14.6.0, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
@@ -3035,9 +3035,9 @@ __metadata:
     "@babel/core": ^7.15.0
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/runtime": ~7.10.4
-    "@magic-sdk/commons": ^9.5.0
-    "@magic-sdk/provider": ^13.5.0
-    "@magic-sdk/types": ^11.5.0
+    "@magic-sdk/commons": ^9.6.0
+    "@magic-sdk/provider": ^13.6.0
+    "@magic-sdk/types": ^11.6.0
     "@react-native-async-storage/async-storage": ^1.15.5
     "@types/lodash": ^4.14.158
     buffer: ~5.6.0
@@ -3063,7 +3063,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/types@^11.5.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
+"@magic-sdk/types@^11.6.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
   languageName: unknown
@@ -4318,6 +4318,13 @@ __metadata:
   dependencies:
     event-target-shim: ^5.0.0
   checksum: 170bdba9b47b7e65906a28c8ce4f38a7a369d78e2271706f020849c1bfe0ee2067d4261df8bbb66eb84f79208fd5b710df759d64191db58cfba7ce8ef9c54b75
+  languageName: node
+  linkType: hard
+
+"abortcontroller-polyfill@npm:^1.7.3":
+  version: 1.7.5
+  resolution: "abortcontroller-polyfill@npm:1.7.5"
+  checksum: daf4169f4228ae0e4f4dbcfa782e501b923667f2666b7c55bd3b7664e5d6b100e333a93371173985fdf21f65d7dfba15bdb2e6031bdc9e57e4ce0297147da3aa
   languageName: node
   linkType: hard
 
@@ -6641,6 +6648,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cross-fetch@npm:^3.1.4":
+  version: 3.1.5
+  resolution: "cross-fetch@npm:3.1.5"
+  dependencies:
+    node-fetch: 2.6.7
+  checksum: f6b8c6ee3ef993ace6277fd789c71b6acf1b504fd5f5c7128df4ef2f125a429e29cd62dc8c127523f04a5f2fa4771ed80e3f3d9695617f441425045f505cf3bb
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^4":
   version: 4.0.2
   resolution: "cross-spawn@npm:4.0.2"
@@ -7489,7 +7505,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es6-promise@npm:^4.0.3":
+"es6-promise@npm:^4.0.3, es6-promise@npm:^4.2.8":
   version: 4.2.8
   resolution: "es6-promise@npm:4.2.8"
   checksum: 95614a88873611cb9165a85d36afa7268af5c03a378b35ca7bda9508e1d4f1f6f19a788d4bc755b3fd37c8ebba40782018e02034564ff24c9d6fa37e959ad57d
@@ -8157,7 +8173,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethereumjs-util@npm:^7.1.5":
+"ethereumjs-util@npm:^7.1.0, ethereumjs-util@npm:^7.1.5":
   version: 7.1.5
   resolution: "ethereumjs-util@npm:7.1.5"
   dependencies:
@@ -12338,16 +12354,16 @@ fsevents@^2.3.2:
   languageName: unknown
   linkType: soft
 
-"magic-sdk@^13.5.0, magic-sdk@workspace:packages/magic-sdk":
+"magic-sdk@^13.6.0, magic-sdk@workspace:packages/magic-sdk":
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-    "@magic-sdk/commons": ^9.5.0
-    "@magic-sdk/provider": ^13.5.0
-    "@magic-sdk/types": ^11.5.0
+    "@magic-sdk/commons": ^9.6.0
+    "@magic-sdk/provider": ^13.6.0
+    "@magic-sdk/types": ^11.6.0
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
   languageName: unknown
@@ -18398,7 +18414,7 @@ typescript@~4.4.2:
   languageName: node
   linkType: hard
 
-"util@npm:^0.12.0":
+"util@npm:^0.12.0, util@npm:^0.12.5":
   version: 0.12.5
   resolution: "util@npm:0.12.5"
   dependencies:
@@ -18553,6 +18569,16 @@ typescript@~4.4.2:
   languageName: node
   linkType: hard
 
+"web3-core-helpers@npm:1.8.2":
+  version: 1.8.2
+  resolution: "web3-core-helpers@npm:1.8.2"
+  dependencies:
+    web3-eth-iban: 1.8.2
+    web3-utils: 1.8.2
+  checksum: 6575b26587aad005fb17658938fa07bc9769019e3451960130a00ac83500c27c35708eafd1382d9cc0a2ea0e39ca220d83a2ff28430ef67ea009768f3cbce03d
+  languageName: node
+  linkType: hard
+
 "web3-core-method@npm:1.5.2":
   version: 1.5.2
   resolution: "web3-core-method@npm:1.5.2"
@@ -18567,12 +18593,34 @@ typescript@~4.4.2:
   languageName: node
   linkType: hard
 
+"web3-core-method@npm:1.8.2":
+  version: 1.8.2
+  resolution: "web3-core-method@npm:1.8.2"
+  dependencies:
+    "@ethersproject/transactions": ^5.6.2
+    web3-core-helpers: 1.8.2
+    web3-core-promievent: 1.8.2
+    web3-core-subscriptions: 1.8.2
+    web3-utils: 1.8.2
+  checksum: 99ef07865a9dc09615bd0fb1dab7a35851e24b5541f3daeda4f668911ad2540395a8bb358e52273740696bb159858d8c8e295f850afc6ab30d6c7a8be20b0223
+  languageName: node
+  linkType: hard
+
 "web3-core-promievent@npm:1.5.2":
   version: 1.5.2
   resolution: "web3-core-promievent@npm:1.5.2"
   dependencies:
     eventemitter3: 4.0.4
   checksum: b19f1546e9ae4620c65a335cee2dac881684c0f0ab7d29384a950b384b42d9b156d85ed77a1fc3191d73bc8b1879507626525cf98c3bf17c5c973416ed4a64b4
+  languageName: node
+  linkType: hard
+
+"web3-core-promievent@npm:1.8.2":
+  version: 1.8.2
+  resolution: "web3-core-promievent@npm:1.8.2"
+  dependencies:
+    eventemitter3: 4.0.4
+  checksum: 41ee45b313e735e205cf76de5255bbc013eb82c62474b3b4a282a2ca756114898bf4d40b1cb423ef487979d89dd282728d93d9b1afad1040cc449de3aba297f7
   languageName: node
   linkType: hard
 
@@ -18589,6 +18637,19 @@ typescript@~4.4.2:
   languageName: node
   linkType: hard
 
+"web3-core-requestmanager@npm:1.8.2":
+  version: 1.8.2
+  resolution: "web3-core-requestmanager@npm:1.8.2"
+  dependencies:
+    util: ^0.12.5
+    web3-core-helpers: 1.8.2
+    web3-providers-http: 1.8.2
+    web3-providers-ipc: 1.8.2
+    web3-providers-ws: 1.8.2
+  checksum: 6a7374aade4dd32232fef929be5f2b2e4e0830cf7071d44343f3735a52ea0b4e64b4959297a3d1237716742406dafa61d16d5123d3c5288b21df00e06ea4555d
+  languageName: node
+  linkType: hard
+
 "web3-core-subscriptions@npm:1.5.2":
   version: 1.5.2
   resolution: "web3-core-subscriptions@npm:1.5.2"
@@ -18596,6 +18657,16 @@ typescript@~4.4.2:
     eventemitter3: 4.0.4
     web3-core-helpers: 1.5.2
   checksum: 95a8b02110ccd8701f09c1f7ab0beae27f06818ffef1388edd649556f8207bafeb83c334224cb3de31921bae10b251f212eaafd102b915f5f767736e6792eec7
+  languageName: node
+  linkType: hard
+
+"web3-core-subscriptions@npm:1.8.2":
+  version: 1.8.2
+  resolution: "web3-core-subscriptions@npm:1.8.2"
+  dependencies:
+    eventemitter3: 4.0.4
+    web3-core-helpers: 1.8.2
+  checksum: e4bc9b4e62f4c5357e9111fe73edc4c880e2c3ad1476fbbd2d63851f05c3e60485aca9f524a5c1bd317953a68f8012f3c45343603b9785b131c6cbda0b46864d
   languageName: node
   linkType: hard
 
@@ -18614,6 +18685,21 @@ typescript@~4.4.2:
   languageName: node
   linkType: hard
 
+"web3-core@npm:1.8.2":
+  version: 1.8.2
+  resolution: "web3-core@npm:1.8.2"
+  dependencies:
+    "@types/bn.js": ^5.1.0
+    "@types/node": ^12.12.6
+    bignumber.js: ^9.0.0
+    web3-core-helpers: 1.8.2
+    web3-core-method: 1.8.2
+    web3-core-requestmanager: 1.8.2
+    web3-utils: 1.8.2
+  checksum: 362405c7b3646723724ebc134426ff7809cadc66eee1cf411c05d2d46a1c57e211c5d32d7da936d36e94f20e9afe54ad3a921fa7d90b77410fab8ef1a6203f7a
+  languageName: node
+  linkType: hard
+
 "web3-eth-iban@npm:1.5.2":
   version: 1.5.2
   resolution: "web3-eth-iban@npm:1.5.2"
@@ -18621,6 +18707,16 @@ typescript@~4.4.2:
     bn.js: ^4.11.9
     web3-utils: 1.5.2
   checksum: 62a4646aa11206a7b230083027f286c8961df67bd076ae3b69edfbf8af7bf1c9ee125e7640bfcc5826c4b01b88f5e76ca569f39f29d25a5ca9e4e057852d53eb
+  languageName: node
+  linkType: hard
+
+"web3-eth-iban@npm:1.8.2":
+  version: 1.8.2
+  resolution: "web3-eth-iban@npm:1.8.2"
+  dependencies:
+    bn.js: ^5.2.1
+    web3-utils: 1.8.2
+  checksum: 915cb79d90a5bbca4694df1a29583ea52ba4482fee95534a3ec28632a3e196dd01f50bb38ad8cbeb65abd109b76afda9b207675cb6a8184f633902afb4cbfbb5
   languageName: node
   linkType: hard
 
@@ -18634,6 +18730,18 @@ typescript@~4.4.2:
   languageName: node
   linkType: hard
 
+"web3-providers-http@npm:1.8.2":
+  version: 1.8.2
+  resolution: "web3-providers-http@npm:1.8.2"
+  dependencies:
+    abortcontroller-polyfill: ^1.7.3
+    cross-fetch: ^3.1.4
+    es6-promise: ^4.2.8
+    web3-core-helpers: 1.8.2
+  checksum: 5f95ca0be78d7f8e96dec128a78b7a3b49d42143be77fede874f35b0c3ce3f0422e56ec3a21171be0df7adce1c1df06ee2b23f5ba8d673b411a62edf5acd4843
+  languageName: node
+  linkType: hard
+
 "web3-providers-ipc@npm:1.5.2":
   version: 1.5.2
   resolution: "web3-providers-ipc@npm:1.5.2"
@@ -18641,6 +18749,16 @@ typescript@~4.4.2:
     oboe: 2.1.5
     web3-core-helpers: 1.5.2
   checksum: 3e798bf6cceb2d24f9e12c9f0988d9bdbe97a012e913aa56cf53cf90d82305b39465e181c84b3a30ca14a7edd1489ffe5ea33501cdc845a5f17405a759c16bb9
+  languageName: node
+  linkType: hard
+
+"web3-providers-ipc@npm:1.8.2":
+  version: 1.8.2
+  resolution: "web3-providers-ipc@npm:1.8.2"
+  dependencies:
+    oboe: 2.1.5
+    web3-core-helpers: 1.8.2
+  checksum: d143064e96223ca79cb751c5e1f10bb48c3181ec87d7f61127e05eb733c67075c98de4126db793b3cf36102dda39f3e9d63927e592c43373158373c17a8e252b
   languageName: node
   linkType: hard
 
@@ -18652,6 +18770,17 @@ typescript@~4.4.2:
     web3-core-helpers: 1.5.2
     websocket: ^1.0.32
   checksum: 4761be2882fd2549505ff2e5d6bec9a235ac9dff933e1013a22b8ed23eaf3178f1824180ff841264a8f9947c9c02165bb52578edd1d3a7889c33f99a8f952bc8
+  languageName: node
+  linkType: hard
+
+"web3-providers-ws@npm:1.8.2":
+  version: 1.8.2
+  resolution: "web3-providers-ws@npm:1.8.2"
+  dependencies:
+    eventemitter3: 4.0.4
+    web3-core-helpers: 1.8.2
+    websocket: ^1.0.32
+  checksum: 45fb8e29b3111e0fea4ed6f83e28895d3b6bf151811a65002a04bc39c52b5e70324db4c35f00f842637e225a9d451519e4714f51c7cd518be52784dd0632bf8d
   languageName: node
   linkType: hard
 
@@ -18667,6 +18796,21 @@ typescript@~4.4.2:
     randombytes: ^2.1.0
     utf8: 3.0.0
   checksum: 5e2015fb0440637140e4bac02dcf955f1a876b21597f2ac60c3e4d3ebbdfb278184fc43ad296395a76874aa49e5142c6ef13a0f93c07b4f28517faa0d067b67d
+  languageName: node
+  linkType: hard
+
+"web3-utils@npm:1.8.2":
+  version: 1.8.2
+  resolution: "web3-utils@npm:1.8.2"
+  dependencies:
+    bn.js: ^5.2.1
+    ethereum-bloom-filters: ^1.0.6
+    ethereumjs-util: ^7.1.0
+    ethjs-unit: 0.1.6
+    number-to-bn: 1.7.0
+    randombytes: ^2.1.0
+    utf8: 3.0.0
+  checksum: a6cda086d7bde4939fc55be8f1dc5040b4cacd9205ac2ac07f37d14305214679e030af7814a3e97f6fabf2901e3452cd0dc8ce7c1cdd8bce4d0d4bae72c50ad9
   languageName: node
   linkType: hard
 
