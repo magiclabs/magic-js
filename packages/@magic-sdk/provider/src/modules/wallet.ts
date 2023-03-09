@@ -18,7 +18,6 @@ import { setItem, getItem, removeItem } from '../util/storage';
 
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
-  // TODO: tests
   public async connectWithUI() {
     // If within metamask wallet browser, auto-connect without any UI (if dapp has metamask enabled)
     if (this.isMetaMaskBrowser()) {
@@ -30,6 +29,7 @@ export class WalletModule extends BaseModule {
         if (isMetaMaskEnabled) {
           return this.autoConnectIfWalletBrowser(Wallets.MetaMask);
         }
+        // If not enabled, continue with normal flow
       } catch (error) {
         console.error(error);
       }
@@ -44,6 +44,7 @@ export class WalletModule extends BaseModule {
         if (isCoinbaseWalletEnabled) {
           return this.autoConnectIfWalletBrowser(Wallets.CoinbaseWallet);
         }
+        // If not enabled, continue with normal flow
       } catch (error) {
         console.error(error);
       }
@@ -56,7 +57,7 @@ export class WalletModule extends BaseModule {
     loginRequest.on(Events.WalletSelected as any, async (params: { wallet: Wallets; showModal: boolean }) => {
       try {
         const address = await this.connectToThirdPartyWallet(params.wallet, loginRequestPayload.id, params.showModal);
-        setItem(this.localForageKey, params.wallet);
+        await setItem(this.localForageKey, params.wallet);
         this.createIntermediaryEvent(Events.WalletConnected as any, loginRequestPayload.id as any)(address);
       } catch (error) {
         this.createIntermediaryEvent(Events.WalletRejected as any, loginRequestPayload.id as any)();
@@ -95,7 +96,6 @@ export class WalletModule extends BaseModule {
   }
 
   /* Get user info such as the wallet type they are logged in with */
-  // TODO: tests
   public async getInfo(): Promise<WalletInfo> {
     const activeWallet = await getItem(this.localForageKey);
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, [{ walletType: activeWallet }]);
@@ -109,7 +109,6 @@ export class WalletModule extends BaseModule {
   }
 
   /* Logout user */
-  // TODO: tests
   public async disconnect(): Promise<boolean> {
     clearKeys();
     const activeWallet = await getItem(this.localForageKey);
@@ -173,7 +172,6 @@ export class WalletModule extends BaseModule {
     return provider;
   }
 
-  // TODO: tests
   private async connectToWalletConnect(payloadId: any, showModal?: boolean): Promise<string[]> {
     if (!this.sdk.thirdPartyWalletOptions?.walletConnect) {
       throw new Error(Errors.WalletConnectError);
@@ -248,7 +246,6 @@ export class WalletModule extends BaseModule {
     };
   }
 
-  // TODO: tests
   private connectToThirdPartyWallet(provider: Wallets, payloadId: any, showModal?: boolean): Promise<any> {
     switch (provider) {
       case Wallets.MetaMask:
@@ -264,7 +261,6 @@ export class WalletModule extends BaseModule {
     }
   }
 
-  // TODO: tests
   private async autoConnectIfWalletBrowser(wallet: Wallets): Promise<string[]> {
     let address;
     try {
@@ -274,7 +270,7 @@ export class WalletModule extends BaseModule {
       if (wallet === Wallets.CoinbaseWallet) {
         address = await this.getCoinbaseProvider().provider.request({ method: 'eth_requestAccounts' });
       }
-      setItem(this.localForageKey, wallet);
+      await setItem(this.localForageKey, wallet);
     } catch (error) {
       console.error(error);
     }

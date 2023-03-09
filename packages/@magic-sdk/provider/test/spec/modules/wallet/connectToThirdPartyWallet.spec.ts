@@ -63,11 +63,11 @@ test('Connects to coinbase_wallet', async () => {
 
 test('Connects to wallet_connect', async () => {
   const provider = {
-    request: async (request: { method: string; params?: Array<any> }) => {
-      if (request.method === 'eth_requestAccounts') {
-        return ['0x0000000000000000000000000000000000000000'];
-      }
-      return '';
+    connector: {
+      on: () => null,
+    },
+    enable: async () => {
+      return ['0x0000000000000000000000000000000000000000'];
     },
   };
 

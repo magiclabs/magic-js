@@ -5,18 +5,7 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Sends rpc request with method `mc_auto_connect`', async () => {
-  const magic = createMagicSDK();
-  magic.wallet.request = jest.fn();
-
-  magic.wallet.autoConnectIfWalletBrowser('metamask');
-  const requestPayload = magic.wallet.request.mock.calls[0][0];
-  expect(requestPayload.method).toBe('mc_auto_connect');
-});
-
 test('If metamask browser, wallet and address params should be populated', async () => {
-  // Object.defineProperty(window.navigator, 'userAgent', { value: 'iPhone', configurable: true });
-
   const provider = {
     isMetaMask: true,
     request: async (request: { method: string; params?: Array<any> }) => {
@@ -33,6 +22,7 @@ test('If metamask browser, wallet and address params should be populated', async
 
   await magic.wallet.autoConnectIfWalletBrowser('metamask');
   const requestPayload = magic.wallet.request.mock.calls[0][0];
+  expect(requestPayload.method).toBe('mc_auto_connect');
   expect(requestPayload.params).toEqual([
     { wallet: 'metamask', address: ['0x0000000000000000000000000000000000000000'] },
   ]);
@@ -72,6 +62,7 @@ test('If coinbase browser, wallet and address params should be populated', async
   }));
   await magic.wallet.autoConnectIfWalletBrowser('coinbase_wallet');
   const requestPayload = magic.wallet.request.mock.calls[0][0];
+  expect(requestPayload.method).toBe('mc_auto_connect');
   expect(requestPayload.params).toEqual([
     { wallet: 'coinbase_wallet', address: ['0x0000000000000000000000000000000000000000'] },
   ]);

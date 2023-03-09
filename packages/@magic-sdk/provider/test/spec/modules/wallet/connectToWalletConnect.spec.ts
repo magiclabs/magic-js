@@ -7,7 +7,9 @@ beforeEach(() => {
 
 test('Returns connected wallet address in array', async () => {
   const provider = {
-    isCoinbaseBrowser: true,
+    connector: {
+      on: () => null,
+    },
     enable: async () => {
       return ['0x0000000000000000000000000000000000000000'];
     },
@@ -19,7 +21,11 @@ test('Returns connected wallet address in array', async () => {
       },
     },
   });
-  magic.wallet.request = jest.fn();
+  magic.wallet.request = jest.fn(() => {
+    return {
+      on: () => null,
+    };
+  });
   magic.wallet.getWalletConnectProvider = jest.fn(() => provider);
 
   const response = await magic.wallet.connectToWalletConnect();

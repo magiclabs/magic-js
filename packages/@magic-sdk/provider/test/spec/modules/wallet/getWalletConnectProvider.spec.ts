@@ -22,7 +22,11 @@ test('Fetches wallet connect provider', async () => {
       },
     },
   });
-  magic.wallet.request = jest.fn();
+  magic.wallet.request = jest.fn(() => {
+    return {
+      on: () => null,
+    };
+  });
   magic.wallet.getWalletConnectProvider = jest.fn(() => provider);
 
   const response = magic.wallet.getWalletConnectProvider(false);

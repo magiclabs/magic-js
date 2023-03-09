@@ -1,6 +1,5 @@
 import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
-import { isPromiEvent } from '../../../../src/util';
 
 beforeEach(() => {
   browserEnv.restore();
@@ -8,7 +7,11 @@ beforeEach(() => {
 
 test('Generate JSON RPC request payload with method `mc_login` and `env` params as an object', async () => {
   const magic = createMagicSDK();
-  magic.wallet.request = jest.fn();
+  magic.wallet.request = jest.fn(() => {
+    return {
+      on: () => null,
+    };
+  });
 
   await magic.wallet.connectWithUI();
 
