@@ -204,7 +204,7 @@ export class WalletModule extends BaseModule {
       throw new Error(Errors.CoinbaseWalletError);
     }
     const coinbaseWallet = new CoinbaseWalletSDK({
-      ...sdkConfig,
+      ...(sdkConfig as any),
       overrideIsMetaMask: false,
       headlessMode: true,
     });
