@@ -1,4 +1,5 @@
 import { build as esbuild, BuildFailure, BuildResult, Platform, Plugin, Format } from 'esbuild';
+import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
 import path from 'path';
 import fse from 'fs-extra';
 import gzipSize from 'gzip-size';
@@ -41,7 +42,7 @@ export async function build(options: ESBuildOptions) {
         define: Object.fromEntries(
           Object.entries(environment).map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)]),
         ),
-        plugins: [...globalsPlugin(options.globals || {})],
+        plugins: [...globalsPlugin(options.globals || {}), NodeModulesPolyfillPlugin()],
 
         // We need this footer because: https://github.com/evanw/esbuild/issues/1182
         footer:
