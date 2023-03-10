@@ -1,6 +1,6 @@
 export interface ThirdPartyWalletOptions {
   coinbaseWallet?: {
-    sdk: any;
+    sdk: CoinbaseWalletSDKOptions;
     provider: {
       jsonRpcUrl?: string;
       chainId?: number;
