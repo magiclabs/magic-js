@@ -28,6 +28,7 @@ export class MagicRPCError extends Error {
 
   public code: RPCErrorCode | number;
   public rawMessage: string;
+  public data: any;
 
   constructor(sourceError?: JsonRpcError | null) {
     super();
@@ -36,6 +37,7 @@ export class MagicRPCError extends Error {
     this.rawMessage = sourceError?.message || 'Internal error';
     this.code = isJsonRpcErrorCode(codeNormalized) ? codeNormalized : RPCErrorCode.InternalError;
     this.message = `Magic RPC Error: [${this.code}] ${this.rawMessage}`;
+    this.data = sourceError?.data || undefined;
 
     Object.setPrototypeOf(this, MagicRPCError.prototype);
   }
