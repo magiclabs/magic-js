@@ -115,4 +115,8 @@ export enum MagicPayloadMethod {
   NFTPurchase = 'magic_nft_purchase',
   RequestUserInfoWithUI = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',
+  UpdatePhoneNumber = 'magic_auth_update_phone_number',
+  UpdatePhoneNumberTestMode = 'magic_auth_update_phone_number_testing_mode',
+  RecoverAccount = 'magic_auth_recover_account',
+  RecoverAccountTestMode = 'magic_auth_recover_account_testing_mode',
 }

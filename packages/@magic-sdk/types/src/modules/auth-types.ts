@@ -50,10 +50,8 @@ export type LoginWithMagicLinkEvents = {
 };
 
 export type LoginWithEmailOTPEvents = {
-  'send-email-otp': (email: string) => void;
+  'email-otp-sent': () => void;
+  'otp-input-sent': (otp: string) => void;
   'verify-email-otp': (otp: string) => void;
-  'email-not-deliverable': () => void;
-  'invalid-email-format': () => void;
   'invalid-email-otp': () => void;
-  'lockout-too-many-failed-attempts': () => void;
 };

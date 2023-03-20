@@ -46,11 +46,20 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
-    const { email } = configuration;
+    const { email, showUI } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
-      [{ email, showUI: true }],
+      [{ email, showUI }],
     );
+    if (!showUI) {
+      const handle = this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
+      if (handle) {
+        handle.on('otp-input-sent', (otp: string) => {
+          this.createIntermediaryEvent('verify-email-otp', requestPayload.id as any)(otp);
+        });
+      }
+      return handle;
+    }
     return this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
   }
 

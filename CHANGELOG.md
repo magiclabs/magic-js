@@ -1,3 +1,132 @@
+# (Tue Mar 07 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@13.6.0`, `@magic-sdk/types@11.6.0`
+  - Updated events to properly send otp [#469](https://github.com/magiclabs/magic-js/pull/469) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
+# (Mon Mar 06 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/flow@8.6.0`
+  - flow getAccount and pass cadence in [#466](https://github.com/magiclabs/magic-js/pull/466) ([@harryEth](https://github.com/harryEth))
+
+#### Authors: 1
+
+- [@harryEth](https://github.com/harryEth)
+
+---
+
+# (Tue Feb 28 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@13.5.0`, `@magic-sdk/types@11.5.0`
+  - LoginWithEmailOtp Whitelabeling [#414](https://github.com/magiclabs/magic-js/pull/414) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
+# (Mon Feb 27 2023)
+
+#### 🐛 Bug Fix
+
+- `magic-sdk@13.4.1`
+  - removed 'authentication' from titles on readme [#464](https://github.com/magiclabs/magic-js/pull/464) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 1
+
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
+# (Tue Feb 21 2023)
+
+#### 🚀 Enhancement
+
+- * Update yarn.lock [#461](https://github.com/magiclabs/magic-js/pull/461) ([@Ethella](https://github.com/Ethella))
+- `@magic-sdk/provider@13.4.0`, `@magic-sdk/types@11.4.0`
+  - * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Update LICENSE [#459](https://github.com/magiclabs/magic-js/pull/459) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
+# (Fri Feb 17 2023)
+
+#### 🐛 Bug Fix
+
+- `magic-sdk@13.3.1`
+  - updated readme with new description and quickstart code sample [#460](https://github.com/magiclabs/magic-js/pull/460) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 1
+
+- [@srinjoyc](https://github.com/srinjoyc)
+
+---
+
+# (Fri Feb 17 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/react-native-expo-oauth@8.4.0`
+  - Udpates `expo-web-browser` to the latest for `@magic-ext/react-native-expo-oauth` [#457](https://github.com/magiclabs/magic-js/pull/457) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Wed Feb 15 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@13.3.0`, `@magic-sdk/types@11.3.0`
+  - Update Package versions [#454](https://github.com/magiclabs/magic-js/pull/454) ([@Ariflo](https://github.com/Ariflo))
+  - Add updatePhoneNumber sdk method [#450](https://github.com/magiclabs/magic-js/pull/450) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- Updates PR Template warning about one label [#453](https://github.com/magiclabs/magic-js/pull/453) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
+# (Tue Feb 14 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/bitcoin@8.2.1`
+  - Permit React Native SDK to Utlize Bitcoin extension [#451](https://github.com/magiclabs/magic-js/pull/451) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Thu Feb 09 2023)
 
 #### 🚀 Enhancement

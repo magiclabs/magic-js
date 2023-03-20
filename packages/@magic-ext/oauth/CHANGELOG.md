@@ -1,3 +1,32 @@
+# v7.5.0 (Tue Feb 28 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of github.com:magiclabs/magic-js into mushfichowdhury-login-with-email-otp-whitelabel ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
+# v7.4.0 (Tue Feb 21 2023)
+
+#### 🚀 Enhancement
+
+- * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Update LICENSE [#459](https://github.com/magiclabs/magic-js/pull/459) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
 # v7.1.0 (Fri Jan 06 2023)
 
 #### 🚀 Enhancement

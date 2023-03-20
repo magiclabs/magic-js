@@ -1,3 +1,39 @@
+# v8.7.0 (Tue Mar 07 2023)
+
+#### 🚀 Enhancement
+
+- Updated events to properly send otp [#469](https://github.com/magiclabs/magic-js/pull/469) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
+# v8.6.0 (Mon Mar 06 2023)
+
+#### 🚀 Enhancement
+
+- flow getAccount and pass cadence in [#466](https://github.com/magiclabs/magic-js/pull/466) ([@harryEth](https://github.com/harryEth))
+
+#### Authors: 1
+
+- [@harryEth](https://github.com/harryEth)
+
+---
+
+# v8.5.0 (Tue Feb 28 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of github.com:magiclabs/magic-js into mushfichowdhury-login-with-email-otp-whitelabel ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v3.1.0 (Mon Mar 07 2022)
 
 #### 🚀 Enhancement

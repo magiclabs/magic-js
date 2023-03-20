@@ -1,3 +1,32 @@
+# v8.6.0 (Tue Feb 28 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of github.com:magiclabs/magic-js into mushfichowdhury-login-with-email-otp-whitelabel ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
+# v8.4.0 (Fri Feb 17 2023)
+
+#### 🚀 Enhancement
+
+- Udpates `expo-web-browser` to the latest for `@magic-ext/react-native-expo-oauth` [#457](https://github.com/magiclabs/magic-js/pull/457) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Adds greater than requirement ([@Ariflo](https://github.com/Ariflo))
+- Udpates expo-web-browser to the latest ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v7.1.1 (Wed Jan 18 2023)
 
 #### 🐛 Bug Fix

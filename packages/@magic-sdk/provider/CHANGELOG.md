@@ -1,3 +1,82 @@
+# v13.6.0 (Tue Mar 07 2023)
+
+#### 🚀 Enhancement
+
+- Updated events to properly send otp [#469](https://github.com/magiclabs/magic-js/pull/469) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- updated events to properly send otc ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
+# v13.5.0 (Tue Feb 28 2023)
+
+#### 🚀 Enhancement
+
+- LoginWithEmailOtp Whitelabeling [#414](https://github.com/magiclabs/magic-js/pull/414) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- removed async in function ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- added conditional to loginwithemailotp in order to handle undefined ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- adding ; ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- Merge branch 'master' of github.com:magiclabs/magic-js into mushfichowdhury-login-with-email-otp-whitelabel ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- added showUI conditional rendering ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- updated auth module and unit tests ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
+# v13.4.0 (Tue Feb 21 2023)
+
+#### 🚀 Enhancement
+
+- * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- * Remove empty comments ([@Ethella](https://github.com/Ethella))
+- * NIT remove empty comment ([@Ethella](https://github.com/Ethella))
+- * Add test ([@Ethella](https://github.com/Ethella))
+- * Add configuration ([@Ethella](https://github.com/Ethella))
+- * Add recoverAccount api ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v13.3.0 (Wed Feb 15 2023)
+
+#### 🚀 Enhancement
+
+- Update Package versions [#454](https://github.com/magiclabs/magic-js/pull/454) ([@Ariflo](https://github.com/Ariflo))
+- Add updatePhoneNumber sdk method [#450](https://github.com/magiclabs/magic-js/pull/450) ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### 🐛 Bug Fix
+
+- Update Package versions ([@Ariflo](https://github.com/Ariflo))
+- Updates PR Template warning about one label [#453](https://github.com/magiclabs/magic-js/pull/453) ([@Ariflo](https://github.com/Ariflo))
+- removed arguments for updatePhoneNumber method ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- changed name from updateSms to updatePhoneNumber ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+- added update sms sdk method ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
 # v13.2.0 (Thu Feb 09 2023)
 
 #### 🚀 Enhancement

@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://github.com/magiclabs/magic-js/blob/master/packages/@magic-sdk/provider/LICENSE">License</a> ·
   <a href="https://github.com/magiclabs/magic-js/blob/master/packages/@magic-sdk/provider/CHANGELOG.md">Changelog</a> ·
-  <a href="https://github.com/magiclabs/magic-js/blob/master/CONTRIBUTING.md">Contributing Guide</a>
+  <a href="https://github.com/magiclabs/magic-js/blob/master/CONTRIBUTING.md ">Contributing Guide</a>
 </p>
 
 ## 📖 Documentation
