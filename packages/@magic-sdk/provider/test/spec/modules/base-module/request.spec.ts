@@ -46,7 +46,11 @@ test('Resolves with a successful response', async () => {
 test('Rejects with a `MagicRPCError` upon request failed', async () => {
   const response = new JsonRpcResponse(requestPayload).applyError({ code: -32603, message: 'hello world' });
   const { baseModule } = createBaseModule(jest.fn().mockImplementation(() => Promise.resolve(response)));
-  const expectedError = new MagicRPCError({ code: -32603, message: 'hello world' });
+  const expectedError = new MagicRPCError({
+    code: -32603,
+    message: 'hello world',
+    data: '0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000011555345525f554e52454749535445524544000000000000000000000000000000',
+  });
   await expect(() => baseModule.request(requestPayload)).rejects.toThrow(expectedError);
 });
 

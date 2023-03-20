@@ -24,6 +24,7 @@ export interface JsonRpcBatchRequestCallback {
 export interface JsonRpcError {
   message: string;
   code: RPCErrorCode;
+  data?: any;
 }
 
 export interface JsonRpcResponsePayload<ResultType = any> {
