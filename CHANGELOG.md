@@ -1,3 +1,16 @@
+# (Mon Mar 20 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@13.6.1`, `@magic-sdk/types@11.6.1`
+  - Sc 68969 immutable stark error [#477](https://github.com/magiclabs/magic-js/pull/477) ([@mattupham](https://github.com/mattupham))
+
+#### Authors: 1
+
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # (Tue Mar 07 2023)
 
 #### 🚀 Enhancement

@@ -1,3 +1,18 @@
+# v13.6.1 (Mon Mar 20 2023)
+
+#### 🐛 Bug Fix
+
+- Sc 68969 immutable stark error [#477](https://github.com/magiclabs/magic-js/pull/477) ([@mattupham](https://github.com/mattupham))
+- Reset version history ([@mattupham](https://github.com/mattupham))
+- update canary version ([@mattupham](https://github.com/mattupham))
+- Add data attribute to MagicRPCError ([@mattupham](https://github.com/mattupham))
+
+#### Authors: 1
+
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # v13.6.0 (Tue Mar 07 2023)
 
 #### 🚀 Enhancement
