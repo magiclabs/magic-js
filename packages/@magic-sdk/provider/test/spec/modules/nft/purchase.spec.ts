@@ -10,11 +10,11 @@ test('Generate JSON RPC request payload with method `magic_nft_purchase`', async
   const magic = createMagicSDK();
   magic.nft.request = jest.fn();
 
-  magic.nft.purchase();
+  magic.nft.purchase({ nft: { name: 'nft name' } });
 
   const requestPayload = magic.nft.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_nft_purchase');
-  expect(requestPayload.params).toEqual([]);
+  expect(requestPayload.params).toEqual([{ nft: { name: 'nft name' } }]);
 });
 
 test('method should return a PromiEvent', () => {
