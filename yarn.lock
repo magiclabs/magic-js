@@ -3003,7 +3003,7 @@ __metadata:
   dependencies:
     "@babel/plugin-transform-modules-commonjs": ^7.9.6
     "@coinbase/wallet-sdk": 3.6.3
-    "@magic-sdk/types": ^11.6.0
+    "@magic-sdk/types": ^11.6.2
     "@peculiar/webcrypto": ^1.1.7
     "@walletconnect/web3-provider": ^1.8.0
     eventemitter3: ^4.0.4
@@ -3112,6 +3112,13 @@ __metadata:
   version: 10.0.1
   resolution: "@magic-sdk/types@npm:10.0.1"
   checksum: 27ff466f5a04c3a7e8dd87d655aecabc151b382832db014206b4c470dd70634501d243de0f50e5014bf1a08047a71a79a8bff1fb21de2c6c9f26a5f83c93aeb5
+  languageName: node
+  linkType: hard
+
+"@magic-sdk/types@npm:^11.6.2":
+  version: 11.6.2
+  resolution: "@magic-sdk/types@npm:11.6.2"
+  checksum: e07ae7f2e267475f76b5cf0c7dfbc3739681759663ca5ddb5626c3d817025cb308a54fea88187585ce6c932ad0e90666a9449722e45cffd258444b77e2aed05c
   languageName: node
   linkType: hard
 

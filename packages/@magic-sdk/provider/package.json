@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "3.6.3",
-    "@magic-sdk/types": "^11.6.0",
+    "@magic-sdk/types": "^11.6.2",
     "@walletconnect/web3-provider": "^1.8.0",
     "eventemitter3": "^4.0.4",
     "web3-core": "1.5.2"
