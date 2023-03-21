@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/icon",
-  "version": "8.6.1",
+  "version": "8.6.2",
   "description": "magic icon extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^9.6.1"
+    "@magic-sdk/commons": "^9.6.2"
   }
 }
