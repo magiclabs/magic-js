@@ -98,7 +98,7 @@ export class WalletModule extends BaseModule {
     const activeWallet = await getItem(this.localForageKey);
     if (activeWallet === Wallets.WalletConnect) {
       const provider = await this.getWalletConnectProvider(false);
-      await provider.disconnect();
+      provider.disconnect();
     }
     if (activeWallet === Wallets.CoinbaseWallet) {
       const coinbase = this.getCoinbaseProvider();
