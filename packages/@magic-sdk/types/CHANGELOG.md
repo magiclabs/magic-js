@@ -1,3 +1,26 @@
+# v11.6.2 (Tue Mar 21 2023)
+
+#### 🐛 Bug Fix
+
+- feat: [sc-71135] Add purchase SDK method [#455](https://github.com/magiclabs/magic-js/pull/455) ([@bcleary06](https://github.com/bcleary06) [@hcote](https://github.com/hcote))
+- update provider version ([@bcleary06](https://github.com/bcleary06))
+- update types version ([@bcleary06](https://github.com/bcleary06))
+- Merge branch 'master' into briancleary7114-sc-71135-add-checkout-sdk-method ([@bcleary06](https://github.com/bcleary06))
+- revert airdrop changes ([@hcote](https://github.com/hcote))
+- add nft airdrop method [#452](https://github.com/magiclabs/magic-js/pull/452) ([@hcote](https://github.com/hcote))
+- Merge branch 'briancleary7114-sc-71135-add-checkout-sdk-method' into hcote-nft-aidrop ([@hcote](https://github.com/hcote))
+- update nft airdrop response type ([@hcote](https://github.com/hcote))
+- rename checkout to purchase ([@bcleary06](https://github.com/bcleary06))
+- add nft airdrop method ([@hcote](https://github.com/hcote))
+- implement magic.nft.checkout() ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 2
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v11.6.1 (Mon Mar 20 2023)
 
 #### 🐛 Bug Fix
