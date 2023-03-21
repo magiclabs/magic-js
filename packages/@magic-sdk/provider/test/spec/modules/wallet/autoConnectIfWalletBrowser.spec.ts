@@ -2,6 +2,7 @@ import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
+  browserEnv({ url: 'http://localhost' });
   browserEnv.restore();
 });
 
@@ -38,7 +39,6 @@ test('If coinbase browser, wallet and address params should be populated', async
       return '';
     },
   };
-  window.ethereum = provider;
 
   const magic = createMagicSDK({
     thirdPartyWalletOptions: {
@@ -57,9 +57,8 @@ test('If coinbase browser, wallet and address params should be populated', async
   });
   magic.wallet.request = jest.fn();
 
-  magic.wallet.getCoinbaseProvider = jest.fn(() => ({
-    provider: window.ethereum,
-  }));
+  magic.wallet.getCoinbaseProvider = jest.fn(() => ({ provider }));
+
   await magic.wallet.autoConnectIfWalletBrowser('coinbase_wallet');
   const requestPayload = magic.wallet.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('mc_auto_connect');

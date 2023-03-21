@@ -38,3 +38,17 @@ test('Returns env object with isCoinbaseWalletInstalled true', async () => {
     },
   });
 });
+
+test('Returns env object with isMetaMaskInstalled false and isCoinbaseWalletInstalled false', async () => {
+  window.ethereum = undefined;
+  const magic = createMagicSDK();
+  magic.wallet.request = jest.fn();
+
+  const response = magic.wallet.getUserEnv();
+  expect(response).toEqual({
+    env: {
+      isMetaMaskInstalled: false,
+      isCoinbaseWalletInstalled: false,
+    },
+  });
+});

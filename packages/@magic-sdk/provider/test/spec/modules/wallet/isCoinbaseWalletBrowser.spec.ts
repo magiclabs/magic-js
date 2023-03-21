@@ -5,7 +5,7 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Returns true if isCoinbaseBrowser is true', async () => {
+test('Returns true if provider.isCoinbaseBrowser is true', async () => {
   const provider = {
     isCoinbaseBrowser: true,
   };
@@ -18,7 +18,7 @@ test('Returns true if isCoinbaseBrowser is true', async () => {
   expect(response).toEqual(true);
 });
 
-test('Returns false if isCoinbaseBrowser is false', async () => {
+test('Returns false if provider.isCoinbaseBrowser is not true', async () => {
   const provider = {
     isMetaMask: true,
   };

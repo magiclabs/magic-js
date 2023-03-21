@@ -6,14 +6,15 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Throws error if missing configuration', async () => {
-  const magic = createMagicSDK();
+test('Throws error trying to connect to wallet_connect if invalid sdk params', async () => {
+  const magic = createMagicSDK({
+    thirdPartyWalletOptions: {},
+  });
   magic.wallet.request = jest.fn();
-
-  expect(() => magic.wallet.connectToWalletConnect()).rejects.toThrow();
+  expect(() => magic.wallet.connectToThirdPartyWallet('wallet_connect')).rejects.toThrow();
 });
 
-test('Connects to wallet connect', async () => {
+test('Connects to wallet_connect', async () => {
   const magic = createMagicSDK({
     thirdPartyWalletOptions: {
       walletConnect: {
@@ -22,9 +23,6 @@ test('Connects to wallet connect', async () => {
     },
   });
   magic.wallet.request = jest.fn();
-
-  jest.mock('@walletconnect/web3-provider');
-
-  const response = magic.wallet.connectToWalletConnect();
+  const response = magic.wallet.connectToThirdPartyWallet('wallet_connect', 1);
   expect(response).toEqual(new Promise(() => null));
 });

@@ -22,10 +22,7 @@ export class WalletModule extends BaseModule {
     // If within metamask wallet browser, auto-connect without any UI (if dapp has metamask enabled)
     if (this.isMetaMaskBrowser()) {
       try {
-        const isMetaMaskEnabledPayload = createJsonRpcRequestPayload('mc_is_wallet_enabled', [
-          { wallet: Wallets.MetaMask },
-        ]);
-        const isMetaMaskEnabled = await this.request<boolean>(isMetaMaskEnabledPayload);
+        const isMetaMaskEnabled = await this.isWalletEnabled(Wallets.MetaMask);
         if (isMetaMaskEnabled) {
           return this.autoConnectIfWalletBrowser(Wallets.MetaMask);
         }
@@ -37,10 +34,7 @@ export class WalletModule extends BaseModule {
     // If within coinbase wallet browser, auto-connect without any UI (if dapp has coinbase enabled)
     if (this.isCoinbaseWalletBrowser()) {
       try {
-        const isCoinbaseWalletEnabledPayload = createJsonRpcRequestPayload('mc_is_wallet_enabled', [
-          { wallet: Wallets.CoinbaseWallet },
-        ]);
-        const isCoinbaseWalletEnabled = await this.request<boolean>(isCoinbaseWalletEnabledPayload);
+        const isCoinbaseWalletEnabled = await this.isWalletEnabled(Wallets.CoinbaseWallet);
         if (isCoinbaseWalletEnabled) {
           return this.autoConnectIfWalletBrowser(Wallets.CoinbaseWallet);
         }
@@ -49,21 +43,12 @@ export class WalletModule extends BaseModule {
         console.error(error);
       }
     }
-
     const userEnv = this.getUserEnv();
     const loginRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Login, [userEnv]);
     const loginRequest = this.request<string[]>(loginRequestPayload);
-
-    loginRequest.on(Events.WalletSelected as any, async (params: { wallet: Wallets; showModal: boolean }) => {
-      try {
-        const address = await this.connectToThirdPartyWallet(params.wallet, loginRequestPayload.id, params.showModal);
-        await setItem(this.localForageKey, params.wallet);
-        this.createIntermediaryEvent(Events.WalletConnected as any, loginRequestPayload.id as any)(address);
-      } catch (error) {
-        this.createIntermediaryEvent(Events.WalletRejected as any, loginRequestPayload.id as any)();
-      }
-    });
-
+    loginRequest.on(Events.WalletSelected as any, (params) =>
+      this.handleWalletSelected({ ...params, showModal: !!params.showModal, payloadId: loginRequestPayload.id }),
+    );
     return loginRequest;
   }
 
@@ -113,7 +98,7 @@ export class WalletModule extends BaseModule {
     const activeWallet = await getItem(this.localForageKey);
     if (activeWallet === Wallets.WalletConnect) {
       const provider = await this.getWalletConnectProvider(false);
-      provider.disconnect();
+      await provider.disconnect();
     }
     if (activeWallet === Wallets.CoinbaseWallet) {
       const coinbase = this.getCoinbaseProvider();
@@ -125,6 +110,7 @@ export class WalletModule extends BaseModule {
   }
 
   /* Private methods */
+
   private localForageKey = 'mc_active_wallet';
 
   /* MetaMask */
@@ -260,19 +246,31 @@ export class WalletModule extends BaseModule {
     }
   }
 
+  private isWalletEnabled(wallet: Wallets): Promise<boolean> {
+    const isWalletEnabled = createJsonRpcRequestPayload('mc_is_wallet_enabled', [{ wallet }]);
+    return this.request<boolean>(isWalletEnabled);
+  }
+
+  /* Triggers connection to wallet, emits success/reject event back to iframe */
+  private async handleWalletSelected(params: { wallet: Wallets; showModal: boolean; payloadId: number }) {
+    try {
+      const address = await this.connectToThirdPartyWallet(params.wallet, params.payloadId, params.showModal);
+      await setItem(this.localForageKey, params.wallet);
+      this.createIntermediaryEvent(Events.WalletConnected as any, params.payloadId as any)(address);
+    } catch (error) {
+      this.createIntermediaryEvent(Events.WalletRejected as any, params.payloadId as any)();
+    }
+  }
+
   private async autoConnectIfWalletBrowser(wallet: Wallets): Promise<string[]> {
     let address;
-    try {
-      if (wallet === Wallets.MetaMask) {
-        address = await this.getMetaMaskProvider().request({ method: 'eth_requestAccounts' });
-      }
-      if (wallet === Wallets.CoinbaseWallet) {
-        address = await this.getCoinbaseProvider().provider.request({ method: 'eth_requestAccounts' });
-      }
-      await setItem(this.localForageKey, wallet);
-    } catch (error) {
-      console.error(error);
+    if (wallet === Wallets.MetaMask) {
+      address = await this.getMetaMaskProvider().request({ method: 'eth_requestAccounts' });
     }
+    if (wallet === Wallets.CoinbaseWallet) {
+      address = await this.getCoinbaseProvider().provider.request({ method: 'eth_requestAccounts' });
+    }
+    await setItem(this.localForageKey, wallet);
     const autoConnectPayload = createJsonRpcRequestPayload(MagicPayloadMethod.AutoConnect, [{ wallet, address }]);
     const autoConnectRequest = this.request<string[]>(autoConnectPayload);
     return autoConnectRequest;

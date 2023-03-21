@@ -1,21 +1,22 @@
 import browserEnv from '@ikscodes/browser-env';
+import { CoinbaseWalletSDK } from '@coinbase/wallet-sdk';
 import { createMagicSDK } from '../../../factories';
 
+jest.mock('@coinbase/wallet-sdk');
+
 beforeEach(() => {
+  browserEnv({ url: 'http://localhost' });
   browserEnv.restore();
 });
 
-test('Fetches coinbase provider', async () => {
-  const provider = {
-    isCoinbaseBrowser: true,
-    request: async (request: { method: string; params?: Array<any> }) => {
-      if (request.method === 'eth_requestAccounts') {
-        return ['0x0000000000000000000000000000000000000000'];
-      }
-      return '';
-    },
-  };
-  window.ethereum = provider;
+test('Fetches coinbase provider without a window provider', () => {
+  const mockedQrCodeUrl = jest.spyOn(CoinbaseWalletSDK.prototype, 'getQrUrl').mockImplementation(() => {
+    return 'qrCodeUrl';
+  });
+
+  const mockedProvider = jest.spyOn(CoinbaseWalletSDK.prototype, 'makeWeb3Provider').mockImplementation(() => {
+    return 'provider' as any;
+  });
 
   const magic = createMagicSDK({
     thirdPartyWalletOptions: {
@@ -33,14 +34,8 @@ test('Fetches coinbase provider', async () => {
     },
   });
   magic.wallet.request = jest.fn();
-  magic.wallet.getCoinbaseProvider = jest.fn(() => ({
-    provider: window.ethereum,
-    qrCodeUrl: 'abc',
-  }));
 
-  const response = magic.wallet.getCoinbaseProvider();
-  expect(response).toEqual({
-    provider: window.ethereum,
-    qrCodeUrl: 'abc',
-  });
+  magic.wallet.getCoinbaseProvider();
+  expect(mockedQrCodeUrl).toBeCalled();
+  expect(mockedProvider).toBeCalled();
 });

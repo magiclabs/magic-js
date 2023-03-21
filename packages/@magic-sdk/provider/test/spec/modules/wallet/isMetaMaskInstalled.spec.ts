@@ -5,8 +5,19 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Return false if MetaMask is not installed', async () => {
+test('Return false if provider.isMetaMask is undefined', async () => {
   window.ethereum = undefined;
+  const magic = createMagicSDK();
+
+  const response = magic.wallet.isMetaMaskInstalled();
+  expect(response).toEqual(false);
+});
+
+test('Return false if window.ethereum.isMetaMask is false', async () => {
+  const provider = {
+    isMetaMask: false,
+  };
+  window.ethereum = provider;
   const magic = createMagicSDK();
   magic.wallet.request = jest.fn();
 
@@ -14,7 +25,7 @@ test('Return false if MetaMask is not installed', async () => {
   expect(response).toEqual(false);
 });
 
-test('Return true if MetaMask is installed', async () => {
+test('Return true if window.ethereum.isMetaMask is true', async () => {
   const provider = {
     isMetaMask: true,
   };
@@ -26,8 +37,18 @@ test('Return true if MetaMask is installed', async () => {
   expect(response).toEqual(true);
 });
 
+test('Return false if providers is array of undefined and is not metamask', async () => {
+  window.ethereum = { providers: [undefined] };
+  const magic = createMagicSDK();
+  magic.wallet.request = jest.fn();
+
+  const response = magic.wallet.isMetaMaskInstalled();
+  expect(response).toEqual(false);
+});
+
 test('Return true if multiple providers found, and MetaMask is one of them', async () => {
   const ethereum = {
+    isMetaMask: false,
     providers: [
       {
         isMetaMask: true,

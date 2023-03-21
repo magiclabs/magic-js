@@ -5,16 +5,15 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Should return magic.rpcProvider if no stored wallet', async () => {
+test('Throws error if no provider config', () => {
   const magic = createMagicSDK();
   magic.wallet.request = jest.fn();
 
   jest.mock('@magic-sdk/provider/src/util/storage.ts', () => {
     return {
-      getItem: () => null,
+      getItem: () => 'coinbase_wallet',
     };
   });
 
-  const provider = await magic.wallet.getProvider();
-  expect(provider).toEqual(magic.rpcProvider);
+  expect(() => magic.wallet.getProvider()).rejects.toThrow();
 });

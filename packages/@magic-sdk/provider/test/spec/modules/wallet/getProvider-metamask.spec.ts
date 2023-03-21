@@ -5,7 +5,11 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Generate JSON RPC request payload with method `mc_get_wallet_info` and the active wallet', async () => {
+test('Should return metamask provider if metamask is the stored wallet', async () => {
+  const provider = {
+    isMetaMask: true,
+  };
+  window.ethereum = provider;
   const magic = createMagicSDK();
   magic.wallet.request = jest.fn();
 
@@ -15,9 +19,6 @@ test('Generate JSON RPC request payload with method `mc_get_wallet_info` and the
     };
   });
 
-  await magic.wallet.getInfo();
-
-  const requestPayload = magic.wallet.request.mock.calls[0][0];
-  expect(requestPayload.method).toBe('mc_get_wallet_info');
-  expect(requestPayload.params).toEqual([{ walletType: 'metamask' }]);
+  const response = await magic.wallet.getProvider();
+  expect(response).toEqual(provider);
 });

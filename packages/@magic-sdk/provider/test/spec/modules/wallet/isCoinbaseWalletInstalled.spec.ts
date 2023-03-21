@@ -5,8 +5,7 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Return false if Coinbase Wallet is not installed', async () => {
-  window.ethereum = undefined;
+test('Return false if window.ethereum is undefined', async () => {
   const magic = createMagicSDK();
   magic.wallet.request = jest.fn();
 
@@ -14,7 +13,17 @@ test('Return false if Coinbase Wallet is not installed', async () => {
   expect(response).toEqual(false);
 });
 
-test('Return true if Coinbase Wallet is installed', async () => {
+test('Return false if window.ethereum is array of undefined', async () => {
+  const provider = { providers: [undefined] };
+  window.ethereum = provider;
+  const magic = createMagicSDK();
+  magic.wallet.request = jest.fn();
+
+  const response = magic.wallet.isCoinbaseWalletInstalled();
+  expect(response).toEqual(false);
+});
+
+test('Return true if window.ethereum.isCoinbaseWallet is true', async () => {
   const provider = {
     isCoinbaseWallet: true,
   };

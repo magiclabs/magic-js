@@ -2,25 +2,24 @@ import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv({ url: 'http://localhost' });
   browserEnv.restore();
 });
 
-test('Fetches wallet connect provider and calls enable()', async () => {
+test('Call disconnect on wallet connect if thats the active wallet', async () => {
   const localForageMock = jest.mock('@magic-sdk/provider/src/util/storage.ts', () => {
     return {
       getItem: async () => 'wallet_connect',
+      removeItem: async () => null,
     };
   });
   const localStorageMock = (function () {
     return {
       getItem(key) {
-        return 'abc';
+        return null;
       },
     };
   })();
   Object.defineProperty(window, 'localStorage', { value: localStorageMock });
-
   const magic = createMagicSDK({
     thirdPartyWalletOptions: {
       walletConnect: {
@@ -28,16 +27,12 @@ test('Fetches wallet connect provider and calls enable()', async () => {
       },
     },
   });
-
   magic.wallet.request = jest.fn();
 
-  jest.mock('@walletconnect/web3-provider', () => {
-    return jest.fn(() => {
-      return { enable: () => {} };
-    });
-  });
+  await magic.wallet.disconnect();
 
-  const response = await magic.wallet.getWalletConnectProvider(false);
-  expect(response).toBeTruthy();
+  const requestPayload = magic.wallet.request.mock.calls[0][0];
+  expect(requestPayload.method).toBe('mc_disconnect');
+  expect(requestPayload.params).toEqual([]);
   localForageMock.clearAllMocks();
 });

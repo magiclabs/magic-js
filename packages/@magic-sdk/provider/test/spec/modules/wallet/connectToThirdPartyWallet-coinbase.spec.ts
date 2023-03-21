@@ -9,16 +9,18 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Throws error if no `coinbasewallet` in `thirdPartyWalletOptions`', () => {
+test('Throws error trying to connect to coinbase_wallet if invalid sdk params', async () => {
   const magic = createMagicSDK({
     thirdPartyWalletOptions: {},
   });
   magic.wallet.request = jest.fn();
 
-  expect(() => magic.wallet.getCoinbaseProvider()).toThrowError('Missing Coinbase Wallet Config');
+  expect(() => magic.wallet.connectToThirdPartyWallet('coinbase_wallet')).toThrowError(
+    'Missing Coinbase Wallet Config',
+  );
 });
 
-test('Returns connected wallet address in array', async () => {
+test('Connects to coinbase_wallet', async () => {
   jest.spyOn(CoinbaseWalletSDK.prototype, 'getQrUrl').mockImplementation(() => {
     return 'qrCodeUrl';
   });
@@ -50,41 +52,8 @@ test('Returns connected wallet address in array', async () => {
     },
   });
   magic.wallet.request = jest.fn();
-  const response = await magic.wallet.connectToCoinbaseWallet();
+
+  const response = await magic.wallet.connectToThirdPartyWallet('coinbase_wallet');
   expect(mockedProvider).toBeCalled();
   expect(response).toEqual(['0x0000000000000000000000000000000000000000']);
-});
-
-test('Redirects to coinbase deep link if isMobile and is not coinbase wallet browser', async () => {
-  const mockResponse = jest.fn();
-  Object.defineProperty(window, 'location', {
-    value: {
-      href: 'http://localhost',
-      assign: mockResponse,
-    },
-    writable: true,
-  });
-
-  const magic = createMagicSDK({
-    thirdPartyWalletOptions: {
-      coinbaseWallet: {
-        sdk: {
-          appName: 'Magic Test',
-          appLogoUrl: '',
-          darkMode: false,
-        },
-        provider: {
-          jsonRpcUrl: '',
-          chainId: 1,
-        },
-      },
-    },
-  });
-  magic.wallet.request = jest.fn();
-
-  magic.wallet.isMobile = jest.fn(() => true);
-  magic.wallet.isCoinbaseWalletBrowser = jest.fn(() => false);
-
-  await magic.wallet.connectToCoinbaseWallet();
-  expect(window.location.href).toEqual('https://go.cb-w.com/dapp?cb_url=http%3A%2F%2Flocalhost');
 });
