@@ -1,3 +1,15 @@
+# v6.6.2 (Tue Mar 21 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into briancleary7114-sc-71135-add-checkout-sdk-method ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 1
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
 # v6.5.0 (Tue Feb 28 2023)
 
 #### 🐛 Bug Fix

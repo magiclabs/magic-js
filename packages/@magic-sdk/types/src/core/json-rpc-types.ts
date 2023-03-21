@@ -24,6 +24,7 @@ export interface JsonRpcBatchRequestCallback {
 export interface JsonRpcError {
   message: string;
   code: RPCErrorCode;
+  data?: any;
 }
 
 export interface JsonRpcResponsePayload<ResultType = any> {
@@ -73,6 +74,38 @@ export interface UserEnv {
   };
 }
 
+export interface NFTPurchaseRequest {
+  nft: {
+    name: string;
+    price: number;
+    currencyCode: string;
+    contractAddress: string;
+    collection?: string;
+    imageUrl?: string;
+  };
+  identityPrefill: {
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string; // YYYY-MM-DD
+    emailAddress: string;
+    phone: string;
+    address: {
+      street1: string;
+      street2: string;
+      city: string;
+      regionCode: string;
+      postalCode: string;
+      countryCode: string;
+    };
+  };
+}
+
+export type NFTPurchaseStatus = 'processed' | 'declined' | 'expired';
+
+export interface NFTPurchaseResponse {
+  status: NFTPurchaseStatus;
+}
+
 // --- Payload methods
 
 /**
@@ -108,6 +141,7 @@ export enum MagicPayloadMethod {
   RequestAccounts = 'eth_requestAccounts',
   GetInfo = 'mc_get_wallet_info',
   ShowUI = 'mc_wallet',
+  NFTPurchase = 'magic_nft_purchase',
   RequestUserInfoWithUI = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',
   UpdatePhoneNumber = 'magic_auth_update_phone_number',

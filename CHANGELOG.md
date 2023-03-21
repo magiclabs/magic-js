@@ -1,3 +1,31 @@
+# (Tue Mar 21 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@13.6.2`, `@magic-sdk/types@11.6.2`
+  - feat: [sc-71135] Add purchase SDK method [#455](https://github.com/magiclabs/magic-js/pull/455) ([@bcleary06](https://github.com/bcleary06) [@hcote](https://github.com/hcote))
+  - add nft airdrop method [#452](https://github.com/magiclabs/magic-js/pull/452) ([@hcote](https://github.com/hcote))
+
+#### Authors: 2
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# (Mon Mar 20 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@13.6.1`, `@magic-sdk/types@11.6.1`
+  - Sc 68969 immutable stark error [#477](https://github.com/magiclabs/magic-js/pull/477) ([@mattupham](https://github.com/mattupham))
+
+#### Authors: 1
+
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # (Tue Mar 07 2023)
 
 #### 🚀 Enhancement
