@@ -32,19 +32,19 @@ jobs:
           yarn -v
           yarn install --immutable
 
-      - name: Apply semver updates (if any)
-        run: |
-          if yarn auto version; then
-            AUTO_VERSION=$(yarn auto version)
-            echo "Auto Version: $AUTO_VERSION"
-            if [[ $AUTO_VERSION == pre* ]]; then
-              yarn lerna version "$AUTO_VERSION" --no-git-tag-version --no-push --yes --preid "$GITHUB_REF"
-            elif [[ $AUTO_VERSION ]]; then
-              yarn lerna version "$AUTO_VERSION" --no-git-tag-version --no-push --yes
-            fi
-          else
-            echo "Unable to bump version successfully." && exit 1
-          fi
+      # - name: Apply semver updates (if any)
+      #   run: |
+      #     if yarn auto version; then
+      #       AUTO_VERSION=$(yarn auto version)
+      #       echo "Auto Version: $AUTO_VERSION"
+      #       if [[ $AUTO_VERSION == pre* ]]; then
+      #         yarn lerna version "$AUTO_VERSION" --no-git-tag-version --no-push --yes --preid "$GITHUB_REF"
+      #       elif [[ $AUTO_VERSION ]]; then
+      #         yarn lerna version "$AUTO_VERSION" --no-git-tag-version --no-push --yes
+      #       fi
+      #     else
+      #       echo "Unable to bump version successfully." && exit 1
+      #     fi
 
       - name: Build
         run: yarn build
