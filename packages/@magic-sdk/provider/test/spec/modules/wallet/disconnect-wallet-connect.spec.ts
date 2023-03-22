@@ -29,6 +29,12 @@ test('Call disconnect on wallet connect if thats the active wallet', async () =>
   });
   magic.wallet.request = jest.fn();
 
+  magic.wallet.getWalletConnectProvider = jest.fn(() => {
+    return {
+      disconnect: () => null,
+    };
+  });
+
   await magic.wallet.disconnect();
 
   const requestPayload = magic.wallet.request.mock.calls[0][0];

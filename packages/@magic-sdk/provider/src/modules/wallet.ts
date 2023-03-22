@@ -96,10 +96,14 @@ export class WalletModule extends BaseModule {
   public async disconnect(): Promise<boolean> {
     clearKeys();
     const activeWallet = await getItem(this.localForageKey);
-    // if (activeWallet === Wallets.WalletConnect) {
-    //   const provider = await this.getWalletConnectProvider(false);
-    //   await provider.disconnect();
-    // }
+    if (activeWallet === Wallets.WalletConnect) {
+      try {
+        const provider = await this.getWalletConnectProvider(false);
+        await provider.disconnect();
+      } catch (error) {
+        console.error(error);
+      }
+    }
     if (activeWallet === Wallets.CoinbaseWallet) {
       const coinbase = this.getCoinbaseProvider();
       coinbase.provider.disconnect();
