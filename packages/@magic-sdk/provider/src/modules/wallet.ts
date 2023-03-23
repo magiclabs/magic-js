@@ -197,6 +197,7 @@ export class WalletModule extends BaseModule {
       ...(sdkConfig as any),
       overrideIsMetaMask: false,
       headlessMode: true,
+      reloadOnDisconnect: false,
     });
     const qrCodeUrl = coinbaseWallet.getQrUrl();
     const provider = coinbaseWallet.makeWeb3Provider(providerConfig.jsonRpcUrl, providerConfig.chainId);
