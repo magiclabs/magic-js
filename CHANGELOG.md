@@ -1,5 +1,18 @@
 # (Fri Mar 24 2023)
 
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@15.0.1`
+  - `@react-native-community/async-storage` => `@react-native-async-storage/async-storage` in RN Bare Package [#479](https://github.com/magiclabs/magic-js/pull/479) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Fri Mar 24 2023)
+
 #### 💥 Breaking Change
 
 - `@magic-sdk/provider@14.0.0`, `@magic-sdk/types@12.0.0`
