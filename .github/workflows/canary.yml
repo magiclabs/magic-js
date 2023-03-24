@@ -1,8 +1,9 @@
 name: Canary
 on:
   pull_request:
-    branches-ignore:
+    branches:
       - "master"
+      
 env:
   GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
   GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
