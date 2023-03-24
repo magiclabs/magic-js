@@ -14,6 +14,7 @@
     "postinstall": "husky install && lerna link"
   },
   "devDependencies": {
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@ikscodes/browser-env": "~0.3.1",
     "@ikscodes/eslint-config": "~7.0.2",
     "@ikscodes/prettier-config": "~2.0.1",
