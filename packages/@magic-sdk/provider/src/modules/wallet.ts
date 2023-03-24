@@ -74,26 +74,26 @@ export class WalletModule extends BaseModule {
   }
 
   /* Prompt Magic's Wallet UI (not available for users logged in with third party wallets) */
-  public showUI(): Promise<boolean> {
+  public showUI() {
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI);
     return this.request<boolean>(requestPayload);
   }
 
   /* Get user info such as the wallet type they are logged in with */
-  public async getInfo(): Promise<WalletInfo> {
+  public async getInfo() {
     const activeWallet = await getItem(this.localForageKey);
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, [{ walletType: activeWallet }]);
     return this.request<WalletInfo>(requestPayload);
   }
 
   /* Request email address from logged in user */
-  public requestUserInfoWithUI(scope?: RequestUserInfoScope): Promise<UserInfo> {
+  public requestUserInfoWithUI(scope?: RequestUserInfoScope) {
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RequestUserInfoWithUI, scope ? [scope] : []);
     return this.request<UserInfo>(requestPayload);
   }
 
   /* Logout user */
-  public async disconnect(): Promise<boolean> {
+  public async disconnect() {
     clearKeys();
     const activeWallet = await getItem(this.localForageKey);
     if (activeWallet === Wallets.WalletConnect) {
