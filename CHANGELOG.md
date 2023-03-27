@@ -1,3 +1,16 @@
+# (Mon Mar 27 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@15.0.0`, `@magic-sdk/types@13.0.0`
+  - Revert "move third party wallet connections to sdk (#473)" [#480](https://github.com/magiclabs/magic-js/pull/480) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Fri Mar 24 2023)
 
 #### 🐛 Bug Fix
