@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign  */
 
-import { EthNetworkConfiguration, QueryParameters, SupportedLocale, ThirdPartyWalletOptions } from '@magic-sdk/types';
+import { EthNetworkConfiguration, QueryParameters, SupportedLocale } from '@magic-sdk/types';
 import type { AbstractProvider } from 'web3-core';
 import { coerce, satisfies } from '../util/semver';
 import { encodeJSON } from '../util/base64-json';
@@ -95,7 +95,6 @@ export interface MagicSDKAdditionalConfiguration<
   network?: EthNetworkConfiguration;
   extensions?: TExt;
   testMode?: boolean;
-  thirdPartyWalletOptions?: ThirdPartyWalletOptions | undefined;
 }
 
 export class SDKBase {
@@ -104,7 +103,6 @@ export class SDKBase {
   protected readonly endpoint: string;
   protected readonly parameters: string;
   public readonly testMode: boolean;
-  public readonly thirdPartyWalletOptions: ThirdPartyWalletOptions | undefined;
 
   /**
    * Contains methods for starting a Magic SDK authentication flow.
@@ -144,10 +142,9 @@ export class SDKBase {
       createReactNativeEndpointConfigurationWarning().log();
     }
 
-    const { defaultEndpoint, version, thirdPartyWalletOptions } = SDKEnvironment;
+    const { defaultEndpoint, version } = SDKEnvironment;
     this.testMode = !!options?.testMode;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
-    this.thirdPartyWalletOptions = thirdPartyWalletOptions || options?.thirdPartyWalletOptions;
 
     // Prepare built-in modules
     this.auth = new AuthModule(this);

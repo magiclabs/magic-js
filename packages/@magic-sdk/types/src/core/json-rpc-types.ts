@@ -48,32 +48,6 @@ export interface RequestUserInfoScope {
   };
 }
 
-export enum Wallets {
-  MetaMask = 'metamask',
-  WalletConnect = 'wallet_connect',
-  CoinbaseWallet = 'coinbase_wallet',
-}
-
-export enum Events {
-  WalletSelected = 'wallet_selected',
-  WalletConnected = 'wallet_connected',
-  WalletRejected = 'wallet_rejected',
-  DisplayUri = 'display_uri',
-  Uri = 'uri',
-}
-
-export enum Errors {
-  WalletConnectError = 'Missing Wallet Connect Config',
-  CoinbaseWalletError = 'Missing Coinbase Wallet Config',
-}
-
-export interface UserEnv {
-  env: {
-    isMetaMaskInstalled: boolean;
-    isCoinbaseWalletInstalled: boolean;
-  };
-}
-
 export interface NFTPurchaseRequest {
   nft: {
     name: string;
@@ -136,8 +110,6 @@ export enum MagicPayloadMethod {
   LogoutTestMode = 'magic_auth_logout_testing_mode',
   UpdateEmailTestMode = 'magic_auth_update_email_testing_mode',
   IntermediaryEvent = 'magic_intermediary_event',
-  AutoConnect = 'mc_auto_connect',
-  Login = 'mc_login',
   RequestAccounts = 'eth_requestAccounts',
   GetInfo = 'mc_get_wallet_info',
   ShowUI = 'mc_wallet',
