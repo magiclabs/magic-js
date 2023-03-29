@@ -120,4 +120,5 @@ export enum MagicPayloadMethod {
   UpdatePhoneNumberTestMode = 'magic_auth_update_phone_number_testing_mode',
   RecoverAccount = 'magic_auth_recover_account',
   RecoverAccountTestMode = 'magic_auth_recover_account_testing_mode',
+  MagicBoxHeartBeat = 'magic_box_heart_beat',
 }
