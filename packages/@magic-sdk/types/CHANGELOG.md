@@ -1,3 +1,19 @@
+# v13.1.0 (Wed Mar 29 2023)
+
+#### 🚀 Enhancement
+
+- Adds `MagicBoxHeartBeat` to MagicPayloadMethod [#486](https://github.com/magiclabs/magic-js/pull/486) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Adds MagicBoxHeartBeat to MagicPayloadMethod ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v13.0.0 (Mon Mar 27 2023)
 
 #### 💥 Breaking Change

@@ -1,3 +1,16 @@
+# (Wed Mar 29 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@13.1.0`
+  - Adds `MagicBoxHeartBeat` to MagicPayloadMethod [#486](https://github.com/magiclabs/magic-js/pull/486) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Mon Mar 27 2023)
 
 #### 💥 Breaking Change
