@@ -1,4 +1,3 @@
-import type { ThirdPartyWalletOptions } from '@magic-sdk/types';
 import type localForage from 'localforage';
 import type { ViewController } from './view-controller';
 import type { SDKBase } from './sdk';
@@ -18,7 +17,6 @@ export interface SDKEnvironment {
   ViewController: ConstructorOf<ViewController>;
   configureStorage: () => Promise<typeof localForage>;
   bundleId?: string | null;
-  thirdPartyWalletOptions?: ThirdPartyWalletOptions;
 }
 
 export const SDKEnvironment: SDKEnvironment = {} as any;

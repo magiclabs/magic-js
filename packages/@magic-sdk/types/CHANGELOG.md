@@ -1,3 +1,35 @@
+# v13.1.0 (Wed Mar 29 2023)
+
+#### 🚀 Enhancement
+
+- Adds `MagicBoxHeartBeat` to MagicPayloadMethod [#486](https://github.com/magiclabs/magic-js/pull/486) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Adds MagicBoxHeartBeat to MagicPayloadMethod ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# v13.0.0 (Mon Mar 27 2023)
+
+#### 💥 Breaking Change
+
+- Revert "move third party wallet connections to sdk (#473)" [#480](https://github.com/magiclabs/magic-js/pull/480) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Revert "move third party wallet connections to sdk (#473)" ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v12.0.0 (Fri Mar 24 2023)
 
 #### 💥 Breaking Change

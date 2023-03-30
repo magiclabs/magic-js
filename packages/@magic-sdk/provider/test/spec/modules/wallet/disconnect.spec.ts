@@ -1,57 +1,23 @@
 import browserEnv from '@ikscodes/browser-env';
-import { CoinbaseWalletSDK } from '@coinbase/wallet-sdk';
 import { createMagicSDK } from '../../../factories';
-
-jest.mock('@coinbase/wallet-sdk');
+import { isPromiEvent } from '../../../../src/util';
 
 beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Call disconnect on coinbase wallet if thats the active wallet', async () => {
-  const localForageMock = jest.mock('@magic-sdk/provider/src/util/storage.ts', () => {
-    return {
-      getItem: async () => 'coinbase_wallet',
-      removeItem: async () => null,
-    };
-  });
-  const localStorageMock = (function () {
-    return {
-      getItem(key) {
-        return null;
-      },
-      setItem() {
-        return null;
-      },
-    };
-  })();
-
-  Object.defineProperty(window, 'localStorage', { value: localStorageMock });
-  const mockedProvider = jest.spyOn(CoinbaseWalletSDK.prototype, 'makeWeb3Provider' as any).mockImplementation(() => {
-    return {
-      disconnect: () => null,
-    };
-  });
-
-  const magic = createMagicSDK({
-    thirdPartyWalletOptions: {
-      coinbaseWallet: {
-        sdk: {
-          appName: 'Magic Test',
-          appLogoUrl: '',
-          darkMode: false,
-        },
-        provider: {
-          jsonRpcUrl: '',
-          chainId: 1,
-        },
-      },
-    },
-  });
+test('Generate JSON RPC request payload with method `mc_disconnect`', async () => {
+  const magic = createMagicSDK();
   magic.wallet.request = jest.fn();
 
-  await magic.wallet.disconnect();
+  magic.wallet.disconnect();
 
-  expect(mockedProvider).toBeCalled();
-  localForageMock.clearAllMocks();
+  const requestPayload = magic.wallet.request.mock.calls[0][0];
+  expect(requestPayload.method).toBe('mc_disconnect');
+  expect(requestPayload.params).toEqual([]);
+});
+
+test('method should return a PromiEvent', () => {
+  const magic = createMagicSDK();
+  expect(isPromiEvent(magic.wallet.disconnect())).toBeTruthy();
 });
