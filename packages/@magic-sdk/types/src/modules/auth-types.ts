@@ -54,4 +54,5 @@ export type LoginWithEmailOTPEvents = {
   'otp-input-sent': (otp: string) => void;
   'verify-email-otp': (otp: string) => void;
   'invalid-email-otp': () => void;
+  cancel: () => void;
 };

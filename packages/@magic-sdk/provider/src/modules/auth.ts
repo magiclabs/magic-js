@@ -57,6 +57,9 @@ export class AuthModule extends BaseModule {
         handle.on('otp-input-sent', (otp: string) => {
           this.createIntermediaryEvent('verify-email-otp', requestPayload.id as any)(otp);
         });
+        handle.on('cancel', () => {
+          this.createIntermediaryEvent('cancel', requestPayload.id as any)();
+        });
       }
       return handle;
     }
