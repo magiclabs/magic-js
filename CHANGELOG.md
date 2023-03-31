@@ -1,3 +1,16 @@
+# (Fri Mar 31 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@16.0.0`, `@magic-sdk/types@14.0.0`
+  - Jerryliu sc 74424 email otp login invalid email otp event [#487](https://github.com/magiclabs/magic-js/pull/487) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Wed Mar 29 2023)
 
 #### 🚀 Enhancement

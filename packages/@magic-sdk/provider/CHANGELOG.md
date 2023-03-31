@@ -1,3 +1,25 @@
+# v16.0.0 (Fri Mar 31 2023)
+
+#### 💥 Breaking Change
+
+- Jerryliu sc 74424 email otp login invalid email otp event [#487](https://github.com/magiclabs/magic-js/pull/487) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- fix promise in tests ([@Ethella](https://github.com/Ethella))
+- remove skip ([@Ethella](https://github.com/Ethella))
+- move test to a new file ([@Ethella](https://github.com/Ethella))
+- fix tests ([@Ethella](https://github.com/Ethella))
+- remove otp-input-sent event to reduce confusion ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-74424-email-otp-login-invalid-email-otp-event ([@Ethella](https://github.com/Ethella))
+- * Add cancel event ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v15.0.0 (Mon Mar 27 2023)
 
 #### 💥 Breaking Change
