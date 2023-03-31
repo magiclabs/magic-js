@@ -10,7 +10,7 @@ const expectedEmail = 'john.doe@mail.com';
 
 test('Generates JSON RPC pending for otp-input-sent', async () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn();
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
