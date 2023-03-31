@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/conflux",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "magic conflux extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^12.0.0"
+    "@magic-sdk/commons": "^12.0.1"
   }
 }
