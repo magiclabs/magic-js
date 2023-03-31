@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/pnp",
-  "version": "9.1.0",
+  "version": "10.0.0",
   "description": "Passwordless authentication for the web with an out-of-the-box UI.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -19,8 +19,8 @@
     "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "@babel/runtime": "^7.9.6",
-    "@magic-ext/oauth": "^9.1.0",
-    "magic-sdk": "^15.1.0"
+    "@magic-ext/oauth": "^10.0.0",
+    "magic-sdk": "^16.0.0"
   },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
 }
