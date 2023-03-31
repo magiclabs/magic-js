@@ -8,7 +8,7 @@ beforeEach(() => {
 
 const expectedEmail = 'john.doe@mail.com';
 
-test.skip('Generates JSON RPC pending for otp-input-sent', async () => {
+test('Generates JSON RPC pending for otp-input-sent', async () => {
   const magic = createMagicSDK();
   magic.auth.overlay.post = jest.fn();
   const createIntermediaryEventFn = jest.fn();
