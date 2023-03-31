@@ -1,5 +1,18 @@
 # (Fri Mar 31 2023)
 
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@16.0.1`
+  - manually update types version in provider package [#488](https://github.com/magiclabs/magic-js/pull/488) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Mar 31 2023)
+
 #### 💥 Breaking Change
 
 - `@magic-sdk/provider@16.0.0`, `@magic-sdk/types@14.0.0`
