@@ -28,7 +28,7 @@ export class FlowExtension extends Extension.Internal<'flow', any> {
     const addr = await this.request(this.utils.createJsonRpcRequestPayload(FlowPayloadMethod.FlowGetAccount, []));
     const keyId = 0;
     let sequenceNum;
-    if (account.role.proposer) {
+    if (account?.role?.proposer) {
       const response = await fcl.send([fcl.getAccount(addr)]);
       const acct = await fcl.decode(response);
       sequenceNum = acct.keys[keyId].sequenceNumber;
