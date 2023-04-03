@@ -1,3 +1,16 @@
+# (Mon Apr 03 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/flow@11.0.2`
+  - Calling magic flow authorization throws error [sc-74792] [#489](https://github.com/magiclabs/magic-js/pull/489) ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 1
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
 # (Fri Mar 31 2023)
 
 #### 🐛 Bug Fix
