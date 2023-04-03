@@ -1,3 +1,15 @@
+# v9.0.0 (Fri Mar 31 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-74424-email-otp-login-invalid-email-otp-event ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v6.7.2 (Tue Mar 21 2023)
 
 #### 🐛 Bug Fix

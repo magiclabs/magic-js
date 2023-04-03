@@ -1,3 +1,55 @@
+# (Fri Mar 31 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@16.0.1`
+  - manually update types version in provider package [#488](https://github.com/magiclabs/magic-js/pull/488) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Mar 31 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@16.0.0`, `@magic-sdk/types@14.0.0`
+  - Jerryliu sc 74424 email otp login invalid email otp event [#487](https://github.com/magiclabs/magic-js/pull/487) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Wed Mar 29 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@13.1.0`
+  - Adds `MagicBoxHeartBeat` to MagicPayloadMethod [#486](https://github.com/magiclabs/magic-js/pull/486) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Mon Mar 27 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@15.0.0`, `@magic-sdk/types@13.0.0`
+  - Revert "move third party wallet connections to sdk (#473)" [#480](https://github.com/magiclabs/magic-js/pull/480) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Fri Mar 24 2023)
 
 #### 🐛 Bug Fix
