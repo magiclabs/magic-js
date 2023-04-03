@@ -14,8 +14,6 @@
 
 See the [developer documentation](https://magic.link/docs) to learn how you can master the Magic SDK in a matter of minutes.
 
-## Canary Version
-
 ## Looking to Get Started With Magic?
 
 This package is an internal dependency of the Magic JavaScript SDK ecosystem. If you're looking to get started with Magic's passwordless authentication for web or React native, check out one of these:
