@@ -6,6 +6,7 @@ export enum MagicIncomingWindowMessage {
   MAGIC_SHOW_OVERLAY = 'MAGIC_SHOW_OVERLAY',
   MAGIC_HIDE_OVERLAY = 'MAGIC_HIDE_OVERLAY',
   MAGIC_HANDLE_EVENT = 'MAGIC_HANDLE_EVENT',
+  MAGIC_MG_BOX_SEND_RECEIPT = 'MAGIC_MG_BOX_SEND_RECEIPT',
 }
 
 export enum MagicOutgoingWindowMessage {
