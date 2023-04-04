@@ -1,3 +1,21 @@
+# (Tue Apr 04 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@14.1.0`
+  - Adds `MAGIC_MG_BOX_SEND_RECEIPT` to `MagicIncomingWindowMessage` [#490](https://github.com/magiclabs/magic-js/pull/490) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- feat: [sc-73967] Auto publish canary version for Magic SDK [#478](https://github.com/magiclabs/magic-js/pull/478) ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
 # (Mon Apr 03 2023)
 
 #### 🐛 Bug Fix

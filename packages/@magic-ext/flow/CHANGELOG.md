@@ -1,3 +1,16 @@
+# v11.1.0 (Tue Apr 04 2023)
+
+#### 🐛 Bug Fix
+
+- feat: [sc-73967] Auto publish canary version for Magic SDK [#478](https://github.com/magiclabs/magic-js/pull/478) ([@bcleary06](https://github.com/bcleary06))
+- Merge branch 'master' into briancleary7114-sc-73967-auto-publish-canary-version-for-magic-sdk ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 1
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
 # v11.0.2 (Mon Apr 03 2023)
 
 #### 🐛 Bug Fix

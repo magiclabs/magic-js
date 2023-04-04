@@ -1,3 +1,15 @@
+# v11.1.0 (Tue Apr 04 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into briancleary7114-sc-73967-auto-publish-canary-version-for-magic-sdk ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 1
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
 # v11.0.0 (Fri Mar 31 2023)
 
 #### 🐛 Bug Fix

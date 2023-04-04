@@ -1,3 +1,17 @@
+# v16.1.0 (Tue Apr 04 2023)
+
+#### 🐛 Bug Fix
+
+- remove canary release test changes to readme ([@bcleary06](https://github.com/bcleary06))
+- test canary release ([@bcleary06](https://github.com/bcleary06))
+- Merge branch 'master' into briancleary7114-sc-73967-auto-publish-canary-version-for-magic-sdk ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 1
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
 # v16.0.1 (Fri Mar 31 2023)
 
 #### 🐛 Bug Fix

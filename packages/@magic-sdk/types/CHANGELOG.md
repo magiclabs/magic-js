@@ -1,3 +1,21 @@
+# v14.1.0 (Tue Apr 04 2023)
+
+#### 🚀 Enhancement
+
+- Adds `MAGIC_MG_BOX_SEND_RECEIPT` to `MagicIncomingWindowMessage` [#490](https://github.com/magiclabs/magic-js/pull/490) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Add MAGIC_MG_BOX_SEND_RECEIPT ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into briancleary7114-sc-73967-auto-publish-canary-version-for-magic-sdk ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
 # v14.0.0 (Fri Mar 31 2023)
 
 #### 💥 Breaking Change
