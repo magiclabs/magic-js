@@ -96,7 +96,7 @@ export class AuthModule extends BaseModule {
   }
 
   // Custom Auth
-  public setAuthorizationJWT() {
+  public setAuthorizationToken() {
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.SetAuthorizationToken);
     return this.request<boolean>(requestPayload);
   }
