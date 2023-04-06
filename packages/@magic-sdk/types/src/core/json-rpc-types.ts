@@ -91,6 +91,7 @@ export enum MagicPayloadMethod {
   LoginWithEmailOTP = 'magic_auth_login_with_email_otp',
   LoginWithMagicLink = 'magic_auth_login_with_magic_link',
   LoginWithCredential = 'magic_auth_login_with_credential',
+  SetAuthorizationToken = 'magic_auth_set_authorization_token',
   GetIdToken = 'magic_auth_get_id_token',
   GenerateIdToken = 'magic_auth_generate_id_token',
   GetMetadata = 'magic_auth_get_metadata',
