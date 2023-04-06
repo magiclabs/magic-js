@@ -2775,14 +2775,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-ext/custom-auth@workspace:packages/@magic-ext/custom-auth":
-  version: 0.0.0-use.local
-  resolution: "@magic-ext/custom-auth@workspace:packages/@magic-ext/custom-auth"
-  dependencies:
-    "@magic-sdk/commons": ^12.1.0
-  languageName: unknown
-  linkType: soft
-
 "@magic-ext/ed25519@workspace:packages/@magic-ext/ed25519":
   version: 0.0.0-use.local
   resolution: "@magic-ext/ed25519@workspace:packages/@magic-ext/ed25519"
