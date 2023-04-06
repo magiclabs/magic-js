@@ -1,5 +1,5 @@
 import { Extension } from '@magic-sdk/commons';
-import { CustomAuthPayloadMethod } from '@magic-ext/connect';
+import { CustomAuthPayloadMethod } from './types';
 
 export class CustomAuth extends Extension.Internal<'customAuth', any> {
   name = 'customAuth' as const;
