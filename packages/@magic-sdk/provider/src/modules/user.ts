@@ -5,10 +5,12 @@ import {
   GenerateIdTokenConfiguration,
   UpdateEmailConfiguration,
   RecoverAccountConfiguration,
+  RPCErrorCode,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
+import { MagicRPCError } from '../core/sdk-exceptions';
 
 type UpdateEmailEvents = {
   'email-sent': () => void;
@@ -51,6 +53,11 @@ export class UserModule extends BaseModule {
   }
 
   public isLoggedIn() {
+    if (!navigator.onLine) {
+      return Promise.reject(
+        new MagicRPCError({ message: 'User is not connected to the internet', code: RPCErrorCode.InvalidRequest }),
+      );
+    }
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.IsLoggedInTestMode : MagicPayloadMethod.IsLoggedIn,
     );
