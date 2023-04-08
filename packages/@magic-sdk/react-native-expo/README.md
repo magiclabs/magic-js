@@ -9,9 +9,6 @@
    <a href="https://github.com/magiclabs/magic-js/blob/master/CONTRIBUTING.md">Contributing Guide</a>
  </p>
 
-## ⚠️ Major Change: Package Split Beta ⚠️ 
-Please note that splitting the `Expo` and `Bare React Native` Magic package is a part of a **beta** release. Take whatever precautions necessary to verify use before installing on your production application. As always, in the case something goes awry, you may open an issue and revert your package to the previous pre-split stable version `magic-sdk/react-native@x.x.x`.
-
  ## 📖 Documentation
 
  See the [developer documentation](https://magic.link/docs) to learn how you can master the Magic SDK in a matter of minutes.
