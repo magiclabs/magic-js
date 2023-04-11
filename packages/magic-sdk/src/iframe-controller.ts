@@ -65,8 +65,7 @@ export class IframeController extends ViewController {
           iframe.src = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
           iframe.onerror = () => reject(new Error('Error loading Magic SDK'));
           applyOverlayStyles(iframe);
-          const appendChildRes = document.body.appendChild(iframe);
-          console.log('appendedIframeNode: ', appendChildRes);
+          document.body.appendChild(iframe);
           resolve(iframe);
         } else {
           createDuplicateIframeWarning().log();
