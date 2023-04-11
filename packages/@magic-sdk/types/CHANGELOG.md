@@ -1,3 +1,19 @@
+# v14.2.0 (Tue Apr 11 2023)
+
+#### 🚀 Enhancement
+
+- Jerryliu sc 74225 custom auth extension in magic js [#492](https://github.com/magiclabs/magic-js/pull/492) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Put setAuthorizationJWT back into ma core ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v14.1.0 (Tue Apr 04 2023)
 
 #### 🚀 Enhancement

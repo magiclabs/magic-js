@@ -1,3 +1,16 @@
+# (Tue Apr 11 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@16.2.0`, `@magic-sdk/types@14.2.0`
+  - Jerryliu sc 74225 custom auth extension in magic js [#492](https://github.com/magiclabs/magic-js/pull/492) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri Apr 07 2023)
 
 #### 🚀 Enhancement
