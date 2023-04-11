@@ -1,3 +1,19 @@
+# v17.2.0 (Fri Apr 07 2023)
+
+#### 🚀 Enhancement
+
+- Remove Beta Warning from RN packages [#491](https://github.com/magiclabs/magic-js/pull/491) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Remove Beta Warning from RN packages ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v17.1.0 (Tue Apr 04 2023)
 
 #### 🐛 Bug Fix

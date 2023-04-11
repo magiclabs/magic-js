@@ -1,3 +1,21 @@
+# (Fri Apr 07 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/react-native-bare@17.2.0`, `@magic-sdk/react-native-expo@17.2.0`
+  - Remove Beta Warning from RN packages [#491](https://github.com/magiclabs/magic-js/pull/491) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Remove magic-connect extension [#493](https://github.com/magiclabs/magic-js/pull/493) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Tue Apr 04 2023)
 
 #### 🚀 Enhancement
