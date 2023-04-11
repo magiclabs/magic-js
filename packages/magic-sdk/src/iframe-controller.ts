@@ -64,7 +64,8 @@ export class IframeController extends ViewController {
           iframe.title = 'Secure Modal';
           iframe.src = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
           applyOverlayStyles(iframe);
-          document.body.appendChild(iframe);
+          const appendChildRes = document.body.appendChild(iframe);
+          console.log('appendedIframeNode: ', appendChildRes);
           resolve(iframe);
         } else {
           createDuplicateIframeWarning().log();
