@@ -89,7 +89,7 @@ export class UserModule extends BaseModule {
         '@magic-sdk/react-native-expo': 'v18.0.0',
       },
       useInstead: 'user.getInfo()',
-    });
+    }).log();
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.GetMetadataTestMode : MagicPayloadMethod.GetMetadata,
     );
@@ -107,7 +107,7 @@ export class UserModule extends BaseModule {
         '@magic-sdk/react-native-expo': 'v18.0.0',
       },
       useInstead: 'auth.updateEmailWithUI()',
-    });
+    }).log();
     const { email, showUI = true } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
@@ -127,7 +127,7 @@ export class UserModule extends BaseModule {
         '@magic-sdk/react-native-expo': 'v18.0.0',
       },
       useInstead: 'auth.updatePhoneNumberWithUI()',
-    });
+    }).log();
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.UpdatePhoneNumberTestMode : MagicPayloadMethod.UpdatePhoneNumber,
     );

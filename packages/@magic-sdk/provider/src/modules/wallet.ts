@@ -29,7 +29,7 @@ export class WalletModule extends BaseModule {
         '@magic-sdk/react-native-expo': 'v18.0.0',
       },
       useInstead: 'user.getInfo()',
-    });
+    }).log();
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo);
     return this.request<WalletInfo>(requestPayload);
   }
@@ -46,7 +46,7 @@ export class WalletModule extends BaseModule {
         '@magic-sdk/react-native-expo': 'v18.0.0',
       },
       useInstead: 'user.logout()',
-    });
+    }).log();
     clearKeys();
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Disconnect);
     return this.request<boolean>(requestPayload);
@@ -64,7 +64,7 @@ export class WalletModule extends BaseModule {
         '@magic-sdk/react-native-expo': 'v18.0.0',
       },
       useInstead: 'user.requestUserInfoWithUI()',
-    });
+    }).log();
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RequestUserInfoWithUI, scope ? [scope] : []);
     return this.request<UserInfo>(requestPayload);
   }
