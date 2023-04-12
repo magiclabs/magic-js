@@ -5,10 +5,12 @@ import {
   LoginWithEmailOTPConfiguration,
   LoginWithEmailOTPEvents,
   LoginWithMagicLinkEvents,
+  UpdateEmailConfiguration,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
+import { UpdateEmailEvents } from './user';
 
 export class AuthModule extends BaseModule {
   /**
@@ -99,5 +101,21 @@ export class AuthModule extends BaseModule {
   public setAuthorizationToken() {
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.SetAuthorizationToken);
     return this.request<boolean>(requestPayload);
+  }
+
+  public updateEmailWithUI(configuration: UpdateEmailConfiguration) {
+    const { email, showUI = true } = configuration;
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
+      [{ email, showUI }],
+    );
+    return this.request<string | null, UpdateEmailEvents>(requestPayload);
+  }
+
+  public updatePhoneNumberWithUI() {
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.UpdatePhoneNumberTestMode : MagicPayloadMethod.UpdatePhoneNumber,
+    );
+    return this.request<string | null>(requestPayload);
   }
 }
