@@ -83,10 +83,10 @@ export class UserModule extends BaseModule {
     createDeprecationWarning({
       method: 'user.getMetadata()',
       removalVersions: {
-        'magic-sdk': 'v17.0.0',
+        'magic-sdk': 'v18.0.0',
         '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v18.0.0',
-        '@magic-sdk/react-native-expo': 'v18.0.0',
+        '@magic-sdk/react-native-bare': 'v19.0.0',
+        '@magic-sdk/react-native-expo': 'v19.0.0',
       },
       useInstead: 'user.getInfo()',
     }).log();
@@ -101,10 +101,10 @@ export class UserModule extends BaseModule {
     createDeprecationWarning({
       method: 'user.updateEmail()',
       removalVersions: {
-        'magic-sdk': 'v17.0.0',
+        'magic-sdk': 'v18.0.0',
         '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v18.0.0',
-        '@magic-sdk/react-native-expo': 'v18.0.0',
+        '@magic-sdk/react-native-bare': 'v19.0.0',
+        '@magic-sdk/react-native-expo': 'v19.0.0',
       },
       useInstead: 'auth.updateEmailWithUI()',
     }).log();
@@ -121,10 +121,10 @@ export class UserModule extends BaseModule {
     createDeprecationWarning({
       method: 'user.updatePhoneNumber()',
       removalVersions: {
-        'magic-sdk': 'v17.0.0',
+        'magic-sdk': 'v18.0.0',
         '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v18.0.0',
-        '@magic-sdk/react-native-expo': 'v18.0.0',
+        '@magic-sdk/react-native-bare': 'v19.0.0',
+        '@magic-sdk/react-native-expo': 'v19.0.0',
       },
       useInstead: 'auth.updatePhoneNumberWithUI()',
     }).log();

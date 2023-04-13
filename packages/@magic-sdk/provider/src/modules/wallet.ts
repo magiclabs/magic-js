@@ -23,10 +23,10 @@ export class WalletModule extends BaseModule {
     createDeprecationWarning({
       method: 'wallet.getInfo()',
       removalVersions: {
-        'magic-sdk': 'v17.0.0',
+        'magic-sdk': 'v18.0.0',
         '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v18.0.0',
-        '@magic-sdk/react-native-expo': 'v18.0.0',
+        '@magic-sdk/react-native-bare': 'v19.0.0',
+        '@magic-sdk/react-native-expo': 'v19.0.0',
       },
       useInstead: 'user.getInfo()',
     }).log();
@@ -40,10 +40,10 @@ export class WalletModule extends BaseModule {
     createDeprecationWarning({
       method: 'wallet.disconnect()',
       removalVersions: {
-        'magic-sdk': 'v17.0.0',
+        'magic-sdk': 'v18.0.0',
         '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v18.0.0',
-        '@magic-sdk/react-native-expo': 'v18.0.0',
+        '@magic-sdk/react-native-bare': 'v19.0.0',
+        '@magic-sdk/react-native-expo': 'v19.0.0',
       },
       useInstead: 'user.logout()',
     }).log();
@@ -58,10 +58,10 @@ export class WalletModule extends BaseModule {
     createDeprecationWarning({
       method: 'wallet.requestUserInfoWithUI()',
       removalVersions: {
-        'magic-sdk': 'v17.0.0',
+        'magic-sdk': 'v18.0.0',
         '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v18.0.0',
-        '@magic-sdk/react-native-expo': 'v18.0.0',
+        '@magic-sdk/react-native-bare': 'v19.0.0',
+        '@magic-sdk/react-native-expo': 'v19.0.0',
       },
       useInstead: 'user.requestUserInfoWithUI()',
     }).log();
