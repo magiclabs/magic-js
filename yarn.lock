@@ -2952,7 +2952,33 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@^16.2.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+"@magic-sdk/provider@npm:^16.2.0":
+  version: 16.2.0
+  resolution: "@magic-sdk/provider@npm:16.2.0"
+  dependencies:
+    "@magic-sdk/types": ^14.2.0
+    eventemitter3: ^4.0.4
+    web3-core: 1.5.2
+  peerDependencies:
+    localforage: ^1.7.4
+  checksum: d8de533428391dc77f0adbba83e8a8cf459b662ad1d0bf53b9e22a7c28b566d633a067474182055b86880bbe785fb59c6047ba1e8d263fa0987ce49c4a24e588
+  languageName: node
+  linkType: hard
+
+"@magic-sdk/provider@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "@magic-sdk/provider@npm:9.1.0"
+  dependencies:
+    "@magic-sdk/types": ^8.1.0
+    eventemitter3: ^4.0.4
+    web3-core: 1.5.2
+  peerDependencies:
+    localforage: ^1.7.4
+  checksum: 513cc7544f0e7c1c100f3770cdb46a2b9c402d8c5ff88a06849403ab5a5cf4963d18e08ea168fd2dfc227824f0a7cd3e172827504e2be074738a4bc8e65f5642
+  languageName: node
+  linkType: hard
+
+"@magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
@@ -2968,19 +2994,6 @@ __metadata:
     localforage: ^1.7.4
   languageName: unknown
   linkType: soft
-
-"@magic-sdk/provider@npm:^9.1.0":
-  version: 9.1.0
-  resolution: "@magic-sdk/provider@npm:9.1.0"
-  dependencies:
-    "@magic-sdk/types": ^8.1.0
-    eventemitter3: ^4.0.4
-    web3-core: 1.5.2
-  peerDependencies:
-    localforage: ^1.7.4
-  checksum: 513cc7544f0e7c1c100f3770cdb46a2b9c402d8c5ff88a06849403ab5a5cf4963d18e08ea168fd2dfc227824f0a7cd3e172827504e2be074738a4bc8e65f5642
-  languageName: node
-  linkType: hard
 
 "@magic-sdk/react-native-bare@^17.3.0, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
