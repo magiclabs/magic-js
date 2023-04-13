@@ -39,7 +39,7 @@ export interface UserInfo {
 }
 
 export interface WalletInfo {
-  walletType: 'magic' | 'metamask' | 'coinbase_wallet' | 'wallet_connect';
+  walletType: 'magic' | 'metamask' | 'coinbase_wallet';
 }
 
 export interface RequestUserInfoScope {
@@ -82,7 +82,6 @@ export interface NFTPurchaseResponse {
 
 export enum Wallets {
   MetaMask = 'metamask',
-  WalletConnect = 'wallet_connect',
   CoinbaseWallet = 'coinbase_wallet',
 }
 
