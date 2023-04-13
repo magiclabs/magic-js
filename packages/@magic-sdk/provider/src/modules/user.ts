@@ -5,6 +5,7 @@ import {
   GenerateIdTokenConfiguration,
   UpdateEmailConfiguration,
   RecoverAccountConfiguration,
+  ShowSettingsConfiguration,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -65,9 +66,10 @@ export class UserModule extends BaseModule {
     return this.request<boolean>(requestPayload);
   }
 
-  public showSettings() {
+  public showSettings(configuration?: ShowSettingsConfiguration) {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.UserSettingsTestMode : MagicPayloadMethod.UserSettings,
+      [configuration],
     );
     return this.request<MagicUserMetadata>(requestPayload);
   }
