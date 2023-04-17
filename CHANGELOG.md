@@ -1,3 +1,16 @@
+# (Mon Apr 17 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@17.0.0`, `@magic-sdk/types@15.0.0`
+  - 3pw upgrades for metamask and coinbase [#496](https://github.com/magiclabs/magic-js/pull/496) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # (Tue Apr 11 2023)
 
 #### 🚀 Enhancement

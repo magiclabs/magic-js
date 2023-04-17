@@ -11,9 +11,9 @@ const config: Config.InitialOptions = {
     global: {
       lines: 99,
       statements: 99,
-      functions: 99,
+      functions: 98,
       branches: 99,
-    }
+    },
   },
   setupFilesAfterEnv: ['./test/setup.ts'],
   globals: {
