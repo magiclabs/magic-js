@@ -8,6 +8,7 @@ import {
   RequestUserInfoScope,
   RecoverAccountConfiguration,
 } from '@magic-sdk/types';
+import { getItem, removeItem } from 'localforage';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
@@ -37,8 +38,9 @@ export class UserModule extends BaseModule {
     return this.request<string>(requestPayload);
   }
 
-  public getInfo() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo);
+  public async getInfo() {
+    const activeWallet = await getItem(this.localForageKey);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, [{ walletType: activeWallet }]);
     return this.request<MagicUserMetadata>(requestPayload);
   }
 
@@ -51,6 +53,7 @@ export class UserModule extends BaseModule {
 
   public logout() {
     clearKeys();
+    removeItem(this.localForageKey);
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
     );
@@ -133,4 +136,7 @@ export class UserModule extends BaseModule {
     );
     return this.request<string | null>(requestPayload);
   }
+
+  // Private members
+  private localForageKey = 'mc_active_wallet';
 }
