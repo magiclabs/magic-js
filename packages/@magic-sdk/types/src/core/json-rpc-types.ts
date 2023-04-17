@@ -39,7 +39,7 @@ export interface UserInfo {
 }
 
 export interface WalletInfo {
-  walletType: 'magic' | 'metamask' | 'coinbase_wallet' | 'wallet_connect';
+  walletType: 'magic' | 'metamask' | 'coinbase_wallet';
 }
 
 export interface RequestUserInfoScope {
@@ -78,6 +78,24 @@ export type NFTPurchaseStatus = 'processed' | 'declined' | 'expired';
 
 export interface NFTPurchaseResponse {
   status: NFTPurchaseStatus;
+}
+
+export enum Wallets {
+  MetaMask = 'metamask',
+  CoinbaseWallet = 'coinbase_wallet',
+}
+
+export enum Events {
+  WalletSelected = 'wallet_selected',
+  WalletConnected = 'wallet_connected',
+  WalletRejected = 'wallet_rejected',
+}
+
+export interface UserEnv {
+  env: {
+    isMetaMaskInstalled: boolean;
+    isCoinbaseWalletInstalled: boolean;
+  };
 }
 
 // --- Payload methods
@@ -122,4 +140,6 @@ export enum MagicPayloadMethod {
   RecoverAccount = 'magic_auth_recover_account',
   RecoverAccountTestMode = 'magic_auth_recover_account_testing_mode',
   MagicBoxHeartBeat = 'magic_box_heart_beat',
+  AutoConnect = 'mc_auto_connect',
+  Login = 'mc_login',
 }
