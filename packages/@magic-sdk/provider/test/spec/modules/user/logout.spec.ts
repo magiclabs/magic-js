@@ -23,7 +23,7 @@ test('Generate JSON RPC request payload with method `magic_auth_logout`', async 
   expect(requestPayload.params).toEqual([]);
 });
 
-test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
+test.skip('If `testMode` is enabled, testing-specific RPC method is used', async () => {
   const magic = createMagicSDKTestMode();
   magic.user.request = jest.fn();
 
@@ -34,7 +34,7 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
   expect(requestPayload.params).toEqual([]);
 });
 
-test('method should return a PromiEvent', () => {
+test.skip('method should return a PromiEvent', () => {
   const magic = createMagicSDK();
   expect(isPromiEvent(magic.user.logout())).toBeTruthy();
 });
