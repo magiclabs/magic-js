@@ -5,6 +5,13 @@ import { isPromiEvent } from '../../../../src/util';
 
 beforeEach(() => {
   browserEnv.restore();
+  jest.mock('@magic-sdk/provider/src/util/storage.ts', () => {
+    return {
+      proxyLocalForageMethod: () => null,
+      getItem: () => null,
+      removeItem: () => null,
+    };
+  });
 });
 
 test('method should return a PromiEvent', () => {
