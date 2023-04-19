@@ -1,3 +1,15 @@
+# v17.0.0 (Mon Apr 17 2023)
+
+#### 💥 Breaking Change
+
+- 3pw upgrades for metamask and coinbase [#496](https://github.com/magiclabs/magic-js/pull/496) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v16.2.0 (Tue Apr 11 2023)
 
 #### 🚀 Enhancement
