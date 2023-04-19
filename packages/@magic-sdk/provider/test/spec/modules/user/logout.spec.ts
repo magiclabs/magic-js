@@ -8,6 +8,7 @@ beforeEach(() => {
   jest.mock('@magic-sdk/provider/src/util/storage.ts', () => {
     return {
       getItem: () => null,
+      removeItem: () => null,
     };
   });
 });
@@ -23,7 +24,7 @@ test('Generate JSON RPC request payload with method `magic_auth_logout`', async 
   expect(requestPayload.params).toEqual([]);
 });
 
-test.skip('If `testMode` is enabled, testing-specific RPC method is used', async () => {
+test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
   const magic = createMagicSDKTestMode();
   magic.user.request = jest.fn();
 
