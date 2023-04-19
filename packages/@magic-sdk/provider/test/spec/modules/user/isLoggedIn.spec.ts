@@ -7,14 +7,14 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test(' Generate JSON RPC request payload with method `magic_auth_is_logged_in`', async () => {
+test(' Generate JSON RPC request payload with method `magic_is_logged_in`', async () => {
   const magic = createMagicSDK();
   magic.user.request = jest.fn();
 
   magic.user.isLoggedIn();
 
   const requestPayload = magic.user.request.mock.calls[0][0];
-  expect(requestPayload.method).toBe('magic_auth_is_logged_in');
+  expect(requestPayload.method).toBe('magic_is_logged_in');
   expect(requestPayload.params).toEqual([]);
 });
 

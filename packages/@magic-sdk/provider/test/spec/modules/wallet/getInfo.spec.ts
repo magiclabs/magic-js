@@ -5,7 +5,7 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Generate JSON RPC request payload with method `mc_get_wallet_info` and the active wallet', async () => {
+test('Generate JSON RPC request payload with method `magic_get_info` and the active wallet', async () => {
   const magic = createMagicSDK();
   magic.wallet.request = jest.fn();
 
@@ -18,6 +18,6 @@ test('Generate JSON RPC request payload with method `mc_get_wallet_info` and the
   await magic.wallet.getInfo();
 
   const requestPayload = magic.wallet.request.mock.calls[0][0];
-  expect(requestPayload.method).toBe('mc_get_wallet_info');
+  expect(requestPayload.method).toBe('magic_get_info');
   expect(requestPayload.params).toEqual([{ walletType: 'metamask' }]);
 });
