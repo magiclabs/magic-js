@@ -5,6 +5,11 @@ import { isPromiEvent } from '../../../../src/util';
 
 beforeEach(() => {
   browserEnv.restore();
+  jest.mock('@magic-sdk/provider/src/util/storage.ts', () => {
+    return {
+      getItem: () => null,
+    };
+  });
 });
 
 test('Generate JSON RPC request payload with method `magic_auth_logout`', async () => {
