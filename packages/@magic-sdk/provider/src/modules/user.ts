@@ -8,7 +8,7 @@ import {
   RequestUserInfoScope,
   RecoverAccountConfiguration,
 } from '@magic-sdk/types';
-import { getItem, removeItem } from 'localforage';
+import { getItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
