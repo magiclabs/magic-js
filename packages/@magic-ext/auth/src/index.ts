@@ -33,8 +33,8 @@ type UpdateEmailEvents = {
   retry: () => void;
 };
 
-export class AuthExtension extends Extension.Internal<'auth2', any> {
-  name = 'auth2' as const;
+export class AuthExtension extends Extension.Internal<'auth', any> {
+  name = 'auth' as const;
   config: any = {};
 
   /**
