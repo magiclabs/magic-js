@@ -14,6 +14,7 @@ import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
+import { ProductConsolidationMethodRemovalVersions } from './auth';
 
 export type UpdateEmailEvents = {
   'email-sent': () => void;
@@ -87,12 +88,7 @@ export class UserModule extends BaseModule {
   public getMetadata() {
     createDeprecationWarning({
       method: 'user.getMetadata()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: 'user.getInfo()',
     }).log();
     const requestPayload = createJsonRpcRequestPayload(
@@ -105,12 +101,7 @@ export class UserModule extends BaseModule {
   public updateEmail(configuration: UpdateEmailConfiguration) {
     createDeprecationWarning({
       method: 'user.updateEmail()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: 'auth.updateEmailWithUI()',
     }).log();
     const { email, showUI = true } = configuration;
@@ -125,12 +116,7 @@ export class UserModule extends BaseModule {
   public updatePhoneNumber() {
     createDeprecationWarning({
       method: 'user.updatePhoneNumber()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: 'auth.updatePhoneNumberWithUI()',
     }).log();
     const requestPayload = createJsonRpcRequestPayload(

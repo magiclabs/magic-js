@@ -12,6 +12,7 @@ import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { setItem, getItem, removeItem } from '../util/storage';
+import { ProductConsolidationMethodRemovalVersions } from './auth';
 
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
@@ -59,12 +60,7 @@ export class WalletModule extends BaseModule {
   public async getInfo() {
     createDeprecationWarning({
       method: 'wallet.getInfo()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: 'user.getInfo()',
     }).log();
     const activeWallet = await getItem(this.localForageKey);
@@ -77,12 +73,7 @@ export class WalletModule extends BaseModule {
   public disconnect() {
     createDeprecationWarning({
       method: 'wallet.disconnect()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: 'user.logout()',
     }).log();
     clearKeys();
@@ -96,12 +87,7 @@ export class WalletModule extends BaseModule {
   public requestUserInfoWithUI(scope?: RequestUserInfoScope) {
     createDeprecationWarning({
       method: 'wallet.requestUserInfoWithUI()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: 'user.requestUserInfoWithUI()',
     }).log();
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RequestUserInfoWithUI, scope ? [scope] : []);

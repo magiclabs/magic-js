@@ -13,6 +13,13 @@ import { SDKEnvironment } from '../core/sdk-environment';
 import { UpdateEmailEvents } from './user';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 
+export const ProductConsolidationMethodRemovalVersions = {
+  'magic-sdk': 'v18.0.0',
+  '@magic-sdk/react-native': 'v14.0.0',
+  '@magic-sdk/react-native-bare': 'v19.0.0',
+  '@magic-sdk/react-native-expo': 'v19.0.0',
+};
+
 export class AuthModule extends BaseModule {
   /**
    * Initiate the "magic link" login flow for a user. If the flow is successful,
@@ -22,12 +29,7 @@ export class AuthModule extends BaseModule {
   public loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
     createDeprecationWarning({
       method: 'auth.loginWithMagicLink()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: '@magic-ext/auth auth.loginWithMagicLink()',
     }).log();
     const { email, showUI = true, redirectURI } = configuration;
@@ -47,12 +49,7 @@ export class AuthModule extends BaseModule {
   public loginWithSMS(configuration: LoginWithSmsConfiguration) {
     createDeprecationWarning({
       method: 'auth.loginWithSMS()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: '@magic-ext/auth auth.loginWithSMS()',
     }).log();
     const { phoneNumber } = configuration;
@@ -71,12 +68,7 @@ export class AuthModule extends BaseModule {
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
     createDeprecationWarning({
       method: 'auth.loginWithEmailOTP()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: '@magic-ext/auth auth.loginWithEmailOTP()',
     }).log();
     const { email, showUI } = configuration;
@@ -112,12 +104,7 @@ export class AuthModule extends BaseModule {
   public loginWithCredential(credentialOrQueryString?: string) {
     createDeprecationWarning({
       method: 'auth.loginWithCredential()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: '@magic-ext/auth auth.loginWithCredential()',
     }).log();
     let credentialResolved = credentialOrQueryString ?? '';
@@ -142,12 +129,7 @@ export class AuthModule extends BaseModule {
   public setAuthorizationToken() {
     createDeprecationWarning({
       method: 'auth.setAuthorizationToken()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: '@magic-ext/auth auth.setAuthorizationToken()',
     }).log();
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.SetAuthorizationToken);
@@ -157,12 +139,7 @@ export class AuthModule extends BaseModule {
   public updateEmailWithUI(configuration: UpdateEmailConfiguration) {
     createDeprecationWarning({
       method: 'auth.updateEmailWithUI()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: '@magic-ext/auth auth.updateEmailWithUI()',
     }).log();
     const { email, showUI = true } = configuration;
@@ -176,12 +153,7 @@ export class AuthModule extends BaseModule {
   public updatePhoneNumberWithUI() {
     createDeprecationWarning({
       method: 'auth.updatePhoneNumberWithUI()',
-      removalVersions: {
-        'magic-sdk': 'v18.0.0',
-        '@magic-sdk/react-native': 'v14.0.0',
-        '@magic-sdk/react-native-bare': 'v19.0.0',
-        '@magic-sdk/react-native-expo': 'v19.0.0',
-      },
+      removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: '@magic-ext/auth auth.updatePhoneNumberWithUI()',
     }).log();
     const requestPayload = createJsonRpcRequestPayload(
