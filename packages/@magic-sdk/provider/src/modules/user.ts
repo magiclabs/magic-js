@@ -61,7 +61,7 @@ export class UserModule extends BaseModule {
   }
 
   /* Request email address from logged in user */
-  public requestUserInfoWithUI(scope?: RequestUserInfoScope) {
+  public requestInfoWithUI(scope?: RequestUserInfoScope) {
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RequestUserInfoWithUI, scope ? [scope] : []);
     return this.request<UserInfo>(requestPayload);
   }
