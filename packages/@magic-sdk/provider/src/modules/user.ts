@@ -4,14 +4,19 @@ import {
   MagicUserMetadata,
   GenerateIdTokenConfiguration,
   UpdateEmailConfiguration,
+  UserInfo,
+  RequestUserInfoScope,
   RecoverAccountConfiguration,
   ShowSettingsConfiguration,
 } from '@magic-sdk/types';
+import { getItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
+import { createDeprecationWarning } from '../core/sdk-exceptions';
+import { ProductConsolidationMethodRemovalVersions } from './auth';
 
-type UpdateEmailEvents = {
+export type UpdateEmailEvents = {
   'email-sent': () => void;
   'email-not-deliverable': () => void;
   'old-email-confirmed': () => void;
@@ -35,20 +40,10 @@ export class UserModule extends BaseModule {
     return this.request<string>(requestPayload);
   }
 
-  public getMetadata() {
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.GetMetadataTestMode : MagicPayloadMethod.GetMetadata,
-    );
+  public async getInfo() {
+    const activeWallet = await getItem(this.localForageKey);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, [{ walletType: activeWallet }]);
     return this.request<MagicUserMetadata>(requestPayload);
-  }
-
-  public updateEmail(configuration: UpdateEmailConfiguration) {
-    const { email, showUI = true } = configuration;
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
-      [{ email, showUI }],
-    );
-    return this.request<string | null, UpdateEmailEvents>(requestPayload);
   }
 
   public isLoggedIn() {
@@ -60,10 +55,17 @@ export class UserModule extends BaseModule {
 
   public logout() {
     clearKeys();
+    removeItem(this.localForageKey);
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
     );
     return this.request<boolean>(requestPayload);
+  }
+
+  /* Request email address from logged in user */
+  public requestInfoWithUI(scope?: RequestUserInfoScope) {
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RequestUserInfoWithUI, scope ? [scope] : []);
+    return this.request<UserInfo>(requestPayload);
   }
 
   public showSettings(configuration?: ShowSettingsConfiguration) {
@@ -74,13 +76,6 @@ export class UserModule extends BaseModule {
     return this.request<MagicUserMetadata>(requestPayload);
   }
 
-  public updatePhoneNumber() {
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.UpdatePhoneNumberTestMode : MagicPayloadMethod.UpdatePhoneNumber,
-    );
-    return this.request<string | null>(requestPayload);
-  }
-
   public recoverAccount(configuration: RecoverAccountConfiguration) {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.RecoverAccountTestMode : MagicPayloadMethod.RecoverAccount,
@@ -88,4 +83,48 @@ export class UserModule extends BaseModule {
     );
     return this.request<boolean | null>(requestPayload);
   }
+
+  // Deprecating
+  public getMetadata() {
+    createDeprecationWarning({
+      method: 'user.getMetadata()',
+      removalVersions: ProductConsolidationMethodRemovalVersions,
+      useInstead: 'user.getInfo()',
+    }).log();
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.GetMetadataTestMode : MagicPayloadMethod.GetMetadata,
+    );
+    return this.request<MagicUserMetadata>(requestPayload);
+  }
+
+  // Deprecating
+  public updateEmail(configuration: UpdateEmailConfiguration) {
+    createDeprecationWarning({
+      method: 'user.updateEmail()',
+      removalVersions: ProductConsolidationMethodRemovalVersions,
+      useInstead: 'auth.updateEmailWithUI()',
+    }).log();
+    const { email, showUI = true } = configuration;
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
+      [{ email, showUI }],
+    );
+    return this.request<string | null, UpdateEmailEvents>(requestPayload);
+  }
+
+  // Deprecating
+  public updatePhoneNumber() {
+    createDeprecationWarning({
+      method: 'user.updatePhoneNumber()',
+      removalVersions: ProductConsolidationMethodRemovalVersions,
+      useInstead: 'auth.updatePhoneNumberWithUI()',
+    }).log();
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.UpdatePhoneNumberTestMode : MagicPayloadMethod.UpdatePhoneNumber,
+    );
+    return this.request<string | null>(requestPayload);
+  }
+
+  // Private members
+  private localForageKey = 'mc_active_wallet';
 }

@@ -2735,6 +2735,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/auth@workspace:packages/@magic-ext/auth":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/auth@workspace:packages/@magic-ext/auth"
+  dependencies:
+    "@magic-sdk/commons": ^13.0.0
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/avalanche@workspace:packages/@magic-ext/avalanche":
   version: 0.0.0-use.local
   resolution: "@magic-ext/avalanche@workspace:packages/@magic-ext/avalanche"

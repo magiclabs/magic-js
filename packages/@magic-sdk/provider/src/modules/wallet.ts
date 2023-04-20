@@ -10,7 +10,9 @@ import {
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
+import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { setItem, getItem, removeItem } from '../util/storage';
+import { ProductConsolidationMethodRemovalVersions } from './auth';
 
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
@@ -54,24 +56,42 @@ export class WalletModule extends BaseModule {
   }
 
   /* Get user info such as the wallet type they are logged in with */
+  // deprecating
   public async getInfo() {
+    createDeprecationWarning({
+      method: 'wallet.getInfo()',
+      removalVersions: ProductConsolidationMethodRemovalVersions,
+      useInstead: 'user.getInfo()',
+    }).log();
     const activeWallet = await getItem(this.localForageKey);
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, [{ walletType: activeWallet }]);
     return this.request<WalletInfo>(requestPayload);
   }
 
-  /* Request email address from logged in user */
-  public requestUserInfoWithUI(scope?: RequestUserInfoScope) {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RequestUserInfoWithUI, scope ? [scope] : []);
-    return this.request<UserInfo>(requestPayload);
-  }
-
   /* Logout user */
+  // deprecating
   public disconnect() {
+    createDeprecationWarning({
+      method: 'wallet.disconnect()',
+      removalVersions: ProductConsolidationMethodRemovalVersions,
+      useInstead: 'user.logout()',
+    }).log();
     clearKeys();
     removeItem(this.localForageKey);
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Disconnect);
     return this.request<boolean>(requestPayload);
+  }
+
+  /* Request email address from logged in user */
+  // deprecating
+  public requestUserInfoWithUI(scope?: RequestUserInfoScope) {
+    createDeprecationWarning({
+      method: 'wallet.requestUserInfoWithUI()',
+      removalVersions: ProductConsolidationMethodRemovalVersions,
+      useInstead: 'user.requestUserInfoWithUI()',
+    }).log();
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RequestUserInfoWithUI, scope ? [scope] : []);
+    return this.request<UserInfo>(requestPayload);
   }
 
   /* Returns the provider for the connected wallet */

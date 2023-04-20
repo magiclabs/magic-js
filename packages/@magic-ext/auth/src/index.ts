@@ -1,40 +1,51 @@
 import {
-  MagicPayloadMethod,
-  LoginWithMagicLinkConfiguration,
-  LoginWithSmsConfiguration,
+  Extension,
   LoginWithEmailOTPConfiguration,
   LoginWithEmailOTPEvents,
+  LoginWithMagicLinkConfiguration,
   LoginWithMagicLinkEvents,
+  LoginWithSmsConfiguration,
+  MagicPayloadMethod,
   UpdateEmailConfiguration,
-} from '@magic-sdk/types';
-import { BaseModule } from './base-module';
-import { createJsonRpcRequestPayload } from '../core/json-rpc';
-import { SDKEnvironment } from '../core/sdk-environment';
-import { UpdateEmailEvents } from './user';
-import { createDeprecationWarning } from '../core/sdk-exceptions';
+} from '@magic-sdk/commons';
+import { ViewController } from '@magic-sdk/provider';
+import type localForage from 'localforage';
 
-export const ProductConsolidationMethodRemovalVersions = {
-  'magic-sdk': 'v18.0.0',
-  '@magic-sdk/react-native': 'v14.0.0',
-  '@magic-sdk/react-native-bare': 'v19.0.0',
-  '@magic-sdk/react-native-expo': 'v19.0.0',
+type ConstructorOf<C> = { new (...args: any[]): C };
+
+interface SDKEnvironment {
+  sdkName: 'magic-sdk' | '@magic-sdk/react-native' | '@magic-sdk/react-native-bare' | '@magic-sdk/react-native-expo';
+  version: string;
+  platform: 'web' | 'react-native';
+  defaultEndpoint: string;
+  ViewController: ConstructorOf<ViewController>;
+  configureStorage: () => Promise<typeof localForage>;
+  bundleId?: string | null;
+}
+
+const SDKEnvironment: SDKEnvironment = {} as any;
+
+type UpdateEmailEvents = {
+  'email-sent': () => void;
+  'email-not-deliverable': () => void;
+  'old-email-confirmed': () => void;
+  'new-email-confirmed': () => void;
+  retry: () => void;
 };
 
-export class AuthModule extends BaseModule {
+export class AuthExtension extends Extension.Internal<'auth', any> {
+  name = 'auth' as const;
+  config: any = {};
+
   /**
    * Initiate the "magic link" login flow for a user. If the flow is successful,
    * this method will return a Decentralized ID token (with a default lifespan
    * of 15 minutes).
    */
   public loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
-    createDeprecationWarning({
-      method: 'auth.loginWithMagicLink()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.loginWithMagicLink()',
-    }).log();
     const { email, showUI = true, redirectURI } = configuration;
 
-    const requestPayload = createJsonRpcRequestPayload(
+    const requestPayload = this.utils.createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
       [{ email, showUI, redirectURI }],
     );
@@ -47,13 +58,8 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithSMS(configuration: LoginWithSmsConfiguration) {
-    createDeprecationWarning({
-      method: 'auth.loginWithSMS()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.loginWithSMS()',
-    }).log();
     const { phoneNumber } = configuration;
-    const requestPayload = createJsonRpcRequestPayload(
+    const requestPayload = this.utils.createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
       [{ phoneNumber, showUI: true }],
     );
@@ -66,13 +72,8 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
-    createDeprecationWarning({
-      method: 'auth.loginWithEmailOTP()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.loginWithEmailOTP()',
-    }).log();
     const { email, showUI } = configuration;
-    const requestPayload = createJsonRpcRequestPayload(
+    const requestPayload = this.utils.createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
       [{ email, showUI }],
     );
@@ -102,11 +103,6 @@ export class AuthModule extends BaseModule {
    * `window.location.search`.
    */
   public loginWithCredential(credentialOrQueryString?: string) {
-    createDeprecationWarning({
-      method: 'auth.loginWithCredential()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.loginWithCredential()',
-    }).log();
     let credentialResolved = credentialOrQueryString ?? '';
 
     if (!credentialOrQueryString && SDKEnvironment.platform === 'web') {
@@ -117,7 +113,7 @@ export class AuthModule extends BaseModule {
       window.history.replaceState(null, '', urlWithoutQuery);
     }
 
-    const requestPayload = createJsonRpcRequestPayload(
+    const requestPayload = this.utils.createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithCredentialTestMode : MagicPayloadMethod.LoginWithCredential,
       [credentialResolved],
     );
@@ -127,23 +123,13 @@ export class AuthModule extends BaseModule {
 
   // Custom Auth
   public setAuthorizationToken() {
-    createDeprecationWarning({
-      method: 'auth.setAuthorizationToken()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.setAuthorizationToken()',
-    }).log();
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.SetAuthorizationToken);
+    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.SetAuthorizationToken);
     return this.request<boolean>(requestPayload);
   }
 
   public updateEmailWithUI(configuration: UpdateEmailConfiguration) {
-    createDeprecationWarning({
-      method: 'auth.updateEmailWithUI()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.updateEmailWithUI()',
-    }).log();
     const { email, showUI = true } = configuration;
-    const requestPayload = createJsonRpcRequestPayload(
+    const requestPayload = this.utils.createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
       [{ email, showUI }],
     );
@@ -151,14 +137,11 @@ export class AuthModule extends BaseModule {
   }
 
   public updatePhoneNumberWithUI() {
-    createDeprecationWarning({
-      method: 'auth.updatePhoneNumberWithUI()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.updatePhoneNumberWithUI()',
-    }).log();
-    const requestPayload = createJsonRpcRequestPayload(
+    const requestPayload = this.utils.createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.UpdatePhoneNumberTestMode : MagicPayloadMethod.UpdatePhoneNumber,
     );
     return this.request<string | null>(requestPayload);
   }
 }
+
+export * from './types';
