@@ -1,3 +1,23 @@
+# v17.1.0 (Thu Apr 20 2023)
+
+#### 🚀 Enhancement
+
+- product consolidated SDK + deprecation warnings [#497](https://github.com/magiclabs/magic-js/pull/497) ([@Dizigen](https://github.com/Dizigen))
+- Jerryliu sc 75641 lazer request showsettings page mfa [#498](https://github.com/magiclabs/magic-js/pull/498) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Add test for showSettings.spec.ts ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into jerryliu-sc-75641-lazer-request-showsettings-page-mfa ([@Ethella](https://github.com/Ethella))
+- add showSetting configuration ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v17.0.0 (Mon Apr 17 2023)
 
 #### 💥 Breaking Change
