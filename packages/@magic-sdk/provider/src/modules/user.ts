@@ -7,6 +7,7 @@ import {
   UserInfo,
   RequestUserInfoScope,
   RecoverAccountConfiguration,
+  ShowSettingsConfiguration,
 } from '@magic-sdk/types';
 import { getItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
@@ -66,9 +67,10 @@ export class UserModule extends BaseModule {
     return this.request<UserInfo>(requestPayload);
   }
 
-  public showSettings() {
+  public showSettings(configuration?: ShowSettingsConfiguration) {
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.UserSettingsTestMode : MagicPayloadMethod.UserSettings,
+      [configuration],
     );
     return this.request<MagicUserMetadata>(requestPayload);
   }
