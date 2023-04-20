@@ -1,4 +1,5 @@
 import browserEnv from '@ikscodes/browser-env';
+import { DeepLinkPage } from '@magic-sdk/types/src/core/deep-link-pages';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { isPromiEvent } from '../../../../src/util';
 
@@ -14,7 +15,7 @@ test('Generate JSON RPC request payload with method `magic_auth_settings`', asyn
 
   const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_settings');
-  expect(requestPayload.params).toEqual([]);
+  expect(requestPayload.params).toEqual([undefined]);
 });
 
 test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
@@ -25,7 +26,18 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
 
   const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_settings_testing_mode');
-  expect(requestPayload.params).toEqual([]);
+  expect(requestPayload.params).toEqual([undefined]);
+});
+
+test('Generate JSON RPC request payload with method `magic_auth_settings`', async () => {
+  const magic = createMagicSDK();
+  magic.user.request = jest.fn();
+
+  magic.user.showSettings({ page: DeepLinkPage.MFA });
+
+  const requestPayload = magic.user.request.mock.calls[0][0];
+  expect(requestPayload.method).toBe('magic_auth_settings');
+  expect(requestPayload.params).toEqual([{ page: 'mfa' }]);
 });
 
 test('method should return a PromiEvent', () => {

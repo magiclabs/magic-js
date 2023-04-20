@@ -1,3 +1,5 @@
+import { DeepLinkPage } from '../core/deep-link-pages';
+
 export interface GetIdTokenConfiguration {
   /**
    * The number of seconds until the generated ID token will expire.
@@ -52,4 +54,11 @@ export interface RecoverAccountConfiguration {
    * The email to recover
    */
   email: string;
+}
+
+export interface ShowSettingsConfiguration {
+  /**
+   * deep linking destination
+   */
+  page: DeepLinkPage;
 }
