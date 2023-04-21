@@ -1,3 +1,15 @@
+# v12.1.0 (Thu Apr 20 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into jerryliu-sc-75641-lazer-request-showsettings-page-mfa ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v11.1.0 (Tue Apr 04 2023)
 
 #### 🐛 Bug Fix

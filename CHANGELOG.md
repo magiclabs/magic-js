@@ -1,3 +1,19 @@
+# (Thu Apr 20 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/auth@0.2.0`, `@magic-sdk/provider@17.1.0`, `@magic-sdk/types@15.1.0`
+  - product consolidated SDK + deprecation warnings [#497](https://github.com/magiclabs/magic-js/pull/497) ([@Dizigen](https://github.com/Dizigen))
+- `@magic-sdk/provider@17.1.0`, `@magic-sdk/types@15.1.0`
+  - Jerryliu sc 75641 lazer request showsettings page mfa [#498](https://github.com/magiclabs/magic-js/pull/498) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Mon Apr 17 2023)
 
 #### 💥 Breaking Change
