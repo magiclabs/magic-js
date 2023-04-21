@@ -1,3 +1,17 @@
+# v15.1.1 (Fri Apr 21 2023)
+
+#### 🐛 Bug Fix
+
+- hotfix export types to index.ts [#499](https://github.com/magiclabs/magic-js/pull/499) ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-75641-lazer-request-showsettings-page-mfa ([@Ethella](https://github.com/Ethella))
+- hotfix types export from index.ts ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v15.1.0 (Thu Apr 20 2023)
 
 #### 🚀 Enhancement

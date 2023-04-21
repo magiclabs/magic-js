@@ -1,3 +1,16 @@
+# (Fri Apr 21 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@15.1.1`
+  - hotfix export types to index.ts [#499](https://github.com/magiclabs/magic-js/pull/499) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Thu Apr 20 2023)
 
 #### 🚀 Enhancement
