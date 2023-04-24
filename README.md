@@ -1,5 +1,5 @@
   <p align="left">
-    <a href="https://docs.onflow.org/flow-cli/install/">
+    <a href="hhttps://magic.link/docs/home/welcome">
       <img src="./packages/magic-sdk/logo.svg" alt="Logo" width="270" height="auto">
     </a>
   </p>
