@@ -3,6 +3,7 @@
       <img src="./packages/magic-sdk/logo.svg" alt="Logo" width="270" height="auto">
     </a>
   </p>
+
 # Magic JavaScript SDK
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
