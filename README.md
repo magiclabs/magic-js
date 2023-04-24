@@ -1,7 +1,7 @@
-  <p align="center">
-  <a href="https://docs.onflow.org/flow-cli/install/">
-    <img src="./img/2-Magic_Color:White.svg" alt="Logo" width="270" height="auto">
-  </a>
+  <p align="left">
+    <a href="https://docs.onflow.org/flow-cli/install/">
+      <img src="./packages/magic-sdk/logo.svg" alt="Logo" width="270" height="auto">
+    </a>
   </p>
 # Magic JavaScript SDK
 
