@@ -1,5 +1,5 @@
   <p align="left">
-    <a href="hhttps://magic.link/docs/home/welcome">
+    <a href="https://magic.link/docs/home/welcome">
       <img src="./packages/magic-sdk/logo.svg" alt="Logo" width="270" height="auto">
     </a>
   </p>
