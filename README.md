@@ -1,6 +1,6 @@
   <p align="left">
     <a href="https://magic.link/docs/home/welcome">
-      <img src="./packages/magic-sdk/logo.svg" alt="Logo" width="270" height="auto">
+      <img src="https://media.graphassets.com/T9TXZhcNRVm211eyMh3u" alt="Logo" width="270" height="auto">
     </a>
   </p>
 
