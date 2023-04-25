@@ -2,6 +2,25 @@
 
 #### 🐛 Bug Fix
 
+- update yarn.lock [#503](https://github.com/magiclabs/magic-js/pull/503) ([@Dizigen](https://github.com/Dizigen))
+- `magic-sdk@17.1.3`
+  - Update logo asset [#505](https://github.com/magiclabs/magic-js/pull/505) ([@Dizigen](https://github.com/Dizigen))
+  - Update logo asset [#504](https://github.com/magiclabs/magic-js/pull/504) ([@Dizigen](https://github.com/Dizigen))
+
+#### ⚠️ Pushed to `master`
+
+- Update README.md ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# (Tue Apr 25 2023)
+
+#### 🐛 Bug Fix
+
 - `@magic-sdk/commons@13.1.2`, `@magic-sdk/pnp@11.1.2`, `@magic-sdk/provider@17.1.2`, `@magic-sdk/react-native-bare@18.1.2`, `@magic-sdk/react-native-expo@18.1.2`, `@magic-sdk/types@15.1.2`, `magic-sdk@17.1.2`
   - update MIT license to apache [#500](https://github.com/magiclabs/magic-js/pull/500) ([@Dizigen](https://github.com/Dizigen))
 - `magic-sdk@17.1.2`

@@ -1,3 +1,16 @@
+# v17.1.3 (Tue Apr 25 2023)
+
+#### 🐛 Bug Fix
+
+- Update logo asset [#505](https://github.com/magiclabs/magic-js/pull/505) ([@Dizigen](https://github.com/Dizigen))
+- Update logo asset [#504](https://github.com/magiclabs/magic-js/pull/504) ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v17.1.2 (Tue Apr 25 2023)
 
 #### 🐛 Bug Fix
