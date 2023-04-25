@@ -108,5 +108,5 @@ PKG=@magic-sdk/react-native-expo yarn test
 
 Test specific files
 ```bash
-yarn test /test/**/constructor.spec.ts
+yarn test /test/**/constructor.spec.ts 
 ```
