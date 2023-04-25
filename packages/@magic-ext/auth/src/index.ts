@@ -122,8 +122,8 @@ export class AuthExtension extends Extension.Internal<'auth', any> {
   }
 
   // Custom Auth
-  public setAuthorizationToken() {
-    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.SetAuthorizationToken);
+  public setAuthorizationToken(jwt: string) {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.SetAuthorizationToken, [{ jwt }]);
     return this.request<boolean>(requestPayload);
   }
 
