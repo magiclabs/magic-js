@@ -1,3 +1,15 @@
+# v18.1.2 (Tue Apr 25 2023)
+
+#### 🐛 Bug Fix
+
+- update MIT license to apache [#500](https://github.com/magiclabs/magic-js/pull/500) ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v18.1.1 (Fri Apr 21 2023)
 
 #### 🐛 Bug Fix

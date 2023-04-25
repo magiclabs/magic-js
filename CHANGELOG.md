@@ -1,3 +1,23 @@
+# (Tue Apr 25 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/commons@13.1.2`, `@magic-sdk/pnp@11.1.2`, `@magic-sdk/provider@17.1.2`, `@magic-sdk/react-native-bare@18.1.2`, `@magic-sdk/react-native-expo@18.1.2`, `@magic-sdk/types@15.1.2`, `magic-sdk@17.1.2`
+  - update MIT license to apache [#500](https://github.com/magiclabs/magic-js/pull/500) ([@Dizigen](https://github.com/Dizigen))
+- `magic-sdk@17.1.2`
+  - Srinjoy/add logo to readme [#501](https://github.com/magiclabs/magic-js/pull/501) ([@srinjoyc](https://github.com/srinjoyc) [@hcote](https://github.com/hcote))
+- `@magic-ext/auth@0.2.2`, `@magic-sdk/provider@17.1.2`
+  - quick fix passing authorization token in payload [#502](https://github.com/magiclabs/magic-js/pull/502) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
 # (Fri Apr 21 2023)
 
 #### 🐛 Bug Fix

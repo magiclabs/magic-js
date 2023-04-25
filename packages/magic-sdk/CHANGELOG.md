@@ -1,3 +1,21 @@
+# v17.1.2 (Tue Apr 25 2023)
+
+#### 🐛 Bug Fix
+
+- update MIT license to apache [#500](https://github.com/magiclabs/magic-js/pull/500) ([@Dizigen](https://github.com/Dizigen))
+- Srinjoy/add logo to readme [#501](https://github.com/magiclabs/magic-js/pull/501) ([@srinjoyc](https://github.com/srinjoyc) [@hcote](https://github.com/hcote))
+- fixed links from clicking on logo ([@srinjoyc](https://github.com/srinjoyc))
+- fixed typo spacing ([@srinjoyc](https://github.com/srinjoyc))
+- adds magic logo to our readme and npm readme - put logo as single svg in root folder of magic-sdk ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 3
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
 # v17.1.1 (Fri Apr 21 2023)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,21 @@
+# v17.1.2 (Tue Apr 25 2023)
+
+#### 🐛 Bug Fix
+
+- update MIT license to apache [#500](https://github.com/magiclabs/magic-js/pull/500) ([@Dizigen](https://github.com/Dizigen))
+- Srinjoy/add logo to readme [#501](https://github.com/magiclabs/magic-js/pull/501) ([@srinjoyc](https://github.com/srinjoyc) [@hcote](https://github.com/hcote))
+- quick fix passing authorization token in payload [#502](https://github.com/magiclabs/magic-js/pull/502) ([@Ethella](https://github.com/Ethella))
+- quick fix passing authorization token in payload ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
 # v17.1.1 (Fri Apr 21 2023)
 
 #### 🐛 Bug Fix
