@@ -126,13 +126,13 @@ export class AuthModule extends BaseModule {
   }
 
   // Custom Auth
-  public setAuthorizationToken() {
+  public setAuthorizationToken(jwt: string) {
     createDeprecationWarning({
       method: 'auth.setAuthorizationToken()',
       removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: '@magic-ext/auth auth.setAuthorizationToken()',
     }).log();
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.SetAuthorizationToken);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.SetAuthorizationToken, [{ jwt }]);
     return this.request<boolean>(requestPayload);
   }
 
