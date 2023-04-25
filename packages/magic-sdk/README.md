@@ -1,4 +1,10 @@
-# ✨ Magic JavaScript SDK
+<p align="left">
+  <a href="https://magic.link/docs/home/welcome">
+    <img src="./logo.svg" alt="Logo" width="270" height="auto">
+  </a>
+</p>
+
+# Magic JavaScript SDK
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
 

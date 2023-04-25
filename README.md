@@ -1,9 +1,14 @@
-# ✨ Magic JavaScript SDK
+  <p align="left">
+    <a href="https://magic.link/docs/home/welcome">
+      <img src="./packages/magic-sdk/logo.svg" alt="Logo" width="270" height="auto">
+    </a>
+  </p>
+
+# Magic JavaScript SDK
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
 
 > The Magic JavaScript SDK empowers developers to provide frictionless web3 onboarding to their end-users while preserving their security and privacy using non-custodial wallets.
-
 <p align="center">
   <a href="https://github.com/magiclabs/magic-js/blob/master/LICENSE">License</a> ·
   <a href="https://github.com/magiclabs/magic-js/blob/master/CHANGELOG.md">Changelog</a> ·
