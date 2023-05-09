@@ -160,7 +160,7 @@ export class ReactNativeWebViewController extends ViewController {
       // The typed Array is stringified in Mgbox with a flag as notation.
       const data: any = JSON.parse(event.nativeEvent.data, (key, value) => {
         try {
-          if (value && typeof value === 'object' && value.flag && value.flag === 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY') {
+          if (value && typeof value === 'object' && value.flag && value.flag === MAGIC_PAYLOAD_FLAG_TYPED_ARRAY) {
             return new (global[value.constructor as keyof Global] as any)(value.data.split(','));
           }
 
