@@ -1,3 +1,16 @@
+# (Tue May 09 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/react-native-bare@18.2.0`
+  - React Native Bare SDK WebView Url Tap Navigate to Device Browser when `open_in_device_browser` is True [#507](https://github.com/magiclabs/magic-js/pull/507) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Tue Apr 25 2023)
 
 #### 🐛 Bug Fix
