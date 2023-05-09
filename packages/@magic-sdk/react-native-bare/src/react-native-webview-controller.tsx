@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
@@ -8,6 +8,7 @@ import { isTypedArray } from 'lodash';
 import Global = NodeJS.Global;
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
+const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
 
 /**
  * Builds the Magic `<WebView>` overlay styles. These base styles enable
@@ -128,6 +129,16 @@ export class ReactNativeWebViewController extends ViewController {
           onMessage={handleWebViewMessage}
           style={this.styles['magic-webview']}
           autoManageStatusBarEnabled={false}
+          onShouldStartLoadWithRequest={(event) => {
+            const queryParams = new URLSearchParams(event.url.split('?')[1]);
+            const openInDeviceBrowser = queryParams.get(OPEN_IN_DEVICE_BROWSER);
+
+            if (openInDeviceBrowser) {
+              Linking.openURL(event.url);
+              return false;
+            }
+            return true;
+          }}
         />
       </SafeAreaView>
     );
@@ -149,7 +160,7 @@ export class ReactNativeWebViewController extends ViewController {
       // The typed Array is stringified in Mgbox with a flag as notation.
       const data: any = JSON.parse(event.nativeEvent.data, (key, value) => {
         try {
-          if (value && typeof value === 'object' && value.flag && value.flag === 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY') {
+          if (value && typeof value === 'object' && value.flag && value.flag === MAGIC_PAYLOAD_FLAG_TYPED_ARRAY) {
             return new (global[value.constructor as keyof Global] as any)(value.data.split(','));
           }
 
