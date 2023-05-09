@@ -2820,14 +2820,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-ext/oauth@^11.1.2, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
+"@magic-ext/oauth@^11.1.3, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
   dependencies:
     "@magic-sdk/types": ^15.1.2
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
-    magic-sdk: ^17.1.2
+    magic-sdk: ^17.1.3
   languageName: unknown
   linkType: soft
 
@@ -2955,8 +2955,8 @@ __metadata:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-    "@magic-ext/oauth": ^11.1.2
-    magic-sdk: ^17.1.2
+    "@magic-ext/oauth": ^11.1.3
+    magic-sdk: ^17.1.3
   languageName: unknown
   linkType: soft
 
@@ -12316,7 +12316,7 @@ fsevents@^2.3.2:
   languageName: unknown
   linkType: soft
 
-"magic-sdk@^17.1.2, magic-sdk@workspace:packages/magic-sdk":
+"magic-sdk@^17.1.3, magic-sdk@workspace:packages/magic-sdk":
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
