@@ -1,3 +1,17 @@
+# (Wed May 10 2023)
+
+#### 🚀 Enhancement
+
+- Update Yarn.lock [#509](https://github.com/magiclabs/magic-js/pull/509) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-sdk/react-native-expo@18.2.0`
+  - React Native Expo SDK WebView Url Tap Navigate to Device Browser when `open_in_device_browser` is True [#508](https://github.com/magiclabs/magic-js/pull/508) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Tue May 09 2023)
 
 #### 🚀 Enhancement

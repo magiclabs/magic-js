@@ -1,3 +1,20 @@
+# v18.2.0 (Wed May 10 2023)
+
+#### 🚀 Enhancement
+
+- React Native Expo SDK WebView Url Tap Navigate to Device Browser when `open_in_device_browser` is True [#508](https://github.com/magiclabs/magic-js/pull/508) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Code clean up: use MAGIC_PAYLOAD_FLAG_TYPED_ARRAY constant ([@Ariflo](https://github.com/Ariflo))
+- Open URL in Mobile Browser if open_in_device_browser Flag Is True ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v18.1.2 (Tue Apr 25 2023)
 
 #### 🐛 Bug Fix
