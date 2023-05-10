@@ -20,12 +20,12 @@
  ```bash
  # Via NPM:
  npm install --save @magic-sdk/react-native-expo
- npm install --save react-native-webview@^8.0.0 # Required Peer Dependency
+ npm install --save react-native-webview@^11.0.0 # Required Peer Dependency
  npm install --save react-native-safe-area-context # Required Peer Dependency
 
  # Via Yarn:
  yarn add @magic-sdk/react-native-expo
- yarn add react-native-webview@^8.0.0 # Required Peer Dependency
+ yarn add react-native-webview@^11.0.0 # Required Peer Dependency
  yarn add react-native-safe-area-context # Required Peer Dependency
  ```
 
