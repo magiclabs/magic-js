@@ -54,7 +54,9 @@ export interface NFTPurchaseRequest {
     imageUrl: string;
     blockchainNftId: string;
     contractAddress: string;
-    recipientAddress: string;
+    network: string;
+    platform: string;
+    type: string;
   };
   identityPrefill: {
     firstName: string;
