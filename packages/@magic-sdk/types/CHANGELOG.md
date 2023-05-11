@@ -1,3 +1,17 @@
+# v15.1.3 (Thu May 11 2023)
+
+#### 🐛 Bug Fix
+
+- [FIX]: updates for Sardines new API spec [#511](https://github.com/magiclabs/magic-js/pull/511) ([@bengriffin1](https://github.com/bengriffin1))
+- [FIX]: additional minor updates for sardine api changes ([@bengriffin1](https://github.com/bengriffin1))
+- [FIX]: updates for Sardines new API spec ([@bengriffin1](https://github.com/bengriffin1))
+
+#### Authors: 1
+
+- Ben Griffin ([@bengriffin1](https://github.com/bengriffin1))
+
+---
+
 # v15.1.2 (Tue Apr 25 2023)
 
 #### 🐛 Bug Fix

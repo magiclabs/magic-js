@@ -1,3 +1,17 @@
+# v18.2.1 (Thu May 11 2023)
+
+#### 🐛 Bug Fix
+
+- update Webview version in README [#510](https://github.com/magiclabs/magic-js/pull/510) ([@am-hernandez](https://github.com/am-hernandez))
+- remove version numbers from install instruction ([@am-hernandez](https://github.com/am-hernandez))
+- update Webview version in README ([@am-hernandez](https://github.com/am-hernandez))
+
+#### Authors: 1
+
+- A.M. Hernandez ([@am-hernandez](https://github.com/am-hernandez))
+
+---
+
 # v18.2.0 (Wed May 10 2023)
 
 #### 🚀 Enhancement

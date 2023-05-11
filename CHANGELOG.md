@@ -1,3 +1,19 @@
+# (Thu May 11 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@15.1.3`
+  - [FIX]: updates for Sardines new API spec [#511](https://github.com/magiclabs/magic-js/pull/511) ([@bengriffin1](https://github.com/bengriffin1))
+- `@magic-sdk/react-native-expo@18.2.1`
+  - update Webview version in README [#510](https://github.com/magiclabs/magic-js/pull/510) ([@am-hernandez](https://github.com/am-hernandez))
+
+#### Authors: 2
+
+- A.M. Hernandez ([@am-hernandez](https://github.com/am-hernandez))
+- Ben Griffin ([@bengriffin1](https://github.com/bengriffin1))
+
+---
+
 # (Wed May 10 2023)
 
 #### 🚀 Enhancement
