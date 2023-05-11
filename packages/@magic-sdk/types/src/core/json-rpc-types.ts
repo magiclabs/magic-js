@@ -51,11 +51,12 @@ export interface RequestUserInfoScope {
 export interface NFTPurchaseRequest {
   nft: {
     name: string;
-    price: number;
-    currencyCode: string;
+    imageUrl: string;
+    blockchainNftId: string;
     contractAddress: string;
-    collection?: string;
-    imageUrl?: string;
+    network: string;
+    platform: string;
+    type: string;
   };
   identityPrefill: {
     firstName: string;
