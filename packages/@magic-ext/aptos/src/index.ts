@@ -57,7 +57,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
 
   signTransaction = (rawTransaction: any) => {
     if (rawTransaction.serialize === undefined) {
-      throw new Error('Invalid transaction');
+      throw new Error('Invalid transaction. Please generate transaction with generateTransaction method of aptos sdk.');
     }
 
     const s = new BCS.Serializer();
