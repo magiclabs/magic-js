@@ -10,6 +10,7 @@ const getDefaultConfig = (nodeUrl: string) => {
     return {
       rpcUrl: 'https://aptos-mainnet-rpc.allthatnode.com/v1',
       network: 'mainnet',
+      chainId: 1,
     };
   }
 
@@ -17,6 +18,7 @@ const getDefaultConfig = (nodeUrl: string) => {
     return {
       rpcUrl: 'https://aptos-testnet-rpc.allthatnode.com/v1',
       network: 'testnet',
+      chainId: 2,
     };
   }
 
@@ -24,6 +26,7 @@ const getDefaultConfig = (nodeUrl: string) => {
     return {
       rpcUrl: '',
       network: 'devnet',
+      chainId: 54,
     };
   }
 
@@ -44,6 +47,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
       nodeUrl: aptosConfig.nodeUrl,
       rpcUrl: aptosConfig.rpcUrl ?? defaultConfig.rpcUrl,
       network: aptosConfig.network ?? defaultConfig.network,
+      chainId: aptosConfig.chainId ?? defaultConfig.chainId,
     };
   }
 

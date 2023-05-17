@@ -2,6 +2,7 @@ export interface AptosConfig {
   nodeUrl: string;
   rpcUrl?: string;
   network?: string;
+  chainId?: number;
 }
 
 export interface ConfigType {
@@ -9,6 +10,7 @@ export interface ConfigType {
   nodeUrl: string;
   network: string;
   chainType: string;
+  chainId: number;
 }
 
 export enum AptosPayloadMethod {
