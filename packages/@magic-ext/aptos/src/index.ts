@@ -2,6 +2,7 @@ import { Extension } from '@magic-sdk/commons';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+import { BCS } from 'aptos';
 import { AptosConfig, ConfigType, AptosPayloadMethod } from './type';
 
 const getDefaultConfig = (nodeUrl: string) => {
@@ -55,8 +56,16 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
   };
 
   signTransaction = (rawTransaction: any) => {
+    if (rawTransaction.serialize === undefined) {
+      throw new Error('Invalid transaction');
+    }
+
+    const s = new BCS.Serializer();
+    rawTransaction.serialize(s);
+    const serialized = s.getBytes();
+
     return this.request<Uint8Array>(
-      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignTransaction, [rawTransaction]),
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignTransaction, [serialized]),
     );
   };
 }
