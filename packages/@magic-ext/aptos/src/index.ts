@@ -51,19 +51,29 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     };
   }
 
+  private serializeRawTranasction = (rawTranasction: any) => {
+    try {
+      if (!Object.prototype.hasOwnProperty.call(rawTranasction, 'serialize')) {
+        throw new Error(
+          'Invalid transaction. Please generate transaction with generateTransaction method of aptos sdk.',
+        );
+      }
+
+      const s = new BCS.Serializer();
+      rawTranasction.serialize(s);
+      return s.getBytes();
+    } catch (e) {
+      console.error('Something went wrong while serializing transaction.', e);
+      throw e;
+    }
+  };
+
   getAccount = () => {
     return this.request<string>(this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, []));
   };
 
   signTransaction = (rawTransaction: any) => {
-    if (rawTransaction.serialize === undefined) {
-      throw new Error('Invalid transaction. Please generate transaction with generateTransaction method of aptos sdk.');
-    }
-
-    const s = new BCS.Serializer();
-    rawTransaction.serialize(s);
-    const serialized = s.getBytes();
-
+    const serialized = this.serializeRawTranasction(rawTransaction);
     return this.request<Uint8Array>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignTransaction, [serialized]),
     );
