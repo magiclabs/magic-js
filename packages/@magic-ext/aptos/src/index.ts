@@ -5,6 +5,34 @@ import { Extension } from '@magic-sdk/commons';
 import { AptosAccount, AptosAccountObject } from 'aptos';
 import { AptosConfig, ConfigType, AptosPayloadMethod } from './type';
 
+const getAptosConfig = (nodeUrl: string) => {
+  if (nodeUrl === 'https://fullnode.mainnet.aptoslabs.com') {
+    return {
+      rpcUrl: 'https://aptos-mainnet-rpc.allthatnode.com/v1',
+      nodeUrl,
+      network: 'mainnet',
+    };
+  }
+
+  if (nodeUrl === 'https://fullnode.testnet.aptoslabs.com') {
+    return {
+      rpcUrl: 'https://aptos-testnet-rpc.allthatnode.com/v1',
+      nodeUrl,
+      network: 'testnet',
+    };
+  }
+
+  if (nodeUrl === 'https://fullnode.devnet.aptoslabs.com') {
+    return {
+      rpcUrl: '',
+      nodeUrl,
+      network: 'devnet',
+    };
+  }
+
+  throw new Error('Invalid nodeUrl');
+};
+
 export class AptosExtension extends Extension.Internal<'aptos', any> {
   name = 'aptos' as const;
   config: ConfigType;
@@ -13,8 +41,9 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     super();
 
     this.config = {
-      nodeUrl: aptosConfig.nodeUrl,
       chainType: 'APTOS',
+      ...getAptosConfig(aptosConfig.nodeUrl),
+      ...aptosConfig,
     };
   }
 
