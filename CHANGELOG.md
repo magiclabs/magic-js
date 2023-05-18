@@ -1,5 +1,18 @@
 # (Thu May 18 2023)
 
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@17.1.4`
+  - Add conditional for `useInstead` of `loginWithMagicLink` `createDeprecationWarning` call [#518](https://github.com/magiclabs/magic-js/pull/518) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Thu May 18 2023)
+
 #### 🚀 Enhancement
 
 - `@magic-ext/aptos@0.2.0`

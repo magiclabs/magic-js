@@ -1,3 +1,17 @@
+# v17.1.4 (Thu May 18 2023)
+
+#### 🐛 Bug Fix
+
+- Add conditional for `useInstead` of `loginWithMagicLink` `createDeprecationWarning` call [#518](https://github.com/magiclabs/magic-js/pull/518) ([@Ariflo](https://github.com/Ariflo))
+- UseInstead @magic-ext/auth auth.loginWithEmailOTP() ([@Ariflo](https://github.com/Ariflo))
+- Add conditional for useInstead of loginWithMagicLink createDeprecationWarning ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v17.1.2 (Tue Apr 25 2023)
 
 #### 🐛 Bug Fix
