@@ -21,6 +21,18 @@ export interface MagicUserMetadata {
   publicAddress: string | null;
   email: string | null;
   phoneNumber: string | null;
+  isMfaEnabled: boolean;
+  recoveryFactors: [RecoveryFactor];
+}
+
+type RecoveryFactor = {
+  type: RecoveryMethodType;
+  value: string;
+};
+
+export enum RecoveryMethodType {
+  PhoneNumber = 'phone_number',
+  EmailAddress = 'email_address',
 }
 
 export interface UpdateEmailConfiguration {
