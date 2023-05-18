@@ -1,3 +1,16 @@
+# (Thu May 18 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/aptos@0.2.0`
+  - Add @magic-ext/aptos package [#515](https://github.com/magiclabs/magic-js/pull/515) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Thu May 11 2023)
 
 #### 🐛 Bug Fix
