@@ -32,7 +32,6 @@ type RecoveryFactor = {
 
 export enum RecoveryMethodType {
   PhoneNumber = 'phone_number',
-  EmailAddress = 'email_address',
 }
 
 export interface UpdateEmailConfiguration {
