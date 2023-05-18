@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/auth",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Magic SDK Extension for the Auth module",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^13.1.3"
+    "@magic-sdk/commons": "^13.1.4"
   }
 }
