@@ -27,11 +27,19 @@ export class AuthModule extends BaseModule {
    * of 15 minutes).
    */
   public loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
+    const isRNMobilePackage =
+      SDKEnvironment.sdkName === '@magic-sdk/react-native' ||
+      SDKEnvironment.sdkName === '@magic-sdk/react-native-bare' ||
+      SDKEnvironment.sdkName === '@magic-sdk/react-native-expo';
+
     createDeprecationWarning({
       method: 'auth.loginWithMagicLink()',
       removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.loginWithMagicLink()',
+      useInstead: isRNMobilePackage
+        ? '@magic-ext/auth auth.loginWithEmailOTP()'
+        : '@magic-ext/auth auth.loginWithMagicLink()',
     }).log();
+
     const { email, showUI = true, redirectURI } = configuration;
 
     const requestPayload = createJsonRpcRequestPayload(
