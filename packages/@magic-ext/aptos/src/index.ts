@@ -53,17 +53,14 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
 
   private serializeRawTranasction = (rawTranasction: any) => {
     try {
-      if (!Object.prototype.hasOwnProperty.call(rawTranasction, 'serialize')) {
-        throw new Error(
-          'Invalid transaction. Please generate transaction with generateTransaction method of aptos sdk.',
-        );
-      }
-
       const s = new BCS.Serializer();
       rawTranasction.serialize(s);
       return s.getBytes();
     } catch (e) {
-      console.error('Something went wrong while serializing transaction.', e);
+      console.error(
+        'Invalid transaction. Please generate transaction with generateTransaction method of aptos sdk.',
+        e,
+      );
       throw e;
     }
   };
