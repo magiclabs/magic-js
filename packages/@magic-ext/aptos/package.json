@@ -1,7 +1,7 @@
 {
-  "name": "@magic-ext/terra",
-  "version": "9.1.4",
-  "description": "Magic Terra Extension",
+  "name": "@magic-ext/aptos",
+  "version": "0.2.1",
+  "description": "magic aptos extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
@@ -12,7 +12,6 @@
     "dist"
   ],
   "target": "neutral",
-  "cdnGlobalName": "MagicTerraExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
@@ -28,6 +27,10 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^13.1.4"
+    "@magic-sdk/commons": "^13.1.4",
+    "aptos": "^1.8.5"
+  },
+  "peerDependencies": {
+    "aptos": "^1.8.5"
   }
 }

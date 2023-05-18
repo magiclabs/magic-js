@@ -1,3 +1,45 @@
+# (Thu May 18 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@17.1.4`
+  - Add conditional for `useInstead` of `loginWithMagicLink` `createDeprecationWarning` call [#518](https://github.com/magiclabs/magic-js/pull/518) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Thu May 18 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/aptos@0.2.0`
+  - Add @magic-ext/aptos package [#515](https://github.com/magiclabs/magic-js/pull/515) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# (Thu May 11 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@15.1.3`
+  - [FIX]: updates for Sardines new API spec [#511](https://github.com/magiclabs/magic-js/pull/511) ([@bengriffin1](https://github.com/bengriffin1))
+- `@magic-sdk/react-native-expo@18.2.1`
+  - update Webview version in README [#510](https://github.com/magiclabs/magic-js/pull/510) ([@am-hernandez](https://github.com/am-hernandez))
+
+#### Authors: 2
+
+- A.M. Hernandez ([@am-hernandez](https://github.com/am-hernandez))
+- Ben Griffin ([@bengriffin1](https://github.com/bengriffin1))
+
+---
+
 # (Wed May 10 2023)
 
 #### 🚀 Enhancement
