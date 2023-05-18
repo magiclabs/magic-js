@@ -12,6 +12,7 @@ import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
 import { UpdateEmailEvents } from './user';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
+import { isMajorVersionAtLeast } from '../util/version-check';
 
 export const ProductConsolidationMethodRemovalVersions = {
   'magic-sdk': 'v18.0.0',
@@ -27,10 +28,16 @@ export class AuthModule extends BaseModule {
    * of 15 minutes).
    */
   public loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
-    const isRNMobilePackage =
-      SDKEnvironment.sdkName === '@magic-sdk/react-native' ||
-      SDKEnvironment.sdkName === '@magic-sdk/react-native-bare' ||
-      SDKEnvironment.sdkName === '@magic-sdk/react-native-expo';
+    if (
+      (SDKEnvironment.sdkName === '@magic-sdk/react-native' ||
+        SDKEnvironment.sdkName === '@magic-sdk/react-native-bare' ||
+        SDKEnvironment.sdkName === '@magic-sdk/react-native-expo') &&
+      isMajorVersionAtLeast(SDKEnvironment.version, 19)
+    ) {
+      throw new Error(
+        'loginWithMagicLink() is deprecated for this package, please utlize a passcode method like loginWithSMS or loginWithEmailOTP instead.',
+      );
+    }
 
     createDeprecationWarning({
       method: 'auth.loginWithMagicLink()',

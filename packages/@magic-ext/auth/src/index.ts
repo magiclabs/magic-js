@@ -9,6 +9,7 @@ import {
   UpdateEmailConfiguration,
 } from '@magic-sdk/commons';
 import { ViewController } from '@magic-sdk/provider';
+import { isMajorVersionAtLeast } from '@magic-sdk/provider/src/util/version-check';
 import type localForage from 'localforage';
 
 type ConstructorOf<C> = { new (...args: any[]): C };
@@ -43,6 +44,16 @@ export class AuthExtension extends Extension.Internal<'auth', any> {
    * of 15 minutes).
    */
   public loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
+    if (
+      (SDKEnvironment.sdkName === '@magic-sdk/react-native' ||
+        SDKEnvironment.sdkName === '@magic-sdk/react-native-bare' ||
+        SDKEnvironment.sdkName === '@magic-sdk/react-native-expo') &&
+      isMajorVersionAtLeast(SDKEnvironment.version, 19)
+    ) {
+      throw new Error(
+        'loginWithMagicLink() is deprecated for this package, please utlize a passcode method like loginWithSMS or loginWithEmailOTP instead.',
+      );
+    }
     const { email, showUI = true, redirectURI } = configuration;
 
     const requestPayload = this.utils.createJsonRpcRequestPayload(
