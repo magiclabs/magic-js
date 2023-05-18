@@ -35,7 +35,9 @@ export class AuthModule extends BaseModule {
     createDeprecationWarning({
       method: 'auth.loginWithMagicLink()',
       removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: isRNMobilePackage ? 'auth.loginWithEmailOTP()' : '@magic-ext/auth auth.loginWithMagicLink()',
+      useInstead: isRNMobilePackage
+        ? '@magic-ext/auth auth.loginWithEmailOTP()'
+        : '@magic-ext/auth auth.loginWithMagicLink()',
     }).log();
 
     const { email, showUI = true, redirectURI } = configuration;
