@@ -2,7 +2,7 @@ import { Extension } from '@magic-sdk/commons';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { BCS } from 'aptos';
+import { AptosAccount, AptosAccountObject, BCS } from 'aptos';
 import { AptosConfig, ConfigType, AptosPayloadMethod } from './type';
 
 const getDefaultConfig = (nodeUrl: string) => {
@@ -74,5 +74,15 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     return this.request<Uint8Array>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignTransaction, [serialized]),
     );
+  };
+
+  getAptosAccount = async () => {
+    const account = await this.request<string>(
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, []),
+    );
+    const accountObject = await this.request<AptosAccountObject>(
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAptosAccount, [account]),
+    );
+    return AptosAccount.fromAptosAccountObject(accountObject);
   };
 }
