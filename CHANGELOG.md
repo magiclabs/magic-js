@@ -1,3 +1,16 @@
+# (Fri May 19 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@15.1.4`
+  - Update getMetdata Type [#512](https://github.com/magiclabs/magic-js/pull/512) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Thu May 18 2023)
 
 #### 🐛 Bug Fix

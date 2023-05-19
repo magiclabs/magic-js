@@ -1,3 +1,15 @@
+# v11.1.6 (Fri May 19 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-77755-kresus-hotfix ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v11.1.2 (Tue Apr 25 2023)
 
 #### 🐛 Bug Fix

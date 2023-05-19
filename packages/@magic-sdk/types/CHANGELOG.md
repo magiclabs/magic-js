@@ -1,3 +1,19 @@
+# v15.1.4 (Fri May 19 2023)
+
+#### 🐛 Bug Fix
+
+- Update getMetdata Type [#512](https://github.com/magiclabs/magic-js/pull/512) ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-77755-kresus-hotfix ([@Ethella](https://github.com/Ethella))
+- Update user-types.ts ([@Ethella](https://github.com/Ethella))
+- Add recoveryFactors typings in magic-js ([@Ethella](https://github.com/Ethella))
+- Add new deeplinking pages ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v15.1.3 (Thu May 11 2023)
 
 #### 🐛 Bug Fix
