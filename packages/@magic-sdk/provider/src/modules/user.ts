@@ -125,6 +125,16 @@ export class UserModule extends BaseModule {
     return this.request<string | null>(requestPayload);
   }
 
+  public encryptWithPrivateKey(message: string, opts = {}) {
+    const requestPayload = createJsonRpcRequestPayload('magic_auth_encrypt_v1', [{ message }]);
+    return this.request<string>(requestPayload);
+  }
+
+  public decryptWithPrivateKey(cipherText: string, opts = {}) {
+    const requestPayload = createJsonRpcRequestPayload('magic_auth_decrypt_v1', [{ cipherText }]);
+    return this.request<string>(requestPayload);
+  }
+
   // Private members
   private localForageKey = 'mc_active_wallet';
 }
