@@ -1,3 +1,19 @@
+# v15.2.0 (Mon May 22 2023)
+
+#### 🚀 Enhancement
+
+- Add symmetric encryption api [#520](https://github.com/magiclabs/magic-js/pull/520) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Use Enum ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v15.1.4 (Fri May 19 2023)
 
 #### 🐛 Bug Fix

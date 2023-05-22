@@ -1,3 +1,16 @@
+# (Mon May 22 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@17.2.0`, `@magic-sdk/types@15.2.0`
+  - Add symmetric encryption api [#520](https://github.com/magiclabs/magic-js/pull/520) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri May 19 2023)
 
 #### 🐛 Bug Fix
