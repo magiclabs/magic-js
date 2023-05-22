@@ -143,4 +143,6 @@ export enum MagicPayloadMethod {
   MagicBoxHeartBeat = 'magic_box_heart_beat',
   AutoConnect = 'mc_auto_connect',
   Login = 'mc_login',
+  EncryptV1 = 'magic_auth_encrypt_V1',
+  DecryptV1 = 'magic_auth_decrypt_V1',
 }
