@@ -126,12 +126,12 @@ export class UserModule extends BaseModule {
   }
 
   public encryptWithPrivateKey(message: string, opts = {}) {
-    const requestPayload = createJsonRpcRequestPayload('magic_auth_encrypt_v1', [{ message }]);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EncryptV1, [{ message }]);
     return this.request<string>(requestPayload);
   }
 
   public decryptWithPrivateKey(cipherText: string, opts = {}) {
-    const requestPayload = createJsonRpcRequestPayload('magic_auth_decrypt_v1', [{ cipherText }]);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.DecryptV1, [{ cipherText }]);
     return this.request<string>(requestPayload);
   }
 
