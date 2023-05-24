@@ -2,8 +2,31 @@ import { Extension } from '@magic-sdk/commons';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { BCS } from 'aptos';
+import {
+  AptosAccount,
+  BCS,
+  CoinClient,
+  MaybeHexString,
+  OptionalTransactionArgs,
+  getAddressFromAccountOrAddress,
+} from 'aptos';
 import { AptosConfig, ConfigType, AptosPayloadMethod } from './type';
+
+const convertBigIntToString = (obj: any): any => {
+  if (typeof obj === 'bigint') {
+    return obj.toString();
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.map(convertBigIntToString);
+  }
+
+  if (typeof obj === 'object' && obj !== null) {
+    return Object.fromEntries(Object.entries(obj).map(([key, value]) => [key, convertBigIntToString(value)]));
+  }
+
+  return obj;
+};
 
 const getDefaultConfig = (nodeUrl: string) => {
   if (nodeUrl === 'https://fullnode.mainnet.aptoslabs.com') {
@@ -74,5 +97,43 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     return this.request<Uint8Array>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignTransaction, [serialized]),
     );
+  };
+
+  coinClient = {
+    checkBalance: (account: AptosAccount | MaybeHexString, extraArgs?: { coinType?: string }): Promise<bigint> => {
+      const accountAddress = getAddressFromAccountOrAddress(account);
+
+      return this.request<bigint>(
+        this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosCoinClientCheckBalance, [
+          {
+            account: accountAddress.hex(),
+            extraArgs,
+          },
+        ]),
+      );
+    },
+    transfer: (
+      from: AptosAccount | MaybeHexString,
+      to: AptosAccount | MaybeHexString,
+      amount: number | bigint,
+      extraArgs?: OptionalTransactionArgs & {
+        coinType?: string;
+        createReceiverIfMissing?: boolean;
+      },
+    ): Promise<string> => {
+      const fromAddress = getAddressFromAccountOrAddress(from);
+      const toArrdess = getAddressFromAccountOrAddress(to);
+
+      return this.request<string>(
+        this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosCoinClientTransfer, [
+          convertBigIntToString({
+            from: fromAddress.hex(),
+            to: toArrdess.hex(),
+            amount,
+            extraArgs,
+          }),
+        ]),
+      );
+    },
   };
 }

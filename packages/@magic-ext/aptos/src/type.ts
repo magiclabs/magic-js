@@ -16,4 +16,7 @@ export interface ConfigType {
 export enum AptosPayloadMethod {
   AptosGetAccount = 'aptos_getAccount',
   AptosSignTransaction = 'aptos_signTransaction',
+
+  AptosCoinClientCheckBalance = 'aptos_coinClient_checkBalance',
+  AptosCoinClientTransfer = 'aptos_coinClient_transfer',
 }
