@@ -1,3 +1,16 @@
+# v15.2.1 (Wed May 24 2023)
+
+#### 🐛 Bug Fix
+
+- Add recovery to DeepLink page [#523](https://github.com/magiclabs/magic-js/pull/523) ([@Ethella](https://github.com/Ethella))
+- Add recovery to DeepLink page ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v15.2.0 (Mon May 22 2023)
 
 #### 🚀 Enhancement
