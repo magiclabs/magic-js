@@ -2807,6 +2807,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/gdkms@workspace:packages/@magic-ext/gdkms":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/gdkms@workspace:packages/@magic-ext/gdkms"
+  dependencies:
+    "@magic-sdk/commons": ^13.2.0
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/harmony@workspace:packages/@magic-ext/harmony":
   version: 0.0.0-use.local
   resolution: "@magic-ext/harmony@workspace:packages/@magic-ext/harmony"
