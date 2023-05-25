@@ -9,7 +9,6 @@ beforeEach(() => {
 
 test('Construct Encrypt Request with `magic_auth_encrypt_v1`', async () => {
   const magic = createMagicSDKWithExtension({}, [new GDKMSExtension()]);
-  console.log('magic', magic);
   magic.gdkms.request = jest.fn();
 
   const message = 'hello world';
