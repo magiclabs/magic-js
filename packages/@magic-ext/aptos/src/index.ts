@@ -2,31 +2,10 @@ import { Extension } from '@magic-sdk/commons';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import {
-  AptosAccount,
-  BCS,
-  CoinClient,
-  MaybeHexString,
-  OptionalTransactionArgs,
-  getAddressFromAccountOrAddress,
-} from 'aptos';
+import { AptosClient, CoinClient } from 'aptos';
 import { AptosConfig, ConfigType, AptosPayloadMethod } from './type';
-
-const convertBigIntToString = (obj: any): any => {
-  if (typeof obj === 'bigint') {
-    return obj.toString();
-  }
-
-  if (Array.isArray(obj)) {
-    return obj.map(convertBigIntToString);
-  }
-
-  if (typeof obj === 'object' && obj !== null) {
-    return Object.fromEntries(Object.entries(obj).map(([key, value]) => [key, convertBigIntToString(value)]));
-  }
-
-  return obj;
-};
+import { MagicCoinClient } from './lib/MagicCoinClient';
+import { MagicAptosClient } from './lib/MagicAptosClient';
 
 const getDefaultConfig = (nodeUrl: string) => {
   if (nodeUrl === 'https://fullnode.mainnet.aptoslabs.com') {
@@ -58,7 +37,10 @@ const getDefaultConfig = (nodeUrl: string) => {
 
 export class AptosExtension extends Extension.Internal<'aptos', any> {
   name = 'aptos' as const;
-  config: ConfigType;
+  readonly config: ConfigType;
+
+  private ac!: MagicAptosClient;
+  private cc!: MagicCoinClient;
 
   constructor(public aptosConfig: AptosConfig) {
     super();
@@ -72,68 +54,21 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
       network: aptosConfig.network ?? defaultConfig.network,
       chainId: aptosConfig.chainId ?? defaultConfig.chainId,
     };
-  }
 
-  private serializeRawTranasction = (rawTranasction: any) => {
-    try {
-      const s = new BCS.Serializer();
-      rawTranasction.serialize(s);
-      return s.getBytes();
-    } catch (e) {
-      console.error(
-        'Invalid transaction. Please generate transaction with generateTransaction method of aptos sdk.',
-        e,
-      );
-      throw e;
-    }
-  };
+    this.ac = new MagicAptosClient(this.config.nodeUrl, {
+      request: this.request,
+      createJsonRpcRequestPayload: this.utils.createJsonRpcRequestPayload,
+    });
+    this.cc = new MagicCoinClient(this.ac, {
+      request: this.request,
+      createJsonRpcRequestPayload: this.utils.createJsonRpcRequestPayload,
+    });
+  }
 
   getAccount = () => {
     return this.request<string>(this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, []));
   };
 
-  signTransaction = (rawTransaction: any) => {
-    const serialized = this.serializeRawTranasction(rawTransaction);
-    return this.request<Uint8Array>(
-      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignTransaction, [serialized]),
-    );
-  };
-
-  coinClient = {
-    checkBalance: (account: AptosAccount | MaybeHexString, extraArgs?: { coinType?: string }): Promise<bigint> => {
-      const accountAddress = getAddressFromAccountOrAddress(account);
-
-      return this.request<bigint>(
-        this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosCoinClientCheckBalance, [
-          {
-            account: accountAddress.hex(),
-            extraArgs,
-          },
-        ]),
-      );
-    },
-    transfer: (
-      from: AptosAccount | MaybeHexString,
-      to: AptosAccount | MaybeHexString,
-      amount: number | bigint,
-      extraArgs?: OptionalTransactionArgs & {
-        coinType?: string;
-        createReceiverIfMissing?: boolean;
-      },
-    ): Promise<string> => {
-      const fromAddress = getAddressFromAccountOrAddress(from);
-      const toArrdess = getAddressFromAccountOrAddress(to);
-
-      return this.request<string>(
-        this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosCoinClientTransfer, [
-          convertBigIntToString({
-            from: fromAddress.hex(),
-            to: toArrdess.hex(),
-            amount,
-            extraArgs,
-          }),
-        ]),
-      );
-    },
-  };
+  coinClient = this.cc;
+  aptosClient = this.ac;
 }
