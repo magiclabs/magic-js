@@ -6,6 +6,7 @@ import { AptosClient, CoinClient } from 'aptos';
 import { AptosConfig, ConfigType, AptosPayloadMethod } from './type';
 import { MagicCoinClient } from './lib/MagicCoinClient';
 import { MagicAptosClient } from './lib/MagicAptosClient';
+import { MagicTokenClient } from './lib/MagicTokenClient';
 
 const getDefaultConfig = (nodeUrl: string) => {
   if (nodeUrl === 'https://fullnode.mainnet.aptoslabs.com') {
@@ -41,6 +42,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
 
   private ac!: MagicAptosClient;
   private cc!: MagicCoinClient;
+  private tc!: MagicTokenClient;
 
   constructor(public aptosConfig: AptosConfig) {
     super();
@@ -63,6 +65,11 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
       request: this.request,
       createJsonRpcRequestPayload: this.utils.createJsonRpcRequestPayload,
     });
+
+    this.tc = new MagicTokenClient(this.ac, {
+      request: this.request,
+      createJsonRpcRequestPayload: this.utils.createJsonRpcRequestPayload,
+    });
   }
 
   getAccount = () => {
@@ -71,4 +78,5 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
 
   coinClient = this.cc;
   aptosClient = this.ac;
+  tokenClient = this.tc;
 }

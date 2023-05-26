@@ -26,6 +26,18 @@ export enum AptosPayloadMethod {
   AptosAptosClientRotateAuthKeyEd25519 = 'aptos_aptosClient_rotateAuthKeyEd25519',
   AptosAptosClientSignTransaction = 'aptos_aptosClient_signTransaction',
   AptosAptosClientSimultateTransaction = 'aptos_aptosClient_simultateTransaction',
+
+  AptosTokenClientBurnByCreator = 'aptos_tokenClient_burnByCreator',
+  AptosTokenClientBurnByOwner = 'aptos_tokenClient_burnByOwner',
+  AptosTokenClientCancelTokenOffer = 'aptos_tokenClient_cancelTokenOffer',
+  AptosTokenClientClaimToken = 'aptos_tokenClient_claimToken',
+  AptosTokenClientCreateCollection = 'AptosTokenClientCreateCollection',
+  AptosTokenClientCreateToken = 'aptos_tokenClient_createToken',
+  AptosTokenClientCreateTokenWithMutabilityConfig = 'aptos_tokenClient_createTokenWithMutabilityConfig',
+  AptosTokenClientMutateTokenProperties = 'aptos_tokenClient_mutateTokenProperties',
+  AptosTokenClientOfferToken = 'aptos_tokenClient_offerToken',
+  AptosTokenClientOptInTokenTransfer = 'AptosTokenClientOptInTokenTransfer',
+  AptosTokenClientTransferWithOptIn = 'AptosTokenClientTransferWithOptIn',
 }
 
 export type MagicUtils = {
