@@ -1,8 +1,12 @@
 import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
+import * as storage from '../../../../src/util/storage';
+import { mockLocalForage } from '../../../mocks';
 
 beforeEach(() => {
   browserEnv.restore();
+
+  mockLocalForage();
 });
 
 test('Should return metamask provider if metamask is the stored wallet', async () => {
@@ -13,11 +17,7 @@ test('Should return metamask provider if metamask is the stored wallet', async (
   const magic = createMagicSDK();
   magic.wallet.request = jest.fn();
 
-  jest.mock('@magic-sdk/provider/src/util/storage.ts', () => {
-    return {
-      getItem: () => 'metamask',
-    };
-  });
+  await storage.setItem('mc_active_wallet', 'metamask');
 
   const response = await magic.wallet.getProvider();
   expect(response).toEqual(provider);

@@ -1,6 +1,6 @@
 import browserEnv from '@ikscodes/browser-env';
 import { MagicPayloadMethod } from '@magic-sdk/types';
-import { createMagicSDK, createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
+import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { GDKMSExtension } from '../../src';
 
 beforeEach(() => {

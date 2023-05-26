@@ -1,19 +1,19 @@
 import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
+import { mockLocalForage } from '../../../mocks';
+import * as storage from '../../../../src/util/storage';
 
 beforeEach(() => {
   browserEnv.restore();
+
+  mockLocalForage();
 });
 
 test('Generate JSON RPC request payload with method `magic_get_info` and the active wallet', async () => {
   const magic = createMagicSDK();
   magic.wallet.request = jest.fn();
 
-  jest.mock('@magic-sdk/provider/src/util/storage.ts', () => {
-    return {
-      getItem: () => 'metamask',
-    };
-  });
+  await storage.setItem('mc_active_wallet', 'metamask');
 
   await magic.wallet.getInfo();
 
