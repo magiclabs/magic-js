@@ -1,7 +1,7 @@
 import * as memoryDriver from 'localforage-driver-memory';
 import localForage from 'localforage';
 import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS, TEST_API_KEY } from './constants';
-import { ViewController } from '../src/core/view-controller';
+import { ViewController } from '../src';
 import type { SDKEnvironment } from '../src/core/sdk-environment';
 
 export class TestViewController extends ViewController {
@@ -65,4 +65,9 @@ export function createMagicSDK(environment: { [P in keyof SDKEnvironment]?: any 
 export function createMagicSDKTestMode(environment: { [P in keyof SDKEnvironment]?: any } = {}) {
   const Ctor = createMagicSDKCtor(environment);
   return new Ctor(TEST_API_KEY, { testMode: true });
+}
+
+export function createMagicSDKWithExtension(environment: { [P in keyof SDKEnvironment]?: any } = {}, extensions = []) {
+  const Ctor = createMagicSDKCtor(environment);
+  return new Ctor(TEST_API_KEY, { extensions });
 }

@@ -1,4 +1,6 @@
+/* eslint-disable no-param-reassign */
 import type { SDKEnvironment } from '../src/core/sdk-environment';
+import * as storage from '../src/util/storage';
 
 export function getPayloadIdStub(mockID: number) {
   const stub = jest.fn().mockImplementation(() => mockID);
@@ -22,4 +24,14 @@ export function mockSDKEnvironmentConstant(environment: { [P in keyof SDKEnviron
 
 export function restoreSDKEnvironmentConstants() {
   jest.unmock('../src/core/sdk-environment');
+}
+
+export function mockLocalForage(FAKE_STORE = {}) {
+  jest.spyOn(storage, 'getItem').mockImplementation((key: string) => FAKE_STORE[key]);
+  jest.spyOn(storage, 'setItem').mockImplementation(async (key: string, value: any) => {
+    FAKE_STORE[key] = value;
+  });
+  jest.spyOn(storage, 'removeItem').mockImplementation(async (key: string) => {
+    FAKE_STORE[key] = null;
+  });
 }
