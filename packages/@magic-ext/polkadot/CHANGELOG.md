@@ -1,3 +1,15 @@
+# v12.3.0 (Fri May 26 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu_hotfix_gdkms ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v12.1.5 (Fri May 19 2023)
 
 #### 🐛 Bug Fix

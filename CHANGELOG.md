@@ -1,3 +1,16 @@
+# (Fri May 26 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/gdkms@0.2.0`, `@magic-sdk/provider@17.3.0`, `@magic-sdk/types@15.3.0`
+  - publish gdkms extension [#525](https://github.com/magiclabs/magic-js/pull/525) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Wed May 24 2023)
 
 #### 🐛 Bug Fix

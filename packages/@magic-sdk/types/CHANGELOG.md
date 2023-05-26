@@ -1,3 +1,20 @@
+# v15.3.0 (Fri May 26 2023)
+
+#### 🚀 Enhancement
+
+- publish gdkms extension [#525](https://github.com/magiclabs/magic-js/pull/525) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu_hotfix_gdkms ([@Ethella](https://github.com/Ethella))
+- publish gdkms extension ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v15.2.1 (Wed May 24 2023)
 
 #### 🐛 Bug Fix
