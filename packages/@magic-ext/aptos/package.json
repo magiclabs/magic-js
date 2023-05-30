@@ -32,5 +32,8 @@
   },
   "peerDependencies": {
     "aptos": "^1.8.5"
+  },
+  "dependencies": {
+    "@aptos-labs/wallet-adapter-core": "^2.2.0"
   }
 }
