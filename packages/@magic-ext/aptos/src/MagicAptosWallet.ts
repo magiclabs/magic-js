@@ -15,22 +15,21 @@ export class MagicAptosWallet implements AdapterPlugin {
   readonly url = 'https://magic.link/';
   readonly icon = ICON_BASE64;
 
-  readonly providerName = 'magicWallet';
+  readonly providerName = 'magicWalletMA';
 
   provider: Magic<[AptosExtension]>;
+
+  private email: string;
   private accountInfo: AccountInfo | null;
 
-  constructor(magic: Magic<[AptosExtension]>) {
+  constructor(magic: Magic<[AptosExtension]>, { email }: { email: string }) {
     this.provider = magic;
     this.accountInfo = null;
+    this.email = email;
   }
 
   async connect(): Promise<AccountInfo> {
-    throw new Error('Please use connectWithMagicLink method instead');
-  }
-
-  async connectWithMagicLink({ email }: { email: string }): Promise<AccountInfo> {
-    await this.provider.auth.loginWithMagicLink({ email });
+    await this.provider.auth.loginWithMagicLink({ email: this.email });
     const accountInfo = await this.account();
 
     return accountInfo;
