@@ -28,7 +28,8 @@
   },
   "devDependencies": {
     "@magic-sdk/commons": "^13.3.0",
-    "aptos": "^1.8.5"
+    "aptos": "^1.8.5",
+    "magic-sdk": "workspace:packages/magic-sdk"
   },
   "peerDependencies": {
     "aptos": "^1.8.5"
