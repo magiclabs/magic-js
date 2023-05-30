@@ -5,7 +5,7 @@ import type {
   SignMessagePayload,
   SignMessageResponse,
 } from '@aptos-labs/wallet-adapter-core';
-import { Types } from 'aptos';
+import { TxnBuilderTypes, Types } from 'aptos';
 import type { Magic } from 'magic-sdk';
 import { AptosExtension } from '.';
 import { APTOS_NETWORKS, APTOS_NODE_URLS, APTOS_WALLET_NAME, ICON_BASE64 } from './constants';
@@ -53,6 +53,11 @@ export class MagicAptosWallet implements AdapterPlugin {
   async disconnect(): Promise<void> {
     this.accountInfo = null;
     await this.provider.user.logout();
+  }
+
+  async signTransaction(rawTransaction: TxnBuilderTypes.RawTransaction): Promise<Uint8Array> {
+    const accountInfo = await this.account();
+    return this.provider.aptos.signTransaction(accountInfo.address, rawTransaction);
   }
 
   async signAndSubmitTransaction(

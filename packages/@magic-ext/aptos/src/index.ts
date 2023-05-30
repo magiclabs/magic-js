@@ -2,7 +2,7 @@ import { Extension } from '@magic-sdk/commons';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { AptosClient, BCS, Types } from 'aptos';
+import { AptosClient, BCS, TxnBuilderTypes, Types } from 'aptos';
 import { AccountInfo, SignMessagePayload, SignMessageResponse } from '@aptos-labs/wallet-adapter-core';
 import { AptosConfig, AptosPayloadMethod } from './type';
 
@@ -23,8 +23,31 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     };
   }
 
+  private serializeRawTransaction = (rawTransaction: TxnBuilderTypes.RawTransaction) => {
+    try {
+      const s = new BCS.Serializer();
+      rawTransaction.serialize(s);
+      return s.getBytes();
+    } catch (e) {
+      console.error("Can't serialize raw transaction", e);
+      throw e;
+    }
+  };
+
   getAccount = () => {
     return this.request<string>(this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, []));
+  };
+
+  signTransaction = async (address: string, rawTransaction: TxnBuilderTypes.RawTransaction) => {
+    const transactionBytes = this.serializeRawTransaction(rawTransaction);
+    return this.request<Uint8Array>(
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccountInfo, [
+        {
+          address,
+          transactionBytes,
+        },
+      ]),
+    );
   };
 
   getAccountInfo = async (): Promise<AccountInfo> => {
