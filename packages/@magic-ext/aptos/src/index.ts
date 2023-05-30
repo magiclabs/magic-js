@@ -2,7 +2,7 @@ import { Extension } from '@magic-sdk/commons';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { AptosAccount, AptosClient, BCS, Types } from 'aptos';
+import { AptosClient, BCS, Types } from 'aptos';
 import { AccountInfo, SignMessagePayload, SignMessageResponse } from '@aptos-labs/wallet-adapter-core';
 import { AptosConfig, AptosPayloadMethod } from './type';
 
