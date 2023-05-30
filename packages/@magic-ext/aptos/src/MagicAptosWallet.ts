@@ -4,7 +4,6 @@ import type {
   NetworkInfo,
   SignMessagePayload,
   SignMessageResponse,
-  WalletName,
 } from '@aptos-labs/wallet-adapter-core';
 import { TxnBuilderTypes, Types } from 'aptos';
 import type { Magic } from 'magic-sdk';
