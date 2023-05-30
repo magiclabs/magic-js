@@ -65,14 +65,11 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
   };
 
   signMessage = async (address: string, message: SignMessagePayload): Promise<SignMessageResponse> => {
-    const encoder = new TextEncoder();
-    const messageBytes = encoder.encode(JSON.stringify(message));
-
     return this.request<SignMessageResponse>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignMessage, [
         {
           address,
-          messageBytes,
+          message,
         },
       ]),
     );
