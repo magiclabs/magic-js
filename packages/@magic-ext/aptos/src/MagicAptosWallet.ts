@@ -38,11 +38,16 @@ export class MagicAptosWallet implements AdapterPlugin {
   }
 
   async account(): Promise<AccountInfo> {
-    if (!this.accountInfo) {
+    try {
+      if (!this.accountInfo) {
+        const accountInfo = await this.provider.aptos.account();
+        this.accountInfo = accountInfo;
+      }
+
+      return this.accountInfo;
+    } catch (e) {
       throw new Error('Please call connectWithMagicLink method first');
     }
-
-    return this.accountInfo;
   }
 
   async disconnect(): Promise<void> {
@@ -54,30 +59,21 @@ export class MagicAptosWallet implements AdapterPlugin {
     transaction: Types.TransactionPayload,
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> {
-    if (!this.accountInfo) {
-      throw new Error('Please call connectWithMagicLink method first');
-    }
-
-    return this.provider.aptos.signAndSubmitTransaction(this.accountInfo.address, transaction, options);
+    const accountInfo = await this.account();
+    return this.provider.aptos.signAndSubmitTransaction(accountInfo.address, transaction, options);
   }
 
   async signAndSubmitBCSTransaction(
     transaction: TxnBuilderTypes.TransactionPayload,
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> {
-    if (!this.accountInfo) {
-      throw new Error('Please call connectWithMagicLink method first');
-    }
-
-    return this.provider.aptos.signAndSubmitBCSTransaction(this.accountInfo.address, transaction, options);
+    const accountInfo = await this.account();
+    return this.provider.aptos.signAndSubmitBCSTransaction(accountInfo.address, transaction, options);
   }
 
   async signMessage(message: SignMessagePayload): Promise<SignMessageResponse> {
-    if (!this.accountInfo) {
-      throw new Error('Please call connectWithMagicLink method first');
-    }
-
-    return this.provider.aptos.signMessage(this.accountInfo.address, message);
+    const accountInfo = await this.account();
+    return this.provider.aptos.signMessage(accountInfo.address, message);
   }
 
   async network(): Promise<NetworkInfo> {
