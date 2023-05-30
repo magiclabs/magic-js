@@ -62,6 +62,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
   };
 
   signAndSubmitTransaction = (
+    address: string,
     transaction: Types.TransactionPayload,
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> => {
@@ -80,7 +81,8 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     // );
   };
 
-  signAndSubmitBCSTransaction = (
+  signAndSubmitBCSTransaction = async (
+    address: string,
     transaction: TxnBuilderTypes.TransactionPayload,
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> => {
@@ -90,21 +92,19 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
 
     return this.request<{ hash: Types.HexEncodedBytes }>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitBCSTransaction, [
-        {
-          transaction: transactionBytes,
-          options,
-        },
+        { address, transaction: transactionBytes, options },
       ]),
     );
   };
 
-  signMessage = async (message: SignMessagePayload): Promise<SignMessageResponse> => {
+  signMessage = async (address: string, message: SignMessagePayload): Promise<SignMessageResponse> => {
     const encoder = new TextEncoder();
     const messageBytes = encoder.encode(JSON.stringify(message));
 
     const response = await this.request<Uint8Array>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, [
         {
+          address,
           messageBytes,
         },
       ]),

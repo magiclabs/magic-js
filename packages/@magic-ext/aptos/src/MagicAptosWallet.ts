@@ -18,25 +18,35 @@ export class MagicAptosWallet implements AdapterPlugin {
   readonly providerName = 'magicWallet';
 
   provider: Magic<[AptosExtension]>;
+  private accountInfo: AccountInfo | null;
 
   constructor(magic: Magic<[AptosExtension]>) {
     this.provider = magic;
+    this.accountInfo = null;
   }
 
   async connect(): Promise<AccountInfo> {
-    throw new Error('Please use connectWithMagicLink method');
+    throw new Error('Please use connectWithMagicLink method instead');
   }
 
   async connectWithMagicLink({ email }: { email: string }): Promise<AccountInfo> {
     await this.provider.auth.loginWithMagicLink({ email });
-    return this.provider.aptos.account();
+    const accountInfo = await this.provider.aptos.account();
+    this.accountInfo = accountInfo;
+
+    return this.accountInfo;
   }
 
   async account(): Promise<AccountInfo> {
-    return this.provider.aptos.account();
+    if (!this.accountInfo) {
+      throw new Error('Please call connectWithMagicLink method first');
+    }
+
+    return this.accountInfo;
   }
 
   async disconnect(): Promise<void> {
+    this.accountInfo = null;
     await this.provider.user.logout();
   }
 
@@ -44,18 +54,30 @@ export class MagicAptosWallet implements AdapterPlugin {
     transaction: Types.TransactionPayload,
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> {
-    return this.provider.aptos.signAndSubmitTransaction(transaction, options);
+    if (!this.accountInfo) {
+      throw new Error('Please call connectWithMagicLink method first');
+    }
+
+    return this.provider.aptos.signAndSubmitTransaction(this.accountInfo.address, transaction, options);
   }
 
   async signAndSubmitBCSTransaction(
     transaction: TxnBuilderTypes.TransactionPayload,
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> {
-    return this.provider.aptos.signAndSubmitBCSTransaction(transaction, options);
+    if (!this.accountInfo) {
+      throw new Error('Please call connectWithMagicLink method first');
+    }
+
+    return this.provider.aptos.signAndSubmitBCSTransaction(this.accountInfo.address, transaction, options);
   }
 
   async signMessage(message: SignMessagePayload): Promise<SignMessageResponse> {
-    return this.provider.aptos.signMessage(message);
+    if (!this.accountInfo) {
+      throw new Error('Please call connectWithMagicLink method first');
+    }
+
+    return this.provider.aptos.signMessage(this.accountInfo.address, message);
   }
 
   async network(): Promise<NetworkInfo> {
