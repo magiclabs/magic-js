@@ -2,7 +2,7 @@ import { Extension } from '@magic-sdk/commons';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { BCS, TxnBuilderTypes, Types } from 'aptos';
+import { AptosClient, BCS, TransactionBuilder, TransactionBuilderABI, TxnBuilderTypes, Types } from 'aptos';
 import { AccountInfo, NetworkInfo, SignMessagePayload, SignMessageResponse } from '@aptos-labs/wallet-adapter-core';
 import { AptosConfig, AptosPayloadMethod } from './type';
 
@@ -47,16 +47,18 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     );
   };
 
-  connect = (): Promise<AccountInfo> => {
-    throw new Error('Method not implemented.');
-  };
+  account = async (): Promise<AccountInfo> => {
+    const address = await this.request<string>(
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, []),
+    );
 
-  account = (): Promise<AccountInfo> => {
-    throw new Error('Method not implemented.');
-  };
-
-  disconnect = (): Promise<void> => {
-    throw new Error('Method not implemented.');
+    return this.request<AccountInfo>(
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccountInfo, [
+        {
+          address,
+        },
+      ]),
+    );
   };
 
   signAndSubmitTransaction = (
@@ -64,28 +66,54 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> => {
     throw new Error('Method not implemented.');
+    // const client = new AptosClient(this.config.nodeUrl);
+
+    // client.generateSignSubmitTransaction();
+
+    // return this.request<{ hash: Types.HexEncodedBytes }>(
+    //   this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitTransaction, [
+    //     {
+    //       transaction,
+    //       options,
+    //     },
+    //   ]),
+    // );
   };
 
   signAndSubmitBCSTransaction = (
     transaction: TxnBuilderTypes.TransactionPayload,
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> => {
-    throw new Error('Method not implemented.');
+    const s = new BCS.Serializer();
+    transaction.serialize(s);
+    const transactionBytes = s.getBytes();
+
+    return this.request<{ hash: Types.HexEncodedBytes }>(
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitBCSTransaction, [
+        {
+          transaction: transactionBytes,
+          options,
+        },
+      ]),
+    );
   };
 
-  signMessage = (message: SignMessagePayload): Promise<SignMessageResponse> => {
-    throw new Error('Method not implemented.');
-  };
+  signMessage = async (message: SignMessagePayload): Promise<SignMessageResponse> => {
+    const encoder = new TextEncoder();
+    const messageBytes = encoder.encode(JSON.stringify(message));
 
-  network = (): Promise<NetworkInfo> => {
-    throw new Error('Method not implemented.');
-  };
+    const response = await this.request<Uint8Array>(
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, [
+        {
+          messageBytes,
+        },
+      ]),
+    );
 
-  onNetworkChange = (callback: any): Promise<void> => {
-    throw new Error('Method not implemented.');
-  };
+    const decoder = new TextDecoder();
+    const signedMessage = decoder.decode(response);
 
-  onAccountChange = (callback: any): Promise<void> => {
-    throw new Error('Method not implemented.');
+    const parsed = JSON.parse(signedMessage) as SignMessageResponse;
+    return parsed;
   };
 }
