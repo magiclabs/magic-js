@@ -2754,9 +2754,11 @@ __metadata:
     "@aptos-labs/wallet-adapter-core": ^2.2.0
     "@magic-sdk/commons": ^13.3.0
     aptos: ^1.8.5
-    magic-sdk: "workspace:packages/magic-sdk"
+    magic-sdk: ^17.3.0
   peerDependencies:
+    "@aptos-labs/wallet-adapter-core": ^2.2.0
     aptos: ^1.8.5
+    magic-sdk: ^17.3.0
   languageName: unknown
   linkType: soft
 
