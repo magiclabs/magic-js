@@ -6,6 +6,7 @@ import { AptosClient, BCS, TransactionBuilder, TransactionBuilderABI, TxnBuilder
 import { AccountInfo, NetworkInfo, SignMessagePayload, SignMessageResponse } from '@aptos-labs/wallet-adapter-core';
 import { AptosConfig, AptosPayloadMethod } from './type';
 
+export { MagicAptosWallet } from './MagicAptosWallet';
 export class AptosExtension extends Extension.Internal<'aptos', any> {
   name = 'aptos' as const;
   config: any = {};
