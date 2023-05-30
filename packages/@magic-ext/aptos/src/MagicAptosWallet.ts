@@ -5,7 +5,7 @@ import type {
   SignMessagePayload,
   SignMessageResponse,
 } from '@aptos-labs/wallet-adapter-core';
-import { TxnBuilderTypes, Types } from 'aptos';
+import { Types } from 'aptos';
 import type { Magic } from 'magic-sdk';
 import { AptosExtension } from '.';
 import { APTOS_NETWORKS, APTOS_NODE_URLS, APTOS_WALLET_NAME, ICON_BASE64 } from './constants';
@@ -31,21 +31,21 @@ export class MagicAptosWallet implements AdapterPlugin {
 
   async connectWithMagicLink({ email }: { email: string }): Promise<AccountInfo> {
     await this.provider.auth.loginWithMagicLink({ email });
-    const accountInfo = await this.provider.aptos.account();
-    this.accountInfo = accountInfo;
+    const accountInfo = await this.account();
 
-    return this.accountInfo;
+    return accountInfo;
   }
 
   async account(): Promise<AccountInfo> {
     try {
       if (!this.accountInfo) {
-        const accountInfo = await this.provider.aptos.account();
+        const accountInfo = await this.provider.aptos.getAccountInfo();
         this.accountInfo = accountInfo;
       }
 
       return this.accountInfo;
     } catch (e) {
+      console.warn(e);
       throw new Error('Please call connectWithMagicLink method first');
     }
   }
@@ -61,14 +61,6 @@ export class MagicAptosWallet implements AdapterPlugin {
   ): Promise<{ hash: Types.HexEncodedBytes }> {
     const accountInfo = await this.account();
     return this.provider.aptos.signAndSubmitTransaction(accountInfo.address, transaction, options);
-  }
-
-  async signAndSubmitBCSTransaction(
-    transaction: TxnBuilderTypes.TransactionPayload,
-    options?: any,
-  ): Promise<{ hash: Types.HexEncodedBytes }> {
-    const accountInfo = await this.account();
-    return this.provider.aptos.signAndSubmitBCSTransaction(accountInfo.address, transaction, options);
   }
 
   async signMessage(message: SignMessagePayload): Promise<SignMessageResponse> {

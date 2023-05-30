@@ -2,8 +2,8 @@ import { Extension } from '@magic-sdk/commons';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { AptosClient, BCS, TransactionBuilder, TransactionBuilderABI, TxnBuilderTypes, Types } from 'aptos';
-import { AccountInfo, NetworkInfo, SignMessagePayload, SignMessageResponse } from '@aptos-labs/wallet-adapter-core';
+import { AptosAccount, AptosClient, BCS, Types } from 'aptos';
+import { AccountInfo, SignMessagePayload, SignMessageResponse } from '@aptos-labs/wallet-adapter-core';
 import { AptosConfig, AptosPayloadMethod } from './type';
 
 export { MagicAptosWallet } from './MagicAptosWallet';
@@ -23,77 +23,43 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     };
   }
 
-  private serializeRawTranasction = (rawTranasction: any) => {
-    try {
-      const s = new BCS.Serializer();
-      rawTranasction.serialize(s);
-      return s.getBytes();
-    } catch (e) {
-      console.error(
-        'Invalid transaction. Please generate transaction with generateTransaction method of aptos sdk.',
-        e,
-      );
-      throw e;
-    }
-  };
-
   getAccount = () => {
     return this.request<string>(this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, []));
   };
 
-  signTransaction = (rawTransaction: any) => {
-    const serialized = this.serializeRawTranasction(rawTransaction);
-    return this.request<Uint8Array>(
-      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignTransaction, [serialized]),
-    );
-  };
-
-  account = async (): Promise<AccountInfo> => {
+  getAccountInfo = async (): Promise<AccountInfo> => {
     const address = await this.request<string>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, []),
     );
 
     return this.request<AccountInfo>(
-      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccountInfo, [
-        {
-          address,
-        },
-      ]),
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccountInfo, [{ address }]),
     );
   };
 
-  signAndSubmitTransaction = (
+  signAndSubmitTransaction = async (
     address: string,
     transaction: Types.TransactionPayload,
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> => {
-    throw new Error('Method not implemented.');
-    // const client = new AptosClient(this.config.nodeUrl);
+    const client = new AptosClient(this.config.options.nodeUrl);
 
-    // client.generateSignSubmitTransaction();
+    const rawTransaction = await client.generateTransaction(
+      address,
+      transaction as Types.EntryFunctionPayload,
+      options,
+    );
 
-    // return this.request<{ hash: Types.HexEncodedBytes }>(
-    //   this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitTransaction, [
-    //     {
-    //       transaction,
-    //       options,
-    //     },
-    //   ]),
-    // );
-  };
-
-  signAndSubmitBCSTransaction = async (
-    address: string,
-    transaction: TxnBuilderTypes.TransactionPayload,
-    options?: any,
-  ): Promise<{ hash: Types.HexEncodedBytes }> => {
     const s = new BCS.Serializer();
-    transaction.serialize(s);
+    rawTransaction.serialize(s);
     const transactionBytes = s.getBytes();
 
     return this.request<{ hash: Types.HexEncodedBytes }>(
-      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitBCSTransaction, [
-        { address, transaction: transactionBytes, options },
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitTransaction, [
+        {
+          address,
+          transactionBytes,
+        },
       ]),
     );
   };
@@ -102,19 +68,13 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     const encoder = new TextEncoder();
     const messageBytes = encoder.encode(JSON.stringify(message));
 
-    const response = await this.request<Uint8Array>(
-      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, [
+    return this.request<SignMessageResponse>(
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignMessage, [
         {
           address,
           messageBytes,
         },
       ]),
     );
-
-    const decoder = new TextDecoder();
-    const signedMessage = decoder.decode(response);
-
-    const parsed = JSON.parse(signedMessage) as SignMessageResponse;
-    return parsed;
   };
 }
