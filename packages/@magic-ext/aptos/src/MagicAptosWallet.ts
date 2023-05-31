@@ -1,9 +1,10 @@
-import type {
+import {
   AccountInfo,
   AdapterPlugin,
   NetworkInfo,
   SignMessagePayload,
   SignMessageResponse,
+  WalletReadyState,
 } from '@aptos-labs/wallet-adapter-core';
 import { TxnBuilderTypes, Types } from 'aptos';
 import type { Magic } from 'magic-sdk';
@@ -18,8 +19,10 @@ export class MagicAptosWallet implements AdapterPlugin {
 
   readonly providerName = 'magicWalletMA';
 
-  provider: Magic<[AptosExtension]>;
+  provider: Magic<[AptosExtension]> | undefined;
   magicAptosWalletConfig: MagicAptosWalletConfig;
+
+  readyState?: WalletReadyState = WalletReadyState.Loadable;
 
   private accountInfo: AccountInfo | null;
 
@@ -32,6 +35,10 @@ export class MagicAptosWallet implements AdapterPlugin {
   }
 
   async connect(): Promise<AccountInfo> {
+    if (!this.provider) {
+      throw new Error('Provider is not defined');
+    }
+
     const iframe = document.createElement('iframe');
     iframe.setAttribute('id', 'magic-aptos-wallet-iframe');
     iframe.setAttribute('name', 'Connect with Magic');
@@ -72,25 +79,34 @@ export class MagicAptosWallet implements AdapterPlugin {
 
     return new Promise<AccountInfo>((resolve, reject) => {
       window.addEventListener('message', async (e): Promise<void> => {
-        if (e?.data?.type === 'emailSubmitted') {
-          const email = e?.data?.email;
-          if (email) {
-            document.getElementsByTagName('body')[0].removeChild(iframe);
-            await this.provider.auth.loginWithMagicLink({ email });
-            const accountInfo = await this.account();
-            resolve(accountInfo);
+        try {
+          if (e?.data?.type === 'emailSubmitted') {
+            const email = e?.data?.email;
+            if (email) {
+              document.getElementsByTagName('body')[0].removeChild(iframe);
+              await this.provider?.auth.loginWithMagicLink({ email });
+              const accountInfo = await this.account();
+              resolve(accountInfo);
+            }
           }
-        }
 
-        if (e?.data?.type === 'cancel') {
-          document.getElementsByTagName('body')[0].removeChild(iframe);
-          reject();
+          if (e?.data?.type === 'cancel') {
+            document.getElementsByTagName('body')[0].removeChild(iframe);
+            reject(new Error('User cancelled'));
+          }
+        } catch (error) {
+          console.warn(error);
+          reject(error);
         }
       });
     });
   }
 
   async account(): Promise<AccountInfo> {
+    if (!this.provider) {
+      throw new Error('Provider is not defined');
+    }
+
     try {
       if (!this.accountInfo) {
         const accountInfo = await this.provider.aptos.getAccountInfo();
@@ -105,11 +121,19 @@ export class MagicAptosWallet implements AdapterPlugin {
   }
 
   async disconnect(): Promise<void> {
+    if (!this.provider) {
+      throw new Error('Provider is not defined');
+    }
+
     this.accountInfo = null;
     await this.provider.user.logout();
   }
 
   async signTransaction(rawTransaction: TxnBuilderTypes.RawTransaction): Promise<Uint8Array> {
+    if (!this.provider) {
+      throw new Error('Provider is not defined');
+    }
+
     const accountInfo = await this.account();
     return this.provider.aptos.signTransaction(accountInfo.address, rawTransaction);
   }
@@ -118,16 +142,28 @@ export class MagicAptosWallet implements AdapterPlugin {
     transaction: Types.TransactionPayload,
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> {
+    if (!this.provider) {
+      throw new Error('Provider is not defined');
+    }
+
     const accountInfo = await this.account();
     return this.provider.aptos.signAndSubmitTransaction(accountInfo.address, transaction, options);
   }
 
   async signMessage(message: SignMessagePayload): Promise<SignMessageResponse> {
+    if (!this.provider) {
+      throw new Error('Provider is not defined');
+    }
+
     const accountInfo = await this.account();
     return this.provider.aptos.signMessage(accountInfo.address, message);
   }
 
   async network(): Promise<NetworkInfo> {
+    if (!this.provider) {
+      throw new Error('Provider is not defined');
+    }
+
     const { nodeUrl } = this.provider.aptos.aptosConfig;
 
     switch (nodeUrl) {
