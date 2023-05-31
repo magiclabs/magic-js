@@ -10,6 +10,7 @@ export enum AptosPayloadMethod {
   AptosSignAndSubmitTransaction = 'aptos_signAndSubmitTransaction',
   AptosSignAndSubmitBCSTransaction = 'aptos_signAndSubmitBCSTransaction',
   AptosSignMessage = 'aptos_signMessage',
+  AptosSignMessageAndVerify = 'aptos_signMessageAndVerify',
 }
 
 export interface MagicAptosWalletConfig {

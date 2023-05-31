@@ -4,6 +4,7 @@ import {
   NetworkInfo,
   SignMessagePayload,
   SignMessageResponse,
+  WalletInfo,
   WalletReadyState,
 } from '@aptos-labs/wallet-adapter-core';
 import { TxnBuilderTypes, Types } from 'aptos';
@@ -129,13 +130,13 @@ export class MagicAptosWallet implements AdapterPlugin {
     await this.provider.user.logout();
   }
 
-  async signTransaction(rawTransaction: TxnBuilderTypes.RawTransaction): Promise<Uint8Array> {
+  async signTransaction(transaction: Types.TransactionPayload): Promise<Uint8Array> {
     if (!this.provider) {
       throw new Error('Provider is not defined');
     }
 
     const accountInfo = await this.account();
-    return this.provider.aptos.signTransaction(accountInfo.address, rawTransaction);
+    return this.provider.aptos.signTransaction(accountInfo.address, transaction);
   }
 
   async signAndSubmitTransaction(
@@ -150,6 +151,15 @@ export class MagicAptosWallet implements AdapterPlugin {
     return this.provider.aptos.signAndSubmitTransaction(accountInfo.address, transaction, options);
   }
 
+  async signAndSubmitBCSTransaction(transaction: TxnBuilderTypes.TransactionPayload): Promise<any> {
+    if (!this.provider) {
+      throw new Error('Provider is not defined');
+    }
+
+    const accountInfo = await this.account();
+    return this.provider.aptos.signAndSubmitBCSTransaction(accountInfo.address, transaction);
+  }
+
   async signMessage(message: SignMessagePayload): Promise<SignMessageResponse> {
     if (!this.provider) {
       throw new Error('Provider is not defined');
@@ -159,6 +169,15 @@ export class MagicAptosWallet implements AdapterPlugin {
     return this.provider.aptos.signMessage(accountInfo.address, message);
   }
 
+  async signMessageAndVerify(message: SignMessagePayload): Promise<boolean> {
+    if (!this.provider) {
+      throw new Error('Provider is not defined');
+    }
+
+    const accountInfo = await this.account();
+    return this.provider.aptos.signMessageAndVerify(accountInfo.address, message);
+  }
+
   async network(): Promise<NetworkInfo> {
     if (!this.provider) {
       throw new Error('Provider is not defined');
@@ -166,16 +185,27 @@ export class MagicAptosWallet implements AdapterPlugin {
 
     const { nodeUrl } = this.provider.aptos.aptosConfig;
 
-    switch (nodeUrl) {
-      case APTOS_NODE_URLS.MAINNET:
-        return APTOS_NETWORKS[APTOS_NODE_URLS.MAINNET];
-      case APTOS_NODE_URLS.TESTNET:
-        return APTOS_NETWORKS[APTOS_NODE_URLS.TESTNET];
-      case APTOS_NODE_URLS.DEVNET:
-        return APTOS_NETWORKS[APTOS_NODE_URLS.DEVNET];
-      default:
-        throw new Error('Invalid node url');
+    if (nodeUrl.includes(APTOS_NODE_URLS.MAINNET)) {
+      return APTOS_NETWORKS[APTOS_NODE_URLS.MAINNET];
     }
+
+    if (nodeUrl.includes(APTOS_NODE_URLS.TESTNET)) {
+      return APTOS_NETWORKS[APTOS_NODE_URLS.TESTNET];
+    }
+
+    if (nodeUrl.includes(APTOS_NODE_URLS.DEVNET)) {
+      return APTOS_NETWORKS[APTOS_NODE_URLS.DEVNET];
+    }
+
+    throw new Error('Invalid node url');
+  }
+
+  wallet(): WalletInfo {
+    return {
+      name: this.name,
+      url: this.url,
+      icon: this.icon,
+    };
   }
 
   async onNetworkChange(callback: any): Promise<void> {

@@ -2,7 +2,7 @@ import { Extension } from '@magic-sdk/commons';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { AptosClient, BCS, TxnBuilderTypes, Types } from 'aptos';
+import { AptosClient, BCS, TxnBuilderTypes, Types, getAddressFromAccountOrAddress } from 'aptos';
 import { AccountInfo, SignMessagePayload, SignMessageResponse } from '@aptos-labs/wallet-adapter-core';
 import { AptosConfig, AptosPayloadMethod } from './type';
 
@@ -38,8 +38,12 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     return this.request<string>(this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, []));
   };
 
-  signTransaction = async (address: string, rawTransaction: TxnBuilderTypes.RawTransaction) => {
+  signTransaction = async (address: string, transaction: Types.TransactionPayload) => {
+    const client = new AptosClient(this.config.options.nodeUrl);
+
+    const rawTransaction = await client.generateTransaction(address, transaction as Types.EntryFunctionPayload);
     const transactionBytes = this.serializeRawTransaction(rawTransaction);
+
     return this.request<Uint8Array>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccountInfo, [
         {
@@ -72,10 +76,24 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
       transaction as Types.EntryFunctionPayload,
       options,
     );
+    const transactionBytes = this.serializeRawTransaction(rawTransaction);
 
-    const s = new BCS.Serializer();
-    rawTransaction.serialize(s);
-    const transactionBytes = s.getBytes();
+    return this.request<{ hash: Types.HexEncodedBytes }>(
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitTransaction, [
+        {
+          address,
+          transactionBytes,
+        },
+      ]),
+    );
+  };
+
+  signAndSubmitBCSTransaction = async (address: string, transaction: TxnBuilderTypes.TransactionPayload) => {
+    const client = new AptosClient(this.config.options.nodeUrl);
+    const addressHex = getAddressFromAccountOrAddress(address);
+
+    const rawTransaction = await client.generateRawTransaction(addressHex, transaction);
+    const transactionBytes = this.serializeRawTransaction(rawTransaction);
 
     return this.request<{ hash: Types.HexEncodedBytes }>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitTransaction, [
@@ -89,6 +107,17 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
 
   signMessage = async (address: string, message: SignMessagePayload): Promise<SignMessageResponse> => {
     return this.request<SignMessageResponse>(
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignMessage, [
+        {
+          address,
+          message,
+        },
+      ]),
+    );
+  };
+
+  signMessageAndVerify = async (address: string, message: SignMessagePayload): Promise<boolean> => {
+    return this.request<boolean>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignMessage, [
         {
           address,
