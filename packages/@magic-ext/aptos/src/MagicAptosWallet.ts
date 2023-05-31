@@ -43,6 +43,12 @@ export class MagicAptosWallet implements AdapterPlugin {
       throw new Error('Provider is not defined');
     }
 
+    const isLoggedIn = await this.provider.user.isLoggedIn();
+    if (isLoggedIn) {
+      const accountInfo = await this.account();
+      return accountInfo;
+    }
+
     const iframe = document.createElement('iframe');
     iframe.setAttribute('id', 'magic-aptos-wallet-iframe');
     iframe.setAttribute('name', 'Connect with Magic');
