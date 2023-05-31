@@ -3,10 +3,10 @@ export interface AptosConfig {
 }
 
 export enum AptosPayloadMethod {
+  AptosShowEmailForm = 'aptos_showEmailForm',
   AptosGetAccount = 'aptos_getAccount',
-  AptosSignTransaction = 'aptos_signTransaction',
-
   AptosGetAccountInfo = 'aptos_getAccountInfo',
+  AptosSignTransaction = 'aptos_signTransaction',
   AptosSignAndSubmitTransaction = 'aptos_signAndSubmitTransaction',
   AptosSignAndSubmitBCSTransaction = 'aptos_signAndSubmitBCSTransaction',
   AptosSignMessage = 'aptos_signMessage',
