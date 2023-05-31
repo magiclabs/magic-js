@@ -15,6 +15,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@aptos-labs/wallet-adapter-core@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@aptos-labs/wallet-adapter-core@npm:2.2.0"
+  dependencies:
+    aptos: ^1.3.17
+    buffer: ^6.0.3
+    eventemitter3: ^4.0.7
+    tweetnacl: ^1.0.3
+  checksum: 10061714090790c9500d5f5df11c7bb485b498402ed024e13d016f0cf2ad3dc164a5644311af458a5ec481e0dfb56eba72089d2b05f833f6631bf974e4db27d1
+  languageName: node
+  linkType: hard
+
 "@auto-it/bot-list@npm:10.42.2":
   version: 10.42.2
   resolution: "@auto-it/bot-list@npm:10.42.2"
@@ -2739,10 +2751,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/aptos@workspace:packages/@magic-ext/aptos"
   dependencies:
+    "@aptos-labs/wallet-adapter-core": ^2.2.0
     "@magic-sdk/commons": ^13.3.0
     aptos: ^1.8.5
+    magic-sdk: ^17.3.0
   peerDependencies:
+    "@aptos-labs/wallet-adapter-core": ^2.2.0
     aptos: ^1.8.5
+    magic-sdk: ^17.3.0
   languageName: unknown
   linkType: soft
 
@@ -4708,6 +4724,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"aptos@npm:^1.3.17":
+  version: 1.9.1
+  resolution: "aptos@npm:1.9.1"
+  dependencies:
+    "@noble/hashes": 1.1.3
+    "@scure/bip39": 1.1.0
+    axios: 0.27.2
+    form-data: 4.0.0
+    tweetnacl: 1.0.3
+  checksum: 079e8620b22a6eff2ac68731ce0a8d1ce0f9cc1b3f5c9be607cff8a4e7b796bd65f1c4bacb92a93116e3b2ce8ba026098ea08b79325df8ada9f3ba72b04248f9
+  languageName: node
+  linkType: hard
+
 "aptos@npm:^1.8.5":
   version: 1.8.5
   resolution: "aptos@npm:1.8.5"
@@ -5633,6 +5662,16 @@ __metadata:
     base64-js: ^1.3.1
     ieee754: ^1.1.13
   checksum: e2cf8429e1c4c7b8cbd30834ac09bd61da46ce35f5c22a78e6c2f04497d6d25541b16881e30a019c6fd3154150650ccee27a308eff3e26229d788bbdeb08ab84
+  languageName: node
+  linkType: hard
+
+"buffer@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "buffer@npm:6.0.3"
+  dependencies:
+    base64-js: ^1.3.1
+    ieee754: ^1.2.1
+  checksum: 5ad23293d9a731e4318e420025800b42bf0d264004c0286c8cc010af7a270c7a0f6522e84f54b9ad65cbd6db20b8badbfd8d2ebf4f80fa03dab093b89e68c3f9
   languageName: node
   linkType: hard
 
@@ -8267,7 +8306,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eventemitter3@npm:^4.0.4":
+"eventemitter3@npm:^4.0.4, eventemitter3@npm:^4.0.7":
   version: 4.0.7
   resolution: "eventemitter3@npm:4.0.7"
   checksum: 1875311c42fcfe9c707b2712c32664a245629b42bb0a5a84439762dd0fd637fc54d078155ea83c2af9e0323c9ac13687e03cfba79b03af9f40c89b4960099374
@@ -9918,7 +9957,7 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"ieee754@npm:^1.1.13":
+"ieee754@npm:^1.1.13, ieee754@npm:^1.2.1":
   version: 1.2.1
   resolution: "ieee754@npm:1.2.1"
   checksum: 5144c0c9815e54ada181d80a0b810221a253562422e7c6c3a60b1901154184f49326ec239d618c416c1c5945a2e197107aee8d986a3dd836b53dffefd99b5e7e
@@ -17980,7 +18019,7 @@ resolve@~1.7.1:
   languageName: node
   linkType: hard
 
-"tweetnacl@npm:1.0.3":
+"tweetnacl@npm:1.0.3, tweetnacl@npm:^1.0.3":
   version: 1.0.3
   resolution: "tweetnacl@npm:1.0.3"
   checksum: e4a57cac188f0c53f24c7a33279e223618a2bfb5fea426231991652a13247bea06b081fd745d71291fcae0f4428d29beba1b984b1f1ce6f66b06a6d1ab90645c

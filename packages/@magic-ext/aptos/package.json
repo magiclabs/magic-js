@@ -27,10 +27,14 @@
     ]
   },
   "devDependencies": {
+    "@aptos-labs/wallet-adapter-core": "^2.2.0",
     "@magic-sdk/commons": "^13.3.0",
-    "aptos": "^1.8.5"
+    "aptos": "^1.8.5",
+    "magic-sdk": "^17.3.0"
   },
   "peerDependencies": {
-    "aptos": "^1.8.5"
+    "@aptos-labs/wallet-adapter-core": "^2.2.0",
+    "aptos": "^1.8.5",
+    "magic-sdk": "^17.3.0"
   }
 }
