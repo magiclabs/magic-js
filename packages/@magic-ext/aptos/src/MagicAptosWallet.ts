@@ -8,7 +8,7 @@ import {
   WalletReadyState,
 } from '@aptos-labs/wallet-adapter-core';
 import { TxnBuilderTypes, Types } from 'aptos';
-import type { Magic } from 'magic-sdk';
+import type { Extension, Magic } from 'magic-sdk';
 import { AptosExtension } from '.';
 import { APTOS_NETWORKS, APTOS_NODE_URLS, APTOS_WALLET_NAME, ICON_BASE64 } from './constants';
 import { MagicAptosWalletConfig } from './type';
@@ -20,14 +20,17 @@ export class MagicAptosWallet implements AdapterPlugin {
 
   readonly providerName = 'magicWalletMA';
 
-  provider: Magic<[AptosExtension]> | undefined;
+  provider: Magic<[AptosExtension, Extension]> | undefined;
   magicAptosWalletConfig: MagicAptosWalletConfig;
 
   readyState?: WalletReadyState = WalletReadyState.Loadable;
 
   private accountInfo: AccountInfo | null;
 
-  constructor(magic: Magic<[AptosExtension]>, { loginWith = 'magicLink' }: MagicAptosWalletConfig) {
+  constructor(
+    magic: Magic<[AptosExtension, Extension]> | undefined,
+    { loginWith = 'magicLink' }: MagicAptosWalletConfig,
+  ) {
     this.provider = magic;
     this.accountInfo = null;
     this.magicAptosWalletConfig = {
@@ -62,7 +65,6 @@ export class MagicAptosWallet implements AdapterPlugin {
         
           <script>
             function submitEmail() {
-              console.log("Hey")
               const email = document.getElementById('emailInput').value;
               const message = { type: 'emailSubmitted', email };
         
