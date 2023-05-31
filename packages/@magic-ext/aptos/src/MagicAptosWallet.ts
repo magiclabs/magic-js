@@ -9,6 +9,7 @@ import { TxnBuilderTypes, Types } from 'aptos';
 import type { Magic } from 'magic-sdk';
 import { AptosExtension } from '.';
 import { APTOS_NETWORKS, APTOS_NODE_URLS, APTOS_WALLET_NAME, ICON_BASE64 } from './constants';
+import { MagicAptosWalletConfig } from './type';
 
 export class MagicAptosWallet implements AdapterPlugin {
   readonly name = APTOS_WALLET_NAME;
@@ -18,21 +19,75 @@ export class MagicAptosWallet implements AdapterPlugin {
   readonly providerName = 'magicWalletMA';
 
   provider: Magic<[AptosExtension]>;
+  magicAptosWalletConfig: MagicAptosWalletConfig;
 
-  private email: string;
   private accountInfo: AccountInfo | null;
 
-  constructor(magic: Magic<[AptosExtension]>, { email }: { email: string }) {
+  constructor(magic: Magic<[AptosExtension]>, { loginWith = 'magicLink' }: MagicAptosWalletConfig) {
     this.provider = magic;
     this.accountInfo = null;
-    this.email = email;
+    this.magicAptosWalletConfig = {
+      loginWith,
+    };
   }
 
   async connect(): Promise<AccountInfo> {
-    await this.provider.auth.loginWithMagicLink({ email: this.email });
-    const accountInfo = await this.account();
+    const iframe = document.createElement('iframe');
+    iframe.setAttribute('id', 'magic-aptos-wallet-iframe');
+    iframe.setAttribute('name', 'Connect with Magic');
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.position = 'fixed';
+    iframe.style.top = '0';
+    iframe.style.left = '0';
+    iframe.src =
+      'data:text/html,' +
+      `<html>
+        <head>
+          <title>Aptos MagicLink</title>
+        </head>
+        <body>
+          <h1>Aptos MagicLink</h1>
+          <input type="email" id="emailInput">
+          <button onclick="submitEmail()">Send</button>
+          <button onclick="cancel()">Cancel</button>
+        
+          <script>
+            function submitEmail() {
+              console.log("Hey")
+              const email = document.getElementById('emailInput').value;
+              const message = { type: 'emailSubmitted', email };
+        
+              parent.postMessage(message, '*');
+            }
 
-    return accountInfo;
+            function cancel() {
+              const message = { type: 'cancel' };
+              parent.postMessage(message, '*');
+            }
+          </script>
+        </body>
+      </html>`;
+    document.getElementsByTagName('body')[0].appendChild(iframe);
+
+    return new Promise<AccountInfo>((resolve, reject) => {
+      window.addEventListener('message', async (e): Promise<void> => {
+        if (e?.data?.type === 'emailSubmitted') {
+          const email = e?.data?.email;
+          if (email) {
+            document.getElementsByTagName('body')[0].removeChild(iframe);
+            await this.provider.auth.loginWithMagicLink({ email });
+            const accountInfo = await this.account();
+            resolve(accountInfo);
+          }
+        }
+
+        if (e?.data?.type === 'cancel') {
+          document.getElementsByTagName('body')[0].removeChild(iframe);
+          reject();
+        }
+      });
+    });
   }
 
   async account(): Promise<AccountInfo> {

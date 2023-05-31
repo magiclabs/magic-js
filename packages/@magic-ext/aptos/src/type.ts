@@ -11,3 +11,7 @@ export enum AptosPayloadMethod {
   AptosSignAndSubmitBCSTransaction = 'aptos_signAndSubmitBCSTransaction',
   AptosSignMessage = 'aptos_signMessage',
 }
+
+export interface MagicAptosWalletConfig {
+  loginWith: 'magicLink';
+}
