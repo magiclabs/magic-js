@@ -34,9 +34,9 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     }
   };
 
-  showEmailForm = () => {
+  getEmailFromUser = () => {
     return this.request<string>(
-      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosShowEmailForm, [{ showUI: true }]),
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetEmailFromUser, [{ showUI: true }]),
     );
   };
 

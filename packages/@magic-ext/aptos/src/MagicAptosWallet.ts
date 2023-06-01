@@ -49,7 +49,7 @@ export class MagicAptosWallet implements AdapterPlugin {
       return accountInfo;
     }
 
-    const email = await this.provider.aptos.showEmailForm();
+    const email = await this.provider.aptos.getEmailFromUser();
     await this.provider?.auth.loginWithMagicLink({ email });
     const accountInfo = await this.account();
 
