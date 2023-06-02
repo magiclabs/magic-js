@@ -21,23 +21,25 @@ export class MagicAptosWallet implements AdapterPlugin {
   readonly providerName = 'magicWalletMA';
 
   provider: Magic<[AptosExtension, Extension]> | undefined;
-  magicAptosWalletConfig: MagicAptosWalletConfig;
+  config?: MagicAptosWalletConfig;
 
   readyState?: WalletReadyState = WalletReadyState.Loadable;
 
   private accountInfo: AccountInfo | null;
 
-  constructor(magic: Magic<[AptosExtension, Extension]> | undefined, { connect }: MagicAptosWalletConfig) {
+  constructor(magic: Magic<[AptosExtension, Extension]> | undefined, magicAptosWalletConfig?: MagicAptosWalletConfig) {
     this.provider = magic;
     this.accountInfo = null;
-    this.magicAptosWalletConfig = {
-      connect,
-    };
+    this.config = magicAptosWalletConfig;
   }
 
   async connect(): Promise<AccountInfo> {
     if (!this.provider) {
       throw new Error('Provider is not defined');
+    }
+
+    if (!this.config) {
+      throw new Error('Please set connect config first');
     }
 
     const isLoggedIn = await this.provider.user.isLoggedIn();
@@ -46,7 +48,7 @@ export class MagicAptosWallet implements AdapterPlugin {
       return accountInfo;
     }
 
-    return this.magicAptosWalletConfig.connect();
+    return this.config.connect();
   }
 
   async account(): Promise<AccountInfo> {
