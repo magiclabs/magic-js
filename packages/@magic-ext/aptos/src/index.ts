@@ -45,7 +45,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     const transactionBytes = this.serializeRawTransaction(rawTransaction);
 
     return this.request<Uint8Array>(
-      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccountInfo, [
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignTransaction, [
         {
           address,
           transactionBytes,
@@ -118,7 +118,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
 
   signMessageAndVerify = async (address: string, message: SignMessagePayload): Promise<boolean> => {
     return this.request<boolean>(
-      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignMessage, [
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignMessageAndVerify, [
         {
           address,
           message,
