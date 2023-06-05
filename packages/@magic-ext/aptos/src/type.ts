@@ -1,3 +1,6 @@
+import { AccountInfo } from '@aptos-labs/wallet-adapter-core';
+import { AptosAccount } from 'aptos';
+
 export interface AptosConfig {
   nodeUrl: string;
 }
@@ -5,7 +8,6 @@ export interface AptosConfig {
 export enum AptosPayloadMethod {
   AptosGetAccount = 'aptos_getAccount',
   AptosSignTransaction = 'aptos_signTransaction',
-
   AptosGetAccountInfo = 'aptos_getAccountInfo',
   AptosSignAndSubmitTransaction = 'aptos_signAndSubmitTransaction',
   AptosSignAndSubmitBCSTransaction = 'aptos_signAndSubmitBCSTransaction',
@@ -14,5 +16,5 @@ export enum AptosPayloadMethod {
 }
 
 export interface MagicAptosWalletConfig {
-  loginWith: 'magicLink';
+  connect: () => Promise<AccountInfo>;
 }
