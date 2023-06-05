@@ -173,7 +173,7 @@ test('Construct SignMessage request with `aptos_signMessage`', async () => {
   expect(requestPayload.params).toEqual([
     {
       address: SAMPLE_ADDRESS,
-      nessage: messagePayload,
+      message: messagePayload,
     },
   ]);
 });
@@ -203,7 +203,7 @@ test('Construct SignMessageAndVerify request with `aptos_signMessageAndVerify`',
   expect(requestPayload.params).toEqual([
     {
       address: SAMPLE_ADDRESS,
-      nessage: messagePayload,
+      message: messagePayload,
     },
   ]);
 });
