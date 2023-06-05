@@ -96,7 +96,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     const transactionBytes = this.serializeRawTransaction(rawTransaction);
 
     return this.request<{ hash: Types.HexEncodedBytes }>(
-      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitTransaction, [
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitBCSTransaction, [
         {
           address,
           transactionBytes,
