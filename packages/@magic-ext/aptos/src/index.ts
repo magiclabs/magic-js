@@ -24,14 +24,9 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
   }
 
   private serializeRawTransaction = (rawTransaction: TxnBuilderTypes.RawTransaction) => {
-    try {
-      const s = new BCS.Serializer();
-      rawTransaction.serialize(s);
-      return s.getBytes();
-    } catch (e) {
-      console.error("Can't serialize raw transaction", e);
-      throw e;
-    }
+    const s = new BCS.Serializer();
+    rawTransaction.serialize(s);
+    return s.getBytes();
   };
 
   getAccount = () => {
@@ -41,6 +36,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
   signTransaction = async (address: string, transaction: Types.TransactionPayload) => {
     const client = new AptosClient(this.config.options.nodeUrl);
 
+    // TODO: should be hanlded by transaction type
     const rawTransaction = await client.generateTransaction(address, transaction as Types.EntryFunctionPayload);
     const transactionBytes = this.serializeRawTransaction(rawTransaction);
 
@@ -71,6 +67,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
   ): Promise<{ hash: Types.HexEncodedBytes }> => {
     const client = new AptosClient(this.config.options.nodeUrl);
 
+    // TODO: should be hanlded by transaction type
     const rawTransaction = await client.generateTransaction(
       address,
       transaction as Types.EntryFunctionPayload,
@@ -96,7 +93,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     const transactionBytes = this.serializeRawTransaction(rawTransaction);
 
     return this.request<{ hash: Types.HexEncodedBytes }>(
-      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitTransaction, [
+      this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignAndSubmitBCSTransaction, [
         {
           address,
           transactionBytes,

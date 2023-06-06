@@ -38,14 +38,14 @@ export class MagicAptosWallet implements AdapterPlugin {
       throw new Error('Provider is not defined');
     }
 
-    if (!this.config) {
-      throw new Error('Please set connect config first');
-    }
-
     const isLoggedIn = await this.provider.user.isLoggedIn();
     if (isLoggedIn) {
       const accountInfo = await this.account();
       return accountInfo;
+    }
+
+    if (!this.config) {
+      throw new Error('Please set connect config first');
     }
 
     return this.config.connect();
@@ -56,17 +56,12 @@ export class MagicAptosWallet implements AdapterPlugin {
       throw new Error('Provider is not defined');
     }
 
-    try {
-      if (!this.accountInfo) {
-        const accountInfo = await this.provider.aptos.getAccountInfo();
-        this.accountInfo = accountInfo;
-      }
-
-      return this.accountInfo;
-    } catch (e) {
-      console.warn(e);
-      throw new Error('Please call connectWithMagicLink method first');
+    if (!this.accountInfo) {
+      const accountInfo = await this.provider.aptos.getAccountInfo();
+      this.accountInfo = accountInfo;
     }
+
+    return this.accountInfo;
   }
 
   async disconnect(): Promise<void> {
@@ -158,11 +153,13 @@ export class MagicAptosWallet implements AdapterPlugin {
 
   async onNetworkChange(callback: any): Promise<void> {
     console.warn('onNetworkChange is not supported');
+    callback();
     return Promise.resolve();
   }
 
   async onAccountChange(callback: any): Promise<void> {
     console.warn('onAccountChange is not supported');
+    callback();
     return Promise.resolve();
   }
 }
