@@ -63,6 +63,13 @@ test('Call connect()', async () => {
   expect(accountInfo).toEqual(mockAccountInfo);
 });
 
+test('Call connect() without magic', async () => {
+  const aptosWallet = new MagicAptosWallet(undefined);
+
+  // Target method and assert
+  expect(() => aptosWallet.connect()).rejects.toThrowError();
+});
+
 test('Call connect() without config.connect()', async () => {
   const magic = createMagicSDKWithExtension({}, [
     new AptosExtension({
@@ -113,6 +120,13 @@ test('Call disconnect()', async () => {
   expect(magic.user.logout).toBeCalledTimes(1);
 });
 
+test('Call disconnect() without magic', async () => {
+  const aptosWallet = new MagicAptosWallet(undefined);
+
+  // Target method and assert
+  expect(() => aptosWallet.disconnect()).rejects.toThrowError();
+});
+
 test('Call account()', async () => {
   const magic = createMagicSDKWithExtension({}, [
     new AptosExtension({
@@ -129,6 +143,33 @@ test('Call account()', async () => {
   // Assert
   expect(magic.aptos.getAccountInfo).toBeCalledTimes(1);
   expect(accountInfo).toEqual(MOCK_ACCOUTN_INFO);
+});
+
+test('Call account() when a user has already logged in ', async () => {
+  const magic = createMagicSDKWithExtension({}, [
+    new AptosExtension({
+      nodeUrl: APTOS_NODE_URL,
+    }),
+  ]);
+  magic.user.isLoggedIn = jest.fn().mockReturnValue(Promise.resolve(true));
+  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUTN_INFO));
+
+  const aptosWallet = new MagicAptosWallet(magic);
+
+  // Target method
+  await aptosWallet.connect();
+  const accountInfo = await aptosWallet.account();
+
+  // Assert
+  expect(magic.aptos.getAccountInfo).toBeCalledTimes(1);
+  expect(accountInfo).toEqual(MOCK_ACCOUTN_INFO);
+});
+
+test('Call account() without magic', async () => {
+  const aptosWallet = new MagicAptosWallet(undefined);
+
+  // Target method and assert
+  expect(() => aptosWallet.account()).rejects.toThrowError();
 });
 
 test('Call signTransaction()', async () => {
@@ -154,6 +195,13 @@ test('Call signTransaction()', async () => {
   expect(result).toEqual(mockResult);
 });
 
+test('Call signTransaction() without magic', async () => {
+  const aptosWallet = new MagicAptosWallet(undefined);
+
+  // Target method and assert
+  expect(() => aptosWallet.signTransaction(SAMPLE_TRANSACTION)).rejects.toThrowError();
+});
+
 test('Call signAndSubmitTransaction()', async () => {
   const magic = createMagicSDKWithExtension({}, [
     new AptosExtension({
@@ -177,6 +225,13 @@ test('Call signAndSubmitTransaction()', async () => {
   expect(result).toEqual(mockResult);
 });
 
+test('Call signAndSubmitTransaction() without magic', async () => {
+  const aptosWallet = new MagicAptosWallet(undefined);
+
+  // Target method and assert
+  expect(() => aptosWallet.signAndSubmitTransaction(SAMPLE_TRANSACTION)).rejects.toThrowError();
+});
+
 test('Call signAndSubmitBCSTransaction()', async () => {
   const magic = createMagicSDKWithExtension({}, [
     new AptosExtension({
@@ -198,6 +253,13 @@ test('Call signAndSubmitBCSTransaction()', async () => {
   expect(magic.aptos.getAccountInfo).toBeCalledTimes(1);
   expect(magic.aptos.signAndSubmitBCSTransaction).toBeCalledTimes(1);
   expect(result).toEqual(mockResult);
+});
+
+test('Call signAndSubmitBCSTransaction() without magic', async () => {
+  const aptosWallet = new MagicAptosWallet(undefined);
+
+  // Target method and assert
+  expect(() => aptosWallet.signAndSubmitBCSTransaction(SAMPLE_BCS_TRANSACTION)).rejects.toThrowError();
 });
 
 test('Call signMessage()', async () => {
@@ -233,6 +295,18 @@ test('Call signMessage()', async () => {
   expect(result).toEqual(mockResult);
 });
 
+test('Call signMessage() without magic', async () => {
+  const aptosWallet = new MagicAptosWallet(undefined);
+
+  // Target method and assert
+  expect(() =>
+    aptosWallet.signMessage({
+      message: 'test-message',
+      nonce: 'random-nonce',
+    }),
+  ).rejects.toThrowError();
+});
+
 test('Call signMessageAndVerify()', async () => {
   const magic = createMagicSDKWithExtension({}, [
     new AptosExtension({
@@ -257,6 +331,18 @@ test('Call signMessageAndVerify()', async () => {
   expect(magic.aptos.getAccountInfo).toBeCalledTimes(1);
   expect(magic.aptos.signMessageAndVerify).toBeCalledTimes(1);
   expect(result).toEqual(mockResult);
+});
+
+test('Call signMessageAndVerify() without magic', async () => {
+  const aptosWallet = new MagicAptosWallet(undefined);
+
+  // Target method and assert
+  expect(() =>
+    aptosWallet.signMessageAndVerify({
+      message: 'test-message',
+      nonce: 'random-nonce',
+    }),
+  ).rejects.toThrowError();
 });
 
 test('Set up with mainnet and call network()', async () => {
@@ -331,6 +417,13 @@ test('Set up with an invalid network and call network()', async () => {
   ]);
 
   const aptosWallet = new MagicAptosWallet(magic);
+
+  // Target method and assert
+  expect(() => aptosWallet.network()).rejects.toThrowError();
+});
+
+test('Call network() without magic', async () => {
+  const aptosWallet = new MagicAptosWallet(undefined);
 
   // Target method and assert
   expect(() => aptosWallet.network()).rejects.toThrowError();

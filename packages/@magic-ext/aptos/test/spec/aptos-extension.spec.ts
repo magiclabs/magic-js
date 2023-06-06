@@ -25,7 +25,6 @@ const SAMPLE_BCS_TRANSACTION = new TxnBuilderTypes.TransactionPayloadEntryFuncti
     ],
   ),
 );
-const SAMPLE_MESSAGE = 'Hello Aptos Extension!';
 
 beforeEach(() => {
   browserEnv.restore();

@@ -56,17 +56,12 @@ export class MagicAptosWallet implements AdapterPlugin {
       throw new Error('Provider is not defined');
     }
 
-    try {
-      if (!this.accountInfo) {
-        const accountInfo = await this.provider.aptos.getAccountInfo();
-        this.accountInfo = accountInfo;
-      }
-
-      return this.accountInfo;
-    } catch (e) {
-      console.warn(e);
-      throw new Error('Please call connectWithMagicLink method first');
+    if (!this.accountInfo) {
+      const accountInfo = await this.provider.aptos.getAccountInfo();
+      this.accountInfo = accountInfo;
     }
+
+    return this.accountInfo;
   }
 
   async disconnect(): Promise<void> {

@@ -24,14 +24,9 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
   }
 
   private serializeRawTransaction = (rawTransaction: TxnBuilderTypes.RawTransaction) => {
-    try {
-      const s = new BCS.Serializer();
-      rawTransaction.serialize(s);
-      return s.getBytes();
-    } catch (e) {
-      console.error("Can't serialize raw transaction", e);
-      throw e;
-    }
+    const s = new BCS.Serializer();
+    rawTransaction.serialize(s);
+    return s.getBytes();
   };
 
   getAccount = () => {
