@@ -41,6 +41,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
   signTransaction = async (address: string, transaction: Types.TransactionPayload) => {
     const client = new AptosClient(this.config.options.nodeUrl);
 
+    // TODO: should be hanlded by transaction type
     const rawTransaction = await client.generateTransaction(address, transaction as Types.EntryFunctionPayload);
     const transactionBytes = this.serializeRawTransaction(rawTransaction);
 
@@ -71,6 +72,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
   ): Promise<{ hash: Types.HexEncodedBytes }> => {
     const client = new AptosClient(this.config.options.nodeUrl);
 
+    // TODO: should be hanlded by transaction type
     const rawTransaction = await client.generateTransaction(
       address,
       transaction as Types.EntryFunctionPayload,
