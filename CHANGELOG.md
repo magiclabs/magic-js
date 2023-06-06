@@ -1,3 +1,23 @@
+# (Tue Jun 06 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/aptos@0.5.0`
+  - Change MagicAptosWallet design and fix type mismatch issue [#531](https://github.com/magiclabs/magic-js/pull/531) ([@octave08](https://github.com/octave08))
+  - Implement MagicAptosWallet [#529](https://github.com/magiclabs/magic-js/pull/529) ([@octave08](https://github.com/octave08))
+  - Refactor aptos config [#524](https://github.com/magiclabs/magic-js/pull/524) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/aptos@0.5.0`
+  - Add test suites for Aptos and fix minor bugs [#533](https://github.com/magiclabs/magic-js/pull/533) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Fri May 26 2023)
 
 #### 🚀 Enhancement

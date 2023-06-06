@@ -1,3 +1,47 @@
+# v0.5.0 (Tue Jun 06 2023)
+
+#### 🚀 Enhancement
+
+- Change MagicAptosWallet design and fix type mismatch issue [#531](https://github.com/magiclabs/magic-js/pull/531) ([@octave08](https://github.com/octave08))
+- Implement MagicAptosWallet [#529](https://github.com/magiclabs/magic-js/pull/529) ([@octave08](https://github.com/octave08))
+- Refactor aptos config [#524](https://github.com/magiclabs/magic-js/pull/524) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Add test suites for Aptos and fix minor bugs [#533](https://github.com/magiclabs/magic-js/pull/533) ([@octave08](https://github.com/octave08))
+- Add test cases for 99% coverage ([@octave08](https://github.com/octave08))
+- Fix minor changes ([@octave08](https://github.com/octave08))
+- Add MagicWallet test suite ([@octave08](https://github.com/octave08))
+- Fix typo ([@octave08](https://github.com/octave08))
+- Add AptosExtension test suite ([@octave08](https://github.com/octave08))
+- Scaffold aptos extension test ([@octave08](https://github.com/octave08))
+- Fix method mismatch ([@octave08](https://github.com/octave08))
+- Change connect param optionally ([@octave08](https://github.com/octave08))
+- Change MagicAptosWallet design ([@octave08](https://github.com/octave08))
+- enable auto connect mode ([@octave08](https://github.com/octave08))
+- Clean code ([@octave08](https://github.com/octave08))
+- Add support for aptos-adapter-react ([@octave08](https://github.com/octave08))
+- Support SSR ([@octave08](https://github.com/octave08))
+- Refactor connect with iframe ([@octave08](https://github.com/octave08))
+- apply review comments ([@octave08](https://github.com/octave08))
+- Add signTransaction on MagicAptosWallet ([@octave08](https://github.com/octave08))
+- manage dependencies ([@octave08](https://github.com/octave08))
+- Remove unused code ([@octave08](https://github.com/octave08))
+- Revert version ([@octave08](https://github.com/octave08))
+- Clean code 2 ([@octave08](https://github.com/octave08))
+- Get address with account method ([@octave08](https://github.com/octave08))
+- Export MagicAptosWallet ([@octave08](https://github.com/octave08))
+- Cache aptos account info ([@octave08](https://github.com/octave08))
+- Add magic-sdk dependency ([@octave08](https://github.com/octave08))
+- Implement MagicAptosWallet ([@octave08](https://github.com/octave08))
+- Add MagicAptosWallet ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v0.4.0 (Fri May 26 2023)
 
 #### 🐛 Bug Fix
