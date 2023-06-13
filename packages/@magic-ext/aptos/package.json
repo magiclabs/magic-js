@@ -16,25 +16,24 @@
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
-  "react-native": "./dist/react-native/index.native.js",
   "exports": {
     "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons"
+      "@magic-sdk/commons",
+      "@magic-sdk/provider"
     ]
   },
   "devDependencies": {
     "@aptos-labs/wallet-adapter-core": "^2.2.0",
     "@magic-sdk/commons": "^13.3.0",
-    "aptos": "^1.8.5",
-    "magic-sdk": "^17.3.0"
+    "@magic-sdk/provider": "^17.3.0",
+    "aptos": "^1.8.5"
   },
   "peerDependencies": {
     "@aptos-labs/wallet-adapter-core": "^2.2.0",
-    "aptos": "^1.8.5",
-    "magic-sdk": "^17.3.0"
+    "aptos": "^1.8.5"
   }
 }
