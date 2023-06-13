@@ -1,3 +1,23 @@
+# v0.6.0 (Tue Jun 13 2023)
+
+#### 🚀 Enhancement
+
+- Replace magic-sdk to @magic-sdk/provider for rn support [#536](https://github.com/magiclabs/magic-js/pull/536) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Minor changes for aptos testing [#534](https://github.com/magiclabs/magic-js/pull/534) ([@octave08](https://github.com/octave08))
+- Remove react-native option ([@octave08](https://github.com/octave08))
+- Replace magic-sdk to @magic-sdk/provider for rn support ([@octave08](https://github.com/octave08))
+- Refactor duplicate variables ([@octave08](https://github.com/octave08))
+- Fix node url for testing ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v0.5.0 (Tue Jun 06 2023)
 
 #### 🚀 Enhancement

@@ -1,3 +1,21 @@
+# (Tue Jun 13 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/aptos@0.6.0`
+  - Replace magic-sdk to @magic-sdk/provider for rn support [#536](https://github.com/magiclabs/magic-js/pull/536) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/aptos@0.6.0`
+  - Minor changes for aptos testing [#534](https://github.com/magiclabs/magic-js/pull/534) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Tue Jun 06 2023)
 
 #### 🚀 Enhancement
