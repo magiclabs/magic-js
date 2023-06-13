@@ -81,6 +81,17 @@ export interface NFTPurchaseResponse {
   status: NFTPurchaseStatus;
 }
 
+export interface NFTCheckoutRequest {
+  contractId: string;
+  tokenId: string | undefined;
+}
+
+export type NFTCheckoutStatus = 'processed' | 'declined' | 'expired';
+
+export interface NFTCheckoutResponse {
+  status: NFTCheckoutStatus;
+}
+
 export enum Wallets {
   MetaMask = 'metamask',
   CoinbaseWallet = 'coinbase_wallet',
@@ -134,6 +145,7 @@ export enum MagicPayloadMethod {
   GetInfo = 'magic_get_info',
   ShowUI = 'magic_wallet',
   NFTPurchase = 'magic_nft_purchase',
+  NFTCheckout = 'magic_nft_checkout',
   RequestUserInfoWithUI = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',
   UpdatePhoneNumber = 'magic_auth_update_phone_number',
