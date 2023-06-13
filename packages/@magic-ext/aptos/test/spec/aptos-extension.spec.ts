@@ -4,7 +4,7 @@ import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/tes
 import { AptosExtension } from '../../src';
 import { AptosPayloadMethod } from '../../src/type';
 
-const APTOS_NODE_URL = 'https://fullnode.testnet.aptoslabs.com/v1';
+const APTOS_NODE_URL = 'https://fullnode.testnet.aptoslabs.com';
 
 const SAMPLE_ADDRESS = '0x8293d5e05544c6e53c47fc19ae071c26a60e0ccbd8a12eb5b2c9d348c85227b6';
 const SAMPLE_TRANSACTION = {
@@ -25,6 +25,10 @@ const SAMPLE_BCS_TRANSACTION = new TxnBuilderTypes.TransactionPayloadEntryFuncti
     ],
   ),
 );
+const MESSAGE_PAYLOAD = {
+  message: 'Hello Aptos Extension!',
+  nonce: 'random-nonce',
+};
 
 beforeEach(() => {
   browserEnv.restore();
@@ -155,13 +159,8 @@ test('Construct SignMessage request with `aptos_signMessage`', async () => {
   ]);
   magic.aptos.request = jest.fn();
 
-  const messagePayload = {
-    message: 'Hello Aptos Extension!',
-    nonce: 'random-nonce',
-  };
-
   // Target method
-  await magic.aptos.signMessage(SAMPLE_ADDRESS, messagePayload);
+  await magic.aptos.signMessage(SAMPLE_ADDRESS, MESSAGE_PAYLOAD);
 
   // Assert
   expect(magic.aptos.request).toBeCalledTimes(1);
@@ -172,7 +171,7 @@ test('Construct SignMessage request with `aptos_signMessage`', async () => {
   expect(requestPayload.params).toEqual([
     {
       address: SAMPLE_ADDRESS,
-      message: messagePayload,
+      message: MESSAGE_PAYLOAD,
     },
   ]);
 });
@@ -185,13 +184,8 @@ test('Construct SignMessageAndVerify request with `aptos_signMessageAndVerify`',
   ]);
   magic.aptos.request = jest.fn();
 
-  const messagePayload = {
-    message: 'Hello Aptos Extension!',
-    nonce: 'random-nonce',
-  };
-
   // Target method
-  await magic.aptos.signMessageAndVerify(SAMPLE_ADDRESS, messagePayload);
+  await magic.aptos.signMessageAndVerify(SAMPLE_ADDRESS, MESSAGE_PAYLOAD);
 
   // Assert
   expect(magic.aptos.request).toBeCalledTimes(1);
@@ -202,7 +196,7 @@ test('Construct SignMessageAndVerify request with `aptos_signMessageAndVerify`',
   expect(requestPayload.params).toEqual([
     {
       address: SAMPLE_ADDRESS,
-      message: messagePayload,
+      message: MESSAGE_PAYLOAD,
     },
   ]);
 });
