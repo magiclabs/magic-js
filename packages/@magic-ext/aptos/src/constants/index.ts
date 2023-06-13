@@ -21,7 +21,6 @@ export const APTOS_NETWORKS = {
   },
   [APTOS_NODE_URLS.DEVNET]: {
     name: NetworkName.Devnet,
-    chainId: '54',
     url: APTOS_NODE_URLS.DEVNET,
   },
 };
