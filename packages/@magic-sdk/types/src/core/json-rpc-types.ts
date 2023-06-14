@@ -82,8 +82,15 @@ export interface NFTPurchaseResponse {
 }
 
 export interface NFTCheckoutRequest {
-  contractAddress: string;
+  // given by magic / found in the developer dashboard in future
+  contractId: string;
+  // in contract, if ERC1155… for ERC721, use token ID = 0
   tokenId: string;
+  // Checkout UI compares against session wallet, if == then show “Magic Wallet”
+  walletAddress: string;
+  quantity: number;
+  imageUrl: string;
+  name: string;
 }
 
 export type NFTCheckoutStatus = 'processed' | 'declined' | 'expired';
