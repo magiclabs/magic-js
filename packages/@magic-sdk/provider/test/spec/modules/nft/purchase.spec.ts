@@ -17,7 +17,12 @@ test('Generate JSON RPC request payload with method `magic_nft_purchase`', async
   expect(requestPayload.params).toEqual([{ nft: { name: 'nft name' } }]);
 });
 
-test('method should return a PromiEvent', () => {
+test('purchase method should return a PromiEvent', () => {
   const magic = createMagicSDK();
   expect(isPromiEvent(magic.nft.purchase())).toBeTruthy();
+});
+
+test('method should return a PromiEvent', () => {
+  const magic = createMagicSDK();
+  expect(isPromiEvent(magic.nft.checkout())).toBeTruthy();
 });

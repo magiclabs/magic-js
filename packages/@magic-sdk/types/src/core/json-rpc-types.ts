@@ -81,6 +81,24 @@ export interface NFTPurchaseResponse {
   status: NFTPurchaseStatus;
 }
 
+export interface NFTCheckoutRequest {
+  // given by magic / found in the developer dashboard in future
+  contractId: string;
+  // in contract, if ERC1155… for ERC721, use token ID = 0
+  tokenId: string;
+  // Checkout UI compares against session wallet, if == then show “Magic Wallet”
+  walletAddress: string;
+  quantity: number;
+  imageUrl: string;
+  name: string;
+}
+
+export type NFTCheckoutStatus = 'processed' | 'declined' | 'expired';
+
+export interface NFTCheckoutResponse {
+  status: NFTCheckoutStatus;
+}
+
 export enum Wallets {
   MetaMask = 'metamask',
   CoinbaseWallet = 'coinbase_wallet',
@@ -134,6 +152,7 @@ export enum MagicPayloadMethod {
   GetInfo = 'magic_get_info',
   ShowUI = 'magic_wallet',
   NFTPurchase = 'magic_nft_purchase',
+  NFTCheckout = 'magic_nft_checkout',
   RequestUserInfoWithUI = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',
   UpdatePhoneNumber = 'magic_auth_update_phone_number',
