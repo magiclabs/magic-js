@@ -403,7 +403,6 @@ test('Set up with devnet and call network()', async () => {
   // Assert
   expect(result).toEqual({
     name: 'devnet',
-    chainId: '54',
     url: NODE_URL,
   });
 });

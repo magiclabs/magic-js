@@ -8,6 +8,7 @@ const APTOS_NODE_URL = 'https://fullnode.testnet.aptoslabs.com';
 
 const SAMPLE_ADDRESS = '0x8293d5e05544c6e53c47fc19ae071c26a60e0ccbd8a12eb5b2c9d348c85227b6';
 const SAMPLE_TRANSACTION = {
+  type: 'entry_function_payload',
   function: '0x1::coin::transfer',
   type_arguments: ['0x1::aptos_coin::AptosCoin'],
   arguments: ['0x8293d5e05544c6e53c47fc19ae071c26a60e0ccbd8a12eb5b2c9d348c85227b6', 1000],
@@ -99,6 +100,23 @@ test('Construct SignTransaction request with `aptos_signTransaction`', async () 
     }),
   );
   expect(requestPayload.params[0].transactionBytes).toBeInstanceOf(Uint8Array);
+});
+
+test('Construct SignTransaction request with invalid payload type`', async () => {
+  const magic = createMagicSDKWithExtension({}, [
+    new AptosExtension({
+      nodeUrl: APTOS_NODE_URL,
+    }),
+  ]);
+  magic.aptos.request = jest.fn();
+
+  // Assert
+  expect(() =>
+    magic.aptos.signTransaction(SAMPLE_ADDRESS, {
+      ...SAMPLE_TRANSACTION,
+      type: 'test',
+    }),
+  ).rejects.toThrowError();
 });
 
 test('Construct SignAndSubmitTransaction request with `aptos_signAndSubmitTransaction`', async () => {
