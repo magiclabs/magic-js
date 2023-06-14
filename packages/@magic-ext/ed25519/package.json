@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/ed25519",
-  "version": "8.3.0",
+  "version": "8.4.0",
   "description": "magic ed25519 extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^13.3.0"
+    "@magic-sdk/commons": "^13.4.0"
   }
 }
