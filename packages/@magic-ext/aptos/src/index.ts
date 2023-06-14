@@ -5,6 +5,7 @@ import { Extension } from '@magic-sdk/commons';
 import { AptosClient, BCS, TxnBuilderTypes, Types, getAddressFromAccountOrAddress } from 'aptos';
 import { AccountInfo, SignMessagePayload, SignMessageResponse } from '@aptos-labs/wallet-adapter-core';
 import { AptosConfig, AptosPayloadMethod } from './type';
+import { APTOS_PAYLOAD_TYPE } from './constants';
 
 export { MagicAptosWallet } from './MagicAptosWallet';
 export class AptosExtension extends Extension.Internal<'aptos', any> {
@@ -29,15 +30,31 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     return s.getBytes();
   };
 
+  private generateRawTransactionWihtTypedPayload = async (
+    address: string,
+    transaction: Types.TransactionPayload,
+    options?: any,
+  ) => {
+    const client = new AptosClient(this.config.options.nodeUrl);
+
+    if (transaction.type === APTOS_PAYLOAD_TYPE.ENTRY_FUCNTION_PAYLOAD) {
+      const rawTransaction = await client.generateTransaction(
+        address,
+        transaction as Types.EntryFunctionPayload,
+        options,
+      );
+      return rawTransaction;
+    }
+
+    throw new Error(`[${transaction.type}] is not supported`);
+  };
+
   getAccount = () => {
     return this.request<string>(this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosGetAccount, []));
   };
 
   signTransaction = async (address: string, transaction: Types.TransactionPayload) => {
-    const client = new AptosClient(this.config.options.nodeUrl);
-
-    // TODO: should be hanlded by transaction type
-    const rawTransaction = await client.generateTransaction(address, transaction as Types.EntryFunctionPayload);
+    const rawTransaction = await this.generateRawTransactionWihtTypedPayload(address, transaction);
     const transactionBytes = this.serializeRawTransaction(rawTransaction);
 
     return this.request<Uint8Array>(
@@ -65,14 +82,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     transaction: Types.TransactionPayload,
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> => {
-    const client = new AptosClient(this.config.options.nodeUrl);
-
-    // TODO: should be hanlded by transaction type
-    const rawTransaction = await client.generateTransaction(
-      address,
-      transaction as Types.EntryFunctionPayload,
-      options,
-    );
+    const rawTransaction = await this.generateRawTransactionWihtTypedPayload(address, transaction, options);
     const transactionBytes = this.serializeRawTransaction(rawTransaction);
 
     return this.request<{ hash: Types.HexEncodedBytes }>(
