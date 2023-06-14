@@ -82,8 +82,8 @@ export interface NFTPurchaseResponse {
 }
 
 export interface NFTCheckoutRequest {
-  contractId: string;
-  tokenId: string | undefined;
+  contractAddress: string;
+  tokenId: string;
 }
 
 export type NFTCheckoutStatus = 'processed' | 'declined' | 'expired';
