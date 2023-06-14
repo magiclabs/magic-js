@@ -1,3 +1,23 @@
+# v0.7.0 (Wed Jun 14 2023)
+
+#### 🚀 Enhancement
+
+- [FEAT]: adding types for nft checkout [#539](https://github.com/magiclabs/magic-js/pull/539) ([@bengriffin1](https://github.com/bengriffin1) [@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Minor changes for AptosExtension [#540](https://github.com/magiclabs/magic-js/pull/540) ([@octave08](https://github.com/octave08))
+- Update test cases for Aptos ([@octave08](https://github.com/octave08))
+- Remove chainId for aptos devnet ([@octave08](https://github.com/octave08))
+- Add error handling for typed payload ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- Ben Griffin ([@bengriffin1](https://github.com/bengriffin1))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v0.6.0 (Tue Jun 13 2023)
 
 #### 🚀 Enhancement

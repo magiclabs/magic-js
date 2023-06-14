@@ -1,3 +1,21 @@
+# v17.4.0 (Wed Jun 14 2023)
+
+#### 🚀 Enhancement
+
+- [FEAT]: adding types for nft checkout [#539](https://github.com/magiclabs/magic-js/pull/539) ([@bengriffin1](https://github.com/bengriffin1) [@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Add test case ([@octave08](https://github.com/octave08))
+- [FEAT]: adding types for nft checkout ([@bengriffin1](https://github.com/bengriffin1))
+
+#### Authors: 2
+
+- Ben Griffin ([@bengriffin1](https://github.com/bengriffin1))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v17.3.0 (Fri May 26 2023)
 
 #### 🚀 Enhancement
