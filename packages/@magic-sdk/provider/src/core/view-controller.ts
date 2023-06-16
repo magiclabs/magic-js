@@ -43,6 +43,8 @@ function standardizeResponse(
   const id = event.data.response?.id;
   const requestPayloadResolved = getRequestPayloadFromBatch(requestPayload, id);
 
+  console.log('requestPayloadResolved in standardizeResponse: ', requestPayloadResolved);
+
   if (id && requestPayloadResolved) {
     // Build a standardized response object
     const response = new JsonRpcResponse(requestPayloadResolved)
@@ -134,6 +136,7 @@ export abstract class ViewController {
 
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
+      console.log('msgType in post: ', msgType);
       const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload);
 
       await this._post(msg);
@@ -179,6 +182,8 @@ export abstract class ViewController {
     handler: (this: Window, event: MagicMessageEvent) => any,
   ): RemoveEventListenerFunction {
     const boundHandler = handler.bind(window);
+
+    console.log('msgType in on: ', msgType);
 
     // We cannot effectively cover this function because it never gets reference
     // by value. The functionality of this callback is tested within
