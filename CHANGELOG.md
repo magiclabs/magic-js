@@ -1,3 +1,16 @@
+# (Tue Jun 20 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/auth@1.0.0`, `@magic-sdk/provider@18.0.0`, `@magic-sdk/react-native-bare@19.0.0`, `@magic-sdk/react-native-expo@19.0.0`
+  - Removes Magic link Method [#516](https://github.com/magiclabs/magic-js/pull/516) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Wed Jun 14 2023)
 
 #### 🚀 Enhancement

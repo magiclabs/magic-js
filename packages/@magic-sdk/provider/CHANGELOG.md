@@ -1,3 +1,21 @@
+# v18.0.0 (Tue Jun 20 2023)
+
+#### 💥 Breaking Change
+
+- Removes Magic link Method [#516](https://github.com/magiclabs/magic-js/pull/516) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Add missing isRNMobilePackage var ([@Ariflo](https://github.com/Ariflo))
+- Adds isMajorVersionAtLeast util function ([@Ariflo](https://github.com/Ariflo))
+- Throw error if loginWithMagicLink used in RN packages v19.0.0 or higher ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v17.4.0 (Wed Jun 14 2023)
 
 #### 🚀 Enhancement

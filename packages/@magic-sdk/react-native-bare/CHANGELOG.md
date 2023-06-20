@@ -1,3 +1,19 @@
+# v19.0.0 (Tue Jun 20 2023)
+
+#### 💥 Breaking Change
+
+- Removes Magic link Method [#516](https://github.com/magiclabs/magic-js/pull/516) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update READMEs ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v18.4.0 (Fri May 26 2023)
 
 #### 🐛 Bug Fix

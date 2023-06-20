@@ -1,3 +1,16 @@
+# v14.0.0 (Tue Jun 20 2023)
+
+#### 🐛 Bug Fix
+
+- Add isMajorVersionAtLeast directly to auth extension ([@Ariflo](https://github.com/Ariflo))
+- Move isMajorVersionAtLeast to commons ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v13.3.0 (Fri May 26 2023)
 
 #### 🐛 Bug Fix
