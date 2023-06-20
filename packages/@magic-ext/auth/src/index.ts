@@ -7,10 +7,10 @@ import {
   LoginWithSmsConfiguration,
   MagicPayloadMethod,
   UpdateEmailConfiguration,
-  isMajorVersionAtLeast,
 } from '@magic-sdk/commons';
 import { ViewController } from '@magic-sdk/provider';
 import type localForage from 'localforage';
+import { isMajorVersionAtLeast } from './util/version-check';
 
 type ConstructorOf<C> = { new (...args: any[]): C };
 
