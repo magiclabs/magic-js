@@ -13,4 +13,6 @@ export {
 
 export type { MagicSDKAdditionalConfiguration, MagicSDKExtensionsOption, PromiEvent } from '@magic-sdk/provider';
 
+export { isMajorVersionAtLeast } from '@magic-sdk/provider/src/util/version-check';
+
 export * from '@magic-sdk/types';
