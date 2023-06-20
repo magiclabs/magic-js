@@ -10,6 +10,9 @@
   <a href="https://github.com/magiclabs/magic-js/blob/master/CONTRIBUTING.md">Contributing Guide</a>
 </p>
 
+## ⚠️ Removal of `loginWithMagicLink()`  ⚠️
+As of `v19.0.0`, passcodes (ie. `loginWithSMS()`, `loginWithEmailOTP()`) are replacing Magic Links (ie. `loginWithMagicLink()`) for all of our Mobile SDKs⁠. [Learn more](https://magic.link/docs/auth/login-methods/email/email-link-update-march-2023)
+
 ## 📖 Documentation
 
 See the [developer documentation](https://magic.link/docs) to learn how you can master the Magic SDK in a matter of minutes.
@@ -56,7 +59,7 @@ export default function App() {
 }
 
 // Somewhere else in your code...
-await magic.auth.loginWithMagicLink({ email: 'your.email@example.com' });
+await magic.auth.loginWithEmailOTP({ email: 'your.email@example.com' });
 ```
 ⁠⁠👉 Check out some of our [React Native Demo apps](https://github.com/magiclabs/react-native-demo) for inspiration! 👀
 
