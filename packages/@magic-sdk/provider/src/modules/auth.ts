@@ -28,12 +28,12 @@ export class AuthModule extends BaseModule {
    * of 15 minutes).
    */
   public loginWithMagicLink(configuration: LoginWithMagicLinkConfiguration) {
-    if (
-      (SDKEnvironment.sdkName === '@magic-sdk/react-native' ||
-        SDKEnvironment.sdkName === '@magic-sdk/react-native-bare' ||
-        SDKEnvironment.sdkName === '@magic-sdk/react-native-expo') &&
-      isMajorVersionAtLeast(SDKEnvironment.version, 19)
-    ) {
+    const isRNMobilePackage =
+      SDKEnvironment.sdkName === '@magic-sdk/react-native' ||
+      SDKEnvironment.sdkName === '@magic-sdk/react-native-bare' ||
+      SDKEnvironment.sdkName === '@magic-sdk/react-native-expo';
+
+    if (isRNMobilePackage && isMajorVersionAtLeast(SDKEnvironment.version, 19)) {
       throw new Error(
         'loginWithMagicLink() is deprecated for this package, please utlize a passcode method like loginWithSMS or loginWithEmailOTP instead.',
       );
