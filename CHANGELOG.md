@@ -1,3 +1,16 @@
+# (Wed Jun 21 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-expo@19.0.1`
+  - Update RN Expo Package README and Peer dependency [#545](https://github.com/magiclabs/magic-js/pull/545) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Tue Jun 20 2023)
 
 #### 💥 Breaking Change

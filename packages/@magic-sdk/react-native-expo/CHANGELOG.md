@@ -1,3 +1,17 @@
+# v19.0.1 (Wed Jun 21 2023)
+
+#### 🐛 Bug Fix
+
+- Update RN Expo Package README and Peer dependency [#545](https://github.com/magiclabs/magic-js/pull/545) ([@Ariflo](https://github.com/Ariflo))
+- Udpate ReadME ([@Ariflo](https://github.com/Ariflo))
+- Update Expo RN Peer Dependency ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v19.0.0 (Tue Jun 20 2023)
 
 #### 💥 Breaking Change
