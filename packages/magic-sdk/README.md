@@ -94,7 +94,7 @@ These are packages Magic JS SDK uses internally to work seamlessly across platfo
 
 ## 🚦 Testing
 
-Run tests for all packages
+Run tests for all packages 
 ```bash
 yarn test
 ```

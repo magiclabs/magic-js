@@ -5,7 +5,7 @@
 npm i magic-sdk @magic-ext/polkadot
 ```
 ## Setup
-Setup PolkadotExtension with magic-sdk
+Setup PolkadotExtension with magic-sdk 
 ```js
 
 import { Magic } from 'magic-sdk';
