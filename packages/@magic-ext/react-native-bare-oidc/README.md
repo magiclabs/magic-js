@@ -2,11 +2,11 @@
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
 
-> Magic Open Id Connect JavaScript SDK extension.
+> Magic Open Id Connect Bare React Native SDK extension.
 
 <p align="center">
-  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/@magic-ext/oidc/LICENSE">License</a> ·
-  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/@magic-ext/oidc/CHANGELOG.md">Changelog</a> ·
+  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/@magic-ext/react-native-bare-oidc/LICENSE">License</a> ·
+  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/@magic-ext/react-native-bare-oidc/CHANGELOG.md">Changelog</a> ·
   <a href="https://github.com/magiclabs/magic-js/blob/master/CONTRIBUTING.md">Contributing Guide</a>
 </p>
 
@@ -16,21 +16,14 @@ TODO once docs links are active.
 
 ## 🔗 Installation
 
-Integrating your app with Magic will require our client-side NPM package and the OIDC extension:
+Integrating your Bare React Native app with Magic will require our client-side NPM package and the Bare React Native OIDC extension:
 
 ```bash
 # Via NPM:
-npm install --save magic-sdk @magic-ext/oidc
+npm install --save @magic-sdk/react-native-bare @magic-ext/react-native-bare-oidc
 
 # Via Yarn:
-yarn add magic-sdk @magic-ext/oidc
-```
-
-Alternatively, you can load via CDN with by adding a script tag to your app’s `<head>`:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/magic-sdk/dist/magic.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@magic-ext/oidc/dist/extension.js"></script>
+yarn add @magic-sdk/react-native-bare @magic-ext/react-native-bare-oidc
 ```
 
 ## ⚡️ Quick Start
@@ -44,7 +37,7 @@ From your login page:
 ```ts
 import Web3 from 'web3';
 import { Magic } from 'magic-sdk';
-import { OpenIdExtension } from '@magic-ext/oidc';
+import { OpenIdExtension } from '@magic-ext/react-native-bare-oidc';
 
 const magic = new Magic('YOUR_API_KEY', {
   extensions: [new OpenIdExtension()],
