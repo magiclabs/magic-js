@@ -2869,7 +2869,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/oidc@workspace:packages/@magic-ext/oidc"
   dependencies:
-    magic-sdk: ^9.0.0
+    "@magic-sdk/commons": ^14.0.0
   languageName: unknown
   linkType: soft
 
@@ -2897,16 +2897,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-ext/react-native-bare-oidc@workspace:packages/@magic-ext/react-native-bare-oidc":
-  version: 0.0.0-use.local
-  resolution: "@magic-ext/react-native-bare-oidc@workspace:packages/@magic-ext/react-native-bare-oidc"
-  dependencies:
-    "@magic-sdk/react-native-bare": ^19.0.0
-  peerDependencies:
-    "@magic-sdk/react-native-bare": ">=13.0.0"
-  languageName: unknown
-  linkType: soft
-
 "@magic-ext/react-native-expo-oauth@workspace:packages/@magic-ext/react-native-expo-oauth":
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-expo-oauth@workspace:packages/@magic-ext/react-native-expo-oauth"
@@ -2917,16 +2907,6 @@ __metadata:
     crypto-js: ^3.3.0
     expo-application: ^5.0.1
     expo-web-browser: ">=12.0.0"
-  peerDependencies:
-    "@magic-sdk/react-native-expo": ">=13.0.0"
-  languageName: unknown
-  linkType: soft
-
-"@magic-ext/react-native-expo-oidc@workspace:packages/@magic-ext/react-native-expo-oidc":
-  version: 0.0.0-use.local
-  resolution: "@magic-ext/react-native-expo-oidc@workspace:packages/@magic-ext/react-native-expo-oidc"
-  dependencies:
-    "@magic-sdk/react-native-expo": ^19.0.0
   peerDependencies:
     "@magic-sdk/react-native-expo": ">=13.0.0"
   languageName: unknown
@@ -2992,16 +2972,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/commons@npm:^5.0.0":
-  version: 5.1.0
-  resolution: "@magic-sdk/commons@npm:5.1.0"
-  peerDependencies:
-    "@magic-sdk/provider": ">=4.3.0"
-    "@magic-sdk/types": ">=3.1.1"
-  checksum: 803fb196a97c2e2f4442054271addaa40793c60edd399f9f1c32d728e0e91c45d7e6f3ac8b30199d1ac27f28b804a9843e052843d7b345055513e73824b75d1a
-  languageName: node
-  linkType: hard
-
 "@magic-sdk/pnp@workspace:packages/@magic-sdk/pnp":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/pnp@workspace:packages/@magic-sdk/pnp"
@@ -3030,19 +3000,6 @@ __metadata:
     localforage: ^1.7.4
   languageName: unknown
   linkType: soft
-
-"@magic-sdk/provider@npm:^9.1.0":
-  version: 9.1.0
-  resolution: "@magic-sdk/provider@npm:9.1.0"
-  dependencies:
-    "@magic-sdk/types": ^8.1.0
-    eventemitter3: ^4.0.4
-    web3-core: 1.5.2
-  peerDependencies:
-    localforage: ^1.7.4
-  checksum: 513cc7544f0e7c1c100f3770cdb46a2b9c402d8c5ff88a06849403ab5a5cf4963d18e08ea168fd2dfc227824f0a7cd3e172827504e2be074738a4bc8e65f5642
-  languageName: node
-  linkType: hard
 
 "@magic-sdk/react-native-bare@^19.0.0, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
@@ -3080,7 +3037,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-expo@^19.0.0, @magic-sdk/react-native-expo@^19.0.1, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
+"@magic-sdk/react-native-expo@^19.0.1, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
@@ -3126,13 +3083,6 @@ __metadata:
   version: 10.0.1
   resolution: "@magic-sdk/types@npm:10.0.1"
   checksum: 27ff466f5a04c3a7e8dd87d655aecabc151b382832db014206b4c470dd70634501d243de0f50e5014bf1a08047a71a79a8bff1fb21de2c6c9f26a5f83c93aeb5
-  languageName: node
-  linkType: hard
-
-"@magic-sdk/types@npm:^8.1.0":
-  version: 8.1.0
-  resolution: "@magic-sdk/types@npm:8.1.0"
-  checksum: a42de57c4f03804daba755f674608981d1f86197301d44178c6e2d60434e3e615fac0939affd52b7c6cce5e110e466751215af1cb8c8d5c71dcbb85a43713ccd
   languageName: node
   linkType: hard
 
@@ -12482,18 +12432,6 @@ fsevents@^2.3.2:
     localforage-driver-memory: ^1.0.5
   languageName: unknown
   linkType: soft
-
-"magic-sdk@npm:^9.0.0":
-  version: 9.1.1
-  resolution: "magic-sdk@npm:9.1.1"
-  dependencies:
-    "@magic-sdk/commons": ^5.0.0
-    "@magic-sdk/provider": ^9.1.0
-    "@magic-sdk/types": ^8.1.0
-    localforage: ^1.7.4
-  checksum: 2492917c7c6a40ea6f01f051e65d1331ea9269bdecf439bdba122519ace235250e540467edea0d2efe7bd699ca138ad490b29f3e645796441e2e2cc114047da2
-  languageName: node
-  linkType: hard
 
 "make-dir@npm:^1.0.0, make-dir@npm:^1.3.0":
   version: 1.3.0
