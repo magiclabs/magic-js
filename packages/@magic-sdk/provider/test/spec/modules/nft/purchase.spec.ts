@@ -22,7 +22,7 @@ test('purchase method should return a PromiEvent', () => {
   expect(isPromiEvent(magic.nft.purchase())).toBeTruthy();
 });
 
-test('method should return a PromiEvent', () => {
+test('checkout method should return a PromiEvent', () => {
   const magic = createMagicSDK();
   expect(isPromiEvent(magic.nft.checkout())).toBeTruthy();
 });
