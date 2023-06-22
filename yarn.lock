@@ -2922,6 +2922,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/react-native-expo-oidc@workspace:packages/@magic-ext/react-native-expo-oidc":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/react-native-expo-oidc@workspace:packages/@magic-ext/react-native-expo-oidc"
+  dependencies:
+    "@magic-sdk/react-native-expo": ^19.0.0
+  peerDependencies:
+    "@magic-sdk/react-native-expo": ">=13.0.0"
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/solana@workspace:packages/@magic-ext/solana":
   version: 0.0.0-use.local
   resolution: "@magic-ext/solana@workspace:packages/@magic-ext/solana"
@@ -3070,7 +3080,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-expo@^19.0.1, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
+"@magic-sdk/react-native-expo@^19.0.0, @magic-sdk/react-native-expo@^19.0.1, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
