@@ -2897,6 +2897,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/react-native-bare-oidc@workspace:packages/@magic-ext/react-native-bare-oidc":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/react-native-bare-oidc@workspace:packages/@magic-ext/react-native-bare-oidc"
+  dependencies:
+    "@magic-sdk/react-native-bare": ^19.0.0
+  peerDependencies:
+    "@magic-sdk/react-native-bare": ">=13.0.0"
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/react-native-expo-oauth@workspace:packages/@magic-ext/react-native-expo-oauth":
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-expo-oauth@workspace:packages/@magic-ext/react-native-expo-oauth"
