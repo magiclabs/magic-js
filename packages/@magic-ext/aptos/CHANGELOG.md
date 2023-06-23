@@ -1,3 +1,25 @@
+# v1.2.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Auto version bumping [#557](https://github.com/magiclabs/magic-js/pull/557) ([@Ethella](https://github.com/Ethella) [@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Match NPM Version ([@Ariflo](https://github.com/Ariflo))
+- Update CHANGELOG.md \[skip ci\] ([@Ethella](https://github.com/Ethella))
+- Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- Add typings to package.json export [#517](https://github.com/magiclabs/magic-js/pull/517) ([@octave08](https://github.com/octave08))
+- Add typings to package.json export ([@octave08](https://github.com/octave08))
+
+#### Authors: 3
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v1.1.0 (Fri Jun 23 2023)
 
 #### 🐛 Bug Fix

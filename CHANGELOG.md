@@ -2,6 +2,41 @@
 
 #### 🚀 Enhancement
 
+- `@magic-ext/algorand@13.2.0`, `@magic-ext/aptos@1.2.0`, `@magic-ext/auth@1.2.0`, `@magic-ext/avalanche@13.2.0`, `@magic-ext/bitcoin@13.2.0`, `@magic-ext/conflux@11.2.0`, `@magic-ext/cosmos@13.2.0`, `@magic-ext/ed25519@9.2.0`, `@magic-ext/flow@13.2.0`, `@magic-ext/gdkms@1.2.0`, `@magic-ext/harmony@13.2.0`, `@magic-ext/icon@13.2.0`, `@magic-ext/near@13.2.0`, `@magic-ext/oauth@12.2.0`, `@magic-ext/oidc@1.1.0`, `@magic-ext/polkadot@13.2.0`, `@magic-ext/react-native-bare-oauth@13.2.0`, `@magic-ext/react-native-expo-oauth@13.2.0`, `@magic-ext/solana@14.2.0`, `@magic-ext/taquito@10.2.0`, `@magic-ext/terra@10.2.0`, `@magic-ext/tezos@13.2.0`, `@magic-ext/webauthn@12.2.0`, `@magic-ext/zilliqa@13.2.0`, `@magic-sdk/commons@14.2.0`, `@magic-sdk/pnp@12.2.0`, `@magic-sdk/provider@18.2.0`, `@magic-sdk/react-native-bare@19.2.0`, `@magic-sdk/react-native-expo@19.2.0`, `@magic-sdk/types@15.6.0`, `magic-sdk@18.2.0`
+  - Auto version bumping [#557](https://github.com/magiclabs/magic-js/pull/557) ([@Ethella](https://github.com/Ethella) [@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/algorand@13.2.0`, `@magic-ext/auth@1.2.0`, `@magic-ext/avalanche@13.2.0`, `@magic-ext/bitcoin@13.2.0`, `@magic-ext/conflux@11.2.0`, `@magic-ext/cosmos@13.2.0`, `@magic-ext/ed25519@9.2.0`, `@magic-ext/flow@13.2.0`, `@magic-ext/harmony@13.2.0`, `@magic-ext/icon@13.2.0`, `@magic-ext/near@13.2.0`, `@magic-ext/oauth@12.2.0`, `@magic-ext/oidc@1.1.0`, `@magic-ext/polkadot@13.2.0`, `@magic-ext/react-native-bare-oauth@13.2.0`, `@magic-ext/react-native-expo-oauth@13.2.0`, `@magic-ext/solana@14.2.0`, `@magic-ext/taquito@10.2.0`, `@magic-ext/terra@10.2.0`, `@magic-ext/tezos@13.2.0`, `@magic-ext/webauthn@12.2.0`, `@magic-ext/zilliqa@13.2.0`, `@magic-sdk/commons@14.2.0`, `@magic-sdk/pnp@12.2.0`, `@magic-sdk/provider@18.2.0`, `@magic-sdk/react-native-bare@19.2.0`, `@magic-sdk/react-native-expo@19.2.0`, `@magic-sdk/types@15.6.0`, `magic-sdk@18.2.0`
+  - Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-sdk/provider@18.2.0`, `@magic-sdk/types@15.6.0`
+  - Implement view-in-wallet [#548](https://github.com/magiclabs/magic-js/pull/548) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Remove approval step for canary releases [sc-80045] [#549](https://github.com/magiclabs/magic-js/pull/549) ([@bcleary06](https://github.com/bcleary06))
+- Revert Threshold Change [#553](https://github.com/magiclabs/magic-js/pull/553) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/oidc@1.1.0`
+  - Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/aptos@1.2.0`, `@magic-sdk/commons@14.2.0`, `@magic-sdk/provider@18.2.0`, `@magic-sdk/types@15.6.0`, `magic-sdk@18.2.0`
+  - Add typings to package.json export [#517](https://github.com/magiclabs/magic-js/pull/517) ([@octave08](https://github.com/octave08))
+- `@magic-sdk/provider@18.2.0`
+  - Fix Failing CI [#556](https://github.com/magiclabs/magic-js/pull/556) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/gdkms@1.2.0`
+  - Fix typo for gdkms [#555](https://github.com/magiclabs/magic-js/pull/555) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/auth@1.2.0`, `@magic-sdk/provider@18.2.0`
+  - Fix CI Tests [#552](https://github.com/magiclabs/magic-js/pull/552) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 4
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
 - `@magic-ext/algorand@13.1.1`, `@magic-ext/auth@1.0.1`, `@magic-ext/avalanche@13.0.1`, `@magic-ext/bitcoin@13.0.1`, `@magic-ext/conflux@11.0.1`, `@magic-ext/cosmos@13.0.1`, `@magic-ext/ed25519@9.0.1`, `@magic-ext/flow@13.0.1`, `@magic-ext/harmony@13.0.1`, `@magic-ext/icon@13.0.1`, `@magic-ext/near@13.0.1`, `@magic-ext/oauth@12.0.1`, `@magic-ext/oidc@1.0.2`, `@magic-ext/polkadot@13.0.1`, `@magic-ext/react-native-bare-oauth@13.0.1`, `@magic-ext/react-native-expo-oauth@13.0.2`, `@magic-ext/solana@14.0.1`, `@magic-ext/taquito@10.0.1`, `@magic-ext/terra@10.0.1`, `@magic-ext/tezos@13.0.1`, `@magic-ext/webauthn@12.0.1`, `@magic-ext/zilliqa@13.0.1`, `@magic-sdk/commons@14.0.1`, `@magic-sdk/pnp@12.0.1`, `@magic-sdk/provider@18.0.1`, `@magic-sdk/react-native-bare@19.0.1`, `@magic-sdk/react-native-expo@19.0.2`, `@magic-sdk/types@15.4.1`, `magic-sdk@18.0.1`
   - Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
 - `@magic-sdk/provider@18.0.1`, `@magic-sdk/types@15.4.1`

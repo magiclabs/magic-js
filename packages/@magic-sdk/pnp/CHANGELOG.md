@@ -1,3 +1,24 @@
+# v12.2.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Auto version bumping [#557](https://github.com/magiclabs/magic-js/pull/557) ([@Ethella](https://github.com/Ethella) [@Ariflo](https://github.com/Ariflo))
+- Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Match NPM Version ([@Ariflo](https://github.com/Ariflo))
+- Update CHANGELOG.md \[skip ci\] ([@Ethella](https://github.com/Ethella))
+- Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- White space bump ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v12.1.0 (Fri Jun 23 2023)
 
 #### 🚀 Enhancement
