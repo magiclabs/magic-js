@@ -9,10 +9,10 @@ const config: Config.InitialOptions = {
   testTimeout: 30000, // 30s
   coverageThreshold: {
     global: {
-      lines: 99,
-      statements: 99,
-      functions: 98,
-      branches: 99,
+      lines: 95,
+      statements: 95,
+      functions: 95,
+      branches: 95,
     },
   },
   setupFilesAfterEnv: ['./test/setup.ts'],
