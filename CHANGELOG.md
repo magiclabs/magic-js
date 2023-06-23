@@ -1,3 +1,30 @@
+# (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@18.1.0`, `@magic-sdk/types@15.5.0`
+  - Implement view-in-wallet [#548](https://github.com/magiclabs/magic-js/pull/548) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Remove approval step for canary releases [sc-80045] [#549](https://github.com/magiclabs/magic-js/pull/549) ([@bcleary06](https://github.com/bcleary06))
+- Revert Threshold Change [#553](https://github.com/magiclabs/magic-js/pull/553) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-sdk/provider@18.1.0`
+  - Fix Failing CI [#556](https://github.com/magiclabs/magic-js/pull/556) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/gdkms@1.1.0`
+  - Fix typo for gdkms [#555](https://github.com/magiclabs/magic-js/pull/555) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/auth@1.1.0`, `@magic-sdk/provider@18.1.0`
+  - Fix CI Tests [#552](https://github.com/magiclabs/magic-js/pull/552) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 4
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Wed Jun 21 2023)
 
 #### 🐛 Bug Fix

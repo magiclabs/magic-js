@@ -1,3 +1,21 @@
+# v15.5.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Implement view-in-wallet [#548](https://github.com/magiclabs/magic-js/pull/548) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Remove approval step for canary releases [sc-80045] [#549](https://github.com/magiclabs/magic-js/pull/549) ([@bcleary06](https://github.com/bcleary06))
+- Implement view-in-wallet ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v15.4.0 (Wed Jun 14 2023)
 
 #### 🚀 Enhancement
