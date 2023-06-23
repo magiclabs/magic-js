@@ -49,7 +49,6 @@ jobs:
     runs-on: ubuntu-20.04
     name: Canary
     needs: build
-    environment: production
     steps:
       - uses: actions/checkout@v3
         with:
