@@ -3,6 +3,7 @@
 import browserEnv from '@ikscodes/browser-env';
 import { MagicPayloadMethod } from '@magic-sdk/types';
 
+import { SDKEnvironment } from '@magic-sdk/provider/src/core/sdk-environment';
 import { isPromiEvent } from '../../../../src/util';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 
@@ -62,4 +63,23 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
 test('method should return a PromiEvent', () => {
   const magic = createMagicSDK();
   expect(isPromiEvent(magic.auth.loginWithMagicLink({ email: 'blag' }))).toBeTruthy();
+});
+
+test('Throws error when the SDK version is 19 or higher', async () => {
+  const magic = createMagicSDK();
+  magic.auth.request = jest.fn();
+
+  // Set SDKEnvironment version to 19
+  SDKEnvironment.version = '19';
+  SDKEnvironment.sdkName = '@magic-sdk/react-native';
+
+  // Try to invoke the loginWithMagicLink method
+  try {
+    await magic.auth.loginWithMagicLink({ email: 'test' });
+  } catch (err) {
+    // Check if the error message is as expected
+    expect(err.message).toBe(
+      'loginWithMagicLink() is deprecated for this package, please utlize a passcode method like loginWithSMS or loginWithEmailOTP instead.',
+    );
+  }
 });

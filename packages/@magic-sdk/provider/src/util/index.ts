@@ -7,3 +7,4 @@ export * from './type-guards';
 export * from './url';
 export * from './uuid';
 export * from './web-crypto';
+export * from './version-check';
