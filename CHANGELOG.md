@@ -1,3 +1,17 @@
+# (Fri Jun 23 2023)
+
+#### 🐛 Bug Fix
+
+- Revert Threshold Change [#553](https://github.com/magiclabs/magic-js/pull/553) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/auth@1.0.1`, `@magic-sdk/provider@18.0.1`
+  - Fix CI Tests [#552](https://github.com/magiclabs/magic-js/pull/552) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Wed Jun 21 2023)
 
 #### 🐛 Bug Fix

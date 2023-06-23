@@ -1,3 +1,16 @@
+# v1.0.1 (Fri Jun 23 2023)
+
+#### 🐛 Bug Fix
+
+- Fix CI Tests [#552](https://github.com/magiclabs/magic-js/pull/552) ([@Ariflo](https://github.com/Ariflo))
+- DRYify isMajorVersionAtLeast ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v1.0.0 (Tue Jun 20 2023)
 
 #### 💥 Breaking Change
