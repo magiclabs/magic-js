@@ -37,7 +37,7 @@ This will generate a pre-built login form based on the branding and login method
 
 2. Add the callback script
 
-Next, create a page containing the script tag below to handle the authentication callback.
+Next, create a page containing the script tag below to handle the authentication callback. 
 
 ```html
 <!-- /callback.html -->
