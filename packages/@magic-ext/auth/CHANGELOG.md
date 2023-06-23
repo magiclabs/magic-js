@@ -1,3 +1,24 @@
+# v1.1.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- Updates License to Apache 2.0 ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into briancleary7114-sc-80045-remove-approval-step-for-canary-releases ([@bcleary06](https://github.com/bcleary06))
+- Fix CI Tests [#552](https://github.com/magiclabs/magic-js/pull/552) ([@Ariflo](https://github.com/Ariflo))
+- DRYify isMajorVersionAtLeast ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
 # v1.0.0 (Tue Jun 20 2023)
 
 #### 💥 Breaking Change
