@@ -1,3 +1,23 @@
+# v14.1.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- White space bump ([@Ariflo](https://github.com/Ariflo))
+- Add typings to package.json export [#517](https://github.com/magiclabs/magic-js/pull/517) ([@octave08](https://github.com/octave08))
+- Add typings to package.json export ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v14.0.0 (Tue Jun 20 2023)
 
 #### 🐛 Bug Fix

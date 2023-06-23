@@ -1,3 +1,34 @@
+# v18.1.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
+- Implement view-in-wallet [#548](https://github.com/magiclabs/magic-js/pull/548) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- White space bump ([@Ariflo](https://github.com/Ariflo))
+- Add typings to package.json export [#517](https://github.com/magiclabs/magic-js/pull/517) ([@octave08](https://github.com/octave08))
+- Remove approval step for canary releases [sc-80045] [#549](https://github.com/magiclabs/magic-js/pull/549) ([@bcleary06](https://github.com/bcleary06))
+- Add test suite for nft checkout ([@octave08](https://github.com/octave08))
+- Implement view-in-wallet ([@octave08](https://github.com/octave08))
+- Add typings to package.json export ([@octave08](https://github.com/octave08))
+- Merge branch 'master' into briancleary7114-sc-80045-remove-approval-step-for-canary-releases ([@bcleary06](https://github.com/bcleary06))
+- Fix Failing CI [#556](https://github.com/magiclabs/magic-js/pull/556) ([@Ariflo](https://github.com/Ariflo))
+- Fix Failing CI ([@Ariflo](https://github.com/Ariflo))
+- Fix CI Tests [#552](https://github.com/magiclabs/magic-js/pull/552) ([@Ariflo](https://github.com/Ariflo))
+- Add Testing for isMajorVersionAtLeast ([@Ariflo](https://github.com/Ariflo))
+- DRYify isMajorVersionAtLeast ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 3
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v18.0.0 (Tue Jun 20 2023)
 
 #### 💥 Breaking Change
