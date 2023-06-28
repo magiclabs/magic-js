@@ -27,8 +27,12 @@ function getRequestPayloadFromBatch(
   requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   id?: string | number | null,
 ): JsonRpcRequestPayload | undefined {
+  console.log('getRequestPayloadFromBatch() id and requestPayload', id, requestPayload);
   return id && Array.isArray(requestPayload)
-    ? requestPayload.find((p) => p.id === id)
+    ? requestPayload.find((p) => {
+        console.log('requestPayload', p);
+        return p.id === id;
+      })
     : (requestPayload as JsonRpcRequestPayload);
 }
 
@@ -40,18 +44,21 @@ function standardizeResponse(
   requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   event: MagicMessageEvent,
 ): StandardizedResponse {
+  console.log('standardizeResponse() event and requestPayload', event, requestPayload);
   const id = event.data.response?.id;
   const requestPayloadResolved = getRequestPayloadFromBatch(requestPayload, id);
+
+  console.log('requestPayloadResolved in standardizeResponse: ', requestPayloadResolved);
 
   if (id && requestPayloadResolved) {
     // Build a standardized response object
     const response = new JsonRpcResponse(requestPayloadResolved)
       .applyResult(event.data.response.result)
       .applyError(event.data.response.error);
-
+    console.log('return hydrated object');
     return { id, response };
   }
-
+  console.log('return empty object');
   return {};
 }
 
@@ -133,7 +140,9 @@ export abstract class ViewController {
       await this.ready;
 
       const batchData: JsonRpcResponse[] = [];
+      console.log('msgType in post: ', msgType, payload);
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
+      console.log('post batchIds', batchIds);
       const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload);
 
       await this._post(msg);
@@ -142,7 +151,9 @@ export abstract class ViewController {
        * Collect successful RPC responses and resolve.
        */
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
+        console.log('acknowledgeResponse() payload and event', payload, event);
         const { id, response } = standardizeResponse(payload, event);
+        console.log('acknowledgeResponse() after standardizeResponse', id, response);
         persistMagicEventRefreshToken(event);
 
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
@@ -179,6 +190,8 @@ export abstract class ViewController {
     handler: (this: Window, event: MagicMessageEvent) => any,
   ): RemoveEventListenerFunction {
     const boundHandler = handler.bind(window);
+
+    console.log('msgType in on: ', msgType);
 
     // We cannot effectively cover this function because it never gets reference
     // by value. The functionality of this callback is tested within

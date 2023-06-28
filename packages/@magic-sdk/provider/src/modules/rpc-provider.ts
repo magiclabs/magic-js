@@ -44,6 +44,15 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     }
 
     if (Array.isArray(payload)) {
+      console.log('payload in RPCProviderModule: ', payload);
+      console.log(
+        'MagicOutgoingWindowMessage in Array.isArray(payload) in sendAsync: ',
+        JSON.stringify(MagicOutgoingWindowMessage),
+      );
+      console.log(
+        'MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUES in Array.isArray(payload) in sendAsync:: ',
+        MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
+      );
       this.overlay
         .post(
           MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
@@ -65,6 +74,11 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     } else {
       const finalPayload = standardizeJsonRpcRequestPayload(payload);
       this.prefixPayloadMethodForTestMode(finalPayload);
+      console.log('MagicOutgoingWindowMessage in else in sendAsync: ', JSON.stringify(MagicOutgoingWindowMessage));
+      console.log(
+        'MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST in else in sendAsync: ',
+        MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
+      );
       this.overlay.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, finalPayload).then((response) => {
         (onRequestComplete as JsonRpcRequestCallback)(
           response.hasError ? new MagicRPCError(response.payload.error) : null,
