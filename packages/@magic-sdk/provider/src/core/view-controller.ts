@@ -27,8 +27,12 @@ function getRequestPayloadFromBatch(
   requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   id?: string | number | null,
 ): JsonRpcRequestPayload | undefined {
+  console.log('getRequestPayloadFromBatch() id', id);
   return id && Array.isArray(requestPayload)
-    ? requestPayload.find((p) => p.id === id)
+    ? requestPayload.find((p) => {
+        console.log('requestPayload', p);
+        return p.id === id;
+      })
     : (requestPayload as JsonRpcRequestPayload);
 }
 
@@ -40,6 +44,7 @@ function standardizeResponse(
   requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   event: MagicMessageEvent,
 ): StandardizedResponse {
+  console.log('standardizeResponse() event and requestPayload', event, requestPayload);
   const id = event.data.response?.id;
   const requestPayloadResolved = getRequestPayloadFromBatch(requestPayload, id);
 
@@ -50,10 +55,10 @@ function standardizeResponse(
     const response = new JsonRpcResponse(requestPayloadResolved)
       .applyResult(event.data.response.result)
       .applyError(event.data.response.error);
-
+    console.log('return hydrated object');
     return { id, response };
   }
-
+  console.log('return empty object');
   return {};
 }
 
@@ -136,6 +141,7 @@ export abstract class ViewController {
 
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
+      console.log('post batchIds', batchIds);
       console.log('msgType in post: ', msgType);
       const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload);
 
@@ -145,7 +151,9 @@ export abstract class ViewController {
        * Collect successful RPC responses and resolve.
        */
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
+        console.log('acknowledgeResponse() payload and event', payload, event);
         const { id, response } = standardizeResponse(payload, event);
+        console.log('acknowledgeResponse() after standardizeResponse', id, response);
         persistMagicEventRefreshToken(event);
 
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
