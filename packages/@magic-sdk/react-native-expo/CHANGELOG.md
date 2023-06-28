@@ -1,3 +1,71 @@
+# v19.2.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Auto version bumping [#557](https://github.com/magiclabs/magic-js/pull/557) ([@Ethella](https://github.com/Ethella) [@Ariflo](https://github.com/Ariflo))
+- Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Match NPM Version ([@Ariflo](https://github.com/Ariflo))
+- Update CHANGELOG.md \[skip ci\] ([@Ethella](https://github.com/Ethella))
+- Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- White space bump ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v19.1.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- White space bump ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# v19.0.1 (Wed Jun 21 2023)
+
+#### 🐛 Bug Fix
+
+- Update RN Expo Package README and Peer dependency [#545](https://github.com/magiclabs/magic-js/pull/545) ([@Ariflo](https://github.com/Ariflo))
+- Udpate ReadME ([@Ariflo](https://github.com/Ariflo))
+- Update Expo RN Peer Dependency ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# v19.0.0 (Tue Jun 20 2023)
+
+#### 💥 Breaking Change
+
+- Removes Magic link Method [#516](https://github.com/magiclabs/magic-js/pull/516) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update READMEs ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v18.4.0 (Fri May 26 2023)
 
 #### 🐛 Bug Fix

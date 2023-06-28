@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/types",
-  "version": "15.4.0",
+  "version": "15.6.0",
   "description": "Core typings for Magic SDK packages.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -17,6 +17,7 @@
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
+    "types": "./dist/types/index.d.ts",
     "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },

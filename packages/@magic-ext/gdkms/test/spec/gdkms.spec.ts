@@ -24,11 +24,11 @@ test('Construct Decrypt Request with `magic_auth_decrypt_v1`', async () => {
   const magic = createMagicSDKWithExtension({}, [new GDKMSExtension()]);
   magic.gdkms.request = jest.fn();
 
-  const cipherText = 'XJD/1238t';
+  const ciphertext = 'XJD/1238t';
 
-  magic.gdkms.decryptWithPrivateKey(cipherText);
+  magic.gdkms.decryptWithPrivateKey(ciphertext);
 
   const requestPayload = magic.gdkms.request.mock.calls[0][0];
   expect(requestPayload.method).toBe(MagicPayloadMethod.DecryptV1);
-  expect(requestPayload.params).toEqual([{ cipherText }]);
+  expect(requestPayload.params).toEqual([{ ciphertext }]);
 });

@@ -1,3 +1,55 @@
+# v15.6.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Auto version bumping [#557](https://github.com/magiclabs/magic-js/pull/557) ([@Ethella](https://github.com/Ethella) [@Ariflo](https://github.com/Ariflo))
+- Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
+- Implement view-in-wallet [#548](https://github.com/magiclabs/magic-js/pull/548) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Match NPM Version ([@Ariflo](https://github.com/Ariflo))
+- Update CHANGELOG.md \[skip ci\] ([@Ethella](https://github.com/Ethella))
+- Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- White space bump ([@Ariflo](https://github.com/Ariflo))
+- Add typings to package.json export [#517](https://github.com/magiclabs/magic-js/pull/517) ([@octave08](https://github.com/octave08))
+- Remove approval step for canary releases [sc-80045] [#549](https://github.com/magiclabs/magic-js/pull/549) ([@bcleary06](https://github.com/bcleary06))
+- Implement view-in-wallet ([@octave08](https://github.com/octave08))
+- Add typings to package.json export ([@octave08](https://github.com/octave08))
+
+#### Authors: 4
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v15.5.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
+- Implement view-in-wallet [#548](https://github.com/magiclabs/magic-js/pull/548) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- White space bump ([@Ariflo](https://github.com/Ariflo))
+- Add typings to package.json export [#517](https://github.com/magiclabs/magic-js/pull/517) ([@octave08](https://github.com/octave08))
+- Remove approval step for canary releases [sc-80045] [#549](https://github.com/magiclabs/magic-js/pull/549) ([@bcleary06](https://github.com/bcleary06))
+- Implement view-in-wallet ([@octave08](https://github.com/octave08))
+- Add typings to package.json export ([@octave08](https://github.com/octave08))
+
+#### Authors: 3
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v15.4.0 (Wed Jun 14 2023)
 
 #### 🚀 Enhancement
