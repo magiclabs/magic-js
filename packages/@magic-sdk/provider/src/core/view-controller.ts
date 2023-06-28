@@ -27,7 +27,7 @@ function getRequestPayloadFromBatch(
   requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   id?: string | number | null,
 ): JsonRpcRequestPayload | undefined {
-  console.log('getRequestPayloadFromBatch() id', id);
+  console.log('getRequestPayloadFromBatch() id and requestPayload', id, requestPayload);
   return id && Array.isArray(requestPayload)
     ? requestPayload.find((p) => {
         console.log('requestPayload', p);
@@ -140,9 +140,9 @@ export abstract class ViewController {
       await this.ready;
 
       const batchData: JsonRpcResponse[] = [];
+      console.log('msgType in post: ', msgType, payload);
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
       console.log('post batchIds', batchIds);
-      console.log('msgType in post: ', msgType);
       const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload);
 
       await this._post(msg);
