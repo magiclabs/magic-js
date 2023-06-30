@@ -18,21 +18,6 @@ export class NFTModule extends BaseModule {
   /* Start an NFT Checkout flow with Paypal */
   public async checkout(options: NFTCheckoutRequest) {
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.NFTCheckout, [options]);
-    const response = await this.request<NFTCheckoutResponse>(requestPayload);
-
-    if (response?.viewInWallet) {
-      const requestViewInWalletPayload = createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI, [
-        {
-          deeplink: 'collectible-details',
-          params: {
-            contractAddress: options.contractAddress,
-            tokenId: options.tokenId,
-          },
-        },
-      ]);
-      await this.request<NFTCheckoutResponse>(requestViewInWalletPayload);
-    }
-
-    return response;
+    return this.request<NFTCheckoutResponse>(requestPayload);
   }
 }
