@@ -9,8 +9,8 @@ export class GDKMSExtension extends Extension.Internal<'gdkms', any> {
     return this.request<string>(requestPayload);
   }
 
-  public decryptWithPrivateKey(cipherText: string, opts = {}) {
-    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.DecryptV1, [{ cipherText }]);
+  public decryptWithPrivateKey(ciphertext: string, opts = {}) {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.DecryptV1, [{ ciphertext }]);
     return this.request<string>(requestPayload);
   }
 }

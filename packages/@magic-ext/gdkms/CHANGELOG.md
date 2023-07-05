@@ -1,3 +1,42 @@
+# v1.2.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Auto version bumping [#557](https://github.com/magiclabs/magic-js/pull/557) ([@Ethella](https://github.com/Ethella) [@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Match NPM Version ([@Ariflo](https://github.com/Ariflo))
+- Update CHANGELOG.md \[skip ci\] ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into briancleary7114-sc-80045-remove-approval-step-for-canary-releases ([@bcleary06](https://github.com/bcleary06))
+- Fix typo for gdkms [#555](https://github.com/magiclabs/magic-js/pull/555) ([@Ethella](https://github.com/Ethella))
+- Fix tests ([@Ethella](https://github.com/Ethella))
+- Fix typo for gdkms ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v1.1.0 (Fri Jun 23 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into briancleary7114-sc-80045-remove-approval-step-for-canary-releases ([@bcleary06](https://github.com/bcleary06))
+- Fix typo for gdkms [#555](https://github.com/magiclabs/magic-js/pull/555) ([@Ethella](https://github.com/Ethella))
+- Fix tests ([@Ethella](https://github.com/Ethella))
+- Fix typo for gdkms ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v0.2.0 (Fri May 26 2023)
 
 #### 🚀 Enhancement

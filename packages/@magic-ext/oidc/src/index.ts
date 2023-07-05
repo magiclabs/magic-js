@@ -1,4 +1,4 @@
-import { Extension } from 'magic-sdk';
+import { Extension } from '@magic-sdk/commons';
 import { MagicOpenIdConnectPayloadMethod, LoginWithOpenIdParams } from './types';
 
 export class OpenIdExtension extends Extension.Internal<'openid', any> {

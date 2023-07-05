@@ -16,7 +16,7 @@ export class NFTModule extends BaseModule {
   }
 
   /* Start an NFT Checkout flow with Paypal */
-  public checkout(options: NFTCheckoutRequest) {
+  public async checkout(options: NFTCheckoutRequest) {
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.NFTCheckout, [options]);
     return this.request<NFTCheckoutResponse>(requestPayload);
   }

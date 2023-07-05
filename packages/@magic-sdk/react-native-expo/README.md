@@ -34,7 +34,7 @@ As of `v19.0.0`, passcodes (ie. `loginWithSMS()`, `loginWithEmailOTP()`) are rep
 
 ## ⚡️ Quick Start
 
- Sign up or log in to the [developer dashboard](https://dashboard.magic.link ) to receive API keys that will allow your application to interact with Magic's authentication APIs.
+ Sign up or log in to the [developer dashboard](https://dashboard.magic.link ) to receive API keys that will allow your application to interact with Magic's authentication APIs. 
 
  Then, you can start authenticating users with _just one method!_
 

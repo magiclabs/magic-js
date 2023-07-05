@@ -26,7 +26,7 @@
 
 ### Installation
 
-Integrating your app with Magic will require our client-side NPM package:
+Integrating your app with Magic will require our client-side NPM package: 
 
 ```bash
 # Via NPM:
