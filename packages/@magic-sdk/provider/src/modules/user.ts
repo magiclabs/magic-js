@@ -54,7 +54,6 @@ export class UserModule extends BaseModule {
   }
 
   public logout() {
-    clearKeys();
     removeItem(this.localForageKey);
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
