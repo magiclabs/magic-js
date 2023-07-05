@@ -1,3 +1,16 @@
+# (Fri Jun 30 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@18.2.1`
+  - Revert nft.checkout [#560](https://github.com/magiclabs/magic-js/pull/560) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Fri Jun 23 2023)
 
 #### 🚀 Enhancement
