@@ -15,7 +15,7 @@ import { setItem, getItem, removeItem } from '../util/storage';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { createPromiEvent } from '../util';
 
-type ConnectWithUiEvents = {
+export type ConnectWithUiEvents = {
   'id-token-created': (params: { idToken: string }) => void;
   wallet_selected: (params: { wallet: Wallets }) => any;
 };

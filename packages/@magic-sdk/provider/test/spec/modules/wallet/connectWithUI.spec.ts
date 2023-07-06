@@ -1,4 +1,7 @@
 import browserEnv from '@ikscodes/browser-env';
+import { Wallets } from '@magic-sdk/types';
+import { createPromiEvent } from '@magic-sdk/provider';
+import { ConnectWithUiEvents } from '@magic-sdk/provider/src/modules/wallet';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
@@ -7,15 +10,15 @@ beforeEach(() => {
 
 test('Generate JSON RPC request payload with method `mc_login` and `env` params as an object', async () => {
   const magic = createMagicSDK();
-  magic.wallet.request = jest.fn(() => {
-    return {
-      on: () => '',
-    };
+  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>(async (resolve, reject) => {
+    resolve(['0x12345']);
   });
-
-  await magic.wallet.connectWithUI();
+  magic.wallet.request = jest.fn(() => mockPromiEvent);
+  const handle = magic.wallet.connectWithUI();
+  mockPromiEvent.emit('wallet_selected', { wallet: Wallets.CoinbaseWallet });
+  mockPromiEvent.emit('id-token-created', { idToken: '1234456' });
+  await handle;
   const requestPayload = magic.wallet.request.mock.calls[0][0];
-
   expect(requestPayload.method).toBe('mc_login');
   expect(requestPayload.params).toEqual([
     {
