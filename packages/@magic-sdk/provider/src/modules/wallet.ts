@@ -7,13 +7,17 @@ import {
   WalletInfo,
   Wallets,
 } from '@magic-sdk/types';
-import { ConnectWithUiEvents } from '@magic-sdk/types/src/modules/wallet-types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { setItem, getItem, removeItem } from '../util/storage';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
+
+type ConnectWithUiEvents = {
+  'id-token-created': (params: { idToken: string }) => void;
+  wallet_selected: (params: { wallet: Wallets }) => any;
+};
 
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
