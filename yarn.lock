@@ -2891,7 +2891,7 @@ __metadata:
     "@onflow/fcl": 1.4.1
     "@onflow/types": 0.0.3
   peerDependencies:
-    "@onflow/fcl": 0.0.41
+    "@onflow/fcl": ^1.4.1
     "@onflow/types": 0.0.3
   languageName: unknown
   linkType: soft
