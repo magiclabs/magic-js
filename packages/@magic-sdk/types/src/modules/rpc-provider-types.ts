@@ -13,5 +13,5 @@ export interface CustomNodeConfiguration {
 export type EthNetworkConfiguration = EthNetworkName | CustomNodeConfiguration;
 
 export type ProviderEnableEvents = {
-  'id-token-created': () => string;
+  'id-token-created': (params: { idToken: string }) => void;
 };

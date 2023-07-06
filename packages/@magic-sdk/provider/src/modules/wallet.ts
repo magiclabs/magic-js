@@ -7,6 +7,7 @@ import {
   WalletInfo,
   Wallets,
 } from '@magic-sdk/types';
+import { ConnectWithUiEvents } from '@magic-sdk/types/src/modules/wallet-types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { clearKeys } from '../util/web-crypto';
@@ -43,7 +44,7 @@ export class WalletModule extends BaseModule {
     }
     const userEnv = this.getUserEnv();
     const loginRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Login, [userEnv]);
-    const loginRequest = this.request<string[]>(loginRequestPayload);
+    const loginRequest = this.request<string[], ConnectWithUiEvents>(loginRequestPayload);
     // prettier-ignore
     loginRequest.on(Events.WalletSelected as any, (params: { wallet: Wallets }) => this.handleWalletSelected({ ...params, payloadId: loginRequestPayload.id as number }));
     return loginRequest;
