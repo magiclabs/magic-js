@@ -29,7 +29,7 @@ export class FlowExtension extends Extension.Internal<'flow', any> {
     const keyId = 0;
     let sequenceNum;
     if (account?.role?.proposer) {
-      const response = await fcl.send([fcl.getAccount(addr)]);
+      const response = await fcl.getAccount(addr);
       const acct = await fcl.decode(response);
       sequenceNum = acct.keys[keyId].sequenceNumber;
     }
