@@ -29,11 +29,13 @@ export class WalletModule extends BaseModule {
         if (this.isMetaMaskBrowser() && (await this.isWalletEnabled(Wallets.MetaMask))) {
           const result = await this.autoConnectIfWalletBrowser(Wallets.MetaMask);
           resolve(result);
+          return;
         }
         // If within coinbase wallet browser, auto-connect without any UI (if dapp has coinbase enabled)
         if (this.isCoinbaseWalletBrowser() && (await this.isWalletEnabled(Wallets.CoinbaseWallet))) {
           const result = await this.autoConnectIfWalletBrowser(Wallets.CoinbaseWallet);
           resolve(result);
+          return;
         }
         const userEnv = this.getUserEnv();
         const loginRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Login, [userEnv]);
