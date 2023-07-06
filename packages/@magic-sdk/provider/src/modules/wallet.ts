@@ -13,6 +13,7 @@ import { clearKeys } from '../util/web-crypto';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { setItem, getItem, removeItem } from '../util/storage';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
+import { createPromiEvent } from '../util';
 
 type ConnectWithUiEvents = {
   'id-token-created': (params: { idToken: string }) => void;
@@ -21,37 +22,32 @@ type ConnectWithUiEvents = {
 
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
-  public /* async */ connectWithUI() {
-    // If within metamask wallet browser, auto-connect without any UI (if dapp has metamask enabled)
-    /* if (this.isMetaMaskBrowser()) {
+  public connectWithUI() {
+    return createPromiEvent<string[], ConnectWithUiEvents>(async (resolve, reject) => {
       try {
-        const isMetaMaskEnabled = await this.isWalletEnabled(Wallets.MetaMask);
-        if (isMetaMaskEnabled) {
-          return this.autoConnectIfWalletBrowser(Wallets.MetaMask);
+        // If within metamask wallet browser, auto-connect without any UI (if dapp has metamask enabled)
+        if (this.isMetaMaskBrowser() && (await this.isWalletEnabled(Wallets.MetaMask))) {
+          const result = await this.autoConnectIfWalletBrowser(Wallets.MetaMask);
+          resolve(result);
         }
-        // If not enabled, continue with normal flow
-      } catch (error) {
-        console.error(error);
-      }
-    } */
-    // If within coinbase wallet browser, auto-connect without any UI (if dapp has coinbase enabled)
-    /* if (this.isCoinbaseWalletBrowser()) {
-      try {
-        const isCoinbaseWalletEnabled = await this.isWalletEnabled(Wallets.CoinbaseWallet);
-        if (isCoinbaseWalletEnabled) {
-          return this.autoConnectIfWalletBrowser(Wallets.CoinbaseWallet);
+        // If within coinbase wallet browser, auto-connect without any UI (if dapp has coinbase enabled)
+        if (this.isCoinbaseWalletBrowser() && (await this.isWalletEnabled(Wallets.CoinbaseWallet))) {
+          const result = await this.autoConnectIfWalletBrowser(Wallets.CoinbaseWallet);
+          resolve(result);
         }
-        // If not enabled, continue with normal flow
+        const userEnv = this.getUserEnv();
+        const loginRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Login, [userEnv]);
+        const loginRequest = this.request<string[], ConnectWithUiEvents>(loginRequestPayload);
+        loginRequest.on(Events.WalletSelected as any, (params: { wallet: Wallets }) =>
+          this.handleWalletSelected({ ...params, payloadId: loginRequestPayload.id as number }),
+        );
+        const result = await loginRequest;
+        if ((result as any).error) reject(result);
+        resolve(result);
       } catch (error) {
-        console.error(error);
+        reject(error);
       }
-    } */
-    const userEnv = this.getUserEnv();
-    const loginRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Login, [userEnv]);
-    const loginRequest = this.request<string[], ConnectWithUiEvents>(loginRequestPayload);
-    // prettier-ignore
-    loginRequest.on(Events.WalletSelected as any, (params: { wallet: Wallets }) => this.handleWalletSelected({ ...params, payloadId: loginRequestPayload.id as number }));
-    return loginRequest;
+    });
   }
 
   /* Prompt Magic's Wallet UI (not available for users logged in with third party wallets) */

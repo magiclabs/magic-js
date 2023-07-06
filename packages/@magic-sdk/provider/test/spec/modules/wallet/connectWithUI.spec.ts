@@ -62,11 +62,11 @@ test('throws error auto-connecting if metamask browser', async () => {
       on: () => '',
     };
   });
-
-  await magic.wallet.connectWithUI();
-  const requestPayload = magic.wallet.request.mock.calls[0][0];
-
-  expect(requestPayload.method).toBe('mc_login');
+  try {
+    await magic.wallet.connectWithUI();
+  } catch (err) {
+    expect(err.message).toBe('Connection error');
+  }
 });
 
 test('auto-connect if coinbase wallet browser', async () => {
@@ -104,9 +104,9 @@ test('throws error auto-connecting if coinbase wallet browser', async () => {
       on: () => '',
     };
   });
-
-  await magic.wallet.connectWithUI();
-  const requestPayload = magic.wallet.request.mock.calls[0][0];
-
-  expect(requestPayload.method).toBe('mc_login');
+  try {
+    await magic.wallet.connectWithUI();
+  } catch (err) {
+    expect(err.message).toBe('Connection error');
+  }
 });
