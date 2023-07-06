@@ -21,9 +21,9 @@ type ConnectWithUiEvents = {
 
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
-  public async connectWithUI() {
+  public /* async */ connectWithUI() {
     // If within metamask wallet browser, auto-connect without any UI (if dapp has metamask enabled)
-    if (this.isMetaMaskBrowser()) {
+    /* if (this.isMetaMaskBrowser()) {
       try {
         const isMetaMaskEnabled = await this.isWalletEnabled(Wallets.MetaMask);
         if (isMetaMaskEnabled) {
@@ -33,9 +33,9 @@ export class WalletModule extends BaseModule {
       } catch (error) {
         console.error(error);
       }
-    }
+    } */
     // If within coinbase wallet browser, auto-connect without any UI (if dapp has coinbase enabled)
-    if (this.isCoinbaseWalletBrowser()) {
+    /* if (this.isCoinbaseWalletBrowser()) {
       try {
         const isCoinbaseWalletEnabled = await this.isWalletEnabled(Wallets.CoinbaseWallet);
         if (isCoinbaseWalletEnabled) {
@@ -45,7 +45,7 @@ export class WalletModule extends BaseModule {
       } catch (error) {
         console.error(error);
       }
-    }
+    } */
     const userEnv = this.getUserEnv();
     const loginRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Login, [userEnv]);
     const loginRequest = this.request<string[], ConnectWithUiEvents>(loginRequestPayload);
