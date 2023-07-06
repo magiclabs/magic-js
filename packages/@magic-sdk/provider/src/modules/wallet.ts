@@ -23,7 +23,7 @@ type ConnectWithUiEvents = {
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
   public connectWithUI() {
-    return createPromiEvent<string[], ConnectWithUiEvents>(async (resolve, reject) => {
+    const promiEvent = createPromiEvent<string[], ConnectWithUiEvents>(async (resolve, reject) => {
       try {
         // If within metamask wallet browser, auto-connect without any UI (if dapp has metamask enabled)
         if (this.isMetaMaskBrowser() && (await this.isWalletEnabled(Wallets.MetaMask))) {
@@ -41,6 +41,9 @@ export class WalletModule extends BaseModule {
         loginRequest.on(Events.WalletSelected as any, (params: { wallet: Wallets }) =>
           this.handleWalletSelected({ ...params, payloadId: loginRequestPayload.id as number }),
         );
+        loginRequest.on('id-token-created' as any, (params: { idToken: string }) => {
+          promiEvent.emit('id-token-created', params);
+        });
         const result = await loginRequest;
         if ((result as any).error) reject(result);
         resolve(result);
@@ -48,6 +51,7 @@ export class WalletModule extends BaseModule {
         reject(error);
       }
     });
+    return promiEvent;
   }
 
   /* Prompt Magic's Wallet UI (not available for users logged in with third party wallets) */
