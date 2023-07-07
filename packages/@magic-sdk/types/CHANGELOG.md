@@ -1,3 +1,16 @@
+# v15.6.1 (Fri Jul 07 2023)
+
+#### 🐛 Bug Fix
+
+- Emit id token on connect - update yarn.lock [#565](https://github.com/magiclabs/magic-js/pull/565) ([@Dizigen](https://github.com/Dizigen))
+- Emit id token on connect [#564](https://github.com/magiclabs/magic-js/pull/564) ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v15.6.0 (Fri Jun 23 2023)
 
 #### 🚀 Enhancement
