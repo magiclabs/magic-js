@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/harmony",
-  "version": "13.2.1",
+  "version": "13.3.0",
   "description": "magic harmony extension",
   "author": "Magic <hello@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -30,6 +30,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^14.2.1"
+    "@magic-sdk/commons": "^14.3.0"
   }
 }
