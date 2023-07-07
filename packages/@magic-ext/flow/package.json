@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/flow",
-  "version": "13.2.1",
+  "version": "13.3.0",
   "description": "magic flow extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -27,12 +27,12 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^14.2.1",
-    "@onflow/fcl": "0.0.41",
+    "@magic-sdk/commons": "^14.3.0",
+    "@onflow/fcl": "1.4.1",
     "@onflow/types": "0.0.3"
   },
   "peerDependencies": {
-    "@onflow/fcl": "0.0.41",
+    "@onflow/fcl": "^1.4.1",
     "@onflow/types": "0.0.3"
   }
 }
