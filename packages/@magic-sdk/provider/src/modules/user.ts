@@ -12,7 +12,6 @@ import {
 import { getItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
-import { clearKeys } from '../util/web-crypto';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
 
@@ -54,7 +53,6 @@ export class UserModule extends BaseModule {
   }
 
   public logout() {
-    clearKeys();
     removeItem(this.localForageKey);
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
