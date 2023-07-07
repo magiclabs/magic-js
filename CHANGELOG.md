@@ -1,3 +1,25 @@
+# (Fri Jul 07 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/flow@13.3.0`
+  - Upgrade @onflow/fcl [#563](https://github.com/magiclabs/magic-js/pull/563) ([@octave08](https://github.com/octave08))
+
+#### ⚠️ Pushed to `master`
+
+- `@magic-sdk/provider@18.3.0`
+  - Revert ClearKeys() ([@Ethella](https://github.com/Ethella))
+  - remove clearKeys ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/algorand@13.3.0`, `@magic-ext/aptos@1.3.0`, `@magic-ext/auth@1.3.0`, `@magic-ext/avalanche@13.3.0`, `@magic-ext/bitcoin@13.3.0`, `@magic-ext/conflux@11.3.0`, `@magic-ext/cosmos@13.3.0`, `@magic-ext/ed25519@9.3.0`, `@magic-ext/flow@13.3.0`, `@magic-ext/gdkms@1.3.0`, `@magic-ext/harmony@13.3.0`, `@magic-ext/icon@13.3.0`, `@magic-ext/near@13.3.0`, `@magic-ext/oauth@12.3.0`, `@magic-ext/oidc@1.2.0`, `@magic-ext/polkadot@13.3.0`, `@magic-ext/react-native-bare-oauth@13.3.0`, `@magic-ext/react-native-expo-oauth@13.3.0`, `@magic-ext/solana@14.3.0`, `@magic-ext/taquito@10.3.0`, `@magic-ext/terra@10.3.0`, `@magic-ext/tezos@13.3.0`, `@magic-ext/webauthn@12.3.0`, `@magic-ext/zilliqa@13.3.0`, `@magic-sdk/commons@14.3.0`, `@magic-sdk/pnp@12.3.0`, `@magic-sdk/provider@18.3.0`, `@magic-sdk/react-native-bare@19.3.0`, `@magic-sdk/react-native-expo@19.3.0`, `magic-sdk@18.3.0`
+  - Merge remote-tracking branch 'origin/master' ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri Jun 30 2023)
 
 #### 🐛 Bug Fix
