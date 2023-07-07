@@ -6,6 +6,8 @@ import {
   MagicOutgoingWindowMessage,
   JsonRpcBatchRequestCallback,
   JsonRpcResponsePayload,
+  ProviderEnableEvents,
+  MagicPayloadMethod,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createInvalidArgumentError, MagicRPCError, createSynchronousWeb3MethodWarning } from '../core/sdk-exceptions';
@@ -115,8 +117,8 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
   }
 
   public enable() {
-    const requestPayload = createJsonRpcRequestPayload('eth_accounts');
-    return this.request<string[]>(requestPayload);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Login);
+    return this.request<string[], ProviderEnableEvents>(requestPayload);
   }
 
   /**
