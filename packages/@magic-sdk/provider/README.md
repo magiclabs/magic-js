@@ -2,7 +2,7 @@
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
 
-> Core business logic for Magic SDK packages.
+> Core business logic for Magic SDK packages
 
 <p align="center">
   <a href="https://github.com/magiclabs/magic-js/blob/master/packages/@magic-sdk/provider/LICENSE">License</a> ·
