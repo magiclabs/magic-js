@@ -1,3 +1,20 @@
+# v18.4.0 (Fri Jul 07 2023)
+
+#### 🚀 Enhancement
+
+- remove ClearKeys() [#562](https://github.com/magiclabs/magic-js/pull/562) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Remove clearKeys occurence ([@Ethella](https://github.com/Ethella))
+- remove ClearKeys() ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v18.3.0 (Fri Jul 07 2023)
 
 #### ⚠️ Pushed to `master`

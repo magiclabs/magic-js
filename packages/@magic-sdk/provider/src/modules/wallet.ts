@@ -9,7 +9,6 @@ import {
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
-import { clearKeys } from '../util/web-crypto';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { setItem, getItem, removeItem } from '../util/storage';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
@@ -83,7 +82,6 @@ export class WalletModule extends BaseModule {
       removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: 'user.logout()',
     }).log();
-    clearKeys();
     removeItem(this.localForageKey);
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Disconnect);
     return this.request<boolean>(requestPayload);

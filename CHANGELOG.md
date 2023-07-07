@@ -2,6 +2,19 @@
 
 #### 🚀 Enhancement
 
+- `@magic-sdk/provider@18.4.0`
+  - remove ClearKeys() [#562](https://github.com/magiclabs/magic-js/pull/562) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Jul 07 2023)
+
+#### 🚀 Enhancement
+
 - `@magic-ext/flow@13.3.0`
   - Upgrade @onflow/fcl [#563](https://github.com/magiclabs/magic-js/pull/563) ([@octave08](https://github.com/octave08))
 
