@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/solana",
-  "version": "14.4.0",
+  "version": "14.4.1",
   "description": "magic solana extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^14.4.0"
+    "@magic-sdk/commons": "^14.4.1"
   }
 }
