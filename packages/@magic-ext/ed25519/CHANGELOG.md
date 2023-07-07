@@ -1,3 +1,15 @@
+# v9.3.0 (Fri Jul 07 2023)
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/master' ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v9.2.0 (Fri Jun 23 2023)
 
 #### 🚀 Enhancement

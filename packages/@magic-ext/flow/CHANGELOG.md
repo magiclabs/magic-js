@@ -1,3 +1,25 @@
+# v13.3.0 (Fri Jul 07 2023)
+
+#### 🚀 Enhancement
+
+- Upgrade @onflow/fcl [#563](https://github.com/magiclabs/magic-js/pull/563) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- migration ([@octave08](https://github.com/octave08))
+- Upgrade @onflow/fcl ([@octave08](https://github.com/octave08))
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/master' ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v13.2.0 (Fri Jun 23 2023)
 
 #### 🚀 Enhancement
