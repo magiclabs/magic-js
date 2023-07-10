@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/react-native-bare-oauth",
-  "version": "13.4.1",
+  "version": "13.4.2",
   "description": "Magic SDK OAuth Extension for Bare React Native environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
