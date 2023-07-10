@@ -3,6 +3,8 @@ on:
   pull_request:
     branches:
       - "master"
+  merge_group:
+    types: [checks_requested]
 
 env:
   GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
