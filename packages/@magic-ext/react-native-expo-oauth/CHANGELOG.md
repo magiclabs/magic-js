@@ -1,3 +1,16 @@
+# v13.4.2 (Mon Jul 10 2023)
+
+#### 🐛 Bug Fix
+
+- Minor change to test merge queuing [#568](https://github.com/magiclabs/magic-js/pull/568) ([@Ariflo](https://github.com/Ariflo))
+- Minor change to test merge queuing ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v13.3.0 (Fri Jul 07 2023)
 
 #### ⚠️ Pushed to `master`
