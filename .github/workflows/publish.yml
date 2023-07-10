@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - "master"
+  pull_request:
+  merge_group:
+   types: [checks_requested]
 
 env:
   GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
