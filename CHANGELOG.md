@@ -1,3 +1,23 @@
+# (Mon Jul 10 2023)
+
+#### 🐛 Bug Fix
+
+- Adds merge_group to Canary Workflow [#572](https://github.com/magiclabs/magic-js/pull/572) ([@Ariflo](https://github.com/Ariflo))
+- Adds merge_group to Test Workflow [#570](https://github.com/magiclabs/magic-js/pull/570) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/react-native-expo-oauth@13.4.3`
+  - Fix RN-Expo-OAuth Version History + Revert Change [#573](https://github.com/magiclabs/magic-js/pull/573) ([@Ariflo](https://github.com/Ariflo))
+  - Minor change to test merge queuing [#568](https://github.com/magiclabs/magic-js/pull/568) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/react-native-bare-oauth@13.4.2`
+  - Minor change to test merge queuing [#569](https://github.com/magiclabs/magic-js/pull/569) ([@Ariflo](https://github.com/Ariflo))
+  - Reverse Previous Merge Commit [#567](https://github.com/magiclabs/magic-js/pull/567) ([@Ariflo](https://github.com/Ariflo))
+  - Changelog Update to RN-OAuth ext for testing [#566](https://github.com/magiclabs/magic-js/pull/566) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Fri Jul 07 2023)
 
 #### 🐛 Bug Fix
