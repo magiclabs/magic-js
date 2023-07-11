@@ -27,7 +27,7 @@
 #### Authors: 2
 
 - Arian Flores ([@Ariflo](https://github.com/Ariflo))
-- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Jerry Liu ([@Ethella](https://github.com/Ethella)) 
 
 ---
 
