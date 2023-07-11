@@ -1,3 +1,27 @@
+# v13.4.5 (Tue Jul 11 2023)
+
+#### 🐛 Bug Fix
+
+- Fix RN Verison packages [#578](https://github.com/magiclabs/magic-js/pull/578) ([@Ariflo](https://github.com/Ariflo))
+- Fix RN Verison packages ([@Ariflo](https://github.com/Ariflo))
+- Update RN OAuth Packages to correct Version [#576](https://github.com/magiclabs/magic-js/pull/576) ([@Ariflo](https://github.com/Ariflo))
+- Update RN OAuth Packages to correct Version ([@Ariflo](https://github.com/Ariflo))
+- Fix Version History of RN OAuth Packages [#574](https://github.com/magiclabs/magic-js/pull/574) ([@Ariflo](https://github.com/Ariflo))
+- version correction ([@Ariflo](https://github.com/Ariflo))
+- Change log update ([@Ariflo](https://github.com/Ariflo))
+- Minor change to test merge queuing [#569](https://github.com/magiclabs/magic-js/pull/569) ([@Ariflo](https://github.com/Ariflo))
+- Minor change to test merge queuing ([@Ariflo](https://github.com/Ariflo))
+- Reverse Previous Merge Commit [#567](https://github.com/magiclabs/magic-js/pull/567) ([@Ariflo](https://github.com/Ariflo))
+- reverse previous merge ([@Ariflo](https://github.com/Ariflo))
+- Changelog Update to RN-OAuth ext for testing [#566](https://github.com/magiclabs/magic-js/pull/566) ([@Ariflo](https://github.com/Ariflo))
+- Changelog Update to RN-oAuth ext for testing ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v13.3.0 (Fri Jul 07 2023)
 
 #### ⚠️ Pushed to `master`
