@@ -1,3 +1,28 @@
+# v13.4.7 (Tue Jul 11 2023)
+
+#### 🐛 Bug Fix
+
+- Fix RN Verison packages [#579](https://github.com/magiclabs/magic-js/pull/579) ([@Ariflo](https://github.com/Ariflo))
+- Fix RN Verison packages ([@Ariflo](https://github.com/Ariflo))
+- Fix RN Verison packages [#578](https://github.com/magiclabs/magic-js/pull/578) ([@Ariflo](https://github.com/Ariflo))
+- Update RN OAuth Packages to correct Version [#576](https://github.com/magiclabs/magic-js/pull/576) ([@Ariflo](https://github.com/Ariflo))
+- Update RN OAuth Packages to correct Version ([@Ariflo](https://github.com/Ariflo))
+- Fix Version History of RN OAuth Packages [#574](https://github.com/magiclabs/magic-js/pull/574) ([@Ariflo](https://github.com/Ariflo))
+- version correction ([@Ariflo](https://github.com/Ariflo))
+- Changelog update ([@Ariflo](https://github.com/Ariflo))
+- Fix RN-Expo-OAuth Version History + Revert Change [#573](https://github.com/magiclabs/magic-js/pull/573) ([@Ariflo](https://github.com/Ariflo))
+- Revert Changelog change ([@Ariflo](https://github.com/Ariflo))
+- Update Extension package to correct version ([@Ariflo](https://github.com/Ariflo))
+- Minor change to test merge queuing [#569](https://github.com/magiclabs/magic-js/pull/569) ([@Ariflo](https://github.com/Ariflo))
+- Minor change to test merge queuing [#568](https://github.com/magiclabs/magic-js/pull/568) ([@Ariflo](https://github.com/Ariflo))
+- Minor change to test merge queuing ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v13.3.0 (Fri Jul 07 2023)
 
 #### ⚠️ Pushed to `master`
