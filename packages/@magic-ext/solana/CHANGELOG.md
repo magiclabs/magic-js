@@ -1,3 +1,16 @@
+# v14.4.2 (Tue Jul 11 2023)
+
+#### 🐛 Bug Fix
+
+- Minor update to test GH Settings [#580](https://github.com/magiclabs/magic-js/pull/580) ([@Ariflo](https://github.com/Ariflo))
+- Minor update to test GH Settings ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v14.3.0 (Fri Jul 07 2023)
 
 #### ⚠️ Pushed to `master`

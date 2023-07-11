@@ -2,6 +2,21 @@
 
 #### 🐛 Bug Fix
 
+- `@magic-ext/solana@14.4.2`
+  - Minor update to test GH Settings [#580](https://github.com/magiclabs/magic-js/pull/580) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/bitcoin@13.4.2`
+  - Minor update to Changelog to test Deployment Settings [#577](https://github.com/magiclabs/magic-js/pull/577) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Tue Jul 11 2023)
+
+#### 🐛 Bug Fix
+
 - Adds merge_group to Canary Workflow [#572](https://github.com/magiclabs/magic-js/pull/572) ([@Ariflo](https://github.com/Ariflo))
 - Adds merge_group to Test Workflow [#570](https://github.com/magiclabs/magic-js/pull/570) ([@Ariflo](https://github.com/Ariflo))
 - `@magic-ext/react-native-bare-oauth@13.4.6`, `@magic-ext/react-native-expo-oauth@13.4.7`
