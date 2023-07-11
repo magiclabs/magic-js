@@ -22,7 +22,7 @@
 - Match NPM Version ([@Ariflo](https://github.com/Ariflo))
 - Update CHANGELOG.md \[skip ci\] ([@Ethella](https://github.com/Ethella))
 - Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
-- Updates License to Apache 2.0 ([@Ariflo](https://github.com/Ariflo))
+- Updates License to Apache 2.0 ([@Ariflo](https://github.com/Ariflo)) 
 
 #### Authors: 2
 
