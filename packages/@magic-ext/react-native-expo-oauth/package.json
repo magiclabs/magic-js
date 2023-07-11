@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/react-native-expo-oauth",
-  "version": "13.4.4",
+  "version": "13.4.5",
   "description": "Magic SDK OAuth Extension for Expo React Native environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
