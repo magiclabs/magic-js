@@ -2888,11 +2888,11 @@ __metadata:
   resolution: "@magic-ext/flow@workspace:packages/@magic-ext/flow"
   dependencies:
     "@magic-sdk/commons": ^14.4.1
-    "@onflow/fcl": 1.4.1
-    "@onflow/types": 0.0.3
+    "@onflow/fcl": ^1.4.1
+    "@onflow/types": ^1.1.0
   peerDependencies:
     "@onflow/fcl": ^1.4.1
-    "@onflow/types": 0.0.3
+    "@onflow/types": ^1.1.0
   languageName: unknown
   linkType: soft
 
@@ -3483,7 +3483,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@onflow/fcl@npm:1.4.1":
+"@onflow/fcl@npm:^1.4.1":
   version: 1.4.1
   resolution: "@onflow/fcl@npm:1.4.1"
   dependencies:
@@ -3552,13 +3552,6 @@ __metadata:
     abort-controller: ^3.0.0
     cross-fetch: ^3.1.6
   checksum: 4e1c1a08a6bfa2e2b3772dacaa8a0f15098bc682fc1e41e87d39e8e141393a7ba91bc65746dcfa453fb50e591045663690a77ff05262c850b00e424aac70e5b0
-  languageName: node
-  linkType: hard
-
-"@onflow/types@npm:0.0.3":
-  version: 0.0.3
-  resolution: "@onflow/types@npm:0.0.3"
-  checksum: 77c9f4b4b23d960ead1f8e2395d772307c8b5b9bc642aa626d6d1f0458c98c31ad827530b74daf26eeef261b1b7fd33bdb63b6506265873b20c923b72cf9f19d
   languageName: node
   linkType: hard
 

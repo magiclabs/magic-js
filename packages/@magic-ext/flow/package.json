@@ -28,11 +28,11 @@
   },
   "devDependencies": {
     "@magic-sdk/commons": "^14.4.1",
-    "@onflow/fcl": "1.4.1",
-    "@onflow/types": "0.0.3"
+    "@onflow/fcl": "^1.4.1",
+    "@onflow/types": "^1.1.0"
   },
   "peerDependencies": {
     "@onflow/fcl": "^1.4.1",
-    "@onflow/types": "0.0.3"
+    "@onflow/types": "^1.1.0"
   }
 }
