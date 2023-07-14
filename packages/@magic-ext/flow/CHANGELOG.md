@@ -1,3 +1,19 @@
+# v13.5.0 (Fri Jul 14 2023)
+
+#### 🚀 Enhancement
+
+- Update flow dependencies [#581](https://github.com/magiclabs/magic-js/pull/581) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Update flow packages ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v13.3.0 (Fri Jul 07 2023)
 
 #### 🚀 Enhancement

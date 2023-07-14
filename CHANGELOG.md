@@ -1,3 +1,21 @@
+# (Fri Jul 14 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/flow@13.5.0`
+  - Update flow dependencies [#581](https://github.com/magiclabs/magic-js/pull/581) ([@octave08](https://github.com/octave08))
+
+#### 🔩 Dependency Updates
+
+- Bump semver from 5.7.1 to 5.7.2 [#575](https://github.com/magiclabs/magic-js/pull/575) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Tue Jul 11 2023)
 
 #### 🐛 Bug Fix
