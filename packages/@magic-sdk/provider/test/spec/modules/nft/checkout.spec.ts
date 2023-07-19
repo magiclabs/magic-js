@@ -53,7 +53,7 @@ test('checkout method should accept all optional parameters', () => {
     imageUrl: 'https://nft-cdn.alchemy.com/matic-mumbai/382ceb42f28fb4df0d12897d5d433084',
     quantity: 1,
     walletAddress: '0x5a7b63a3a2af31a2d4a020645e11ea99012ef7bf',
-    useDevApi: true,
+    useDevNFTApi: true,
   });
 
   const requestPayload = magic.nft.request.mock.calls[0][0];
@@ -68,7 +68,7 @@ test('checkout method should accept all optional parameters', () => {
       imageUrl: 'https://nft-cdn.alchemy.com/matic-mumbai/382ceb42f28fb4df0d12897d5d433084',
       quantity: 1,
       walletAddress: '0x5a7b63a3a2af31a2d4a020645e11ea99012ef7bf',
-      useDevApi: true,
+      useDevNFTApi: true,
     },
   ]);
 });
