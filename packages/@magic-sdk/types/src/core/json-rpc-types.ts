@@ -92,6 +92,8 @@ export interface NFTCheckoutRequest {
   quantity: number;
   // Checkout UI compares against session wallet, if == then show “Magic Wallet”
   walletAddress?: string;
+  // if true, use dev NFT API (internal use only)
+  useDevApi?: boolean;
 }
 
 export type NFTCheckoutStatus = 'processed' | 'declined' | 'expired';
