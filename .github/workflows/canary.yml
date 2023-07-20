@@ -1,80 +1,13 @@
-name: Canary
 on:
-  pull_request:
-    branches:
-      - "master"
-  merge_group:
-    types: [checks_requested]
-
-env:
-  GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-  GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
+  workflow_dispatch:
+  
 jobs:
   build:
     runs-on: ubuntu-20.04
-    name: Build
-    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
     steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.ADMIN_TOKEN }}
-
-      - name: Prepare repository
-        run: git fetch --unshallow --tags
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-
-      - name: Install dependencies
+      - name: "Checkout"
+        uses: actions/checkout@v3.5.3
+    
+      - name: "list files:
         run: |
-          yarn -v
-          yarn install --immutable
-
-      - name: Build
-        run: yarn build
-
-      - name: Upload Build Results
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-output
-          path: |
-            packages/@magic-ext/*/dist
-            packages/@magic-sdk/*/dist
-            packages/*/dist
-
-  create_canary:
-    runs-on: ubuntu-20.04
-    name: Canary
-    needs: build
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.ADMIN_TOKEN }}
-
-      - name: Prepare repository
-        run: git fetch --unshallow --tags
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: |
-          yarn -v
-          yarn install --immutable
-
-      - name: Download Build Results
-        uses: actions/download-artifact@v3
-        with:
-          name: build-output
-          path: packages
-
-      - name: Create Canary Release
-        run: yarn auto canary -v
+          ls -al
