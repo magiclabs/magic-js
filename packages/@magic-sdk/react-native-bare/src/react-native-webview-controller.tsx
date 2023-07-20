@@ -128,6 +128,7 @@ export class ReactNativeWebViewController extends ViewController {
           source={{ uri: `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` }}
           onMessage={handleWebViewMessage}
           style={this.styles['magic-webview']}
+          webviewDebuggingEnabled
           autoManageStatusBarEnabled={false}
           onShouldStartLoadWithRequest={(event) => {
             const queryParams = new URLSearchParams(event.url.split('?')[1]);

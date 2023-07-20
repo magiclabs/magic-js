@@ -129,6 +129,7 @@ export class ReactNativeWebViewController extends ViewController {
           onMessage={handleWebViewMessage}
           style={this.styles['magic-webview']}
           autoManageStatusBarEnabled={false}
+          webviewDebuggingEnabled
           onShouldStartLoadWithRequest={(event) => {
             const queryParams = new URLSearchParams(event.url.split('?')[1]);
             const openInDeviceBrowser = queryParams.get(OPEN_IN_DEVICE_BROWSER);
