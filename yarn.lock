@@ -3098,7 +3098,7 @@ __metadata:
     react-native: ^0.62.2
     react-native-device-info: ^10.3.0
     react-native-safe-area-context: ^4.4.1
-    react-native-webview: ^11.26.0
+    react-native-webview: ^12.4.0
     tslib: ^2.0.3
     whatwg-url: ~8.1.0
   peerDependencies:
@@ -3107,7 +3107,7 @@ __metadata:
     react-native: ">=0.60"
     react-native-device-info: ">=10.3.0"
     react-native-safe-area-context: ">=4.4.1"
-    react-native-webview: ">=11.0.0"
+    react-native-webview: ">=12.4.0"
   languageName: unknown
   linkType: soft
 
@@ -3135,7 +3135,7 @@ __metadata:
     react: ^16.13.1
     react-native: ^0.62.2
     react-native-safe-area-context: ^4.4.1
-    react-native-webview: ^11.26.0
+    react-native-webview: ">=12.4.0"
     tslib: ^2.0.3
     whatwg-url: ~8.1.0
   peerDependencies:
@@ -3143,7 +3143,7 @@ __metadata:
     react: ">=16"
     react-native: ">=0.60"
     react-native-safe-area-context: ">=4.4.1"
-    react-native-webview: ">=11.26.0"
+    react-native-webview: ">=12.4.0"
   languageName: unknown
   linkType: soft
 
@@ -15815,16 +15815,29 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"react-native-webview@npm:^11.26.0":
-  version: 11.26.1
-  resolution: "react-native-webview@npm:11.26.1"
+"react-native-webview@npm:>=12.4.0":
+  version: 13.2.3
+  resolution: "react-native-webview@npm:13.2.3"
   dependencies:
     escape-string-regexp: 2.0.0
     invariant: 2.2.4
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: d2f95a89e944a2f1e8cf402e4e274f3568edae42e7ef190915e9fba8004a01d699c962459bdc9688c159060538e90aea3017cab24e6f4112021cbbc10ef57104
+  checksum: 4b3d14503aa622fc8bbf8b069437af06509bcfa9f2a84654d4904fce4e164132e738a73fc918694d45c14b9f460a05a2ce8389bd7fad21df95bb3b3911046ea7
+  languageName: node
+  linkType: hard
+
+"react-native-webview@npm:^12.4.0":
+  version: 12.4.0
+  resolution: "react-native-webview@npm:12.4.0"
+  dependencies:
+    escape-string-regexp: 2.0.0
+    invariant: 2.2.4
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: f7bd69b71af6bd2f62ae290aa40d8d7e7191dd7fd451327b2b6fcde7f8035e85de89d9f8f9e6c8ca913850e0efc91e195181f41c17df68516a47ff50977a49a1
   languageName: node
   linkType: hard
 
