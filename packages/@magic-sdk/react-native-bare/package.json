@@ -42,7 +42,7 @@
     "react-native": "^0.62.2",
     "react-native-device-info": "^10.3.0",
     "react-native-safe-area-context": "^4.4.1",
-    "react-native-webview": "^11.26.0"
+    "react-native-webview": "^12.4.0"
   },
   "peerDependencies": {
     "@react-native-async-storage/async-storage": ">=1.15.5",
@@ -50,7 +50,7 @@
     "react-native": ">=0.60",
     "react-native-device-info": ">=10.3.0",
     "react-native-safe-area-context": ">=4.4.1",
-    "react-native-webview": ">=11.0.0"
+    "react-native-webview": ">=12.4.0"
   },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
 }
