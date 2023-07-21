@@ -7,8 +7,7 @@ on:
     types: [checks_requested]
 
 env:
-#  GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
- # GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
