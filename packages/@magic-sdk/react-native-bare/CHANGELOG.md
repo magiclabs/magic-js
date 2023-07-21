@@ -1,3 +1,16 @@
+# v19.4.2 (Fri Jul 21 2023)
+
+#### 🐛 Bug Fix
+
+- Enables WebView Inspection for RN SDKs [#587](https://github.com/magiclabs/magic-js/pull/587) ([@Ariflo](https://github.com/Ariflo))
+- Enables WebView Inspection for RN SDKs ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v19.3.0 (Fri Jul 07 2023)
 
 #### ⚠️ Pushed to `master`

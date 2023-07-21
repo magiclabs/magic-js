@@ -1,3 +1,16 @@
+# (Fri Jul 21 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@19.4.2`, `@magic-sdk/react-native-expo@19.4.2`
+  - Enables WebView Inspection for RN SDKs [#587](https://github.com/magiclabs/magic-js/pull/587) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Fri Jul 14 2023)
 
 #### 🚀 Enhancement
