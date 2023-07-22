@@ -5,8 +5,7 @@ on:
       - "master"
 
 env:
-  GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-  GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
@@ -17,10 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.ADMIN_TOKEN }}
-
-      - name: Prepare repository
-        run: git fetch --unshallow --tags
+          fetch-depth: 0
 
       - name: Setup node
         uses: actions/setup-node@v3
@@ -67,10 +63,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.ADMIN_TOKEN }}
-
-      - name: Prepare repository
-        run: git fetch --unshallow --tags
+          fetch-depth: 0
 
       - name: Setup node
         uses: actions/setup-node@v3
