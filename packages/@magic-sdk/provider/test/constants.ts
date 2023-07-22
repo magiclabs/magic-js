@@ -1,4 +1,5 @@
 export const MAGIC_RELAYER_FULL_URL = 'https://auth.magic.link';
+export const MAGIC_NFT_API_URL = 'https://nft-api.magic.link';
 export const TEST_API_KEY = 'pk_test_123';
 export const LIVE_API_KEY = 'pk_live_123';
 export const ENCODED_QUERY_PARAMS = 'testqueryparams';

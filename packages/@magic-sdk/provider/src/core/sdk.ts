@@ -91,6 +91,7 @@ export interface MagicSDKAdditionalConfiguration<
   TExt extends MagicSDKExtensionsOption<TCustomExtName> = any,
 > {
   endpoint?: string;
+  nftEndpoint?: string;
   locale?: SupportedLocale;
   network?: EthNetworkConfiguration;
   extensions?: TExt;
@@ -142,7 +143,7 @@ export class SDKBase {
       createReactNativeEndpointConfigurationWarning().log();
     }
 
-    const { defaultEndpoint, version } = SDKEnvironment;
+    const { defaultEndpoint, defaultNFTEndpoint, version } = SDKEnvironment;
     this.testMode = !!options?.testMode;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
 
@@ -161,6 +162,7 @@ export class SDKBase {
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
       ETH_NETWORK: options?.network,
+      nftEndpoint: options?.nftEndpoint ?? defaultNFTEndpoint,
       host: createURL(this.endpoint).host,
       sdk: sdkNameToEnvName[SDKEnvironment.sdkName],
       version,
