@@ -1,3 +1,23 @@
+# (Mon Jul 24 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/auth@1.5.0`, `@magic-sdk/provider@18.5.0`, `@magic-sdk/react-native-bare@19.5.0`, `@magic-sdk/react-native-expo@19.5.0`, `@magic-sdk/types@15.7.0`, `magic-sdk@18.5.0`
+  - Add optional nftEndpoint param [#586](https://github.com/magiclabs/magic-js/pull/586) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@19.5.0`, `@magic-sdk/react-native-expo@19.5.0`
+  - Fix Publish GHA Workflow [#593](https://github.com/magiclabs/magic-js/pull/593) ([@Ariflo](https://github.com/Ariflo))
+  - Enables WebView Inspection for RN SDKs [#587](https://github.com/magiclabs/magic-js/pull/587) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Fri Jul 14 2023)
 
 #### 🚀 Enhancement
