@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/polkadot",
-  "version": "13.4.1",
+  "version": "13.5.0",
   "description": "magic polkadot extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^14.4.1"
+    "@magic-sdk/commons": "^14.5.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "magic-sdk",
-  "version": "18.4.1",
+  "version": "18.5.0",
   "description": "Passwordless authentication for the web.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -29,9 +29,9 @@
     ]
   },
   "dependencies": {
-    "@magic-sdk/commons": "^14.4.1",
-    "@magic-sdk/provider": "^18.4.1",
-    "@magic-sdk/types": "^15.6.1",
+    "@magic-sdk/commons": "^14.5.0",
+    "@magic-sdk/provider": "^18.5.0",
+    "@magic-sdk/types": "^15.7.0",
     "localforage": "^1.7.4"
   },
   "devDependencies": {
