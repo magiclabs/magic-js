@@ -19,7 +19,7 @@ See the [developer documentation](https://magic.link/docs) to learn how you can 
 
 ## 🔗 Installation
 
-Integrating your app with Magic will require our client-side NPM package:
+Integrating your app with Magic will require our client-side NPM package: 
 
 ```bash
 # Via NPM:

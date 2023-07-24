@@ -18,7 +18,7 @@ As of `v19.0.0`, passcodes (ie. `loginWithSMS()`, `loginWithEmailOTP()`) are rep
 
  ## 🔗 Installation
 
- Integrating your app with Magic will require our client-side NPM package:
+ Integrating your app with Magic will require our client-side NPM package: 
 
  ```bash
  # Via NPM:
