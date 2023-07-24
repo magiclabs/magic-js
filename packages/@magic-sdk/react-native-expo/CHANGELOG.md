@@ -1,3 +1,25 @@
+# v19.5.0 (Mon Jul 24 2023)
+
+#### 🚀 Enhancement
+
+- Add optional nftEndpoint param [#586](https://github.com/magiclabs/magic-js/pull/586) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Fix Publish GHA Workflow [#593](https://github.com/magiclabs/magic-js/pull/593) ([@Ariflo](https://github.com/Ariflo))
+- Update RN SDK Package version numbers ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into jayhwang-sc-81912-add-optional-nftendpoint-param ([@octave08](https://github.com/octave08))
+- Enables WebView Inspection for RN SDKs [#587](https://github.com/magiclabs/magic-js/pull/587) ([@Ariflo](https://github.com/Ariflo))
+- Add optional nftEndPoint param ([@octave08](https://github.com/octave08))
+- Enables WebView Inspection for RN SDKs ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v19.3.0 (Fri Jul 07 2023)
 
 #### ⚠️ Pushed to `master`

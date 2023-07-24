@@ -14,6 +14,7 @@ const Magic = Object.assign(
     sdkName: 'magic-sdk',
     version: process.env.WEB_VERSION!,
     defaultEndpoint: 'https://auth.magic.link/',
+    defaultNFTEndpoint: 'https://nft-api.magic.link/',
     ViewController: IframeController,
     configureStorage: /* istanbul ignore next */ async () => {
       const lf = localForage.createInstance({

@@ -13,6 +13,7 @@ export const Magic = createSDK(SDKBase, {
   sdkName: 'magic-sdk',
   version: process.env.WEB_VERSION!,
   defaultEndpoint: 'https://auth.magic.link/',
+  defaultNFTEndpoint: 'https://nft-api.magic.link/',
   ViewController: IframeController,
   configureStorage: async () => {
     const lf = localForage.createInstance({

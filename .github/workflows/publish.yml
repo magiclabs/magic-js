@@ -5,8 +5,8 @@ on:
       - "master"
 
 env:
-  GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-  GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
+  GH_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
@@ -17,8 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.ADMIN_TOKEN }}
-
+          token: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
+ 
       - name: Prepare repository
         run: git fetch --unshallow --tags
 
@@ -67,7 +67,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.ADMIN_TOKEN }}
+          token: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
 
       - name: Prepare repository
         run: git fetch --unshallow --tags

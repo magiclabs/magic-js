@@ -1,3 +1,20 @@
+# v18.5.0 (Mon Jul 24 2023)
+
+#### 🚀 Enhancement
+
+- Add optional nftEndpoint param [#586](https://github.com/magiclabs/magic-js/pull/586) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into jayhwang-sc-81912-add-optional-nftendpoint-param ([@octave08](https://github.com/octave08))
+- Add optional nftEndPoint param ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v18.3.0 (Fri Jul 07 2023)
 
 #### ⚠️ Pushed to `master`
