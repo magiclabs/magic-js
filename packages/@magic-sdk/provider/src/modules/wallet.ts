@@ -57,8 +57,27 @@ export class WalletModule extends BaseModule {
 
   /* Prompt Magic's Wallet UI (not available for users logged in with third party wallets) */
   public showUI() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI);
-    return this.request<boolean>(requestPayload);
+    return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI));
+  }
+
+  public showAddress() {
+    return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowAddress));
+  }
+
+  public showSendTokensUI() {
+    return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowSendTokensUI));
+  }
+
+  public showOnRamp() {
+    return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowOnRamp));
+  }
+
+  public showNFTs() {
+    return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowNFTs));
+  }
+
+  public showBalances() {
+    return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowBalances));
   }
 
   /* Get user info such as the wallet type they are logged in with */
