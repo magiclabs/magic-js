@@ -166,4 +166,9 @@ export enum MagicPayloadMethod {
   Login = 'mc_login',
   EncryptV1 = 'magic_auth_encrypt_v1',
   DecryptV1 = 'magic_auth_decrypt_v1',
+  ShowNFTs = 'magic_show_nfts',
+  ShowOnRamp = 'magic_show_fiat_onramp',
+  ShowSendTokensUI = 'magic_show_send_tokens_ui',
+  ShowAddress = 'magic_show_address',
+  ShowBalances = 'magic_show_balances',
 }
