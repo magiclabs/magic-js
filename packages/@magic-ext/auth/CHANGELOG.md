@@ -1,3 +1,21 @@
+# v1.6.0 (Wed Jul 26 2023)
+
+#### 🚀 Enhancement
+
+- Deeplinked wallet methods [#594](https://github.com/magiclabs/magic-js/pull/594) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- Remove React-native entry from @magic-ext/auth Package.json [#595](https://github.com/magiclabs/magic-js/pull/595) ([@Ariflo](https://github.com/Ariflo))
+- Remove react-native attribute from Package.json ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v1.5.0 (Mon Jul 24 2023)
 
 #### 🚀 Enhancement

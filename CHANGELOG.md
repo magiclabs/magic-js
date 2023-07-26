@@ -1,3 +1,22 @@
+# (Wed Jul 26 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@18.6.0`, `@magic-sdk/types@15.8.0`
+  - Deeplinked wallet methods [#594](https://github.com/magiclabs/magic-js/pull/594) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/auth@1.6.0`
+  - Remove React-native entry from @magic-ext/auth Package.json [#595](https://github.com/magiclabs/magic-js/pull/595) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # (Mon Jul 24 2023)
 
 #### 🚀 Enhancement
