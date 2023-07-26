@@ -86,10 +86,10 @@ export class AuthModule extends BaseModule {
       removalVersions: ProductConsolidationMethodRemovalVersions,
       useInstead: '@magic-ext/auth auth.loginWithEmailOTP()',
     }).log();
-    const { email, showUI } = configuration;
+    const { email, showUI, deviceCheckUI } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
-      [{ email, showUI }],
+      [{ email, showUI, deviceCheckUI }],
     );
     if (!showUI) {
       const handle = this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
