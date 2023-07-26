@@ -18,7 +18,6 @@ interface ESBuildOptions {
   name?: string;
   globals?: Record<string, string>;
   externals?: string[];
-  isRN?: boolean;
 }
 
 export async function build(options: ESBuildOptions) {
@@ -32,7 +31,7 @@ export async function build(options: ESBuildOptions) {
         platform: options.target ?? 'browser',
         format: options.format ?? 'cjs',
         globalName: options.format === 'iife' ? options.name : undefined,
-        entryPoints: [await getEntrypoint(options.format, options.isRN)],
+        entryPoints: [await getEntrypoint(options.format)],
         sourcemap: options.sourcemap,
         outfile: options.output,
         tsconfig: 'node_modules/.temp/tsconfig.build.json',
@@ -109,7 +108,7 @@ export async function emitTypes(watch?: boolean) {
  * Resolves the entrypoint file for ESBuild,
  * based on the format and target platform.
  */
-async function getEntrypoint(format?: Format, isRN?: boolean) {
+async function getEntrypoint(format?: Format) {
   const findEntrypoint = async (indexTarget?: string) => {
     if (format && (await existsAsync(path.resolve(process.cwd(), `./src/index.${indexTarget}.ts`)))) {
       return `src/index.${indexTarget}.ts`;
@@ -117,10 +116,6 @@ async function getEntrypoint(format?: Format, isRN?: boolean) {
 
     return 'src/index.ts';
   };
-
-  if (isRN) {
-    return findEntrypoint('native');
-  }
 
   switch (format) {
     case 'iife':

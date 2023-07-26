@@ -88,7 +88,6 @@ async function reactNativeBareHybridExtension(watch?: boolean) {
     target: pkgJson.target,
     output: pkgJson['react-native-bare'],
     externals: getExternalsFromPkgJson(pkgJson),
-    isRN: true,
     sourcemap: true,
   });
 }
@@ -102,7 +101,6 @@ async function reactNativeExpoHybridExtension(watch?: boolean) {
     target: pkgJson.target,
     output: pkgJson['react-native-expo'],
     externals: getExternalsFromPkgJson(pkgJson),
-    isRN: true,
     sourcemap: true,
   });
 }
