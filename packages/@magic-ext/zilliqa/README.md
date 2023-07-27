@@ -1,6 +1,6 @@
 # Magic Extension Zilliqa blockchain
 
-## Installation
+## Installation 
 ```bash
 npm i magic-sdk @magic-ext/zilliqa
 ```

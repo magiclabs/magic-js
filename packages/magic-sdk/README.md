@@ -94,7 +94,7 @@ These are packages Magic JS SDK uses internally to work seamlessly across platfo
 
 ## 🚦 Testing
 
-Run tests for all packages
+Run tests for all packages 
 ```bash
 yarn test
 ```
@@ -108,5 +108,5 @@ PKG=@magic-sdk/react-native-expo yarn test
 
 Test specific files
 ```bash
-yarn test /test/**/constructor.spec.ts 
+yarn test /test/**/constructor.spec.ts
 ```

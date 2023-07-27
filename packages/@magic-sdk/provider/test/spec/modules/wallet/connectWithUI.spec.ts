@@ -1,7 +1,7 @@
 import browserEnv from '@ikscodes/browser-env';
 import { Wallets } from '@magic-sdk/types';
-import { createPromiEvent } from '@magic-sdk/provider';
-import { ConnectWithUiEvents } from '@magic-sdk/provider/src/modules/wallet';
+import { ConnectWithUiEvents } from '../../../../src/modules/wallet';
+import { createPromiEvent } from '../../../../src/util';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {

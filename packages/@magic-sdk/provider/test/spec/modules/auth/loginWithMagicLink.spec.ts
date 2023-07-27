@@ -3,7 +3,7 @@
 import browserEnv from '@ikscodes/browser-env';
 import { MagicPayloadMethod } from '@magic-sdk/types';
 
-import { SDKEnvironment } from '@magic-sdk/provider/src/core/sdk-environment';
+import { SDKEnvironment } from '../../../../src/core/sdk-environment';
 import { isPromiEvent } from '../../../../src/util';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 

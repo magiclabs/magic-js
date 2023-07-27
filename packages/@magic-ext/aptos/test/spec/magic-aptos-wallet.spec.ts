@@ -1,8 +1,8 @@
 import browserEnv from '@ikscodes/browser-env';
 import { BCS, TxnBuilderTypes } from 'aptos';
-import { APTOS_WALLET_NAME, ICON_BASE64 } from '@magic-ext/aptos/src/constants';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { AptosExtension, MagicAptosWallet } from '../../src';
+import { APTOS_WALLET_NAME, ICON_BASE64 } from '../../src/constants';
 
 const APTOS_NODE_URL = 'https://fullnode.testnet.aptoslabs.com';
 
