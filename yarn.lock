@@ -2901,6 +2901,7 @@ __metadata:
   resolution: "@magic-ext/gdkms@workspace:packages/@magic-ext/gdkms"
   dependencies:
     "@magic-sdk/commons": ^14.6.0
+    "@magic-sdk/types": ^15.8.0
     "@peculiar/webcrypto": ^1.4.3
   languageName: unknown
   linkType: soft
