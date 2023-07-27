@@ -55,16 +55,16 @@ export interface LoginWithEmailOTPConfiguration {
   deviceCheckUI?: boolean;
 }
 
-export type LoginWithMagicLinkEvents = {
+export type LoginWithMagicLinkEventsHandler = {
   // Event Received
   'email-sent': () => void;
   'email-not-deliverable': () => void;
 
   // Event sent
   retry: () => void;
-} & DeviceVerificationEvents;
+} & DeviceVerificationEventsHandler;
 
-export type LoginWithEmailOTPEvents = {
+export type LoginWithEmailOTPEventsHandler = {
   // Event Received
   'email-otp-sent': () => void;
   'invalid-email-otp': () => void;
@@ -72,9 +72,9 @@ export type LoginWithEmailOTPEvents = {
   // Event sent
   'verify-email-otp': (otp: string) => void;
   cancel: () => void;
-} & DeviceVerificationEvents;
+} & DeviceVerificationEventsHandler;
 
-export type DeviceVerificationEvents = {
+export type DeviceVerificationEventsHandler = {
   // Event Received
   'device-needs-approval': () => void;
   'device-verification-email-sent': () => void;
@@ -84,3 +84,24 @@ export type DeviceVerificationEvents = {
   'reject-device': () => void;
   'approve-device': () => void;
 };
+
+export enum LoginWithEmailOTPEventEmit {
+  VerifyEmailOtp = 'verify-email-otp',
+  Cancel = 'cancel',
+}
+
+export enum LoginWithEmailOTPEventOnReceived {
+  EmailOTPSent = 'email-otp-sent',
+  InvalidEmailOtp = 'invalid-email-otp',
+}
+
+export enum DeviceVerificationEventEmit {
+  RejectDevice = 'reject-device',
+  ApproveDevice = 'approve-device',
+}
+
+export enum DeviceVerificationEventOnReceived {
+  DeviceNeedsApproval = 'device-needs-approval',
+  DeviceVerificationEmailSent = 'device-verification-email-sent',
+  DeviceVerificationEmailNotDeliverable = 'device-verification-email-not-deliverable',
+}

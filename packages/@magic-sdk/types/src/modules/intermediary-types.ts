@@ -1,6 +1,6 @@
-import { LoginWithEmailOTPEvents, LoginWithMagicLinkEvents } from './auth-types';
+import { LoginWithEmailOTPEventsHandler, LoginWithMagicLinkEventsHandler } from './auth-types';
 
-export type IntermediaryEvents = keyof LoginWithEmailOTPEvents | keyof LoginWithMagicLinkEvents;
+export type IntermediaryEvents = keyof LoginWithEmailOTPEventsHandler | keyof LoginWithMagicLinkEventsHandler;
 export type IntermediaryEventPayload = {
   payloadId: string;
   eventType: IntermediaryEvents;
