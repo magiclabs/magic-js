@@ -1,3 +1,16 @@
+# (Thu Jul 27 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/algorand@14.0.0`, `@magic-ext/aptos@2.0.0`, `@magic-ext/auth@2.0.0`, `@magic-ext/gdkms@2.0.0`, `@magic-ext/polkadot@14.0.0`, `@magic-ext/zilliqa@14.0.0`, `@magic-sdk/commons@15.0.0`, `@magic-sdk/pnp@13.0.0`, `@magic-sdk/provider@19.0.0`, `@magic-sdk/react-native-bare@20.0.0`, `@magic-sdk/react-native-expo@20.0.0`, `@magic-sdk/types@16.0.0`, `magic-sdk@19.0.0`
+  - Magic SDK Node version bump [#538](https://github.com/magiclabs/magic-js/pull/538) ([@makrandgupta](https://github.com/makrandgupta))
+
+#### Authors: 1
+
+- Makrand Gupta ([@makrandgupta](https://github.com/makrandgupta))
+
+---
+
 # (Wed Jul 26 2023)
 
 #### 🚀 Enhancement
