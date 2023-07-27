@@ -28,7 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^14.6.0",
-    "@magic-sdk/provider": "^18.4.1"
+    "@magic-sdk/commons": "^14.6.0"
   }
 }
