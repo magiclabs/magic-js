@@ -84,8 +84,8 @@ type DeviceVerificationEventHandlers = {
   [DeviceVerificationEventOnReceived.DeviceVerificationEmailNotDeliverable]: () => void;
 
   // Event sent
-  [DeviceVerificationEventEmit.RejectDevice]: () => void;
-  [DeviceVerificationEventEmit.ApproveDevice]: () => void;
+  [DeviceVerificationEventOnReceived.DeviceRejected]: () => void;
+  [DeviceVerificationEventOnReceived.DeviceApproved]: () => void;
 };
 
 /**
@@ -111,11 +111,12 @@ export enum LoginWithEmailOTPEventOnReceived {
 }
 
 export enum DeviceVerificationEventEmit {
-  RejectDevice = 'reject-device',
-  ApproveDevice = 'approve-device',
+  Retry = 'retry',
 }
 
 export enum DeviceVerificationEventOnReceived {
+  DeviceRejected = 'device-rejected',
+  DeviceApproved = 'device-approve',
   DeviceNeedsApproval = 'device-needs-approval',
   DeviceVerificationEmailSent = 'device-verification-email-sent',
   DeviceVerificationEmailNotDeliverable = 'device-verification-email-not-deliverable',
