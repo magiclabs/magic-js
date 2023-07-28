@@ -55,35 +55,50 @@ export interface LoginWithEmailOTPConfiguration {
   deviceCheckUI?: boolean;
 }
 
-export type LoginWithMagicLinkEventsHandler = {
+/**
+ * EventHandlers
+ */
+export type LoginWithMagicLinkEventHandlers = {
   // Event Received
-  'email-sent': () => void;
-  'email-not-deliverable': () => void;
+  [LoginWithMagicLinkEventOnReceived.EmailSent]: () => void;
+  [LoginWithMagicLinkEventOnReceived.EmailNotDeliverable]: () => void;
 
   // Event sent
-  retry: () => void;
-} & DeviceVerificationEventsHandler;
+  [LoginWithMagicLinkEventEmit.Retry]: () => void;
+} & DeviceVerificationEventHandlers;
 
-export type LoginWithEmailOTPEventsHandler = {
+export type LoginWithEmailOTPEventHandlers = {
   // Event Received
-  'email-otp-sent': () => void;
-  'invalid-email-otp': () => void;
+  [LoginWithEmailOTPEventOnReceived.EmailOTPSent]: () => void;
+  [LoginWithEmailOTPEventOnReceived.InvalidEmailOtp]: () => void;
 
   // Event sent
-  'verify-email-otp': (otp: string) => void;
-  cancel: () => void;
-} & DeviceVerificationEventsHandler;
+  [LoginWithEmailOTPEventEmit.VerifyEmailOtp]: (otp: string) => void;
+  [LoginWithEmailOTPEventEmit.Cancel]: () => void;
+} & DeviceVerificationEventHandlers;
 
-export type DeviceVerificationEventsHandler = {
+type DeviceVerificationEventHandlers = {
   // Event Received
-  'device-needs-approval': () => void;
-  'device-verification-email-sent': () => void;
-  'device-verification-email-not-deliverable': () => void;
+  [DeviceVerificationEventOnReceived.DeviceNeedsApproval]: () => void;
+  [DeviceVerificationEventOnReceived.DeviceVerificationEmailSent]: () => void;
+  [DeviceVerificationEventOnReceived.DeviceVerificationEmailNotDeliverable]: () => void;
 
   // Event sent
-  'reject-device': () => void;
-  'approve-device': () => void;
+  [DeviceVerificationEventEmit.RejectDevice]: () => void;
+  [DeviceVerificationEventEmit.ApproveDevice]: () => void;
 };
+
+/**
+ * Auth Events Enum
+ */
+export enum LoginWithMagicLinkEventEmit {
+  Retry = 'retry',
+}
+
+export enum LoginWithMagicLinkEventOnReceived {
+  EmailSent = 'email-sent',
+  EmailNotDeliverable = 'email-not-deliverable',
+}
 
 export enum LoginWithEmailOTPEventEmit {
   VerifyEmailOtp = 'verify-email-otp',

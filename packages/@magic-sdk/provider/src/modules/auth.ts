@@ -3,8 +3,8 @@ import {
   LoginWithMagicLinkConfiguration,
   LoginWithSmsConfiguration,
   LoginWithEmailOTPConfiguration,
-  LoginWithEmailOTPEventsHandler,
-  LoginWithMagicLinkEventsHandler,
+  LoginWithEmailOTPEventHandlers,
+  LoginWithMagicLinkEventHandlers,
   UpdateEmailConfiguration,
   DeviceVerificationEventEmit,
   LoginWithEmailOTPEventEmit,
@@ -55,7 +55,7 @@ export class AuthModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
       [{ email, showUI, redirectURI }],
     );
-    return this.request<string | null, LoginWithMagicLinkEventsHandler>(requestPayload);
+    return this.request<string | null, LoginWithMagicLinkEventHandlers>(requestPayload);
   }
 
   /**
@@ -88,9 +88,9 @@ export class AuthModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
       [{ email, showUI, deviceCheckUI }],
     );
-    const handle = this.request<string | null, LoginWithEmailOTPEventsHandler>(requestPayload);
+    const handle = this.request<string | null, LoginWithEmailOTPEventHandlers>(requestPayload);
     if (!deviceCheckUI && handle) {
-      handle.on(DeviceVerificationEventEmit.RejectDevice, (otp: string) => {
+      handle.on(DeviceVerificationEventEmit.RejectDevice, () => {
         this.createIntermediaryEvent(DeviceVerificationEventEmit.RejectDevice, requestPayload.id as any)();
       });
       handle.on(DeviceVerificationEventEmit.ApproveDevice, () => {

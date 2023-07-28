@@ -3,9 +3,9 @@ import {
   Extension,
   LoginWithEmailOTPConfiguration,
   LoginWithEmailOTPEventEmit,
-  LoginWithEmailOTPEventsHandler,
+  LoginWithEmailOTPEventHandlers,
   LoginWithMagicLinkConfiguration,
-  LoginWithMagicLinkEventsHandler,
+  LoginWithMagicLinkEventHandlers,
   LoginWithSmsConfiguration,
   MagicPayloadMethod,
   UpdateEmailConfiguration,
@@ -28,13 +28,24 @@ interface SDKEnvironment {
 
 const SDKEnvironment: SDKEnvironment = {} as any;
 
-type UpdateEmailEvents = {
-  'email-sent': () => void;
-  'email-not-deliverable': () => void;
-  'old-email-confirmed': () => void;
-  'new-email-confirmed': () => void;
-  retry: () => void;
+type UpdateEmailEventHandlers = {
+  [UpdateEmailEventsOnReceived.EmailSent]: () => void;
+  [UpdateEmailEventsOnReceived.EmailNotDeliverable]: () => void;
+  [UpdateEmailEventsOnReceived.OldEmailConfirmed]: () => void;
+  [UpdateEmailEventsOnReceived.NewEmailConfirmed]: () => void;
+  [UpdateEmailEventsEmit.Retry]: () => void;
 };
+
+export enum UpdateEmailEventsEmit {
+  Retry = 'retry',
+}
+
+export enum UpdateEmailEventsOnReceived {
+  EmailSent = 'email-sent',
+  EmailNotDeliverable = 'email-not-deliverable',
+  OldEmailConfirmed = 'old-email-confirmed',
+  NewEmailConfirmed = 'new-email-confirmed',
+}
 
 export class AuthExtension extends Extension.Internal<'auth', any> {
   name = 'auth' as const;
@@ -62,7 +73,7 @@ export class AuthExtension extends Extension.Internal<'auth', any> {
       this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
       [{ email, showUI, redirectURI }],
     );
-    return this.request<string | null, LoginWithMagicLinkEventsHandler>(requestPayload);
+    return this.request<string | null, LoginWithMagicLinkEventHandlers>(requestPayload);
   }
 
   /**
@@ -90,9 +101,9 @@ export class AuthExtension extends Extension.Internal<'auth', any> {
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
       [{ email, showUI, deviceCheckUI }],
     );
-    const handle = this.request<string | null, LoginWithEmailOTPEventsHandler>(requestPayload);
+    const handle = this.request<string | null, LoginWithEmailOTPEventHandlers>(requestPayload);
     if (!deviceCheckUI && handle) {
-      handle.on(DeviceVerificationEventEmit.RejectDevice, (otp: string) => {
+      handle.on(DeviceVerificationEventEmit.RejectDevice, () => {
         this.createIntermediaryEvent(DeviceVerificationEventEmit.RejectDevice, requestPayload.id as any)();
       });
       handle.on(DeviceVerificationEventEmit.ApproveDevice, () => {
@@ -151,7 +162,7 @@ export class AuthExtension extends Extension.Internal<'auth', any> {
       this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
       [{ email, showUI }],
     );
-    return this.request<string | null, UpdateEmailEvents>(requestPayload);
+    return this.request<string | null, UpdateEmailEventHandlers>(requestPayload);
   }
 
   public updatePhoneNumberWithUI() {
