@@ -82,10 +82,11 @@ type DeviceVerificationEventHandlers = {
   [DeviceVerificationEventOnReceived.DeviceNeedsApproval]: () => void;
   [DeviceVerificationEventOnReceived.DeviceVerificationEmailSent]: () => void;
   [DeviceVerificationEventOnReceived.DeviceVerificationEmailNotDeliverable]: () => void;
-
-  // Event sent
   [DeviceVerificationEventOnReceived.DeviceRejected]: () => void;
   [DeviceVerificationEventOnReceived.DeviceApproved]: () => void;
+
+  // Event sent
+  [DeviceVerificationEventEmit.Retry]: () => void;
 };
 
 /**
