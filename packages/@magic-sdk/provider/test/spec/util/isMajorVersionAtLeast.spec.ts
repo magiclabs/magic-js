@@ -1,4 +1,4 @@
-import { isMajorVersionAtLeast } from '@magic-sdk/provider/src/util/version-check';
+import { isMajorVersionAtLeast } from '../../../src/util/version-check';
 
 describe('isMajorVersionAtLeast', () => {
   it('should return true when the major version is greater than the required major version', () => {

@@ -1,3 +1,20 @@
+# v19.0.0 (Thu Jul 27 2023)
+
+#### 💥 Breaking Change
+
+- Magic SDK Node version bump [#538](https://github.com/magiclabs/magic-js/pull/538) ([@makrandgupta](https://github.com/makrandgupta))
+
+#### 🐛 Bug Fix
+
+- fix imports in magic-sdk/provider tests ([@makrandgupta](https://github.com/makrandgupta))
+- force canary build for all packages. ([@makrandgupta](https://github.com/makrandgupta))
+
+#### Authors: 1
+
+- Makrand Gupta ([@makrandgupta](https://github.com/makrandgupta))
+
+---
+
 # v18.6.0 (Wed Jul 26 2023)
 
 #### 🚀 Enhancement

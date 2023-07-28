@@ -1,3 +1,20 @@
+# v2.0.0 (Thu Jul 27 2023)
+
+#### 💥 Breaking Change
+
+- Magic SDK Node version bump [#538](https://github.com/magiclabs/magic-js/pull/538) ([@makrandgupta](https://github.com/makrandgupta))
+
+#### 🐛 Bug Fix
+
+- remove unnecessary externals, bring peer deps up to date ([@makrandgupta](https://github.com/makrandgupta))
+- missing provider package ([@makrandgupta](https://github.com/makrandgupta))
+
+#### Authors: 1
+
+- Makrand Gupta ([@makrandgupta](https://github.com/makrandgupta))
+
+---
+
 # v1.6.0 (Wed Jul 26 2023)
 
 #### 🚀 Enhancement

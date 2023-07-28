@@ -1,3 +1,22 @@
+# v2.0.0 (Thu Jul 27 2023)
+
+#### 💥 Breaking Change
+
+- Magic SDK Node version bump [#538](https://github.com/magiclabs/magic-js/pull/538) ([@makrandgupta](https://github.com/makrandgupta))
+
+#### 🐛 Bug Fix
+
+- add types as dev dep for gdkms ([@makrandgupta](https://github.com/makrandgupta))
+- remove unnecessary externals, bring peer deps up to date ([@makrandgupta](https://github.com/makrandgupta))
+- add missing webcrypto package ([@makrandgupta](https://github.com/makrandgupta))
+- force canary build for all packages. ([@makrandgupta](https://github.com/makrandgupta))
+
+#### Authors: 1
+
+- Makrand Gupta ([@makrandgupta](https://github.com/makrandgupta))
+
+---
+
 # v1.3.0 (Fri Jul 07 2023)
 
 #### ⚠️ Pushed to `master`

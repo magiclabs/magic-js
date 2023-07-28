@@ -19,7 +19,7 @@ const magic = new Magic('YOUR_API_KEY', {
     ]
 });
 
-// or
+// or 
 
 const magic = new Magic('YOUR_API_KEY', {
     extensions: {

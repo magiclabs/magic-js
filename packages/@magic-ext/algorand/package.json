@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/algorand",
-  "version": "13.6.0",
+  "version": "14.0.0",
   "description": "magic algorand extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^14.6.0"
+    "@magic-sdk/commons": "^15.0.0"
   }
 }

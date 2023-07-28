@@ -1,4 +1,4 @@
-# ✨ Magic JavaScript SDK Core
+# ✨ Magic JavaScript SDK Core 
 
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
 
