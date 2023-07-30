@@ -103,11 +103,8 @@ export class AuthExtension extends Extension.Internal<'auth', any> {
     );
     const handle = this.request<string | null, LoginWithEmailOTPEventHandlers>(requestPayload);
     if (!deviceCheckUI && handle) {
-      handle.on(DeviceVerificationEventEmit.RejectDevice, () => {
-        this.createIntermediaryEvent(DeviceVerificationEventEmit.RejectDevice, requestPayload.id as any)();
-      });
-      handle.on(DeviceVerificationEventEmit.ApproveDevice, () => {
-        this.createIntermediaryEvent(DeviceVerificationEventEmit.ApproveDevice, requestPayload.id as any)();
+      handle.on(DeviceVerificationEventEmit.Retry, () => {
+        this.createIntermediaryEvent(DeviceVerificationEventEmit.Retry, requestPayload.id as any)();
       });
     }
     if (!showUI && handle) {

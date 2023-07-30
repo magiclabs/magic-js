@@ -9,11 +9,11 @@ import {
 
 export type IntermediaryEvents =
   // EmailOTP
-  LoginWithEmailOTPEventEmit &
-    LoginWithEmailOTPEventOnReceived &
-    // MagicLink
-    LoginWithMagicLinkEventEmit &
-    LoginWithMagicLinkEventOnReceived &
-    // Device Verification
-    DeviceVerificationEventOnReceived &
-    DeviceVerificationEventEmit;
+  | `${LoginWithEmailOTPEventEmit}`
+  | `${LoginWithEmailOTPEventOnReceived}`
+  // MagicLink
+  | `${LoginWithMagicLinkEventEmit}`
+  | `${LoginWithMagicLinkEventOnReceived}`
+  // Device Verification
+  | `${DeviceVerificationEventEmit}`
+  | `${DeviceVerificationEventOnReceived}`;
