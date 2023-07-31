@@ -112,7 +112,7 @@ export enum LoginWithEmailOTPEventOnReceived {
 }
 
 export enum DeviceVerificationEventEmit {
-  Retry = 'retry',
+  Retry = 'device-retry',
 }
 
 export enum DeviceVerificationEventOnReceived {
