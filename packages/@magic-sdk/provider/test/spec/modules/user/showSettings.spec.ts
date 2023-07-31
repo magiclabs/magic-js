@@ -29,15 +29,15 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
   expect(requestPayload.params).toEqual([undefined]);
 });
 
-test('Generate JSON RPC request payload with method `magic_auth_settings` and page params `email`', async () => {
+test('Generate JSON RPC request payload with method `magic_auth_settings` and page params `update-email`', async () => {
   const magic = createMagicSDK();
   magic.user.request = jest.fn();
 
-  magic.user.showSettings({ page: DeepLinkPage.Email });
+  magic.user.showSettings({ page: DeepLinkPage.UpdateEmail });
 
   const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_settings');
-  expect(requestPayload.params).toEqual([{ page: 'email' }]);
+  expect(requestPayload.params).toEqual([{ page: 'update-email' }]);
 });
 
 test('Generate JSON RPC request payload with method `magic_auth_settings` and page params `mfa`', async () => {

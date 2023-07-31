@@ -1,5 +1,5 @@
 export enum DeepLinkPage {
-  Email = 'email',
+  UpdateEmail = 'update-email',
   MFA = 'mfa',
   Recovery = 'recovery',
 }
