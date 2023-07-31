@@ -163,16 +163,4 @@ export class AuthModule extends BaseModule {
     );
     return this.request<string | null, UpdateEmailEvents>(requestPayload);
   }
-
-  public updatePhoneNumberWithUI() {
-    createDeprecationWarning({
-      method: 'auth.updatePhoneNumberWithUI()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.updatePhoneNumberWithUI()',
-    }).log();
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.UpdatePhoneNumberTestMode : MagicPayloadMethod.UpdatePhoneNumber,
-    );
-    return this.request<string | null>(requestPayload);
-  }
 }
