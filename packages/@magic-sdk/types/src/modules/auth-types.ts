@@ -82,6 +82,7 @@ type DeviceVerificationEventHandlers = {
   [DeviceVerificationEventOnReceived.DeviceNeedsApproval]: () => void;
   [DeviceVerificationEventOnReceived.DeviceVerificationEmailSent]: () => void;
   [DeviceVerificationEventOnReceived.DeviceVerificationEmailNotDeliverable]: () => void;
+  [DeviceVerificationEventOnReceived.DeviceVerificationLinkExpired]: () => void;
   [DeviceVerificationEventOnReceived.DeviceRejected]: () => void;
   [DeviceVerificationEventOnReceived.DeviceApproved]: () => void;
 
@@ -119,6 +120,7 @@ export enum DeviceVerificationEventOnReceived {
   DeviceRejected = 'device-rejected',
   DeviceApproved = 'device-approve',
   DeviceNeedsApproval = 'device-needs-approval',
+  DeviceVerificationLinkExpired = 'device-verification-link-expired',
   DeviceVerificationEmailSent = 'device-verification-email-sent',
   DeviceVerificationEmailNotDeliverable = 'device-verification-email-not-deliverable',
 }
