@@ -118,7 +118,8 @@ export enum DeviceVerificationEventEmit {
 
 export enum DeviceVerificationEventOnReceived {
   DeviceRejected = 'device-rejected',
-  DeviceApproved = 'device-approve',
+  Error = 'device-verification-error',
+  DeviceApproved = 'device-approved',
   DeviceNeedsApproval = 'device-needs-approval',
   DeviceVerificationLinkExpired = 'device-verification-link-expired',
   DeviceVerificationEmailSent = 'device-verification-email-sent',
