@@ -49,7 +49,8 @@ export interface LoginWithEmailOTPConfiguration {
    * prompting them to verify their login by checking their email for device approval. This feature
    * enhances authentication security.
    *
-   * When set to false, developers have the flexibility to implement their own customized UI to
+   * This param will only be affect if showUI is false. When set to false,
+   * developers have the flexibility to implement their own customized UI to
    * handle device check events, providing a more tailored user experience.
    */
   deviceCheckUI?: boolean;
@@ -83,7 +84,6 @@ type DeviceVerificationEventHandlers = {
   [DeviceVerificationEventOnReceived.DeviceVerificationEmailSent]: () => void;
   [DeviceVerificationEventOnReceived.DeviceVerificationEmailNotDeliverable]: () => void;
   [DeviceVerificationEventOnReceived.DeviceVerificationLinkExpired]: () => void;
-  [DeviceVerificationEventOnReceived.Error]: () => void;
   [DeviceVerificationEventOnReceived.DeviceApproved]: () => void;
 
   // Event sent
@@ -117,7 +117,6 @@ export enum DeviceVerificationEventEmit {
 }
 
 export enum DeviceVerificationEventOnReceived {
-  Error = 'device-verification-error',
   DeviceApproved = 'device-approved',
   DeviceNeedsApproval = 'device-needs-approval',
   DeviceVerificationLinkExpired = 'device-verification-link-expired',
