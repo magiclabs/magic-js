@@ -22,7 +22,7 @@ export class NFTModule extends BaseModule {
     return this.request<NFTCheckoutResponse>(requestPayload);
   }
 
-  /* Start an NFT Transfer flow with Paypal */
+  /* Start an NFT Transfer flow */
   public async transfer(options: NFTCheckoutRequest) {
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.NFTTransfer, [options]);
     return this.request<NFTTransferResponse>(requestPayload);
