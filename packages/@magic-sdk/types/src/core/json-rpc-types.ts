@@ -101,6 +101,19 @@ export interface NFTCheckoutResponse {
   viewInWallet?: boolean;
 }
 
+export interface NFTTransferRequest {
+  tokenId: string;
+  contractAddress: string;
+  quantity?: number;
+  recipient?: string;
+}
+
+export type NFTTransferStatus = 'canceled' | 'success';
+
+export interface NFTTransferResponse {
+  status: NFTCheckoutStatus;
+}
+
 export enum Wallets {
   MetaMask = 'metamask',
   CoinbaseWallet = 'coinbase_wallet',
@@ -155,6 +168,7 @@ export enum MagicPayloadMethod {
   ShowUI = 'magic_wallet',
   NFTPurchase = 'magic_nft_purchase',
   NFTCheckout = 'magic_nft_checkout',
+  NFTTransfer = 'magic_nft_transfer',
   RequestUserInfoWithUI = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',
   UpdatePhoneNumber = 'magic_auth_update_phone_number',
