@@ -1,3 +1,29 @@
+# (Tue Aug 08 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/auth@2.1.0`, `@magic-sdk/provider@19.1.0`, `@magic-sdk/types@16.1.0`
+  - Jerryliu sc 81984 update loginwithemailotp interface with new [#596](https://github.com/magiclabs/magic-js/pull/596) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@Ariflo](https://github.com/Ariflo) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- [minor] Improve dev.ts script for watch & rebuild dependencies [#601](https://github.com/magiclabs/magic-js/pull/601) ([@ysm-dev](https://github.com/ysm-dev))
+- `@magic-sdk/provider@19.1.0`, `@magic-sdk/types@16.1.0`
+  - Implement nft.transfer api [#602](https://github.com/magiclabs/magic-js/pull/602) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### 🔩 Dependency Updates
+
+- Bump word-wrap from 1.2.3 to 1.2.4 [#584](https://github.com/magiclabs/magic-js/pull/584) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Thu Aug 03 2023)
 
 #### 💥 Breaking Change

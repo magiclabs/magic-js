@@ -1,3 +1,30 @@
+# v19.1.0 (Tue Aug 08 2023)
+
+#### 🚀 Enhancement
+
+- Jerryliu sc 81984 update loginwithemailotp interface with new [#596](https://github.com/magiclabs/magic-js/pull/596) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@Ariflo](https://github.com/Ariflo) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Implement nft.transfer api [#602](https://github.com/magiclabs/magic-js/pull/602) ([@ysm-dev](https://github.com/ysm-dev))
+- code review: comment ([@ysm-dev](https://github.com/ysm-dev))
+- implement nft.transfer api ([@ysm-dev](https://github.com/ysm-dev))
+- Update IntermediaryEvents ([@Ethella](https://github.com/Ethella))
+- Update Event handlers ([@Ethella](https://github.com/Ethella))
+- Update events ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-81984-update-loginwithemailotp-interface-with-new ([@Ethella](https://github.com/Ethella))
+- Add device verification events ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v19.0.0 (Thu Jul 27 2023)
 
 #### 💥 Breaking Change
