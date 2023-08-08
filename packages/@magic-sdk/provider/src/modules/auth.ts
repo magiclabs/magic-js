@@ -3,9 +3,11 @@ import {
   LoginWithMagicLinkConfiguration,
   LoginWithSmsConfiguration,
   LoginWithEmailOTPConfiguration,
-  LoginWithEmailOTPEvents,
-  LoginWithMagicLinkEvents,
+  LoginWithEmailOTPEventHandlers,
+  LoginWithMagicLinkEventHandlers,
   UpdateEmailConfiguration,
+  DeviceVerificationEventEmit,
+  LoginWithEmailOTPEventEmit,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -53,7 +55,7 @@ export class AuthModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
       [{ email, showUI, redirectURI }],
     );
-    return this.request<string | null, LoginWithMagicLinkEvents>(requestPayload);
+    return this.request<string | null, LoginWithMagicLinkEventHandlers>(requestPayload);
   }
 
   /**
@@ -81,29 +83,26 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
-    createDeprecationWarning({
-      method: 'auth.loginWithEmailOTP()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.loginWithEmailOTP()',
-    }).log();
-    const { email, showUI } = configuration;
+    const { email, showUI, deviceCheckUI } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
-      [{ email, showUI }],
+      [{ email, showUI, deviceCheckUI }],
     );
-    if (!showUI) {
-      const handle = this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
-      if (handle) {
-        handle.on('verify-email-otp', (otp: string) => {
-          this.createIntermediaryEvent('verify-email-otp', requestPayload.id as any)(otp);
-        });
-        handle.on('cancel', () => {
-          this.createIntermediaryEvent('cancel', requestPayload.id as any)();
-        });
-      }
-      return handle;
+    const handle = this.request<string | null, LoginWithEmailOTPEventHandlers>(requestPayload);
+    if (!deviceCheckUI && handle) {
+      handle.on(DeviceVerificationEventEmit.Retry, () => {
+        this.createIntermediaryEvent(DeviceVerificationEventEmit.Retry, requestPayload.id as any)();
+      });
     }
-    return this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
+    if (!showUI && handle) {
+      handle.on(LoginWithEmailOTPEventEmit.VerifyEmailOtp, (otp: string) => {
+        this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
+      });
+      handle.on(LoginWithEmailOTPEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.Cancel, requestPayload.id as any)();
+      });
+    }
+    return handle;
   }
 
   /**

@@ -1,9 +1,11 @@
 import {
+  DeviceVerificationEventEmit,
   Extension,
   LoginWithEmailOTPConfiguration,
-  LoginWithEmailOTPEvents,
+  LoginWithEmailOTPEventEmit,
+  LoginWithEmailOTPEventHandlers,
   LoginWithMagicLinkConfiguration,
-  LoginWithMagicLinkEvents,
+  LoginWithMagicLinkEventHandlers,
   LoginWithSmsConfiguration,
   MagicPayloadMethod,
   UpdateEmailConfiguration,
@@ -26,13 +28,24 @@ interface SDKEnvironment {
 
 const SDKEnvironment: SDKEnvironment = {} as any;
 
-type UpdateEmailEvents = {
-  'email-sent': () => void;
-  'email-not-deliverable': () => void;
-  'old-email-confirmed': () => void;
-  'new-email-confirmed': () => void;
-  retry: () => void;
+type UpdateEmailEventHandlers = {
+  [UpdateEmailEventsOnReceived.EmailSent]: () => void;
+  [UpdateEmailEventsOnReceived.EmailNotDeliverable]: () => void;
+  [UpdateEmailEventsOnReceived.OldEmailConfirmed]: () => void;
+  [UpdateEmailEventsOnReceived.NewEmailConfirmed]: () => void;
+  [UpdateEmailEventsEmit.Retry]: () => void;
 };
+
+export enum UpdateEmailEventsEmit {
+  Retry = 'retry',
+}
+
+export enum UpdateEmailEventsOnReceived {
+  EmailSent = 'email-sent',
+  EmailNotDeliverable = 'email-not-deliverable',
+  OldEmailConfirmed = 'old-email-confirmed',
+  NewEmailConfirmed = 'new-email-confirmed',
+}
 
 export class AuthExtension extends Extension.Internal<'auth', any> {
   name = 'auth' as const;
@@ -60,7 +73,7 @@ export class AuthExtension extends Extension.Internal<'auth', any> {
       this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
       [{ email, showUI, redirectURI }],
     );
-    return this.request<string | null, LoginWithMagicLinkEvents>(requestPayload);
+    return this.request<string | null, LoginWithMagicLinkEventHandlers>(requestPayload);
   }
 
   /**
@@ -83,24 +96,26 @@ export class AuthExtension extends Extension.Internal<'auth', any> {
    * of 15 minutes)
    */
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
-    const { email, showUI } = configuration;
+    const { email, showUI, deviceCheckUI } = configuration;
     const requestPayload = this.utils.createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
-      [{ email, showUI }],
+      [{ email, showUI, deviceCheckUI }],
     );
-    if (!showUI) {
-      const handle = this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
-      if (handle) {
-        handle.on('verify-email-otp', (otp: string) => {
-          this.createIntermediaryEvent('verify-email-otp', requestPayload.id as any)(otp);
-        });
-        handle.on('cancel', () => {
-          this.createIntermediaryEvent('cancel', requestPayload.id as any)();
-        });
-      }
-      return handle;
+    const handle = this.request<string | null, LoginWithEmailOTPEventHandlers>(requestPayload);
+    if (!deviceCheckUI && handle) {
+      handle.on(DeviceVerificationEventEmit.Retry, () => {
+        this.createIntermediaryEvent(DeviceVerificationEventEmit.Retry, requestPayload.id as any)();
+      });
     }
-    return this.request<string | null, LoginWithEmailOTPEvents>(requestPayload);
+    if (!showUI && handle) {
+      handle.on(LoginWithEmailOTPEventEmit.VerifyEmailOtp, (otp: string) => {
+        this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
+      });
+      handle.on(LoginWithEmailOTPEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.Cancel, requestPayload.id as any)();
+      });
+    }
+    return handle;
   }
 
   /**
@@ -144,7 +159,7 @@ export class AuthExtension extends Extension.Internal<'auth', any> {
       this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
       [{ email, showUI }],
     );
-    return this.request<string | null, UpdateEmailEvents>(requestPayload);
+    return this.request<string | null, UpdateEmailEventHandlers>(requestPayload);
   }
 
   public updatePhoneNumberWithUI() {
