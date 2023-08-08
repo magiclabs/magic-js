@@ -1,3 +1,18 @@
+# (Thu Aug 03 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/hedera@1.0.0`
+  - [82686] revive hedera extension [#597](https://github.com/magiclabs/magic-js/pull/597) ([@makrandgupta](https://github.com/makrandgupta) [@harryEth](https://github.com/harryEth) [@hcote](https://github.com/hcote))
+
+#### Authors: 3
+
+- [@harryEth](https://github.com/harryEth)
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Makrand Gupta ([@makrandgupta](https://github.com/makrandgupta))
+
+---
+
 # (Thu Jul 27 2023)
 
 #### 💥 Breaking Change

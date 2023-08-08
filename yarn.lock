@@ -2914,6 +2914,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/hedera@workspace:packages/@magic-ext/hedera":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/hedera@workspace:packages/@magic-ext/hedera"
+  dependencies:
+    "@magic-sdk/commons": ^14.6.0
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/icon@workspace:packages/@magic-ext/icon":
   version: 0.0.0-use.local
   resolution: "@magic-ext/icon@workspace:packages/@magic-ext/icon"
@@ -3047,6 +3055,16 @@ __metadata:
     "@magic-sdk/types": ">=15.8.0"
   languageName: unknown
   linkType: soft
+
+"@magic-sdk/commons@npm:^14.6.0":
+  version: 14.6.0
+  resolution: "@magic-sdk/commons@npm:14.6.0"
+  peerDependencies:
+    "@magic-sdk/provider": ">=4.3.0"
+    "@magic-sdk/types": ">=3.1.1"
+  checksum: 43c71771ddf3355d16fe1eed29d778cdb01b40b2af5f67a07173d0c41b3bc3f14a8513221948a84191805372b2d34f1097e8f0de771ed867c3485ffb1805dcd8
+  languageName: node
+  linkType: hard
 
 "@magic-sdk/pnp@workspace:packages/@magic-sdk/pnp":
   version: 0.0.0-use.local
@@ -4121,10 +4139,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.14.158, @types/lodash@npm:^4.14.172":
+"@types/lodash@npm:^4.14.158":
   version: 4.14.191
   resolution: "@types/lodash@npm:4.14.191"
   checksum: ba0d5434e10690869f32d5ea49095250157cae502f10d57de0a723fd72229ce6c6a4979576f0f13e0aa9fbe3ce2457bfb9fa7d4ec3d6daba56730a51906d1491
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4.14.172":
+  version: 4.14.172
+  resolution: "@types/lodash@npm:4.14.172"
+  checksum: 5fc51ea40d7e455bd1c760bcc60c9e81f82d85988666d4d4969bd8311367c63bbf1fe2be48755ba87836710e45fff94014ec164ebe6ccaa72815014981152434
   languageName: node
   linkType: hard
 

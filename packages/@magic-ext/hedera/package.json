@@ -1,0 +1,33 @@
+{
+  "name": "@magic-ext/hedera",
+  "version": "1.0.0",
+  "description": "magic hedera extension",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "files": [
+    "dist"
+  ],
+  "target": "neutral",
+  "cdnGlobalName": "MagicHederaExtension",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "jsdelivr": "./dist/extension.js",
+  "react-native": "./dist/react-native/index.native.js",
+  "exports": {
+    "import": "./dist/es/index.mjs",
+    "require": "./dist/cjs/index.js"
+  },
+  "externals": {
+    "include": [
+      "@magic-sdk/commons"
+    ]
+  },
+  "devDependencies": {
+    "@magic-sdk/commons": "^14.6.0"
+  }
+}

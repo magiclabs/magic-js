@@ -45,7 +45,7 @@ async function main() {
     printEnvironment();
   }
 
-  await startDevServer(PKG);
+  await Promise.all([PKG, ...dependencies].map((pkg) => startDevServer(pkg)));
 }
 
 runAsyncProcess(main);
