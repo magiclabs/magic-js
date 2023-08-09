@@ -1,3 +1,16 @@
+# (Wed Aug 09 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/harmony@14.2.0`
+  - republish harmony ext [#603](https://github.com/magiclabs/magic-js/pull/603) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # (Tue Aug 08 2023)
 
 #### 🚀 Enhancement
