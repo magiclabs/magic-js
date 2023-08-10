@@ -1,3 +1,16 @@
+# v1.0.1 (Thu Aug 10 2023)
+
+#### 🐛 Bug Fix
+
+- Set peer dependency for hedera [#604](https://github.com/magiclabs/magic-js/pull/604) ([@octave08](https://github.com/octave08))
+- Set peer dependency for hedera ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v1.0.0 (Thu Aug 03 2023)
 
 #### 💥 Breaking Change
