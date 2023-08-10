@@ -131,7 +131,7 @@ export class AuthExtension extends Extension.Internal<'auth', any> {
   public loginWithCredential(credentialOrQueryString?: string) {
     let credentialResolved = credentialOrQueryString ?? '';
 
-    if (!credentialOrQueryString && SDKEnvironment.platform === 'web') {
+    if (!credentialOrQueryString) {
       credentialResolved = window.location.search;
 
       // Remove the query from the redirect callback as a precaution.
