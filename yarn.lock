@@ -2919,6 +2919,8 @@ __metadata:
   resolution: "@magic-ext/hedera@workspace:packages/@magic-ext/hedera"
   dependencies:
     "@magic-sdk/commons": ^14.6.0
+  peerDependencies:
+    "@hashgraph/sdk": ^2.31.0
   languageName: unknown
   linkType: soft
 
