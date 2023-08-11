@@ -1,3 +1,19 @@
+# v2.2.0 (Fri Aug 11 2023)
+
+#### 🚀 Enhancement
+
+- no need to check for sdk platform here. [#605](https://github.com/magiclabs/magic-js/pull/605) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- no need to check for sdk platform here. ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v2.1.0 (Tue Aug 08 2023)
 
 #### 🚀 Enhancement

@@ -1,3 +1,16 @@
+# v16.2.0 (Fri Aug 11 2023)
+
+#### 🐛 Bug Fix
+
+- Jayhwang type issues [#606](https://github.com/magiclabs/magic-js/pull/606) ([@octave08](https://github.com/octave08))
+- Refactor types ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v16.1.0 (Tue Aug 08 2023)
 
 #### 🚀 Enhancement

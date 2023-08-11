@@ -1,3 +1,22 @@
+# (Fri Aug 11 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/auth@2.2.0`
+  - no need to check for sdk platform here. [#605](https://github.com/magiclabs/magic-js/pull/605) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@19.2.0`, `@magic-sdk/types@16.2.0`
+  - Jayhwang type issues [#606](https://github.com/magiclabs/magic-js/pull/606) ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Thu Aug 10 2023)
 
 #### 🐛 Bug Fix
