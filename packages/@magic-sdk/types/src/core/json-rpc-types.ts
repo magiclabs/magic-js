@@ -48,6 +48,12 @@ export interface RequestUserInfoScope {
   };
 }
 
+export type NFTResponseStatus = 'cancelled' | 'processed' | 'declined' | 'expired';
+
+export type NFTResponse = {
+  status: NFTResponseStatus;
+};
+
 export interface NFTPurchaseRequest {
   nft: {
     name: string;
@@ -75,11 +81,7 @@ export interface NFTPurchaseRequest {
   };
 }
 
-export type NFTPurchaseStatus = 'processed' | 'declined' | 'expired';
-
-export interface NFTPurchaseResponse {
-  status: NFTPurchaseStatus;
-}
+export type NFTPurchaseResponse = NFTResponse;
 
 export interface NFTCheckoutRequest {
   // given by magic / found in the developer dashboard in future
@@ -94,12 +96,7 @@ export interface NFTCheckoutRequest {
   walletAddress?: string;
 }
 
-export type NFTCheckoutStatus = 'processed' | 'declined' | 'expired';
-
-export interface NFTCheckoutResponse {
-  status: NFTCheckoutStatus;
-  viewInWallet?: boolean;
-}
+export type NFTCheckoutResponse = NFTResponse;
 
 export interface NFTTransferRequest {
   tokenId: string;
@@ -108,11 +105,7 @@ export interface NFTTransferRequest {
   recipient?: string;
 }
 
-export type NFTTransferStatus = 'canceled' | 'success';
-
-export interface NFTTransferResponse {
-  status: NFTCheckoutStatus;
-}
+export type NFTTransferResponse = NFTResponse;
 
 export enum Wallets {
   MetaMask = 'metamask',
