@@ -1,8 +1,19 @@
-import { LoginWithEmailOTPEvents, LoginWithMagicLinkEvents } from './auth-types';
+import {
+  DeviceVerificationEventEmit,
+  DeviceVerificationEventOnReceived,
+  LoginWithEmailOTPEventEmit,
+  LoginWithEmailOTPEventOnReceived,
+  LoginWithMagicLinkEventEmit,
+  LoginWithMagicLinkEventOnReceived,
+} from './auth-types';
 
-export type IntermediaryEvents = keyof LoginWithEmailOTPEvents | keyof LoginWithMagicLinkEvents;
-export type IntermediaryEventPayload = {
-  payloadId: string;
-  eventType: IntermediaryEvents;
-  args: any;
-};
+export type IntermediaryEvents =
+  // EmailOTP
+  | `${LoginWithEmailOTPEventEmit}`
+  | `${LoginWithEmailOTPEventOnReceived}`
+  // MagicLink
+  | `${LoginWithMagicLinkEventEmit}`
+  | `${LoginWithMagicLinkEventOnReceived}`
+  // Device Verification
+  | `${DeviceVerificationEventEmit}`
+  | `${DeviceVerificationEventOnReceived}`;

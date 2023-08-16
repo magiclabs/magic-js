@@ -1,3 +1,16 @@
+# v14.1.0 (Tue Aug 08 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-81984-update-loginwithemailotp-interface-with-new ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v13.5.0 (Fri Jul 14 2023)
 
 #### 🚀 Enhancement

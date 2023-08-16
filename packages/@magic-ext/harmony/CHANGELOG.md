@@ -1,3 +1,36 @@
+# v14.2.0 (Wed Aug 09 2023)
+
+#### 🚀 Enhancement
+
+- republish harmony ext [#603](https://github.com/magiclabs/magic-js/pull/603) ([@hcote](https://github.com/hcote))
+
+#### 🐛 Bug Fix
+
+- remove RN path ([@hcote](https://github.com/hcote))
+- add test ([@hcote](https://github.com/hcote))
+- restore RN path in package.json ([@hcote](https://github.com/hcote))
+- restore changelog ([@hcote](https://github.com/hcote))
+- republish harmony ext ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v14.1.0 (Tue Aug 08 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-81984-update-loginwithemailotp-interface-with-new ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v13.3.0 (Fri Jul 07 2023)
 
 #### ⚠️ Pushed to `master`
@@ -203,4 +236,3 @@
 - Jerry Liu ([@Ethella](https://github.com/Ethella))
 
 ---
-

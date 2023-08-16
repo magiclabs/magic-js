@@ -1,3 +1,41 @@
+# v2.2.0 (Fri Aug 11 2023)
+
+#### 🚀 Enhancement
+
+- no need to check for sdk platform here. [#605](https://github.com/magiclabs/magic-js/pull/605) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- no need to check for sdk platform here. ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# v2.1.0 (Tue Aug 08 2023)
+
+#### 🚀 Enhancement
+
+- Jerryliu sc 81984 update loginwithemailotp interface with new [#596](https://github.com/magiclabs/magic-js/pull/596) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@Ariflo](https://github.com/Ariflo) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Update IntermediaryEvents ([@Ethella](https://github.com/Ethella))
+- Update Event handlers ([@Ethella](https://github.com/Ethella))
+- Update events ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-81984-update-loginwithemailotp-interface-with-new ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v2.0.0 (Thu Jul 27 2023)
 
 #### 💥 Breaking Change

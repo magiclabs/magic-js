@@ -41,17 +41,83 @@ export interface LoginWithEmailOTPConfiguration {
    * continue the email OTP flow.
    */
   showUI?: boolean;
+
+  /**
+   * Device Unrecognized UI will enforce showing up to secure user's login
+   *
+   * When set to true (default), an improved device recognition UI will be displayed to the user,
+   * prompting them to verify their login by checking their email for device approval. This feature
+   * enhances authentication security.
+   *
+   * This param will only be affect if showUI is false. When set to false,
+   * developers have the flexibility to implement their own customized UI to
+   * handle device check events, providing a more tailored user experience.
+   */
+  deviceCheckUI?: boolean;
 }
 
-export type LoginWithMagicLinkEvents = {
-  'email-sent': () => void;
-  'email-not-deliverable': () => void;
-  retry: () => void;
+/**
+ * EventHandlers
+ */
+export type LoginWithMagicLinkEventHandlers = {
+  // Event Received
+  [LoginWithMagicLinkEventOnReceived.EmailSent]: () => void;
+  [LoginWithMagicLinkEventOnReceived.EmailNotDeliverable]: () => void;
+
+  // Event sent
+  [LoginWithMagicLinkEventEmit.Retry]: () => void;
+} & DeviceVerificationEventHandlers;
+
+export type LoginWithEmailOTPEventHandlers = {
+  // Event Received
+  [LoginWithEmailOTPEventOnReceived.EmailOTPSent]: () => void;
+  [LoginWithEmailOTPEventOnReceived.InvalidEmailOtp]: () => void;
+
+  // Event sent
+  [LoginWithEmailOTPEventEmit.VerifyEmailOtp]: (otp: string) => void;
+  [LoginWithEmailOTPEventEmit.Cancel]: () => void;
+} & DeviceVerificationEventHandlers;
+
+type DeviceVerificationEventHandlers = {
+  // Event Received
+  [DeviceVerificationEventOnReceived.DeviceNeedsApproval]: () => void;
+  [DeviceVerificationEventOnReceived.DeviceVerificationEmailSent]: () => void;
+  [DeviceVerificationEventOnReceived.DeviceVerificationLinkExpired]: () => void;
+  [DeviceVerificationEventOnReceived.DeviceApproved]: () => void;
+
+  // Event sent
+  [DeviceVerificationEventEmit.Retry]: () => void;
 };
 
-export type LoginWithEmailOTPEvents = {
-  'email-otp-sent': () => void;
-  'verify-email-otp': (otp: string) => void;
-  'invalid-email-otp': () => void;
-  cancel: () => void;
-};
+/**
+ * Auth Events Enum
+ */
+export enum LoginWithMagicLinkEventEmit {
+  Retry = 'retry',
+}
+
+export enum LoginWithMagicLinkEventOnReceived {
+  EmailSent = 'email-sent',
+  EmailNotDeliverable = 'email-not-deliverable',
+}
+
+export enum LoginWithEmailOTPEventEmit {
+  VerifyEmailOtp = 'verify-email-otp',
+  Cancel = 'cancel',
+}
+
+export enum LoginWithEmailOTPEventOnReceived {
+  EmailOTPSent = 'email-otp-sent',
+  InvalidEmailOtp = 'invalid-email-otp',
+}
+
+export enum DeviceVerificationEventEmit {
+  Retry = 'device-retry',
+}
+
+export enum DeviceVerificationEventOnReceived {
+  DeviceApproved = 'device-approved',
+  DeviceNeedsApproval = 'device-needs-approval',
+  DeviceVerificationLinkExpired = 'device-verification-link-expired',
+  DeviceVerificationEmailSent = 'device-verification-email-sent',
+}

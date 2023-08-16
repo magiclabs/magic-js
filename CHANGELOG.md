@@ -1,8 +1,94 @@
+# (Fri Aug 11 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/auth@2.2.0`
+  - no need to check for sdk platform here. [#605](https://github.com/magiclabs/magic-js/pull/605) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@19.2.0`, `@magic-sdk/types@16.2.0`
+  - Jayhwang type issues [#606](https://github.com/magiclabs/magic-js/pull/606) ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# (Thu Aug 10 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/hedera@1.0.1`
+  - Set peer dependency for hedera [#604](https://github.com/magiclabs/magic-js/pull/604) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# (Wed Aug 09 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/harmony@14.2.0`
+  - republish harmony ext [#603](https://github.com/magiclabs/magic-js/pull/603) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# (Tue Aug 08 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/auth@2.1.0`, `@magic-sdk/provider@19.1.0`, `@magic-sdk/types@16.1.0`
+  - Jerryliu sc 81984 update loginwithemailotp interface with new [#596](https://github.com/magiclabs/magic-js/pull/596) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@Ariflo](https://github.com/Ariflo) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- [minor] Improve dev.ts script for watch & rebuild dependencies [#601](https://github.com/magiclabs/magic-js/pull/601) ([@ysm-dev](https://github.com/ysm-dev))
+- `@magic-sdk/provider@19.1.0`, `@magic-sdk/types@16.1.0`
+  - Implement nft.transfer api [#602](https://github.com/magiclabs/magic-js/pull/602) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### 🔩 Dependency Updates
+
+- Bump word-wrap from 1.2.3 to 1.2.4 [#584](https://github.com/magiclabs/magic-js/pull/584) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Aug 03 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/hedera@1.0.0`
+  - [82686] revive hedera extension [#597](https://github.com/magiclabs/magic-js/pull/597) ([@makrandgupta](https://github.com/makrandgupta) [@harryEth](https://github.com/harryEth) [@hcote](https://github.com/hcote))
+
+#### Authors: 3
+
+- [@harryEth](https://github.com/harryEth)
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Makrand Gupta ([@makrandgupta](https://github.com/makrandgupta))
+
+---
+
 # (Thu Jul 27 2023)
 
 #### 💥 Breaking Change
 
-- `@magic-ext/algorand@14.0.0`, `@magic-ext/aptos@2.0.0`, `@magic-ext/auth@2.0.0`, `@magic-ext/gdkms@2.0.0`, `@magic-ext/polkadot@14.0.0`, `@magic-ext/zilliqa@14.0.0`, `@magic-sdk/commons@15.0.0`, `@magic-sdk/pnp@13.0.0`, `@magic-sdk/provider@19.0.0`, `@magic-sdk/react-native-bare@20.0.0`, `@magic-sdk/react-native-expo@20.0.0`, `@magic-sdk/types@16.0.0`, `magic-sdk@19.0.0`
+-  `@magic-ext/algorand@14.0.0, @magic-ext/aptos@2.0.0, @magic-ext/auth@2.0.0, @magic-ext/avalanche@14.0.0, @magic-ext/bitcoin@14.0.0, @magic-ext/conflux@12.0.0, @magic-ext/cosmos@14.0.0, @magic-ext/ed25519@10.0.0, @magic-ext/flow@14.0.0, @magic-ext/gdkms@2.0.0, @magic-ext/harmony@14.0.0, @magic-ext/icon@14.0.0, @magic-ext/near@14.0.0, @magic-ext/oauth@13.0.0, @magic-ext/oidc@2.0.0, @magic-ext/polkadot@14.0.0, @magic-ext/react-native-bare-oauth@14.0.0, @magic-ext/react-native-expo-oauth@14.0.0, @magic-ext/solana@15.0.0, @magic-ext/taquito@11.0.0, @magic-ext/terra@11.0.0, @magic-ext/tezos@14.0.0, @magic-ext/webauthn@13.0.0, @magic-ext/zilliqa@14.0.0, @magic-sdk/commons@15.0.0, @magic-sdk/pnp@13.0.0, @magic-sdk/provider@19.0.0, @magic-sdk/react-native-bare@20.0.0, @magic-sdk/react-native-expo@20.0.0, @magic-sdk/types@16.0.0, magic-sdk@19.0.0`
   - Magic SDK Node version bump [#538](https://github.com/magiclabs/magic-js/pull/538) ([@makrandgupta](https://github.com/makrandgupta))
 
 #### Authors: 1

@@ -48,6 +48,12 @@ export interface RequestUserInfoScope {
   };
 }
 
+export type NFTResponseStatus = 'cancelled' | 'processed' | 'declined' | 'expired';
+
+export type NFTResponse = {
+  status: NFTResponseStatus;
+};
+
 export interface NFTPurchaseRequest {
   nft: {
     name: string;
@@ -75,11 +81,7 @@ export interface NFTPurchaseRequest {
   };
 }
 
-export type NFTPurchaseStatus = 'processed' | 'declined' | 'expired';
-
-export interface NFTPurchaseResponse {
-  status: NFTPurchaseStatus;
-}
+export type NFTPurchaseResponse = NFTResponse;
 
 export interface NFTCheckoutRequest {
   // given by magic / found in the developer dashboard in future
@@ -94,12 +96,16 @@ export interface NFTCheckoutRequest {
   walletAddress?: string;
 }
 
-export type NFTCheckoutStatus = 'processed' | 'declined' | 'expired';
+export type NFTCheckoutResponse = NFTResponse;
 
-export interface NFTCheckoutResponse {
-  status: NFTCheckoutStatus;
-  viewInWallet?: boolean;
+export interface NFTTransferRequest {
+  tokenId: string;
+  contractAddress: string;
+  quantity?: number;
+  recipient?: string;
 }
+
+export type NFTTransferResponse = NFTResponse;
 
 export enum Wallets {
   MetaMask = 'metamask',
@@ -155,6 +161,7 @@ export enum MagicPayloadMethod {
   ShowUI = 'magic_wallet',
   NFTPurchase = 'magic_nft_purchase',
   NFTCheckout = 'magic_nft_checkout',
+  NFTTransfer = 'magic_nft_transfer',
   RequestUserInfoWithUI = 'mc_request_user_info',
   Disconnect = 'mc_disconnect',
   UpdatePhoneNumber = 'magic_auth_update_phone_number',

@@ -1,17 +1,15 @@
 {
   "name": "@magic-ext/harmony",
-  "version": "14.0.0",
+  "version": "14.3.0",
   "description": "magic harmony extension",
-  "author": "Magic <hello@magic.link> (https://magic.link/)",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/magiclabs/magic-js"
   },
   "files": [
-    "dist/**/*.js",
-    "dist/**/*.js.map",
-    "dist/**/*.d.ts"
+    "dist"
   ],
   "target": "neutral",
   "cdnGlobalName": "MagicHarmonyExtension",
@@ -19,7 +17,6 @@
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
-  "react-native": "./dist/react-native/index.native.js",
   "exports": {
     "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
@@ -30,6 +27,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^15.0.0"
+    "@magic-sdk/commons": "^15.2.0"
   }
 }
