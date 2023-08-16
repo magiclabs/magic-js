@@ -1,3 +1,21 @@
+# v19.3.0 (Wed Aug 16 2023)
+
+#### 🚀 Enhancement
+
+- Josh sc 75022 standalone update email v2 [#599](https://github.com/magiclabs/magic-js/pull/599) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into josh-sc-75022-standalone-update-email-v2 ([@joshuascan](https://github.com/joshuascan))
+- changes naming for update email flow ([@joshuascan](https://github.com/joshuascan))
+- adds tests for auth settings and deeplinks ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v19.2.0 (Fri Aug 11 2023)
 
 #### 🐛 Bug Fix

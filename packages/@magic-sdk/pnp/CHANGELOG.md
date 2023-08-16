@@ -1,3 +1,15 @@
+# v13.3.0 (Wed Aug 16 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into josh-sc-75022-standalone-update-email-v2 ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v13.1.0 (Tue Aug 08 2023)
 
 #### 🐛 Bug Fix

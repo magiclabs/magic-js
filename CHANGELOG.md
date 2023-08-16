@@ -1,3 +1,21 @@
+# (Wed Aug 16 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@19.3.0`, `@magic-sdk/types@16.3.0`
+  - Josh sc 75022 standalone update email v2 [#599](https://github.com/magiclabs/magic-js/pull/599) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- Update CHANGELOG.md [#608](https://github.com/magiclabs/magic-js/pull/608) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Fri Aug 11 2023)
 
 #### 🚀 Enhancement
