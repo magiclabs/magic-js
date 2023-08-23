@@ -1,3 +1,16 @@
+# (Wed Aug 23 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@19.3.1`, `@magic-sdk/types@16.3.1`
+  - Jayhwang sc 85078 update response type for nft purchase [#612](https://github.com/magiclabs/magic-js/pull/612) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Wed Aug 16 2023)
 
 #### 🚀 Enhancement

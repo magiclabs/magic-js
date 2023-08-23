@@ -1,3 +1,16 @@
+# v19.3.1 (Wed Aug 23 2023)
+
+#### 🐛 Bug Fix
+
+- Jayhwang sc 85078 update response type for nft purchase [#612](https://github.com/magiclabs/magic-js/pull/612) ([@octave08](https://github.com/octave08))
+- Refactor nft types ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v19.3.0 (Wed Aug 16 2023)
 
 #### 🚀 Enhancement
