@@ -31,7 +31,9 @@ export interface NFTPurchaseRequest {
   };
 }
 
-export type NFTPurchaseResponse = NFTResponse;
+export type NFTPurchaseResponse = NFTResponse & {
+  errorMessage?: string;
+};
 
 export interface NFTCheckoutRequest {
   // given by magic / found in the developer dashboard in future
