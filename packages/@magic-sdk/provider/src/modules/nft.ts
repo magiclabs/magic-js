@@ -1,11 +1,11 @@
 import {
   MagicPayloadMethod,
-  NFTPurchaseRequest,
-  NFTPurchaseResponse,
   NFTCheckoutRequest,
   NFTCheckoutResponse,
-  NFTTransferResponse,
+  NFTPurchaseRequest,
+  NFTPurchaseResponse,
   NFTTransferRequest,
+  NFTTransferResponse,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
