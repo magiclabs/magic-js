@@ -2944,10 +2944,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
   dependencies:
-    "@magic-sdk/types": ^16.3.1
+    "@magic-sdk/commons": ^15.3.1
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
-    magic-sdk: ^19.3.1
   languageName: unknown
   linkType: soft
 
