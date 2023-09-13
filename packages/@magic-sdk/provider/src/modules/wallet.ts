@@ -80,13 +80,9 @@ export class WalletModule extends BaseModule {
     return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowBalances));
   }
 
-  public sendGaslessTransaction(serializedTransaction: string) {
+  public sendGaslessTransaction(address: string, serializedTransaction: string) {
     return this.request<boolean>(
-      createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [
-        {
-          serialized: serializedTransaction,
-        },
-      ]),
+      createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [[address, serializedTransaction]]),
     );
   }
 
