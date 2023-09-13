@@ -14,4 +14,5 @@ export interface QueryParameters {
   locale?: string;
   bundleId?: string;
   nftEndpoint?: string;
+  gasEndpoint?: string;
 }

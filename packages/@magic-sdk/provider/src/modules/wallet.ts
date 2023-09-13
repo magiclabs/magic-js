@@ -80,6 +80,16 @@ export class WalletModule extends BaseModule {
     return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowBalances));
   }
 
+  public sendGaslessTransaction(serializedTransaction: string) {
+    return this.request<boolean>(
+      createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [
+        {
+          serialized: serializedTransaction,
+        },
+      ]),
+    );
+  }
+
   /* Get user info such as the wallet type they are logged in with */
   // deprecating
   public async getInfo() {

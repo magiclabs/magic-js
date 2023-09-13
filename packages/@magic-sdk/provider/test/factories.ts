@@ -1,6 +1,12 @@
 import * as memoryDriver from 'localforage-driver-memory';
 import localForage from 'localforage';
-import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS, TEST_API_KEY, MAGIC_NFT_API_URL } from './constants';
+import {
+  MAGIC_RELAYER_FULL_URL,
+  ENCODED_QUERY_PARAMS,
+  TEST_API_KEY,
+  MAGIC_NFT_API_URL,
+  MAGIC_GAS_API_URL,
+} from './constants';
 import { ViewController } from '../src';
 import type { SDKEnvironment } from '../src/core/sdk-environment';
 
@@ -42,6 +48,7 @@ export function createMagicSDKCtor(environment: { [P in keyof SDKEnvironment]?: 
     version: '1.0.0-test',
     defaultEndpoint: MAGIC_RELAYER_FULL_URL,
     defaultNFTEndpoint: MAGIC_NFT_API_URL,
+    defaultGasEndpoint: MAGIC_GAS_API_URL,
     ViewController: TestViewController,
     configureStorage: async () => {
       const lf = localForage.createInstance({});

@@ -21,6 +21,7 @@ interface SDKEnvironment {
   platform: 'web' | 'react-native';
   defaultEndpoint: string;
   defaultNFTEndpoint: string;
+  defaultGasEndpoint: string;
   ViewController: ConstructorOf<ViewController>;
   configureStorage: () => Promise<typeof localForage>;
   bundleId?: string | null;
