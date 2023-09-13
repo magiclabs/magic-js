@@ -91,8 +91,6 @@ export interface MagicSDKAdditionalConfiguration<
   TExt extends MagicSDKExtensionsOption<TCustomExtName> = any,
 > {
   endpoint?: string;
-  nftEndpoint?: string;
-  gasEndpoint?: string;
   locale?: SupportedLocale;
   network?: EthNetworkConfiguration;
   extensions?: TExt;
@@ -163,8 +161,6 @@ export class SDKBase {
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
       ETH_NETWORK: options?.network,
-      nftEndpoint: options?.nftEndpoint ?? defaultNFTEndpoint,
-      gasEndpoint: options?.gasEndpoint ?? defaultGasEndpoint,
       host: createURL(this.endpoint).host,
       sdk: sdkNameToEnvName[SDKEnvironment.sdkName],
       version,
