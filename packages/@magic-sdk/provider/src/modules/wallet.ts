@@ -1,5 +1,6 @@
 import {
   Events,
+  GasApiResponse,
   MagicPayloadMethod,
   RequestUserInfoScope,
   UserEnv,
@@ -81,7 +82,7 @@ export class WalletModule extends BaseModule {
   }
 
   public sendGaslessTransaction(address: string, serializedTransaction: string) {
-    return this.request<boolean>(
+    return this.request<GasApiResponse>(
       createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [[address, serializedTransaction]]),
     );
   }
