@@ -6,7 +6,7 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Generate JSON RPC request payload with method `magic_send_gasless_transaction`', async () => {
+test('Generate JSON RPC request payload with method `eth_sendGaslessTransaction`', async () => {
   const magic = createMagicSDK();
   magic.wallet.request = jest.fn();
 
@@ -16,8 +16,8 @@ test('Generate JSON RPC request payload with method `magic_send_gasless_transact
   magic.wallet.sendGaslessTransaction(address, sericalizedTranasction);
 
   const requestPayload = magic.wallet.request.mock.calls[0][0];
-  expect(requestPayload.method).toBe('magic_send_gasless_transaction');
-  expect(requestPayload.params).toEqual([address, sericalizedTranasction]);
+  expect(requestPayload.method).toBe('eth_sendGaslessTransaction');
+  expect(requestPayload.params).toEqual([[address, sericalizedTranasction]]);
 });
 
 test('method should return a PromiEvent', () => {
