@@ -142,7 +142,7 @@ export class SDKBase {
       createReactNativeEndpointConfigurationWarning().log();
     }
 
-    const { defaultEndpoint, defaultNFTEndpoint, defaultGasEndpoint, version } = SDKEnvironment;
+    const { defaultEndpoint, version } = SDKEnvironment;
     this.testMode = !!options?.testMode;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
 
