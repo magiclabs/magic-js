@@ -1,5 +1,18 @@
 # (Thu Sep 14 2023)
 
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@20.0.1`
+  - Jayhwang sc 86422 implement magic wallet sendgaslesstxn 2 [#625](https://github.com/magiclabs/magic-js/pull/625) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# (Thu Sep 14 2023)
+
 #### 💥 Breaking Change
 
 - `@magic-ext/auth@3.0.0`, `@magic-sdk/provider@20.0.0`, `@magic-sdk/types@17.0.0`
