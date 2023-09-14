@@ -83,7 +83,7 @@ export class WalletModule extends BaseModule {
 
   public sendGaslessTransaction(address: string, serializedTransaction: string) {
     return this.request<GasApiResponse>(
-      createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [[address, serializedTransaction]]),
+      createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [address, serializedTransaction]),
     );
   }
 

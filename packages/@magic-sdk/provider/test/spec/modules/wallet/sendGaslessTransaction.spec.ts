@@ -17,7 +17,7 @@ test('Generate JSON RPC request payload with method `eth_sendGaslessTransaction`
 
   const requestPayload = magic.wallet.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('eth_sendGaslessTransaction');
-  expect(requestPayload.params).toEqual([[address, sericalizedTranasction]]);
+  expect(requestPayload.params).toEqual([address, sericalizedTranasction]);
 });
 
 test('method should return a PromiEvent', () => {
