@@ -1,3 +1,18 @@
+# v13.4.0 (Thu Sep 14 2023)
+
+#### 🐛 Bug Fix
+
+- import extension from @magic-sdk/commons instead of magick-sdk [#618](https://github.com/magiclabs/magic-js/pull/618) ([@Dizigen](https://github.com/Dizigen))
+- move crypto-js to dependencies ([@Dizigen](https://github.com/Dizigen))
+- update package dependencies ([@Dizigen](https://github.com/Dizigen))
+- import extension from @magic-sdk/commons instead of magick-sdk ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v13.3.0 (Wed Aug 16 2023)
 
 #### 🐛 Bug Fix

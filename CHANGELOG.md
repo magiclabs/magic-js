@@ -1,3 +1,22 @@
+# (Thu Sep 14 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/auth@2.4.0`, `@magic-sdk/provider@19.4.0`, `@magic-sdk/react-native-bare@20.4.0`, `@magic-sdk/react-native-expo@20.4.0`, `@magic-sdk/types@16.4.0`, `magic-sdk@19.4.0`
+  - Jayhwang sc 86422 implement magic wallet sendgaslesstxn [#622](https://github.com/magiclabs/magic-js/pull/622) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@13.4.0`
+  - import extension from @magic-sdk/commons instead of magick-sdk [#618](https://github.com/magiclabs/magic-js/pull/618) ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 2
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Wed Aug 23 2023)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,21 @@
+# v16.4.0 (Thu Sep 14 2023)
+
+#### 🚀 Enhancement
+
+- Jayhwang sc 86422 implement magic wallet sendgaslesstxn [#622](https://github.com/magiclabs/magic-js/pull/622) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Remove gasEndpoint and nftEndpoint ([@octave08](https://github.com/octave08))
+- Change api response from boolean to GasApiResponse ([@octave08](https://github.com/octave08))
+- Add sendGaslessTransaction api ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v16.3.1 (Wed Aug 23 2023)
 
 #### 🐛 Bug Fix
