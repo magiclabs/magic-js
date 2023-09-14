@@ -110,19 +110,6 @@ export class UserModule extends BaseModule {
     return this.request<string | null, UpdateEmailEvents>(requestPayload);
   }
 
-  // Deprecating
-  public updatePhoneNumber() {
-    createDeprecationWarning({
-      method: 'user.updatePhoneNumber()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: 'auth.updatePhoneNumberWithUI()',
-    }).log();
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.UpdatePhoneNumberTestMode : MagicPayloadMethod.UpdatePhoneNumber,
-    );
-    return this.request<string | null>(requestPayload);
-  }
-
   // Private members
   private localForageKey = 'mc_active_wallet';
 }

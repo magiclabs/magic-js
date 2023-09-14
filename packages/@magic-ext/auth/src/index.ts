@@ -160,13 +160,6 @@ export class AuthExtension extends Extension.Internal<'auth', any> {
     );
     return this.request<string | null, UpdateEmailEventHandlers>(requestPayload);
   }
-
-  public updatePhoneNumberWithUI() {
-    const requestPayload = this.utils.createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.UpdatePhoneNumberTestMode : MagicPayloadMethod.UpdatePhoneNumber,
-    );
-    return this.request<string | null>(requestPayload);
-  }
 }
 
 export * from './types';
