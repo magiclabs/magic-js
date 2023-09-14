@@ -2,7 +2,7 @@
 /* eslint-disable no-new, class-methods-use-this, global-require */
 
 import browserEnv from '@ikscodes/browser-env';
-import { MAGIC_NFT_API_URL, MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
+import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
 import { createMagicSDKCtor } from '../../../factories';
 import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
@@ -18,7 +18,6 @@ function assertEncodedQueryParams(parameters: string, expectedParams: any = {}) 
   const defaultExpectedParams = {
     API_KEY: TEST_API_KEY,
     DOMAIN_ORIGIN: 'null',
-    nftEndpoint: MAGIC_NFT_API_URL,
     host: 'auth.magic.link',
     sdk: 'magic-sdk',
     version: '1.0.0-test',
@@ -65,15 +64,6 @@ test('Initialize `MagicSDK` with custom endpoint', () => {
   expect(magic.apiKey).toBe(TEST_API_KEY);
   expect(magic.endpoint).toBe('https://example.com');
   assertEncodedQueryParams(magic.parameters, { host: 'example.com' });
-  assertModuleInstanceTypes(magic);
-});
-
-test('Initialize `MagicSDK` with custom nftEnpoint', () => {
-  const Ctor = createMagicSDKCtor();
-  const magic = new Ctor(TEST_API_KEY, { nftEndpoint: 'https://example.com' });
-
-  expect(magic.apiKey).toBe(TEST_API_KEY);
-  assertEncodedQueryParams(magic.parameters, { nftEndpoint: 'https://example.com' });
   assertModuleInstanceTypes(magic);
 });
 

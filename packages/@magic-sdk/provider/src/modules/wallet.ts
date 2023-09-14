@@ -1,5 +1,6 @@
 import {
   Events,
+  GasApiResponse,
   MagicPayloadMethod,
   RequestUserInfoScope,
   UserEnv,
@@ -78,6 +79,12 @@ export class WalletModule extends BaseModule {
 
   public showBalances() {
     return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowBalances));
+  }
+
+  public sendGaslessTransaction(address: string, serializedTransaction: string) {
+    return this.request<GasApiResponse>(
+      createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [[address, serializedTransaction]]),
+    );
   }
 
   /* Get user info such as the wallet type they are logged in with */

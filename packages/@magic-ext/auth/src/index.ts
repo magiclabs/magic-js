@@ -20,7 +20,6 @@ interface SDKEnvironment {
   version: string;
   platform: 'web' | 'react-native';
   defaultEndpoint: string;
-  defaultNFTEndpoint: string;
   ViewController: ConstructorOf<ViewController>;
   configureStorage: () => Promise<typeof localForage>;
   bundleId?: string | null;

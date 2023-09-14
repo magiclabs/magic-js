@@ -13,5 +13,4 @@ export interface QueryParameters {
   ext?: any;
   locale?: string;
   bundleId?: string;
-  nftEndpoint?: string;
 }

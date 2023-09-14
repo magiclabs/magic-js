@@ -50,7 +50,6 @@ export const Magic = createSDK(SDKBaseReactNative, {
   version: process.env.EXPO_REACT_NATIVE_VERSION!,
   bundleId: Application.applicationId,
   defaultEndpoint: 'https://box.magic.link/',
-  defaultNFTEndpoint: 'https://nft-api.magic.link/',
   ViewController: ReactNativeWebViewController,
   configureStorage: /* istanbul ignore next */ async () => {
     const lf = localForage.createInstance({
