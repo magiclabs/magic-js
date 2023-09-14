@@ -1,3 +1,21 @@
+# v20.0.0 (Thu Sep 14 2023)
+
+#### 💥 Breaking Change
+
+- Jerryliu sc 83009 deprecate updatephonenumber in sdk [#598](https://github.com/magiclabs/magic-js/pull/598) ([@Ethella](https://github.com/Ethella) [@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+#### 🐛 Bug Fix
+
+- skip tests instead of comments ([@Ethella](https://github.com/Ethella))
+- Removing updatePhoneNumber API ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Chris Dakin ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v19.4.0 (Thu Sep 14 2023)
 
 #### 🚀 Enhancement

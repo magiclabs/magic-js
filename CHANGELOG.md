@@ -1,5 +1,19 @@
 # (Thu Sep 14 2023)
 
+#### 💥 Breaking Change
+
+- `@magic-ext/auth@3.0.0`, `@magic-sdk/provider@20.0.0`, `@magic-sdk/types@17.0.0`
+  - Jerryliu sc 83009 deprecate updatephonenumber in sdk [#598](https://github.com/magiclabs/magic-js/pull/598) ([@Ethella](https://github.com/Ethella) [@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+#### Authors: 2
+
+- Chris Dakin ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Sep 14 2023)
+
 #### 🚀 Enhancement
 
 - `@magic-ext/auth@2.4.0`, `@magic-sdk/provider@19.4.0`, `@magic-sdk/react-native-bare@20.4.0`, `@magic-sdk/react-native-expo@20.4.0`, `@magic-sdk/types@16.4.0`, `magic-sdk@19.4.0`
