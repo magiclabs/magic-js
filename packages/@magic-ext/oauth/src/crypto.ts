@@ -1,5 +1,4 @@
-import { WordArray } from 'crypto-js';
-import sha256Fallback from 'crypto-js/sha256';
+import { WordArray, SHA256 } from 'crypto-js';
 import Base64 from 'crypto-js/enc-base64';
 
 const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
@@ -50,7 +49,7 @@ async function sha256(message: string) {
     return crypto.subtle.digest('SHA-256', bytes).then(base64URLEncodeFromByteArray);
   }
 
-  return base64URLEncodeFromByteArray(sha256Fallback(message));
+  return base64URLEncodeFromByteArray(SHA256(message));
 }
 
 /**
