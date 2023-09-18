@@ -19,8 +19,14 @@
   "jsdelivr": "./dist/extension.js",
   "react-native": "./dist/react-native/index.native.js",
   "exports": {
-    "import": "./dist/es/index.mjs",
-    "require": "./dist/cjs/index.js"
+    "import": {
+      "default": "./dist/es/index.mjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "require": {
+      "default": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
   },
   "externals": {
     "include": [
