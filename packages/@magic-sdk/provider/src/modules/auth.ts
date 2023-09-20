@@ -13,8 +13,8 @@ import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
 import { UpdateEmailEvents } from './user';
-import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { isMajorVersionAtLeast } from '../util/version-check';
+import { createDeprecationWarning } from '../core/sdk-exceptions';
 
 export const ProductConsolidationMethodRemovalVersions = {
   'magic-sdk': 'v18.0.0',
@@ -35,19 +35,19 @@ export class AuthModule extends BaseModule {
       SDKEnvironment.sdkName === '@magic-sdk/react-native-bare' ||
       SDKEnvironment.sdkName === '@magic-sdk/react-native-expo';
 
+    // RN SDK major version is greater than or equal to v19
     if (isRNMobilePackage && isMajorVersionAtLeast(SDKEnvironment.version, 19)) {
       throw new Error(
         'loginWithMagicLink() is deprecated for this package, please utlize a passcode method like loginWithSMS or loginWithEmailOTP instead.',
       );
+    } else if (isRNMobilePackage) {
+      // RN SDK major version is less than v19
+      createDeprecationWarning({
+        method: 'auth.loginWithMagicLink()',
+        removalVersions: ProductConsolidationMethodRemovalVersions,
+        useInstead: 'auth.loginWithEmailOTP()',
+      }).log();
     }
-
-    createDeprecationWarning({
-      method: 'auth.loginWithMagicLink()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: isRNMobilePackage
-        ? '@magic-ext/auth auth.loginWithEmailOTP()'
-        : '@magic-ext/auth auth.loginWithMagicLink()',
-    }).log();
 
     const { email, showUI = true, redirectURI } = configuration;
 
@@ -64,11 +64,6 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithSMS(configuration: LoginWithSmsConfiguration) {
-    createDeprecationWarning({
-      method: 'auth.loginWithSMS()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.loginWithSMS()',
-    }).log();
     const { phoneNumber } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
@@ -116,11 +111,6 @@ export class AuthModule extends BaseModule {
    * `window.location.search`.
    */
   public loginWithCredential(credentialOrQueryString?: string) {
-    createDeprecationWarning({
-      method: 'auth.loginWithCredential()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.loginWithCredential()',
-    }).log();
     let credentialResolved = credentialOrQueryString ?? '';
 
     if (!credentialOrQueryString && SDKEnvironment.platform === 'web') {
@@ -141,21 +131,11 @@ export class AuthModule extends BaseModule {
 
   // Custom Auth
   public setAuthorizationToken(jwt: string) {
-    createDeprecationWarning({
-      method: 'auth.setAuthorizationToken()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.setAuthorizationToken()',
-    }).log();
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.SetAuthorizationToken, [{ jwt }]);
     return this.request<boolean>(requestPayload);
   }
 
   public updateEmailWithUI(configuration: UpdateEmailConfiguration) {
-    createDeprecationWarning({
-      method: 'auth.updateEmailWithUI()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: '@magic-ext/auth auth.updateEmailWithUI()',
-    }).log();
     const { email, showUI = true } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
