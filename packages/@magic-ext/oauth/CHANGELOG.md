@@ -1,3 +1,17 @@
+# v14.0.2 (Wed Sep 20 2023)
+
+#### 🐛 Bug Fix
+
+- Update @magic-ext/oauth crypto-js es module dependency [#627](https://github.com/magiclabs/magic-js/pull/627) ([@ysm-dev](https://github.com/ysm-dev))
+- fix type ([@ysm-dev](https://github.com/ysm-dev))
+- Fix @magic-ext/oauth crypto-js es module dependency ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # v13.4.0 (Thu Sep 14 2023)
 
 #### 🐛 Bug Fix

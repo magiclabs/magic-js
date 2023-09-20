@@ -1,3 +1,16 @@
+# v20.0.2 (Wed Sep 20 2023)
+
+#### 🐛 Bug Fix
+
+- Removes Deprecation Warnings for`@magic-ext/auth` methods [#629](https://github.com/magiclabs/magic-js/pull/629) ([@Ariflo](https://github.com/Ariflo))
+- Removes deprecation warnings for @magic-ext/auth methods ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v20.0.1 (Thu Sep 14 2023)
 
 #### 🐛 Bug Fix

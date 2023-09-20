@@ -1,3 +1,19 @@
+# (Wed Sep 20 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@20.0.2`
+  - Removes Deprecation Warnings for`@magic-ext/auth` methods [#629](https://github.com/magiclabs/magic-js/pull/629) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/oauth@14.0.2`
+  - Update @magic-ext/oauth crypto-js es module dependency [#627](https://github.com/magiclabs/magic-js/pull/627) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # (Thu Sep 14 2023)
 
 #### 🐛 Bug Fix
