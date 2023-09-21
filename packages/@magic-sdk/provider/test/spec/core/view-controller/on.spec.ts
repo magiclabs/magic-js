@@ -7,9 +7,9 @@ beforeEach(() => {
 });
 
 /**
- * We start with 3 listeners whenever a `ViewController` is created.
+ * We start with 4 listeners whenever a `ViewController` is created.
  */
-const baselineListeners = 3;
+const baselineListeners = 4;
 
 test('Adds the event listener callback to the internal state', () => {
   const viewController = createViewController();
