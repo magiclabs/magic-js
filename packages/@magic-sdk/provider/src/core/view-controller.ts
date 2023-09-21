@@ -62,7 +62,7 @@ async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayloa
   // only for webcrypto platforms
   if (SDKEnvironment.platform === 'web') {
     try {
-      jwt = await createJwt();
+      jwt = (await getItem<string>('jwt')) ?? (await createJwt());
     } catch (e) {
       console.error('webcrypto error', e);
     }
