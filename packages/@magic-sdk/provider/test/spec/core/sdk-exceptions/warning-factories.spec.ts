@@ -118,3 +118,24 @@ test('Creates a `DEPRECATION_NOTICE` warning with `useInstead` suffix', async ()
     '`test()` will be removed from `magic-sdk` in version `v999`. Use `test2()` instead.',
   );
 });
+
+test('Creates a `DEPRECATION_NOTICE` warning with `useInstead` containing "Dedicated Wallet" suffix', async () => {
+  mockSDKEnvironmentConstant({ sdkName: 'magic-sdk' });
+
+  const { createDeprecationWarning } = require('../../../../src/core/sdk-exceptions');
+  const warning = createDeprecationWarning({
+    method: 'test()',
+    removalVersions: {
+      'magic-sdk': 'v999',
+      '@magic-sdk/react-native-bare': 'v888',
+      '@magic-sdk/react-native-expo': 'v777',
+    },
+    useInstead: 'useDedicatedWallet()',
+  });
+
+  warningAssertions(
+    warning,
+    'DEPRECATION_NOTICE',
+    '`test()` will be removed from `magic-sdk` in version `v999`. Use `useDedicatedWallet()` instead to prevent disruption of the wallet service.',
+  );
+});
