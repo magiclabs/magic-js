@@ -51,7 +51,7 @@ test('Creates a `DEPRECATION_NOTICE` warning with `useInstead` containing "Dedic
   const expectedWarning = new MagicExtensionWarning(
     baseExtension,
     'DEPRECATION_NOTICE',
-    '`test()` will be removed from this Extension in version `v999`. Use `useDedicatedWallet()` instead to prevent disruption of the wallet service.',
+    '`test()` will be removed from this Extension in version `v999`. Use `useDedicatedWallet()` instead.',
   );
 
   const error: MagicExtensionWarning = baseExtension.createDeprecationWarning({
