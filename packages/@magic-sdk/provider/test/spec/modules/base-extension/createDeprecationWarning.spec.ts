@@ -44,3 +44,22 @@ test('Creates a `DEPRECATION_NOTICE` warning with `useInstead` suffix', async ()
   expect(expectedWarning.code).toBe(error.code);
   expect(expectedWarning.message).toBe(error.message);
 });
+
+test('Creates a `DEPRECATION_NOTICE` warning with `useInstead` containing "Dedicated Wallet" suffix', async () => {
+  const baseExtension = new (Extension as any)();
+
+  const expectedWarning = new MagicExtensionWarning(
+    baseExtension,
+    'DEPRECATION_NOTICE',
+    '`test()` will be removed from this Extension in version `v999`. Use `useDedicatedWallet()` instead to prevent disruption of the wallet service.',
+  );
+
+  const error: MagicExtensionWarning = baseExtension.createDeprecationWarning({
+    method: 'test()',
+    removalVersion: 'v999',
+    useInstead: 'useDedicatedWallet()',
+  });
+
+  expect(expectedWarning.code).toBe(error.code);
+  expect(expectedWarning.message).toBe(error.message);
+});
