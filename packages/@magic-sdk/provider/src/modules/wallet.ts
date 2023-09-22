@@ -17,6 +17,7 @@ import { setItem, getItem, removeItem } from '../util/storage';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { createPromiEvent } from '../util';
 import { clearDeviceShares } from '../util/device-share-web-crypto';
+import { UniversalWalletRemovalVersions } from '../core/view-controller';
 
 export type ConnectWithUiEvents = {
   'id-token-created': (params: { idToken: string }) => void;
@@ -131,6 +132,11 @@ export class WalletModule extends BaseModule {
 
   /* Returns the provider for the connected wallet */
   public async getProvider(): Promise<any> {
+    createDeprecationWarning({
+      method: 'magic.wallet.getProvider()',
+      removalVersions: UniversalWalletRemovalVersions,
+    }).log();
+
     const activeWallet = await getItem(this.localForageKey);
     switch (activeWallet) {
       case Wallets.MetaMask:
