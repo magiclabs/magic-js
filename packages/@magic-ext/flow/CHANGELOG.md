@@ -1,3 +1,16 @@
+# v15.0.3 (Fri Sep 22 2023)
+
+#### 🐛 Bug Fix
+
+- adds cdnGlobalName to flow package.json [#630](https://github.com/magiclabs/magic-js/pull/630) ([@joshuascan](https://github.com/joshuascan))
+- adds cdnGlobalName to flow package.json ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v14.3.0 (Wed Aug 16 2023)
 
 #### 🐛 Bug Fix
