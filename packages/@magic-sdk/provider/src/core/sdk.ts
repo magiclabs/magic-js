@@ -168,9 +168,6 @@ export class SDKBase {
       locale: options?.locale || 'en_US',
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
     });
-
-    // Force the constructor to preload the iframe.
-    this.preload();
   }
 
   /**
