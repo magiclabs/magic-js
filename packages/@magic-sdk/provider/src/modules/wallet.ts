@@ -8,6 +8,8 @@ import {
   WalletInfo,
   Wallets,
 } from '@magic-sdk/types';
+import type { PreparedTransactionRequest } from 'ethers';
+
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
@@ -81,9 +83,9 @@ export class WalletModule extends BaseModule {
     return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowBalances));
   }
 
-  public sendGaslessTransaction(address: string, serializedTransaction: string) {
+  public sendGaslessTransaction(address: string, transaction: PreparedTransactionRequest) {
     return this.request<GasApiResponse>(
-      createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [address, serializedTransaction]),
+      createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [address, transaction]),
     );
   }
 
