@@ -2,13 +2,13 @@ import {
   Events,
   GasApiResponse,
   MagicPayloadMethod,
+  GaslessTransactionRequest,
   RequestUserInfoScope,
   UserEnv,
   UserInfo,
   WalletInfo,
   Wallets,
 } from '@magic-sdk/types';
-import type { PreparedTransactionRequest } from 'ethers';
 
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -83,7 +83,7 @@ export class WalletModule extends BaseModule {
     return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowBalances));
   }
 
-  public sendGaslessTransaction(address: string, transaction: PreparedTransactionRequest) {
+  public sendGaslessTransaction(address: string, transaction: GaslessTransactionRequest) {
     return this.request<GasApiResponse>(
       createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [address, transaction]),
     );
