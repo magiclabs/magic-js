@@ -75,7 +75,7 @@ async function generateWCKP() {
   const { subtle } = window.crypto;
   const kp = await subtle.generateKey(
     EC_GEN_PARAMS,
-    false, // need to export the public key which means private exports too
+    false, // need to export the public key, while keep private key non-extractable
     ['sign'],
   );
 
