@@ -1,3 +1,16 @@
+# (Fri Sep 29 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@20.1.0`
+  - improve generateKey logic [#636](https://github.com/magiclabs/magic-js/pull/636) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Thu Sep 28 2023)
 
 #### 🐛 Bug Fix
