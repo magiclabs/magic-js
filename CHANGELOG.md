@@ -1,3 +1,36 @@
+# (Fri Sep 29 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@20.1.0`
+  - improve generateKey logic [#636](https://github.com/magiclabs/magic-js/pull/636) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Sep 28 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@20.0.3`, `@magic-sdk/types@17.0.1`
+  - Jayhwang sc 87905 gas subsidy change sendgaslesstransaction [#638](https://github.com/magiclabs/magic-js/pull/638) ([@octave08](https://github.com/octave08))
+
+#### ⚠️ Pushed to `master`
+
+- `@magic-sdk/provider@20.0.3`
+  - undo push into master ([@Dizigen](https://github.com/Dizigen))
+  - Force the constructor to preload the iframe. ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 2
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Fri Sep 22 2023)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,15 @@
+# v20.1.0 (Fri Sep 29 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-87830-optimize-webcrypto-implementation-to-generate ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v19.4.0 (Thu Sep 14 2023)
 
 #### 🚀 Enhancement
