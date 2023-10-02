@@ -1,3 +1,16 @@
+# (Mon Oct 02 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@17.0.2`
+  - Add expire email OTP to LoginWithEmailOTPEventOnReceived type [#639](https://github.com/magiclabs/magic-js/pull/639) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 1
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+
+---
+
 # (Fri Sep 29 2023)
 
 #### 🚀 Enhancement
