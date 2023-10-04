@@ -28,10 +28,12 @@
     ]
   },
   "dependencies": {
+    "@types/crypto-js": "4.1.2",
     "crypto-js": "4.1.1"
   },
   "devDependencies": {
     "@magic-sdk/commons": "^16.1.1",
-    "@types/crypto-js": "4.1.2"
+    "@types/crypto-js": "4.1.2",
+    "crypto-js": "4.1.1"
   }
 }
