@@ -1,3 +1,17 @@
+# v14.1.2 (Sat Oct 07 2023)
+
+#### 🐛 Bug Fix
+
+- Fix crypto-js type [#641](https://github.com/magiclabs/magic-js/pull/641) ([@ysm-dev](https://github.com/ysm-dev))
+- fix type ([@ysm-dev](https://github.com/ysm-dev))
+- Fix crypto-js type ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # v14.1.1 (Mon Oct 02 2023)
 
 #### 🐛 Bug Fix

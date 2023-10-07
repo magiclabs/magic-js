@@ -1,3 +1,16 @@
+# (Sat Oct 07 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@14.1.2`
+  - Fix crypto-js type [#641](https://github.com/magiclabs/magic-js/pull/641) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # (Mon Oct 02 2023)
 
 #### 🐛 Bug Fix
