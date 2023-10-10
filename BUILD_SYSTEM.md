@@ -73,8 +73,6 @@ We generate multiple outputs in order to maximize backwards compatibility and in
   // Output location for CDN entrypoint
   "jsdelivr": "./dist/my-library.js",
 
-  // Output location for React Native entrypoint
-  "react-native": "./dist/react-native/index.native.js",
 
   // Here, we define a standard NodeJS "exports" field...
   "exports": {

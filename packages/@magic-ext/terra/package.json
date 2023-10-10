@@ -17,7 +17,6 @@
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
-  "react-native": "./dist/react-native/index.native.js",
   "exports": {
     "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
