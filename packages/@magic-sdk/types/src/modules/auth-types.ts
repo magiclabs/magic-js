@@ -18,6 +18,13 @@ export interface LoginWithMagicLinkConfiguration {
    * configure here.
    */
   redirectURI?: string;
+
+  /**
+   * Enterprise users with a custom SMTP can create custom email templates
+   * from their dashboard. The default Magic loginWithMagicLink email will be
+   * overriden when a customTemplateName is passed here.
+   */
+  customTemplateName?: string;
 }
 
 export interface LoginWithSmsConfiguration {
@@ -54,6 +61,13 @@ export interface LoginWithEmailOTPConfiguration {
    * handle device check events, providing a more tailored user experience.
    */
   deviceCheckUI?: boolean;
+
+  /**
+   * Enterprise users with a custom SMTP can create custom email templates
+   * from their dashboard. The default Magic loginWithOTP email will be
+   * overriden when a customTemplateName is passed here.
+   */
+  customTemplateName?: string;
 }
 
 /**
