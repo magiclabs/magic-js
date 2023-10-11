@@ -1,3 +1,16 @@
+# (Wed Oct 11 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/algorand@15.1.2`, `@magic-ext/avalanche@15.1.2`, `@magic-ext/conflux@13.1.2`, `@magic-ext/cosmos@15.1.2`, `@magic-ext/ed25519@11.1.2`, `@magic-ext/flow@15.1.2`, `@magic-ext/hedera@1.0.2`, `@magic-ext/icon@15.1.2`, `@magic-ext/near@15.1.2`, `@magic-ext/polkadot@15.1.2`, `@magic-ext/solana@16.1.2`, `@magic-ext/taquito@12.1.2`, `@magic-ext/terra@12.1.2`, `@magic-ext/tezos@15.1.2`, `@magic-ext/webauthn@14.1.2`, `@magic-ext/zilliqa@15.1.2`
+  - Removes React Native entrypoint from all extension's package.json [#644](https://github.com/magiclabs/magic-js/pull/644) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Sat Oct 07 2023)
 
 #### 🐛 Bug Fix
