@@ -49,6 +49,7 @@ export class AuthModule extends BaseModule {
       }).log();
     }
 
+    console.log(configuration);
     const { email, showUI = true, redirectURI, variation } = configuration;
 
     const requestPayload = createJsonRpcRequestPayload(
