@@ -49,12 +49,11 @@ export class AuthModule extends BaseModule {
       }).log();
     }
 
-    console.log(configuration);
-    const { email, showUI = true, redirectURI, variation } = configuration;
+    const { email, showUI = true, redirectURI, overrides } = configuration;
 
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
-      [{ email, showUI, redirectURI, variation }],
+      [{ email, showUI, redirectURI, overrides }],
     );
     return this.request<string | null, LoginWithMagicLinkEventHandlers>(requestPayload);
   }
@@ -79,10 +78,10 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
-    const { email, showUI, deviceCheckUI, variation } = configuration;
+    const { email, showUI, deviceCheckUI, overrides } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
-      [{ email, showUI, deviceCheckUI, variation }],
+      [{ email, showUI, deviceCheckUI, overrides }],
     );
     const handle = this.request<string | null, LoginWithEmailOTPEventHandlers>(requestPayload);
     if (!deviceCheckUI && handle) {
