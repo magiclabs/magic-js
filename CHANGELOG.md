@@ -1,3 +1,75 @@
+# (Wed Oct 11 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/algorand@15.1.2`, `@magic-ext/avalanche@15.1.2`, `@magic-ext/conflux@13.1.2`, `@magic-ext/cosmos@15.1.2`, `@magic-ext/ed25519@11.1.2`, `@magic-ext/flow@15.1.2`, `@magic-ext/hedera@1.0.2`, `@magic-ext/icon@15.1.2`, `@magic-ext/near@15.1.2`, `@magic-ext/polkadot@15.1.2`, `@magic-ext/solana@16.1.2`, `@magic-ext/taquito@12.1.2`, `@magic-ext/terra@12.1.2`, `@magic-ext/tezos@15.1.2`, `@magic-ext/webauthn@14.1.2`, `@magic-ext/zilliqa@15.1.2`
+  - Removes React Native entrypoint from all extension's package.json [#644](https://github.com/magiclabs/magic-js/pull/644) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Sat Oct 07 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@14.1.2`
+  - Fix crypto-js type [#641](https://github.com/magiclabs/magic-js/pull/641) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Mon Oct 02 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@17.0.2`
+  - Add expire email OTP to LoginWithEmailOTPEventOnReceived type [#639](https://github.com/magiclabs/magic-js/pull/639) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 1
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+
+---
+
+# (Fri Sep 29 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@20.1.0`
+  - improve generateKey logic [#636](https://github.com/magiclabs/magic-js/pull/636) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Sep 28 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@20.0.3`, `@magic-sdk/types@17.0.1`
+  - Jayhwang sc 87905 gas subsidy change sendgaslesstransaction [#638](https://github.com/magiclabs/magic-js/pull/638) ([@octave08](https://github.com/octave08))
+
+#### ⚠️ Pushed to `master`
+
+- `@magic-sdk/provider@20.0.3`
+  - undo push into master ([@Dizigen](https://github.com/Dizigen))
+  - Force the constructor to preload the iframe. ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 2
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Fri Sep 22 2023)
 
 #### 🐛 Bug Fix

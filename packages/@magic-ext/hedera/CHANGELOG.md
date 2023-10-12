@@ -1,3 +1,16 @@
+# v1.0.2 (Wed Oct 11 2023)
+
+#### 🐛 Bug Fix
+
+- Removes React Native entrypoint from all extension's package.json [#644](https://github.com/magiclabs/magic-js/pull/644) ([@Ariflo](https://github.com/Ariflo))
+- Removes React Native entrypoint from all extensions package.json ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v1.0.1 (Thu Aug 10 2023)
 
 #### 🐛 Bug Fix

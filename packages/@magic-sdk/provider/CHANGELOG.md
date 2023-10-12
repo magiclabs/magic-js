@@ -1,3 +1,54 @@
+# v20.1.1 (Mon Oct 02 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into patjacobs-sc-83016-ux-optimization-expired-email-otps ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 1
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+
+---
+
+# v20.1.0 (Fri Sep 29 2023)
+
+#### 🚀 Enhancement
+
+- improve generateKey logic [#636](https://github.com/magiclabs/magic-js/pull/636) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-87830-optimize-webcrypto-implementation-to-generate ([@Ethella](https://github.com/Ethella))
+- update comment ([@Ethella](https://github.com/Ethella))
+- improve generateKey logic ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v20.0.3 (Thu Sep 28 2023)
+
+#### 🐛 Bug Fix
+
+- Jayhwang sc 87905 gas subsidy change sendgaslesstransaction [#638](https://github.com/magiclabs/magic-js/pull/638) ([@octave08](https://github.com/octave08))
+- Fix tc for sendGaslessTransaction ([@octave08](https://github.com/octave08))
+- Refactor transaction type without ethers.js ([@octave08](https://github.com/octave08))
+- Change sendGaslessTransaction signature ([@octave08](https://github.com/octave08))
+
+#### ⚠️ Pushed to `master`
+
+- undo push into master ([@Dizigen](https://github.com/Dizigen))
+- Force the constructor to preload the iframe. ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 2
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v20.0.2 (Wed Sep 20 2023)
 
 #### 🐛 Bug Fix
