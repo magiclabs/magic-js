@@ -59,13 +59,12 @@ async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayloa
   const rt = await getItem<string>('rt');
   let jwt;
 
-  // only for webcrypto platforms
-  if (SDKEnvironment.platform === 'web') {
-    try {
-      jwt = await createJwt();
-    } catch (e) {
-      console.error('webcrypto error', e);
-    }
+  console.log(`createMagicRequest called`);
+
+  try {
+    jwt = await createJwt();
+  } catch (e) {
+    console.error('createJwt error', e);
   }
 
   if (!jwt) {
@@ -208,6 +207,10 @@ export abstract class ViewController {
 
     this.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
       this.showOverlay();
+    });
+
+    this.on(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, (event: MagicMessageEvent) => {
+      console.log(`event => ${JSON.stringify(event)}`);
     });
   }
 }

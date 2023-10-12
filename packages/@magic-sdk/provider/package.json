@@ -36,6 +36,9 @@
   },
   "dependencies": {
     "@magic-sdk/types": "^17.0.0",
+    "@types/elliptic": "^6.4.14",
+    "base64url": "^3.0.1",
+    "elliptic": "^6.5.4",
     "eventemitter3": "^4.0.4",
     "web3-core": "1.5.2"
   },
