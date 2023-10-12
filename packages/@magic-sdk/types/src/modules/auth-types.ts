@@ -72,6 +72,7 @@ export type LoginWithEmailOTPEventHandlers = {
   // Event Received
   [LoginWithEmailOTPEventOnReceived.EmailOTPSent]: () => void;
   [LoginWithEmailOTPEventOnReceived.InvalidEmailOtp]: () => void;
+  [LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp]: () => void;
 
   // Event sent
   [LoginWithEmailOTPEventEmit.VerifyEmailOtp]: (otp: string) => void;
@@ -109,6 +110,7 @@ export enum LoginWithEmailOTPEventEmit {
 export enum LoginWithEmailOTPEventOnReceived {
   EmailOTPSent = 'email-otp-sent',
   InvalidEmailOtp = 'invalid-email-otp',
+  ExpiredEmailOtp = 'expired-email-otp',
 }
 
 export enum DeviceVerificationEventEmit {

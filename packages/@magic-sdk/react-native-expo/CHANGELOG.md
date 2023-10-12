@@ -1,3 +1,27 @@
+# v21.1.1 (Mon Oct 02 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into patjacobs-sc-83016-ux-optimization-expired-email-otps ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 1
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+
+---
+
+# v21.1.0 (Fri Sep 29 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-87830-optimize-webcrypto-implementation-to-generate ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v20.4.0 (Thu Sep 14 2023)
 
 #### 🚀 Enhancement

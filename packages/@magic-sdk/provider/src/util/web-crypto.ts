@@ -10,10 +10,6 @@ const EC_GEN_PARAMS: EcKeyGenParams = {
   name: ALGO_NAME,
   namedCurve: ALGO_CURVE,
 };
-const EC_IMPORT_PARAMS: EcKeyImportParams = {
-  name: ALGO_NAME,
-  namedCurve: ALGO_CURVE,
-};
 
 export function clearKeys() {
   removeItem(STORE_KEY_PUBLIC_JWK);
@@ -76,23 +72,17 @@ async function getPublicKey() {
 async function generateWCKP() {
   // to avoid a nasty babel bug we have to hoist this above the await ourselves
   // https://github.com/rpetrich/babel-plugin-transform-async-to-promises/issues/20
-  let jwkPublicKey = null;
   const { subtle } = window.crypto;
   const kp = await subtle.generateKey(
     EC_GEN_PARAMS,
-    true, // need to export the public key which means private exports too
+    false, // need to export the public key, while keep private key non-extractable
     ['sign'],
   );
 
-  // export keys so we can send the public key.
-  const jwkPrivateKey = await subtle.exportKey('jwk', kp.privateKey!);
-  jwkPublicKey = await subtle.exportKey('jwk', kp.publicKey!);
-
-  // reimport the private key so it becomes non exportable when persisting.
-  const nonExportPrivateKey = await subtle.importKey('jwk', jwkPrivateKey, EC_IMPORT_PARAMS, false, ['sign']);
+  const jwkPublicKey = await subtle.exportKey('jwk', kp.publicKey!);
 
   // persist keys
-  await setItem(STORE_KEY_PRIVATE_KEY, nonExportPrivateKey);
+  await setItem(STORE_KEY_PRIVATE_KEY, kp.privateKey!);
   // persist the jwk public key since it needs to be exported anyways
   await setItem(STORE_KEY_PUBLIC_JWK, jwkPublicKey);
 }

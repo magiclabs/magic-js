@@ -1,3 +1,4 @@
+import { WordArray } from 'crypto-js';
 import SHA256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 
@@ -18,9 +19,9 @@ function bytesToVerifierString(bytes: Uint8Array) {
  * Stringifies argument (as CryptoJS `WordArray` or EcmaScript `ArrayBuffer`)
  * and encodes to URL-safe Base64.
  */
-function base64URLEncodeFromByteArray(wordArray: CryptoJS.lib.WordArray): string;
+function base64URLEncodeFromByteArray(wordArray: WordArray): string;
 function base64URLEncodeFromByteArray(arrayBuffer: ArrayBuffer): string;
-function base64URLEncodeFromByteArray(arg: CryptoJS.lib.WordArray | ArrayBuffer): string {
+function base64URLEncodeFromByteArray(arg: WordArray | ArrayBuffer): string {
   const makeURLSafe = (base64: string) => {
     return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
   };

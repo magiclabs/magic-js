@@ -1,3 +1,30 @@
+# v17.0.2 (Mon Oct 02 2023)
+
+#### 🐛 Bug Fix
+
+- Add expire email OTP to LoginWithEmailOTPEventOnReceived type [#639](https://github.com/magiclabs/magic-js/pull/639) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Merge branch 'master' into patjacobs-sc-83016-ux-optimization-expired-email-otps ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- add expire email otp to LoginWithEmailOTPEventOnReceived type ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 1
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+
+---
+
+# v17.0.1 (Thu Sep 28 2023)
+
+#### 🐛 Bug Fix
+
+- Jayhwang sc 87905 gas subsidy change sendgaslesstransaction [#638](https://github.com/magiclabs/magic-js/pull/638) ([@octave08](https://github.com/octave08))
+- Refactor transaction type without ethers.js ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v17.0.0 (Thu Sep 14 2023)
 
 #### 💥 Breaking Change

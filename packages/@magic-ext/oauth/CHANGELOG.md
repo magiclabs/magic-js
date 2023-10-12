@@ -1,3 +1,41 @@
+# v14.1.2 (Sat Oct 07 2023)
+
+#### 🐛 Bug Fix
+
+- Fix crypto-js type [#641](https://github.com/magiclabs/magic-js/pull/641) ([@ysm-dev](https://github.com/ysm-dev))
+- fix type ([@ysm-dev](https://github.com/ysm-dev))
+- Fix crypto-js type ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# v14.1.1 (Mon Oct 02 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into patjacobs-sc-83016-ux-optimization-expired-email-otps ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 1
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+
+---
+
+# v14.1.0 (Fri Sep 29 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-87830-optimize-webcrypto-implementation-to-generate ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v14.0.2 (Wed Sep 20 2023)
 
 #### 🐛 Bug Fix

@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/tezos",
-  "version": "15.0.2",
+  "version": "15.1.2",
   "description": "magic tezos extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -17,7 +17,6 @@
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
-  "react-native": "./dist/react-native/index.native.js",
   "exports": {
     "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
@@ -28,6 +27,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^16.0.2"
+    "@magic-sdk/commons": "^16.1.1"
   }
 }
