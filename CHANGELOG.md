@@ -1,3 +1,16 @@
+# (Fri Oct 13 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@21.0.0`
+  - Have the constructor preload iframe assets by default, with optional SDK flag to defer preloading [#634](https://github.com/magiclabs/magic-js/pull/634) ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # (Wed Oct 11 2023)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,21 @@
+# v21.0.0 (Fri Oct 13 2023)
+
+#### 💥 Breaking Change
+
+- Have the constructor preload iframe assets by default, with optional SDK flag to defer preloading [#634](https://github.com/magiclabs/magic-js/pull/634) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- optional sdk ctor flag to defer preloading ([@Dizigen](https://github.com/Dizigen))
+- Merge branch 'master' into force-ctor-preload-iframe ([@Dizigen](https://github.com/Dizigen))
+- force the constructor to preload the iframe ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v20.1.1 (Mon Oct 02 2023)
 
 #### 🐛 Bug Fix

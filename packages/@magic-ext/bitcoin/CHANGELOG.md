@@ -1,3 +1,15 @@
+# v16.0.0 (Fri Oct 13 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into force-ctor-preload-iframe ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v15.1.1 (Mon Oct 02 2023)
 
 #### 🐛 Bug Fix
