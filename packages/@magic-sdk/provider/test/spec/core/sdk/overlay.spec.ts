@@ -10,7 +10,7 @@ beforeEach(() => {
 
 test('`MagicSDK.overlay` is lazy loaded', async () => {
   const Ctor = createMagicSDKCtor();
-  const magic = new Ctor(TEST_API_KEY);
+  const magic = new Ctor(TEST_API_KEY, { deferPreload: true });
 
   expect((SDKBase as any).__overlays__.size).toBe(0);
 
