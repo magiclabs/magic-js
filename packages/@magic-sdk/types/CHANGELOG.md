@@ -1,3 +1,21 @@
+# v17.1.0 (Thu Oct 19 2023)
+
+#### 🚀 Enhancement
+
+- Adds template name to loginWithOTP and loginWithMagicLink [#643](https://github.com/magiclabs/magic-js/pull/643) ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+#### 🐛 Bug Fix
+
+- Changes function to accept overrides ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+- Change out variable name for back end consumption ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+- Add optional field to login methods ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+#### Authors: 1
+
+- Chris Dakin ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+---
+
 # v17.0.2 (Mon Oct 02 2023)
 
 #### 🐛 Bug Fix

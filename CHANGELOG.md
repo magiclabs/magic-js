@@ -1,3 +1,16 @@
+# (Thu Oct 19 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@21.1.0`, `@magic-sdk/types@17.1.0`
+  - Adds template name to loginWithOTP and loginWithMagicLink [#643](https://github.com/magiclabs/magic-js/pull/643) ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+#### Authors: 1
+
+- Chris Dakin ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+---
+
 # (Fri Oct 13 2023)
 
 #### 💥 Breaking Change
