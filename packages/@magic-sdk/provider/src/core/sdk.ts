@@ -101,8 +101,8 @@ export interface MagicSDKAdditionalConfiguration<
 export class SDKBase {
   private static readonly __overlays__: Map<string, ViewController> = new Map();
 
-  protected readonly endpoint: string;
-  protected readonly parameters: string;
+  protected endpoint: string;
+  protected parameters: string;
   public readonly testMode: boolean;
 
   /**
@@ -197,5 +197,10 @@ export class SDKBase {
    */
   public async preload() {
     await this.overlay.ready;
+  }
+
+  public overrideEndpointAndParams(e: string, p: string) {
+    this.endpoint = e;
+    this.parameters = p;
   }
 }
