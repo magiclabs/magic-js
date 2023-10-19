@@ -38,14 +38,12 @@ export type NFTPurchaseResponse = NFTResponse & {
 export interface NFTCheckoutRequest {
   // given by magic / found in the developer dashboard in future
   contractId: string;
-  contractAddress: string;
   // in contract, if ERC1155… for ERC721, use token ID = 0
   tokenId: string;
   name: string;
   imageUrl: string;
-  quantity: number;
-  // Checkout UI compares against session wallet, if == then show “Magic Wallet”
-  walletAddress?: string;
+  quantity?: number; // default is 1
+  walletAddress?: string; // default is user's wallet address
 }
 
 export type NFTCheckoutResponse = NFTResponse;
