@@ -1,3 +1,16 @@
+# (Fri Oct 20 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@17.1.1`
+  - Change NFTCheckoutRequest type [#649](https://github.com/magiclabs/magic-js/pull/649) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Thu Oct 19 2023)
 
 #### 🚀 Enhancement
