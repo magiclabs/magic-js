@@ -1,3 +1,21 @@
+# v17.2.0 (Tue Oct 24 2023)
+
+#### 🚀 Enhancement
+
+- Add support for versioned transaction in Solana [#652](https://github.com/magiclabs/magic-js/pull/652) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-support-sepolia-natively ([@hcote](https://github.com/hcote))
+- Add support for versioned transaction in Solana ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v17.0.0 (Fri Oct 13 2023)
 
 #### 🐛 Bug Fix

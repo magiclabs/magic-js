@@ -1,3 +1,22 @@
+# (Tue Oct 24 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/solana@17.2.0`
+  - Add support for versioned transaction in Solana [#652](https://github.com/magiclabs/magic-js/pull/652) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@17.2.0`
+  - allow sepolia for network key [#646](https://github.com/magiclabs/magic-js/pull/646) ([@hcote](https://github.com/hcote))
+
+#### Authors: 2
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Fri Oct 20 2023)
 
 #### 🐛 Bug Fix

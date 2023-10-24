@@ -1,3 +1,17 @@
+# v17.2.0 (Tue Oct 24 2023)
+
+#### 🐛 Bug Fix
+
+- allow sepolia for network key [#646](https://github.com/magiclabs/magic-js/pull/646) ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into hcote-support-sepolia-natively ([@hcote](https://github.com/hcote))
+- allow sepolia for network key ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v17.1.1 (Fri Oct 20 2023)
 
 #### 🐛 Bug Fix
