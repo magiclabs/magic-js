@@ -1,6 +1,7 @@
 import { Extension } from '@magic-sdk/commons';
 
 /* eslint-disable no-param-reassign, array-callback-return */
+import { Transaction, VersionedTransaction } from '@solana/web3.js';
 import { SolanaConfig, SolanaPayloadMethod, SerializeConfig } from './type';
 
 export class SolanaExtension extends Extension.Internal<'solana', any> {
@@ -16,31 +17,18 @@ export class SolanaExtension extends Extension.Internal<'solana', any> {
     };
   }
 
-  public signTransaction = (transaction: any, serializeConfig?: SerializeConfig) => {
-    const { instructions } = transaction;
-
-    const magicInstructions = instructions.map((i: any) => {
-      return {
-        ...i,
-        keys: i.keys.map((k: any) => {
-          return { ...k, pubkey: k.pubkey.toBase58() };
-        }),
-        programId: i.programId.toBase58(),
-      };
-    });
-
-    const params = {
-      feePayer: transaction.feePayer.toBase58(),
-      instructions: magicInstructions,
-      recentBlockhash: transaction.recentBlockhash,
-      serializeConfig,
-    };
-
+  public signTransaction = (transaction: Transaction | VersionedTransaction) => {
     return this.request({
       id: 42,
       jsonrpc: '2.0',
       method: SolanaPayloadMethod.SignTransaction,
-      params,
+      params: {
+        type: transaction instanceof Transaction ? 'legacy' : 0,
+        serialized: transaction.serialize({
+          requireAllSignatures: false,
+          verifySignatures: false,
+        }),
+      },
     });
   };
 
