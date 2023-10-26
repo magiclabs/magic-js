@@ -62,7 +62,7 @@ export class IframeController extends ViewController {
           iframe.classList.add('magic-iframe');
           iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
           iframe.title = 'Secure Modal';
-          iframe.src = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
+          iframe.src = createURL(`/send-v1?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
           resolve(iframe);
