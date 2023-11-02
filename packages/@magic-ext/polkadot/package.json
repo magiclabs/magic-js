@@ -18,15 +18,24 @@
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
   "exports": {
+    "types": "./dist/types/index.d.ts",
     "import": "./dist/es/index.mjs",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons"
+      "@magic-sdk/provider"
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^17.2.0"
+    "@magic-sdk/provider": "^21.2.0",
+    "@polkadot/types": "^10.10.1",
+    "@polkadot/util": "^12.5.1"
+  },
+  "dependencies": {
+    "@polkadot/api": "^10.10.1"
+  },
+  "peerDependencies": {
+    "@polkadot/api": "^10.10.1"
   }
 }
