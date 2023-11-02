@@ -1,5 +1,7 @@
-import { Extension } from '@magic-sdk/commons';
-import { PolkadotConfig, ConfigType } from './type';
+import { Extension } from '@magic-sdk/provider';
+import type { ConfigType, PolkadotConfig } from './type';
+
+export { MagicSigner } from './magic-signer';
 
 export class PolkadotExtension extends Extension.Internal<'polkadot', PolkadotConfig> {
   name = 'polkadot' as const;
