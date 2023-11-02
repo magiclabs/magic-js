@@ -1,5 +1,8 @@
-import { Extension } from '@magic-sdk/commons';
-import { PolkadotConfig, ConfigType } from './type';
+import { Extension } from '@magic-sdk/provider';
+import type { ConfigType, PolkadotConfig } from './type';
+import { POLKADOT_METHODS } from './type';
+
+export { MagicSigner } from './magic-signer';
 
 export class PolkadotExtension extends Extension.Internal<'polkadot', PolkadotConfig> {
   name = 'polkadot' as const;
@@ -19,7 +22,7 @@ export class PolkadotExtension extends Extension.Internal<'polkadot', PolkadotCo
     return this.request({
       id: 42,
       jsonrpc: '2.0',
-      method: 'pdt_sendTransaction',
+      method: POLKADOT_METHODS.SEND_TRANSACTION,
       params: { to, value },
     });
   };
@@ -28,7 +31,7 @@ export class PolkadotExtension extends Extension.Internal<'polkadot', PolkadotCo
     return this.request({
       id: 42,
       jsonrpc: '2.0',
-      method: 'pdt_contractCall',
+      method: POLKADOT_METHODS.CONTRACT_CALL,
       params: { contractAddress, value, maxGas, data },
     });
   };
@@ -37,7 +40,7 @@ export class PolkadotExtension extends Extension.Internal<'polkadot', PolkadotCo
     return this.request({
       id: 42,
       jsonrpc: '2.0',
-      method: 'pdt_getAccount',
+      method: POLKADOT_METHODS.GET_ACCOUNT,
       params: [],
     });
   };
