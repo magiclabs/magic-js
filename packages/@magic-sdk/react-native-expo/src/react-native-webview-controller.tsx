@@ -9,6 +9,7 @@ import Global = NodeJS.Global;
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
+const DEFAULT_BACKGROUND_COLOR = '#FFFFFF';
 
 /**
  * Builds the Magic `<WebView>` overlay styles. These base styles enable
@@ -76,7 +77,7 @@ export class ReactNativeWebViewController extends ViewController {
   // is sufficient (this logic is stable right now and not expected to change in
   // the forseeable future).
   /* istanbul ignore next */
-  public Relayer: React.FC = () => {
+  public Relayer: React.FC<{ backgroundColor?: string }> = ({ backgroundColor }) => {
     const [show, setShow] = useState(false);
 
     /**
@@ -114,7 +115,15 @@ export class ReactNativeWebViewController extends ViewController {
     }, []);
 
     const containerStyles = useMemo(() => {
-      return [this.styles['webview-container'], show ? this.styles.show : this.styles.hide];
+      return [
+        this.styles['webview-container'],
+        show
+          ? {
+              ...this.styles.show,
+              backgroundColor: backgroundColor ?? DEFAULT_BACKGROUND_COLOR,
+            }
+          : this.styles.hide,
+      ];
     }, [show]);
 
     const handleWebViewMessage = useCallback((event: any) => {
