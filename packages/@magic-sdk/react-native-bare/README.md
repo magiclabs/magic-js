@@ -65,3 +65,8 @@ await magic.auth.loginWithEmailOTP({ email: 'your.email@example.com' });
 
 ## 👀 SafeAreaView
 Please note that as of **v14.0.0** our React Native package offerings wrap the `<magic.Relayer />` in [react-native-safe-area-context's](https://github.com/th3rdwave/react-native-safe-area-context) `<SafeAreaView />`. To prevent any adverse behavior in your app, please place the Magic iFrame React component at the root view of your application wrapped in a [SafeAreaProvider](https://github.com/th3rdwave/react-native-safe-area-context#safeareaprovider) as described in the documentation. 
+
+We have also added an optional `backgroundColor` prop to the `Relayer` to fix issues with `SafeAreaView` showing the background. By default, the background will be white. If you have changed the background color as part of your [custom branding setup](https://magic.link/docs/authentication/features/login-ui#configuration), make sure to pass your custom background color to `magic.Relayer`:
+```tsx
+<magic.Relayer backgroundColor="#0000FF"/>
+```
