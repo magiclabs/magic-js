@@ -1,3 +1,18 @@
+# v17.2.1 (Wed Nov 08 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into rominhalltari-sc-70361-react-native-sdks-react-native-safeareaview ([@romin-halltari](https://github.com/romin-halltari))
+- Jayhwang sc 90219 signature verification error solana nova [#660](https://github.com/magiclabs/magic-js/pull/660) ([@octave08](https://github.com/octave08))
+- Revert serializeConfig param on signTransaction method in Solana ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v17.2.0 (Tue Oct 24 2023)
 
 #### 🚀 Enhancement
