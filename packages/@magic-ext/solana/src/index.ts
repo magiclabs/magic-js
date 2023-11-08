@@ -17,17 +17,15 @@ export class SolanaExtension extends Extension.Internal<'solana', any> {
     };
   }
 
-  public signTransaction = (transaction: Transaction | VersionedTransaction) => {
+  public signTransaction = (transaction: Transaction | VersionedTransaction, serializeConfig?: SerializeConfig) => {
     return this.request({
       id: 42,
       jsonrpc: '2.0',
       method: SolanaPayloadMethod.SignTransaction,
       params: {
         type: transaction instanceof Transaction ? 'legacy' : 0,
-        serialized: transaction.serialize({
-          requireAllSignatures: false,
-          verifySignatures: false,
-        }),
+        serialized: transaction.serialize(serializeConfig),
+        serializeConfig,
       },
     });
   };
