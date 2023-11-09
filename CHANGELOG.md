@@ -1,3 +1,19 @@
+# (Wed Nov 08 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@22.2.1`, `@magic-sdk/react-native-expo@22.2.1`
+  - Adds optional backgroundColor prop to Relayer component [#661](https://github.com/magiclabs/magic-js/pull/661) ([@romin-halltari](https://github.com/romin-halltari))
+- `@magic-ext/solana@17.2.1`
+  - Jayhwang sc 90219 signature verification error solana nova [#660](https://github.com/magiclabs/magic-js/pull/660) ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Tue Oct 24 2023)
 
 #### 🚀 Enhancement

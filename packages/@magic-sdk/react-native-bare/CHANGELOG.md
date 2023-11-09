@@ -1,3 +1,17 @@
+# v22.2.1 (Wed Nov 08 2023)
+
+#### 🐛 Bug Fix
+
+- Adds optional backgroundColor prop to Relayer component [#661](https://github.com/magiclabs/magic-js/pull/661) ([@romin-halltari](https://github.com/romin-halltari))
+- Merge branch 'master' into rominhalltari-sc-70361-react-native-sdks-react-native-safeareaview ([@romin-halltari](https://github.com/romin-halltari))
+- Fix: add optional backgroundColor prop to relayer to fix issue with SafeAreaView showing background because it is transparent. ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v22.2.0 (Tue Oct 24 2023)
 
 #### 🐛 Bug Fix
