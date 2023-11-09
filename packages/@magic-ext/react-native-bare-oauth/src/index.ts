@@ -20,7 +20,7 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     '@magic-sdk/react-native': false,
   };
 
-  public loginWithPopup(configuration: OAuthRedirectConfiguration) {
+  public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
     return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
       try {
         const { provider, query, redirectURI } = await createURI.call(this, configuration);
