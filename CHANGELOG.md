@@ -1,3 +1,22 @@
+# (Mon Nov 13 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/react-native-bare-oauth@17.0.0`, `@magic-ext/react-native-expo-oauth@17.0.0`
+  - Rename loginWithPopup to loginWithRedirect to match web sdk [#663](https://github.com/magiclabs/magic-js/pull/663) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/solana@18.0.0`
+  - Add types to sign methods to avoid returning 'any' type [#662](https://github.com/magiclabs/magic-js/pull/662) ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Wed Nov 08 2023)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,19 @@
+# v18.0.0 (Mon Nov 13 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into rominhalltari-sc-89679-all-mobile-sdks-loginwithpopup-loginwithredirect ([@romin-halltari](https://github.com/romin-halltari))
+- Add types to sign methods to avoid returning 'any' type [#662](https://github.com/magiclabs/magic-js/pull/662) ([@octave08](https://github.com/octave08))
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-89679-all-mobile-sdks-loginwithpopup-loginwithredirect ([@romin-halltari](https://github.com/romin-halltari))
+- Add types to sign methods to avoid returning 'any' type ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v17.2.1 (Wed Nov 08 2023)
 
 #### 🐛 Bug Fix
