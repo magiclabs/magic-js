@@ -65,6 +65,7 @@ function stubViewController(viewController: any, events: [MagicIncomingWindowMes
 let createJwtStub;
 const FAKE_JWT_TOKEN = 'hot tokens';
 const FAKE_RT = 'will freshen';
+const FAKE_INJECTED_JWT = 'fake injected jwt';
 let FAKE_STORE: any = {};
 
 beforeEach(() => {
@@ -129,6 +130,22 @@ test('Sends payload with rt and jwt when rt is saved', async () => {
 
   expect(createJwtStub).toHaveBeenCalledWith();
   expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN, rt: FAKE_RT }));
+});
+
+test('Sends payload with rt and an injected jwt when both rt and jwt are saved', async () => {
+  createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
+  FAKE_STORE.rt = FAKE_RT;
+  FAKE_STORE.jwt = FAKE_INJECTED_JWT;
+
+  const viewController = createViewController('asdf');
+  const { postSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
+  const payload = requestPayload();
+  await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+
+  expect(createJwtStub).not.toHaveBeenCalledWith();
+  expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_INJECTED_JWT, rt: FAKE_RT }));
 });
 
 test('Sends payload without rt if no jwt can be made', async () => {
