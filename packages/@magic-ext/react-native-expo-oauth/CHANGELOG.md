@@ -1,3 +1,15 @@
+# v17.0.1 (Tue Nov 14 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into injectable-webcrypto-jwt-for-session-persistence ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v17.0.0 (Mon Nov 13 2023)
 
 #### 💥 Breaking Change

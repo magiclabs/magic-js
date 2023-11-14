@@ -1,3 +1,15 @@
+# v22.2.2 (Tue Nov 14 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into injectable-webcrypto-jwt-for-session-persistence ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v22.2.1 (Wed Nov 08 2023)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,18 @@
+# v21.2.1 (Tue Nov 14 2023)
+
+#### 🐛 Bug Fix
+
+- Injectable webcrypto jwt for session persistence [#635](https://github.com/magiclabs/magic-js/pull/635) ([@Dizigen](https://github.com/Dizigen))
+- Merge branch 'master' into injectable-webcrypto-jwt-for-session-persistence ([@Dizigen](https://github.com/Dizigen))
+- update unit tests ([@Dizigen](https://github.com/Dizigen))
+- have the jwt itself be injectable via indexedDB ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v21.2.0 (Tue Oct 24 2023)
 
 #### 🐛 Bug Fix
