@@ -27,12 +27,14 @@ npm install --save @magic-sdk/react-native-bare
 npm install --save react-native-device-info # Required Peer Dependency
 npm install --save @react-native-community/async-storage # Required Peer Dependency
 npm install --save react-native-safe-area-context # Required Peer Dependency
+npm install --save @react-native-community/netinfo # Required Peer Dependency
 
 # Via Yarn:
 yarn add @magic-sdk/react-native-bare
-⁠yarn add react-native-device-info # Required Peer Dependency
+yarn add react-native-device-info # Required Peer Dependency
 yarn add @react-native-community/async-storage # Required Peer Dependency
 yarn add react-native-safe-area-context # Required Peer Dependency
+yarn add @react-native-community/netinfo # Required Peer Dependency
 ```
 
 ## ⚡️ Quick Start

@@ -25,11 +25,13 @@ As of `v19.0.0`, passcodes (ie. `loginWithSMS()`, `loginWithEmailOTP()`) are rep
  npm install --save @magic-sdk/react-native-expo
  npm install --save react-native-webview@^11.26.0 # Required Peer Dependency
  npm install --save react-native-safe-area-context # Required Peer Dependency
+ npm install --save @react-native-community/netinfo # Required Peer Dependency
 
  # Via Yarn:
  yarn add @magic-sdk/react-native-expo
  yarn add react-native-webview@^11.26.0 # Required Peer Dependency
  yarn add react-native-safe-area-context # Required Peer Dependency
+ yarn add @react-native-community/netinfo # Required Peer Dependency
  ```
 
 ## ⚡️ Quick Start
