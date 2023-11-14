@@ -1,3 +1,27 @@
+# v14.2.0 (Tue Oct 24 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-support-sepolia-natively ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v14.0.0 (Fri Oct 13 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into force-ctor-preload-iframe ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v13.1.2 (Wed Oct 11 2023)
 
 #### 🐛 Bug Fix

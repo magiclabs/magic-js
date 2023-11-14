@@ -1,3 +1,48 @@
+# v17.2.0 (Tue Oct 24 2023)
+
+#### 🐛 Bug Fix
+
+- allow sepolia for network key [#646](https://github.com/magiclabs/magic-js/pull/646) ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into hcote-support-sepolia-natively ([@hcote](https://github.com/hcote))
+- allow sepolia for network key ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v17.1.1 (Fri Oct 20 2023)
+
+#### 🐛 Bug Fix
+
+- Change NFTCheckoutRequest type [#649](https://github.com/magiclabs/magic-js/pull/649) ([@octave08](https://github.com/octave08))
+- Change NFTCheckoutRequest type ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# v17.1.0 (Thu Oct 19 2023)
+
+#### 🚀 Enhancement
+
+- Adds template name to loginWithOTP and loginWithMagicLink [#643](https://github.com/magiclabs/magic-js/pull/643) ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+#### 🐛 Bug Fix
+
+- Changes function to accept overrides ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+- Change out variable name for back end consumption ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+- Add optional field to login methods ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+#### Authors: 1
+
+- Chris Dakin ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+---
+
 # v17.0.2 (Mon Oct 02 2023)
 
 #### 🐛 Bug Fix

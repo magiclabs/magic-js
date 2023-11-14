@@ -1,7 +1,8 @@
 import { Extension } from '@magic-sdk/commons';
 
-/* eslint-disable no-param-reassign, array-callback-return */
-import { SolanaConfig, SolanaPayloadMethod, SerializeConfig } from './type';
+import { SerializeConfig, Transaction, VersionedTransaction } from '@solana/web3.js';
+import { SolanaConfig } from './type';
+import { SOLANA_PAYLOAD_METHODS } from './constants';
 
 export class SolanaExtension extends Extension.Internal<'solana', any> {
   name = 'solana' as const;
@@ -16,39 +17,24 @@ export class SolanaExtension extends Extension.Internal<'solana', any> {
     };
   }
 
-  public signTransaction = (transaction: any, serializeConfig?: SerializeConfig) => {
-    const { instructions } = transaction;
-
-    const magicInstructions = instructions.map((i: any) => {
-      return {
-        ...i,
-        keys: i.keys.map((k: any) => {
-          return { ...k, pubkey: k.pubkey.toBase58() };
-        }),
-        programId: i.programId.toBase58(),
-      };
-    });
-
-    const params = {
-      feePayer: transaction.feePayer.toBase58(),
-      instructions: magicInstructions,
-      recentBlockhash: transaction.recentBlockhash,
-      serializeConfig,
-    };
-
-    return this.request({
+  public signTransaction = (transaction: Transaction | VersionedTransaction, serializeConfig?: SerializeConfig) => {
+    return this.request<{ rawTransaction: string }>({
       id: 42,
       jsonrpc: '2.0',
-      method: SolanaPayloadMethod.SignTransaction,
-      params,
+      method: SOLANA_PAYLOAD_METHODS.SIGN_TRANSACTION,
+      params: {
+        type: transaction instanceof Transaction ? 'legacy' : 0,
+        serialized: transaction.serialize(serializeConfig),
+        serializeConfig,
+      },
     });
   };
 
   public signMessage = (message: any) => {
-    return this.request({
+    return this.request<{ rawTransaction: string }>({
       id: 42,
       jsonrpc: '2.0',
-      method: SolanaPayloadMethod.SignMessage,
+      method: SOLANA_PAYLOAD_METHODS.SIGN_MESSAGE,
       params: {
         message,
       },

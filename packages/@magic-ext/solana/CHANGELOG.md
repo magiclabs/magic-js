@@ -1,3 +1,64 @@
+# v18.0.0 (Mon Nov 13 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into rominhalltari-sc-89679-all-mobile-sdks-loginwithpopup-loginwithredirect ([@romin-halltari](https://github.com/romin-halltari))
+- Add types to sign methods to avoid returning 'any' type [#662](https://github.com/magiclabs/magic-js/pull/662) ([@octave08](https://github.com/octave08))
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-89679-all-mobile-sdks-loginwithpopup-loginwithredirect ([@romin-halltari](https://github.com/romin-halltari))
+- Add types to sign methods to avoid returning 'any' type ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# v17.2.1 (Wed Nov 08 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into rominhalltari-sc-70361-react-native-sdks-react-native-safeareaview ([@romin-halltari](https://github.com/romin-halltari))
+- Jayhwang sc 90219 signature verification error solana nova [#660](https://github.com/magiclabs/magic-js/pull/660) ([@octave08](https://github.com/octave08))
+- Revert serializeConfig param on signTransaction method in Solana ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# v17.2.0 (Tue Oct 24 2023)
+
+#### 🚀 Enhancement
+
+- Add support for versioned transaction in Solana [#652](https://github.com/magiclabs/magic-js/pull/652) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-support-sepolia-natively ([@hcote](https://github.com/hcote))
+- Add support for versioned transaction in Solana ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# v17.0.0 (Fri Oct 13 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into force-ctor-preload-iframe ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v16.1.2 (Wed Oct 11 2023)
 
 #### 🐛 Bug Fix

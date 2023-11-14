@@ -1,3 +1,53 @@
+# v21.2.0 (Tue Oct 24 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-support-sepolia-natively ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v21.1.0 (Thu Oct 19 2023)
+
+#### 🚀 Enhancement
+
+- Adds template name to loginWithOTP and loginWithMagicLink [#643](https://github.com/magiclabs/magic-js/pull/643) ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+#### 🐛 Bug Fix
+
+- Fixes tests ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+- Changes function to accept overrides ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+- Logging ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+- Change out variable name for back end consumption ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+- Add optional field to login methods ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+#### Authors: 1
+
+- Chris Dakin ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+---
+
+# v21.0.0 (Fri Oct 13 2023)
+
+#### 💥 Breaking Change
+
+- Have the constructor preload iframe assets by default, with optional SDK flag to defer preloading [#634](https://github.com/magiclabs/magic-js/pull/634) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- optional sdk ctor flag to defer preloading ([@Dizigen](https://github.com/Dizigen))
+- Merge branch 'master' into force-ctor-preload-iframe ([@Dizigen](https://github.com/Dizigen))
+- force the constructor to preload the iframe ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v20.1.1 (Mon Oct 02 2023)
 
 #### 🐛 Bug Fix

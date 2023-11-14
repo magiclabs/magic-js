@@ -1,3 +1,45 @@
+# v17.0.0 (Mon Nov 13 2023)
+
+#### 💥 Breaking Change
+
+- Rename loginWithPopup to loginWithRedirect to match web sdk [#663](https://github.com/magiclabs/magic-js/pull/663) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into rominhalltari-sc-89679-all-mobile-sdks-loginwithpopup-loginwithredirect ([@romin-halltari](https://github.com/romin-halltari))
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-89679-all-mobile-sdks-loginwithpopup-loginwithredirect ([@romin-halltari](https://github.com/romin-halltari))
+- Rename loginWithPopup to loginWithRedirect to match web sdk ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v16.2.0 (Tue Oct 24 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-support-sepolia-natively ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v16.0.0 (Fri Oct 13 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into force-ctor-preload-iframe ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v15.1.1 (Mon Oct 02 2023)
 
 #### 🐛 Bug Fix

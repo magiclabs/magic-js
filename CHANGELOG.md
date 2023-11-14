@@ -1,3 +1,96 @@
+# (Mon Nov 13 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/react-native-bare-oauth@17.0.0`, `@magic-ext/react-native-expo-oauth@17.0.0`
+  - Rename loginWithPopup to loginWithRedirect to match web sdk [#663](https://github.com/magiclabs/magic-js/pull/663) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/solana@18.0.0`
+  - Add types to sign methods to avoid returning 'any' type [#662](https://github.com/magiclabs/magic-js/pull/662) ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# (Wed Nov 08 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@22.2.1`, `@magic-sdk/react-native-expo@22.2.1`
+  - Adds optional backgroundColor prop to Relayer component [#661](https://github.com/magiclabs/magic-js/pull/661) ([@romin-halltari](https://github.com/romin-halltari))
+- `@magic-ext/solana@17.2.1`
+  - Jayhwang sc 90219 signature verification error solana nova [#660](https://github.com/magiclabs/magic-js/pull/660) ([@octave08](https://github.com/octave08))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# (Tue Oct 24 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/solana@17.2.0`
+  - Add support for versioned transaction in Solana [#652](https://github.com/magiclabs/magic-js/pull/652) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@17.2.0`
+  - allow sepolia for network key [#646](https://github.com/magiclabs/magic-js/pull/646) ([@hcote](https://github.com/hcote))
+
+#### Authors: 2
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# (Fri Oct 20 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@17.1.1`
+  - Change NFTCheckoutRequest type [#649](https://github.com/magiclabs/magic-js/pull/649) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# (Thu Oct 19 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@21.1.0`, `@magic-sdk/types@17.1.0`
+  - Adds template name to loginWithOTP and loginWithMagicLink [#643](https://github.com/magiclabs/magic-js/pull/643) ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+#### Authors: 1
+
+- Chris Dakin ([@chrisdakin-magic](https://github.com/chrisdakin-magic))
+
+---
+
+# (Fri Oct 13 2023)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@21.0.0`
+  - Have the constructor preload iframe assets by default, with optional SDK flag to defer preloading [#634](https://github.com/magiclabs/magic-js/pull/634) ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # (Wed Oct 11 2023)
 
 #### 🐛 Bug Fix
