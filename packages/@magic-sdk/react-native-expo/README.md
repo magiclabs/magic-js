@@ -73,3 +73,31 @@ For React Native projects living within a **monorepo** that run into the followi
 When attempting to import `Magic`, take note that the React Native metro bundler doesn’t work well with symlinks, which tend to be utilized by most package managers. 
 
 For this issue consider using Microsoft's [rnx-kit](https://microsoft.github.io/rnx-kit/docs/guides/bundling) suite of tools that include a plugin for metro that fixes this symlink related error. 
+
+### Handling internet connection problems
+
+When the app has internet connectivity issues, the relayer might behave in ways you don't expect. That is why it is important to use [@react-native-community/netinfo](https://www.npmjs.com/package/@react-native-community/netinfo) to track the internet connection state of the device, and refresh your UI when the connection is re-established. For your convenience, we've also added a hook that uses this library behind the scenes:
+
+ ```tsx
+import { useInternetConnection } from '@magic-sdk/react-native-expo';
+
+const magic = new Magic('YOUR_API_KEY');
+
+const connected = useInternetConnection()
+
+useEffect(() => {
+    if (!connected) {
+        // Unomount this component and show your "You're offline" screen.
+    }
+}, [connected])
+
+export default function App() {
+    return <>
+        <SafeAreaProvider>
+            {/* Render the Magic iframe! */}
+            <magic.Relayer />
+            {...}
+        </SafeAreaProvider>
+    </>
+}
+```
