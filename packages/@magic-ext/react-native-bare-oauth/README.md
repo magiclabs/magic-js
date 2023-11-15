@@ -40,7 +40,7 @@ Then, you can start authenticating users with _just one method!_
 
 ```tsx
 import React from 'react';
-import { Magic } from '@magic-sdk/react-native-expo';
+import { Magic } from '@magic-sdk/react-native-bare';
 import { OAuthExtension } from "@magic-ext/react-native-bare-oauth";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
