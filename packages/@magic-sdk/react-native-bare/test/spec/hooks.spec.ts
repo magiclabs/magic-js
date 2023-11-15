@@ -34,12 +34,11 @@ describe('useInternetConnection', () => {
     act(() => {
       // @ts-ignore mock calls
       NetInfo.addEventListener.mock.calls[0][0]({
-        type: 'cellular', // Replace with your desired type
+        type: 'cellular',
         isConnected: false,
         isInternetReachable: true,
         details: {
           isConnectionExpensive: true,
-          // Add other details as needed for your hook
         },
       });
     });
