@@ -11,7 +11,9 @@ Pod::Spec.new do |s|
 
   s.authors      = package['author']
   s.homepage     = package['repository']['url']
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "9.0"
+  s.ios.deployment_target = '13.0'
+  s.tvos.deployment_target = '10.0'
   s.source       = { :git => "https://github.com/magiclabs/magic-js.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m}"
   s.requires_arc = true
