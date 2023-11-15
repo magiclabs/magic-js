@@ -8,13 +8,8 @@ export const useInternetConnection = () => {
       setIsConnected(!!connectionInfo.isConnected);
     };
 
-    // Subscribe to connection changes
-    const unsubscribe = NetInfo.addEventListener(handleConnectionChange);
-
-    // Cleanup on unmount
-    return () => {
-      unsubscribe();
-    };
+    // Subscribe to connection changes and cleanup on unmount
+    return NetInfo.addEventListener(handleConnectionChange);
   }, []);
 
   return isConnected;
