@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
-import { Linking, StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View, NativeModules } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
@@ -7,6 +7,8 @@ import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
+
+const { AppAttestationModule } = NativeModules;
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -135,6 +137,15 @@ export class ReactNativeWebViewController extends ViewController {
     const handleWebViewMessage = useCallback((event: any) => {
       this.handleReactNativeWebViewMessage(event);
     }, []);
+    console.log(`********************* top *********************`);
+    console.log(`********* ${Object.keys(NativeModules).length} ************`);
+    Object.keys(NativeModules).forEach((moduleName) => {
+      console.log(`******************************************`);
+      console.log('Native Module:', moduleName, NativeModules[moduleName]);
+      console.log(`******************************************`);
+    });
+    console.log(`********************* bottom *********************`);
+    // AppAttestationModule.logHelloWorld();
 
     return (
       <SafeAreaView ref={containerRef} style={containerStyles}>
