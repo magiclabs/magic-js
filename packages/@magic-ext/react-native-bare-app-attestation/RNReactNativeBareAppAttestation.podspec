@@ -13,17 +13,13 @@ Pod::Spec.new do |s|
   s.homepage     = package['repository']['url']
   s.platform     = :ios, "9.0"
   s.ios.deployment_target = '13.0'
-  s.source = {
-    :git => "https://github.com/magiclabs/magic-js.git",
-    :tag => "v#{s.version}" 
-    :subdirectory => "packages/@magic-ext/react-native-bare-app-attestation"
-  }
-  s.source_files  = "ios/*.{swift,m}"
+  s.source       = { :git => "git@github.com:magiclabs/magic-js.git", :tag => "v#{s.version}" }
+  s.source_files  = "ios/*.{m,swift}"
   s.requires_arc = true
   s.swift_versions = '5.0'
 
 
-  s.dependency "React-Core"
+  s.dependency "React"
 
 end
 
