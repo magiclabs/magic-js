@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/react-native-bare-app-attestation",
-  "version": "0.1.0-6",
+  "version": "0.1.0-7",
   "description": "Magic SDK App Attestation Extension for Bare React Native environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
