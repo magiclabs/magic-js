@@ -1,3 +1,16 @@
+# (Thu Nov 16 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/react-native-bare-oauth@17.0.2`, `@magic-ext/react-native-expo-oauth@17.0.2`
+  - Add README for `react-native-bare-oauth` and `react-native-expo-oauth` [#666](https://github.com/magiclabs/magic-js/pull/666) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # (Tue Nov 14 2023)
 
 #### 🐛 Bug Fix
