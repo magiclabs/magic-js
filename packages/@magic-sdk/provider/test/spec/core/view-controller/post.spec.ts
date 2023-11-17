@@ -61,7 +61,7 @@ function stubViewController(viewController: any, events: [MagicIncomingWindowMes
   const postSpy = jest.fn();
 
   viewController.on = onSpy;
-  viewController.ready = Promise.resolve();
+  viewController.checkIsReadyForRequest = Promise.resolve();
   viewController._post = postSpy;
 
   return { handlerSpy, onSpy, postSpy };
@@ -213,7 +213,7 @@ test('does not wait for ready and throws error when platform is react-native', a
   const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
   ]);
-  viewController.ready = new Promise(() => null);
+  viewController.checkIsReadyForRequest = new Promise(() => null);
 
   const payload = requestPayload();
 
@@ -239,8 +239,8 @@ test('does not call web crypto api if platform is not web', async () => {
   ]);
   const payload = requestPayload();
 
-  // @ts-ignore isReady is private
-  viewController.isReady = true;
+  // @ts-ignore isReadyForRequest is private
+  viewController.isReadyForRequest = true;
 
   const response = await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 

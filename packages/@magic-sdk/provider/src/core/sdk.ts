@@ -196,6 +196,6 @@ export class SDKBase {
    * has completed loading and is ready for requests.
    */
   public async preload() {
-    await this.overlay.ready;
+    await this.overlay.checkIsReadyForRequest;
   }
 }
