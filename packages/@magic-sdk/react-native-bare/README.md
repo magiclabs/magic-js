@@ -86,8 +86,17 @@ When attempting to import `Magic`, take note that the React Native metro bundler
 For this issue consider using Microsoft's [rnx-kit](https://microsoft.github.io/rnx-kit/docs/guides/bundling) suite of tools that include a plugin for metro that fixes this symlink related error.
 
 ### Handling internet connection problems
+When an app is opened without internet connection, any request to the Magic SDK will result in a rejection with the following error:
 
-When the app has internet connectivity issues, the relayer might behave in ways you don't expect. That is why it is important to use [@react-native-community/netinfo](https://www.npmjs.com/package/@react-native-community/netinfo) to track the internet connection state of the device, and refresh your UI when the connection is re-established. For your convenience, we've also added a hook that uses this library behind the scenes:
+```json
+{
+  "code": -32603,
+  "message": "Connection to Magic SDK not ready. Please check your internet connection."
+}
+```
+
+It is good practice to use [@react-native-community/netinfo](https://www.npmjs.com/package/@react-native-community/netinfo) to track the internet connection state of the device.  For your convenience, we've also added a hook that uses this library behind the scenes:
+
 
  ```tsx
 import { useInternetConnection } from '@magic-sdk/react-native-expo';
