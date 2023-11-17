@@ -4,6 +4,8 @@ import {
   JsonRpcRequestPayload,
   MagicMessageEvent,
   MagicMessageRequest,
+  RPCErrorCode,
+  JsonRpcError,
 } from '@magic-sdk/types';
 import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
@@ -88,6 +90,7 @@ async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
 }
 
 export abstract class ViewController {
+  private isReady = false;
   public ready: Promise<void>;
   protected readonly messageHandlers = new Set<(event: MagicMessageEvent) => any>();
 
@@ -129,8 +132,20 @@ export abstract class ViewController {
     msgType: MagicOutgoingWindowMessage,
     payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
-    return createPromise(async (resolve) => {
-      await this.ready;
+    return createPromise(async (resolve, reject) => {
+      if (SDKEnvironment.platform !== 'react-native') {
+        await this.ready;
+      } else if (!this.isReady) {
+        // On a mobile environment, `this.ready` never resolves if the app was
+        // initially opened without internet connection. That is why we reject
+        // the promise without waiting and just let them call it again when
+        // internet connection is re-established.
+        const error: JsonRpcError = {
+          code: RPCErrorCode.InternalError,
+          message: 'Connection to Magic SDK not ready. Please check your internet connection.',
+        };
+        reject(error);
+      }
 
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
@@ -194,7 +209,10 @@ export abstract class ViewController {
 
   private waitForReady() {
     return new Promise<void>((resolve) => {
-      this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
+      this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
+        resolve();
+        this.isReady = true;
+      });
     });
   }
 
