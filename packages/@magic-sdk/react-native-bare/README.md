@@ -27,12 +27,14 @@ npm install --save @magic-sdk/react-native-bare
 npm install --save react-native-device-info # Required Peer Dependency
 npm install --save @react-native-community/async-storage # Required Peer Dependency
 npm install --save react-native-safe-area-context # Required Peer Dependency
+npm install --save @react-native-community/netinfo # Required Peer Dependency
 
 # Via Yarn:
 yarn add @magic-sdk/react-native-bare
-⁠yarn add react-native-device-info # Required Peer Dependency
+yarn add react-native-device-info # Required Peer Dependency
 yarn add @react-native-community/async-storage # Required Peer Dependency
 yarn add react-native-safe-area-context # Required Peer Dependency
+yarn add @react-native-community/netinfo # Required Peer Dependency
 ```
 
 ## ⚡️ Quick Start
@@ -69,4 +71,54 @@ Please note that as of **v14.0.0** our React Native package offerings wrap the `
 We have also added an optional `backgroundColor` prop to the `Relayer` to fix issues with `SafeAreaView` showing the background. By default, the background will be white. If you have changed the background color as part of your [custom branding setup](https://magic.link/docs/authentication/features/login-ui#configuration), make sure to pass your custom background color to `magic.Relayer`:
 ```tsx
 <magic.Relayer backgroundColor="#0000FF"/>
+```
+
+## 🙌🏾 Troubleshooting
+
+### Symlinking in Monorepo w/ Metro
+
+For React Native projects living within a **monorepo** that run into the following `TypeError: Undefined is not an object` error:
+
+<img width="299" alt="Screenshot 2022-11-23 at 12 19 19 PM" src="https://user-images.githubusercontent.com/13407884/203641477-ec2e472e-86dc-4a22-b54a-eb694001617e.png">
+
+When attempting to import `Magic`, take note that the React Native metro bundler doesn’t work well with symlinks, which tend to be utilized by most package managers.
+
+For this issue consider using Microsoft's [rnx-kit](https://microsoft.github.io/rnx-kit/docs/guides/bundling) suite of tools that include a plugin for metro that fixes this symlink related error.
+
+### Handling internet connection problems
+When an app is opened without internet connection, any request to the Magic SDK will result in a rejection with a `MagicSDKError`:
+
+```json
+{
+  "code": "MODAL_NOT_READY",
+  "rawMessage": "Modal is not ready."
+}
+```
+
+
+It is good practice to use [@react-native-community/netinfo](https://www.npmjs.com/package/@react-native-community/netinfo) to track the internet connection state of the device.  For your convenience, we've also added a hook that uses this library behind the scenes:
+
+
+ ```tsx
+import { useInternetConnection } from '@magic-sdk/react-native-expo';
+
+const magic = new Magic('YOUR_API_KEY');
+
+const connected = useInternetConnection()
+
+useEffect(() => {
+    if (!connected) {
+        // Unomount this component and show your "You're offline" screen.
+    }
+}, [connected])
+
+export default function App() {
+    return <>
+        <SafeAreaProvider>
+            {/* Render the Magic iframe! */}
+            <magic.Relayer />
+            {...}
+        </SafeAreaProvider>
+    </>
+}
 ```

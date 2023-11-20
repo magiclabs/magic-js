@@ -3,12 +3,12 @@
 
 import browserEnv from '@ikscodes/browser-env';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '@magic-sdk/types';
-import _ from 'lodash';
 import { createViewController } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import * as storage from '../../../../src/util/storage';
 import * as webCryptoUtils from '../../../../src/util/web-crypto';
 import { SDKEnvironment } from '../../../../src/core/sdk-environment';
+import { createModalNotReadyError } from '../../../../src/core/sdk-exceptions';
 
 /**
  * Create a dummy request payload.
@@ -56,7 +56,7 @@ function stubViewController(viewController: any, events: [MagicIncomingWindowMes
   const postSpy = jest.fn();
 
   viewController.on = onSpy;
-  viewController.ready = Promise.resolve();
+  viewController.checkIsReadyForRequest = Promise.resolve();
   viewController._post = postSpy;
 
   return { handlerSpy, onSpy, postSpy };
@@ -201,6 +201,27 @@ test('Sends payload and stores rt if response event contains rt', async () => {
   expect(FAKE_STORE.rt).toEqual(FAKE_RT);
 });
 
+test('does not wait for ready and throws error when platform is react-native', async () => {
+  SDKEnvironment.platform = 'react-native';
+  const eventWithRt = { data: { ...responseEvent().data } };
+  const viewController = createViewController('asdf');
+  const { handlerSpy, onSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
+  ]);
+  viewController.checkIsReadyForRequest = new Promise(() => null);
+
+  const payload = requestPayload();
+
+  try {
+    await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+  } catch (e) {
+    expect(e).toEqual(createModalNotReadyError());
+  }
+  expect(createJwtStub).not.toHaveBeenCalledWith();
+  expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(handlerSpy).not.toHaveBeenCalled();
+});
+
 test('does not call web crypto api if platform is not web', async () => {
   SDKEnvironment.platform = 'react-native';
   const eventWithRt = { data: { ...responseEvent().data } };
@@ -209,6 +230,9 @@ test('does not call web crypto api if platform is not web', async () => {
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
   ]);
   const payload = requestPayload();
+
+  // @ts-ignore isReadyForRequest is private
+  viewController.isReadyForRequest = true;
 
   const response = await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 

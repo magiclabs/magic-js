@@ -69,3 +69,5 @@ export type Magic<T extends MagicSDKExtensionsOption<any> = MagicSDKExtensionsOp
   SDKBaseReactNative,
   T
 >;
+
+export { useInternetConnection } from './hooks';

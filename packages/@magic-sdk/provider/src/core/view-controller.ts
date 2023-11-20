@@ -10,6 +10,7 @@ import { createPromise } from '../util/promise-tools';
 import { getItem, setItem } from '../util/storage';
 import { createJwt } from '../util/web-crypto';
 import { SDKEnvironment } from './sdk-environment';
+import { createModalNotReadyError } from './sdk-exceptions';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -88,7 +89,8 @@ async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
 }
 
 export abstract class ViewController {
-  public ready: Promise<void>;
+  private isReadyForRequest = false;
+  public checkIsReadyForRequest: Promise<void>;
   protected readonly messageHandlers = new Set<(event: MagicMessageEvent) => any>();
 
   /**
@@ -99,7 +101,7 @@ export abstract class ViewController {
    * relevant iframe context.
    */
   constructor(protected readonly endpoint: string, protected readonly parameters: string) {
-    this.ready = this.waitForReady();
+    this.checkIsReadyForRequest = this.waitForReady();
     this.listen();
   }
 
@@ -129,8 +131,17 @@ export abstract class ViewController {
     msgType: MagicOutgoingWindowMessage,
     payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
-    return createPromise(async (resolve) => {
-      await this.ready;
+    return createPromise(async (resolve, reject) => {
+      if (SDKEnvironment.platform !== 'react-native') {
+        await this.checkIsReadyForRequest;
+      } else if (!this.isReadyForRequest) {
+        // On a mobile environment, `this.checkIsReadyForRequest` never resolves
+        // if the app was initially opened without internet connection. That is
+        // why we reject the promise without waiting and just let them call it
+        // again when internet connection is re-established.
+        const error = createModalNotReadyError();
+        reject(error);
+      }
 
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
@@ -194,7 +205,10 @@ export abstract class ViewController {
 
   private waitForReady() {
     return new Promise<void>((resolve) => {
-      this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
+      this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
+        resolve();
+        this.isReadyForRequest = true;
+      });
     });
   }
 
