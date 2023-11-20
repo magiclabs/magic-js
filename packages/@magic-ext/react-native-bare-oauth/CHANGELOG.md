@@ -1,3 +1,15 @@
+# v17.1.0 (Mon Nov 20 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into rominhalltari-sc-75722-react-native-sdk-add-support-for-general ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v17.0.2 (Thu Nov 16 2023)
 
 #### 🐛 Bug Fix

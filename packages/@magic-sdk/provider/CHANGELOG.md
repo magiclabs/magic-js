@@ -1,3 +1,22 @@
+# v21.3.0 (Mon Nov 20 2023)
+
+#### 🚀 Enhancement
+
+- Add `useInternetConnection` hook to track internet connectivity changes [#665](https://github.com/magiclabs/magic-js/pull/665) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- Use createModalNotReadyError() when modal is not ready on react native ([@romin-halltari](https://github.com/romin-halltari))
+- Rename: ready -> checkIsReadyForRequest and isReady -> isReadyForRequest ([@romin-halltari](https://github.com/romin-halltari))
+- add tests ([@romin-halltari](https://github.com/romin-halltari))
+- Do now wait for ready promise on a react native environment, as it never resolves when there's no internet connection ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v21.2.1 (Tue Nov 14 2023)
 
 #### 🐛 Bug Fix

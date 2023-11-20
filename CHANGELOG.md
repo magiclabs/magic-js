@@ -1,3 +1,16 @@
+# (Mon Nov 20 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@21.3.0`, `@magic-sdk/react-native-bare@22.3.0`, `@magic-sdk/react-native-expo@22.3.0`
+  - Add `useInternetConnection` hook to track internet connectivity changes [#665](https://github.com/magiclabs/magic-js/pull/665) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # (Thu Nov 16 2023)
 
 #### 🐛 Bug Fix
