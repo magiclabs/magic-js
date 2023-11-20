@@ -77,12 +77,12 @@ When attempting to import `Magic`, take note that the React Native metro bundler
 For this issue consider using Microsoft's [rnx-kit](https://microsoft.github.io/rnx-kit/docs/guides/bundling) suite of tools that include a plugin for metro that fixes this symlink related error. 
 
 ### Handling internet connection problems
-When an app is opened without internet connection, any request to the Magic SDK will result in a rejection with the following error:
+When an app is opened without internet connection, any request to the Magic SDK will result in a rejection with a `MagicSDKError`:
 
 ```json
 {
-  "code": -32603,
-  "message": "Connection to Magic SDK not ready. Please check your internet connection."
+  "code": "MODAL_NOT_READY",
+  "rawMessage": "Modal is not ready."
 }
 ```
 

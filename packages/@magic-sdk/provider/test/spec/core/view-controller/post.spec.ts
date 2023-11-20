@@ -2,18 +2,13 @@
 /* eslint-disable prefer-spread */
 
 import browserEnv from '@ikscodes/browser-env';
-import {
-  MagicIncomingWindowMessage,
-  MagicOutgoingWindowMessage,
-  JsonRpcRequestPayload,
-  RPCErrorCode,
-} from '@magic-sdk/types';
-import _ from 'lodash';
+import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '@magic-sdk/types';
 import { createViewController } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import * as storage from '../../../../src/util/storage';
 import * as webCryptoUtils from '../../../../src/util/web-crypto';
 import { SDKEnvironment } from '../../../../src/core/sdk-environment';
+import { createModalNotReadyError } from '../../../../src/core/sdk-exceptions';
 
 /**
  * Create a dummy request payload.
@@ -220,10 +215,7 @@ test('does not wait for ready and throws error when platform is react-native', a
   try {
     await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
   } catch (e) {
-    expect(e).toEqual({
-      code: RPCErrorCode.InternalError,
-      message: 'Connection to Magic SDK not ready. Please check your internet connection.',
-    });
+    expect(e).toEqual(createModalNotReadyError());
   }
   expect(createJwtStub).not.toHaveBeenCalledWith();
   expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);

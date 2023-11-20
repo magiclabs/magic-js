@@ -4,14 +4,13 @@ import {
   JsonRpcRequestPayload,
   MagicMessageEvent,
   MagicMessageRequest,
-  RPCErrorCode,
-  JsonRpcError,
 } from '@magic-sdk/types';
 import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
 import { getItem, setItem } from '../util/storage';
 import { createJwt } from '../util/web-crypto';
 import { SDKEnvironment } from './sdk-environment';
+import { createModalNotReadyError } from './sdk-exceptions';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -140,10 +139,7 @@ export abstract class ViewController {
         // if the app was initially opened without internet connection. That is
         // why we reject the promise without waiting and just let them call it
         // again when internet connection is re-established.
-        const error: JsonRpcError = {
-          code: RPCErrorCode.InternalError,
-          message: 'Connection to Magic SDK not ready. Please check your internet connection.',
-        };
+        const error = createModalNotReadyError();
         reject(error);
       }
 
