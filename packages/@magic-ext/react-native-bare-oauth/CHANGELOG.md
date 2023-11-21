@@ -1,3 +1,19 @@
+# v18.0.0 (Tue Nov 21 2023)
+
+#### 💥 Breaking Change
+
+- Revert "Rename: ready -> checkIsReadyForRequest and isReady -> isReadyForRequest" [#668](https://github.com/magiclabs/magic-js/pull/668) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- Revert "Rename: ready -> checkIsReadyForRequest and isReady -> isReadyForRequest" ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v17.1.0 (Mon Nov 20 2023)
 
 #### 🐛 Bug Fix
