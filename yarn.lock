@@ -2958,7 +2958,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-ext/oauth@^15.3.0, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
+"@magic-ext/oauth@^15.3.1, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
   dependencies:
@@ -3095,7 +3095,7 @@ __metadata:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-    "@magic-ext/oauth": ^15.3.0
+    "@magic-ext/oauth": ^15.3.1
     magic-sdk: ^21.3.0
   languageName: unknown
   linkType: soft
