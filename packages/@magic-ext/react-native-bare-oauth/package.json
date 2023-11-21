@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@magic-sdk/types": "^10.0.1",
-    "crypto-js": "^3.3.0",
+    "crypto-js": "^4.2.0",
     "react-native-device-info": "^10.3.0"
   },
   "devDependencies": {

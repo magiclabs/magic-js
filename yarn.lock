@@ -2964,7 +2964,7 @@ __metadata:
   dependencies:
     "@magic-sdk/commons": ^17.3.0
     "@types/crypto-js": ~3.1.47
-    crypto-js: ^3.3.0
+    crypto-js: ^4.2.0
   languageName: unknown
   linkType: soft
 
@@ -2991,7 +2991,7 @@ __metadata:
     "@magic-sdk/react-native-bare": ^22.3.0
     "@magic-sdk/types": ^10.0.1
     "@types/crypto-js": ~3.1.47
-    crypto-js: ^3.3.0
+    crypto-js: ^4.2.0
     react-native-device-info: ^10.3.0
     react-native-inappbrowser-reborn: ^3.7.0
   peerDependencies:
@@ -3007,7 +3007,7 @@ __metadata:
     "@magic-sdk/react-native-expo": ^22.3.0
     "@magic-sdk/types": ^10.0.0
     "@types/crypto-js": ~3.1.47
-    crypto-js: ^3.3.0
+    crypto-js: ^4.2.0
     expo-application: ^5.0.1
     expo-web-browser: ">=12.0.0"
   peerDependencies:
@@ -7109,10 +7109,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypto-js@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "crypto-js@npm:3.3.0"
-  checksum: 193923143a4784b2f974366068d96fe8280168fd3fef2bfea9551a5c3e32096f5a8fa49ff4eeb5bd0b9716d325618d38cfbe6125e359a4ef488fbca93e600824
+"crypto-js@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "crypto-js@npm:4.2.0"
+  checksum: f051666dbc077c8324777f44fbd3aaea2986f198fe85092535130d17026c7c2ccf2d23ee5b29b36f7a4a07312db2fae23c9094b644cc35f7858b1b4fcaf27774
   languageName: node
   linkType: hard
 
