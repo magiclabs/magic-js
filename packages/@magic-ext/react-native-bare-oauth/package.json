@@ -17,6 +17,7 @@
   "types": "./dist/types/index.d.ts",
   "exports": {
     "import": "./dist/es/index.mjs",
+    "types": "./dist/types/index.d.ts",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
