@@ -1,3 +1,18 @@
+# v4.3.1 (Tue Nov 21 2023)
+
+#### 🐛 Bug Fix
+
+- Fix TypeScript resolution for @magic-ext/* packages when using modern module resolution (node16 etc) [#670](https://github.com/magiclabs/magic-js/pull/670) ([@rjwebb](https://github.com/rjwebb) [@joshuascan](https://github.com/joshuascan))
+- Merge branch 'master' into rjwebb/669-fix-node16-magic-ext-imports ([@joshuascan](https://github.com/joshuascan))
+- Update package.json exports to expose types when using node16 typescript, for algorand, auth, avalanche, bitcoin, conflux, cosmos, ed25519, flow, gdkms, harmony, hedera, icon, near, oauth, oidc, polkadot, react-native-bare-oauth, react-native-expo-oauth, taquito, terra, tezos, webauthn and zilliqa ([@rjwebb](https://github.com/rjwebb))
+
+#### Authors: 2
+
+- Bob Webb ([@rjwebb](https://github.com/rjwebb))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v4.2.1 (Tue Nov 14 2023)
 
 #### 🐛 Bug Fix

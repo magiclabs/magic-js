@@ -1,5 +1,19 @@
 # (Tue Nov 21 2023)
 
+#### 🐛 Bug Fix
+
+- `@magic-ext/algorand@16.3.1`, `@magic-ext/auth@4.3.1`, `@magic-ext/avalanche@16.3.1`, `@magic-ext/bitcoin@16.3.1`, `@magic-ext/conflux@14.3.1`, `@magic-ext/cosmos@16.3.1`, `@magic-ext/ed25519@12.3.1`, `@magic-ext/flow@16.3.1`, `@magic-ext/gdkms@4.3.1`, `@magic-ext/harmony@16.3.1`, `@magic-ext/hedera@1.0.3`, `@magic-ext/icon@16.3.1`, `@magic-ext/near@16.3.1`, `@magic-ext/oauth@15.3.1`, `@magic-ext/oidc@4.3.1`, `@magic-ext/polkadot@16.3.1`, `@magic-ext/react-native-bare-oauth@18.0.1`, `@magic-ext/react-native-expo-oauth@18.0.1`, `@magic-ext/taquito@13.3.1`, `@magic-ext/terra@13.3.1`, `@magic-ext/tezos@16.3.1`, `@magic-ext/webauthn@15.3.1`, `@magic-ext/zilliqa@16.3.1`
+  - Fix TypeScript resolution for @magic-ext/* packages when using modern module resolution (node16 etc) [#670](https://github.com/magiclabs/magic-js/pull/670) ([@rjwebb](https://github.com/rjwebb) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Bob Webb ([@rjwebb](https://github.com/rjwebb))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Tue Nov 21 2023)
+
 #### 💥 Breaking Change
 
 - `@magic-ext/react-native-bare-oauth@18.0.0`, `@magic-ext/react-native-expo-oauth@18.0.0`
