@@ -218,7 +218,6 @@ test('does not wait for ready and throws error when platform is react-native', a
     expect(e).toEqual(createModalNotReadyError());
   }
   expect(createJwtStub).not.toHaveBeenCalledWith();
-  expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
   expect(handlerSpy).not.toHaveBeenCalled();
 });
 

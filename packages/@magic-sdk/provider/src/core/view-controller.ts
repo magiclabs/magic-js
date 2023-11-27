@@ -21,6 +21,14 @@ interface StandardizedResponse {
   response?: JsonRpcResponse;
 }
 
+interface StandardizedMagicRequest {
+  msgType: string;
+  payload: JsonRpcRequestPayload<any> | JsonRpcRequestPayload<any>[];
+  jwt?: string;
+  rt?: string;
+  deviceShare?: string;
+}
+
 /**
  * Get the originating payload from a batch request using the specified `id`.
  */
@@ -69,15 +77,22 @@ async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayloa
     }
   }
 
-  if (!jwt) {
-    return { msgType, payload };
+  const deviceShare = await getItem<string>('device_share');
+
+  const request: StandardizedMagicRequest = { msgType, payload };
+
+  if (jwt) {
+    request.jwt = jwt;
+  }
+  if (jwt && rt) {
+    request.rt = rt;
+  }
+  if (deviceShare) {
+    // TODO: Decrypto with web crypto keys
+    request.deviceShare = deviceShare;
   }
 
-  if (!rt) {
-    return { msgType, payload, jwt };
-  }
-
-  return { msgType, payload, jwt, rt };
+  return request;
 }
 
 async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
@@ -86,6 +101,14 @@ async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
   }
 
   await setItem('rt', event.data.rt);
+}
+
+async function persistDeviceShare(event: MagicMessageEvent) {
+  if (!event.data.deviceShare) {
+    return;
+  }
+  // TODO: Encrypt with web crypto keys
+  await setItem('device_share', event.data.deviceShare);
 }
 
 export abstract class ViewController {
@@ -142,7 +165,6 @@ export abstract class ViewController {
         const error = createModalNotReadyError();
         reject(error);
       }
-
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
       const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload);
@@ -155,6 +177,7 @@ export abstract class ViewController {
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
         const { id, response } = standardizeResponse(payload, event);
         persistMagicEventRefreshToken(event);
+        // persistDeviceShare(event);
 
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
           batchData.push(response);

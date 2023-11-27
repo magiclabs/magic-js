@@ -26,6 +26,7 @@ export interface MagicMessageResponse<ResultType = any> {
   msgType: string;
   response: Partial<JsonRpcError> & Partial<JsonRpcResponsePayload<ResultType>>;
   rt?: string;
+  deviceShare?: string;
 }
 
 /** The expected message event returned by the Magic iframe context. */
