@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Linking, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,6 +6,7 @@ import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
 import Global = NodeJS.Global;
+import { useInternetConnection } from './hooks';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -79,6 +80,11 @@ export class ReactNativeWebViewController extends ViewController {
   /* istanbul ignore next */
   public Relayer: React.FC<{ backgroundColor?: string }> = (backgroundColor) => {
     const [show, setShow] = useState(false);
+    const isConnected = useInternetConnection();
+
+    useEffect(() => {
+      this.isConnectedToInternet = isConnected;
+    }, [isConnected]);
 
     /**
      * Saves a reference to the underlying `<WebView>` node so we can interact
