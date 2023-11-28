@@ -1,3 +1,17 @@
+# v22.3.2 (Tue Nov 28 2023)
+
+#### 🐛 Bug Fix
+
+- Fix: Allow implementers of `view-controller` to set if it's connected to the internet, and reject requests when `isConnectedToInternet` is `false` [#673](https://github.com/magiclabs/magic-js/pull/673) ([@romin-halltari](https://github.com/romin-halltari))
+- Bump patch versions ([@romin-halltari](https://github.com/romin-halltari))
+- Set isConnectedToInternet with value coming from @react-native-community/netinfo ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v22.3.0 (Mon Nov 20 2023)
 
 #### 🚀 Enhancement
