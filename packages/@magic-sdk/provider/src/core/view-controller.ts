@@ -89,9 +89,9 @@ async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
 }
 
 export abstract class ViewController {
-  private isReadyForRequest = false;
   public checkIsReadyForRequest: Promise<void>;
   protected readonly messageHandlers = new Set<(event: MagicMessageEvent) => any>();
+  protected isConnectedToInternet = true;
 
   /**
    * Create an instance of `ViewController`
@@ -132,16 +132,12 @@ export abstract class ViewController {
     payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
     return createPromise(async (resolve, reject) => {
-      if (SDKEnvironment.platform !== 'react-native') {
-        await this.checkIsReadyForRequest;
-      } else if (!this.isReadyForRequest) {
-        // On a mobile environment, `this.checkIsReadyForRequest` never resolves
-        // if the app was initially opened without internet connection. That is
-        // why we reject the promise without waiting and just let them call it
-        // again when internet connection is re-established.
+      if (!this.isConnectedToInternet) {
         const error = createModalNotReadyError();
         reject(error);
       }
+
+      await this.checkIsReadyForRequest;
 
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
@@ -207,7 +203,6 @@ export abstract class ViewController {
     return new Promise<void>((resolve) => {
       this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
         resolve();
-        this.isReadyForRequest = true;
       });
     });
   }
