@@ -84,6 +84,7 @@ export type LoginWithMagicLinkEventHandlers = {
 
   // Event sent
   [LoginWithMagicLinkEventEmit.Retry]: () => void;
+  [LoginWithMagicLinkEventEmit.Cancel]: () => void;
 } & DeviceVerificationEventHandlers;
 
 export type LoginWithEmailOTPEventHandlers = {
@@ -113,6 +114,7 @@ type DeviceVerificationEventHandlers = {
  */
 export enum LoginWithMagicLinkEventEmit {
   Retry = 'retry',
+  Cancel = 'cancel',
 }
 
 export enum LoginWithMagicLinkEventOnReceived {

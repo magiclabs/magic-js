@@ -8,6 +8,7 @@ import {
   UpdateEmailConfiguration,
   DeviceVerificationEventEmit,
   LoginWithEmailOTPEventEmit,
+  LoginWithMagicLinkEventEmit,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -55,7 +56,15 @@ export class AuthModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
       [{ email, showUI, redirectURI, overrides }],
     );
-    return this.request<string | null, LoginWithMagicLinkEventHandlers>(requestPayload);
+    const handle = this.request<string | null, LoginWithMagicLinkEventHandlers>(requestPayload);
+
+    if (!showUI && handle) {
+      handle.on(LoginWithMagicLinkEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(LoginWithMagicLinkEventEmit.Cancel, requestPayload.id as any)();
+      });
+    }
+
+    return handle;
   }
 
   /**

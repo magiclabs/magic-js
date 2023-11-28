@@ -25,7 +25,7 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
       const { provider, query } = await createURI.call(this, configuration);
 
       // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-      window.location.href = new URL(`/v1/oauth2/${provider}/start?${query}`, this.sdk.endpoint).href;
+      window.open(new URL(`/v1/oauth2/${provider}/start?${query}`, this.sdk.endpoint).href, '_blank');
 
       resolve();
     });
