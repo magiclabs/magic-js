@@ -41,6 +41,11 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     });
   }
 
+  public loginWithRedirectV2(configuration: OAuthRedirectConfiguration) {
+    console.log('loginWithRedirectV2', configuration);
+    window.open('https://google.com', '_blank');
+  }
+
   public getRedirectResult() {
     const queryString = window.location.search;
 
