@@ -14,6 +14,7 @@ export class AppAttestationExtension extends Extension.Internal<'appAttestation'
   };
 
   public attest() {
+    console.log('******* ATTEST CALLED IN SDK ***********');
     RNReactNativeBareAppAttestation.attest();
   }
 }
