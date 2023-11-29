@@ -1,3 +1,16 @@
+# (Wed Nov 29 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@22.3.4`, `@magic-sdk/react-native-expo@22.3.4`
+  - Fix: increase netinfo version range [#677](https://github.com/magiclabs/magic-js/pull/677) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # (Tue Nov 28 2023)
 
 #### 🐛 Bug Fix
