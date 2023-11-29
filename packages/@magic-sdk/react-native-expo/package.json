@@ -47,7 +47,7 @@
     "react-test-renderer": "^16.13.1"
   },
   "peerDependencies": {
-    "@react-native-community/netinfo": ">11.0.0",
+    "@react-native-community/netinfo": ">=9.0.0",
     "expo": "*",
     "react": ">=16",
     "react-native": ">=0.60",
