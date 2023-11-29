@@ -13,7 +13,7 @@ export class AppAttestationExtension extends Extension.Internal<'appAttestation'
     '@magic-sdk/react-native': false,
   };
 
-  public attest() {
+  public attestCall() {
     console.log('******* ATTEST CALLED IN SDK ***********');
     RNReactNativeBareAppAttestation.attest();
   }
