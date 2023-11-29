@@ -29,6 +29,8 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
       const popupUrl = new URL(`/v1/oauth2/${provider}/start?${query}`, this.sdk.endpoint).href;
       const popup = window.open('about:blank', '_blank');
 
+      console.log('loginWithRedirect', popupUrl, this.sdk);
+
       setTimeout(() => {
         if (popup) {
           popup.location.href = new URL(`/v1/oauth2/${provider}/start?${query}`, popupUrl).href;
