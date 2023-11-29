@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native-expo",
-  "version": "22.3.2",
+  "version": "22.3.3",
   "description": "Passwordless authentication for React Native (Expo).",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -47,7 +47,7 @@
     "react-test-renderer": "^16.13.1"
   },
   "peerDependencies": {
-    "@react-native-community/netinfo": ">11.0.0",
+    "@react-native-community/netinfo": ">=9.0.0",
     "expo": "*",
     "react": ">=16",
     "react-native": ">=0.60",
