@@ -26,13 +26,12 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
 
       // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
       // window.location.href = new URL(`/v1/oauth2/${provider}/start?${query}`, this.sdk.endpoint).href;
-      // const popup = window.open(new URL(`/v1/oauth2/${provider}/start?${query}`, this.sdk.endpoint).href, '_blank');
-
+      const popupUrl = new URL(`/v1/oauth2/${provider}/start?${query}`, this.sdk.endpoint).href;
       const popup = window.open('about:blank', '_blank');
 
       setTimeout(() => {
         if (popup) {
-          popup.location.href = new URL(`/v1/oauth2/${provider}/start?${query}`, this.sdk.endpoint).href;
+          popup.location.href = new URL(`/v1/oauth2/${provider}/start?${query}`, popupUrl).href;
         }
       }, 500);
 
