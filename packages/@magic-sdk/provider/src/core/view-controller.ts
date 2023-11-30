@@ -11,6 +11,7 @@ import { getItem, setItem } from '../util/storage';
 import { createJwt } from '../util/web-crypto';
 import { SDKEnvironment } from './sdk-environment';
 import { createModalNotReadyError } from './sdk-exceptions';
+import { decryptDeviceShare, encryptDeviceShare } from '../util/device-share-web-crypto';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -77,8 +78,6 @@ async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayloa
     }
   }
 
-  const deviceShare = await getItem<string>('device_share');
-
   const request: StandardizedMagicRequest = { msgType, payload };
 
   if (jwt) {
@@ -87,9 +86,15 @@ async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayloa
   if (jwt && rt) {
     request.rt = rt;
   }
-  if (deviceShare) {
-    // TODO: Decrypto with web crypto keys
-    request.deviceShare = deviceShare;
+
+  // Retrieve device share
+  const deviceShare = await getItem<string>('ds'); // device_share
+  const ivString = (await getItem('iv')) as string; // use existing encryption key and initialization vector
+  const ek = (await getItem('ek')) as CryptoKey;
+
+  if (deviceShare && ivString && ek) {
+    const decrypted = await decryptDeviceShare(deviceShare, ek, ivString);
+    request.deviceShare = decrypted;
   }
 
   return request;
@@ -107,8 +112,15 @@ async function persistDeviceShare(event: MagicMessageEvent) {
   if (!event.data.deviceShare) {
     return;
   }
-  // TODO: Encrypt with web crypto keys
-  await setItem('device_share', event.data.deviceShare);
+
+  const { encryptionKey, deviceShare, iv } = await encryptDeviceShare(event.data.deviceShare);
+
+  if (!encryptionKey || !deviceShare || !iv) {
+    return;
+  }
+  await setItem('ds', deviceShare);
+  await setItem('ek', encryptionKey);
+  await setItem('iv', iv);
 }
 
 export abstract class ViewController {
@@ -177,7 +189,7 @@ export abstract class ViewController {
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
         const { id, response } = standardizeResponse(payload, event);
         persistMagicEventRefreshToken(event);
-        // persistDeviceShare(event);
+        persistDeviceShare(event);
 
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
           batchData.push(response);
