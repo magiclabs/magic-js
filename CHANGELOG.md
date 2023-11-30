@@ -1,3 +1,31 @@
+# (Wed Nov 29 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@22.3.4`, `@magic-sdk/react-native-expo@22.3.4`
+  - Fix: increase netinfo version range [#677](https://github.com/magiclabs/magic-js/pull/677) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# (Tue Nov 28 2023)
+
+#### 🐛 Bug Fix
+
+- add types to scaffolding export [#671](https://github.com/magiclabs/magic-js/pull/671) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-sdk/provider@21.3.1`, `@magic-sdk/react-native-bare@22.3.2`, `@magic-sdk/react-native-expo@22.3.2`
+  - Fix: Allow implementers of `view-controller` to set if it's connected to the internet, and reject requests when `isConnectedToInternet` is `false` [#673](https://github.com/magiclabs/magic-js/pull/673) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Nov 21 2023)
 
 #### 🐛 Bug Fix
