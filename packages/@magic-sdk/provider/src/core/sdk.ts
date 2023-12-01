@@ -44,7 +44,7 @@ function getNetworkHash(network?: EthNetworkConfiguration, extConfig?: any) {
   // add api key here.
   if (!network && !extConfig) return 'eth_mainnet';
   if (extConfig) {
-    console.log('extConfig', extConfig);
+    console.warn('extConfig', extConfig);
     // this is a whole list of extensions, not just the blockchain
     // need to filter out ahead of time for chainType.
   }
