@@ -2988,7 +2988,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-bare-oauth@workspace:packages/@magic-ext/react-native-bare-oauth"
   dependencies:
-    "@magic-sdk/react-native-bare": ^22.3.2
+    "@magic-sdk/react-native-bare": ^22.3.4
     "@magic-sdk/types": ^10.0.1
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
@@ -3004,7 +3004,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-expo-oauth@workspace:packages/@magic-ext/react-native-expo-oauth"
   dependencies:
-    "@magic-sdk/react-native-expo": ^22.3.2
+    "@magic-sdk/react-native-expo": ^22.3.4
     "@magic-sdk/types": ^10.0.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
@@ -3117,7 +3117,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-bare@^22.3.2, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
+"@magic-sdk/react-native-bare@^22.3.4, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
   dependencies:
@@ -3157,7 +3157,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-expo@^22.3.2, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
+"@magic-sdk/react-native-expo@^22.3.4, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
