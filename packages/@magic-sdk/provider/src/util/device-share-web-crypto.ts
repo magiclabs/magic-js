@@ -1,7 +1,11 @@
+export const DEVICE_SHARE_KEY = 'ds';
+export const ENCRYPTION_KEY_KEY = 'ek';
+export const INITIALIZATION_VECTOR_KEY = 'iv';
+
 const ALGO_NAME = 'AES-GCM'; // for encryption
 const ALGO_LENGTH = 256;
 
-function strToArrayBuffer(str: string) {
+export function strToArrayBuffer(str: string) {
   const buf = new ArrayBuffer(str.length);
   const bufView = new Uint8Array(buf);
   for (let i = 0, strLen = str.length; i < strLen; i++) {
@@ -10,7 +14,7 @@ function strToArrayBuffer(str: string) {
   return buf;
 }
 
-function bufferToString(buffer: ArrayBuffer) {
+export function bufferToString(buffer: ArrayBuffer) {
   const decoder = new TextDecoder('utf-8');
   return decoder.decode(buffer);
 }
@@ -35,23 +39,25 @@ async function createEncryptionKey() {
   return key;
 }
 
-export async function encryptDeviceShare(data: string): Promise<any> {
-  // generate new iv
+export async function encryptDeviceShare(plaintextDeviceShare: string): Promise<any> {
+  const { subtle } = window.crypto;
   const iv = await createInitializationVector();
   const encryptionKey = await createEncryptionKey();
 
-  if (!iv || !encryptionKey) return { iv: undefined, encryptionKey: undefined, deviceShare: undefined };
+  if (!iv || !encryptionKey || !subtle) {
+    return { iv: undefined, encryptionKey: undefined, encryptedDeviceShare: undefined };
+  }
 
-  const deviceShare = await window.crypto.subtle.encrypt(
+  const encryptedDeviceShare = await subtle.encrypt(
     {
       name: ALGO_NAME,
       iv,
     },
     encryptionKey,
-    strToArrayBuffer(data),
+    strToArrayBuffer(plaintextDeviceShare),
   );
 
-  return { encryptionKey, deviceShare, iv };
+  return { encryptionKey, encryptedDeviceShare, iv };
 }
 
 export async function decryptDeviceShare(

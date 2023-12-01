@@ -11,7 +11,13 @@ import { getItem, setItem } from '../util/storage';
 import { createJwt } from '../util/web-crypto';
 import { SDKEnvironment } from './sdk-environment';
 import { createModalNotReadyError } from './sdk-exceptions';
-import { decryptDeviceShare, encryptDeviceShare } from '../util/device-share-web-crypto';
+import {
+  DEVICE_SHARE_KEY,
+  ENCRYPTION_KEY_KEY,
+  INITIALIZATION_VECTOR_KEY,
+  decryptDeviceShare,
+  encryptDeviceShare,
+} from '../util/device-share-web-crypto';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -88,9 +94,9 @@ async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayloa
   }
 
   // Retrieve device share
-  const deviceShare = await getItem<string>('ds'); // device_share
-  const ivString = (await getItem('iv')) as string; // use existing encryption key and initialization vector
-  const ek = (await getItem('ek')) as CryptoKey;
+  const deviceShare = await getItem<string>(DEVICE_SHARE_KEY); // device_share
+  const ivString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string; // use existing encryption key and initialization vector
+  const ek = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;
 
   if (deviceShare && ivString && ek) {
     const decrypted = await decryptDeviceShare(deviceShare, ek, ivString);
@@ -113,14 +119,18 @@ async function persistDeviceShare(event: MagicMessageEvent) {
     return;
   }
 
-  const { encryptionKey, deviceShare, iv } = await encryptDeviceShare(event.data.deviceShare);
+  // if it comes from the iframe, consider it "plaintext"
+  const plaintextDeviceShare = event.data.deviceShare;
 
-  if (!encryptionKey || !deviceShare || !iv) {
+  const { encryptionKey, encryptedDeviceShare, iv } = await encryptDeviceShare(plaintextDeviceShare);
+
+  if (!encryptionKey || !encryptedDeviceShare || !iv) {
     return;
   }
-  await setItem('ds', deviceShare);
-  await setItem('ek', encryptionKey);
-  await setItem('iv', iv);
+
+  await setItem(DEVICE_SHARE_KEY, encryptedDeviceShare);
+  await setItem(ENCRYPTION_KEY_KEY, encryptionKey);
+  await setItem(INITIALIZATION_VECTOR_KEY, iv);
 }
 
 export abstract class ViewController {

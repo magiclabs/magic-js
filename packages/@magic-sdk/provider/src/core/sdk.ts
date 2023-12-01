@@ -37,6 +37,27 @@ function checkExtensionCompat(ext: Extension<string>) {
 }
 
 /**
+ * Generates a network hash of the SDK instance for persisting network specific
+ * information on multichain setups
+ */
+function getNetworkHash(network?: EthNetworkConfiguration, extConfig?: any) {
+  // add api key here.
+  if (!network && !extConfig) return 'eth_mainnet';
+  if (extConfig) {
+    console.log('extConfig', extConfig);
+    // this is a whole list of extensions, not just the blockchain
+    // need to filter out ahead of time for chainType.
+  }
+  if (network) {
+    if (typeof network === 'string') {
+      return `ETH_${network}`;
+    }
+    return `ETH_${network.rpcUrl}_${network.chainId}_${network.chainType}`;
+  }
+  return 'UNKNOWN';
+}
+
+/**
  * Initializes SDK extensions, checks for platform/version compatiblity issues,
  * then consolidates any global configurations provided by those extensions.
  */
@@ -103,6 +124,7 @@ export class SDKBase {
 
   protected readonly endpoint: string;
   protected readonly parameters: string;
+  protected readonly networkHash: string;
   public readonly testMode: boolean;
 
   /**
@@ -169,6 +191,7 @@ export class SDKBase {
       locale: options?.locale || 'en_US',
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
     });
+    this.networkHash = getNetworkHash(options?.network, isEmpty(extConfig) ? undefined : extConfig);
     if (!options?.deferPreload) this.preload();
   }
 
