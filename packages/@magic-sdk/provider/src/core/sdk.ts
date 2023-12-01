@@ -40,21 +40,21 @@ function checkExtensionCompat(ext: Extension<string>) {
  * Generates a network hash of the SDK instance for persisting network specific
  * information on multichain setups
  */
-function getNetworkHash(network?: EthNetworkConfiguration, extConfig?: any) {
-  // add api key here.
-  if (!network && !extConfig) return 'eth_mainnet';
+function getNetworkHash(apiKey: string, network?: EthNetworkConfiguration, extConfig?: any) {
+  if (!network && !extConfig) {
+    return `${apiKey}_eth_mainnet`;
+  }
   if (extConfig) {
-    console.warn('extConfig', extConfig);
-    // this is a whole list of extensions, not just the blockchain
-    // need to filter out ahead of time for chainType.
+    return `${apiKey}_${JSON.stringify(extConfig)}`;
   }
   if (network) {
     if (typeof network === 'string') {
-      return `ETH_${network}`;
+      return `${apiKey}_eth_${network}`;
     }
-    return `ETH_${network.rpcUrl}_${network.chainId}_${network.chainType}`;
+    // Custom network, not necessarily eth.
+    return `${apiKey}_${network.rpcUrl}_${network.chainId}_${network.chainType}`;
   }
-  return 'UNKNOWN';
+  return `${apiKey}_unknown`;
 }
 
 /**
@@ -191,7 +191,7 @@ export class SDKBase {
       locale: options?.locale || 'en_US',
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
     });
-    this.networkHash = getNetworkHash(options?.network, isEmpty(extConfig) ? undefined : extConfig);
+    this.networkHash = getNetworkHash(this.apiKey, options?.network, isEmpty(extConfig) ? undefined : extConfig);
     if (!options?.deferPreload) this.preload();
   }
 
@@ -200,7 +200,7 @@ export class SDKBase {
    */
   protected get overlay(): ViewController {
     if (!SDKBase.__overlays__.has(this.parameters)) {
-      const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters);
+      const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters, this.networkHash);
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore - We don't want to expose this method to the user, but we

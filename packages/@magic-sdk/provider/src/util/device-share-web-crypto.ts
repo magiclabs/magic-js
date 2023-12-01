@@ -1,3 +1,5 @@
+import { isWebCryptoSupported } from './web-crypto';
+
 export const DEVICE_SHARE_KEY = 'ds';
 export const ENCRYPTION_KEY_KEY = 'ek';
 export const INITIALIZATION_VECTOR_KEY = 'iv';
@@ -20,6 +22,10 @@ export function bufferToString(buffer: ArrayBuffer) {
 }
 
 async function createInitializationVector() {
+  if (!isWebCryptoSupported()) {
+    console.info('webcrypto is not supported');
+    return undefined;
+  }
   const { crypto } = window;
 
   if (!crypto) return undefined;
@@ -29,6 +35,10 @@ async function createInitializationVector() {
 }
 
 async function createEncryptionKey() {
+  if (!isWebCryptoSupported()) {
+    console.info('webcrypto is not supported');
+    return undefined;
+  }
   const { subtle } = window.crypto;
   if (!subtle) return undefined;
   const key = subtle.generateKey(
@@ -40,21 +50,24 @@ async function createEncryptionKey() {
 }
 
 export async function encryptDeviceShare(plaintextDeviceShare: string): Promise<any> {
-  const { subtle } = window.crypto;
   const iv = await createInitializationVector();
   const encryptionKey = await createEncryptionKey();
 
-  if (!iv || !encryptionKey || !subtle) {
+  if (!iv || !encryptionKey || !plaintextDeviceShare) {
     return { iv: undefined, encryptionKey: undefined, encryptedDeviceShare: undefined };
   }
 
-  const encryptedDeviceShare = await subtle.encrypt(
-    {
-      name: ALGO_NAME,
-      iv,
-    },
-    encryptionKey,
-    strToArrayBuffer(plaintextDeviceShare),
+  const { subtle } = window.crypto;
+
+  const encryptedDeviceShare = bufferToString(
+    await subtle.encrypt(
+      {
+        name: ALGO_NAME,
+        iv,
+      },
+      encryptionKey,
+      strToArrayBuffer(plaintextDeviceShare),
+    ),
   );
 
   return { encryptionKey, encryptedDeviceShare, iv };
@@ -65,7 +78,7 @@ export async function decryptDeviceShare(
   encryptionKey: CryptoKey,
   ivString: string,
 ): Promise<string | undefined> {
-  if (!encryptedDeviceShare) {
+  if (!encryptedDeviceShare || !isWebCryptoSupported()) {
     return undefined;
   }
 

@@ -11,6 +11,13 @@ const EC_GEN_PARAMS: EcKeyGenParams = {
   namedCurve: ALGO_CURVE,
 };
 
+export function isWebCryptoSupported() {
+  const hasCrypto = typeof window !== 'undefined' && !!(window.crypto as any);
+  const hasSubtleCrypto = hasCrypto && !!(window.crypto.subtle as any);
+
+  return hasCrypto && hasSubtleCrypto;
+}
+
 export function clearKeys() {
   removeItem(STORE_KEY_PUBLIC_JWK);
   removeItem(STORE_KEY_PRIVATE_KEY);
@@ -85,13 +92,6 @@ async function generateWCKP() {
   await setItem(STORE_KEY_PRIVATE_KEY, kp.privateKey!);
   // persist the jwk public key since it needs to be exported anyways
   await setItem(STORE_KEY_PUBLIC_JWK, jwkPublicKey);
-}
-
-function isWebCryptoSupported() {
-  const hasCrypto = typeof window !== 'undefined' && !!(window.crypto as any);
-  const hasSubtleCrypto = hasCrypto && !!(window.crypto.subtle as any);
-
-  return hasCrypto && hasSubtleCrypto;
 }
 
 function strToUrlBase64(str: string) {

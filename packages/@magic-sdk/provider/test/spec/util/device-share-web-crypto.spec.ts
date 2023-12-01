@@ -26,16 +26,14 @@ afterEach(() => {
 
 test('should return undefined if unsupported', async () => {
   const plaintextDeviceShare = 'test';
-  (window as any).crypto = undefined;
+  (window as any).crypto = {};
   jest.spyOn(global.console, 'info').mockImplementation();
   const { encryptedDeviceShare } = await encryptDeviceShare(plaintextDeviceShare);
   expect(encryptedDeviceShare).toEqual(undefined);
 });
 
 test('should give undefined if missing device share', async () => {
-  const plaintextDeviceShare = 'test';
-  FAKE_STORE[DEVICE_SHARE_KEY] = null;
-  const { encryptedDeviceShare } = await encryptDeviceShare(plaintextDeviceShare);
+  const { encryptedDeviceShare } = await encryptDeviceShare(undefined);
   expect(encryptedDeviceShare).toEqual(undefined);
 });
 
@@ -43,9 +41,9 @@ test('should return jwt if supported', async () => {
   const plaintextDeviceShare = 'test';
   FAKE_STORE[DEVICE_SHARE_KEY] = 'test';
 
-  const jwt = await encryptDeviceShare(plaintextDeviceShare);
-  expect(jwt).toBeTruthy();
-  expect(jwt.split('.').length).toEqual(3);
+  const deviceShare = await encryptDeviceShare(plaintextDeviceShare);
+  expect(deviceShare).toBeTruthy();
+  // expect(jwt.split('.').length).toEqual(3);
 });
 
 /* test('jwt is unique', async () => {

@@ -71,7 +71,11 @@ function standardizeResponse(
   return {};
 }
 
-async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayload | JsonRpcRequestPayload[]) {
+async function createMagicRequest(
+  msgType: string,
+  payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
+  networkHash: string,
+) {
   const rt = await getItem<string>('rt');
   let jwt;
 
@@ -94,7 +98,7 @@ async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayloa
   }
 
   // Retrieve device share
-  const deviceShare = await getItem<string>(DEVICE_SHARE_KEY); // device_share
+  const deviceShare = await getItem<string>(`${DEVICE_SHARE_KEY}_${networkHash}`); // device_share
   const ivString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string; // use existing encryption key and initialization vector
   const ek = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;
 
@@ -114,7 +118,7 @@ async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
   await setItem('rt', event.data.rt);
 }
 
-async function persistDeviceShare(event: MagicMessageEvent) {
+async function persistDeviceShare(event: MagicMessageEvent, networkHash: string) {
   if (!event.data.deviceShare) {
     return;
   }
@@ -128,7 +132,7 @@ async function persistDeviceShare(event: MagicMessageEvent) {
     return;
   }
 
-  await setItem(DEVICE_SHARE_KEY, encryptedDeviceShare);
+  await setItem(`${DEVICE_SHARE_KEY}_${networkHash}`, encryptedDeviceShare);
   await setItem(ENCRYPTION_KEY_KEY, encryptionKey);
   await setItem(INITIALIZATION_VECTOR_KEY, iv);
 }
@@ -144,8 +148,14 @@ export abstract class ViewController {
    * @param endpoint - The URL for the relevant iframe context.
    * @param parameters - The unique, encoded query parameters for the
    * relevant iframe context.
+   * @param networkHash - The hash of the network that this sdk instance is connected to
+   * for multi-chain scenarios
    */
-  constructor(protected readonly endpoint: string, protected readonly parameters: string) {
+  constructor(
+    protected readonly endpoint: string,
+    protected readonly parameters: string,
+    protected readonly networkHash: string,
+  ) {
     this.checkIsReadyForRequest = this.waitForReady();
     this.listen();
   }
@@ -186,7 +196,7 @@ export abstract class ViewController {
 
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
-      const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload);
+      const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload, this.networkHash);
 
       await this._post(msg);
 
@@ -196,7 +206,7 @@ export abstract class ViewController {
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
         const { id, response } = standardizeResponse(payload, event);
         persistMagicEventRefreshToken(event);
-        persistDeviceShare(event);
+        persistDeviceShare(event, this.networkHash);
 
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
           batchData.push(response);
