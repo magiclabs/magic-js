@@ -42,8 +42,27 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   }
 
   public loginWithRedirectV2(configuration: OAuthRedirectConfiguration) {
-    console.log('loginWithRedirectV2', configuration);
-    window.open('https://google.com', '_blank');
+    return this.utils.createPromiEvent<void>(async (resolve) => {
+      console.log('loginWithRedirectV2', configuration);
+
+      const parseRedirectResult = this.utils.createJsonRpcRequestPayload('magic_oauth_login_with_redirect_start', [
+        configuration,
+      ]);
+
+      const result = await this.request<any>(parseRedirectResult);
+      // TODO: handle error like allotlist not matching
+
+      if (result?.providerUrl) {
+        window.location.href = result.providerUrl;
+      }
+
+      resolve();
+    });
+  }
+
+  public loginWithPopup1(configuration: OAuthRedirectConfiguration) {
+    console.log('loginWithPopup1', configuration);
+    window.open(`http://localhost:3014/v1/oauth2/popup/${provider}/start`, '_blank');
   }
 
   public getRedirectResult() {
@@ -55,6 +74,18 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     window.history.replaceState(null, '', urlWithoutQuery);
 
     return getResult.call(this, queryString);
+  }
+
+  public getRedirectResultV2() {
+    console.log('getRedirectResultV2');
+    const queryString = window.location.search;
+
+    // Remove the query from the redirect callback as a precaution to prevent
+    // malicious parties from parsing it before we have a chance to use it.
+    const urlWithoutQuery = window.location.origin + window.location.pathname;
+    window.history.replaceState(null, '', urlWithoutQuery);
+
+    return getResultV2.call(this, queryString);
   }
 }
 
@@ -111,6 +142,39 @@ function getResult(this: OAuthExtension, queryString: string) {
     this.utils.storage.removeItem(OAUTH_REDIRECT_METADATA_KEY);
 
     const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.ParseRedirectResult, [
+      queryString,
+      verifier,
+      state,
+    ]);
+
+    // Parse the result, which may contain an OAuth-formatted error.
+    const resultOrError = await this.request<OAuthRedirectResult | OAuthRedirectError>(parseRedirectResult);
+    const maybeResult = resultOrError as OAuthRedirectResult;
+    const maybeError = resultOrError as OAuthRedirectError;
+
+    if (maybeError.error) {
+      reject(
+        this.createError<OAuthErrorData>(maybeError.error, maybeError.error_description ?? 'An error occurred.', {
+          errorURI: maybeError.error_uri,
+          provider: maybeError.provider,
+        }),
+      );
+    }
+
+    resolve(maybeResult);
+  });
+}
+
+function getResultV2(this: OAuthExtension, queryString: string) {
+  return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
+    const json: string = (await this.utils.storage.getItem(OAUTH_REDIRECT_METADATA_KEY)) as string;
+
+    const { verifier, state } = JSON.parse(json);
+
+    // Remove the save OAuth state from storage, it stays in memory now...
+    this.utils.storage.removeItem(OAUTH_REDIRECT_METADATA_KEY);
+
+    const parseRedirectResult = this.utils.createJsonRpcRequestPayload('magic_oauth_parse_redirect_result_v2', [
       queryString,
       verifier,
       state,
