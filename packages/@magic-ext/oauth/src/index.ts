@@ -50,10 +50,11 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
       ]);
 
       const result = await this.request<any>(parseRedirectResult);
-      // TODO: handle error like allotlist not matching
 
-      if (result?.providerUrl) {
-        window.location.href = result.providerUrl;
+      // TODO: handle error like allowlist not matching
+
+      if (result?.oauthAuthoriationURI) {
+        window.location.href = result.oauthAuthoriationURI;
       }
 
       resolve();
@@ -79,6 +80,8 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   public getRedirectResultV2() {
     console.log('getRedirectResultV2');
     const queryString = window.location.search;
+
+    console.log('getRedirectResultV2', queryString);
 
     // Remove the query from the redirect callback as a precaution to prevent
     // malicious parties from parsing it before we have a chance to use it.
