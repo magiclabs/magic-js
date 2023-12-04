@@ -49,7 +49,11 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
         configuration,
       ]);
 
+      console.log('loginWithRedirectV2: rpc payload', parseRedirectResult);
+
       const result = await this.request<any>(parseRedirectResult);
+
+      console.log('loginWithRedirectV2: rpc result', result);
 
       // TODO: handle error like allowlist not matching
 
