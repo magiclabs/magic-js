@@ -15,6 +15,7 @@ import {
   DEVICE_SHARE_KEY,
   ENCRYPTION_KEY_KEY,
   INITIALIZATION_VECTOR_KEY,
+  clearDeviceShares,
   decryptDeviceShare,
   encryptDeviceShare,
 } from '../util/device-share-web-crypto';
@@ -206,8 +207,11 @@ export abstract class ViewController {
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
         const { id, response } = standardizeResponse(payload, event);
         persistMagicEventRefreshToken(event);
-        persistDeviceShare(event, this.networkHash);
-
+        if (event.data.response.error?.message === 'User denied account access.') {
+          clearDeviceShares();
+        } else {
+          persistDeviceShare(event, this.networkHash);
+        }
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
           batchData.push(response);
 

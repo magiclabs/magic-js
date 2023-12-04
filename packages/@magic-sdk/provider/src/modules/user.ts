@@ -14,6 +14,7 @@ import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
+import { clearDeviceShares } from '../util/device-share-web-crypto';
 
 export type UpdateEmailEvents = {
   'email-sent': () => void;
@@ -54,6 +55,7 @@ export class UserModule extends BaseModule {
 
   public logout() {
     removeItem(this.localForageKey);
+    clearDeviceShares();
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
     );

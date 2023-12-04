@@ -1,3 +1,4 @@
+import { iterate, removeItem } from './storage';
 import { isWebCryptoSupported } from './web-crypto';
 
 export const DEVICE_SHARE_KEY = 'ds';
@@ -6,6 +7,14 @@ export const INITIALIZATION_VECTOR_KEY = 'iv';
 
 const ALGO_NAME = 'AES-GCM'; // for encryption
 const ALGO_LENGTH = 256;
+
+export function clearDeviceShares() {
+  iterate((value, key, iterationNumber) => {
+    if (key.startsWith(`${DEVICE_SHARE_KEY}_`)) {
+      removeItem(key);
+    }
+  });
+}
 
 export function strToArrayBuffer(str: string) {
   const buf = new ArrayBuffer(str.length);

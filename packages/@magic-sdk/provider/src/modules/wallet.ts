@@ -16,6 +16,7 @@ import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { setItem, getItem, removeItem } from '../util/storage';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { createPromiEvent } from '../util';
+import { clearDeviceShares } from '../util/device-share-web-crypto';
 
 export type ConnectWithUiEvents = {
   'id-token-created': (params: { idToken: string }) => void;
@@ -111,6 +112,7 @@ export class WalletModule extends BaseModule {
       useInstead: 'user.logout()',
     }).log();
     removeItem(this.localForageKey);
+    clearDeviceShares();
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Disconnect);
     return this.request<boolean>(requestPayload);
   }
