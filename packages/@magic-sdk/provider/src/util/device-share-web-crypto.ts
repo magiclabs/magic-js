@@ -25,6 +25,26 @@ export function strToArrayBuffer(str: string) {
   return buf;
 }
 
+function arrayBufferToBase64(buffer: ArrayBuffer) {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+}
+
+export function base64ToArrayBuffer(base64: string) {
+  const binaryString = window.atob(base64);
+  const len = binaryString.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
+
 export function bufferToString(buffer: ArrayBuffer) {
   const decoder = new TextDecoder('utf-8');
   return decoder.decode(buffer);
@@ -58,7 +78,9 @@ async function createEncryptionKey() {
   return key;
 }
 
-export async function encryptDeviceShare(plaintextDeviceShare: string): Promise<any> {
+export async function encryptDeviceShare(
+  plaintextDeviceShare: string,
+): Promise<{ encryptionKey?: CryptoKey; encryptedDeviceShare?: String; iv?: Uint8Array }> {
   const iv = await createInitializationVector();
   const encryptionKey = await createEncryptionKey();
 
@@ -68,7 +90,7 @@ export async function encryptDeviceShare(plaintextDeviceShare: string): Promise<
 
   const { subtle } = window.crypto;
 
-  const encryptedDeviceShare = bufferToString(
+  const encryptedDeviceShare = arrayBufferToBase64(
     await subtle.encrypt(
       {
         name: ALGO_NAME,
@@ -96,7 +118,7 @@ export async function decryptDeviceShare(
 
   if (!iv || !encryptedDeviceShare || !encryptionKey || !subtle) return undefined;
 
-  const ab = await subtle.decrypt({ name: ALGO_NAME, iv }, encryptionKey, strToArrayBuffer(encryptedDeviceShare));
+  const ab = await subtle.decrypt({ name: ALGO_NAME, iv }, encryptionKey, base64ToArrayBuffer(encryptedDeviceShare));
 
   return bufferToString(ab);
 }
