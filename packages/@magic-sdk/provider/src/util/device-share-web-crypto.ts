@@ -80,7 +80,7 @@ async function createEncryptionKey() {
 
 export async function encryptDeviceShare(
   plaintextDeviceShare: string,
-): Promise<{ encryptionKey?: CryptoKey; encryptedDeviceShare?: String; iv?: Uint8Array }> {
+): Promise<{ encryptionKey?: CryptoKey; encryptedDeviceShare?: String; iv?: string }> {
   const iv = await createInitializationVector();
   const encryptionKey = await createEncryptionKey();
 
@@ -90,18 +90,18 @@ export async function encryptDeviceShare(
 
   const { subtle } = window.crypto;
 
-  const encryptedDeviceShare = arrayBufferToBase64(
-    await subtle.encrypt(
-      {
-        name: ALGO_NAME,
-        iv,
-      },
-      encryptionKey,
-      strToArrayBuffer(plaintextDeviceShare),
-    ),
+  const encryptedData = await subtle.encrypt(
+    {
+      name: ALGO_NAME,
+      iv,
+    },
+    encryptionKey,
+    strToArrayBuffer(plaintextDeviceShare),
   );
 
-  return { encryptionKey, encryptedDeviceShare, iv };
+  const encryptedDeviceShare = arrayBufferToBase64(encryptedData);
+
+  return { encryptionKey, encryptedDeviceShare, iv: JSON.stringify(Array.from(iv)) };
 }
 
 export async function decryptDeviceShare(
@@ -113,7 +113,7 @@ export async function decryptDeviceShare(
     return undefined;
   }
 
-  const iv = new Uint8Array(ivString.split(',').map(Number));
+  const iv = new Uint8Array(JSON.parse(ivString));
   const { subtle } = window.crypto;
 
   if (!iv || !encryptedDeviceShare || !encryptionKey || !subtle) return undefined;

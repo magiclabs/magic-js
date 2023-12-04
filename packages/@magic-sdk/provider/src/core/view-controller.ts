@@ -133,6 +133,7 @@ async function persistDeviceShare(event: MagicMessageEvent, networkHash: string)
     return;
   }
 
+  console.warn('encryptedDeviceShare', encryptedDeviceShare);
   await setItem(`${DEVICE_SHARE_KEY}_${networkHash}`, encryptedDeviceShare);
   await setItem(ENCRYPTION_KEY_KEY, encryptionKey);
   await setItem(INITIALIZATION_VECTOR_KEY, iv);
