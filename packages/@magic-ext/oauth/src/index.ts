@@ -46,7 +46,11 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
       console.log('loginWithRedirectV2', configuration);
 
       const parseRedirectResult = this.utils.createJsonRpcRequestPayload('magic_oauth_login_with_redirect_start', [
-        configuration,
+        {
+          ...configuration,
+          apiKey: this.sdk.apiKey,
+          platform: 'web',
+        },
       ]);
 
       console.log('loginWithRedirectV2: rpc payload', parseRedirectResult);
