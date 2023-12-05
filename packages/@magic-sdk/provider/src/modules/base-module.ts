@@ -26,7 +26,6 @@ export class BaseModule {
    * Emits promisified requests to the Magic `<iframe>` context.
    */
   protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
-    console.warn('calling request', payload);
     const responsePromise = this.overlay.post<ResultType>(
       MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
       standardizeJsonRpcRequestPayload(payload),

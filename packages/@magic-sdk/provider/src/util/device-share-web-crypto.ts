@@ -1,4 +1,4 @@
-import { iterate, removeItem } from './storage';
+import { getItem, iterate, removeItem } from './storage';
 import { isWebCryptoSupported } from './web-crypto';
 
 export const DEVICE_SHARE_KEY = 'ds';
@@ -56,26 +56,36 @@ export function bufferToString(buffer: ArrayBuffer) {
   return decoder.decode(buffer);
 }
 
-async function createInitializationVector() {
+async function getOrCreateInitializationVector() {
   if (!isWebCryptoSupported()) {
     console.info('webcrypto is not supported');
     return undefined;
   }
   const { crypto } = window;
-
   if (!crypto) return undefined;
+
+  const existingIvString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string;
+  if (existingIvString) {
+    return new Uint8Array(JSON.parse(existingIvString));
+  }
 
   const iv = crypto.getRandomValues(new Uint8Array(12)); // 12 bytes for AES-GCM
   return iv;
 }
 
-async function createEncryptionKey() {
+async function getOrCreateEncryptionKey() {
   if (!isWebCryptoSupported()) {
     console.info('webcrypto is not supported');
     return undefined;
   }
   const { subtle } = window.crypto;
   if (!subtle) return undefined;
+
+  const existingKey = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;
+  if (existingKey) {
+    return existingKey;
+  }
+
   const key = subtle.generateKey(
     { name: ALGO_NAME, length: ALGO_LENGTH },
     false, // non-extractable
@@ -87,8 +97,8 @@ async function createEncryptionKey() {
 export async function encryptDeviceShare(
   plaintextDeviceShare: string,
 ): Promise<{ encryptionKey?: CryptoKey; encryptedDeviceShare?: String; iv?: string }> {
-  const iv = await createInitializationVector();
-  const encryptionKey = await createEncryptionKey();
+  const iv = await getOrCreateInitializationVector();
+  const encryptionKey = await getOrCreateEncryptionKey();
 
   if (!iv || !encryptionKey || !plaintextDeviceShare) {
     return { iv: undefined, encryptionKey: undefined, encryptedDeviceShare: undefined };
