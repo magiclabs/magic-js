@@ -1,3 +1,16 @@
+# v21.3.1 (Tue Nov 28 2023)
+
+#### 🐛 Bug Fix
+
+- Fix: Allow implementers of `view-controller` to set if it's connected to the internet, and reject requests when `isConnectedToInternet` is `false` [#673](https://github.com/magiclabs/magic-js/pull/673) ([@romin-halltari](https://github.com/romin-halltari))
+- Fix: Remove check for isReadyForRequest, add isConnectedToInternet ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v21.3.0 (Mon Nov 20 2023)
 
 #### 🚀 Enhancement

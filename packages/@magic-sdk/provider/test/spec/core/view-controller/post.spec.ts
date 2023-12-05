@@ -201,14 +201,15 @@ test('Sends payload and stores rt if response event contains rt', async () => {
   expect(FAKE_STORE.rt).toEqual(FAKE_RT);
 });
 
-test('does not wait for ready and throws error when platform is react-native', async () => {
-  SDKEnvironment.platform = 'react-native';
+test('throws MODAL_NOT_READY error when not connected to the internet', async () => {
   const eventWithRt = { data: { ...responseEvent().data } };
   const viewController = createViewController('asdf');
   const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
   ]);
-  viewController.checkIsReadyForRequest = new Promise(() => null);
+
+  // @ts-ignore protected variable
+  viewController.isConnectedToInternet = false;
 
   const payload = requestPayload();
 
@@ -217,9 +218,6 @@ test('does not wait for ready and throws error when platform is react-native', a
   } catch (e) {
     expect(e).toEqual(createModalNotReadyError());
   }
-  expect(createJwtStub).not.toHaveBeenCalledWith();
-  expect(onSpy.mock.calls[0][0]).toEqual(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
-  expect(handlerSpy).not.toHaveBeenCalled();
 });
 
 test('does not call web crypto api if platform is not web', async () => {
@@ -230,9 +228,6 @@ test('does not call web crypto api if platform is not web', async () => {
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
   ]);
   const payload = requestPayload();
-
-  // @ts-ignore isReadyForRequest is private
-  viewController.isReadyForRequest = true;
 
   const response = await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 

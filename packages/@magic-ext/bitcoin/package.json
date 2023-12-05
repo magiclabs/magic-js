@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/bitcoin",
-  "version": "16.3.1",
+  "version": "16.3.2",
   "description": "magic bitcoin extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^17.3.0"
+    "@magic-sdk/commons": "^17.3.1"
   }
 }

@@ -1,3 +1,15 @@
+# v4.3.2 (Tue Nov 28 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into josh-sc-90794-add-types-export-to-scaffolding ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v4.3.1 (Tue Nov 21 2023)
 
 #### 🐛 Bug Fix
