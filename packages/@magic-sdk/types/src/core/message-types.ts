@@ -19,6 +19,7 @@ export interface MagicMessageRequest {
   payload: JsonRpcRequestPayload | JsonRpcRequestPayload[];
   rt?: string;
   jwt?: string;
+  deviceShare?: string;
 }
 
 /** The shape of responding window message datas from the Magic iframe context. */

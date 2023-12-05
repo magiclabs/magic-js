@@ -99,16 +99,12 @@ async function createMagicRequest(
   }
 
   // Retrieve device share
-  console.warn('looking for', `${DEVICE_SHARE_KEY}_${networkHash}`);
   const deviceShare = await getItem<string>(`${DEVICE_SHARE_KEY}_${networkHash}`);
   const ivString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string; // use existing encryption key and initialization vector
   const ek = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;
 
-  console.warn(`deviceShare, ivString, ek`, deviceShare, ivString, ek);
-
   if (deviceShare && ivString && ek) {
     const decrypted = await decryptDeviceShare(deviceShare, ek, ivString);
-    console.warn('decrypted', decrypted);
     request.deviceShare = decrypted;
   }
 
