@@ -8,16 +8,18 @@ export const INITIALIZATION_VECTOR_KEY = 'iv';
 const ALGO_NAME = 'AES-GCM'; // for encryption
 const ALGO_LENGTH = 256;
 
-export function clearDeviceShares() {
+export async function clearDeviceShares() {
   const keysToRemove: string[] = [];
-  iterate((value, key, iterationNumber) => {
+  // Use await with iterate
+  await iterate((value, key, iterationNumber) => {
     if (key.startsWith(`${DEVICE_SHARE_KEY}_`)) {
       keysToRemove.push(key);
     }
   });
-  keysToRemove.forEach((key) => {
-    removeItem(key);
-  });
+  for (const key of keysToRemove) {
+    // eslint-disable-next-line no-await-in-loop
+    await removeItem(key);
+  }
 }
 
 export function strToArrayBuffer(str: string) {

@@ -105,9 +105,16 @@ async function createMagicRequest(
   const ivString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string; // use existing encryption key and initialization vector
   const ek = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;
 
+  console.warn('deviceShare', deviceShare);
+  console.warn('ivString', ivString);
+  console.warn('ek', ek);
   if (deviceShare && ivString && ek) {
-    const decrypted = await decryptDeviceShare(deviceShare, ek, ivString);
-    request.deviceShare = decrypted;
+    try {
+      const decrypted = await decryptDeviceShare(deviceShare, ek, ivString);
+      request.deviceShare = decrypted;
+    } catch (err) {
+      console.warn('decryption error', err);
+    }
   }
   console.warn('request that was generated', request);
   return request;
