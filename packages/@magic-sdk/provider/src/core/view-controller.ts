@@ -107,7 +107,7 @@ async function createMagicRequest(
     const decrypted = await decryptDeviceShare(deviceShare, ek, ivString);
     request.deviceShare = decrypted;
   }
-
+  console.warn('request', request);
   return request;
 }
 
