@@ -1,4 +1,4 @@
-import { getItem, iterate, removeItem } from './storage';
+import { getItem, iterate, removeItem, setItem } from './storage';
 import { isWebCryptoSupported } from './web-crypto';
 
 export const DEVICE_SHARE_KEY = 'ds';
@@ -56,7 +56,7 @@ export function bufferToString(buffer: ArrayBuffer) {
   return decoder.decode(buffer);
 }
 
-async function getOrCreateInitializationVector() {
+async function getOrCreateInitVector() {
   if (!isWebCryptoSupported()) {
     console.info('webcrypto is not supported');
     return undefined;
@@ -94,14 +94,12 @@ async function getOrCreateEncryptionKey() {
   return key;
 }
 
-export async function encryptDeviceShare(
-  plaintextDeviceShare: string,
-): Promise<{ encryptionKey?: CryptoKey; encryptedDeviceShare?: String; iv?: string }> {
-  const iv = await getOrCreateInitializationVector();
+export async function encryptAndPersistDeviceShare(plaintextDeviceShare: string, networkHash: string): Promise<void> {
+  const iv = await getOrCreateInitVector();
   const encryptionKey = await getOrCreateEncryptionKey();
 
   if (!iv || !encryptionKey || !plaintextDeviceShare) {
-    return { iv: undefined, encryptionKey: undefined, encryptedDeviceShare: undefined };
+    return;
   }
 
   const { subtle } = window.crypto;
@@ -117,10 +115,12 @@ export async function encryptDeviceShare(
 
   const encryptedDeviceShare = arrayBufferToBase64(encryptedData);
 
-  return { encryptionKey, encryptedDeviceShare, iv: JSON.stringify(Array.from(iv)) };
+  await setItem(`${DEVICE_SHARE_KEY}_${networkHash}`, encryptedDeviceShare);
+  await setItem(ENCRYPTION_KEY_KEY, encryptionKey);
+  await setItem(INITIALIZATION_VECTOR_KEY, iv);
 }
 
-export async function getAndDecryptDeviceShare(networkHash: string): Promise<string | undefined> {
+export async function getDecryptedDeviceShare(networkHash: string): Promise<string | undefined> {
   const encryptedDeviceShare = await getItem<string>(`${DEVICE_SHARE_KEY}_${networkHash}`);
   const ivString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string; // use existing encryption key and initialization vector
   const encryptionKey = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;

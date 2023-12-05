@@ -12,12 +12,9 @@ import { createJwt } from '../util/web-crypto';
 import { SDKEnvironment } from './sdk-environment';
 import { createModalNotReadyError } from './sdk-exceptions';
 import {
-  DEVICE_SHARE_KEY,
-  ENCRYPTION_KEY_KEY,
-  INITIALIZATION_VECTOR_KEY,
   clearDeviceShares,
-  encryptDeviceShare,
-  getAndDecryptDeviceShare,
+  encryptAndPersistDeviceShare,
+  getDecryptedDeviceShare,
 } from '../util/device-share-web-crypto';
 
 interface RemoveEventListenerFunction {
@@ -99,7 +96,7 @@ async function createMagicRequest(
   }
 
   // Grab the device share if it exists for the network
-  const decryptedDeviceShare = await getAndDecryptDeviceShare(networkHash);
+  const decryptedDeviceShare = await getDecryptedDeviceShare(networkHash);
   if (decryptedDeviceShare) {
     request.deviceShare = decryptedDeviceShare;
   }
@@ -113,25 +110,6 @@ async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
   }
 
   await setItem('rt', event.data.rt);
-}
-
-async function persistDeviceShare(event: MagicMessageEvent, networkHash: string) {
-  if (!event.data.deviceShare) {
-    return;
-  }
-
-  // if it comes from the iframe, consider it "plaintext"
-  const plaintextDeviceShare = event.data.deviceShare;
-
-  const { encryptionKey, encryptedDeviceShare, iv } = await encryptDeviceShare(plaintextDeviceShare);
-
-  if (!encryptionKey || !encryptedDeviceShare || !iv) {
-    return;
-  }
-
-  await setItem(`${DEVICE_SHARE_KEY}_${networkHash}`, encryptedDeviceShare);
-  await setItem(ENCRYPTION_KEY_KEY, encryptionKey);
-  await setItem(INITIALIZATION_VECTOR_KEY, iv);
 }
 
 export abstract class ViewController {
@@ -205,8 +183,9 @@ export abstract class ViewController {
         persistMagicEventRefreshToken(event);
         if (event.data.response.error?.message === 'User denied account access.') {
           clearDeviceShares();
-        } else {
-          persistDeviceShare(event, this.networkHash);
+        } else if (event.data.deviceShare) {
+          const { deviceShare } = event.data;
+          encryptAndPersistDeviceShare(deviceShare, this.networkHash);
         }
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
           batchData.push(response);
