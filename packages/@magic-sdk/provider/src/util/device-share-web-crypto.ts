@@ -9,10 +9,14 @@ const ALGO_NAME = 'AES-GCM'; // for encryption
 const ALGO_LENGTH = 256;
 
 export function clearDeviceShares() {
+  const keysToRemove: string[] = [];
   iterate((value, key, iterationNumber) => {
     if (key.startsWith(`${DEVICE_SHARE_KEY}_`)) {
-      removeItem(key);
+      keysToRemove.push(key);
     }
+  });
+  keysToRemove.forEach((key) => {
+    removeItem(key);
   });
 }
 

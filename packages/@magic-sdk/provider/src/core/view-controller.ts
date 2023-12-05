@@ -99,7 +99,9 @@ async function createMagicRequest(
   }
 
   // Retrieve device share
+  console.warn('device share key', `${DEVICE_SHARE_KEY}_${networkHash}`);
   const deviceShare = await getItem<string>(`${DEVICE_SHARE_KEY}_${networkHash}`);
+  console.warn('deviceShare', deviceShare);
   const ivString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string; // use existing encryption key and initialization vector
   const ek = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;
 
