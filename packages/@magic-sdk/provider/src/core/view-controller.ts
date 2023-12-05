@@ -105,6 +105,10 @@ export abstract class ViewController {
     this.listen();
   }
 
+  public get readyForRequest() {
+    return this.isReadyForRequest;
+  }
+
   protected abstract init(): void;
   protected abstract _post(data: MagicMessageRequest): Promise<void>;
   protected abstract hideOverlay(): void;

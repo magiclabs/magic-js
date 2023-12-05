@@ -198,4 +198,8 @@ export class SDKBase {
   public async preload() {
     await this.overlay.checkIsReadyForRequest;
   }
+
+  public get readyForRequest() {
+    return this.overlay.readyForRequest;
+  }
 }
