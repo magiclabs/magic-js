@@ -120,20 +120,15 @@ export async function encryptDeviceShare(
   return { encryptionKey, encryptedDeviceShare, iv: JSON.stringify(Array.from(iv)) };
 }
 
-export async function decryptDeviceShare(
-  encryptedDeviceShare: string,
-  encryptionKey: CryptoKey,
-  ivString: string,
-): Promise<string | undefined> {
-  if (!encryptedDeviceShare || !isWebCryptoSupported()) {
-    return undefined;
-  }
-
+export async function getAndDecryptDeviceShare(networkHash: string): Promise<string | undefined> {
+  const encryptedDeviceShare = await getItem<string>(`${DEVICE_SHARE_KEY}_${networkHash}`);
+  const ivString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string; // use existing encryption key and initialization vector
+  const encryptionKey = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;
   const iv = new Uint8Array(JSON.parse(ivString));
+
+  if (!iv || !encryptedDeviceShare || !encryptionKey || !isWebCryptoSupported()) return undefined;
+
   const { subtle } = window.crypto;
-
-  if (!iv || !encryptedDeviceShare || !encryptionKey || !subtle) return undefined;
-
   const ab = await subtle.decrypt({ name: ALGO_NAME, iv }, encryptionKey, base64ToArrayBuffer(encryptedDeviceShare));
 
   return bufferToString(ab);

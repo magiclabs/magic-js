@@ -16,8 +16,8 @@ import {
   ENCRYPTION_KEY_KEY,
   INITIALIZATION_VECTOR_KEY,
   clearDeviceShares,
-  decryptDeviceShare,
   encryptDeviceShare,
+  getAndDecryptDeviceShare,
 } from '../util/device-share-web-crypto';
 
 interface RemoveEventListenerFunction {
@@ -98,14 +98,12 @@ async function createMagicRequest(
     request.rt = rt;
   }
 
-  // Retrieve device share
-  const deviceShare = await getItem<string>(`${DEVICE_SHARE_KEY}_${networkHash}`);
-  const ivString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string; // use existing encryption key and initialization vector
-  const ek = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;
-  if (deviceShare && ivString && ek) {
-    const decrypted = await decryptDeviceShare(deviceShare, ek, ivString);
-    request.deviceShare = decrypted;
+  // Grab the device share if it exists for the network
+  const decryptedDeviceShare = await getAndDecryptDeviceShare(networkHash);
+  if (decryptedDeviceShare) {
+    request.deviceShare = decryptedDeviceShare;
   }
+
   return request;
 }
 
