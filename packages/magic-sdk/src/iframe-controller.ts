@@ -111,7 +111,6 @@ export class IframeController extends ViewController {
 
   protected async _post(data: any) {
     const iframe = await this.iframe;
-    console.warn('posting data', data);
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);
     } else {
