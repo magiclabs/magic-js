@@ -109,6 +109,7 @@ async function createMagicRequest(
     const decrypted = await decryptDeviceShare(deviceShare, ek, ivString);
     request.deviceShare = decrypted;
   }
+  console.warn('request that was generated', request);
   return request;
 }
 
@@ -200,6 +201,7 @@ export abstract class ViewController {
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
       const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload, this.networkHash);
 
+      console.warn('right before _post');
       await this._post(msg);
 
       /**
