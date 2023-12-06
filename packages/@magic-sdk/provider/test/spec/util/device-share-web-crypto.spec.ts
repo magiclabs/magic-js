@@ -13,6 +13,13 @@ import {
 let FAKE_STORE = {};
 const FAKE_NETWORK_HASH = 'network_hash';
 
+const FAKE_PLAINTEXT_SHARE = 'fake plainext share';
+const FAKE_ENCRYPTED_DEVICE_SHARE = window.atob('fake encrypted device share');
+const FAKE_DECRYPTED_DEVICE_SHARE = 'fake decrypted device share';
+
+const FAKE_ENCRYPTION_KEY = 'fake encryption key';
+const FAKE_IV_STRING = '[24,252,88,58,36,159,217,125,152,115,39,254]';
+
 beforeAll(() => {
   jest.spyOn(storage, 'getItem').mockImplementation(async (key: string) => FAKE_STORE[key]);
   jest.spyOn(storage, 'setItem').mockImplementation(async (key: string, value: any) => {
@@ -35,103 +42,85 @@ afterEach(() => {
   FAKE_STORE = {};
 });
 
+// ----------------- encrypting and syncing ------------------
+
 test('should return undefined if unsupported', async () => {
-  const plaintextDeviceShare = 'test';
   (window as any).crypto = {};
   jest.spyOn(global.console, 'info').mockImplementation();
-  await encryptAndPersistDeviceShare(plaintextDeviceShare, FAKE_NETWORK_HASH);
+  await encryptAndPersistDeviceShare(FAKE_PLAINTEXT_SHARE, FAKE_NETWORK_HASH);
+
+  expect(FAKE_STORE).toEqual({});
 });
 
 test('should give undefined if missing device share', async () => {
   await encryptAndPersistDeviceShare(undefined, FAKE_NETWORK_HASH);
+  expect(FAKE_STORE).toEqual({});
 });
 
 test('no existing iv and encryption key', async () => {
   (window as any).crypto.subtle = {
-    generateKey: (input, extractable, scope) => Promise.resolve('test key'),
-    encrypt: (input) => Promise.resolve(strToArrayBuffer('test')),
+    generateKey: (input, extractable, scope) => Promise.resolve(FAKE_ENCRYPTION_KEY),
+    encrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
-  const plaintextDeviceShare = 'test';
-  await encryptAndPersistDeviceShare(plaintextDeviceShare, FAKE_NETWORK_HASH);
+
+  await encryptAndPersistDeviceShare(FAKE_PLAINTEXT_SHARE, FAKE_NETWORK_HASH);
+  // expect((FAKE_STORE as any).ds_network_hash).toEqual(FAKE_ENCRYPTED_DEVICE_SHARE);
 });
 
-test('has existing iv and encryption key', async () => {
+test('should save has existing iv and encryption key', async () => {
   (window as any).crypto.subtle = {
-    encrypt: (input) => Promise.resolve(strToArrayBuffer('test')),
+    encrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
-  const plaintextDeviceShare = 'test';
-  // FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = 'test';
-  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = '[24,252,88,58,36,159,217,125,152,115,39,254]';
-  FAKE_STORE[ENCRYPTION_KEY_KEY] = 'test';
 
-  await encryptAndPersistDeviceShare(plaintextDeviceShare, FAKE_NETWORK_HASH);
+  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = FAKE_IV_STRING;
+  FAKE_STORE[ENCRYPTION_KEY_KEY] = FAKE_ENCRYPTION_KEY;
+
+  await encryptAndPersistDeviceShare(FAKE_PLAINTEXT_SHARE, FAKE_NETWORK_HASH);
+  // expect((FAKE_STORE as any).ds_network_hash).toEqual(FAKE_ENCRYPTED_DEVICE_SHARE);
 });
 
-test('no iv', async () => {
+// --------------- decrypting and returning ---------------
+
+test('should return undefined if no existing iv string found in storage', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(strToArrayBuffer('test')),
+    decrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
+
   FAKE_STORE[INITIALIZATION_VECTOR_KEY] = null;
-
-  await getDecryptedDeviceShare(FAKE_NETWORK_HASH);
+  const res = await getDecryptedDeviceShare(FAKE_NETWORK_HASH);
+  expect(res).toEqual(undefined);
 });
 
 test('has iv and ek but no device share', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(strToArrayBuffer('test')),
+    decrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
+
   FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = null;
-  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = '[24,252,88,58,36,159,217,125,152,115,39,254]';
-  FAKE_STORE[ENCRYPTION_KEY_KEY] = 'test';
-  await getDecryptedDeviceShare(FAKE_NETWORK_HASH);
+  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = FAKE_IV_STRING;
+  FAKE_STORE[ENCRYPTION_KEY_KEY] = FAKE_ENCRYPTION_KEY;
+
+  const res = await getDecryptedDeviceShare(FAKE_NETWORK_HASH);
 });
 
-test('has all 3', async () => {
+test('returns decrypted device share if iv encryption key and device share are in storage', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(strToArrayBuffer('test')),
+    decrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
-  FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = 'test';
-  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = '[24,252,88,58,36,159,217,125,152,115,39,254]';
-  FAKE_STORE[ENCRYPTION_KEY_KEY] = 'test';
-  await getDecryptedDeviceShare(FAKE_NETWORK_HASH);
+
+  FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = FAKE_ENCRYPTED_DEVICE_SHARE;
+  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = FAKE_IV_STRING;
+  FAKE_STORE[ENCRYPTION_KEY_KEY] = FAKE_ENCRYPTION_KEY;
+
+  const res = await getDecryptedDeviceShare(FAKE_NETWORK_HASH);
 });
 
 test('clear device shares', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(strToArrayBuffer('test')),
+    decrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
-  FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = 'test';
 
-  await clearDeviceShares();
+  FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = FAKE_ENCRYPTED_DEVICE_SHARE;
+
+  const res = await clearDeviceShares();
 });
-
-/* test('jwt is unique', async () => {
-  const jwtA = await createJwt();
-  const jwtB = await createJwt();
-  expect(jwtA).not.toEqual(jwtB);
-});
-
-test('should store public and private keys after creating JWT', async () => {
-  await createJwt();
-  expect(FAKE_STORE[STORE_KEY_PUBLIC_JWK]).toBeTruthy();
-  expect(FAKE_STORE[STORE_KEY_PRIVATE_KEY]).toBeTruthy();
-});
-
-test('private key should be non exportable', async () => {
-  await createJwt();
-  const privateKey = FAKE_STORE[STORE_KEY_PRIVATE_KEY];
-  expect(() => crypto.subtle.exportKey('jwk', privateKey)).toThrow();
-});
-
-test('when asked should clear keys', async () => {
-  const jwk = await createJwt();
-  expect(jwk).toBeTruthy();
-  expect(FAKE_STORE[STORE_KEY_PUBLIC_JWK]).toBeTruthy();
-  expect(FAKE_STORE[STORE_KEY_PRIVATE_KEY]).toBeTruthy();
-
-  clearKeys();
-
-  expect(FAKE_STORE[STORE_KEY_PUBLIC_JWK]).toBeFalsy();
-  expect(FAKE_STORE[STORE_KEY_PRIVATE_KEY]).toBeFalsy();
-});
-*/

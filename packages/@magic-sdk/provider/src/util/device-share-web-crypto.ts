@@ -108,6 +108,8 @@ export async function encryptAndPersistDeviceShare(plaintextDeviceShare: string,
     strToArrayBuffer(plaintextDeviceShare),
   );
 
+  // The encrypted device share we store is a base64 encoded string representation
+  // of the array buffer generated from the array buffer version of the plaintext share.
   const encryptedDeviceShare = arrayBufferToBase64(encryptedData);
 
   await setItem(`${DEVICE_SHARE_KEY}_${networkHash}`, encryptedDeviceShare);
