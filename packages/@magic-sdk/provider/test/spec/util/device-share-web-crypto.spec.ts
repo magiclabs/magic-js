@@ -18,7 +18,7 @@ const FAKE_ENCRYPTED_DEVICE_SHARE = 'FakeEncryptedDeviceShare';
 const FAKE_DECRYPTED_DEVICE_SHARE = 'FakeDecryptedDeviceShare';
 
 const FAKE_ENCRYPTION_KEY = 'fake encryption key';
-const FAKE_IV_STRING = '[24,252,88,58,36,159,217,125,152,115,39,254]';
+const FAKE_IV = new Uint8Array(JSON.parse('[24,252,88,58,36,159,217,125,152,115,39,254]'));
 
 beforeAll(() => {
   jest.spyOn(storage, 'getItem').mockImplementation(async (key: string) => FAKE_STORE[key]);
@@ -72,7 +72,7 @@ test('encryptAndPersistDeviceShare should persist encrypted device share when st
     encrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
 
-  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = FAKE_IV_STRING;
+  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = FAKE_IV;
   FAKE_STORE[ENCRYPTION_KEY_KEY] = FAKE_ENCRYPTION_KEY;
 
   await encryptAndPersistDeviceShare(FAKE_PLAINTEXT_SHARE, FAKE_NETWORK_HASH);
@@ -97,7 +97,7 @@ test('getDecryptedDeviceShare should return undefined if store has existing iv a
   };
 
   FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = null;
-  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = FAKE_IV_STRING;
+  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = FAKE_IV;
   FAKE_STORE[ENCRYPTION_KEY_KEY] = FAKE_ENCRYPTION_KEY;
 
   const res = await getDecryptedDeviceShare(FAKE_NETWORK_HASH);
@@ -111,7 +111,7 @@ test('getDecryptedDeviceShare returns decrypted device share if iv encryption ke
   };
 
   FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = FAKE_ENCRYPTED_DEVICE_SHARE;
-  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = FAKE_IV_STRING;
+  FAKE_STORE[INITIALIZATION_VECTOR_KEY] = FAKE_IV;
   FAKE_STORE[ENCRYPTION_KEY_KEY] = FAKE_ENCRYPTION_KEY;
 
   const res = await getDecryptedDeviceShare(FAKE_NETWORK_HASH);

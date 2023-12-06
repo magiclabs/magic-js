@@ -47,9 +47,9 @@ async function getOrCreateInitVector() {
     return undefined;
   }
   const { crypto } = window;
-  const existingIvString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string;
-  if (existingIvString) {
-    return new Uint8Array(JSON.parse(existingIvString));
+  const existingIv = (await getItem(INITIALIZATION_VECTOR_KEY)) as Uint8Array;
+  if (existingIv) {
+    return existingIv;
   }
 
   const iv = crypto.getRandomValues(new Uint8Array(12)); // 12 bytes for AES-GCM
@@ -106,13 +106,8 @@ export async function encryptAndPersistDeviceShare(deviceShareBase64: string, ne
 
 export async function getDecryptedDeviceShare(networkHash: string): Promise<string | undefined> {
   const encryptedDeviceShare = await getItem<string>(`${DEVICE_SHARE_KEY}_${networkHash}`);
-  const ivString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string; // use existing encryption key and initialization vector
+  const iv = (await getItem(INITIALIZATION_VECTOR_KEY)) as Uint8Array; // use existing encryption key and initialization vector
   const encryptionKey = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;
-
-  if (!ivString) {
-    return undefined;
-  }
-  const iv = new Uint8Array(JSON.parse(ivString));
 
   if (!iv || !encryptedDeviceShare || !encryptionKey || !isWebCryptoSupported()) {
     return undefined;
