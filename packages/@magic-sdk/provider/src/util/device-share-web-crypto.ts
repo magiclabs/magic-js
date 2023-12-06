@@ -21,15 +21,6 @@ export async function clearDeviceShares() {
   }
 }
 
-export function strToArrayBuffer(str: string) {
-  const buf = new ArrayBuffer(str.length);
-  const bufView = new Uint8Array(buf);
-  for (let i = 0, strLen = str.length; i < strLen; i++) {
-    bufView[i] = str.charCodeAt(i);
-  }
-  return buf;
-}
-
 function arrayBufferToBase64(buffer: ArrayBuffer) {
   let binary = '';
   const bytes = new Uint8Array(buffer);
@@ -40,7 +31,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
   return window.btoa(binary);
 }
 
-function base64ToArrayBuffer(base64: string) {
+export function base64ToArrayBuffer(base64: string) {
   const binaryString = window.atob(base64);
   const len = binaryString.length;
   const bytes = new Uint8Array(len);
@@ -48,11 +39,6 @@ function base64ToArrayBuffer(base64: string) {
     bytes[i] = binaryString.charCodeAt(i);
   }
   return bytes.buffer;
-}
-
-function bufferToString(buffer: ArrayBuffer) {
-  const decoder = new TextDecoder('utf-8');
-  return decoder.decode(buffer);
 }
 
 async function getOrCreateInitVector() {
@@ -81,7 +67,7 @@ async function getOrCreateEncryptionKey() {
     return existingKey;
   }
 
-  const key = subtle.generateKey(
+  const key = await subtle.generateKey(
     { name: ALGO_NAME, length: ALGO_LENGTH },
     false, // non-extractable
     ['encrypt', 'decrypt'],
@@ -89,13 +75,14 @@ async function getOrCreateEncryptionKey() {
   return key;
 }
 
-export async function encryptAndPersistDeviceShare(plaintextDeviceShare: string, networkHash: string): Promise<void> {
+export async function encryptAndPersistDeviceShare(deviceShareBase64: string, networkHash: string): Promise<void> {
   const iv = await getOrCreateInitVector();
   const encryptionKey = await getOrCreateEncryptionKey();
 
-  if (!iv || !encryptionKey || !plaintextDeviceShare) {
+  if (!iv || !encryptionKey || !deviceShareBase64) {
     return;
   }
+  const decodedDeviceShare = base64ToArrayBuffer(deviceShareBase64);
 
   const { subtle } = window.crypto;
 
@@ -105,7 +92,7 @@ export async function encryptAndPersistDeviceShare(plaintextDeviceShare: string,
       iv,
     },
     encryptionKey,
-    strToArrayBuffer(plaintextDeviceShare),
+    decodedDeviceShare,
   );
 
   // The encrypted device share we store is a base64 encoded string representation
@@ -134,5 +121,5 @@ export async function getDecryptedDeviceShare(networkHash: string): Promise<stri
   const { subtle } = window.crypto;
   const ab = await subtle.decrypt({ name: ALGO_NAME, iv }, encryptionKey, base64ToArrayBuffer(encryptedDeviceShare));
 
-  return bufferToString(ab);
+  return arrayBufferToBase64(ab);
 }

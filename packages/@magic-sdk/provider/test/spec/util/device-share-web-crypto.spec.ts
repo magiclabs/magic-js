@@ -4,18 +4,18 @@ import {
   DEVICE_SHARE_KEY,
   ENCRYPTION_KEY_KEY,
   INITIALIZATION_VECTOR_KEY,
+  base64ToArrayBuffer,
   clearDeviceShares,
   encryptAndPersistDeviceShare,
   getDecryptedDeviceShare,
-  strToArrayBuffer,
 } from '../../../src/util/device-share-web-crypto';
 
 let FAKE_STORE = {};
 const FAKE_NETWORK_HASH = 'network_hash';
 
-const FAKE_PLAINTEXT_SHARE = 'fake plainext share';
-const FAKE_ENCRYPTED_DEVICE_SHARE = window.atob('fake encrypted device share');
-const FAKE_DECRYPTED_DEVICE_SHARE = 'fake decrypted device share';
+const FAKE_PLAINTEXT_SHARE = `AQICAHg1y7j1UY7sfTib6h9cN2Kh7v0WhCRwQxEPhGAQ2m5OgQGrJvUP6MKiuj9yD96y6B4eAAABPzCCATsGCSqGSIb3DQEHBqCCASwwggEoAgEAMIIBIQYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAy6tbGg/6//2IJs9xUCARCAgfOY3knm1i2kGjLXQFoqEjOeLr/UGwHQ+AW1y20UoCX3ght68egu06Hg54JF/mCGgSDt7R7dFSOuGvapE9OEyFYz4f1+tpWb5PPaLReBRTTTfw/8Xgsfzl6iXACsLKqyXEeWci+/vOWDLqu73E0uy5StyN5InZLwHCJe4l+KMEr5C7JZvobQh4NVBT5SqgQXmLGXGGH/2ydkq8zkgVGDT9jQlqqpUH83UMFQwHSwbJRRyYLxBwQKTO0AODfqk5OnWRA+BoDC8HMFyQUb4nS+BgDlgTgL7Kg/H/Echr+SlQKJdWJnvf3BjSBwO8z5kVpxRo5xwG4=`;
+const FAKE_ENCRYPTED_DEVICE_SHARE = 'FakeEncryptedDeviceShare';
+const FAKE_DECRYPTED_DEVICE_SHARE = 'FakeDecryptedDeviceShare';
 
 const FAKE_ENCRYPTION_KEY = 'fake encryption key';
 const FAKE_IV_STRING = '[24,252,88,58,36,159,217,125,152,115,39,254]';
@@ -60,7 +60,7 @@ test('should give undefined if missing device share', async () => {
 test('no existing iv and encryption key', async () => {
   (window as any).crypto.subtle = {
     generateKey: (input, extractable, scope) => Promise.resolve(FAKE_ENCRYPTION_KEY),
-    encrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
+    encrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
 
   await encryptAndPersistDeviceShare(FAKE_PLAINTEXT_SHARE, FAKE_NETWORK_HASH);
@@ -69,7 +69,7 @@ test('no existing iv and encryption key', async () => {
 
 test('should save has existing iv and encryption key', async () => {
   (window as any).crypto.subtle = {
-    encrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
+    encrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
 
   FAKE_STORE[INITIALIZATION_VECTOR_KEY] = FAKE_IV_STRING;
@@ -83,7 +83,7 @@ test('should save has existing iv and encryption key', async () => {
 
 test('should return undefined if no existing iv string found in storage', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
+    decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
 
   FAKE_STORE[INITIALIZATION_VECTOR_KEY] = null;
@@ -93,7 +93,7 @@ test('should return undefined if no existing iv string found in storage', async 
 
 test('has iv and ek but no device share', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
+    decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
 
   FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = null;
@@ -105,7 +105,7 @@ test('has iv and ek but no device share', async () => {
 
 test('returns decrypted device share if iv encryption key and device share are in storage', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
+    decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
 
   FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = FAKE_ENCRYPTED_DEVICE_SHARE;
@@ -113,11 +113,12 @@ test('returns decrypted device share if iv encryption key and device share are i
   FAKE_STORE[ENCRYPTION_KEY_KEY] = FAKE_ENCRYPTION_KEY;
 
   const res = await getDecryptedDeviceShare(FAKE_NETWORK_HASH);
+  expect(res).toEqual(FAKE_DECRYPTED_DEVICE_SHARE);
 });
 
 test('clear device shares', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(strToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
+    decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
 
   FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = FAKE_ENCRYPTED_DEVICE_SHARE;
