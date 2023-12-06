@@ -181,7 +181,7 @@ export abstract class ViewController {
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
         const { id, response } = standardizeResponse(payload, event);
         persistMagicEventRefreshToken(event);
-        if (event.data.response.error?.message === 'User denied account access.') {
+        if (response?.payload.error?.message === 'User denied account access.') {
           clearDeviceShares();
         } else if (event.data.deviceShare) {
           const { deviceShare } = event.data;

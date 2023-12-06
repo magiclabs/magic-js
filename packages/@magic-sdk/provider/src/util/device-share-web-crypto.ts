@@ -10,7 +10,6 @@ const ALGO_LENGTH = 256;
 
 export async function clearDeviceShares() {
   const keysToRemove: string[] = [];
-  // Use await with iterate
   await iterate((value, key, iterationNumber) => {
     if (key.startsWith(`${DEVICE_SHARE_KEY}_`)) {
       keysToRemove.push(key);
@@ -41,7 +40,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
   return window.btoa(binary);
 }
 
-export function base64ToArrayBuffer(base64: string) {
+function base64ToArrayBuffer(base64: string) {
   const binaryString = window.atob(base64);
   const len = binaryString.length;
   const bytes = new Uint8Array(len);
@@ -51,7 +50,7 @@ export function base64ToArrayBuffer(base64: string) {
   return bytes.buffer;
 }
 
-export function bufferToString(buffer: ArrayBuffer) {
+function bufferToString(buffer: ArrayBuffer) {
   const decoder = new TextDecoder('utf-8');
   return decoder.decode(buffer);
 }
@@ -62,8 +61,6 @@ async function getOrCreateInitVector() {
     return undefined;
   }
   const { crypto } = window;
-  if (!crypto) return undefined;
-
   const existingIvString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string;
   if (existingIvString) {
     return new Uint8Array(JSON.parse(existingIvString));
@@ -79,8 +76,6 @@ async function getOrCreateEncryptionKey() {
     return undefined;
   }
   const { subtle } = window.crypto;
-  if (!subtle) return undefined;
-
   const existingKey = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;
   if (existingKey) {
     return existingKey;
@@ -124,9 +119,15 @@ export async function getDecryptedDeviceShare(networkHash: string): Promise<stri
   const encryptedDeviceShare = await getItem<string>(`${DEVICE_SHARE_KEY}_${networkHash}`);
   const ivString = (await getItem(INITIALIZATION_VECTOR_KEY)) as string; // use existing encryption key and initialization vector
   const encryptionKey = (await getItem(ENCRYPTION_KEY_KEY)) as CryptoKey;
+
+  if (!ivString) {
+    return undefined;
+  }
   const iv = new Uint8Array(JSON.parse(ivString));
 
-  if (!iv || !encryptedDeviceShare || !encryptionKey || !isWebCryptoSupported()) return undefined;
+  if (!iv || !encryptedDeviceShare || !encryptionKey || !isWebCryptoSupported()) {
+    return undefined;
+  }
 
   const { subtle } = window.crypto;
   const ab = await subtle.decrypt({ name: ALGO_NAME, iv }, encryptionKey, base64ToArrayBuffer(encryptedDeviceShare));
