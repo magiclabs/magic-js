@@ -29,7 +29,7 @@ beforeAll(() => {
     FAKE_STORE[key] = null;
   });
   jest.spyOn(storage, 'iterate').mockImplementation(async (callback) => {
-    await callback('value1', `${DEVICE_SHARE_KEY}_key1`, 1);
+    await callback('value1', `${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`, 1);
     await callback('value2', `Something_else`, 2);
   });
 });
@@ -42,9 +42,9 @@ afterEach(() => {
   FAKE_STORE = {};
 });
 
-// ----------------- encrypting and syncing ------------------
+// ------------------------- encrypting and syncing --------------------------
 
-test('should return undefined if unsupported', async () => {
+test('encryptAndPersistDeviceShare should return undefined if webcrypto is unsupported', async () => {
   (window as any).crypto = {};
   jest.spyOn(global.console, 'info').mockImplementation();
   await encryptAndPersistDeviceShare(FAKE_PLAINTEXT_SHARE, FAKE_NETWORK_HASH);
@@ -52,22 +52,22 @@ test('should return undefined if unsupported', async () => {
   expect(FAKE_STORE).toEqual({});
 });
 
-test('should give undefined if missing device share', async () => {
+test('encryptAndPersistDeviceShare should return undefined if no device share found', async () => {
   await encryptAndPersistDeviceShare(undefined, FAKE_NETWORK_HASH);
   expect(FAKE_STORE).toEqual({});
 });
 
-test('no existing iv and encryption key', async () => {
+test('encryptAndPersistDeviceShare should persist encrypted device share when store doesnt have existing iv and encryption key', async () => {
   (window as any).crypto.subtle = {
     generateKey: (input, extractable, scope) => Promise.resolve(FAKE_ENCRYPTION_KEY),
     encrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
 
   await encryptAndPersistDeviceShare(FAKE_PLAINTEXT_SHARE, FAKE_NETWORK_HASH);
-  // expect((FAKE_STORE as any).ds_network_hash).toEqual(FAKE_ENCRYPTED_DEVICE_SHARE);
+  expect((FAKE_STORE as any).ds_network_hash).toEqual(FAKE_ENCRYPTED_DEVICE_SHARE);
 });
 
-test('should save has existing iv and encryption key', async () => {
+test('encryptAndPersistDeviceShare should persist encrypted device share when store has existing iv and encryption key', async () => {
   (window as any).crypto.subtle = {
     encrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
@@ -76,12 +76,12 @@ test('should save has existing iv and encryption key', async () => {
   FAKE_STORE[ENCRYPTION_KEY_KEY] = FAKE_ENCRYPTION_KEY;
 
   await encryptAndPersistDeviceShare(FAKE_PLAINTEXT_SHARE, FAKE_NETWORK_HASH);
-  // expect((FAKE_STORE as any).ds_network_hash).toEqual(FAKE_ENCRYPTED_DEVICE_SHARE);
+  expect((FAKE_STORE as any).ds_network_hash).toEqual(FAKE_ENCRYPTED_DEVICE_SHARE);
 });
 
-// --------------- decrypting and returning ---------------
+// ------------------- decrypting and returning device share -------------------
 
-test('should return undefined if no existing iv string found in storage', async () => {
+test('getDecryptedDeviceShare should return undefined if no existing iv string found in storage', async () => {
   (window as any).crypto.subtle = {
     decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
@@ -91,7 +91,7 @@ test('should return undefined if no existing iv string found in storage', async 
   expect(res).toEqual(undefined);
 });
 
-test('has iv and ek but no device share', async () => {
+test('getDecryptedDeviceShare should return undefined if store has existing iv and ek but no device share', async () => {
   (window as any).crypto.subtle = {
     decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
@@ -101,9 +101,11 @@ test('has iv and ek but no device share', async () => {
   FAKE_STORE[ENCRYPTION_KEY_KEY] = FAKE_ENCRYPTION_KEY;
 
   const res = await getDecryptedDeviceShare(FAKE_NETWORK_HASH);
+
+  expect(res).toEqual(undefined);
 });
 
-test('returns decrypted device share if iv encryption key and device share are in storage', async () => {
+test('getDecryptedDeviceShare returns decrypted device share if iv encryption key and device share are in storage', async () => {
   (window as any).crypto.subtle = {
     decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
@@ -116,12 +118,16 @@ test('returns decrypted device share if iv encryption key and device share are i
   expect(res).toEqual(FAKE_DECRYPTED_DEVICE_SHARE);
 });
 
-test('clear device shares', async () => {
+// ------------------------ clearing the device share -----------------------
+
+test('clearDeviceShares should successfully clear device shares', async () => {
   (window as any).crypto.subtle = {
     decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
 
   FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = FAKE_ENCRYPTED_DEVICE_SHARE;
 
-  const res = await clearDeviceShares();
+  await clearDeviceShares();
+
+  expect(FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`]).toEqual(null);
 });
