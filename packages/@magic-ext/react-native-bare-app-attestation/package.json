@@ -1,0 +1,35 @@
+{
+  "name": "@magic-ext/react-native-bare-app-attestation",
+  "version": "1.0.0",
+  "description": "Magic SDK App Attestation Extension for Bare React Native environments.",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "files": [
+    "dist",
+    "ios/",
+    "RNAppAttestation.podspec"
+  ],
+  "target": "node",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    "import": "./dist/es/index.mjs",
+    "require": "./dist/cjs/index.js"
+  },
+  "externals": {
+    "include": [
+      "@magic-sdk/commons"
+    ]
+  },
+  "devDependencies": {
+    "@magic-sdk/commons": "^17.3.1"
+  },
+  "dependencies": {
+    "react-native": "^0.72.7"
+  }
+}
