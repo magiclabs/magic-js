@@ -96,7 +96,7 @@ export async function encryptAndPersistDeviceShare(deviceShareBase64: string, ne
   );
 
   // The encrypted device share we store is a base64 encoded string representation
-  // of the array buffer generated from the array buffer version of the plaintext share.
+  // of the magic kms encrypted client share encrypted with webcrypto
   const encryptedDeviceShare = arrayBufferToBase64(encryptedData);
 
   await setItem(`${DEVICE_SHARE_KEY}_${networkHash}`, encryptedDeviceShare);
