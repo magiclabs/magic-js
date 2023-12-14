@@ -11,6 +11,11 @@ import { getItem, setItem } from '../util/storage';
 import { createJwt } from '../util/web-crypto';
 import { SDKEnvironment } from './sdk-environment';
 import { createModalNotReadyError } from './sdk-exceptions';
+import {
+  clearDeviceShares,
+  encryptAndPersistDeviceShare,
+  getDecryptedDeviceShare,
+} from '../util/device-share-web-crypto';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -19,6 +24,14 @@ interface RemoveEventListenerFunction {
 interface StandardizedResponse {
   id?: string | number;
   response?: JsonRpcResponse;
+}
+
+interface StandardizedMagicRequest {
+  msgType: string;
+  payload: JsonRpcRequestPayload<any> | JsonRpcRequestPayload<any>[];
+  jwt?: string;
+  rt?: string;
+  deviceShare?: string;
 }
 
 /**
@@ -56,7 +69,11 @@ function standardizeResponse(
   return {};
 }
 
-async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayload | JsonRpcRequestPayload[]) {
+async function createMagicRequest(
+  msgType: string,
+  payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
+  networkHash: string,
+) {
   const rt = await getItem<string>('rt');
   let jwt;
 
@@ -69,15 +86,22 @@ async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayloa
     }
   }
 
-  if (!jwt) {
-    return { msgType, payload };
+  const request: StandardizedMagicRequest = { msgType, payload };
+
+  if (jwt) {
+    request.jwt = jwt;
+  }
+  if (jwt && rt) {
+    request.rt = rt;
   }
 
-  if (!rt) {
-    return { msgType, payload, jwt };
+  // Grab the device share if it exists for the network
+  const decryptedDeviceShare = await getDecryptedDeviceShare(networkHash);
+  if (decryptedDeviceShare) {
+    request.deviceShare = decryptedDeviceShare;
   }
 
-  return { msgType, payload, jwt, rt };
+  return request;
 }
 
 async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
@@ -99,8 +123,14 @@ export abstract class ViewController {
    * @param endpoint - The URL for the relevant iframe context.
    * @param parameters - The unique, encoded query parameters for the
    * relevant iframe context.
+   * @param networkHash - The hash of the network that this sdk instance is connected to
+   * for multi-chain scenarios
    */
-  constructor(protected readonly endpoint: string, protected readonly parameters: string) {
+  constructor(
+    protected readonly endpoint: string,
+    protected readonly parameters: string,
+    protected readonly networkHash: string,
+  ) {
     this.checkIsReadyForRequest = this.waitForReady();
     this.listen();
   }
@@ -141,7 +171,7 @@ export abstract class ViewController {
 
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
-      const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload);
+      const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload, this.networkHash);
 
       await this._post(msg);
 
@@ -151,7 +181,12 @@ export abstract class ViewController {
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
         const { id, response } = standardizeResponse(payload, event);
         persistMagicEventRefreshToken(event);
-
+        if (response?.payload.error?.message === 'User denied account access.') {
+          clearDeviceShares();
+        } else if (event.data.deviceShare) {
+          const { deviceShare } = event.data;
+          encryptAndPersistDeviceShare(deviceShare, this.networkHash);
+        }
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
           batchData.push(response);
 

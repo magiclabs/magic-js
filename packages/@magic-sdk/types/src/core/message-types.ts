@@ -19,6 +19,7 @@ export interface MagicMessageRequest {
   payload: JsonRpcRequestPayload | JsonRpcRequestPayload[];
   rt?: string;
   jwt?: string;
+  deviceShare?: string;
 }
 
 /** The shape of responding window message datas from the Magic iframe context. */
@@ -26,6 +27,7 @@ export interface MagicMessageResponse<ResultType = any> {
   msgType: string;
   response: Partial<JsonRpcError> & Partial<JsonRpcResponsePayload<ResultType>>;
   rt?: string;
+  deviceShare?: string;
 }
 
 /** The expected message event returned by the Magic iframe context. */

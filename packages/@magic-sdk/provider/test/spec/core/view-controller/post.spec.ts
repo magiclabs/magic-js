@@ -7,6 +7,7 @@ import { createViewController } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import * as storage from '../../../../src/util/storage';
 import * as webCryptoUtils from '../../../../src/util/web-crypto';
+import * as deviceShareWebCryptoUtils from '../../../../src/util/device-share-web-crypto';
 import { SDKEnvironment } from '../../../../src/core/sdk-environment';
 import { createModalNotReadyError } from '../../../../src/core/sdk-exceptions';
 
@@ -25,7 +26,7 @@ function requestPayload(id = 1): JsonRpcRequestPayload {
 /**
  * Create a dummy response payload.
  */
-function responseEvent(values: { result?: any; error?: any; id?: number } = {}) {
+function responseEvent(values: { result?: any; error?: any; id?: number; deviceShare?: string } = {}) {
   return {
     data: {
       response: {
@@ -34,6 +35,7 @@ function responseEvent(values: { result?: any; error?: any; id?: number } = {}) 
         jsonrpc: '2.0',
         id: values.id ?? 1,
       },
+      deviceShare: values.deviceShare ?? null,
     },
   };
 }
@@ -63,7 +65,10 @@ function stubViewController(viewController: any, events: [MagicIncomingWindowMes
 }
 
 let createJwtStub;
+let getDecryptedDeviceShareStub;
+let clearDeviceSharesStub;
 const FAKE_JWT_TOKEN = 'hot tokens';
+const FAKE_DEVICE_SHARE = 'fake device share';
 const FAKE_RT = 'will freshen';
 const FAKE_INJECTED_JWT = 'fake injected jwt';
 let FAKE_STORE: any = {};
@@ -71,6 +76,8 @@ let FAKE_STORE: any = {};
 beforeEach(() => {
   jest.restoreAllMocks();
   createJwtStub = jest.spyOn(webCryptoUtils, 'createJwt');
+  getDecryptedDeviceShareStub = jest.spyOn(deviceShareWebCryptoUtils, 'getDecryptedDeviceShare');
+  clearDeviceSharesStub = jest.spyOn(deviceShareWebCryptoUtils, 'clearDeviceShares');
   jest.spyOn(global.console, 'info').mockImplementation(() => {});
   browserEnv();
   browserEnv.stub('addEventListener', jest.fn());
@@ -115,6 +122,47 @@ test('Sends payload with jwt when web crypto is supported', async () => {
   expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
   expect(createJwtStub).toHaveBeenCalledWith();
   expect(postSpy).toBeCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN }));
+});
+
+test('Sends payload with deviceShare when it is saved', async () => {
+  createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
+  getDecryptedDeviceShareStub.mockImplementationOnce(() => Promise.resolve(FAKE_DEVICE_SHARE));
+  const eventWithDeviceShare = { data: { ...responseEvent().data, deviceShare: FAKE_DEVICE_SHARE } };
+
+  const viewController = createViewController('asdf');
+  const { postSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithDeviceShare],
+  ]);
+  const payload = requestPayload();
+  await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+
+  expect(createJwtStub).toHaveBeenCalledWith();
+  expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ deviceShare: FAKE_DEVICE_SHARE }));
+});
+
+test('device share should be cleared if replied user denied account access.', async () => {
+  createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
+  getDecryptedDeviceShareStub.mockImplementationOnce(() => Promise.resolve(FAKE_DEVICE_SHARE));
+  clearDeviceSharesStub.mockImplementationOnce(() => Promise.resolve());
+  const eventWithError = {
+    data: {
+      ...responseEvent().data,
+      response: {
+        id: 1,
+        error: { message: 'User denied account access.' },
+      },
+    },
+  };
+
+  const viewController = createViewController('asdf');
+  const { postSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithError],
+  ]);
+  const payload = requestPayload();
+  await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+
+  expect(createJwtStub).toHaveBeenCalledWith();
+  expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ deviceShare: FAKE_DEVICE_SHARE }));
 });
 
 test('Sends payload with rt and jwt when rt is saved', async () => {

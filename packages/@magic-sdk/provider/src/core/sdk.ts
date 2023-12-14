@@ -37,6 +37,27 @@ function checkExtensionCompat(ext: Extension<string>) {
 }
 
 /**
+ * Generates a network hash of the SDK instance for persisting network specific
+ * information on multichain setups
+ */
+function getNetworkHash(apiKey: string, network?: EthNetworkConfiguration, extConfig?: any) {
+  if (!network && !extConfig) {
+    return `${apiKey}_eth_mainnet`;
+  }
+  if (extConfig) {
+    return `${apiKey}_${JSON.stringify(extConfig)}`;
+  }
+  if (network) {
+    if (typeof network === 'string') {
+      return `${apiKey}_eth_${network}`;
+    }
+    // Custom network, not necessarily eth.
+    return `${apiKey}_${network.rpcUrl}_${network.chainId}_${network.chainType}`;
+  }
+  return `${apiKey}_unknown`;
+}
+
+/**
  * Initializes SDK extensions, checks for platform/version compatiblity issues,
  * then consolidates any global configurations provided by those extensions.
  */
@@ -103,6 +124,7 @@ export class SDKBase {
 
   protected readonly endpoint: string;
   protected readonly parameters: string;
+  protected readonly networkHash: string;
   public readonly testMode: boolean;
 
   /**
@@ -169,6 +191,7 @@ export class SDKBase {
       locale: options?.locale || 'en_US',
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
     });
+    this.networkHash = getNetworkHash(this.apiKey, options?.network, isEmpty(extConfig) ? undefined : extConfig);
     if (!options?.deferPreload) this.preload();
   }
 
@@ -177,7 +200,7 @@ export class SDKBase {
    */
   protected get overlay(): ViewController {
     if (!SDKBase.__overlays__.has(this.parameters)) {
-      const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters);
+      const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters, this.networkHash);
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore - We don't want to expose this method to the user, but we
