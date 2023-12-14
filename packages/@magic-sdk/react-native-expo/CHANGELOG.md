@@ -1,3 +1,15 @@
+# v22.4.0 (Thu Dec 14 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into split-key-device-share ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v22.3.4 (Wed Nov 29 2023)
 
 #### 🐛 Bug Fix

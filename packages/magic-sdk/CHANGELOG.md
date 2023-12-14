@@ -1,3 +1,19 @@
+# v21.4.0 (Thu Dec 14 2023)
+
+#### 🐛 Bug Fix
+
+- use existing iv and ek to encrypt and decrypt other multichain keys ([@Dizigen](https://github.com/Dizigen))
+- add more log lines to debug multichain error ([@Dizigen](https://github.com/Dizigen))
+- remove log lines ([@Dizigen](https://github.com/Dizigen))
+- debugging why deviceShare is not emitted in the payload ([@Dizigen](https://github.com/Dizigen))
+- Merge branch 'master' into split-key-device-share ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v21.2.1 (Tue Nov 14 2023)
 
 #### 🐛 Bug Fix

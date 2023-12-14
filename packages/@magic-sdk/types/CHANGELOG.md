@@ -1,3 +1,21 @@
+# v17.3.0 (Thu Dec 14 2023)
+
+#### 🚀 Enhancement
+
+- Split key device share [#678](https://github.com/magiclabs/magic-js/pull/678) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into split-key-device-share ([@Dizigen](https://github.com/Dizigen))
+- add device share to magic message request ([@Dizigen](https://github.com/Dizigen))
+- add setting and retrieving device share ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v17.2.0 (Tue Oct 24 2023)
 
 #### 🐛 Bug Fix

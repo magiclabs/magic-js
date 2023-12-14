@@ -1,3 +1,15 @@
+# v18.2.0 (Thu Dec 14 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into split-key-device-share ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v18.0.1 (Tue Nov 14 2023)
 
 #### 🐛 Bug Fix
