@@ -90,6 +90,7 @@ async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
 
 export abstract class ViewController {
   public checkIsReadyForRequest: Promise<void>;
+  public isReadyForRequest: boolean;
   protected readonly messageHandlers = new Set<(event: MagicMessageEvent) => any>();
   protected isConnectedToInternet = true;
 
@@ -102,6 +103,7 @@ export abstract class ViewController {
    */
   constructor(protected readonly endpoint: string, protected readonly parameters: string) {
     this.checkIsReadyForRequest = this.waitForReady();
+    this.isReadyForRequest = false;
     this.listen();
   }
 
@@ -137,7 +139,9 @@ export abstract class ViewController {
         reject(error);
       }
 
-      await this.checkIsReadyForRequest;
+      if (!this.isReadyForRequest) {
+        await this.waitForReady();
+      }
 
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
@@ -201,8 +205,10 @@ export abstract class ViewController {
 
   private waitForReady() {
     return new Promise<void>((resolve) => {
-      this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
+      const unsubscribe = this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
+        this.isReadyForRequest = true;
         resolve();
+        unsubscribe();
       });
     });
   }
