@@ -1,3 +1,43 @@
+# v21.4.0 (Thu Dec 14 2023)
+
+#### 🚀 Enhancement
+
+- Split key device share [#678](https://github.com/magiclabs/magic-js/pull/678) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into split-key-device-share ([@Dizigen](https://github.com/Dizigen))
+- update comment for format of the device share ([@Dizigen](https://github.com/Dizigen))
+- store the iv directly ([@Dizigen](https://github.com/Dizigen))
+- add asserts for the unit tests ([@Dizigen](https://github.com/Dizigen))
+- update implementation to not deal directly with non-base64 encoded strings ([@Dizigen](https://github.com/Dizigen))
+- update tests ([@Dizigen](https://github.com/Dizigen))
+- add test coverage ([@Dizigen](https://github.com/Dizigen))
+- refactor code to move device logic out of view controller ([@Dizigen](https://github.com/Dizigen))
+- move the device share retrieval into the lib itself. ([@Dizigen](https://github.com/Dizigen))
+- use existing iv and ek to encrypt and decrypt other multichain keys ([@Dizigen](https://github.com/Dizigen))
+- await iterate ([@Dizigen](https://github.com/Dizigen))
+- add more log lines to debug multichain error ([@Dizigen](https://github.com/Dizigen))
+- make sure to clear all device share keys at once ([@Dizigen](https://github.com/Dizigen))
+- remove log lines ([@Dizigen](https://github.com/Dizigen))
+- debugging why deviceShare is not emitted in the payload ([@Dizigen](https://github.com/Dizigen))
+- add device share to magic message request ([@Dizigen](https://github.com/Dizigen))
+- debug device share retrieval ([@Dizigen](https://github.com/Dizigen))
+- fix the way the iv is retrieved ([@Dizigen](https://github.com/Dizigen))
+- correctly encodes and stores the device share ([@Dizigen](https://github.com/Dizigen))
+- clear device shares when user denies account access + disconnects ([@Dizigen](https://github.com/Dizigen))
+- network hash implementation ([@Dizigen](https://github.com/Dizigen))
+- use console.warn so the test makes it to the console output ([@Dizigen](https://github.com/Dizigen))
+- implementation for device share + debug line for extConfig ([@Dizigen](https://github.com/Dizigen))
+- device share encryption, decryption, store, retrieve implementation ([@Dizigen](https://github.com/Dizigen))
+- add setting and retrieving device share ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v21.3.1 (Tue Nov 28 2023)
 
 #### 🐛 Bug Fix

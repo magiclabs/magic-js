@@ -1,6 +1,6 @@
 import * as memoryDriver from 'localforage-driver-memory';
 import localForage from 'localforage';
-import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS, TEST_API_KEY } from './constants';
+import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS, TEST_API_KEY, TEST_NETWORK_HASH } from './constants';
 import { ViewController } from '../src';
 import type { SDKEnvironment } from '../src/core/sdk-environment';
 
@@ -27,7 +27,7 @@ export class TestViewController extends ViewController {
 }
 
 export function createViewController(endpoint = MAGIC_RELAYER_FULL_URL) {
-  const viewController = new TestViewController(endpoint, ENCODED_QUERY_PARAMS);
+  const viewController = new TestViewController(endpoint, ENCODED_QUERY_PARAMS, TEST_NETWORK_HASH);
   viewController.init();
   return viewController;
 }

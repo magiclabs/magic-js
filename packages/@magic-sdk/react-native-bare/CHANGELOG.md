@@ -1,3 +1,29 @@
+# v22.4.0 (Thu Dec 14 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into split-key-device-share ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# v22.3.4 (Wed Nov 29 2023)
+
+#### 🐛 Bug Fix
+
+- Fix: increase netinfo version range [#677](https://github.com/magiclabs/magic-js/pull/677) ([@romin-halltari](https://github.com/romin-halltari))
+- bump patch version for react native SDKs ([@romin-halltari](https://github.com/romin-halltari))
+- Increase version range for "@react-native-community/netinfo" ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v22.3.2 (Tue Nov 28 2023)
 
 #### 🐛 Bug Fix

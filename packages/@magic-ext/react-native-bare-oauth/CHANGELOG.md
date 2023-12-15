@@ -1,3 +1,18 @@
+# v18.1.0 (Thu Dec 14 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into split-key-device-share ([@Dizigen](https://github.com/Dizigen))
+- Remove auth extension [#682](https://github.com/magiclabs/magic-js/pull/682) ([@Ethella](https://github.com/Ethella))
+- Remove auth extension ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v18.0.2 (Tue Nov 28 2023)
 
 #### 🐛 Bug Fix

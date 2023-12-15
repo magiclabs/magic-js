@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/cosmos",
-  "version": "16.3.2",
+  "version": "16.4.0",
   "description": "magic cosmos extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^17.3.1"
+    "@magic-sdk/commons": "^17.4.0"
   }
 }

@@ -1,3 +1,35 @@
+# (Thu Dec 14 2023)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@21.4.0`, `@magic-sdk/types@17.3.0`
+  - Split key device share [#678](https://github.com/magiclabs/magic-js/pull/678) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/react-native-bare-oauth@18.1.0`
+  - Remove auth extension [#682](https://github.com/magiclabs/magic-js/pull/682) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Wed Nov 29 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@22.3.4`, `@magic-sdk/react-native-expo@22.3.4`
+  - Fix: increase netinfo version range [#677](https://github.com/magiclabs/magic-js/pull/677) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # (Tue Nov 28 2023)
 
 #### 🐛 Bug Fix
