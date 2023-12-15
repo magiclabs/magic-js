@@ -74,7 +74,7 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     console.log('getRedirectResultV2');
     const queryString = window.location.search;
 
-    console.log('getRedirectResultV2', queryString);
+    console.log('getRedirectResultV2 ', queryString);
 
     // Remove the query from the redirect callback as a precaution to prevent
     // malicious parties from parsing it before we have a chance to use it.
