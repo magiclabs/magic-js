@@ -86,6 +86,12 @@ export class ReactNativeWebViewController extends ViewController {
       this.isConnectedToInternet = isConnected;
     }, [isConnected]);
 
+    useEffect(() => {
+      return () => {
+        this.isReadyForRequest = false;
+      };
+    }, []);
+
     /**
      * Saves a reference to the underlying `<WebView>` node so we can interact
      * with incoming messages.
