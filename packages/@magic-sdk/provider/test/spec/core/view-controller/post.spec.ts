@@ -3,7 +3,7 @@
 
 import browserEnv from '@ikscodes/browser-env';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '@magic-sdk/types';
-import { createViewController } from '../../../factories';
+import { createViewController, TestViewController } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import * as storage from '../../../../src/util/storage';
 import * as webCryptoUtils from '../../../../src/util/web-crypto';
@@ -73,6 +73,8 @@ const FAKE_RT = 'will freshen';
 const FAKE_INJECTED_JWT = 'fake injected jwt';
 let FAKE_STORE: any = {};
 
+let viewController: TestViewController;
+
 beforeEach(() => {
   jest.restoreAllMocks();
   createJwtStub = jest.spyOn(webCryptoUtils, 'createJwt');
@@ -86,6 +88,8 @@ beforeEach(() => {
     FAKE_STORE[key] = value;
   });
   SDKEnvironment.platform = 'web';
+  viewController = createViewController('asdf');
+  viewController.isReadyForRequest = true;
 });
 
 afterEach(() => {
@@ -94,7 +98,6 @@ afterEach(() => {
 
 test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async () => {
   createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
-  const viewController = createViewController('asdf');
   const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
@@ -109,7 +112,6 @@ test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', as
 
 test('Sends payload with jwt when web crypto is supported', async () => {
   createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
-  const viewController = createViewController('asdf');
   const { handlerSpy, onSpy, postSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
@@ -129,7 +131,6 @@ test('Sends payload with deviceShare when it is saved', async () => {
   getDecryptedDeviceShareStub.mockImplementationOnce(() => Promise.resolve(FAKE_DEVICE_SHARE));
   const eventWithDeviceShare = { data: { ...responseEvent().data, deviceShare: FAKE_DEVICE_SHARE } };
 
-  const viewController = createViewController('asdf');
   const { postSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithDeviceShare],
   ]);
@@ -154,7 +155,6 @@ test('device share should be cleared if replied user denied account access.', as
     },
   };
 
-  const viewController = createViewController('asdf');
   const { postSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithError],
   ]);
@@ -169,7 +169,6 @@ test('Sends payload with rt and jwt when rt is saved', async () => {
   createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
   FAKE_STORE.rt = FAKE_RT;
 
-  const viewController = createViewController('asdf');
   const { postSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
@@ -185,7 +184,6 @@ test('Sends payload with rt and an injected jwt when both rt and jwt are saved',
   FAKE_STORE.rt = FAKE_RT;
   FAKE_STORE.jwt = FAKE_INJECTED_JWT;
 
-  const viewController = createViewController('asdf');
   const { postSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
@@ -200,7 +198,6 @@ test('Sends payload without rt if no jwt can be made', async () => {
   createJwtStub.mockImplementation(() => Promise.resolve(undefined));
   FAKE_STORE.rt = FAKE_RT;
 
-  const viewController = createViewController('asdf');
   const { postSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
@@ -215,7 +212,6 @@ test('Sends payload when web crypto jwt fails', async () => {
   createJwtStub.mockRejectedValueOnce('danger');
   FAKE_STORE.rt = FAKE_RT;
 
-  const viewController = createViewController('asdf');
   const { handlerSpy, onSpy, postSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
   ]);
@@ -234,7 +230,6 @@ test('Sends payload when web crypto jwt fails', async () => {
 
 test('Sends payload and stores rt if response event contains rt', async () => {
   const eventWithRt = { data: { ...responseEvent().data, rt: FAKE_RT } };
-  const viewController = createViewController('asdf');
   const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
   ]);
@@ -251,7 +246,6 @@ test('Sends payload and stores rt if response event contains rt', async () => {
 
 test('throws MODAL_NOT_READY error when not connected to the internet', async () => {
   const eventWithRt = { data: { ...responseEvent().data } };
-  const viewController = createViewController('asdf');
   const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
   ]);
@@ -271,7 +265,6 @@ test('throws MODAL_NOT_READY error when not connected to the internet', async ()
 test('does not call web crypto api if platform is not web', async () => {
   SDKEnvironment.platform = 'react-native';
   const eventWithRt = { data: { ...responseEvent().data } };
-  const viewController = createViewController('asdf');
   const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
   ]);
@@ -286,7 +279,6 @@ test('does not call web crypto api if platform is not web', async () => {
 });
 
 test('Sends payload recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response', async () => {
-  const viewController = createViewController('asdf');
   const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent({ id: 1234 })], // Should be skipped
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
@@ -301,7 +293,6 @@ test('Sends payload recieves MAGIC_HANDLE_REQUEST event; skips payloads with non
 });
 
 test('Sends payload and standardizes malformed response', async () => {
-  const viewController = createViewController('asdf');
   const payload = requestPayload();
 
   stubViewController(viewController, [
@@ -318,7 +309,6 @@ test('Sends a batch payload and resolves with multiple responses', async () => {
   const response2 = responseEvent({ result: 'two', id: 2 });
   const response3 = responseEvent({ result: 'three', id: 3 });
 
-  const viewController = createViewController('asdf');
   const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, response1],
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, response2],
