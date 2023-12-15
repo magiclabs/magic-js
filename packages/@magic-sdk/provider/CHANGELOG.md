@@ -1,3 +1,18 @@
+# v21.4.1 (Fri Dec 15 2023)
+
+#### 🐛 Bug Fix
+
+- Fix multiple network setups for React Native SDKs [#687](https://github.com/magiclabs/magic-js/pull/687) ([@romin-halltari](https://github.com/romin-halltari))
+- Fix tests ([@romin-halltari](https://github.com/romin-halltari))
+- Merge branch 'master' into rominhalltari-sc-91530-investigate-and-provide-solution-for-issue ([@romin-halltari](https://github.com/romin-halltari))
+- Fix: waitForReady() if the controller is not ready for requests, instead of using checkIsReadyForRequest when isReadyForRequest is false ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v21.4.0 (Thu Dec 14 2023)
 
 #### 🚀 Enhancement

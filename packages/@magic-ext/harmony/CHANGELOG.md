@@ -1,3 +1,15 @@
+# v16.4.1 (Fri Dec 15 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into rominhalltari-sc-91530-investigate-and-provide-solution-for-issue ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v16.4.0 (Thu Dec 14 2023)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,16 @@
+# (Fri Dec 15 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@21.4.1`, `@magic-sdk/react-native-bare@22.4.1`, `@magic-sdk/react-native-expo@22.4.1`
+  - Fix multiple network setups for React Native SDKs [#687](https://github.com/magiclabs/magic-js/pull/687) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # (Thu Dec 14 2023)
 
 #### 🚀 Enhancement

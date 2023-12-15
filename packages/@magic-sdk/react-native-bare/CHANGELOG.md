@@ -1,3 +1,17 @@
+# v22.4.1 (Fri Dec 15 2023)
+
+#### 🐛 Bug Fix
+
+- Fix multiple network setups for React Native SDKs [#687](https://github.com/magiclabs/magic-js/pull/687) ([@romin-halltari](https://github.com/romin-halltari))
+- Merge branch 'master' into rominhalltari-sc-91530-investigate-and-provide-solution-for-issue ([@romin-halltari](https://github.com/romin-halltari))
+- Reset isReadyForRequest to false when webview is unmounted on React Native SDKs ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v22.4.0 (Thu Dec 14 2023)
 
 #### 🐛 Bug Fix
