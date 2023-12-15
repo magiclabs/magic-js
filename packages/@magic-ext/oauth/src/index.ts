@@ -164,7 +164,11 @@ function getResult(this: OAuthExtension, queryString: string) {
 function getResultV2(this: OAuthExtension, queryString: string) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
     const parseRedirectResult = this.utils.createJsonRpcRequestPayload('magic_oauth_parse_redirect_verify', [
-      queryString,
+      {
+        authorizationResponseParams: queryString,
+        magicApiKey: this.sdk.apiKey,
+        platform: 'web',
+      },
     ]);
 
     // Parse the result, which may contain an OAuth-formatted error.
