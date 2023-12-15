@@ -178,17 +178,8 @@ function getResult(this: OAuthExtension, queryString: string) {
 
 function getResultV2(this: OAuthExtension, queryString: string) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
-    const json: string = (await this.utils.storage.getItem(OAUTH_REDIRECT_METADATA_KEY)) as string;
-
-    const { verifier, state } = JSON.parse(json);
-
-    // Remove the save OAuth state from storage, it stays in memory now...
-    this.utils.storage.removeItem(OAUTH_REDIRECT_METADATA_KEY);
-
-    const parseRedirectResult = this.utils.createJsonRpcRequestPayload('magic_oauth_parse_redirect_result_v2', [
+    const parseRedirectResult = this.utils.createJsonRpcRequestPayload('magic_oauth_parse_redirect_verify', [
       queryString,
-      verifier,
-      state,
     ]);
 
     // Parse the result, which may contain an OAuth-formatted error.
