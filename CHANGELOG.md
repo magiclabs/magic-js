@@ -1,3 +1,16 @@
+# (Wed Dec 20 2023)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oidc@4.4.2`
+  - New token publishing attempt [#688](https://github.com/magiclabs/magic-js/pull/688) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri Dec 15 2023)
 
 #### 🐛 Bug Fix
