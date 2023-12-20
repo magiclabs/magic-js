@@ -16,7 +16,7 @@ export class SDKBaseReactNative extends SDKBase {
     this.usr = new UserModule(this);
     if (options?.useStorageCacheMobile) {
       this.user.isLoggedIn = () => {
-        const promiEvent = createPromiEvent<boolean, any>(async (resolve, reject) => {
+        return createPromiEvent<boolean, any>(async (resolve, reject) => {
           const cachedIsLoggedIn = (await AsyncStorage.getItem('isLoggedIn')) === 'true';
 
           // if isLoggedIn is true on storage, optimistically resolve with true
@@ -37,7 +37,6 @@ export class SDKBaseReactNative extends SDKBase {
             resolve(isLoggedIn);
           });
         });
-        return promiEvent;
       };
 
       this.user.logout = () => {
