@@ -90,10 +90,6 @@ export class ReactNativeWebViewController extends ViewController {
     }, [isConnected]);
 
     useEffect(() => {
-<<<<<<< HEAD
-      return () => {
-        this.isReadyForRequest = false;
-=======
       let isMounted = true;
 
       appAttestation.verifyApp().then((verified) => {
@@ -105,7 +101,6 @@ export class ReactNativeWebViewController extends ViewController {
 
       return () => {
         isMounted = false;
->>>>>>> 91b43d86 (Update name to react-native-app-attestaion)
       };
     }, []);
 
