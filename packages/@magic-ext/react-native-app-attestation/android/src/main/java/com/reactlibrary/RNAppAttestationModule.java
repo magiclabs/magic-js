@@ -27,9 +27,8 @@ public class RNAppAttestationModule extends ReactContextBaseJavaModule {
     // For example, integrating with a device attestation API
 
     try {
-        // On successful attestation
-        String result = "Attestation Successful"; // Replace with actual result
-        promise.resolve(result);
+        // On successful call to attestation in Android return true
+        promise.resolve(true);
     } catch (Exception e) {
         // On attestation failure
         promise.reject("ERROR", "Attestation failed", e);
