@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
-import { AppAttestationExtension } from '@magic-ext/react-native-bare-app-attestation';
+import { AppAttestationExtension } from '@magic-ext/react-native-app-attestation';
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 

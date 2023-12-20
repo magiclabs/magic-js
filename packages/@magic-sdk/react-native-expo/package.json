@@ -36,6 +36,7 @@
     "@babel/core": "^7.15.0",
     "@babel/plugin-transform-flow-strip-types": "^7.14.5",
     "@babel/runtime": "~7.10.4",
+    "@magic-ext/react-native-app-attestation": "0.0.1",
     "@react-native-community/netinfo": ">11.0.0",
     "@testing-library/react-native": "^12.4.0",
     "expo-modules-core": "^1.0.4",
@@ -47,6 +48,7 @@
     "react-test-renderer": "^16.13.1"
   },
   "peerDependencies": {
+    "@magic-ext/react-native-app-attestation": ">=0.0.1",
     "@react-native-community/netinfo": ">=9.0.0",
     "expo": "*",
     "react": ">=16",

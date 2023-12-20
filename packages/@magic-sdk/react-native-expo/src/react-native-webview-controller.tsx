@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
+import { AppAttestationExtension } from '@magic-ext/react-native-app-attestation';
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 
@@ -79,7 +80,9 @@ export class ReactNativeWebViewController extends ViewController {
   // the forseeable future).
   /* istanbul ignore next */
   public Relayer: React.FC<{ backgroundColor?: string }> = ({ backgroundColor }) => {
+    const appAttestation = new AppAttestationExtension();
     const [show, setShow] = useState(false);
+    const [appVerified, setAppVerified] = useState<boolean | null>(null);
     const isConnected = useInternetConnection();
 
     useEffect(() => {
@@ -87,8 +90,22 @@ export class ReactNativeWebViewController extends ViewController {
     }, [isConnected]);
 
     useEffect(() => {
+<<<<<<< HEAD
       return () => {
         this.isReadyForRequest = false;
+=======
+      let isMounted = true;
+
+      appAttestation.verifyApp().then((verified) => {
+        console.log('verified', verified);
+        if (isMounted) {
+          setAppVerified(verified);
+        }
+      });
+
+      return () => {
+        isMounted = false;
+>>>>>>> 91b43d86 (Update name to react-native-app-attestaion)
       };
     }, []);
 
@@ -142,7 +159,8 @@ export class ReactNativeWebViewController extends ViewController {
       this.handleReactNativeWebViewMessage(event);
     }, []);
 
-    return (
+    // If the promise has not resolved yet or if the app is verified, continue rendering
+    return appVerified === null || appVerified ? (
       <SafeAreaView ref={containerRef} style={containerStyles}>
         <WebView
           ref={webViewRef}
@@ -163,7 +181,7 @@ export class ReactNativeWebViewController extends ViewController {
           }}
         />
       </SafeAreaView>
-    );
+    ) : null;
   };
 
   /**
