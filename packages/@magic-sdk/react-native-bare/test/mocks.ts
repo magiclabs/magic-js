@@ -1,3 +1,5 @@
+import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock';
+
 // @react-native-community/netinfo mocks
 const defaultState = {
   type: 'cellular',
@@ -62,3 +64,5 @@ export function removeReactDependencies() {
     };
   });
 }
+
+jest.mock('@react-native-async-storage/async-storage', () => AsyncStorageMock);
