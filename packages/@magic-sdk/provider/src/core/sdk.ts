@@ -127,6 +127,7 @@ export class SDKBase {
   protected readonly parameters: string;
   protected readonly networkHash: string;
   public readonly testMode: boolean;
+  public readonly useStorageCache: boolean;
 
   /**
    * Contains methods for starting a Magic SDK authentication flow.
@@ -168,6 +169,7 @@ export class SDKBase {
 
     const { defaultEndpoint, version } = SDKEnvironment;
     this.testMode = !!options?.testMode;
+    this.useStorageCache = !!options?.useStorageCache;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
 
     // Prepare built-in modules

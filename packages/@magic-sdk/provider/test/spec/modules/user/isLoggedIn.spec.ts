@@ -11,6 +11,16 @@ beforeEach(() => {
 test('Resolves immediately when cached is_logged_in is true', async () => {
   mockLocalForage({ is_logged_in: 'true' });
   const magic = createMagicSDK();
+  magic.useStorageCache = true;
+
+  const isLoggedIn = await magic.user.isLoggedIn();
+
+  expect(isLoggedIn).toEqual(true);
+});
+
+test('Waits for request before resolving when cached is_logged_in is false', async () => {
+  mockLocalForage({ is_logged_in: 'true' });
+  const magic = createMagicSDK();
   magic.user.request = jest.fn().mockResolvedValue(true);
 
   const isLoggedIn = await magic.user.isLoggedIn();
@@ -21,7 +31,8 @@ test('Resolves immediately when cached is_logged_in is true', async () => {
 test('Stores is_logged_in=true in local storage when request resolves true', async () => {
   mockLocalForage();
   const magic = createMagicSDK();
-  magic.user.request = jest.fn();
+  magic.useStorageCache = true;
+  magic.user.request = jest.fn().mockResolvedValue(true);
 
   await magic.user.isLoggedIn();
 
@@ -31,6 +42,7 @@ test('Stores is_logged_in=true in local storage when request resolves true', asy
 test('Removes is_logged_in=true from local storage when request resolves false', async () => {
   mockLocalForage();
   const magic = createMagicSDK();
+  magic.useStorageCache = true;
   magic.user.request = jest.fn().mockResolvedValue(false);
 
   await magic.user.isLoggedIn();
@@ -70,4 +82,17 @@ test('Should reject with error if error occurs', async () => {
   magic.user.request = jest.fn().mockRejectedValue(new Error('something went wrong'));
 
   await expect(magic.user.isLoggedIn()).rejects.toThrowError(new Error('something went wrong'));
+});
+
+test('Emits user logged out event when logout resolves', async () => {
+  mockLocalForage({ is_logged_in: 'true' });
+  const magic = createMagicSDK();
+  magic.useStorageCache = true;
+  magic.user.request = jest.fn().mockResolvedValue(true);
+
+  const spyEmitUserLoggedOut = jest.spyOn(magic.user, 'emitUserLoggedOut');
+
+  await magic.user.logout();
+
+  expect(spyEmitUserLoggedOut).toHaveBeenCalledWith(true);
 });

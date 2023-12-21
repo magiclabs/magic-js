@@ -53,25 +53,30 @@ export class UserModule extends BaseModule {
   public isLoggedIn() {
     return createPromiEvent<boolean, any>(async (resolve, reject) => {
       try {
-        const cachedIsLoggedIn = (await getItem(this.localForageIsLoggedInKey)) === 'true';
+        let cachedIsLoggedIn = false;
+        if (this.sdk.useStorageCache) {
+          cachedIsLoggedIn = (await getItem(this.localForageIsLoggedInKey)) === 'true';
 
-        // if isLoggedIn is true on storage, optimistically resolve with true
-        // if it is false, we use `usr.isLoggedIn` as the source of truth.
-        if (cachedIsLoggedIn) {
-          resolve(true);
+          // if isLoggedIn is true on storage, optimistically resolve with true
+          // if it is false, we use `usr.isLoggedIn` as the source of truth.
+          if (cachedIsLoggedIn) {
+            resolve(true);
+          }
         }
 
         const requestPayload = createJsonRpcRequestPayload(
           this.sdk.testMode ? MagicPayloadMethod.IsLoggedInTestMode : MagicPayloadMethod.IsLoggedIn,
         );
         const isLoggedInResponse = await this.request<boolean>(requestPayload);
-        if (!isLoggedInResponse) {
-          removeItem(this.localForageIsLoggedInKey);
-          if (cachedIsLoggedIn) {
-            this.emitUserLoggedOut(true);
+        if (this.sdk.useStorageCache) {
+          if (!isLoggedInResponse) {
+            removeItem(this.localForageIsLoggedInKey);
+            if (cachedIsLoggedIn) {
+              this.emitUserLoggedOut(true);
+            }
+          } else {
+            setItem(this.localForageIsLoggedInKey, true);
           }
-        } else {
-          setItem(this.localForageIsLoggedInKey, true);
         }
         resolve(isLoggedInResponse);
       } catch (err) {
@@ -91,10 +96,12 @@ export class UserModule extends BaseModule {
           this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
         );
         const response = await this.request<boolean>(requestPayload);
-        this.emitUserLoggedOut(response);
+        if (this.sdk.useStorageCache) {
+          this.emitUserLoggedOut(response);
+        }
         resolve(response);
-      } catch (e) {
-        reject(e);
+      } catch (err) {
+        reject(err);
       }
     });
   }
