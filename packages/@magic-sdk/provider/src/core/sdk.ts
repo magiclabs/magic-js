@@ -117,7 +117,7 @@ export interface MagicSDKAdditionalConfiguration<
   extensions?: TExt;
   testMode?: boolean;
   deferPreload?: boolean;
-  useStorageCacheMobile?: boolean;
+  useStorageCache?: boolean;
 }
 
 export class SDKBase {

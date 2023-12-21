@@ -9,12 +9,13 @@ import {
   RecoverAccountConfiguration,
   ShowSettingsConfiguration,
 } from '@magic-sdk/types';
-import { getItem, removeItem } from '../util/storage';
+import { getItem, setItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { clearDeviceShares } from '../util/device-share-web-crypto';
+import { createPromiEvent } from '../util';
 
 export type UpdateEmailEvents = {
   'email-sent': () => void;
@@ -23,6 +24,9 @@ export type UpdateEmailEvents = {
   'new-email-confirmed': () => void;
   retry: () => void;
 };
+
+type UserLoggedOutCallback = (loggedOut: boolean) => void;
+
 export class UserModule extends BaseModule {
   public getIdToken(configuration?: GetIdTokenConfiguration) {
     const requestPayload = createJsonRpcRequestPayload(
@@ -47,19 +51,52 @@ export class UserModule extends BaseModule {
   }
 
   public isLoggedIn() {
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.IsLoggedInTestMode : MagicPayloadMethod.IsLoggedIn,
-    );
-    return this.request<boolean>(requestPayload);
+    return createPromiEvent<boolean, any>(async (resolve, reject) => {
+      try {
+        const cachedIsLoggedIn = (await getItem(this.localForageIsLoggedInKey)) === 'true';
+
+        // if isLoggedIn is true on storage, optimistically resolve with true
+        // if it is false, we use `usr.isLoggedIn` as the source of truth.
+        if (cachedIsLoggedIn) {
+          resolve(true);
+        }
+
+        const requestPayload = createJsonRpcRequestPayload(
+          this.sdk.testMode ? MagicPayloadMethod.IsLoggedInTestMode : MagicPayloadMethod.IsLoggedIn,
+        );
+        const isLoggedInResponse = await this.request<boolean>(requestPayload);
+        if (!isLoggedInResponse) {
+          removeItem(this.localForageIsLoggedInKey);
+          if (cachedIsLoggedIn) {
+            this.emitUserLoggedOut(true);
+          }
+        } else {
+          setItem(this.localForageIsLoggedInKey, true);
+        }
+        resolve(isLoggedInResponse);
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
   public logout() {
     removeItem(this.localForageKey);
+    removeItem(this.localForageIsLoggedInKey);
     clearDeviceShares();
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
-    );
-    return this.request<boolean>(requestPayload);
+
+    return createPromiEvent<boolean, any>(async (resolve, reject) => {
+      try {
+        const requestPayload = createJsonRpcRequestPayload(
+          this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
+        );
+        const response = await this.request<boolean>(requestPayload);
+        this.emitUserLoggedOut(response);
+        resolve(response);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
   /* Request email address from logged in user */
@@ -112,6 +149,18 @@ export class UserModule extends BaseModule {
     return this.request<string | null, UpdateEmailEvents>(requestPayload);
   }
 
+  public onUserLoggedOut(callback: UserLoggedOutCallback): void {
+    this.userLoggedOutCallbacks.push(callback);
+  }
+
   // Private members
+  private emitUserLoggedOut(loggedOut: boolean): void {
+    this.userLoggedOutCallbacks.forEach((callback) => {
+      callback(loggedOut);
+    });
+  }
+
   private localForageKey = 'mc_active_wallet';
+  private localForageIsLoggedInKey = 'is_logged_in';
+  private userLoggedOutCallbacks: UserLoggedOutCallback[] = [];
 }
