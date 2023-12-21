@@ -8,8 +8,8 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Resolves immediately when cached is_logged_in is true', async () => {
-  mockLocalForage({ is_logged_in: 'true' });
+test('Resolves immediately when cached magic_auth_is_logged_in is true', async () => {
+  mockLocalForage({ magic_auth_is_logged_in: 'true' });
   const magic = createMagicSDK();
   magic.useStorageCache = true;
 
@@ -18,8 +18,8 @@ test('Resolves immediately when cached is_logged_in is true', async () => {
   expect(isLoggedIn).toEqual(true);
 });
 
-test('Waits for request before resolving when cached is_logged_in is false', async () => {
-  mockLocalForage({ is_logged_in: 'true' });
+test('Waits for request before resolving when cached magic_auth_is_logged_in is false', async () => {
+  mockLocalForage({ magic_auth_is_logged_in: 'true' });
   const magic = createMagicSDK();
   magic.user.request = jest.fn().mockResolvedValue(true);
 
@@ -28,7 +28,7 @@ test('Waits for request before resolving when cached is_logged_in is false', asy
   expect(isLoggedIn).toEqual(true);
 });
 
-test('Stores is_logged_in=true in local storage when request resolves true', async () => {
+test('Stores magic_auth_is_logged_in=true in local storage when request resolves true', async () => {
   mockLocalForage();
   const magic = createMagicSDK();
   magic.useStorageCache = true;
@@ -36,10 +36,10 @@ test('Stores is_logged_in=true in local storage when request resolves true', asy
 
   await magic.user.isLoggedIn();
 
-  expect(storage.setItem).toHaveBeenCalledWith('is_logged_in', true);
+  expect(storage.setItem).toHaveBeenCalledWith('magic_auth_is_logged_in', true);
 });
 
-test('Removes is_logged_in=true from local storage when request resolves false', async () => {
+test('Removes magic_auth_is_logged_in=true from local storage when request resolves false', async () => {
   mockLocalForage();
   const magic = createMagicSDK();
   magic.useStorageCache = true;
@@ -47,7 +47,7 @@ test('Removes is_logged_in=true from local storage when request resolves false',
 
   await magic.user.isLoggedIn();
 
-  expect(storage.removeItem).toHaveBeenCalledWith('is_logged_in');
+  expect(storage.removeItem).toHaveBeenCalledWith('magic_auth_is_logged_in');
 });
 
 test(' Generate JSON RPC request payload with method `magic_is_logged_in`', async () => {
@@ -85,7 +85,7 @@ test('Should reject with error if error occurs', async () => {
 });
 
 test('Emits user logged out event when logout resolves', async () => {
-  mockLocalForage({ is_logged_in: 'true' });
+  mockLocalForage({ magic_auth_is_logged_in: 'true' });
   const magic = createMagicSDK();
   magic.useStorageCache = true;
   magic.user.request = jest.fn().mockResolvedValue(true);

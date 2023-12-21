@@ -168,6 +168,6 @@ export class UserModule extends BaseModule {
   }
 
   private localForageKey = 'mc_active_wallet';
-  private localForageIsLoggedInKey = 'is_logged_in';
+  private localForageIsLoggedInKey = 'magic_auth_is_logged_in';
   private userLoggedOutCallbacks: UserLoggedOutCallback[] = [];
 }

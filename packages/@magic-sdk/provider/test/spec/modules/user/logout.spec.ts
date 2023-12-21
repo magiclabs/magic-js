@@ -34,13 +34,13 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
   expect(requestPayload.params).toEqual([]);
 });
 
-test('Removes is_logged_in from local storage', async () => {
+test('Removes magic_auth_is_logged_in from local storage', async () => {
   const magic = createMagicSDKTestMode();
-  mockLocalForage({ is_logged_in: 'true' });
+  mockLocalForage({ magic_auth_is_logged_in: 'true' });
 
   magic.user.logout();
 
-  expect(storage.removeItem).toHaveBeenCalledWith('is_logged_in');
+  expect(storage.removeItem).toHaveBeenCalledWith('magic_auth_is_logged_in');
 });
 
 test('Removes mc_active_wallet from local storage', async () => {
