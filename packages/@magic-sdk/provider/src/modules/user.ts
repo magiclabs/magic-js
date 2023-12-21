@@ -69,13 +69,13 @@ export class UserModule extends BaseModule {
         );
         const isLoggedInResponse = await this.request<boolean>(requestPayload);
         if (this.sdk.useStorageCache) {
-          if (!isLoggedInResponse) {
-            removeItem(this.localForageIsLoggedInKey);
-            if (cachedIsLoggedIn) {
-              this.emitUserLoggedOut(true);
-            }
-          } else {
+          if (isLoggedInResponse) {
             setItem(this.localForageIsLoggedInKey, true);
+          } else {
+            removeItem(this.localForageIsLoggedInKey);
+          }
+          if (cachedIsLoggedIn && !isLoggedInResponse) {
+            this.emitUserLoggedOut(true);
           }
         }
         resolve(isLoggedInResponse);
