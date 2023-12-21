@@ -1,5 +1,3 @@
-import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock';
-
 // @react-native-community/netinfo mocks
 const defaultState = {
   type: 'cellular',
@@ -59,5 +57,3 @@ export function removeReactDependencies() {
   // https://github.com/aveq-research/localforage-asyncstorage-driver/issues/1
   jest.mock('@aveq-research/localforage-asyncstorage-driver', noopModule);
 }
-
-jest.mock('@react-native-async-storage/async-storage', () => AsyncStorageMock);
