@@ -30,8 +30,8 @@ export class SolanaExtension extends Extension.Internal<'solana', any> {
     });
   };
 
-  public signMessage = (message: any) => {
-    return this.request<{ rawTransaction: string }>({
+  public signMessage = (message: string | Uint8Array) => {
+    return this.request<Uint8Array>({
       id: 42,
       jsonrpc: '2.0',
       method: SOLANA_PAYLOAD_METHODS.SIGN_MESSAGE,
