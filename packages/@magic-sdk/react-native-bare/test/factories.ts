@@ -1,5 +1,4 @@
 import browserEnv from '@ikscodes/browser-env';
-import { MagicSDKAdditionalConfiguration } from '@magic-sdk/provider';
 import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS, TEST_API_KEY } from './constants';
 
 export function createReactNativeWebViewController(endpoint = MAGIC_RELAYER_FULL_URL) {
@@ -9,8 +8,8 @@ export function createReactNativeWebViewController(endpoint = MAGIC_RELAYER_FULL
   return viewController;
 }
 
-export function createMagicSDK(options?: MagicSDKAdditionalConfiguration) {
+export function createMagicSDK(endpoint = MAGIC_RELAYER_FULL_URL) {
   const { Magic } = jest.requireActual('../src/index.ts');
   browserEnv.stub('console.warn', jest.fn());
-  return new Magic(TEST_API_KEY, options);
+  return new Magic(TEST_API_KEY, { endpoint });
 }
