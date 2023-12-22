@@ -1,3 +1,19 @@
+# v18.3.0 (Fri Dec 22 2023)
+
+#### 🚀 Enhancement
+
+- Fix type mismatch for signMessage in solana-ext [#691](https://github.com/magiclabs/magic-js/pull/691) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Fix type mismatch for signMessage in solana-ext ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v18.2.1 (Fri Dec 15 2023)
 
 #### 🐛 Bug Fix
