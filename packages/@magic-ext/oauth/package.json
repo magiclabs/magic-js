@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/oauth",
-  "version": "15.4.1",
+  "version": "15.5.0",
   "description": "Magic SDK OAuth Extension for Web environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
