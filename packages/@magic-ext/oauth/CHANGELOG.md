@@ -1,3 +1,19 @@
+# v15.6.0 (Tue Jan 02 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and (rominhalltari@rohat92phx.lan)
+- Fix: use default import of crypto-js to fix unresolved imports after build [#694](https://github.com/magiclabs/magic-js/pull/694) ([@romin-halltari](https://github.com/romin-halltari))
+- Fix: use default import of crypto-js to fix unresolved imports after build ([@romin-halltari](https://github.com/romin-halltari))
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Romin Halltari (rominhalltari@rohat92phx.lan)
+
+---
+
 # v15.5.0 (Fri Dec 22 2023)
 
 #### 🚀 Enhancement

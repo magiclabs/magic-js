@@ -1,3 +1,19 @@
+# v22.5.0 (Tue Jan 02 2024)
+
+#### 🐛 Bug Fix
+
+- Revert changes to react-native-bare ([@romin-halltari](https://github.com/romin-halltari))
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and ([@romin-halltari](https://github.com/romin-halltari))
+- Revert "[react-native-bare] Use storage for faster calls to isLoggedIn" ([@romin-halltari](https://github.com/romin-halltari))
+- [react-native-bare] Use storage for faster calls to isLoggedIn ([@romin-halltari](https://github.com/romin-halltari))
+- Fix: add options argument to createMagicSDK ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v22.4.1 (Fri Dec 15 2023)
 
 #### 🐛 Bug Fix

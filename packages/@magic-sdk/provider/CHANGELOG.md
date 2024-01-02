@@ -1,3 +1,27 @@
+# v21.5.0 (Tue Jan 02 2024)
+
+#### 🚀 Enhancement
+
+- Use storage for faster calls to `isLoggedIn` on mobile [#689](https://github.com/magiclabs/magic-js/pull/689) ([@romin-halltari](https://github.com/romin-halltari) rominhalltari@rohat92phx.lan)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and (rominhalltari@rohat92phx.lan)
+- Add unit test about deprecation warning to increase test coverage ([@romin-halltari](https://github.com/romin-halltari))
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and ([@romin-halltari](https://github.com/romin-halltari))
+- Flatten if condition ([@romin-halltari](https://github.com/romin-halltari))
+- Rename is_logged_in -> magic_auth_is_logged_in ([@romin-halltari](https://github.com/romin-halltari))
+- Check if useStorageCache is true ([@romin-halltari](https://github.com/romin-halltari))
+- Use storage for faster calls to isLoggedIn for both mobile and web ([@romin-halltari](https://github.com/romin-halltari))
+- Use storage for faster calls to isLoggedIn ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Romin Halltari (rominhalltari@rohat92phx.lan)
+
+---
+
 # v21.4.1 (Fri Dec 15 2023)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,22 @@
+# (Tue Jan 02 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@21.5.0`
+  - Use storage for faster calls to `isLoggedIn` on mobile [#689](https://github.com/magiclabs/magic-js/pull/689) ([@romin-halltari](https://github.com/romin-halltari) rominhalltari@rohat92phx.lan)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@15.6.0`
+  - Fix: use default import of crypto-js to fix unresolved imports after build [#694](https://github.com/magiclabs/magic-js/pull/694) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Romin Halltari (rominhalltari@rohat92phx.lan)
+
+---
+
 # (Fri Dec 22 2023)
 
 #### 🚀 Enhancement

@@ -1,3 +1,15 @@
+# v4.5.0 (Tue Jan 02 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v4.4.2 (Wed Dec 20 2023)
 
 #### 🐛 Bug Fix
