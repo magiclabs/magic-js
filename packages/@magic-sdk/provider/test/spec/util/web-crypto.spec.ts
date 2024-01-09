@@ -29,11 +29,11 @@ test('should return undefined if unsupported', async () => {
   expect(jwt).toEqual(undefined);
 });
 
-test('should give undefined if missing private key', async () => {
+test('should regenerate crypto key if missing private key', async () => {
   await createJwt(); // create keys
   FAKE_STORE[STORE_KEY_PRIVATE_KEY] = null;
   const jwt = await createJwt();
-  expect(jwt).toEqual(undefined);
+  expect(jwt).toBeTruthy();
 });
 
 test('should return jwt if supported', async () => {
