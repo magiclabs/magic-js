@@ -69,7 +69,11 @@ async function getPublicKey() {
     return undefined;
   }
 
-  if (!(await getItem(STORE_KEY_PUBLIC_JWK))) {
+  if (
+    !(await getItem(STORE_KEY_PUBLIC_JWK)) ||
+    !(await getItem(STORE_KEY_PRIVATE_KEY)) ||
+    (await getItem(STORE_KEY_PRIVATE_KEY)) === '{}'
+  ) {
     await generateWCKP();
   }
 
