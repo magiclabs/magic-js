@@ -59,6 +59,17 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     });
   }
 
+  public loginWithRedirectV2_2(configuration: OAuthRedirectConfiguration) {
+    return this.utils.createPromiEvent<void>(async (resolve) => {
+      console.log('loginWithRedirectV2_2', configuration);
+
+      // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
+      window.location.href = new URL(`/rpc/magic/oauth-login-with-redirect-start-2`, this.sdk.endpoint).href;
+
+      resolve();
+    });
+  }
+
   public getRedirectResult() {
     const queryString = window.location.search;
 
