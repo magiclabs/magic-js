@@ -63,8 +63,11 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     return this.utils.createPromiEvent<void>(async (resolve) => {
       console.log('loginWithRedirectV2_2', configuration);
 
-      // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-      window.open(`${this.sdk.endpoint}/rpc/magic/oauth-login-with-redirect-start-2`, '_blank');
+      window.open(
+        // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
+        `${this.sdk.endpoint}/rpc/magic/oauth-login-with-redirect-start-2?provider=${configuration.provider}&redirectURI=${configuration.redirectURI}`,
+        '_blank',
+      );
 
       resolve();
     });
