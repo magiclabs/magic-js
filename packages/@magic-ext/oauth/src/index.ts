@@ -7,6 +7,7 @@ import {
   OAuthRedirectError,
   OAuthRedirectResult,
   OAuthRedirectConfiguration,
+  OAuthPopupConfiguration,
 } from './types';
 import { createCryptoChallenge } from './crypto';
 
@@ -63,19 +64,19 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     return this.utils.createPromiEvent<void>(async (resolve) => {
       console.log('loginWithRedirectV2_2', configuration);
 
-      window.open(
-        // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-        `${this.sdk.endpoint}/rpc/magic/oauth-login-with-redirect-start-2?provider=${configuration.provider}&redirectURI=${configuration.redirectURI}`,
-        '_blank',
-      );
+      // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
+      window.open(`${this.sdk.endpoint}/rpc/magic/oauth-login-with-redirect-start-2`, '_blank');
 
       resolve();
     });
   }
 
-  public loginWithPopup1(configuration: OAuthRedirectConfiguration) {
-    console.log('loginWithPopup1', configuration);
-    window.open(`http://localhost:3014/v1/oauth2/popup/${configuration.provider}/start`, '_blank');
+  public loginWithPopup(configuration: OAuthPopupConfiguration) {
+    console.log('loginWithPopup', configuration);
+    window.open(
+      `http://localhost:3014/v1/oauth2/popup/${configuration.provider}/start?provider=${configuration.provider}`,
+      '_blank',
+    );
   }
 
   public getRedirectResult() {

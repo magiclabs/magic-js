@@ -94,6 +94,11 @@ export interface OAuthRedirectConfiguration {
   loginHint?: string;
 }
 
+export interface OAuthPopupConfiguration {
+  provider: OAuthProvider;
+  loginHint?: string;
+}
+
 export enum OAuthErrorCode {
   InvalidRequest = 'invalid_request',
   InvalidClient = 'invalid_client',
