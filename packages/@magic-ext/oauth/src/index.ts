@@ -47,7 +47,7 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
 
       const result = await this.request<any>(parseRedirectResult);
 
-      console.log('loginWithRedirectV2: rpc result', result);
+      console.log('loginWithRedirectV2: rpc resultsss', result);
 
       // TODO: handle error like allowlist not matching
 
