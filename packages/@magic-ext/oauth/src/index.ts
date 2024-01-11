@@ -31,6 +31,45 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     });
   }
 
+  public loginWithRedirectV2(configuration: OAuthRedirectConfiguration) {
+    return this.utils.createPromiEvent<void>(async (resolve) => {
+      console.log('loginWithRedirectV2', configuration);
+
+      const parseRedirectResult = this.utils.createJsonRpcRequestPayload('magic_oauth_login_with_redirect_start', [
+        {
+          ...configuration,
+          apiKey: this.sdk.apiKey,
+          platform: 'web',
+        },
+      ]);
+
+      console.log('loginWithRedirectV2: rpc payload', parseRedirectResult);
+
+      const result = await this.request<any>(parseRedirectResult);
+
+      console.log('loginWithRedirectV2: rpc result', result);
+
+      // TODO: handle error like allowlist not matching
+
+      if (result?.oauthAuthoriationURI) {
+        window.location.href = result.oauthAuthoriationURI;
+      }
+
+      resolve();
+    });
+  }
+
+  public loginWithRedirectV2_2(configuration: OAuthRedirectConfiguration) {
+    return this.utils.createPromiEvent<void>(async (resolve) => {
+      console.log('loginWithRedirectV2_2', configuration);
+
+      // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
+      window.location.href = new URL(`/rpc/magic/oauth-login-with-redirect-start-2`, this.sdk.endpoint).href;
+
+      resolve();
+    });
+  }
+
   public getRedirectResult() {
     const queryString = window.location.search;
 
@@ -40,6 +79,20 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     window.history.replaceState(null, '', urlWithoutQuery);
 
     return getResult.call(this, queryString);
+  }
+
+  public getRedirectResultV2() {
+    console.log('getRedirectResultV2');
+    const queryString = window.location.search;
+
+    console.log('getRedirectResultV2 ', queryString);
+
+    // Remove the query from the redirect callback as a precaution to prevent
+    // malicious parties from parsing it before we have a chance to use it.
+    const urlWithoutQuery = window.location.origin + window.location.pathname;
+    window.history.replaceState(null, '', urlWithoutQuery);
+
+    return getResultV2.call(this, queryString);
   }
 }
 
@@ -99,6 +152,34 @@ function getResult(this: OAuthExtension, queryString: string) {
       queryString,
       verifier,
       state,
+    ]);
+
+    // Parse the result, which may contain an OAuth-formatted error.
+    const resultOrError = await this.request<OAuthRedirectResult | OAuthRedirectError>(parseRedirectResult);
+    const maybeResult = resultOrError as OAuthRedirectResult;
+    const maybeError = resultOrError as OAuthRedirectError;
+
+    if (maybeError.error) {
+      reject(
+        this.createError<OAuthErrorData>(maybeError.error, maybeError.error_description ?? 'An error occurred.', {
+          errorURI: maybeError.error_uri,
+          provider: maybeError.provider,
+        }),
+      );
+    }
+
+    resolve(maybeResult);
+  });
+}
+
+function getResultV2(this: OAuthExtension, queryString: string) {
+  return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
+    const parseRedirectResult = this.utils.createJsonRpcRequestPayload('magic_oauth_parse_redirect_verify', [
+      {
+        authorizationResponseParams: queryString,
+        magicApiKey: this.sdk.apiKey,
+        platform: 'web',
+      },
     ]);
 
     // Parse the result, which may contain an OAuth-formatted error.
