@@ -64,7 +64,7 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
       console.log('loginWithRedirectV2_2', configuration);
 
       // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-      window.location.href = new URL(`/rpc/magic/oauth-login-with-redirect-start-2`, this.sdk.endpoint).href;
+      window.open(`${this.sdk.endpoint}/rpc/magic/oauth-login-with-redirect-start-2`, '_blank');
 
       resolve();
     });
