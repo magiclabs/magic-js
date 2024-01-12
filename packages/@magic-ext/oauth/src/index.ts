@@ -73,7 +73,8 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
 
   public loginWithPopup(configuration: OAuthPopupConfiguration) {
     console.log('loginWithPopup', configuration);
-    window.open(`http://localhost:3014/v1/oauth2/popup/${configuration.provider}/start`, '_blank');
+    // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
+    window.open(`${this.sdk.endpoint}/v1/oauth2/popup/${configuration.provider}/start`, '_blank');
   }
 
   public getRedirectResult() {
