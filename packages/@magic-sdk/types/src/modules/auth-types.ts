@@ -141,3 +141,51 @@ export enum DeviceVerificationEventOnReceived {
   DeviceVerificationLinkExpired = 'device-verification-link-expired',
   DeviceVerificationEmailSent = 'device-verification-email-sent',
 }
+
+/**
+ * Update Email
+ */
+
+type RecencyCheckEventHandlers = {
+  [RecencyCheckEventOnReceived.PrimaryAuthFactorNeedsVerification]: () => void;
+  [RecencyCheckEventOnReceived.PrimaryAuthFactorVerified]: () => void;
+  [RecencyCheckEventOnReceived.PrimaryAuthFactorVerificationEmailExpired]: () => void;
+  [RecencyCheckEventOnReceived.PrimaryAuthFactorVerificationEmailSent]: () => void;
+
+  [RecencyCheckEventEmit.Cancel]: () => void;
+  [RecencyCheckEventEmit.Retry]: () => void;
+}
+
+export type UpdateEmailEventHandlers = {
+  [UpdateEmailEventOnReceived.NewAuthFactorNeedsVerification]: () => void;
+  [UpdateEmailEventOnReceived.NewAuthFactorVerified]: () => void;
+  [UpdateEmailEventOnReceived.NewAuthFactorVerificationEmailExpired]: () => void;
+  [UpdateEmailEventOnReceived.NewAuthFactorVerificationEmailSent]: () => void;
+
+  [UpdateEmailEventEmit.Cancel]: () => void;
+  [UpdateEmailEventEmit.NewEmailRetry]: () => void;
+} & RecencyCheckEventHandlers
+
+export enum RecencyCheckEventEmit {
+  Retry = 'auth-factor-retry',
+  Cancel = 'auth-factor-verification-cancel'
+}
+
+export enum RecencyCheckEventOnReceived {
+  PrimaryAuthFactorNeedsVerification = 'auth-factor-needs-verification',
+  PrimaryAuthFactorVerified = 'auth-factor-verified',
+  PrimaryAuthFactorVerificationEmailExpired = 'auth-factor-verification-email-expired',
+  PrimaryAuthFactorVerificationEmailSent = 'auth-factor-verification-email-sent',
+}
+
+export enum UpdateEmailEventEmit {
+  NewEmailRetry = 'new-email-verification-retry',
+  Cancel = 'new-email-verification-cancel'
+}
+
+export enum UpdateEmailEventOnReceived {
+  NewAuthFactorNeedsVerification = 'auth-factor-needs-verification',
+  NewAuthFactorVerified = 'auth-factor-verified',
+  NewAuthFactorVerificationEmailExpired = 'auth-factor-verification-email-expired',
+  NewAuthFactorVerificationEmailSent = 'auth-factor-verification-email-sent',
+}

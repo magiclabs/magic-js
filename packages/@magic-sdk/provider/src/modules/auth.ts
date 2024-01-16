@@ -7,12 +7,11 @@ import {
   LoginWithMagicLinkEventHandlers,
   UpdateEmailConfiguration,
   DeviceVerificationEventEmit,
-  LoginWithEmailOTPEventEmit,
+  LoginWithEmailOTPEventEmit, UpdateEmailEventHandlers, UpdateEmailEventEmit,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
-import { UpdateEmailEvents } from './user';
 import { isMajorVersionAtLeast } from '../util/version-check';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 
@@ -141,6 +140,16 @@ export class AuthModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
       [{ email, showUI }],
     );
-    return this.request<string | null, UpdateEmailEvents>(requestPayload);
+
+    const handle =  this.request<string | null, UpdateEmailEventHandlers>(requestPayload);
+
+    if (!showUI) {
+      handle.on(UpdateEmailEventEmit.NewEmailRetry, (otp: string) => {
+        this.createIntermediaryEvent(UpdateEmailEventEmit.NewEmailRetry, requestPayload.id as any)();
+      });
+      handle.on(UpdateEmailEventEmit.Cancel, (otp: string) => {
+        this.createIntermediaryEvent(UpdateEmailEventEmit.Cancel, requestPayload.id as any)();
+      });
+    }
   }
 }
