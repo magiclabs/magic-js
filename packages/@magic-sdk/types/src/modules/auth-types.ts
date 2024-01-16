@@ -154,6 +154,7 @@ type RecencyCheckEventHandlers = {
 
   [RecencyCheckEventEmit.Cancel]: () => void;
   [RecencyCheckEventEmit.Retry]: () => void;
+  [RecencyCheckEventEmit.VerifyEmailOtp]: (otp:string) => void;
 }
 
 export type UpdateEmailEventHandlers = {
@@ -164,11 +165,13 @@ export type UpdateEmailEventHandlers = {
 
   [UpdateEmailEventEmit.Cancel]: () => void;
   [UpdateEmailEventEmit.NewEmailRetry]: () => void;
+  [UpdateEmailEventEmit.VerifyEmailOtp]: (otp:string) => void;
 } & RecencyCheckEventHandlers
 
 export enum RecencyCheckEventEmit {
   Retry = 'auth-factor-retry',
-  Cancel = 'auth-factor-verification-cancel'
+  Cancel = 'auth-factor-verification-cancel',
+  VerifyEmailOtp = 'auth-factor-verify-email-otp'
 }
 
 export enum RecencyCheckEventOnReceived {
@@ -180,7 +183,8 @@ export enum RecencyCheckEventOnReceived {
 
 export enum UpdateEmailEventEmit {
   NewEmailRetry = 'new-email-verification-retry',
-  Cancel = 'new-email-verification-cancel'
+  Cancel = 'new-email-verification-cancel',
+  VerifyEmailOtp = 'new-email-verify-otp'
 }
 
 export enum UpdateEmailEventOnReceived {

@@ -7,7 +7,7 @@ import {
   LoginWithMagicLinkEventHandlers,
   UpdateEmailConfiguration,
   DeviceVerificationEventEmit,
-  LoginWithEmailOTPEventEmit, UpdateEmailEventHandlers, UpdateEmailEventEmit,
+  LoginWithEmailOTPEventEmit, UpdateEmailEventHandlers, UpdateEmailEventEmit, RecencyCheckEventEmit,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -144,11 +144,23 @@ export class AuthModule extends BaseModule {
     const handle =  this.request<string | null, UpdateEmailEventHandlers>(requestPayload);
 
     if (!showUI) {
-      handle.on(UpdateEmailEventEmit.NewEmailRetry, (otp: string) => {
+      handle.on(RecencyCheckEventEmit.Retry, () => {
+        this.createIntermediaryEvent(RecencyCheckEventEmit.Retry, requestPayload.id as any)();
+      });
+      handle.on(RecencyCheckEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(RecencyCheckEventEmit.Cancel, requestPayload.id as any)();
+      });
+      handle.on(RecencyCheckEventEmit.VerifyEmailOtp, (otp:string) => {
+        this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
+      });
+      handle.on(UpdateEmailEventEmit.NewEmailRetry, () => {
         this.createIntermediaryEvent(UpdateEmailEventEmit.NewEmailRetry, requestPayload.id as any)();
       });
-      handle.on(UpdateEmailEventEmit.Cancel, (otp: string) => {
+      handle.on(UpdateEmailEventEmit.Cancel, () => {
         this.createIntermediaryEvent(UpdateEmailEventEmit.Cancel, requestPayload.id as any)();
+      });
+      handle.on(UpdateEmailEventEmit.VerifyEmailOtp, (otp:string) => {
+        this.createIntermediaryEvent(UpdateEmailEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
       });
     }
   }
