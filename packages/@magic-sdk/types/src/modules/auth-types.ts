@@ -161,7 +161,7 @@ type RecencyCheckEventHandlers = {
 
 export type UpdateEmailEventHandlers = {
   [UpdateEmailEventOnReceived.NewAuthFactorNeedsVerification]: () => void;
-  [UpdateEmailEventOnReceived.NewAuthFactorVerified]: () => void;
+  [UpdateEmailEventOnReceived.EmailUpdated]: () => void;
   [UpdateEmailEventOnReceived.InvalidEmailOtp]: () => void;
   [UpdateEmailEventOnReceived.EmailNotDeliverable]: () => void;
   [UpdateEmailEventOnReceived.EmailExpired]: () => void;
@@ -195,7 +195,7 @@ export enum UpdateEmailEventEmit {
 
 export enum UpdateEmailEventOnReceived {
   NewAuthFactorNeedsVerification = 'new-email-needs-verification',
-  NewAuthFactorVerified = 'new-email-verified',
+  EmailUpdated = 'email-updated',
   InvalidEmailOtp = 'new-email-invalid-email-otp',
   EmailExpired = 'new-email-verification-email-expired',
   EmailSent = 'new-email-verification-email-sent',
