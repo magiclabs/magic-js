@@ -169,37 +169,37 @@ export type UpdateEmailEventHandlers = {
   [UpdateEmailEventOnReceived.InvalidEmail]: () => void;
 
   [UpdateEmailEventEmit.Cancel]: () => void;
-  [UpdateEmailEventEmit.NewEmailRetry]: () => void;
+  [UpdateEmailEventEmit.RetryWithNewEmail]: (email?: string) => void;
   [UpdateEmailEventEmit.VerifyEmailOtp]: (otp: string) => void;
 } & RecencyCheckEventHandlers;
 
 export enum RecencyCheckEventEmit {
-  Retry = 'auth-factor-retry',
-  Cancel = 'auth-factor-verification-cancel',
-  VerifyEmailOtp = 'auth-factor-verify-email-otp',
+  Retry = 'Recency/auth-factor-retry',
+  Cancel = 'Recency/auth-factor-verification-cancel',
+  VerifyEmailOtp = 'Recency/auth-factor-verify-email-otp',
 }
 
 export enum RecencyCheckEventOnReceived {
-  PrimaryAuthFactorNeedsVerification = 'auth-factor-needs-verification',
-  PrimaryAuthFactorVerified = 'auth-factor-verified',
-  InvalidEmailOtp = 'auth-factor-invalid-email-otp',
-  EmailExpired = 'auth-factor-verification-email-expired',
-  EmailSent = 'auth-factor-verification-email-sent',
-  EmailNotDeliverable = 'auth-factor-verification-email-not-deliverable',
+  PrimaryAuthFactorNeedsVerification = 'Recency/auth-factor-needs-verification',
+  PrimaryAuthFactorVerified = 'Recency/auth-factor-verified',
+  InvalidEmailOtp = 'Recency/auth-factor-invalid-email-otp',
+  EmailExpired = 'Recency/auth-factor-verification-email-expired',
+  EmailSent = 'Recency/auth-factor-verification-email-sent',
+  EmailNotDeliverable = 'Recency/auth-factor-verification-email-not-deliverable',
 }
 
 export enum UpdateEmailEventEmit {
-  NewEmailRetry = 'new-email-verification-retry',
-  Cancel = 'new-email-verification-cancel',
-  VerifyEmailOtp = 'new-email-verify-otp',
+  RetryWithNewEmail = 'UpdateEmail/retry-with-new-email',
+  Cancel = 'UpdateEmail/new-email-verification-cancel',
+  VerifyEmailOtp = 'UpdateEmail/new-email-verify-otp',
 }
 
 export enum UpdateEmailEventOnReceived {
-  NewAuthFactorNeedsVerification = 'new-email-needs-verification',
-  EmailUpdated = 'email-updated',
-  InvalidEmailOtp = 'new-email-invalid-email-otp',
-  EmailExpired = 'new-email-verification-email-expired',
-  EmailSent = 'new-email-verification-email-sent',
-  EmailNotDeliverable = 'new-email-verification-email-not-deliverable',
-  InvalidEmail = 'new-email-invalid',
+  NewAuthFactorNeedsVerification = 'UpdateEmail/new-email-needs-verification',
+  EmailUpdated = 'UpdateEmail/email-updated',
+  InvalidEmailOtp = 'UpdateEmail/new-email-invalid-email-otp',
+  EmailExpired = 'UpdateEmail/new-email-verification-email-expired',
+  EmailSent = 'UpdateEmail/new-email-verification-email-sent',
+  EmailNotDeliverable = 'UpdateEmail/new-email-verification-email-not-deliverable',
+  InvalidEmail = 'UpdateEmail/new-email-invalid',
 }
