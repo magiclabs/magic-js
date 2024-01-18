@@ -156,8 +156,8 @@ export class AuthModule extends BaseModule {
       handle.on(RecencyCheckEventEmit.VerifyEmailOtp, (otp: string) => {
         this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
       });
-      handle.on(UpdateEmailEventEmit.NewEmailRetry, () => {
-        this.createIntermediaryEvent(UpdateEmailEventEmit.NewEmailRetry, requestPayload.id as any)();
+      handle.on(UpdateEmailEventEmit.RetryWithNewEmail, (newEmail?) => {
+        this.createIntermediaryEvent(UpdateEmailEventEmit.RetryWithNewEmail, requestPayload.id as any)(newEmail);
       });
       handle.on(UpdateEmailEventEmit.Cancel, () => {
         this.createIntermediaryEvent(UpdateEmailEventEmit.Cancel, requestPayload.id as any)();
