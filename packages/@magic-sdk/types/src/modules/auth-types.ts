@@ -166,6 +166,7 @@ export type UpdateEmailEventHandlers = {
   [UpdateEmailEventOnReceived.EmailNotDeliverable]: () => void;
   [UpdateEmailEventOnReceived.EmailExpired]: () => void;
   [UpdateEmailEventOnReceived.EmailSent]: () => void;
+  [UpdateEmailEventOnReceived.InvalidEmail]: () => void;
 
   [UpdateEmailEventEmit.Cancel]: () => void;
   [UpdateEmailEventEmit.NewEmailRetry]: () => void;
@@ -200,4 +201,5 @@ export enum UpdateEmailEventOnReceived {
   EmailExpired = 'new-email-verification-email-expired',
   EmailSent = 'new-email-verification-email-sent',
   EmailNotDeliverable = 'new-email-verification-email-not-deliverable',
+  InvalidEmail = 'new-email-invalid',
 }
