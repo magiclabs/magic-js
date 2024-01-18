@@ -149,47 +149,55 @@ export enum DeviceVerificationEventOnReceived {
 type RecencyCheckEventHandlers = {
   [RecencyCheckEventOnReceived.PrimaryAuthFactorNeedsVerification]: () => void;
   [RecencyCheckEventOnReceived.PrimaryAuthFactorVerified]: () => void;
-  [RecencyCheckEventOnReceived.PrimaryAuthFactorVerificationEmailExpired]: () => void;
-  [RecencyCheckEventOnReceived.PrimaryAuthFactorVerificationEmailSent]: () => void;
+  [RecencyCheckEventOnReceived.InvalidEmailOtp]: () => void;
+  [RecencyCheckEventOnReceived.EmailNotDeliverable]: () => void;
+  [RecencyCheckEventOnReceived.EmailExpired]: () => void;
+  [RecencyCheckEventOnReceived.EmailSent]: () => void;
 
   [RecencyCheckEventEmit.Cancel]: () => void;
   [RecencyCheckEventEmit.Retry]: () => void;
-  [RecencyCheckEventEmit.VerifyEmailOtp]: (otp:string) => void;
-}
+  [RecencyCheckEventEmit.VerifyEmailOtp]: (otp: string) => void;
+};
 
 export type UpdateEmailEventHandlers = {
   [UpdateEmailEventOnReceived.NewAuthFactorNeedsVerification]: () => void;
   [UpdateEmailEventOnReceived.NewAuthFactorVerified]: () => void;
-  [UpdateEmailEventOnReceived.NewAuthFactorVerificationEmailExpired]: () => void;
-  [UpdateEmailEventOnReceived.NewAuthFactorVerificationEmailSent]: () => void;
+  [UpdateEmailEventOnReceived.InvalidEmailOtp]: () => void;
+  [UpdateEmailEventOnReceived.EmailNotDeliverable]: () => void;
+  [UpdateEmailEventOnReceived.EmailExpired]: () => void;
+  [UpdateEmailEventOnReceived.EmailSent]: () => void;
 
   [UpdateEmailEventEmit.Cancel]: () => void;
   [UpdateEmailEventEmit.NewEmailRetry]: () => void;
-  [UpdateEmailEventEmit.VerifyEmailOtp]: (otp:string) => void;
-} & RecencyCheckEventHandlers
+  [UpdateEmailEventEmit.VerifyEmailOtp]: (otp: string) => void;
+} & RecencyCheckEventHandlers;
 
 export enum RecencyCheckEventEmit {
   Retry = 'auth-factor-retry',
   Cancel = 'auth-factor-verification-cancel',
-  VerifyEmailOtp = 'auth-factor-verify-email-otp'
+  VerifyEmailOtp = 'auth-factor-verify-email-otp',
 }
 
 export enum RecencyCheckEventOnReceived {
   PrimaryAuthFactorNeedsVerification = 'auth-factor-needs-verification',
   PrimaryAuthFactorVerified = 'auth-factor-verified',
-  PrimaryAuthFactorVerificationEmailExpired = 'auth-factor-verification-email-expired',
-  PrimaryAuthFactorVerificationEmailSent = 'auth-factor-verification-email-sent',
+  InvalidEmailOtp = 'auth-factor-invalid-email-otp',
+  EmailExpired = 'auth-factor-verification-email-expired',
+  EmailSent = 'auth-factor-verification-email-sent',
+  EmailNotDeliverable = 'auth-factor-verification-email-not-deliverable',
 }
 
 export enum UpdateEmailEventEmit {
   NewEmailRetry = 'new-email-verification-retry',
   Cancel = 'new-email-verification-cancel',
-  VerifyEmailOtp = 'new-email-verify-otp'
+  VerifyEmailOtp = 'new-email-verify-otp',
 }
 
 export enum UpdateEmailEventOnReceived {
-  NewAuthFactorNeedsVerification = 'auth-factor-needs-verification',
-  NewAuthFactorVerified = 'auth-factor-verified',
-  NewAuthFactorVerificationEmailExpired = 'auth-factor-verification-email-expired',
-  NewAuthFactorVerificationEmailSent = 'auth-factor-verification-email-sent',
+  NewAuthFactorNeedsVerification = 'new-email-needs-verification',
+  NewAuthFactorVerified = 'new-email-verified',
+  InvalidEmailOtp = 'new-email-invalid-email-otp',
+  EmailExpired = 'new-email-verification-email-expired',
+  EmailSent = 'new-email-verification-email-sent',
+  EmailNotDeliverable = 'new-email-verification-email-not-deliverable',
 }
