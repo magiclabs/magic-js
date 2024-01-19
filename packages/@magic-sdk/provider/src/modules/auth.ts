@@ -8,11 +8,13 @@ import {
   UpdateEmailConfiguration,
   DeviceVerificationEventEmit,
   LoginWithEmailOTPEventEmit,
+  UpdateEmailEventHandlers,
+  UpdateEmailEventEmit,
+  RecencyCheckEventEmit,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
-import { UpdateEmailEvents } from './user';
 import { isMajorVersionAtLeast } from '../util/version-check';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 
@@ -141,6 +143,29 @@ export class AuthModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
       [{ email, showUI }],
     );
-    return this.request<string | null, UpdateEmailEvents>(requestPayload);
+
+    const handle = this.request<string | null, UpdateEmailEventHandlers>(requestPayload);
+
+    if (!showUI) {
+      handle.on(RecencyCheckEventEmit.Retry, () => {
+        this.createIntermediaryEvent(RecencyCheckEventEmit.Retry, requestPayload.id as any)();
+      });
+      handle.on(RecencyCheckEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(RecencyCheckEventEmit.Cancel, requestPayload.id as any)();
+      });
+      handle.on(RecencyCheckEventEmit.VerifyEmailOtp, (otp: string) => {
+        this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
+      });
+      handle.on(UpdateEmailEventEmit.RetryWithNewEmail, (newEmail?) => {
+        this.createIntermediaryEvent(UpdateEmailEventEmit.RetryWithNewEmail, requestPayload.id as any)(newEmail);
+      });
+      handle.on(UpdateEmailEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(UpdateEmailEventEmit.Cancel, requestPayload.id as any)();
+      });
+      handle.on(UpdateEmailEventEmit.VerifyEmailOtp, (otp: string) => {
+        this.createIntermediaryEvent(UpdateEmailEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
+      });
+    }
+    return handle;
   }
 }
