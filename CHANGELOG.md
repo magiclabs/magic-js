@@ -1,3 +1,16 @@
+# (Sat Jan 20 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@22.0.0`, `@magic-sdk/types@18.0.0`
+  - Enable whitelabel for updateEmail flow [#700](https://github.com/magiclabs/magic-js/pull/700) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Tue Jan 02 2024)
 
 #### 🚀 Enhancement

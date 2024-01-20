@@ -1,3 +1,24 @@
+# v18.0.0 (Sat Jan 20 2024)
+
+#### 💥 Breaking Change
+
+- Enable whitelabel for updateEmail flow [#700](https://github.com/magiclabs/magic-js/pull/700) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Add new auth type ([@Ethella](https://github.com/Ethella))
+- Add invalid Email event ([@Ethella](https://github.com/Ethella))
+- Change event name ([@Ethella](https://github.com/Ethella))
+- Add otp verified events ([@Ethella](https://github.com/Ethella))
+- Add VerifyEmailOTP events ([@Ethella](https://github.com/Ethella))
+- Add Recency Check events and UpdateEmail Events ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v17.3.0 (Thu Dec 14 2023)
 
 #### 🚀 Enhancement
