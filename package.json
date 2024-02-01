@@ -80,6 +80,9 @@
       "packages/magic-sdk"
     ]
   },
+  "publishConfig": {
+    "provenance": true
+  },
   "resolutions": {
     "@rollup/plugin-commonjs": "^17.0.0"
   },
