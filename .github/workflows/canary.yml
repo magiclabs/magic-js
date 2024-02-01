@@ -46,6 +46,9 @@ jobs:
   create_canary:
     runs-on: ubuntu-20.04
     name: Canary
+    permissions:
+      contents: read
+      id-token: write
     needs: build
     steps:
       - uses: actions/checkout@v3
