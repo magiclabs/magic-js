@@ -11,7 +11,7 @@
     "lint": "$INIT_CWD/scripts/bin/lint.ts",
     "test": "$INIT_CWD/scripts/bin/test.ts",
     "scaffold": "$INIT_CWD/scripts/bin/scaffold/run.tsx",
-    "postinstall": "husky install && lerna link"
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@ikscodes/browser-env": "~0.3.1",
