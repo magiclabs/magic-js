@@ -27,6 +27,9 @@
       "@magic-sdk/commons"
     ]
   },
+  "publishConfig": {
+    "provenance": true
+  },
   "devDependencies": {
     "@magic-sdk/commons": "^18.0.0"
   }
