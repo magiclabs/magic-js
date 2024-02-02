@@ -2,5 +2,5 @@
 
 ## Installation
 ```bash
-npm i magic-sdk @magic-ext/zilliqa
+npm i magic-sdk @magic-ext/webauthn
 ```
