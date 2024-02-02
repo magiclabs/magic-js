@@ -73,4 +73,4 @@ jobs:
           path: packages
 
       - name: Create Canary Release
-        run: yarn auto canary -v
+        run: npm run auto canary -v
