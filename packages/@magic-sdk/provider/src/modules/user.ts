@@ -3,7 +3,6 @@ import {
   MagicPayloadMethod,
   MagicUserMetadata,
   GenerateIdTokenConfiguration,
-  UpdateEmailConfiguration,
   UserInfo,
   RequestUserInfoScope,
   RecoverAccountConfiguration,
@@ -16,14 +15,6 @@ import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { clearDeviceShares } from '../util/device-share-web-crypto';
 import { createPromiEvent } from '../util';
-
-export type UpdateEmailEvents = {
-  'email-sent': () => void;
-  'email-not-deliverable': () => void;
-  'old-email-confirmed': () => void;
-  'new-email-confirmed': () => void;
-  retry: () => void;
-};
 
 type UserLoggedOutCallback = (loggedOut: boolean) => void;
 
@@ -139,21 +130,6 @@ export class UserModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.GetMetadataTestMode : MagicPayloadMethod.GetMetadata,
     );
     return this.request<MagicUserMetadata>(requestPayload);
-  }
-
-  // Deprecating
-  public updateEmail(configuration: UpdateEmailConfiguration) {
-    createDeprecationWarning({
-      method: 'user.updateEmail()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: 'auth.updateEmailWithUI()',
-    }).log();
-    const { email, showUI = true } = configuration;
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
-      [{ email, showUI }],
-    );
-    return this.request<string | null, UpdateEmailEvents>(requestPayload);
   }
 
   public onUserLoggedOut(callback: UserLoggedOutCallback): void {
