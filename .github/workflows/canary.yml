@@ -7,8 +7,9 @@ on:
     types: [checks_requested]
 
 env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GH_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NPM_CONFIG_PROVENANCE: true
 
 jobs:
   build:
