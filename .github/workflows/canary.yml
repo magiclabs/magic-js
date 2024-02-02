@@ -7,8 +7,9 @@ on:
     types: [checks_requested]
 
 env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GH_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NPM_CONFIG_PROVENANCE: true
 
 jobs:
   build:
@@ -23,7 +24,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           cache: 'yarn'
 
       - name: Install dependencies
@@ -46,6 +47,9 @@ jobs:
   create_canary:
     runs-on: ubuntu-20.04
     name: Canary
+    permissions:
+      contents: read
+      id-token: write
     needs: build
     steps:
       - uses: actions/checkout@v3
@@ -55,7 +59,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
           cache: 'yarn'
 
       - name: Install dependencies

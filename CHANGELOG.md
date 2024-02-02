@@ -1,3 +1,16 @@
+# (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/webauthn@16.0.1`, `@magic-sdk/commons@18.0.1`, `@magic-sdk/pnp@16.0.1`, `@magic-sdk/provider@22.0.1`, `@magic-sdk/react-native-bare@23.0.1`, `@magic-sdk/react-native-expo@23.0.1`, `@magic-sdk/types@18.0.1`, `magic-sdk@22.0.1`
+  - Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Sat Jan 20 2024)
 
 #### 💥 Breaking Change

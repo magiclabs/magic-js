@@ -1,3 +1,16 @@
+# v18.0.1 (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+- force update readme to bump all versions ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v17.4.1 (Fri Dec 15 2023)
 
 #### 🐛 Bug Fix

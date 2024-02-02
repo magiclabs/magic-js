@@ -1,3 +1,17 @@
+# v17.0.1 (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- try export NPM_CONFIG_PROVENANCE=true for global provenance ([@Ethella](https://github.com/Ethella))
+- fix package.json ([@Ethella](https://github.com/Ethella))
+- Add publishConfig to each package ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v16.4.1 (Fri Dec 15 2023)
 
 #### 🐛 Bug Fix
