@@ -25,9 +25,14 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     return this.utils.createPromiEvent<void>(async (resolve) => {
       const { provider, query } = await createURI.call(this, configuration);
 
+      const RElAYER_SERVER_OVERRIDE =
+        window.location.origin === 'https://relayer-test-kitchen-git-pat-oauthv2-testing-magiclabs.vercel.app'
+          ? 'https://auth.dev.magic.link'
+          : 'http://localhost:3014';
+
       // REVERT BACK THIS IS JUST A TEST
       // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-      window.location.href = new URL(`/v1/oauth2/${provider}/start?${query}`, 'http://localhost:3014').href;
+      window.location.href = new URL(`/v1/oauth2/${provider}/start?${query}`, RElAYER_SERVER_OVERRIDE).href;
 
       resolve();
     });
