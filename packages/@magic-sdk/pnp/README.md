@@ -50,3 +50,4 @@ Next, create a page containing the script tag below to handle the authentication
 Voila!
 
 _(Really, though, that's it!)_
+
