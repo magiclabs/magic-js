@@ -25,8 +25,9 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
     return this.utils.createPromiEvent<void>(async (resolve) => {
       const { provider, query } = await createURI.call(this, configuration);
 
+      // REVERT BACK THIS IS JUST A TEST
       // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-      window.location.href = new URL(`/v1/oauth2/${provider}/start?${query}`, this.sdk.endpoint).href;
+      window.location.href = new URL(`/v1/oauth2/${provider}/start?${query}`, 'http://localhost:3014').href;
 
       resolve();
     });
