@@ -118,6 +118,7 @@ export interface MagicSDKAdditionalConfiguration<
   testMode?: boolean;
   deferPreload?: boolean;
   useStorageCache?: boolean;
+  meta?: any;
 }
 
 export class SDKBase {
@@ -183,6 +184,7 @@ export class SDKBase {
     const extConfig: any = prepareExtensions.call(this, options);
 
     // Encode parameters as base64-JSON
+    console.log('meta', options?.meta);
     this.parameters = encodeJSON<QueryParameters>({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
@@ -193,6 +195,7 @@ export class SDKBase {
       ext: isEmpty(extConfig) ? undefined : extConfig,
       locale: options?.locale || 'en_US',
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
+      meta: options?.meta,
     });
     this.networkHash = getNetworkHash(this.apiKey, options?.network, isEmpty(extConfig) ? undefined : extConfig);
     if (!options?.deferPreload) this.preload();
