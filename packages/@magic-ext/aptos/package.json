@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/aptos",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "description": "magic aptos extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -29,8 +29,8 @@
   },
   "devDependencies": {
     "@aptos-labs/wallet-adapter-core": "^2.2.0",
-    "@magic-sdk/commons": "^18.0.1",
-    "@magic-sdk/provider": "^22.0.1",
+    "@magic-sdk/commons": "^18.1.0",
+    "@magic-sdk/provider": "^22.1.0",
     "aptos": "^1.8.5"
   },
   "peerDependencies": {
