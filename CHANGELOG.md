@@ -1,3 +1,16 @@
+# (Fri Feb 09 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@22.1.0`, `@magic-sdk/types@18.1.0`
+  - [FEAT]: adding meta field to @magic-sdk magic constructor [#708](https://github.com/magiclabs/magic-js/pull/708) ([@bengriffin1](https://github.com/bengriffin1))
+
+#### Authors: 1
+
+- Ben Griffin ([@bengriffin1](https://github.com/bengriffin1))
+
+---
+
 # (Fri Feb 02 2024)
 
 #### 🐛 Bug Fix
