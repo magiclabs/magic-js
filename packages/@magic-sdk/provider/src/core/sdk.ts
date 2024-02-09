@@ -118,7 +118,7 @@ export interface MagicSDKAdditionalConfiguration<
   testMode?: boolean;
   deferPreload?: boolean;
   useStorageCache?: boolean;
-  meta?: any;
+  meta?: any; // Generic field for clients to add metadata
 }
 
 export class SDKBase {
