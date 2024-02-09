@@ -184,7 +184,6 @@ export class SDKBase {
     const extConfig: any = prepareExtensions.call(this, options);
 
     // Encode parameters as base64-JSON
-    console.log('meta', options?.meta);
     this.parameters = encodeJSON<QueryParameters>({
       API_KEY: this.apiKey,
       DOMAIN_ORIGIN: window.location ? window.location.origin : '',
