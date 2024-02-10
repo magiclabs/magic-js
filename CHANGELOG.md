@@ -1,3 +1,16 @@
+# (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@18.1.1`
+  - updateEmail: Adds event for email already exists [#709](https://github.com/magiclabs/magic-js/pull/709) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Fri Feb 09 2024)
 
 #### 🚀 Enhancement

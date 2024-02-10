@@ -1,3 +1,17 @@
+# v18.1.1 (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- updateEmail: Adds event for email already exists [#709](https://github.com/magiclabs/magic-js/pull/709) ([@joshuascan](https://github.com/joshuascan))
+- Merge branch 'master' into PDEEXP-253-whitelabel-update-email-with-ui-missing-event-when-email-address-already-in-use ([@joshuascan](https://github.com/joshuascan))
+- adds additional event ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v18.1.0 (Fri Feb 09 2024)
 
 #### 🚀 Enhancement

@@ -1,3 +1,15 @@
+# v17.1.1 (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-253-whitelabel-update-email-with-ui-missing-event-when-email-address-already-in-use ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v17.0.1 (Fri Feb 02 2024)
 
 #### 🐛 Bug Fix
