@@ -16,7 +16,7 @@ See the [developer documentation](https://magic.link/docs/social-login) to learn
 
 ## 🔗 Installation
 
-Integrating your app with OAuth will require our client-side NPM package and OAuth extension:
+Integrating your app with OAuth will require our client-side NPM package and OAuth 2 extension:
 
 ```bash
 # Via NPM:
@@ -66,8 +66,7 @@ const magic = new Magic('YOUR_API_KEY', {
 
 const res = await magic.oauth.getRedirectResult();
 
-// Then you can access a user's Magic DID token, OAuth access token,
-// OpenID Connect profile information, and more!
+// Then you can access a user's Magic DID token, OpenID Connect profile information, and more!
 res.magic.idToken;
 res.oauth.userInfo;
 ```
