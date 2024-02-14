@@ -116,6 +116,7 @@ export interface MagicSDKAdditionalConfiguration<
   network?: EthNetworkConfiguration;
   extensions?: TExt;
   testMode?: boolean;
+  debugAuthUrl?: string;
   deferPreload?: boolean;
   useStorageCache?: boolean;
   meta?: any; // Generic field for clients to add metadata
@@ -193,6 +194,7 @@ export class SDKBase {
       version,
       ext: isEmpty(extConfig) ? undefined : extConfig,
       locale: options?.locale || 'en_US',
+      debugAuthUrl: options?.debugAuthUrl,
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
       meta: options?.meta,
     });
