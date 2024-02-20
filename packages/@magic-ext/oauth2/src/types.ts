@@ -66,6 +66,10 @@ export type OpenIDConnectUserInfo = OpenIDConnectProfile &
   OpenIDConnectPhone &
   OpenIDConnectAddress & { sub?: string; sources?: Record<string, any> } & Record<string, any>;
 
+export interface OAuthRedirectStartResult {
+  oauthAuthoriationURI?: string;
+}
+
 export interface OAuthRedirectResult {
   oauth: {
     provider: OAuthProvider;
@@ -73,7 +77,6 @@ export interface OAuthRedirectResult {
     userHandle: string;
     userInfo: OpenIDConnectUserInfo;
   };
-
   magic: {
     idToken: string;
     userMetadata: MagicUserMetadata;

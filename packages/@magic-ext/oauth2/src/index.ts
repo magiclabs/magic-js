@@ -7,6 +7,7 @@ import {
   OAuthRedirectResult,
   OAuthRedirectConfiguration,
   OAuthPayloadMethods,
+  OAuthRedirectStartResult,
 } from './types';
 
 export class OAuthExtension extends Extension.Internal<'oauth2'> {
@@ -20,7 +21,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   };
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
-    return this.utils.createPromiEvent<void>(async (resolve) => {
+    return this.utils.createPromiEvent<void>(async (resolve, reject) => {
       const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
         {
           ...configuration,
@@ -29,10 +30,21 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
         },
       ]);
 
-      const result = await this.request<any>(parseRedirectResult);
+      const result = await this.request<OAuthRedirectStartResult | OAuthRedirectError>(parseRedirectResult);
+      const successResult = result as OAuthRedirectStartResult;
+      const errorResult = result as OAuthRedirectError;
 
-      if (result?.oauthAuthoriationURI) {
-        window.location.href = result.oauthAuthoriationURI;
+      if (errorResult.error) {
+        reject(
+          this.createError<OAuthErrorData>(errorResult.error, errorResult.error_description ?? 'An error occurred.', {
+            errorURI: errorResult.error_uri,
+            provider: errorResult.provider,
+          }),
+        );
+      }
+
+      if (successResult?.oauthAuthoriationURI) {
+        window.location.href = successResult.oauthAuthoriationURI;
       }
 
       resolve();
