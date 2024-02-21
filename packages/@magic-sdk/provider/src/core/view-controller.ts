@@ -34,10 +34,10 @@ interface StandardizedMagicRequest {
   deviceShare?: string;
 }
 export const UniversalWalletRemovalVersions = {
-  'magic-sdk': 'v21.0.0',
+  'magic-sdk': 'v23.0.0',
   '@magic-sdk/react-native': 'v14.0.0',
-  '@magic-sdk/react-native-bare': 'v22.0.0',
-  '@magic-sdk/react-native-expo': 'v22.0.0',
+  '@magic-sdk/react-native-bare': 'v24.0.0',
+  '@magic-sdk/react-native-expo': 'v24.0.0',
 };
 
 /**
