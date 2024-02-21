@@ -1,3 +1,67 @@
+# v18.1.1 (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- updateEmail: Adds event for email already exists [#709](https://github.com/magiclabs/magic-js/pull/709) ([@joshuascan](https://github.com/joshuascan))
+- Merge branch 'master' into PDEEXP-253-whitelabel-update-email-with-ui-missing-event-when-email-address-already-in-use ([@joshuascan](https://github.com/joshuascan))
+- adds additional event ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v18.1.0 (Fri Feb 09 2024)
+
+#### 🚀 Enhancement
+
+- [FEAT]: adding meta field to @magic-sdk magic constructor [#708](https://github.com/magiclabs/magic-js/pull/708) ([@bengriffin1](https://github.com/bengriffin1))
+
+#### 🐛 Bug Fix
+
+- [FEAT]: adding meta field to @magic-sdk magic constructor ([@bengriffin1](https://github.com/bengriffin1))
+
+#### Authors: 1
+
+- Ben Griffin ([@bengriffin1](https://github.com/bengriffin1))
+
+---
+
+# v18.0.1 (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+- force update readme to bump all versions ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v18.0.0 (Sat Jan 20 2024)
+
+#### 💥 Breaking Change
+
+- Enable whitelabel for updateEmail flow [#700](https://github.com/magiclabs/magic-js/pull/700) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Add new auth type ([@Ethella](https://github.com/Ethella))
+- Add invalid Email event ([@Ethella](https://github.com/Ethella))
+- Change event name ([@Ethella](https://github.com/Ethella))
+- Add otp verified events ([@Ethella](https://github.com/Ethella))
+- Add VerifyEmailOTP events ([@Ethella](https://github.com/Ethella))
+- Add Recency Check events and UpdateEmail Events ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v17.3.0 (Thu Dec 14 2023)
 
 #### 🚀 Enhancement

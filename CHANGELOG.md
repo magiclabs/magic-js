@@ -1,3 +1,55 @@
+# (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@18.1.1`
+  - updateEmail: Adds event for email already exists [#709](https://github.com/magiclabs/magic-js/pull/709) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Feb 09 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@22.1.0`, `@magic-sdk/types@18.1.0`
+  - [FEAT]: adding meta field to @magic-sdk magic constructor [#708](https://github.com/magiclabs/magic-js/pull/708) ([@bengriffin1](https://github.com/bengriffin1))
+
+#### Authors: 1
+
+- Ben Griffin ([@bengriffin1](https://github.com/bengriffin1))
+
+---
+
+# (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/webauthn@16.0.1`, `@magic-sdk/commons@18.0.1`, `@magic-sdk/pnp@16.0.1`, `@magic-sdk/provider@22.0.1`, `@magic-sdk/react-native-bare@23.0.1`, `@magic-sdk/react-native-expo@23.0.1`, `@magic-sdk/types@18.0.1`, `magic-sdk@22.0.1`
+  - Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Sat Jan 20 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@22.0.0`, `@magic-sdk/types@18.0.0`
+  - Enable whitelabel for updateEmail flow [#700](https://github.com/magiclabs/magic-js/pull/700) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Tue Jan 02 2024)
 
 #### 🚀 Enhancement

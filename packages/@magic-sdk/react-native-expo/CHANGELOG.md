@@ -1,3 +1,28 @@
+# v23.1.1 (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-253-whitelabel-update-email-with-ui-missing-event-when-email-address-already-in-use ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v23.0.1 (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+- force update readme to bump all versions ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v22.5.0 (Tue Jan 02 2024)
 
 #### 🐛 Bug Fix

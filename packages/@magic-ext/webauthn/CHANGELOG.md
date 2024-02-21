@@ -1,3 +1,32 @@
+# v16.1.1 (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-253-whitelabel-update-email-with-ui-missing-event-when-email-address-already-in-use ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v16.0.1 (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+- try export NPM_CONFIG_PROVENANCE=true for global provenance ([@Ethella](https://github.com/Ethella))
+- Add publishConfig to each package ([@Ethella](https://github.com/Ethella))
+- switch back to yarn ([@Ethella](https://github.com/Ethella))
+- update README.md to trigger publish ([@Ethella](https://github.com/Ethella))
+- trigger a publish ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v15.4.1 (Fri Dec 15 2023)
 
 #### 🐛 Bug Fix
