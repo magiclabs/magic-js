@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/oauth2",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Magic SDK OAuth Extension for Web environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "dist"
   ],
   "target": "browser",
-  "cdnGlobalName": "MagicOAuthExtension",
+  "cdnGlobalName": "MagicOAuth2Extension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
