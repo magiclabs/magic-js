@@ -12,7 +12,7 @@
     "dist"
   ],
   "target": "browser",
-  "cdnGlobalName": "MagicOAuthExtension",
+  "cdnGlobalName": "MagicOAuth2Extension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
