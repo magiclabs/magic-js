@@ -1,8 +1,8 @@
-import { OAuth2Extension } from './index';
+import { OAuthExtension } from './index';
 import * as types from './types';
 
-Object.assign(OAuth2Extension, {
+Object.assign(OAuthExtension, {
   ...types,
 });
 
-export default OAuth2Extension;
+export default OAuthExtension;
