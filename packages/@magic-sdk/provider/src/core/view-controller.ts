@@ -267,7 +267,7 @@ export abstract class ViewController {
     });
 
     this.on(MagicIncomingWindowMessage.MAGIC_SEND_PRODUCT_TYPE, (event: MagicMessageEvent) => {
-      if (event.data.response.product_type === 'connect') {
+      if (event.data.response.result.product_type === 'connect') {
         createDeprecationWarning({
           method: 'Usage of Universal Wallet API Keys',
           removalVersions: UniversalWalletRemovalVersions,

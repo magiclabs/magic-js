@@ -53,9 +53,7 @@ test('Receive MAGIC_SEND_PRODUCT_TYPE with product_type "connect", call `createD
   window.postMessage(
     {
       msgType: MSG_TYPES().MAGIC_SEND_PRODUCT_TYPE,
-      response: {
-        product_type: 'connect',
-      },
+      response: { result: { product_type: 'connect' } },
     },
     '*',
   );
