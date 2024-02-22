@@ -1,3 +1,22 @@
+# (Thu Feb 22 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@1.0.0`
+  - Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+  - OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@1.0.0`
+  - New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 1
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+
+---
+
 # (Sat Feb 10 2024)
 
 #### 🐛 Bug Fix
