@@ -1,3 +1,21 @@
+# v23.0.0 (Mon Feb 26 2024)
+
+#### 🚀 Enhancement
+
+- Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Adds more Test coverage ([@Ariflo](https://github.com/Ariflo))
+- Update Tests ([@Ariflo](https://github.com/Ariflo))
+- Adds new deprecation warning to provider ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # v22.1.1 (Sat Feb 10 2024)
 
 #### 🐛 Bug Fix
