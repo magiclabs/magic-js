@@ -10,7 +10,7 @@ import { createPromise } from '../util/promise-tools';
 import { getItem, setItem } from '../util/storage';
 import { createJwt } from '../util/web-crypto';
 import { SDKEnvironment } from './sdk-environment';
-import { createModalNotReadyError } from './sdk-exceptions';
+import { createDeprecationWarning, createModalNotReadyError } from './sdk-exceptions';
 import {
   clearDeviceShares,
   encryptAndPersistDeviceShare,
@@ -33,6 +33,13 @@ interface StandardizedMagicRequest {
   rt?: string;
   deviceShare?: string;
 }
+
+export const UniversalWalletRemovalVersions = {
+  'magic-sdk': 'v23.0.0',
+  '@magic-sdk/react-native': 'v14.0.0',
+  '@magic-sdk/react-native-bare': 'v24.0.0',
+  '@magic-sdk/react-native-expo': 'v24.0.0',
+};
 
 /**
  * Get the originating payload from a batch request using the specified `id`.
@@ -258,6 +265,16 @@ export abstract class ViewController {
 
     this.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
       this.showOverlay();
+    });
+
+    this.on(MagicIncomingWindowMessage.MAGIC_SEND_PRODUCT_TYPE, (event: MagicMessageEvent) => {
+      if (event.data.response.result.product_type === 'connect') {
+        createDeprecationWarning({
+          method: 'Usage of Universal Wallet API Keys',
+          removalVersions: UniversalWalletRemovalVersions,
+          useInstead: 'Dedicated Wallet API Key',
+        }).log();
+      }
     });
   }
 }
