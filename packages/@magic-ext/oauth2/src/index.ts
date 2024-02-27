@@ -44,7 +44,10 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       }
 
       if (successResult?.oauthAuthoriationURI) {
-        window.location.href = successResult.oauthAuthoriationURI;
+        window.location.href = successResult.useMagicServerCallback
+          ? // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
+            new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
+          : successResult.oauthAuthoriationURI;
       }
 
       resolve();
