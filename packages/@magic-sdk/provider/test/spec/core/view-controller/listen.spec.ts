@@ -1,17 +1,11 @@
 import browserEnv from '@ikscodes/browser-env';
 import { createViewController } from '../../../factories';
 import { MSG_TYPES } from '../../../constants';
-import { createDeprecationWarning } from '../../../../src/core/sdk-exceptions';
-import { UniversalWalletRemovalVersions } from '../../../../src/core/view-controller';
+import { MagicSDKWarning } from '../../../../src/core/sdk-exceptions';
 
 beforeEach(() => {
   browserEnv();
 });
-
-jest.mock('../../../../src/core/sdk-exceptions', () => ({
-  ...jest.requireActual('../../../../src/core/sdk-exceptions'),
-  createDeprecationWarning: jest.fn(),
-}));
 
 test('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', (done) => {
   const overlay = createViewController('');
@@ -39,31 +33,25 @@ test('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', (done) => {
   }, 0);
 });
 
-test('Receive MAGIC_SEND_PRODUCT_TYPE with product_type "connect", call `createDeprecationWarning`', (done) => {
+test('Receive MAGIC_SEND_PRODUCT_ANNOUNCEMENT, log product announcement', (done) => {
   const overlay = createViewController('');
+  const productAnnouncement = 'New feature available!';
+  const logSpy = jest.spyOn(MagicSDKWarning.prototype, 'log');
 
-  // Cast the imported function to its mocked version
-  const mockCreateDeprecationWarning = createDeprecationWarning as jest.Mock;
-
-  // Mock the return value
-  mockCreateDeprecationWarning.mockReturnValue({
-    log: jest.fn(),
-  });
-
+  // Simulate posting the MAGIC_SEND_PRODUCT_ANNOUNCEMENT message with a product announcement
   window.postMessage(
     {
-      msgType: MSG_TYPES().MAGIC_SEND_PRODUCT_TYPE,
-      response: { result: { product_type: 'connect' } },
+      msgType: MSG_TYPES().MAGIC_SEND_PRODUCT_ANNOUNCEMENT,
+      response: {
+        result: {
+          product_announcement: productAnnouncement,
+        },
+      },
     },
     '*',
   );
-
   setTimeout(() => {
-    expect(mockCreateDeprecationWarning).toBeCalledWith({
-      method: 'Usage of Universal Wallet API Keys',
-      removalVersions: UniversalWalletRemovalVersions,
-      useInstead: 'Dedicated Wallet API Key',
-    });
+    expect(logSpy).toHaveBeenCalled();
     done();
   }, 0);
 });
