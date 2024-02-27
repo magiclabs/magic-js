@@ -32,7 +32,7 @@ export interface JsonRpcResponsePayload<ResultType = any> {
   id: string | number | null;
   result?: ResultType | null;
   error?: JsonRpcError | null;
-  product_type?: 'magic' | 'connect';
+  product_announcement?: string | null;
 }
 
 export interface UserInfo {
