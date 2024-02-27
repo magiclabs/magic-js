@@ -1,3 +1,29 @@
+# (Tue Feb 27 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@3.0.0`
+  - Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+  - OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@24.0.0`, `@magic-sdk/types@20.0.0`
+  - Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+  - Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@3.0.0`
+  - New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
 # (Mon Feb 26 2024)
 
 #### 💥 Breaking Change
