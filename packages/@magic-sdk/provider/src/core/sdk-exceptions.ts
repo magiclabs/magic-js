@@ -204,12 +204,8 @@ export function createDeprecationWarning(options: {
 }) {
   const { method, removalVersions, useInstead } = options;
 
-  const preventDisruptionLanguage = 'to prevent disruption of the wallet service';
-
   const removalVersion = removalVersions[SDKEnvironment.sdkName];
-  const useInsteadSuffix = useInstead
-    ? ` Use \`${useInstead}\` instead ${useInstead.includes('Dedicated Wallet') ? preventDisruptionLanguage : ''}.`
-    : '';
+  const useInsteadSuffix = useInstead ? ` Use \`${useInstead}\` instead.` : '';
   const message = `\`${method}\` will be removed from \`${SDKEnvironment.sdkName}\` in version \`${removalVersion}\`.${useInsteadSuffix}`;
 
   return new MagicSDKWarning(SDKWarningCode.DeprecationNotice, message);
