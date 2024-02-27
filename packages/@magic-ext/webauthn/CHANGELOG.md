@@ -1,3 +1,15 @@
+# v18.0.0 (Tue Feb 27 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+
+#### Authors: 1
+
+- Magic Labs (team@magic.link)
+
+---
+
 # v16.1.1 (Sat Feb 10 2024)
 
 #### 🐛 Bug Fix
