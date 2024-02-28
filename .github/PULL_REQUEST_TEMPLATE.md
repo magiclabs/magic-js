@@ -18,4 +18,4 @@ Please ⚠️ **ONLY ADD ONE** ⚠️ of the following labels, failing to do so 
 - `skip-release`: It's unnecessary to publish this change.
 
 ### Special Note
-Please avoid adding any of the "Priority" labels as they conflict with the labels above ☝️
+Please avoid adding any of the `Priority` labels as they conflict with the labels above ☝️
