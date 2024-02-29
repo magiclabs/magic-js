@@ -1,3 +1,18 @@
+# v26.0.0 (Thu Feb 29 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
 # v25.0.0 (Tue Feb 27 2024)
 
 #### 🐛 Bug Fix

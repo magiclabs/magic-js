@@ -1,3 +1,40 @@
+# v5.0.0 (Thu Feb 29 2024)
+
+#### 💥 Breaking Change
+
+- Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🚀 Enhancement
+
+- Add ability to use server callback url for start of oauth2 flow [#715](https://github.com/magiclabs/magic-js/pull/715) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- add ability to use server callback url for start of oauth2 flow ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- change for testing ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- revert version ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- revert class name ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- changing version ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- upgrade auto and fix naming ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- fix cdn name ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- add error handling for start step ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- fix rpc names ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- clean up files ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- fix readme ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- create new oauth2 package ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
 # v4.0.0 (Wed Feb 28 2024)
 
 #### 💥 Breaking Change

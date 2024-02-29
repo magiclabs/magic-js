@@ -1,3 +1,28 @@
+# v21.0.0 (Thu Feb 29 2024)
+
+#### 🚀 Enhancement
+
+- Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+- Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Removes `product_announcement` from JsonRpcResponsePayload [#720](https://github.com/magiclabs/magic-js/pull/720) ([@Ariflo](https://github.com/Ariflo))
+- Remove product_announcement from JsonRpcResponsePayload ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Update ViewController Listener and types to push log when product_announcement avaliable ([@Ariflo](https://github.com/Ariflo))
+- Adds product_type to types package ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
 # v20.0.0 (Tue Feb 27 2024)
 
 #### 🚀 Enhancement
