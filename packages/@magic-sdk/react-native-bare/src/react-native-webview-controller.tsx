@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Linking, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
+import { ViewController, createModalNotReadyError, createResponseTimeoutError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
 import Global = NodeJS.Global;
@@ -62,6 +62,7 @@ export class ReactNativeWebViewController extends ViewController {
   private webView!: WebView | null;
   private container!: ViewWrapper | null;
   private styles: any;
+  private messageTimeouts = new Map();
 
   protected init() {
     this.webView = null;
@@ -139,6 +140,18 @@ export class ReactNativeWebViewController extends ViewController {
     }, [show]);
 
     const handleWebViewMessage = useCallback((event: any) => {
+      const data = JSON.parse(event.nativeEvent.data);
+
+      if (data && data.response && data.response.id) {
+        const messageId = data.response.id;
+
+        // Clear timeout if message is received in time
+        if (this.messageTimeouts.has(messageId)) {
+          clearTimeout(this.messageTimeouts.get(messageId));
+          this.messageTimeouts.delete(messageId);
+        }
+      }
+      // Process the received message
       this.handleReactNativeWebViewMessage(event);
     }, []);
 
@@ -216,7 +229,18 @@ export class ReactNativeWebViewController extends ViewController {
   }
 
   protected async _post(data: any) {
+    const methodType = data.payload.method;
+    const messageId = data.payload.id;
+
     if (this.webView && (this.webView as any).postMessage) {
+      // Setup timeout for message response
+      const timeout = setTimeout(() => {
+        this.messageTimeouts.delete(messageId);
+        throw createResponseTimeoutError(`Response timed out for method: ${methodType} with message id: ${messageId}`);
+      }, 5000); // 5-second timeout
+
+      this.messageTimeouts.set(messageId, timeout);
+
       (this.webView as any).postMessage(
         JSON.stringify(data, (key, value) => {
           // parse Typed Array to Stringify object
