@@ -110,6 +110,10 @@ export function createModalNotReadyError() {
   return new MagicSDKError(SDKErrorCode.ModalNotReady, 'Modal is not ready.');
 }
 
+export function createResponseTimeoutError(msg: string) {
+  return new MagicSDKError(SDKErrorCode.ResponseTimeout, msg);
+}
+
 export function createMalformedResponseError() {
   return new MagicSDKError(SDKErrorCode.MalformedResponse, 'Response from the Magic iframe is malformed.');
 }
