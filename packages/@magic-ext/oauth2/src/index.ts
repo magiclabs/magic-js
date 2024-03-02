@@ -8,6 +8,7 @@ import {
   OAuthRedirectConfiguration,
   OAuthPayloadMethods,
   OAuthRedirectStartResult,
+  PopupTestConfiguration,
 } from './types';
 
 export class OAuthExtension extends Extension.Internal<'oauth2'> {
@@ -65,13 +66,16 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     return getResult.call(this, queryString);
   }
 
-  public getPopupTest() {
+  public getPopupTest(configuration: PopupTestConfiguration) {
     return this.utils.createPromiEvent<any>(async (resolve, reject) => {
-      // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-      window.open(new URL('/popup?fromTopContext=true', this.sdk.endpoint).href, '_blank', 'popup=true');
+      if (configuration.opener === 'top') {
+        // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
+        window.open(new URL('/popup?fromTopContext=true', this.sdk.endpoint).href, '_blank', 'popup=true');
+      }
 
-      const parseResult = this.utils.createJsonRpcRequestPayload('magic_auth_popup_test_top_level', [
+      const parseResult = this.utils.createJsonRpcRequestPayload('magic_auth_popup_test', [
         {
+          ...configuration,
           apiKey: this.sdk.apiKey,
           platform: 'web',
         },
