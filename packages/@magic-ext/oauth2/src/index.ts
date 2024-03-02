@@ -64,6 +64,35 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
 
     return getResult.call(this, queryString);
   }
+
+  public getPopupTest() {
+    return this.utils.createPromiEvent<any>(async (resolve, reject) => {
+      // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
+      window.open(new URL('/popup?fromTopContext=true', this.sdk.endpoint).href, '_blank', 'popup=true');
+
+      const parseResult = this.utils.createJsonRpcRequestPayload('magic_auth_popup_test_top_level', [
+        {
+          apiKey: this.sdk.apiKey,
+          platform: 'web',
+        },
+      ]);
+
+      const result = await this.request(parseResult);
+      const successResult = result as OAuthRedirectStartResult;
+      const errorResult = result as OAuthRedirectError;
+
+      if (errorResult.error) {
+        reject(
+          this.createError(errorResult.error, errorResult.error_description ?? 'An error occurred.', {
+            errorURI: errorResult.error_uri,
+            provider: errorResult.provider,
+          }),
+        );
+      }
+
+      resolve(successResult);
+    });
+  }
 }
 
 function getResult(this: OAuthExtension, queryString: string) {
