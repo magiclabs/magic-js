@@ -229,17 +229,20 @@ export class ReactNativeWebViewController extends ViewController {
   }
 
   protected async _post(data: any) {
-    const methodType = data.payload.method;
-    const messageId = data.payload.id;
+    // Safely access `method` and `id` from `payload`, defaulting to undefined if not present
+    const methodType = data.payload?.method;
+    const messageId = data.payload?.id;
 
     if (this.webView && (this.webView as any).postMessage) {
       // Setup timeout for message response
-      const timeout = setTimeout(() => {
-        this.messageTimeouts.delete(messageId);
-        throw createResponseTimeoutError(methodType, messageId);
-      }, 10000); // 10-second timeout
+      if (methodType && messageId) {
+        const timeout = setTimeout(() => {
+          this.messageTimeouts.delete(messageId);
+          throw createResponseTimeoutError(methodType, messageId);
+        }, 10000); // 10-second timeout
 
-      this.messageTimeouts.set(messageId, timeout);
+        this.messageTimeouts.set(messageId, timeout);
+      }
 
       (this.webView as any).postMessage(
         JSON.stringify(data, (key, value) => {
