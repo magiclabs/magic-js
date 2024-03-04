@@ -142,7 +142,7 @@ export class ReactNativeWebViewController extends ViewController {
     const handleWebViewMessage = useCallback((event: any) => {
       const data = JSON.parse(event.nativeEvent.data);
 
-      if (data && data.response && data.response.id) {
+      if (data?.response?.id) {
         const messageId = data.response.id;
 
         // Clear timeout if message is received in time
