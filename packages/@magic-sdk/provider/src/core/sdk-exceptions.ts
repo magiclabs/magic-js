@@ -110,8 +110,11 @@ export function createModalNotReadyError() {
   return new MagicSDKError(SDKErrorCode.ModalNotReady, 'Modal is not ready.');
 }
 
-export function createResponseTimeoutError(msg: string) {
-  return new MagicSDKError(SDKErrorCode.ResponseTimeout, msg);
+export function createResponseTimeoutError(methodType: string, messageId: string) {
+  return new MagicSDKError(
+    SDKErrorCode.ResponseTimeout,
+    `Response timed out for method: ${methodType} with message id: ${messageId}`,
+  );
 }
 
 export function createMalformedResponseError() {
