@@ -238,6 +238,7 @@ export class ReactNativeWebViewController extends ViewController {
       if (methodType && messageId) {
         const timeout = setTimeout(() => {
           this.messageTimeouts.delete(messageId);
+
           throw createResponseTimeoutError(methodType, messageId);
         }, 10000); // 10-second timeout
 
