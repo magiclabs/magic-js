@@ -35,6 +35,12 @@ test('Creates a `MODAL_NOT_READY` error', async () => {
   errorAssertions(error, 'MODAL_NOT_READY', 'Modal is not ready.');
 });
 
+test('Creates a `RESPONSE_TIMEOUT` error', async () => {
+  const { createResponseTimeoutError } = require('../../../../src/core/sdk-exceptions');
+  const error = createResponseTimeoutError('test_method', 123);
+  errorAssertions(error, 'RESPONSE_TIMEOUT', 'Response timed out for method: test_method with message id: 123');
+});
+
 test('Creates a `MALFORMED_RESPONSE` error', async () => {
   const { createMalformedResponseError } = require('../../../../src/core/sdk-exceptions');
   const error = createMalformedResponseError();

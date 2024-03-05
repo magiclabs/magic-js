@@ -1,5 +1,5 @@
 import browserEnv from '@ikscodes/browser-env';
-import { MagicSDKError, createModalNotReadyError, createResponseTimeoutError } from '@magic-sdk/provider';
+import { createModalNotReadyError, createResponseTimeoutError } from '@magic-sdk/provider';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
