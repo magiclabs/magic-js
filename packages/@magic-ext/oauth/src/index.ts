@@ -21,13 +21,18 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   };
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
-    return this.utils.createPromiEvent<void>(async (resolve) => {
+    return this.utils.createPromiEvent<void | string>(async (resolve) => {
       const { provider, query } = await createURI.call(this, configuration);
 
       // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-      window.location.href = new URL(`/v1/oauth2/${provider}/start?${query}`, this.sdk.endpoint).href;
+      const redirectURI = new URL(`/v1/oauth2/${provider}/start?${query}`, this.sdk.endpoint).href;
 
-      resolve();
+      if (configuration?.shouldReturnURI) {
+        resolve(redirectURI);
+      } else {
+        window.location.href = redirectURI;
+        resolve();
+      }
     });
   }
 
