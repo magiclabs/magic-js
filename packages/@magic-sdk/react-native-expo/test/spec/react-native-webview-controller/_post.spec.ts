@@ -51,8 +51,7 @@ test('Process Typed Array in a Solana Request', async () => {
   ]);
 });
 
-// TODO: Figure out how to test this
-test.skip('Throws RESPONSE_TIMEOUT error if response takes longer than 10 seconds', async () => {
+test('Throws RESPONSE_TIMEOUT error if response takes longer than 10 seconds', async () => {
   jest.useFakeTimers();
   const overlay = createReactNativeWebViewController('http://example.com');
 
@@ -63,13 +62,13 @@ test.skip('Throws RESPONSE_TIMEOUT error if response takes longer than 10 second
   const payload = { method: 'testMethod', id: 123 };
   const expectedError = createResponseTimeoutError(payload.method, payload.id);
 
-  const promise = await overlay._post({ payload });
+  const promise = overlay._post({ msgType: 'MAGIC_HANDLE_REQUEST-troll', payload });
 
   // Fast-forward time by 10 seconds
   jest.advanceTimersByTime(10000);
 
   // Assert that the promise rejects with the expected error
-  expect(promise).rejects.toThrow(expectedError);
+  await expect(() => promise).rejects.toThrow(expectedError);
 
   jest.useRealTimers();
 });
