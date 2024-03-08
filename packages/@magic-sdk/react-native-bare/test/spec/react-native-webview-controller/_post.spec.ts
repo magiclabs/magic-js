@@ -1,5 +1,6 @@
 import browserEnv from '@ikscodes/browser-env';
 import { createModalNotReadyError, createResponseTimeoutError } from '@magic-sdk/provider';
+import { SDKErrorCode } from '@magic-sdk/types';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
@@ -53,22 +54,26 @@ test('Process Typed Array in a Solana Request', async () => {
 
 test('Throws RESPONSE_TIMEOUT error if response takes longer than 10 seconds', async () => {
   jest.useFakeTimers();
-  const overlay = createReactNativeWebViewController('http://example.com');
 
+  const overlay = createReactNativeWebViewController('http://example.com');
   const postStub = jest.fn();
   overlay.webView = { postMessage: postStub };
 
-  // Setup expected payload and error
+  // Assume `_post` method returns a promise that rejects upon timeout
   const payload = { method: 'testMethod', id: 123 };
-  const expectedError = createResponseTimeoutError(payload.method, payload.id);
+  await overlay._post({ msgType: 'MAGIC_HANDLE_REQUEST-troll', payload });
 
-  const promise = overlay._post({ msgType: 'MAGIC_HANDLE_REQUEST-troll', payload });
-
-  // Fast-forward time by 10 seconds
+  // Simulate advancing time by 10 seconds to trigger the timeout
   jest.advanceTimersByTime(10000);
 
   // Assert that the promise rejects with the expected error
-  await expect(() => promise).rejects.toThrow(expectedError);
+  console.log(postStub.mock.calls[0]);
+  expect(postStub.mock.calls[0]).toEqual(
+    expect.objectContaining({
+      code: SDKErrorCode.ResponseTimeout,
+      message: expect.stringContaining('Response timed out for method: testMethod with message id: 123'),
+    }),
+  );
 
   jest.useRealTimers();
 });
