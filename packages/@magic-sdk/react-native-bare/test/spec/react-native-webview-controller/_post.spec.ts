@@ -67,3 +67,72 @@ test('Throws RESPONSE_TIMEOUT error if response takes longer than 10 seconds', a
     expect(error.code).toBe(SDKErrorCode.ResponseTimeout);
   }
 });
+
+test('Adds a timeout to messageTimeouts map on message send', async () => {
+  const overlay = createReactNativeWebViewController('http://example.com');
+
+  overlay.webView = { postMessage: jest.fn() };
+  const payload = { method: 'testMethod', id: 123 };
+
+  try {
+    await overlay._post({ msgType: 'MAGIC_HANDLE_REQUEST-troll', payload });
+  } catch (error) {
+    expect(error.code).toBe(SDKErrorCode.ResponseTimeout);
+  }
+
+  expect(overlay.messageTimeouts.has(123)).toBe(true);
+});
+
+test('Removes timeout from messageTimeouts map on response', async () => {
+  const overlay = createReactNativeWebViewController('http://example.com');
+
+  // Mock the WebView and its postMessage method
+  overlay.webView = { postMessage: jest.fn() };
+
+  const payload = { method: 'testMethod', id: 123 };
+  try {
+    await overlay._post({ msgType: 'MAGIC_HANDLE_REQUEST-troll', payload });
+  } catch (error) {
+    expect(error.code).toBe(SDKErrorCode.ResponseTimeout);
+  }
+
+  try {
+    // Simulate receiving a response by directly invoking the message handler
+    overlay.handleReactNativeWebViewMessage({
+      nativeEvent: {
+        data: JSON.stringify({ response: { id: 123 } }),
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+
+  expect(overlay.messageTimeouts.has(123)).toBe(true);
+});
+
+test('Removes timeout from messageTimeouts map on timeout', async () => {
+  expect.assertions(2); // Make sure both assertions are checked
+  const overlay = createReactNativeWebViewController('http://example.com');
+
+  overlay.webView = { postMessage: jest.fn() };
+
+  // Mock setTimeout to immediately invoke its callback to simulate a timeout
+  jest.spyOn(global, 'setTimeout').mockImplementationOnce((cb) => {
+    cb();
+    return 123; // Return a mock timer ID
+  });
+
+  const payload = { method: 'testMethod', id: 123 };
+
+  try {
+    await overlay._post({ msgType: 'MAGIC_HANDLE_REQUEST-troll', payload });
+  } catch (error) {
+    // Expect that the error was thrown due to a timeout
+    expect(error.code).toBe(SDKErrorCode.ResponseTimeout);
+    // Expect that the timeout was removed from the map after the error was thrown
+    expect(overlay.messageTimeouts.has(123)).toBe(false);
+  }
+
+  // Restore original setTimeout function
+  jest.restoreAllMocks();
+});
