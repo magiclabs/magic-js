@@ -61,8 +61,8 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     });
   }
 
-  public getRedirectResult() {
-    const queryString = window.location.search;
+  public getRedirectResult(optionalQueryString?: string) {
+    const queryString = optionalQueryString || window.location.search;
 
     // Remove the query from the redirect callback as a precaution to prevent
     // malicious parties from parsing it before we have a chance to use it.
