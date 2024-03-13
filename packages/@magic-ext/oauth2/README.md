@@ -49,7 +49,7 @@ const magic = new Magic('YOUR_API_KEY', {
   extensions: [new OAuthExtension()]
 });
 
-await magic.oauth.loginWithRedirect({
+await magic.oauth2.loginWithRedirect({
   provider: 'google' | 'facebook' | 'github' | ...
 });
 ```
@@ -61,10 +61,10 @@ import { Magic } from 'magic-sdk';
 import { OAuthExtension } from '@magic-ext/oauth2';
 
 const magic = new Magic('YOUR_API_KEY', {
-  extensions: [new OAuthExtension()]
+  extensions: [new OAuthExtension()],
 });
 
-const res = await magic.oauth.getRedirectResult();
+const res = await magic.oauth2.getRedirectResult();
 
 // Then you can access a user's Magic DID token, OpenID Connect profile information, and more!
 res.magic.idToken;
