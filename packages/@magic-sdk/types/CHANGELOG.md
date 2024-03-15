@@ -1,3 +1,32 @@
+# v23.0.0 (Fri Mar 15 2024)
+
+#### 🚀 Enhancement
+
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+- Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+- Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Adds ResponseTimeout SDKErrorCode ([@Ariflo](https://github.com/Ariflo))
+- Removes `product_announcement` from JsonRpcResponsePayload [#720](https://github.com/magiclabs/magic-js/pull/720) ([@Ariflo](https://github.com/Ariflo))
+- Remove product_announcement from JsonRpcResponsePayload ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Update ViewController Listener and types to push log when product_announcement avaliable ([@Ariflo](https://github.com/Ariflo))
+- Adds product_type to types package ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
 # v22.0.0 (Sat Mar 09 2024)
 
 #### 🚀 Enhancement
