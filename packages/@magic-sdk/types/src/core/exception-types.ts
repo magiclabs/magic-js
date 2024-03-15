@@ -5,7 +5,6 @@ export enum SDKErrorCode {
   InvalidArgument = 'INVALID_ARGUMENT',
   ExtensionNotInitialized = 'EXTENSION_NOT_INITIALIZED',
   IncompatibleExtensions = 'INCOMPATIBLE_EXTENSIONS',
-  ResponseTimeout = 'RESPONSE_TIMEOUT',
 }
 
 export enum SDKWarningCode {

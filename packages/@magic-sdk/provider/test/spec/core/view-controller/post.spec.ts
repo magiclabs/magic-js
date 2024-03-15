@@ -3,14 +3,13 @@
 
 import browserEnv from '@ikscodes/browser-env';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '@magic-sdk/types';
-import { create } from 'lodash';
 import { createViewController, TestViewController } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import * as storage from '../../../../src/util/storage';
 import * as webCryptoUtils from '../../../../src/util/web-crypto';
 import * as deviceShareWebCryptoUtils from '../../../../src/util/device-share-web-crypto';
 import { SDKEnvironment } from '../../../../src/core/sdk-environment';
-import { createModalNotReadyError, createResponseTimeoutError } from '../../../../src/core/sdk-exceptions';
+import { createModalNotReadyError } from '../../../../src/core/sdk-exceptions';
 
 /**
  * Create a dummy request payload.
@@ -260,24 +259,6 @@ test('throws MODAL_NOT_READY error when not connected to the internet', async ()
     await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
   } catch (e) {
     expect(e).toEqual(createModalNotReadyError());
-  }
-});
-
-test('throws RESPONSE_TIMEOUT error if response takes longer than 10 seconds', async () => {
-  const eventWithRt = { data: { ...responseEvent().data } };
-  const { handlerSpy, onSpy } = stubViewController(viewController, [
-    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, eventWithRt],
-  ]);
-
-  // @ts-ignore protected variable
-  viewController.responseTimeout = 1;
-
-  const payload = requestPayload();
-
-  try {
-    await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
-  } catch (e) {
-    expect(e).toEqual(createResponseTimeoutError('eth_accounts', 1));
   }
 });
 
