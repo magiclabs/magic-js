@@ -1,4 +1,4 @@
-export type NFTResponseStatus = 'cancelled' | 'processed' | 'declined' | 'expired';
+export type NFTResponseStatus = 'cancelled' | 'pending' | 'processed' | 'declined' | 'expired';
 
 export type NFTResponse = {
   status: NFTResponseStatus;
