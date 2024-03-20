@@ -34,18 +34,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auto-it/bot-list@npm:11.0.5":
-  version: 11.0.5
-  resolution: "@auto-it/bot-list@npm:11.0.5"
-  checksum: 0d774ae770d01c3722b7d3e4fd8e82e31f45e06e3b9525e7ffe20a34a20f04f0bb5316e3c2b8ff3fb12247a8d6cc8b61a4f6b573f23d9e26cb3bc2a1d6701ecd
+"@auto-it/bot-list@npm:11.1.2":
+  version: 11.1.2
+  resolution: "@auto-it/bot-list@npm:11.1.2"
+  checksum: a6e268a934748ffdfd9988c75ef3c85ed409edb58eb5bb7904254668eac5ca43ee30cb2d559c568ead798e94809beb25e804ba5e2976c5923b613f0513deb4ab
   languageName: node
   linkType: hard
 
-"@auto-it/core@npm:11.0.5":
-  version: 11.0.5
-  resolution: "@auto-it/core@npm:11.0.5"
+"@auto-it/core@npm:11.1.2":
+  version: 11.1.2
+  resolution: "@auto-it/core@npm:11.1.2"
   dependencies:
-    "@auto-it/bot-list": 11.0.5
+    "@auto-it/bot-list": 11.1.2
     "@endemolshinegroup/cosmiconfig-typescript-loader": ^3.0.2
     "@octokit/core": ^3.5.1
     "@octokit/plugin-enterprise-compatibility": 1.3.0
@@ -90,16 +90,16 @@ __metadata:
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 8466cf32cf38192d6897982c2e8ac2924088960ef4a6650c42242c8e90b5ef1d4d8ee0213285e12c61e79b356023e9c769ef0aac3417d0989cb88b1378ca7123
+  checksum: e775d9c71ca65167c4379511f77552337ffdaa098ad2efad102b45e92ecedd651b97f920a7b1b7819d1a6a19ad23d8c66070e751f6889ef6b4ba30b6686c4a81
   languageName: node
   linkType: hard
 
-"@auto-it/npm@npm:11.0.5":
-  version: 11.0.5
-  resolution: "@auto-it/npm@npm:11.0.5"
+"@auto-it/npm@npm:11.1.2":
+  version: 11.1.2
+  resolution: "@auto-it/npm@npm:11.1.2"
   dependencies:
-    "@auto-it/core": 11.0.5
-    "@auto-it/package-json-utils": 11.0.5
+    "@auto-it/core": 11.1.2
+    "@auto-it/package-json-utils": 11.1.2
     await-to-js: ^3.0.0
     endent: ^2.1.0
     env-ci: ^5.0.1
@@ -112,44 +112,44 @@ __metadata:
     typescript-memoize: ^1.0.0-alpha.3
     url-join: ^4.0.0
     user-home: ^2.0.0
-  checksum: 2e9776935a5adfaeebb597b4a040ee80333c762c820dc57596f2f574f6d0b170bda0f632ff8a5737483f83f5517a53c83945e6cef30a0f10a11babf107b381de
+  checksum: b50038f4f2cd07cc4984a9c0721dd2c8f48021a4aa3f5d974f3b481a2c13180380b4fdb6a17a4e950aac1213a42a5822e99d2411edff45ce72e961cf85eeebec
   languageName: node
   linkType: hard
 
-"@auto-it/package-json-utils@npm:11.0.5":
-  version: 11.0.5
-  resolution: "@auto-it/package-json-utils@npm:11.0.5"
+"@auto-it/package-json-utils@npm:11.1.2":
+  version: 11.1.2
+  resolution: "@auto-it/package-json-utils@npm:11.1.2"
   dependencies:
     parse-author: ^2.0.0
     parse-github-url: 1.0.2
-  checksum: 14499ec64c917bead549109e038fba03faef6351f17e0af1a2361043de82763a9042a29dd7646c02e1364f55e5b1cf83bd3d692dd4dba760abc312d2902115af
+  checksum: 4b05be9fa51bd293347a27fa4575d437710b036ac9a4bd125ee5361befc15966f0f97cbc5d1bd340db74e5e4daedd34e8211d5c439b53832859ecf3ebe0dd512
   languageName: node
   linkType: hard
 
-"@auto-it/released@npm:11.0.5":
-  version: 11.0.5
-  resolution: "@auto-it/released@npm:11.0.5"
+"@auto-it/released@npm:11.1.2":
+  version: 11.1.2
+  resolution: "@auto-it/released@npm:11.1.2"
   dependencies:
-    "@auto-it/bot-list": 11.0.5
-    "@auto-it/core": 11.0.5
+    "@auto-it/bot-list": 11.1.2
+    "@auto-it/core": 11.1.2
     deepmerge: ^4.0.0
     fp-ts: ^2.5.3
     io-ts: ^2.1.2
     tslib: 2.1.0
-  checksum: e512e11f5db40721abcfcb45b439273caf1eb7425245413bfec57dca0638cf93106f17c6a0610d617e0165388a49e57f2e7a5e550b25e6566ed2204df097ade3
+  checksum: 268164184c72c8a021f0052971633b0f26aa2585d70c10aa3aa46a278a0323ee6efa23171ed2bc861ee31a65f367ac4e44df4ee6078b4b01bf98934262398635
   languageName: node
   linkType: hard
 
-"@auto-it/version-file@npm:11.0.5":
-  version: 11.0.5
-  resolution: "@auto-it/version-file@npm:11.0.5"
+"@auto-it/version-file@npm:11.1.2":
+  version: 11.1.2
+  resolution: "@auto-it/version-file@npm:11.1.2"
   dependencies:
-    "@auto-it/core": 11.0.5
+    "@auto-it/core": 11.1.2
     fp-ts: ^2.5.3
     io-ts: ^2.1.2
     semver: ^7.0.0
     tslib: 1.10.0
-  checksum: d0a78ed8aa6f5a2b5c4e54b1c0787109c4919a1a4bd2d4c385bf37d3b63e2eb457f2b7e8cc82fed156248ad04c47542e5cfefacb492b7a6e69061b8022b6275f
+  checksum: b20a062ff20fe60d37d2dd0d0ed9136ab3945b4a1dae23206e7f3586bda39a339a774ac00bb3275a74188a40556e35c1099a9f8b224df21212a674c45876ed8f
   languageName: node
   linkType: hard
 
@@ -2045,7 +2045,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/algorand@workspace:packages/@magic-ext/algorand"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2054,8 +2054,8 @@ __metadata:
   resolution: "@magic-ext/aptos@workspace:packages/@magic-ext/aptos"
   dependencies:
     "@aptos-labs/wallet-adapter-core": ^2.2.0
-    "@magic-sdk/commons": ^22.0.0
-    "@magic-sdk/provider": ^26.0.0
+    "@magic-sdk/commons": ^23.0.0
+    "@magic-sdk/provider": ^27.0.0
     aptos: ^1.8.5
   peerDependencies:
     "@aptos-labs/wallet-adapter-core": ^2.2.0
@@ -2067,7 +2067,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/avalanche@workspace:packages/@magic-ext/avalanche"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2075,7 +2075,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/bitcoin@workspace:packages/@magic-ext/bitcoin"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2083,7 +2083,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/conflux@workspace:packages/@magic-ext/conflux"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2091,7 +2091,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/cosmos@workspace:packages/@magic-ext/cosmos"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2099,7 +2099,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/ed25519@workspace:packages/@magic-ext/ed25519"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2107,7 +2107,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/flow@workspace:packages/@magic-ext/flow"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
     "@onflow/fcl": ^1.4.1
     "@onflow/types": ^1.1.0
   peerDependencies:
@@ -2120,8 +2120,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/gdkms@workspace:packages/@magic-ext/gdkms"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
-    "@magic-sdk/types": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
+    "@magic-sdk/types": ^23.0.0
     "@peculiar/webcrypto": ^1.4.3
   languageName: unknown
   linkType: soft
@@ -2130,7 +2130,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/harmony@workspace:packages/@magic-ext/harmony"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2148,7 +2148,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/icon@workspace:packages/@magic-ext/icon"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2156,7 +2156,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/near@workspace:packages/@magic-ext/near"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2164,17 +2164,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth2@workspace:packages/@magic-ext/oauth2"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
   languageName: unknown
   linkType: soft
 
-"@magic-ext/oauth@^20.0.0, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
+"@magic-ext/oauth@^21.0.0, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
   languageName: unknown
@@ -2184,7 +2184,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/oidc@workspace:packages/@magic-ext/oidc"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2192,7 +2192,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/polkadot@workspace:packages/@magic-ext/polkadot"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2200,8 +2200,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-bare-oauth@workspace:packages/@magic-ext/react-native-bare-oauth"
   dependencies:
-    "@magic-sdk/react-native-bare": ^27.0.0
-    "@magic-sdk/types": ^22.0.0
+    "@magic-sdk/react-native-bare": ^28.0.0
+    "@magic-sdk/types": ^23.0.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
     react-native-device-info: ^10.3.0
@@ -2216,7 +2216,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-expo-oauth@workspace:packages/@magic-ext/react-native-expo-oauth"
   dependencies:
-    "@magic-sdk/react-native-expo": ^27.0.0
+    "@magic-sdk/react-native-expo": ^28.0.0
     "@magic-sdk/types": ^10.0.0
     "@types/crypto-js": ~3.1.47
     crypto-js: ^3.3.0
@@ -2231,7 +2231,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/solana@workspace:packages/@magic-ext/solana"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
     "@solana/web3.js": ^1.87.2
   peerDependencies:
     "@solana/web3.js": ^1.87.2
@@ -2242,7 +2242,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/taquito@workspace:packages/@magic-ext/taquito"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2250,7 +2250,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/terra@workspace:packages/@magic-ext/terra"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2258,7 +2258,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/tezos@workspace:packages/@magic-ext/tezos"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2266,7 +2266,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/webauthn@workspace:packages/@magic-ext/webauthn"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
@@ -2274,16 +2274,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/zilliqa@workspace:packages/@magic-ext/zilliqa"
   dependencies:
-    "@magic-sdk/commons": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/commons@^22.0.0, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
+"@magic-sdk/commons@^23.0.0, @magic-sdk/commons@workspace:packages/@magic-sdk/commons":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/commons@workspace:packages/@magic-sdk/commons"
   dependencies:
-    "@magic-sdk/provider": ^26.0.0
-    "@magic-sdk/types": ^22.0.0
+    "@magic-sdk/provider": ^27.0.0
+    "@magic-sdk/types": ^23.0.0
   peerDependencies:
     "@magic-sdk/provider": ">=18.6.0"
     "@magic-sdk/types": ">=15.8.0"
@@ -2307,17 +2307,17 @@ __metadata:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-    "@magic-ext/oauth": ^20.0.0
-    magic-sdk: ^26.0.0
+    "@magic-ext/oauth": ^21.0.0
+    magic-sdk: ^27.0.0
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@^26.0.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+"@magic-sdk/provider@^27.0.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
     "@babel/plugin-transform-modules-commonjs": ^7.9.6
-    "@magic-sdk/types": ^22.0.0
+    "@magic-sdk/types": ^23.0.0
     "@peculiar/webcrypto": ^1.1.7
     eventemitter3: ^4.0.4
     localforage: ^1.7.4
@@ -2329,7 +2329,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-bare@^27.0.0, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
+"@magic-sdk/react-native-bare@^28.0.0, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
   dependencies:
@@ -2337,9 +2337,9 @@ __metadata:
     "@babel/core": ^7.15.0
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/runtime": ~7.10.4
-    "@magic-sdk/commons": ^22.0.0
-    "@magic-sdk/provider": ^26.0.0
-    "@magic-sdk/types": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
+    "@magic-sdk/provider": ^27.0.0
+    "@magic-sdk/types": ^23.0.0
     "@react-native-async-storage/async-storage": ^1.15.5
     "@react-native-community/netinfo": ">11.0.0"
     "@testing-library/react-native": ^12.4.0
@@ -2369,7 +2369,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-expo@^27.0.0, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
+"@magic-sdk/react-native-expo@^28.0.0, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
@@ -2377,9 +2377,9 @@ __metadata:
     "@babel/core": ^7.15.0
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/runtime": ~7.10.4
-    "@magic-sdk/commons": ^22.0.0
-    "@magic-sdk/provider": ^26.0.0
-    "@magic-sdk/types": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
+    "@magic-sdk/provider": ^27.0.0
+    "@magic-sdk/types": ^23.0.0
     "@react-native-async-storage/async-storage": ^1.15.5
     "@react-native-community/netinfo": ">11.0.0"
     "@testing-library/react-native": ^12.4.0
@@ -2409,7 +2409,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/types@^22.0.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
+"@magic-sdk/types@^23.0.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
   languageName: unknown
@@ -4991,14 +4991,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"auto@npm:11.0.5":
-  version: 11.0.5
-  resolution: "auto@npm:11.0.5"
+"auto@npm:^11.1.2":
+  version: 11.1.2
+  resolution: "auto@npm:11.1.2"
   dependencies:
-    "@auto-it/core": 11.0.5
-    "@auto-it/npm": 11.0.5
-    "@auto-it/released": 11.0.5
-    "@auto-it/version-file": 11.0.5
+    "@auto-it/core": 11.1.2
+    "@auto-it/npm": 11.1.2
+    "@auto-it/released": 11.1.2
+    "@auto-it/version-file": 11.1.2
     await-to-js: ^3.0.0
     chalk: ^4.0.0
     command-line-application: ^0.10.1
@@ -5009,7 +5009,7 @@ __metadata:
     tslib: 2.1.0
   bin:
     auto: dist/bin/auto.js
-  checksum: 7e6eaabc43c278b2913577973831786df1f4fa47fda042bde0cbd457f55ad5c6559563bedad2b1167be573fa1d8f1dac30af2cab2abf4609a4cdfd9410445ede
+  checksum: f6538d3922beb784805ed34b687ef807dbc9901165c1f608567edfad6c9f987a928752a4f070cd0b66067216bdd23d0b48588aaff3ee17802c20b645463b38c1
   languageName: node
   linkType: hard
 
@@ -12709,7 +12709,7 @@ fsevents@^2.3.2:
     "@types/tsc-watch": ^4.2.0
     "@types/whatwg-url": ^6.4.0
     "@typescript-eslint/eslint-plugin": ~3.4.0
-    auto: 11.0.5
+    auto: ^11.1.2
     babel-jest: ^27.0.6
     brotli-size: ^4.0.0
     chalk: ~4.1.2
@@ -12754,16 +12754,16 @@ fsevents@^2.3.2:
   languageName: unknown
   linkType: soft
 
-"magic-sdk@^26.0.0, magic-sdk@workspace:packages/magic-sdk":
+"magic-sdk@^27.0.0, magic-sdk@workspace:packages/magic-sdk":
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
     "@babel/core": ^7.9.6
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
-    "@magic-sdk/commons": ^22.0.0
-    "@magic-sdk/provider": ^26.0.0
-    "@magic-sdk/types": ^22.0.0
+    "@magic-sdk/commons": ^23.0.0
+    "@magic-sdk/provider": ^27.0.0
+    "@magic-sdk/types": ^23.0.0
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
   languageName: unknown
