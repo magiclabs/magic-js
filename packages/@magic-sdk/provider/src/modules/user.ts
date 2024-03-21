@@ -119,6 +119,11 @@ export class UserModule extends BaseModule {
     return this.request<boolean | null>(requestPayload);
   }
 
+  public revealPrivateKey() {
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPrivateKey);
+    return this.request<boolean>(requestPayload);
+  }
+
   // Deprecating
   public getMetadata() {
     createDeprecationWarning({
