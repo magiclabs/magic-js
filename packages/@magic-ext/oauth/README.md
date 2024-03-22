@@ -1,5 +1,7 @@
 # 🔒 Magic OAuth Extension for Web Browsers
 
+> We suggest use OAUTH2 `@magic-ext/oauth2` package for the best performance
+
 [![<MagicLabs>](https://circleci.com/gh/magiclabs/magic-js.svg?style=shield)](https://circleci.com/gh/magiclabs/magic-js)
 
 > With the Magic JavaScript SDK OAuth extension, you can plug into your favorite social login providers with one, easy-to-use API.
