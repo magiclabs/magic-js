@@ -94,4 +94,4 @@ jobs:
           path: packages
 
       - name: Create Release
-        run: yarn auto shipit --dry-run -vv
+        run: yarn auto shipit -vv
