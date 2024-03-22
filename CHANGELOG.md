@@ -1,5 +1,19 @@
 # (Fri Mar 22 2024)
 
+#### 🐛 Bug Fix
+
+- revert --dry-run [#730](https://github.com/magiclabs/magic-js/pull/730) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/oauth@22.0.1`
+  - Pdeexp 681 fix magic js launching script [#729](https://github.com/magiclabs/magic-js/pull/729) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Mar 22 2024)
+
 #### 💥 Breaking Change
 
 - `@magic-ext/oauth2@9.0.0`
