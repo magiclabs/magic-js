@@ -1,3 +1,24 @@
+# v22.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
 # v21.0.0 (Fri Mar 15 2024)
 
 #### 🐛 Bug Fix

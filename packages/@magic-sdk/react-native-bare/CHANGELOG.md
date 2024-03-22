@@ -1,3 +1,37 @@
+# v29.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Fix tests ([@Ariflo](https://github.com/Ariflo))
+- WIP ([@Ariflo](https://github.com/Ariflo))
+- Update testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- payload is optional ([@Ariflo](https://github.com/Ariflo))
+- Shrink code syntax ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Throw ResponseTimeout SDK Error for responses that take more than 5 seconds ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 4
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
 # v28.0.0 (Fri Mar 15 2024)
 
 #### 🚀 Enhancement
