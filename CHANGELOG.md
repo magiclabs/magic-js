@@ -1,3 +1,17 @@
+# (Sat Mar 23 2024)
+
+#### 🐛 Bug Fix
+
+- readme change [#731](https://github.com/magiclabs/magic-js/pull/731) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-sdk/provider@28.0.1`
+  - readme edit [#732](https://github.com/magiclabs/magic-js/pull/732) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Fri Mar 22 2024)
 
 #### 🐛 Bug Fix
