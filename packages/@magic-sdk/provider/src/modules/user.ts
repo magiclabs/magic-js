@@ -125,7 +125,7 @@ export class UserModule extends BaseModule {
   }
 
   public revealPrivateKey2() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPrivateKey);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPrivateKey2);
     return this.request<boolean | null>(requestPayload);
   }
 
@@ -138,7 +138,7 @@ export class UserModule extends BaseModule {
   }
 
   public revealPrivateKeyFake() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.UserSettings);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPrivateKeyFake);
     console.log('Show Settings: ', requestPayload);
     return this.request<MagicUserMetadata>(requestPayload);
   }
