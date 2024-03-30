@@ -124,25 +124,6 @@ export class UserModule extends BaseModule {
     return this.request<boolean>(requestPayload);
   }
 
-  public revealPrivateKey2() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPrivateKey2);
-    return this.request<boolean | null>(requestPayload);
-  }
-
-  public revealPrivateKeyAlert() {
-    console.log('MagicPayloadMethod: ', MagicPayloadMethod);
-    console.log('MagicPayloadMethod.RevealPrivateKey: ', MagicPayloadMethod.RevealPrivateKey);
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPrivateKey);
-    console.log('Reveal Key: ', requestPayload);
-    return this.request<boolean | null>(requestPayload);
-  }
-
-  public revealPrivateKeyFake() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPrivateKeyFake);
-    console.log('Show Settings: ', requestPayload);
-    return this.request<MagicUserMetadata>(requestPayload);
-  }
-
   // Deprecating
   public getMetadata() {
     createDeprecationWarning({
