@@ -126,14 +126,11 @@ export class UserModule extends BaseModule {
 
   public revealPrivateKey2() {
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPrivateKey);
-    return this.request<boolean>(requestPayload);
+    return this.request<boolean | null>(requestPayload);
   }
 
-  public revealPrivateKeyFake(configuration?: ShowSettingsConfiguration) {
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.UserSettingsTestMode : MagicPayloadMethod.UserSettings,
-      [configuration],
-    );
+  public revealPrivateKeyFake() {
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.UserSettings);
     return this.request<MagicUserMetadata>(requestPayload);
   }
 
