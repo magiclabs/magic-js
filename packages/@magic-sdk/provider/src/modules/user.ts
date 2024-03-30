@@ -130,6 +130,8 @@ export class UserModule extends BaseModule {
   }
 
   public revealPrivateKeyAlert() {
+    console.log('MagicPayloadMethod: ', MagicPayloadMethod);
+    console.log('MagicPayloadMethod.RevealPrivateKey: ', MagicPayloadMethod.RevealPrivateKey);
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPrivateKey);
     console.log('Reveal Key: ', requestPayload);
     return this.request<boolean | null>(requestPayload);
