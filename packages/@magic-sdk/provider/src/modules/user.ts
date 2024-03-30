@@ -124,6 +124,10 @@ export class UserModule extends BaseModule {
     return this.request<boolean>(requestPayload);
   }
 
+  public test() {
+    console.log('test');
+  }
+
   // Deprecating
   public getMetadata() {
     createDeprecationWarning({
