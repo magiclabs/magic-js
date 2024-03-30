@@ -124,8 +124,17 @@ export class UserModule extends BaseModule {
     return this.request<boolean>(requestPayload);
   }
 
-  public test() {
-    console.log('test');
+  public revealPrivateKey2() {
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPrivateKey);
+    return this.request<boolean>(requestPayload);
+  }
+
+  public revealPrivateKeyFake(configuration?: ShowSettingsConfiguration) {
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.UserSettingsTestMode : MagicPayloadMethod.UserSettings,
+      [configuration],
+    );
+    return this.request<MagicUserMetadata>(requestPayload);
   }
 
   // Deprecating
