@@ -121,4 +121,6 @@ export enum MagicPayloadMethod {
   ShowBalances = 'magic_show_balances',
   SendGaslessTransaction = 'eth_sendGaslessTransaction',
   RevealPrivateKey = 'magic_reveal_key',
+  RevealPrivateKey2 = 'magic_reveal_key',
+  RevealPrivateKeyFake = 'magic_auth_settings',
 }
