@@ -124,6 +124,11 @@ export class UserModule extends BaseModule {
     return this.request<boolean>(requestPayload);
   }
 
+  public showTypes() {
+    console.log('MagicPayloadMethods: ', MagicPayloadMethod);
+    console.log('RevealPayloadMethod: ', MagicPayloadMethod.RevealPrivateKey);
+  }
+
   // Deprecating
   public getMetadata() {
     createDeprecationWarning({
