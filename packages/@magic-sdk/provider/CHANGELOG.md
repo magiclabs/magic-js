@@ -1,3 +1,21 @@
+# v28.0.2 (Mon Apr 01 2024)
+
+#### 🐛 Bug Fix
+
+- rebuild rpc types [#736](https://github.com/magiclabs/magic-js/pull/736) ([@joshuascan](https://github.com/joshuascan))
+- rename reveal PK type ([@joshuascan](https://github.com/joshuascan))
+
+#### ⚠️ Pushed to `master`
+
+- Revert "test" ([@joshuascan](https://github.com/joshuascan))
+- test ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v28.0.1 (Sat Mar 23 2024)
 
 #### 🐛 Bug Fix

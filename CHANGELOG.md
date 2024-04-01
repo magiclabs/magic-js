@@ -1,3 +1,22 @@
+# (Mon Apr 01 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@28.0.2`, `@magic-sdk/types@24.0.1`
+  - rebuild rpc types [#736](https://github.com/magiclabs/magic-js/pull/736) ([@joshuascan](https://github.com/joshuascan))
+
+#### ⚠️ Pushed to `master`
+
+- `@magic-sdk/provider@28.0.2`
+  - Revert "test" ([@joshuascan](https://github.com/joshuascan))
+  - test ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Sat Mar 23 2024)
 
 #### 🐛 Bug Fix
