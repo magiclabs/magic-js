@@ -5,6 +5,3 @@ name = "secrets"
 
 [[analyzers]]
 name = "javascript"
-
-  [analyzers.meta]
-  plugins = ["react"]
