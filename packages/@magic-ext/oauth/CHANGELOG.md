@@ -1,3 +1,16 @@
+# v22.0.1 (Fri Mar 22 2024)
+
+#### 🐛 Bug Fix
+
+- Pdeexp 681 fix magic js launching script [#729](https://github.com/magiclabs/magic-js/pull/729) ([@Ethella](https://github.com/Ethella))
+- test package release ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v22.0.0 (Fri Mar 22 2024)
 
 #### 🚀 Enhancement

@@ -1,3 +1,50 @@
+# (Mon Apr 01 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@28.0.2`, `@magic-sdk/types@24.0.1`
+  - rebuild rpc types [#736](https://github.com/magiclabs/magic-js/pull/736) ([@joshuascan](https://github.com/joshuascan))
+
+#### ⚠️ Pushed to `master`
+
+- `@magic-sdk/provider@28.0.2`
+  - Revert "test" ([@joshuascan](https://github.com/joshuascan))
+  - test ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Sat Mar 23 2024)
+
+#### 🐛 Bug Fix
+
+- readme change [#731](https://github.com/magiclabs/magic-js/pull/731) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-sdk/provider@28.0.1`
+  - readme edit [#732](https://github.com/magiclabs/magic-js/pull/732) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Mar 22 2024)
+
+#### 🐛 Bug Fix
+
+- revert --dry-run [#730](https://github.com/magiclabs/magic-js/pull/730) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/oauth@22.0.1`
+  - Pdeexp 681 fix magic js launching script [#729](https://github.com/magiclabs/magic-js/pull/729) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri Mar 22 2024)
 
 #### 💥 Breaking Change

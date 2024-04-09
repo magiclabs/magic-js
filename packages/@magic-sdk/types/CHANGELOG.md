@@ -1,3 +1,18 @@
+# v24.0.1 (Mon Apr 01 2024)
+
+#### 🐛 Bug Fix
+
+- rebuild rpc types [#736](https://github.com/magiclabs/magic-js/pull/736) ([@joshuascan](https://github.com/joshuascan))
+- rename reveal PK type ([@joshuascan](https://github.com/joshuascan))
+- re-add RevealPrivateKey type ([@joshuascan](https://github.com/joshuascan))
+- remove PK type ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v24.0.0 (Fri Mar 22 2024)
 
 #### 🚀 Enhancement

@@ -120,7 +120,7 @@ export class UserModule extends BaseModule {
   }
 
   public revealPrivateKey() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPrivateKey);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPK);
     return this.request<boolean>(requestPayload);
   }
 
