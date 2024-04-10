@@ -8,7 +8,6 @@ export class SuiExtension extends Extension.Internal<'sui', any> {
   constructor(public suiConfig: SuiConfig) {
     super();
     this.config = {
-      network: suiConfig.network,
       rpcUrl: suiConfig.rpcUrl,
       chainType: 'SUI',
     };

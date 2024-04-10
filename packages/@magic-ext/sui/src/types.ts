@@ -3,6 +3,5 @@ export enum SuiPayloadMethod {
 }
 
 export interface SuiConfig {
-  rpcUrl?: string;
-  network?: 'testnet' | 'devnet' | 'mainnet';
+  rpcUrl: 'testnet' | 'devnet' | 'mainnet' | string;
 }
