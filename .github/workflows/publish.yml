@@ -8,6 +8,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
   GH_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NPM_CONFIG_PROVENANCE: true
 
 jobs:
   build:
@@ -18,14 +19,14 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
- 
+
       - name: Prepare repository
         run: git fetch --unshallow --tags
 
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           cache: 'yarn'
 
       - name: Install dependencies
@@ -62,6 +63,9 @@ jobs:
   publish:
     runs-on: ubuntu-20.04
     name: Publish
+    permissions:
+      contents: read
+      id-token: write
     needs: build
     environment: production
     steps:
@@ -75,7 +79,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
           cache: 'yarn'
 
       - name: Install dependencies
@@ -90,4 +94,4 @@ jobs:
           path: packages
 
       - name: Create Release
-        run: yarn auto shipit -v
+        run: yarn auto shipit -vv

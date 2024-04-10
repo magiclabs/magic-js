@@ -1,8 +1,8 @@
 import { Extension } from '@magic-sdk/commons';
 
-/* eslint-disable no-param-reassign, array-callback-return */
-import { Transaction, VersionedTransaction } from '@solana/web3.js';
-import { SolanaConfig, SolanaPayloadMethod, SerializeConfig } from './type';
+import { SerializeConfig, Transaction, VersionedTransaction } from '@solana/web3.js';
+import { SolanaConfig } from './type';
+import { SOLANA_PAYLOAD_METHODS } from './constants';
 
 export class SolanaExtension extends Extension.Internal<'solana', any> {
   name = 'solana' as const;
@@ -17,26 +17,24 @@ export class SolanaExtension extends Extension.Internal<'solana', any> {
     };
   }
 
-  public signTransaction = (transaction: Transaction | VersionedTransaction) => {
-    return this.request({
+  public signTransaction = (transaction: Transaction | VersionedTransaction, serializeConfig?: SerializeConfig) => {
+    return this.request<{ rawTransaction: string }>({
       id: 42,
       jsonrpc: '2.0',
-      method: SolanaPayloadMethod.SignTransaction,
+      method: SOLANA_PAYLOAD_METHODS.SIGN_TRANSACTION,
       params: {
         type: transaction instanceof Transaction ? 'legacy' : 0,
-        serialized: transaction.serialize({
-          requireAllSignatures: false,
-          verifySignatures: false,
-        }),
+        serialized: transaction.serialize(serializeConfig),
+        serializeConfig,
       },
     });
   };
 
-  public signMessage = (message: any) => {
-    return this.request({
+  public signMessage = (message: string | Uint8Array) => {
+    return this.request<Uint8Array>({
       id: 42,
       jsonrpc: '2.0',
-      method: SolanaPayloadMethod.SignMessage,
+      method: SOLANA_PAYLOAD_METHODS.SIGN_MESSAGE,
       params: {
         message,
       },

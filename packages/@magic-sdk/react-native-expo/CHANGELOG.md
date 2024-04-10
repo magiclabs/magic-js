@@ -1,3 +1,283 @@
+# v29.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Fix tests ([@Ariflo](https://github.com/Ariflo))
+- WIP ([@Ariflo](https://github.com/Ariflo))
+- Update testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- Update expo rn sdk to match bare ([@Ariflo](https://github.com/Ariflo))
+- Shrink code syntax ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Throw ResponseTimeout SDK Error for responses that take more than 5 seconds ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 4
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
+# v28.0.0 (Fri Mar 15 2024)
+
+#### 🚀 Enhancement
+
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Fix tests ([@Ariflo](https://github.com/Ariflo))
+- WIP ([@Ariflo](https://github.com/Ariflo))
+- Update testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- Update expo rn sdk to match bare ([@Ariflo](https://github.com/Ariflo))
+- Shrink code syntax ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Throw ResponseTimeout SDK Error for responses that take more than 5 seconds ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
+# v27.0.0 (Sat Mar 09 2024)
+
+#### 🚀 Enhancement
+
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Fix tests ([@Ariflo](https://github.com/Ariflo))
+- WIP ([@Ariflo](https://github.com/Ariflo))
+- Update testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- Update expo rn sdk to match bare ([@Ariflo](https://github.com/Ariflo))
+- Shrink code syntax ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Throw ResponseTimeout SDK Error for responses that take more than 5 seconds ([@Ariflo](https://github.com/Ariflo))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
+# v26.0.0 (Thu Feb 29 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
+# v25.0.0 (Tue Feb 27 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+
+#### Authors: 1
+
+- Magic Labs (team@magic.link)
+
+---
+
+# v23.1.1 (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-253-whitelabel-update-email-with-ui-missing-event-when-email-address-already-in-use ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v23.0.1 (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+- force update readme to bump all versions ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.5.0 (Tue Jan 02 2024)
+
+#### 🐛 Bug Fix
+
+- Revert changes to react-native-expo ([@romin-halltari](https://github.com/romin-halltari))
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and ([@romin-halltari](https://github.com/romin-halltari))
+- Use storage for faster calls to isLoggedIn for both mobile and web ([@romin-halltari](https://github.com/romin-halltari))
+- Revert changes to react-native-bare ([@romin-halltari](https://github.com/romin-halltari))
+- [expo] add unit tests for storage cache changes ([@romin-halltari](https://github.com/romin-halltari))
+- Remove unnecessary promiEvent variable ([@romin-halltari](https://github.com/romin-halltari))
+- Fix: add options argument to createMagicSDK ([@romin-halltari](https://github.com/romin-halltari))
+- Use storage for faster calls to isLoggedIn ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v22.4.1 (Fri Dec 15 2023)
+
+#### 🐛 Bug Fix
+
+- Fix multiple network setups for React Native SDKs [#687](https://github.com/magiclabs/magic-js/pull/687) ([@romin-halltari](https://github.com/romin-halltari))
+- Merge branch 'master' into rominhalltari-sc-91530-investigate-and-provide-solution-for-issue ([@romin-halltari](https://github.com/romin-halltari))
+- Reset isReadyForRequest to false when webview is unmounted on React Native SDKs ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v22.4.0 (Thu Dec 14 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into split-key-device-share ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# v22.3.4 (Wed Nov 29 2023)
+
+#### 🐛 Bug Fix
+
+- Fix: increase netinfo version range [#677](https://github.com/magiclabs/magic-js/pull/677) ([@romin-halltari](https://github.com/romin-halltari))
+- bump patch version for react native SDKs ([@romin-halltari](https://github.com/romin-halltari))
+- Increase version range for "@react-native-community/netinfo" ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v22.3.2 (Tue Nov 28 2023)
+
+#### 🐛 Bug Fix
+
+- Fix: Allow implementers of `view-controller` to set if it's connected to the internet, and reject requests when `isConnectedToInternet` is `false` [#673](https://github.com/magiclabs/magic-js/pull/673) ([@romin-halltari](https://github.com/romin-halltari))
+- Bump patch versions ([@romin-halltari](https://github.com/romin-halltari))
+- Set isConnectedToInternet with value coming from @react-native-community/netinfo ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v22.3.0 (Mon Nov 20 2023)
+
+#### 🚀 Enhancement
+
+- Add `useInternetConnection` hook to track internet connectivity changes [#665](https://github.com/magiclabs/magic-js/pull/665) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- Use createModalNotReadyError() when modal is not ready on react native ([@romin-halltari](https://github.com/romin-halltari))
+- Update readme ([@romin-halltari](https://github.com/romin-halltari))
+- Merge branch 'master' into rominhalltari-sc-75722-react-native-sdk-add-support-for-general ([@romin-halltari](https://github.com/romin-halltari))
+- Remove unnecessary comments ([@romin-halltari](https://github.com/romin-halltari))
+- add tests for useInternetConnection hook ([@romin-halltari](https://github.com/romin-halltari))
+- Setup testing with react-test-renderer and @testing-library/react-native ([@romin-halltari](https://github.com/romin-halltari))
+- Update readme with installation step for @react-native-community/netinfo ([@romin-halltari](https://github.com/romin-halltari))
+- Add `useInternetConnection` hook to track internet connectivity changes ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v22.2.2 (Tue Nov 14 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into injectable-webcrypto-jwt-for-session-persistence ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# v22.2.1 (Wed Nov 08 2023)
+
+#### 🐛 Bug Fix
+
+- Adds optional backgroundColor prop to Relayer component [#661](https://github.com/magiclabs/magic-js/pull/661) ([@romin-halltari](https://github.com/romin-halltari))
+- Merge branch 'master' into rominhalltari-sc-70361-react-native-sdks-react-native-safeareaview ([@romin-halltari](https://github.com/romin-halltari))
+- Fix: add optional backgroundColor prop to relayer to fix issue with SafeAreaView showing background because it is transparent. ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v22.2.0 (Tue Oct 24 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-support-sepolia-natively ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v22.0.0 (Fri Oct 13 2023)
 
 #### 🐛 Bug Fix

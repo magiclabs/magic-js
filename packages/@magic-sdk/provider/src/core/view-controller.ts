@@ -4,12 +4,19 @@ import {
   JsonRpcRequestPayload,
   MagicMessageEvent,
   MagicMessageRequest,
+  SDKWarningCode,
 } from '@magic-sdk/types';
 import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
 import { getItem, setItem } from '../util/storage';
 import { createJwt } from '../util/web-crypto';
 import { SDKEnvironment } from './sdk-environment';
+import { MagicSDKWarning, createModalNotReadyError } from './sdk-exceptions';
+import {
+  clearDeviceShares,
+  encryptAndPersistDeviceShare,
+  getDecryptedDeviceShare,
+} from '../util/device-share-web-crypto';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -18,6 +25,14 @@ interface RemoveEventListenerFunction {
 interface StandardizedResponse {
   id?: string | number;
   response?: JsonRpcResponse;
+}
+
+interface StandardizedMagicRequest {
+  msgType: string;
+  payload: JsonRpcRequestPayload<any> | JsonRpcRequestPayload<any>[];
+  jwt?: string;
+  rt?: string;
+  deviceShare?: string;
 }
 
 /**
@@ -55,28 +70,39 @@ function standardizeResponse(
   return {};
 }
 
-async function createMagicRequest(msgType: string, payload: JsonRpcRequestPayload | JsonRpcRequestPayload[]) {
+async function createMagicRequest(
+  msgType: string,
+  payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
+  networkHash: string,
+) {
   const rt = await getItem<string>('rt');
   let jwt;
 
   // only for webcrypto platforms
   if (SDKEnvironment.platform === 'web') {
     try {
-      jwt = await createJwt();
+      jwt = (await getItem<string>('jwt')) ?? (await createJwt());
     } catch (e) {
       console.error('webcrypto error', e);
     }
   }
 
-  if (!jwt) {
-    return { msgType, payload };
+  const request: StandardizedMagicRequest = { msgType, payload };
+
+  if (jwt) {
+    request.jwt = jwt;
+  }
+  if (jwt && rt) {
+    request.rt = rt;
   }
 
-  if (!rt) {
-    return { msgType, payload, jwt };
+  // Grab the device share if it exists for the network
+  const decryptedDeviceShare = await getDecryptedDeviceShare(networkHash);
+  if (decryptedDeviceShare) {
+    request.deviceShare = decryptedDeviceShare;
   }
 
-  return { msgType, payload, jwt, rt };
+  return request;
 }
 
 async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
@@ -88,8 +114,10 @@ async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
 }
 
 export abstract class ViewController {
-  public ready: Promise<void>;
+  public checkIsReadyForRequest: Promise<void>;
+  public isReadyForRequest: boolean;
   protected readonly messageHandlers = new Set<(event: MagicMessageEvent) => any>();
+  protected isConnectedToInternet = true;
 
   /**
    * Create an instance of `ViewController`
@@ -97,9 +125,16 @@ export abstract class ViewController {
    * @param endpoint - The URL for the relevant iframe context.
    * @param parameters - The unique, encoded query parameters for the
    * relevant iframe context.
+   * @param networkHash - The hash of the network that this sdk instance is connected to
+   * for multi-chain scenarios
    */
-  constructor(protected readonly endpoint: string, protected readonly parameters: string) {
-    this.ready = this.waitForReady();
+  constructor(
+    protected readonly endpoint: string,
+    protected readonly parameters: string,
+    protected readonly networkHash: string,
+  ) {
+    this.checkIsReadyForRequest = this.waitForReady();
+    this.isReadyForRequest = false;
     this.listen();
   }
 
@@ -129,12 +164,19 @@ export abstract class ViewController {
     msgType: MagicOutgoingWindowMessage,
     payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
-    return createPromise(async (resolve) => {
-      await this.ready;
+    return createPromise(async (resolve, reject) => {
+      if (!this.isConnectedToInternet) {
+        const error = createModalNotReadyError();
+        reject(error);
+      }
+
+      if (!this.isReadyForRequest) {
+        await this.waitForReady();
+      }
 
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
-      const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload);
+      const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload, this.networkHash);
 
       await this._post(msg);
 
@@ -144,7 +186,12 @@ export abstract class ViewController {
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
         const { id, response } = standardizeResponse(payload, event);
         persistMagicEventRefreshToken(event);
-
+        if (response?.payload.error?.message === 'User denied account access.') {
+          clearDeviceShares();
+        } else if (event.data.deviceShare) {
+          const { deviceShare } = event.data;
+          encryptAndPersistDeviceShare(deviceShare, this.networkHash);
+        }
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
           batchData.push(response);
 
@@ -194,7 +241,11 @@ export abstract class ViewController {
 
   private waitForReady() {
     return new Promise<void>((resolve) => {
-      this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => resolve());
+      const unsubscribe = this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
+        this.isReadyForRequest = true;
+        resolve();
+        unsubscribe();
+      });
     });
   }
 
@@ -208,6 +259,12 @@ export abstract class ViewController {
 
     this.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
       this.showOverlay();
+    });
+
+    this.on(MagicIncomingWindowMessage.MAGIC_SEND_PRODUCT_ANNOUNCEMENT, (event: MagicMessageEvent) => {
+      if (event.data.response.result.product_announcement) {
+        new MagicSDKWarning(SDKWarningCode.ProductAnnouncement, event.data.response.result.product_announcement).log();
+      }
     });
   }
 }

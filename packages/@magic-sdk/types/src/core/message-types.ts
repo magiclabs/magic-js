@@ -7,6 +7,7 @@ export enum MagicIncomingWindowMessage {
   MAGIC_HIDE_OVERLAY = 'MAGIC_HIDE_OVERLAY',
   MAGIC_HANDLE_EVENT = 'MAGIC_HANDLE_EVENT',
   MAGIC_MG_BOX_SEND_RECEIPT = 'MAGIC_MG_BOX_SEND_RECEIPT',
+  MAGIC_SEND_PRODUCT_ANNOUNCEMENT = 'MAGIC_SEND_PRODUCT_ANNOUNCEMENT',
 }
 
 export enum MagicOutgoingWindowMessage {
@@ -19,6 +20,7 @@ export interface MagicMessageRequest {
   payload: JsonRpcRequestPayload | JsonRpcRequestPayload[];
   rt?: string;
   jwt?: string;
+  deviceShare?: string;
 }
 
 /** The shape of responding window message datas from the Magic iframe context. */
@@ -26,6 +28,7 @@ export interface MagicMessageResponse<ResultType = any> {
   msgType: string;
   response: Partial<JsonRpcError> & Partial<JsonRpcResponsePayload<ResultType>>;
   rt?: string;
+  deviceShare?: string;
 }
 
 /** The expected message event returned by the Magic iframe context. */

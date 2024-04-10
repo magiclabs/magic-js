@@ -59,3 +59,4 @@ const DID = await magic.openid.loginWithOIDC({
 const web3 = new Web3(magic.rpcProvider);
 await web3.eth.getAccounts();
 ```
+

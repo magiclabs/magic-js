@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Linking, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,9 +6,11 @@ import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
 import Global = NodeJS.Global;
+import { useInternetConnection } from './hooks';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
+const DEFAULT_BACKGROUND_COLOR = '#FFFFFF';
 
 /**
  * Builds the Magic `<WebView>` overlay styles. These base styles enable
@@ -76,8 +78,19 @@ export class ReactNativeWebViewController extends ViewController {
   // is sufficient (this logic is stable right now and not expected to change in
   // the forseeable future).
   /* istanbul ignore next */
-  public Relayer: React.FC = () => {
+  public Relayer: React.FC<{ backgroundColor?: string }> = (backgroundColor) => {
     const [show, setShow] = useState(false);
+    const isConnected = useInternetConnection();
+
+    useEffect(() => {
+      this.isConnectedToInternet = isConnected;
+    }, [isConnected]);
+
+    useEffect(() => {
+      return () => {
+        this.isReadyForRequest = false;
+      };
+    }, []);
 
     /**
      * Saves a reference to the underlying `<WebView>` node so we can interact
@@ -114,7 +127,15 @@ export class ReactNativeWebViewController extends ViewController {
     }, []);
 
     const containerStyles = useMemo(() => {
-      return [this.styles['webview-container'], show ? this.styles.show : this.styles.hide];
+      return [
+        this.styles['webview-container'],
+        show
+          ? {
+              ...this.styles.show,
+              backgroundColor: backgroundColor ?? DEFAULT_BACKGROUND_COLOR,
+            }
+          : this.styles.hide,
+      ];
     }, [show]);
 
     const handleWebViewMessage = useCallback((event: any) => {

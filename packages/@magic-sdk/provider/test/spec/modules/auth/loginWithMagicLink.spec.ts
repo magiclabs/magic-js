@@ -1,11 +1,13 @@
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 
 import browserEnv from '@ikscodes/browser-env';
-import { MagicPayloadMethod } from '@magic-sdk/types';
+import { MagicPayloadMethod, SDKWarningCode } from '@magic-sdk/types';
 
 import { SDKEnvironment } from '../../../../src/core/sdk-environment';
 import { isPromiEvent } from '../../../../src/util';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
+import * as SdkExceptions from '../../../../src/core/sdk-exceptions';
+import { ProductConsolidationMethodRemovalVersions } from '../../../../src/modules/auth';
 
 beforeEach(() => {
   browserEnv.restore();
@@ -96,4 +98,26 @@ test('Throws error when the SDK version is 19 or higher', async () => {
       'loginWithMagicLink() is deprecated for this package, please utlize a passcode method like loginWithSMS or loginWithEmailOTP instead.',
     );
   }
+});
+
+test('Creates deprecation warning if ran on a react native environment with version < 19', async () => {
+  const magic = createMagicSDK();
+  magic.auth.request = jest.fn();
+  const deprecationWarnStub = jest.spyOn(SdkExceptions, 'createDeprecationWarning').mockReturnValue({
+    log: jest.fn(),
+    message: 'test',
+    code: SDKWarningCode.DeprecationNotice,
+    rawMessage: 'test',
+  });
+
+  // Set SDKEnvironment version to 18
+  SDKEnvironment.version = '18';
+  SDKEnvironment.sdkName = '@magic-sdk/react-native';
+
+  await magic.auth.loginWithMagicLink({ email: 'test' });
+  expect(deprecationWarnStub).toHaveBeenCalledWith({
+    method: 'auth.loginWithMagicLink()',
+    removalVersions: ProductConsolidationMethodRemovalVersions,
+    useInstead: 'auth.loginWithEmailOTP()',
+  });
 });

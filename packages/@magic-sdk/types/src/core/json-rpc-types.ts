@@ -120,4 +120,5 @@ export enum MagicPayloadMethod {
   ShowAddress = 'magic_show_address',
   ShowBalances = 'magic_show_balances',
   SendGaslessTransaction = 'eth_sendGaslessTransaction',
+  RevealPK = 'magic_reveal_key',
 }

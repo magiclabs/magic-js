@@ -1,3 +1,414 @@
+# v28.0.2 (Mon Apr 01 2024)
+
+#### 🐛 Bug Fix
+
+- rebuild rpc types [#736](https://github.com/magiclabs/magic-js/pull/736) ([@joshuascan](https://github.com/joshuascan))
+- rename reveal PK type ([@joshuascan](https://github.com/joshuascan))
+
+#### ⚠️ Pushed to `master`
+
+- Revert "test" ([@joshuascan](https://github.com/joshuascan))
+- test ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v28.0.1 (Sat Mar 23 2024)
+
+#### 🐛 Bug Fix
+
+- readme edit [#732](https://github.com/magiclabs/magic-js/pull/732) ([@joshuascan](https://github.com/joshuascan))
+- readme edit ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v28.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+- Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+- Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Add an option for crypto-checkout [#727](https://github.com/magiclabs/magic-js/pull/727) ([@octave08](https://github.com/octave08))
+- Add an option for crypto checkout ([@octave08](https://github.com/octave08))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- Make messageId a number ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Adds createResponseTimeoutError to SDK error factories ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Update tests ([@Ariflo](https://github.com/Ariflo))
+- Update ViewController Listener and types to push log when product_announcement avaliable ([@Ariflo](https://github.com/Ariflo))
+- Removes updates to createDeprecationWarning ([@Ariflo](https://github.com/Ariflo))
+- Adds more Test coverage ([@Ariflo](https://github.com/Ariflo))
+- Update Tests ([@Ariflo](https://github.com/Ariflo))
+- Adds new deprecation warning to provider ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+- adds tests ([@joshuascan](https://github.com/joshuascan))
+- adds reveal key method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 5
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
+# v27.0.0 (Fri Mar 15 2024)
+
+#### 🚀 Enhancement
+
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+- Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+- Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- Make messageId a number ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Adds createResponseTimeoutError to SDK error factories ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Update tests ([@Ariflo](https://github.com/Ariflo))
+- Update ViewController Listener and types to push log when product_announcement avaliable ([@Ariflo](https://github.com/Ariflo))
+- Removes updates to createDeprecationWarning ([@Ariflo](https://github.com/Ariflo))
+- Adds more Test coverage ([@Ariflo](https://github.com/Ariflo))
+- Update Tests ([@Ariflo](https://github.com/Ariflo))
+- Adds new deprecation warning to provider ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
+# v26.0.0 (Sat Mar 09 2024)
+
+#### 🚀 Enhancement
+
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+- Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+- Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- Make messageId a number ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Adds createResponseTimeoutError to SDK error factories ([@Ariflo](https://github.com/Ariflo))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Update tests ([@Ariflo](https://github.com/Ariflo))
+- Update ViewController Listener and types to push log when product_announcement avaliable ([@Ariflo](https://github.com/Ariflo))
+- Removes updates to createDeprecationWarning ([@Ariflo](https://github.com/Ariflo))
+- Adds more Test coverage ([@Ariflo](https://github.com/Ariflo))
+- Update Tests ([@Ariflo](https://github.com/Ariflo))
+- Adds new deprecation warning to provider ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
+# v25.0.0 (Thu Feb 29 2024)
+
+#### 🚀 Enhancement
+
+- Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+- Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Update tests ([@Ariflo](https://github.com/Ariflo))
+- Update ViewController Listener and types to push log when product_announcement avaliable ([@Ariflo](https://github.com/Ariflo))
+- Removes updates to createDeprecationWarning ([@Ariflo](https://github.com/Ariflo))
+- Adds more Test coverage ([@Ariflo](https://github.com/Ariflo))
+- Update Tests ([@Ariflo](https://github.com/Ariflo))
+- Adds new deprecation warning to provider ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
+# v24.0.0 (Tue Feb 27 2024)
+
+#### 🚀 Enhancement
+
+- Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+- Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update tests ([@Ariflo](https://github.com/Ariflo))
+- Update ViewController Listener and types to push log when product_announcement avaliable ([@Ariflo](https://github.com/Ariflo))
+- Removes updates to createDeprecationWarning ([@Ariflo](https://github.com/Ariflo))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Adds more Test coverage ([@Ariflo](https://github.com/Ariflo))
+- Update Tests ([@Ariflo](https://github.com/Ariflo))
+- Adds new deprecation warning to provider ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
+# v23.0.0 (Mon Feb 26 2024)
+
+#### 🚀 Enhancement
+
+- Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Adds more Test coverage ([@Ariflo](https://github.com/Ariflo))
+- Update Tests ([@Ariflo](https://github.com/Ariflo))
+- Adds new deprecation warning to provider ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# v22.1.1 (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-253-whitelabel-update-email-with-ui-missing-event-when-email-address-already-in-use ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v22.1.0 (Fri Feb 09 2024)
+
+#### 🚀 Enhancement
+
+- [FEAT]: adding meta field to @magic-sdk magic constructor [#708](https://github.com/magiclabs/magic-js/pull/708) ([@bengriffin1](https://github.com/bengriffin1))
+
+#### 🐛 Bug Fix
+
+- [FEAT]: adding meta field to @magic-sdk magic constructor ([@bengriffin1](https://github.com/bengriffin1))
+
+#### Authors: 1
+
+- Ben Griffin ([@bengriffin1](https://github.com/bengriffin1))
+
+---
+
+# v22.0.1 (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+- force update readme to bump all versions ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.0.0 (Sat Jan 20 2024)
+
+#### 💥 Breaking Change
+
+- Enable whitelabel for updateEmail flow [#700](https://github.com/magiclabs/magic-js/pull/700) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- add unit tests ([@Ethella](https://github.com/Ethella))
+- remove update email test cases ([@Ethella](https://github.com/Ethella))
+- Fix missing type ([@Ethella](https://github.com/Ethella))
+- Add VerifyEmailOTP events ([@Ethella](https://github.com/Ethella))
+- Add Recency Check events and UpdateEmail Events ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v21.5.0 (Tue Jan 02 2024)
+
+#### 🚀 Enhancement
+
+- Use storage for faster calls to `isLoggedIn` on mobile [#689](https://github.com/magiclabs/magic-js/pull/689) ([@romin-halltari](https://github.com/romin-halltari) rominhalltari@rohat92phx.lan)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and (rominhalltari@rohat92phx.lan)
+- Add unit test about deprecation warning to increase test coverage ([@romin-halltari](https://github.com/romin-halltari))
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and ([@romin-halltari](https://github.com/romin-halltari))
+- Flatten if condition ([@romin-halltari](https://github.com/romin-halltari))
+- Rename is_logged_in -> magic_auth_is_logged_in ([@romin-halltari](https://github.com/romin-halltari))
+- Check if useStorageCache is true ([@romin-halltari](https://github.com/romin-halltari))
+- Use storage for faster calls to isLoggedIn for both mobile and web ([@romin-halltari](https://github.com/romin-halltari))
+- Use storage for faster calls to isLoggedIn ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Romin Halltari (rominhalltari@rohat92phx.lan)
+
+---
+
+# v21.4.1 (Fri Dec 15 2023)
+
+#### 🐛 Bug Fix
+
+- Fix multiple network setups for React Native SDKs [#687](https://github.com/magiclabs/magic-js/pull/687) ([@romin-halltari](https://github.com/romin-halltari))
+- Fix tests ([@romin-halltari](https://github.com/romin-halltari))
+- Merge branch 'master' into rominhalltari-sc-91530-investigate-and-provide-solution-for-issue ([@romin-halltari](https://github.com/romin-halltari))
+- Fix: waitForReady() if the controller is not ready for requests, instead of using checkIsReadyForRequest when isReadyForRequest is false ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v21.4.0 (Thu Dec 14 2023)
+
+#### 🚀 Enhancement
+
+- Split key device share [#678](https://github.com/magiclabs/magic-js/pull/678) ([@Dizigen](https://github.com/Dizigen))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into split-key-device-share ([@Dizigen](https://github.com/Dizigen))
+- update comment for format of the device share ([@Dizigen](https://github.com/Dizigen))
+- store the iv directly ([@Dizigen](https://github.com/Dizigen))
+- add asserts for the unit tests ([@Dizigen](https://github.com/Dizigen))
+- update implementation to not deal directly with non-base64 encoded strings ([@Dizigen](https://github.com/Dizigen))
+- update tests ([@Dizigen](https://github.com/Dizigen))
+- add test coverage ([@Dizigen](https://github.com/Dizigen))
+- refactor code to move device logic out of view controller ([@Dizigen](https://github.com/Dizigen))
+- move the device share retrieval into the lib itself. ([@Dizigen](https://github.com/Dizigen))
+- use existing iv and ek to encrypt and decrypt other multichain keys ([@Dizigen](https://github.com/Dizigen))
+- await iterate ([@Dizigen](https://github.com/Dizigen))
+- add more log lines to debug multichain error ([@Dizigen](https://github.com/Dizigen))
+- make sure to clear all device share keys at once ([@Dizigen](https://github.com/Dizigen))
+- remove log lines ([@Dizigen](https://github.com/Dizigen))
+- debugging why deviceShare is not emitted in the payload ([@Dizigen](https://github.com/Dizigen))
+- add device share to magic message request ([@Dizigen](https://github.com/Dizigen))
+- debug device share retrieval ([@Dizigen](https://github.com/Dizigen))
+- fix the way the iv is retrieved ([@Dizigen](https://github.com/Dizigen))
+- correctly encodes and stores the device share ([@Dizigen](https://github.com/Dizigen))
+- clear device shares when user denies account access + disconnects ([@Dizigen](https://github.com/Dizigen))
+- network hash implementation ([@Dizigen](https://github.com/Dizigen))
+- use console.warn so the test makes it to the console output ([@Dizigen](https://github.com/Dizigen))
+- implementation for device share + debug line for extConfig ([@Dizigen](https://github.com/Dizigen))
+- device share encryption, decryption, store, retrieve implementation ([@Dizigen](https://github.com/Dizigen))
+- add setting and retrieving device share ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# v21.3.1 (Tue Nov 28 2023)
+
+#### 🐛 Bug Fix
+
+- Fix: Allow implementers of `view-controller` to set if it's connected to the internet, and reject requests when `isConnectedToInternet` is `false` [#673](https://github.com/magiclabs/magic-js/pull/673) ([@romin-halltari](https://github.com/romin-halltari))
+- Fix: Remove check for isReadyForRequest, add isConnectedToInternet ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v21.3.0 (Mon Nov 20 2023)
+
+#### 🚀 Enhancement
+
+- Add `useInternetConnection` hook to track internet connectivity changes [#665](https://github.com/magiclabs/magic-js/pull/665) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- Use createModalNotReadyError() when modal is not ready on react native ([@romin-halltari](https://github.com/romin-halltari))
+- Rename: ready -> checkIsReadyForRequest and isReady -> isReadyForRequest ([@romin-halltari](https://github.com/romin-halltari))
+- add tests ([@romin-halltari](https://github.com/romin-halltari))
+- Do now wait for ready promise on a react native environment, as it never resolves when there's no internet connection ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v21.2.1 (Tue Nov 14 2023)
+
+#### 🐛 Bug Fix
+
+- Injectable webcrypto jwt for session persistence [#635](https://github.com/magiclabs/magic-js/pull/635) ([@Dizigen](https://github.com/Dizigen))
+- Merge branch 'master' into injectable-webcrypto-jwt-for-session-persistence ([@Dizigen](https://github.com/Dizigen))
+- update unit tests ([@Dizigen](https://github.com/Dizigen))
+- have the jwt itself be injectable via indexedDB ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# v21.2.0 (Tue Oct 24 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-support-sepolia-natively ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v21.1.0 (Thu Oct 19 2023)
 
 #### 🚀 Enhancement

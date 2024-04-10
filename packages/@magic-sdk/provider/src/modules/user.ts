@@ -3,25 +3,21 @@ import {
   MagicPayloadMethod,
   MagicUserMetadata,
   GenerateIdTokenConfiguration,
-  UpdateEmailConfiguration,
   UserInfo,
   RequestUserInfoScope,
   RecoverAccountConfiguration,
   ShowSettingsConfiguration,
 } from '@magic-sdk/types';
-import { getItem, removeItem } from '../util/storage';
+import { getItem, setItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
+import { clearDeviceShares } from '../util/device-share-web-crypto';
+import { createPromiEvent } from '../util';
 
-export type UpdateEmailEvents = {
-  'email-sent': () => void;
-  'email-not-deliverable': () => void;
-  'old-email-confirmed': () => void;
-  'new-email-confirmed': () => void;
-  retry: () => void;
-};
+type UserLoggedOutCallback = (loggedOut: boolean) => void;
+
 export class UserModule extends BaseModule {
   public getIdToken(configuration?: GetIdTokenConfiguration) {
     const requestPayload = createJsonRpcRequestPayload(
@@ -46,18 +42,59 @@ export class UserModule extends BaseModule {
   }
 
   public isLoggedIn() {
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.IsLoggedInTestMode : MagicPayloadMethod.IsLoggedIn,
-    );
-    return this.request<boolean>(requestPayload);
+    return createPromiEvent<boolean, any>(async (resolve, reject) => {
+      try {
+        let cachedIsLoggedIn = false;
+        if (this.sdk.useStorageCache) {
+          cachedIsLoggedIn = (await getItem(this.localForageIsLoggedInKey)) === 'true';
+
+          // if isLoggedIn is true on storage, optimistically resolve with true
+          // if it is false, we use `usr.isLoggedIn` as the source of truth.
+          if (cachedIsLoggedIn) {
+            resolve(true);
+          }
+        }
+
+        const requestPayload = createJsonRpcRequestPayload(
+          this.sdk.testMode ? MagicPayloadMethod.IsLoggedInTestMode : MagicPayloadMethod.IsLoggedIn,
+        );
+        const isLoggedInResponse = await this.request<boolean>(requestPayload);
+        if (this.sdk.useStorageCache) {
+          if (isLoggedInResponse) {
+            setItem(this.localForageIsLoggedInKey, true);
+          } else {
+            removeItem(this.localForageIsLoggedInKey);
+          }
+          if (cachedIsLoggedIn && !isLoggedInResponse) {
+            this.emitUserLoggedOut(true);
+          }
+        }
+        resolve(isLoggedInResponse);
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
   public logout() {
     removeItem(this.localForageKey);
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
-    );
-    return this.request<boolean>(requestPayload);
+    removeItem(this.localForageIsLoggedInKey);
+    clearDeviceShares();
+
+    return createPromiEvent<boolean, any>(async (resolve, reject) => {
+      try {
+        const requestPayload = createJsonRpcRequestPayload(
+          this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
+        );
+        const response = await this.request<boolean>(requestPayload);
+        if (this.sdk.useStorageCache) {
+          this.emitUserLoggedOut(response);
+        }
+        resolve(response);
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
   /* Request email address from logged in user */
@@ -82,6 +119,11 @@ export class UserModule extends BaseModule {
     return this.request<boolean | null>(requestPayload);
   }
 
+  public revealPrivateKey() {
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPK);
+    return this.request<boolean>(requestPayload);
+  }
+
   // Deprecating
   public getMetadata() {
     createDeprecationWarning({
@@ -95,21 +137,18 @@ export class UserModule extends BaseModule {
     return this.request<MagicUserMetadata>(requestPayload);
   }
 
-  // Deprecating
-  public updateEmail(configuration: UpdateEmailConfiguration) {
-    createDeprecationWarning({
-      method: 'user.updateEmail()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: 'auth.updateEmailWithUI()',
-    }).log();
-    const { email, showUI = true } = configuration;
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.UpdateEmailTestMode : MagicPayloadMethod.UpdateEmail,
-      [{ email, showUI }],
-    );
-    return this.request<string | null, UpdateEmailEvents>(requestPayload);
+  public onUserLoggedOut(callback: UserLoggedOutCallback): void {
+    this.userLoggedOutCallbacks.push(callback);
   }
 
   // Private members
+  private emitUserLoggedOut(loggedOut: boolean): void {
+    this.userLoggedOutCallbacks.forEach((callback) => {
+      callback(loggedOut);
+    });
+  }
+
   private localForageKey = 'mc_active_wallet';
+  private localForageIsLoggedInKey = 'magic_auth_is_logged_in';
+  private userLoggedOutCallbacks: UserLoggedOutCallback[] = [];
 }
