@@ -1,4 +1,4 @@
-export type NFTResponseStatus = 'cancelled' | 'processed' | 'declined' | 'expired';
+export type NFTResponseStatus = 'cancelled' | 'pending' | 'processed' | 'declined' | 'expired';
 
 export type NFTResponse = {
   status: NFTResponseStatus;
@@ -44,6 +44,8 @@ export interface NFTCheckoutRequest {
   imageUrl: string;
   quantity?: number; // default is 1
   walletAddress?: string; // default is user's wallet address
+  // If enabled, the user will be able to pay with crypto. the default is false
+  isCryptoCheckoutEnabled?: boolean;
 }
 
 export type NFTCheckoutResponse = NFTResponse;

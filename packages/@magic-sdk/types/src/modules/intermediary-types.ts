@@ -21,7 +21,7 @@ export type IntermediaryEvents =
   // Device Verification
   | `${DeviceVerificationEventEmit}`
   | `${DeviceVerificationEventOnReceived}`
-    // Recency Check
+  // Recency Check
   | `${RecencyCheckEventEmit}`
   | `${RecencyCheckEventOnReceived}`
   // Update Email Events

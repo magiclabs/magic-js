@@ -118,6 +118,7 @@ export interface MagicSDKAdditionalConfiguration<
   testMode?: boolean;
   deferPreload?: boolean;
   useStorageCache?: boolean;
+  meta?: any; // Generic field for clients to add metadata
 }
 
 export class SDKBase {
@@ -193,6 +194,7 @@ export class SDKBase {
       ext: isEmpty(extConfig) ? undefined : extConfig,
       locale: options?.locale || 'en_US',
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
+      meta: options?.meta,
     });
     this.networkHash = getNetworkHash(this.apiKey, options?.network, isEmpty(extConfig) ? undefined : extConfig);
     if (!options?.deferPreload) this.preload();

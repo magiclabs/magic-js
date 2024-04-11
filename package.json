@@ -11,7 +11,7 @@
     "lint": "$INIT_CWD/scripts/bin/lint.ts",
     "test": "$INIT_CWD/scripts/bin/test.ts",
     "scaffold": "$INIT_CWD/scripts/bin/scaffold/run.tsx",
-    "postinstall": "husky install && lerna link"
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@ikscodes/browser-env": "~0.3.1",
@@ -30,7 +30,7 @@
     "@types/tsc-watch": "^4.2.0",
     "@types/whatwg-url": "^6.4.0",
     "@typescript-eslint/eslint-plugin": "~3.4.0",
-    "auto": "^10.31.0",
+    "auto": "^11.1.2",
     "babel-jest": "^27.0.6",
     "brotli-size": "^4.0.0",
     "chalk": "~4.1.2",
@@ -50,7 +50,7 @@
     "inquirer": "^8.1.2",
     "is-ci": "^3.0.0",
     "jest": "^27.0.6",
-    "lerna": "^3.21.0",
+    "lerna": "8.0.2",
     "lint-staged": "^10.0.7",
     "lodash": "^4.17.21",
     "meow": "9.0.0",

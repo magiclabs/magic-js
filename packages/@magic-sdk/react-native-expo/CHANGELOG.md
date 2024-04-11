@@ -1,3 +1,149 @@
+# v29.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Fix tests ([@Ariflo](https://github.com/Ariflo))
+- WIP ([@Ariflo](https://github.com/Ariflo))
+- Update testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- Update expo rn sdk to match bare ([@Ariflo](https://github.com/Ariflo))
+- Shrink code syntax ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Throw ResponseTimeout SDK Error for responses that take more than 5 seconds ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 4
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
+# v28.0.0 (Fri Mar 15 2024)
+
+#### 🚀 Enhancement
+
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Fix tests ([@Ariflo](https://github.com/Ariflo))
+- WIP ([@Ariflo](https://github.com/Ariflo))
+- Update testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- Update expo rn sdk to match bare ([@Ariflo](https://github.com/Ariflo))
+- Shrink code syntax ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Throw ResponseTimeout SDK Error for responses that take more than 5 seconds ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
+# v27.0.0 (Sat Mar 09 2024)
+
+#### 🚀 Enhancement
+
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Fix tests ([@Ariflo](https://github.com/Ariflo))
+- WIP ([@Ariflo](https://github.com/Ariflo))
+- Update testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- Update expo rn sdk to match bare ([@Ariflo](https://github.com/Ariflo))
+- Shrink code syntax ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Throw ResponseTimeout SDK Error for responses that take more than 5 seconds ([@Ariflo](https://github.com/Ariflo))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
+# v26.0.0 (Thu Feb 29 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
+# v25.0.0 (Tue Feb 27 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+
+#### Authors: 1
+
+- Magic Labs (team@magic.link)
+
+---
+
+# v23.1.1 (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-253-whitelabel-update-email-with-ui-missing-event-when-email-address-already-in-use ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v23.0.1 (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+- force update readme to bump all versions ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v22.5.0 (Tue Jan 02 2024)
 
 #### 🐛 Bug Fix

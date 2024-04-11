@@ -4,13 +4,14 @@ import {
   JsonRpcRequestPayload,
   MagicMessageEvent,
   MagicMessageRequest,
+  SDKWarningCode,
 } from '@magic-sdk/types';
 import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
 import { getItem, setItem } from '../util/storage';
 import { createJwt } from '../util/web-crypto';
 import { SDKEnvironment } from './sdk-environment';
-import { createModalNotReadyError } from './sdk-exceptions';
+import { MagicSDKWarning, createModalNotReadyError } from './sdk-exceptions';
 import {
   clearDeviceShares,
   encryptAndPersistDeviceShare,
@@ -258,6 +259,12 @@ export abstract class ViewController {
 
     this.on(MagicIncomingWindowMessage.MAGIC_SHOW_OVERLAY, () => {
       this.showOverlay();
+    });
+
+    this.on(MagicIncomingWindowMessage.MAGIC_SEND_PRODUCT_ANNOUNCEMENT, (event: MagicMessageEvent) => {
+      if (event.data.response.result.product_announcement) {
+        new MagicSDKWarning(SDKWarningCode.ProductAnnouncement, event.data.response.result.product_announcement).log();
+      }
     });
   }
 }

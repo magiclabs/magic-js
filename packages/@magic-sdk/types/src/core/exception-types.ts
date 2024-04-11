@@ -12,6 +12,7 @@ export enum SDKWarningCode {
   DuplicateIframe = 'DUPLICATE_IFRAME',
   ReactNativeEndpointConfiguration = 'REACT_NATIVE_ENDPOINT_CONFIGURATION',
   DeprecationNotice = 'DEPRECATION_NOTICE',
+  ProductAnnouncement = 'ANNOUNCEMENT',
 }
 
 export enum RPCErrorCode {

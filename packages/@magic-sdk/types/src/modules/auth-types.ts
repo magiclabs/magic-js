@@ -167,6 +167,7 @@ export type UpdateEmailEventHandlers = {
   [UpdateEmailEventOnReceived.EmailExpired]: () => void;
   [UpdateEmailEventOnReceived.EmailSent]: () => void;
   [UpdateEmailEventOnReceived.InvalidEmail]: () => void;
+  [UpdateEmailEventOnReceived.EmailAlreadyExists]: () => void;
 
   [UpdateEmailEventEmit.Cancel]: () => void;
   [UpdateEmailEventEmit.RetryWithNewEmail]: (email?: string) => void;
@@ -202,4 +203,5 @@ export enum UpdateEmailEventOnReceived {
   EmailSent = 'UpdateEmail/new-email-verification-email-sent',
   EmailNotDeliverable = 'UpdateEmail/new-email-verification-email-not-deliverable',
   InvalidEmail = 'UpdateEmail/new-email-invalid',
+  EmailAlreadyExists = 'UpdateEmail/new-email-already-exists',
 }
