@@ -1,3 +1,19 @@
+# v28.0.3 (Thu Apr 11 2024)
+
+#### 🐛 Bug Fix
+
+- allow clipboard access for the iframe [#704](https://github.com/magiclabs/magic-js/pull/704) ([@Dizigen](https://github.com/Dizigen) [@bcleary06](https://github.com/bcleary06))
+- Merge branch 'master' into dh-allow-clipboard ([@bcleary06](https://github.com/bcleary06))
+- Merge branch 'master' into deepsource-config-f9a2fc0d ([@bcleary06](https://github.com/bcleary06))
+- allow clipboard access for the iframe ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 2
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # v28.0.0 (Fri Mar 22 2024)
 
 #### 🚀 Enhancement

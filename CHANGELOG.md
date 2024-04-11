@@ -1,3 +1,19 @@
+# (Thu Apr 11 2024)
+
+#### 🐛 Bug Fix
+
+- ci: add .deepsource.toml [#728](https://github.com/magiclabs/magic-js/pull/728) ([@deepsource-autofix[bot]](https://github.com/deepsource-autofix[bot]) [@bcleary06](https://github.com/bcleary06))
+- `magic-sdk@28.0.3`
+  - allow clipboard access for the iframe [#704](https://github.com/magiclabs/magic-js/pull/704) ([@Dizigen](https://github.com/Dizigen) [@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 3
+
+- [@deepsource-autofix[bot]](https://github.com/deepsource-autofix[bot])
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
 # (Mon Apr 01 2024)
 
 #### 🐛 Bug Fix
