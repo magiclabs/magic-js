@@ -1,12 +1,12 @@
 import { Extension, JsonRpcRequestPayload, MagicUserMetadata, ThirdPartyWalletEvents } from '@magic-sdk/commons';
 import { Web3Modal, createWeb3Modal, defaultConfig } from '@web3modal/ethers5';
-import { DefaultEvents, EventsDefinition, PromiEvent } from '@magic-sdk/provider';
+import { DefaultEvents, EventsDefinition, PromiEvent, createPromiEvent } from '@magic-sdk/provider';
 import { Web3ModalExtensionOptions } from './types';
 
-export class Web3ModalExtension extends Extension.Internal<'web3ModalEthers5', any> {
-  name = 'web3ModalEthers5' as const;
+export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
+  name = 'web3modal' as const;
   config: any = {};
-  web3Modal: Web3Modal;
+  modal: Web3Modal;
   connectedPublicAddress: string | undefined;
   connectedChainId: number | undefined;
 
@@ -14,7 +14,9 @@ export class Web3ModalExtension extends Extension.Internal<'web3ModalEthers5', a
 
   constructor({ configOptions, modalOptions }: Web3ModalExtensionOptions) {
     super();
-    this.web3Modal = createWeb3Modal({
+    console.log('super.sdk', super.sdk);
+    // @ts-ignore
+    this.modal = createWeb3Modal({
       ...modalOptions,
       ...{ themeVariables: { '--w3m-z-index': 3000000000 } },
       ethersConfig: defaultConfig({ metadata: configOptions }),
@@ -22,7 +24,8 @@ export class Web3ModalExtension extends Extension.Internal<'web3ModalEthers5', a
 
     // Set delay for web3modal to register if user is connected
     setTimeout(() => {
-      if (!this.web3Modal.getIsConnected()) return;
+      // @ts-ignore
+      if (!this.sdk.web3modal.modal.getIsConnected()) return;
       this.setThirdPartyWalletInfo();
       this.setEip1193EventListenersIfConnected();
     }, 50);
@@ -40,14 +43,17 @@ export class Web3ModalExtension extends Extension.Internal<'web3ModalEthers5', a
   }
 
   private setThirdPartyWalletInfo() {
-    this.connectedPublicAddress = this.web3Modal.getAddress();
-    this.connectedChainId = this.web3Modal.getChainId();
+    // @ts-ignore
+    this.connectedPublicAddress = this.sdk.web3modal.modal.getAddress();
+    // @ts-ignore
+    this.connectedChainId = this.sdk.web3modal.modal.getChainId();
   }
 
   private setEip1193EventListenersIfConnected() {
     if (Web3ModalExtension.eventsListenerAdded) return;
     Web3ModalExtension.eventsListenerAdded = true;
-    this.web3Modal.subscribeProvider(({ address, chainId }) => {
+    // @ts-ignore
+    this.sdk.web3modal.modal.subscribeProvider(({ address, chainId }) => {
       if (address && address !== this.connectedPublicAddress) {
         this.connectedPublicAddress = address;
         this.sdk.rpcProvider.emit('accountsChanged', [address]);
@@ -60,11 +66,11 @@ export class Web3ModalExtension extends Extension.Internal<'web3ModalEthers5', a
   }
 
   private connectToWeb3Modal(payloadId: string) {
-    const { web3Modal } = this as Web3ModalExtension;
+    const { modal } = this as Web3ModalExtension;
 
-    const promiEvent = this.utils.createPromiEvent<string[]>(async () => {
+    const promiEvent = createPromiEvent<string[]>(async () => {
       // Listen for wallet connected
-      const unsubscribeFromProviderEvents = web3Modal.subscribeProvider(({ address, chainId, error }: any) => {
+      const unsubscribeFromProviderEvents = modal.subscribeProvider(({ address, chainId, error }: any) => {
         // User rejected connection request
         if (error) {
           unsubscribeFromProviderEvents();
@@ -80,7 +86,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3ModalEthers5', a
       });
 
       // Listen for connection rejected
-      const unsubscribeFromModalEvents = web3Modal.subscribeEvents((event) => {
+      const unsubscribeFromModalEvents = modal.subscribeEvents((event) => {
         const userClosedModal = event.data.event === 'MODAL_CLOSE';
         const userRejectedConnectionInWallet = event.data.event === 'CONNECT_ERROR';
         if (userClosedModal || userRejectedConnectionInWallet) {
@@ -91,16 +97,17 @@ export class Web3ModalExtension extends Extension.Internal<'web3ModalEthers5', a
         }
       });
 
-      web3Modal.open();
+      modal.open();
     });
 
     return promiEvent;
   }
 
   private getInfoOverride() {
-    const promiEvent = this.utils.createPromiEvent<MagicUserMetadata, any>((resolve) => {
+    const promiEvent = createPromiEvent<MagicUserMetadata, any>((resolve) => {
       setTimeout(() => {
-        const address = this.web3Modal.getAddress();
+        // @ts-ignore
+        const address = this.sdk.web3modal.modal.getAddress();
         if (address) {
           resolve({
             publicAddress: address,
@@ -120,9 +127,10 @@ export class Web3ModalExtension extends Extension.Internal<'web3ModalEthers5', a
   }
 
   private isLoggedInOverride() {
-    const promiEvent = this.utils.createPromiEvent<boolean, any>((resolve) => {
+    const promiEvent = createPromiEvent<boolean, any>((resolve) => {
       setTimeout(() => {
-        if (this.web3Modal.getIsConnected()) {
+        // @ts-ignore
+        if (this.sdk.web3modal.modal.getIsConnected()) {
           resolve(true);
         } else {
           resolve(super.sdk.user.isLoggedIn());
@@ -133,16 +141,19 @@ export class Web3ModalExtension extends Extension.Internal<'web3ModalEthers5', a
   }
 
   private logoutOverride() {
-    this.web3Modal.disconnect();
+    // @ts-ignore
+    this.sdk.web3modal.modal.disconnect();
     return super.sdk.user.logout();
   }
 
   private requestOverride<ResultType = any, Events extends EventsDefinition = void>(
     payload: Partial<JsonRpcRequestPayload>,
   ) {
-    if (this.web3Modal.getIsConnected()) {
-      const promiEvent = this.utils.createPromiEvent<ResultType, Events>((resolve, reject) => {
-        return (this.web3Modal.getWalletProvider() as any)
+    // @ts-ignore
+    if (this.sdk.web3modal.modal.getIsConnected()) {
+      const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
+        // @ts-ignore
+        return (this.sdk.web3modal.modal.getWalletProvider() as any)
           .request(payload)
           .then((res: ResultType | PromiseLike<ResultType>) => {
             resolve(res);
