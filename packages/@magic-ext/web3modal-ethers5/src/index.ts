@@ -9,28 +9,37 @@ export class Web3ModalExtension extends Extension.Internal<'web3ModalEthers5', a
   web3Modal: Web3Modal;
   connectedPublicAddress: string | undefined;
   connectedChainId: number | undefined;
-  parent: any;
+
   static eventsListenerAdded = false;
 
   constructor({ configOptions, modalOptions }: Web3ModalExtensionOptions) {
     super();
-    this.parent = super.sdk;
     this.web3Modal = createWeb3Modal({
       ...modalOptions,
+      ...{ themeVariables: { '--w3m-z-index': 3000000000 } },
       ethersConfig: defaultConfig({ metadata: configOptions }),
     });
-    // Force web3modal to overlay Magic iframe
-    this.web3Modal.setThemeVariables({ '--w3m-z-index': 3000000000 });
 
     // Set delay for web3modal to register if user is connected
     setTimeout(() => {
       if (!this.web3Modal.getIsConnected()) return;
-      this.setExternalWalletInfo();
+      this.setThirdPartyWalletInfo();
       this.setEip1193EventListenersIfConnected();
     }, 50);
   }
 
-  private setExternalWalletInfo() {
+  public initialize() {
+    this.setOverrides();
+    this.sdk.thirdPartyWallet.enabledWallets.web3Modal = true;
+    this.sdk.thirdPartyWallet.eventListeners.push({
+      event: ThirdPartyWalletEvents.Web3ModalSelected,
+      callback: async (payloadId) => {
+        await this.connectToWeb3Modal(payloadId);
+      },
+    });
+  }
+
+  private setThirdPartyWalletInfo() {
     this.connectedPublicAddress = this.web3Modal.getAddress();
     this.connectedChainId = this.web3Modal.getChainId();
   }
@@ -153,16 +162,5 @@ export class Web3ModalExtension extends Extension.Internal<'web3ModalEthers5', a
     this.sdk.user.isLoggedIn = this.isLoggedInOverride;
     this.sdk.user.logout = this.logoutOverride;
     this.sdk.rpcProvider.request = this.requestOverride;
-  }
-
-  public initialize() {
-    this.setOverrides();
-    this.sdk.thirdPartyWallet.enabledWallets.web3Modal = true;
-    this.sdk.thirdPartyWallet.eventListeners.push({
-      event: ThirdPartyWalletEvents.Web3ModalSelected,
-      callback: async (payloadId) => {
-        await this.connectToWeb3Modal(payloadId);
-      },
-    });
   }
 }

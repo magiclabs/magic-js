@@ -15,8 +15,6 @@ import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { createPromiEvent } from '../util';
 import { clearDeviceShares } from '../util/device-share-web-crypto';
 
-// 9
-
 export type ConnectWithUiEvents = {
   'id-token-created': (params: { idToken: string }) => void;
 } & { [key in ThirdPartyWalletEvents]: () => void };
