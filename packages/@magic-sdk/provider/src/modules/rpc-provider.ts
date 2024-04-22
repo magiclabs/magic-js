@@ -36,7 +36,6 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     payload: Partial<JsonRpcRequestPayload> | Partial<JsonRpcRequestPayload>[],
     onRequestComplete: JsonRpcRequestCallback | JsonRpcBatchRequestCallback,
   ): void {
-    console.log('sendAsync');
     if (!onRequestComplete) {
       throw createInvalidArgumentError({
         procedure: 'Magic.rpcProvider.sendAsync',
@@ -89,7 +88,6 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     payloadOrMethod: string | JsonRpcRequestPayload | JsonRpcRequestPayload[],
     onRequestCompleteOrParams: JsonRpcRequestCallback | any[] | void,
   ): PromiEvent<ResultType> | JsonRpcResponsePayload<ResultType> | void {
-    console.log('send');
     // Case #1
     // Web3 >= 1.0.0-beta.38 calls `send` with method and parameters.
     if (typeof payloadOrMethod === 'string') {
@@ -128,7 +126,6 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
    * to determine if the RPC method requires a test-mode prefix.
    */
   protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
-    console.log('request');
     this.prefixPayloadMethodForTestMode(payload);
     return super.request<ResultType, Events>(payload);
   }

@@ -12,6 +12,7 @@ import {
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
 import { WalletModule } from '../modules/wallet';
+import { ThirdPartyWalletModule } from '../modules/third-party-wallet';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
@@ -153,6 +154,11 @@ export class SDKBase {
   public readonly nft: NFTModule;
 
   /**
+   * Contains internal methods for third-party wallets.
+   */
+  public thirdPartyWallet: ThirdPartyWalletModule;
+
+  /**
    * Contains a Web3-compliant provider. Pass this module to your Web3/Ethers
    * instance for automatic compatibility with Ethereum methods.
    */
@@ -178,6 +184,7 @@ export class SDKBase {
     this.user = new UserModule(this);
     this.wallet = new WalletModule(this);
     this.nft = new NFTModule(this);
+    this.thirdPartyWallet = new ThirdPartyWalletModule(this);
     this.rpcProvider = new RPCProviderModule(this) as any;
 
     // Prepare extensions
