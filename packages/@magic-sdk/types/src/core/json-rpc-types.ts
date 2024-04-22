@@ -53,10 +53,11 @@ export enum Wallets {
   CoinbaseWallet = 'coinbase_wallet',
 }
 
-export enum Events {
+export enum ThirdPartyWalletEvents {
   WalletSelected = 'wallet_selected',
   WalletConnected = 'wallet_connected',
   WalletRejected = 'wallet_rejected',
+  Web3ModalSelected = 'web3modal_selected',
 }
 
 export interface UserEnv {

@@ -1,0 +1,37 @@
+{
+  "name": "@magic-ext/web3modal-ethers5",
+  "version": "0.1.0",
+  "description": "magic web3modal ethers 5 extension",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "files": [
+    "dist"
+  ],
+  "target": "neutral",
+  "cdnGlobalName": "MagicWeb3ModalExtension",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "jsdelivr": "./dist/extension.js",
+  "exports": {
+    "import": "./dist/es/index.mjs",
+    "types": "./dist/types/index.d.ts",
+    "require": "./dist/cjs/index.js"
+  },
+  "externals": {
+    "include": [
+      "@magic-sdk/commons"
+    ]
+  },
+  "devDependencies": {
+    "@magic-sdk/commons": "^24.0.2"
+  },
+  "dependencies": {
+    "@web3modal/ethers5": "^4.1.11",
+    "ethers": "5.7.2"
+  }
+}

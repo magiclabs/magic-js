@@ -1,3 +1,4 @@
+import { ThirdPartyWalletEvents } from '../core/json-rpc-types';
 import {
   DeviceVerificationEventEmit,
   DeviceVerificationEventOnReceived,
@@ -26,4 +27,6 @@ export type IntermediaryEvents =
   | `${RecencyCheckEventOnReceived}`
   // Update Email Events
   | `${UpdateEmailEventOnReceived}`
-  | `${UpdateEmailEventEmit}`;
+  | `${UpdateEmailEventEmit}`
+  // Third Party Wallet Events
+  | `${ThirdPartyWalletEvents}`;
