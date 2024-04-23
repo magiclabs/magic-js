@@ -2644,7 +2644,6 @@ __metadata:
   resolution: "@magic-ext/web3modal-ethers5@workspace:packages/@magic-ext/web3modal-ethers5"
   dependencies:
     "@magic-sdk/commons": ^24.0.2
-    "@magic-sdk/provider": 28.0.3-canary.742.8791610185.0
     "@web3modal/ethers5": ^4.1.11
     ethers: 5.7.2
   languageName: unknown
@@ -2716,19 +2715,6 @@ __metadata:
     localforage: ^1.7.4
   languageName: unknown
   linkType: soft
-
-"@magic-sdk/provider@npm:28.0.3-canary.742.8791610185.0":
-  version: 28.0.3-canary.742.8791610185.0
-  resolution: "@magic-sdk/provider@npm:28.0.3-canary.742.8791610185.0"
-  dependencies:
-    "@magic-sdk/types": 24.0.2-canary.742.8791610185.0
-    eventemitter3: ^4.0.4
-    web3-core: 1.5.2
-  peerDependencies:
-    localforage: ^1.7.4
-  checksum: 39225708767df1573d0ed74802bcf955e71fac7a70ec8d72ac9361dd331f595b0298975763300cbaf7eae6f8eba3698e77d9b0b56f63d9e49b33ff9eb7adf3ae
-  languageName: node
-  linkType: hard
 
 "@magic-sdk/react-native-bare@^29.0.2, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
@@ -2815,13 +2801,6 @@ __metadata:
   resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
   languageName: unknown
   linkType: soft
-
-"@magic-sdk/types@npm:24.0.2-canary.742.8791610185.0":
-  version: 24.0.2-canary.742.8791610185.0
-  resolution: "@magic-sdk/types@npm:24.0.2-canary.742.8791610185.0"
-  checksum: bf13efe637d92607346c22388aa124d1a3b6ba2eb80eb10024f08a63cbf8b5ee420fb2492d10bf446cd7803d9b84958d6d8247f90f2455d508a73aa2a2e21d90
-  languageName: node
-  linkType: hard
 
 "@magic-sdk/types@npm:^10.0.0":
   version: 10.0.1
