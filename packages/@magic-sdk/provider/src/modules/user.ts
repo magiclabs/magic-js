@@ -36,6 +36,9 @@ export class UserModule extends BaseModule {
   }
 
   public async getInfo() {
+    if (this.sdk.thirdPartyWallet.isConnected) {
+      return this.sdk.thirdPartyWallet.getInfo();
+    }
     const activeWallet = await getItem(this.localForageKey);
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, [{ walletType: activeWallet }]);
     return this.request<MagicUserMetadata>(requestPayload);
@@ -44,6 +47,10 @@ export class UserModule extends BaseModule {
   public isLoggedIn() {
     return createPromiEvent<boolean, any>(async (resolve, reject) => {
       try {
+        if (this.sdk.thirdPartyWallet.isConnected) {
+          const isLoggedIn = await this.sdk.thirdPartyWallet.isLoggedIn();
+          resolve(isLoggedIn as boolean);
+        }
         let cachedIsLoggedIn = false;
         if (this.sdk.useStorageCache) {
           cachedIsLoggedIn = (await getItem(this.localForageIsLoggedInKey)) === 'true';
@@ -83,6 +90,10 @@ export class UserModule extends BaseModule {
 
     return createPromiEvent<boolean, any>(async (resolve, reject) => {
       try {
+        if (this.sdk.thirdPartyWallet.isConnected) {
+          await this.sdk.thirdPartyWallet.logout();
+          resolve(true);
+        }
         const requestPayload = createJsonRpcRequestPayload(
           this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
         );

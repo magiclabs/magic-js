@@ -26,6 +26,17 @@ export class BaseModule {
    * Emits promisified requests to the Magic `<iframe>` context.
    */
   protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
+    // If connected to 3pw, route all non-Magic rpc requests
+    if (
+      this.sdk.thirdPartyWallet.isConnected &&
+      !Object.values(MagicPayloadMethod).includes(payload.method as MagicPayloadMethod)
+    ) {
+      const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
+        resolve(this.sdk.thirdPartyWallet.requestOverride(payload));
+      });
+      return promiEvent;
+    }
+
     const responsePromise = this.overlay.post<ResultType>(
       MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
       standardizeJsonRpcRequestPayload(payload),
