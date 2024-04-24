@@ -1,3 +1,16 @@
+# v22.0.4 (Thu Apr 11 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into dh-allow-clipboard ([@bcleary06](https://github.com/bcleary06))
+- Merge branch 'master' into deepsource-config-f9a2fc0d ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 1
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
 # v22.0.0 (Fri Mar 22 2024)
 
 #### 🚀 Enhancement
