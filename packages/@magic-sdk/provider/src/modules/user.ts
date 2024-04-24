@@ -48,7 +48,7 @@ export class UserModule extends BaseModule {
       try {
         if (this.sdk.thirdPartyWallet.isConnected) {
           const isLoggedIn = await this.sdk.thirdPartyWallet.isLoggedIn();
-          resolve(isLoggedIn as boolean);
+          return resolve(isLoggedIn as boolean);
         }
         let cachedIsLoggedIn = false;
         if (this.sdk.useStorageCache) {
@@ -57,7 +57,7 @@ export class UserModule extends BaseModule {
           // if isLoggedIn is true on storage, optimistically resolve with true
           // if it is false, we use `usr.isLoggedIn` as the source of truth.
           if (cachedIsLoggedIn) {
-            resolve(true);
+            return resolve(true);
           }
         }
 
@@ -75,9 +75,9 @@ export class UserModule extends BaseModule {
             this.emitUserLoggedOut(true);
           }
         }
-        resolve(isLoggedInResponse);
+        return resolve(isLoggedInResponse);
       } catch (err) {
-        reject(err);
+        return reject(err);
       }
     });
   }
@@ -90,7 +90,7 @@ export class UserModule extends BaseModule {
       try {
         if (this.sdk.thirdPartyWallet.isConnected) {
           await this.sdk.thirdPartyWallet.logout();
-          resolve(true);
+          return resolve(true);
         }
         const requestPayload = createJsonRpcRequestPayload(
           this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
@@ -99,9 +99,9 @@ export class UserModule extends BaseModule {
         if (this.sdk.useStorageCache) {
           this.emitUserLoggedOut(response);
         }
-        resolve(response);
+        return resolve(response);
       } catch (err) {
-        reject(err);
+        return reject(err);
       }
     });
   }

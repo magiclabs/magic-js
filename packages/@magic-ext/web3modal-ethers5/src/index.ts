@@ -14,7 +14,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
 
     this.modal = createWeb3Modal({
       ...modalOptions,
-      ...{ themeVariables: { '--w3m-z-index': 3000000000 } },
+      ...{ themeVariables: { ...(modalOptions.themeVariables || {}), '--w3m-z-index': 3000000000 } },
       ethersConfig: defaultConfig({ metadata: configOptions }),
     });
 
@@ -29,6 +29,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
   public setIsConnected() {
     localStorage.setItem('3pw_provider', 'web3modal');
     localStorage.setItem('3pw_address', this.modal.getAddress() as string);
+    localStorage.setItem('3pw_chainId', (this.modal.getChainId() as number).toString());
     this.sdk.thirdPartyWallet.isConnected = true;
   }
 

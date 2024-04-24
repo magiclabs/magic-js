@@ -60,7 +60,7 @@ export class ThirdPartyWalletModule extends BaseModule {
       // @ts-ignore
       const walletType = this.sdk.web3modal.modal.getWalletInfo().name;
       // @ts-ignore
-      const userAddress = this.sdk.web3modal.modal.getAddress() || localStorage.getItem('3pw_address');
+      const userAddress = this.sdk.web3modal.modal.getAddress();
       resolve({
         publicAddress: userAddress,
         email: null,
