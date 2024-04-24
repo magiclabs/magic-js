@@ -26,12 +26,16 @@ export class ThirdPartyWalletModule extends BaseModule {
     }
   }
 
-  public logout() {
-    const provider = localStorage.getItem('3pw_provider');
+  public resetState() {
     localStorage.removeItem('3pw_provider');
     localStorage.removeItem('3pw_address');
     localStorage.removeItem('3pw_chainId');
     this.isConnected = false;
+  }
+
+  public logout() {
+    const provider = localStorage.getItem('3pw_provider');
+    this.resetState();
     switch (provider) {
       case 'web3modal': {
         return this.web3modalLogout();
@@ -84,7 +88,6 @@ export class ThirdPartyWalletModule extends BaseModule {
     return this.sdk.web3modal.modal.getWalletProvider().request(payload);
   }
 
-  // When disconnecting last metamask account from web3modal
   private web3modalLogout() {
     // @ts-ignore
     return this.sdk.web3modal.modal?.disconnect();

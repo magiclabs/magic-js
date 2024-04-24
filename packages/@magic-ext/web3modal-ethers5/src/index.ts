@@ -49,7 +49,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
     this.modal.subscribeProvider(({ address, chainId }) => {
       // If user disconnected all accounts from wallet
       if (!address && localStorage.getItem('3pw_address')) {
-        this.sdk.thirdPartyWallet.logout();
+        this.sdk.thirdPartyWallet.resetState();
         return this.sdk.rpcProvider.emit('accountsChanged', []);
       }
       if (address && address !== localStorage.getItem('3pw_address')) {
