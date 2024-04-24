@@ -13,7 +13,7 @@ export class SuiExtension extends Extension.Internal<'sui', any> {
     };
   }
 
-  public async signAndSendTransaction(params: any) {
+  public signAndSendTransaction(params: any) {
     return this.request(this.utils.createJsonRpcRequestPayload(SuiPayloadMethod.SuiSignAndSendTransaction, params));
   }
 }
