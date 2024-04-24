@@ -2238,6 +2238,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/sui@workspace:packages/@magic-ext/sui":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/sui@workspace:packages/@magic-ext/sui"
+  dependencies:
+    "@magic-sdk/commons": ^24.0.2
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/taquito@workspace:packages/@magic-ext/taquito":
   version: 0.0.0-use.local
   resolution: "@magic-ext/taquito@workspace:packages/@magic-ext/taquito"
@@ -2308,7 +2316,7 @@ __metadata:
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
     "@magic-ext/oauth": ^22.0.3
-    magic-sdk: ^28.0.2
+    magic-sdk: ^28.0.3
   languageName: unknown
   linkType: soft
 
@@ -12754,7 +12762,7 @@ fsevents@^2.3.2:
   languageName: unknown
   linkType: soft
 
-"magic-sdk@^28.0.2, magic-sdk@workspace:packages/magic-sdk":
+"magic-sdk@^28.0.3, magic-sdk@workspace:packages/magic-sdk":
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
