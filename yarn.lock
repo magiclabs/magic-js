@@ -2615,6 +2615,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/sui@workspace:packages/@magic-ext/sui":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/sui@workspace:packages/@magic-ext/sui"
+  dependencies:
+    "@magic-sdk/commons": ^24.0.2
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/taquito@workspace:packages/@magic-ext/taquito":
   version: 0.0.0-use.local
   resolution: "@magic-ext/taquito@workspace:packages/@magic-ext/taquito"

@@ -1,3 +1,16 @@
+# (Wed Apr 24 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/sui@0.1.1`
+  - sui [#739](https://github.com/magiclabs/magic-js/pull/739) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # (Thu Apr 11 2024)
 
 #### 🐛 Bug Fix
