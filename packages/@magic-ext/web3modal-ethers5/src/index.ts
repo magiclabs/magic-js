@@ -50,7 +50,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
       // If user disconnected all accounts from wallet
       if (!address && localStorage.getItem('3pw_address')) {
         this.sdk.thirdPartyWallet.logout();
-        return this.sdk.rpcProvider.emit('accountsChanged', [address]);
+        return this.sdk.rpcProvider.emit('accountsChanged', []);
       }
       if (address && address !== localStorage.getItem('3pw_address')) {
         localStorage.setItem('3pw_address', address);
@@ -69,7 +69,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
 
     const promiEvent = this.utils.createPromiEvent<string[]>(async () => {
       // Listen for wallet connected
-      const unsubscribeFromProviderEvents = modal.subscribeProvider(({ address, chainId, error }) => {
+      const unsubscribeFromProviderEvents = modal.subscribeProvider(({ address, error }) => {
         // User rejected connection request
         if (error) {
           unsubscribeFromProviderEvents();
@@ -77,7 +77,6 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
         }
         // If user connected wallet, keep listeners active
         if (address) {
-          // unsubscribeFromProviderEvents();
           this.setIsConnected();
           this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletConnected as any, payloadId as any)(address);
         }

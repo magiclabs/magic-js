@@ -32,7 +32,7 @@ export class BaseModule {
       !Object.values(MagicPayloadMethod).includes(payload.method as MagicPayloadMethod)
     ) {
       const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
-        resolve(this.sdk.thirdPartyWallet.requestOverride(payload));
+        this.sdk.thirdPartyWallet.requestOverride(payload).then(resolve).catch(reject);
       });
       return promiEvent;
     }

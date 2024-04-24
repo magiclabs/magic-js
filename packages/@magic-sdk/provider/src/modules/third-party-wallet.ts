@@ -1,5 +1,6 @@
-import { ThirdPartyWalletEvents } from '@magic-sdk/types';
+import { MagicUserMetadata, ThirdPartyWalletEvents } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
+import { createPromiEvent } from '../util';
 
 export class ThirdPartyWalletModule extends BaseModule {
   public eventListeners: { event: ThirdPartyWalletEvents; callback: (payloadId: string) => Promise<void> }[] = [];
@@ -51,22 +52,25 @@ export class ThirdPartyWalletModule extends BaseModule {
 
   /* Web3Modal Methods */
   private web3modalGetInfo() {
-    // @ts-ignore
-    const userAddress = this.sdk.web3modal.modal.getAddress() || localStorage.getItem('3pw_address');
-    return {
-      publicAddress: userAddress,
-      email: null,
-      issuer: `$did:ethr:${userAddress}`,
-      phoneNumber: null,
-      isMfaEnabled: false,
-      recoveryFactors: [] as any,
-      // TODO:
-      // walletType: 'web3Modal',
-    };
+    return createPromiEvent<MagicUserMetadata, any>((resolve) => {
+      // @ts-ignore
+      const walletType = this.sdk.web3modal.modal.getWalletInfo().name;
+      // @ts-ignore
+      const userAddress = this.sdk.web3modal.modal.getAddress() || localStorage.getItem('3pw_address');
+      resolve({
+        publicAddress: userAddress,
+        email: null,
+        issuer: `$did:ethr:${userAddress}`,
+        phoneNumber: null,
+        isMfaEnabled: false,
+        recoveryFactors: [] as any,
+        walletType,
+      });
+    });
   }
 
-  private async web3modalIsLoggedIn(): Promise<boolean> {
-    return new Promise((resolve) => {
+  private web3modalIsLoggedIn() {
+    return createPromiEvent<boolean, any>((resolve) => {
       setTimeout(() => {
         // @ts-ignore
         const isLoggedIn: boolean = this.sdk.web3modal.modal.getIsConnected();
@@ -80,8 +84,9 @@ export class ThirdPartyWalletModule extends BaseModule {
     return this.sdk.web3modal.modal.getWalletProvider().request(payload);
   }
 
+  // When disconnecting last metamask account from web3modal
   private web3modalLogout() {
     // @ts-ignore
-    return this.sdk.web3modal.modal.disconnect();
+    return this.sdk.web3modal.modal?.disconnect();
   }
 }

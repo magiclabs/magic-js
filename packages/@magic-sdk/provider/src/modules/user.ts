@@ -14,7 +14,7 @@ import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { clearDeviceShares } from '../util/device-share-web-crypto';
-import { createPromiEvent } from '../util';
+import { PromiEvent, createPromiEvent } from '../util';
 
 type UserLoggedOutCallback = (loggedOut: boolean) => void;
 
@@ -35,12 +35,11 @@ export class UserModule extends BaseModule {
     return this.request<string>(requestPayload);
   }
 
-  public async getInfo() {
+  public getInfo() {
     if (this.sdk.thirdPartyWallet.isConnected) {
-      return this.sdk.thirdPartyWallet.getInfo();
+      return this.sdk.thirdPartyWallet.getInfo() as PromiEvent<MagicUserMetadata, any>;
     }
-    const activeWallet = await getItem(this.localForageKey);
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, [{ walletType: activeWallet }]);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, []);
     return this.request<MagicUserMetadata>(requestPayload);
   }
 
@@ -84,7 +83,6 @@ export class UserModule extends BaseModule {
   }
 
   public logout() {
-    removeItem(this.localForageKey);
     removeItem(this.localForageIsLoggedInKey);
     clearDeviceShares();
 
@@ -159,7 +157,6 @@ export class UserModule extends BaseModule {
     });
   }
 
-  private localForageKey = 'mc_active_wallet';
   private localForageIsLoggedInKey = 'magic_auth_is_logged_in';
   private userLoggedOutCallbacks: UserLoggedOutCallback[] = [];
 }
