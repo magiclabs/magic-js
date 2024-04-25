@@ -26,7 +26,11 @@ export class BaseModule {
    * Emits promisified requests to the Magic `<iframe>` context.
    */
   protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
-    if (this.sdk.thirdPartyWallet.isConnected && payload.method !== MagicPayloadMethod.IntermediaryEvent) {
+    if (
+      this.sdk.thirdPartyWallet.isConnected &&
+      payload.method !== MagicPayloadMethod.IntermediaryEvent &&
+      payload.method !== MagicPayloadMethod.NFTCheckout
+    ) {
       const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
         this.sdk.thirdPartyWallet.requestOverride(payload).then(resolve).catch(reject);
       });

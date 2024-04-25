@@ -26,7 +26,7 @@ export type PromiEvent<TResult, TEvents extends EventsDefinition = void> = Exten
 /**
  * Default events attached to every `PromiEvent`.
  */
-export type DefaultEvents<TResult> = {
+type DefaultEvents<TResult> = {
   done: (result: TResult) => void;
   error: (reason: any) => void;
   settled: () => void;
