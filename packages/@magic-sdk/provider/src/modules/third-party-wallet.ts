@@ -1,30 +1,11 @@
-import { MagicUserMetadata, ThirdPartyWalletEvents } from '@magic-sdk/types';
+import { JsonRpcRequestPayload, MagicPayloadMethod, MagicUserMetadata, ThirdPartyWalletEvents } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
-import { createPromiEvent } from '../util';
+import { PromiEvent, createPromiEvent } from '../util';
 
 export class ThirdPartyWalletModule extends BaseModule {
   public eventListeners: { event: ThirdPartyWalletEvents; callback: (payloadId: string) => Promise<void> }[] = [];
   public enabledWallets: Record<string, boolean> = {};
   public isConnected = !!localStorage.getItem('3pw_address');
-
-  /* Public Methods */
-  public getInfo() {
-    switch (localStorage.getItem('3pw_provider')) {
-      case 'web3modal':
-        return this.web3modalGetInfo();
-      default:
-        return null;
-    }
-  }
-
-  public isLoggedIn() {
-    switch (localStorage.getItem('3pw_provider')) {
-      case 'web3modal':
-        return this.web3modalIsLoggedIn();
-      default:
-        return null;
-    }
-  }
 
   public resetState() {
     localStorage.removeItem('3pw_provider');
@@ -33,7 +14,51 @@ export class ThirdPartyWalletModule extends BaseModule {
     this.isConnected = false;
   }
 
-  public logout() {
+  public requestOverride(payload: Partial<JsonRpcRequestPayload>) {
+    // Handle method overrides if getInfo/isLoggedIn/logout
+    if (payload.method === MagicPayloadMethod.GetInfo) {
+      return this.getInfo(payload);
+    }
+    if (payload.method === MagicPayloadMethod.IsLoggedIn) {
+      return this.isLoggedIn(payload);
+    }
+    if (payload.method === MagicPayloadMethod.Logout) {
+      return this.logout(payload);
+    }
+    // Route all other requests to 3pw provider
+    switch (localStorage.getItem('3pw_provider')) {
+      case 'web3modal':
+        return this.web3modalRequest(payload);
+      // Fallback to default request
+      default:
+        this.resetState();
+        return super.request(payload);
+    }
+  }
+
+  /* Core Method Overrides */
+
+  private isLoggedIn(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean, any> {
+    switch (localStorage.getItem('3pw_provider')) {
+      case 'web3modal':
+        return this.web3modalIsLoggedIn();
+      default:
+        this.resetState();
+        return super.request(payload);
+    }
+  }
+
+  private getInfo(payload: Partial<JsonRpcRequestPayload>): PromiEvent<MagicUserMetadata, any> {
+    switch (localStorage.getItem('3pw_provider')) {
+      case 'web3modal':
+        return this.web3modalGetInfo();
+      default:
+        this.resetState();
+        return super.request(payload);
+    }
+  }
+
+  private logout(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean, any> {
     const provider = localStorage.getItem('3pw_provider');
     this.resetState();
     switch (provider) {
@@ -41,24 +66,35 @@ export class ThirdPartyWalletModule extends BaseModule {
         return this.web3modalLogout();
       }
       default:
-        return true;
-    }
-  }
-
-  public requestOverride(payload: any) {
-    switch (localStorage.getItem('3pw_provider')) {
-      case 'web3modal':
-        return this.web3modalRequest(payload);
-      default:
-        return null;
+        this.resetState();
+        return super.request(payload);
     }
   }
 
   /* Web3Modal Methods */
+
+  private web3modalRequest(payload: Partial<JsonRpcRequestPayload>) {
+    return createPromiEvent<any, any>((resolve, reject) => {
+      // @ts-ignore
+      this.sdk.web3modal.modal.getWalletProvider().request(payload).then(resolve).catch(reject);
+    });
+  }
+
+  private web3modalIsLoggedIn() {
+    return createPromiEvent<boolean, any>((resolve) => {
+      // Required delay to allow web3modal to register connection
+      setTimeout(() => {
+        // @ts-ignore
+        const isLoggedIn: boolean = this.sdk.web3modal.modal.getIsConnected();
+        resolve(isLoggedIn);
+      }, 50);
+    });
+  }
+
   private web3modalGetInfo() {
     return createPromiEvent<MagicUserMetadata, any>((resolve) => {
       // @ts-ignore
-      const walletType = this.sdk.web3modal.modal.getWalletInfo().name;
+      const walletType = this.sdk.web3modal.modal.getWalletInfo()?.name;
       // @ts-ignore
       const userAddress = this.sdk.web3modal.modal.getAddress();
       resolve({
@@ -73,23 +109,11 @@ export class ThirdPartyWalletModule extends BaseModule {
     });
   }
 
-  private web3modalIsLoggedIn() {
-    return createPromiEvent<boolean, any>((resolve) => {
-      setTimeout(() => {
-        // @ts-ignore
-        const isLoggedIn: boolean = this.sdk.web3modal.modal.getIsConnected();
-        resolve(isLoggedIn);
-      }, 50);
+  private web3modalLogout(): PromiEvent<boolean, any> {
+    return createPromiEvent<boolean, any>(async (resolve) => {
+      // @ts-ignore
+      await this.sdk.web3modal.modal?.disconnect();
+      resolve(true);
     });
-  }
-
-  private web3modalRequest(payload: any) {
-    // @ts-ignore
-    return this.sdk.web3modal.modal.getWalletProvider().request(payload);
-  }
-
-  private web3modalLogout() {
-    // @ts-ignore
-    return this.sdk.web3modal.modal?.disconnect();
   }
 }

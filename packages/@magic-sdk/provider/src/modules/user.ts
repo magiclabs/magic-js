@@ -14,7 +14,7 @@ import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { clearDeviceShares } from '../util/device-share-web-crypto';
-import { PromiEvent, createPromiEvent } from '../util';
+import { createPromiEvent } from '../util';
 
 type UserLoggedOutCallback = (loggedOut: boolean) => void;
 
@@ -36,9 +36,6 @@ export class UserModule extends BaseModule {
   }
 
   public getInfo() {
-    if (this.sdk.thirdPartyWallet.isConnected) {
-      return this.sdk.thirdPartyWallet.getInfo() as PromiEvent<MagicUserMetadata, any>;
-    }
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, []);
     return this.request<MagicUserMetadata>(requestPayload);
   }
@@ -46,10 +43,6 @@ export class UserModule extends BaseModule {
   public isLoggedIn() {
     return createPromiEvent<boolean, any>(async (resolve, reject) => {
       try {
-        if (this.sdk.thirdPartyWallet.isConnected) {
-          const isLoggedIn = await this.sdk.thirdPartyWallet.isLoggedIn();
-          return resolve(isLoggedIn as boolean);
-        }
         let cachedIsLoggedIn = false;
         if (this.sdk.useStorageCache) {
           cachedIsLoggedIn = (await getItem(this.localForageIsLoggedInKey)) === 'true';
@@ -57,7 +50,7 @@ export class UserModule extends BaseModule {
           // if isLoggedIn is true on storage, optimistically resolve with true
           // if it is false, we use `usr.isLoggedIn` as the source of truth.
           if (cachedIsLoggedIn) {
-            return resolve(true);
+            resolve(true);
           }
         }
 
@@ -75,9 +68,9 @@ export class UserModule extends BaseModule {
             this.emitUserLoggedOut(true);
           }
         }
-        return resolve(isLoggedInResponse);
+        resolve(isLoggedInResponse);
       } catch (err) {
-        return reject(err);
+        reject(err);
       }
     });
   }
@@ -88,10 +81,6 @@ export class UserModule extends BaseModule {
 
     return createPromiEvent<boolean, any>(async (resolve, reject) => {
       try {
-        if (this.sdk.thirdPartyWallet.isConnected) {
-          await this.sdk.thirdPartyWallet.logout();
-          return resolve(true);
-        }
         const requestPayload = createJsonRpcRequestPayload(
           this.sdk.testMode ? MagicPayloadMethod.LogoutTestMode : MagicPayloadMethod.Logout,
         );
@@ -99,9 +88,9 @@ export class UserModule extends BaseModule {
         if (this.sdk.useStorageCache) {
           this.emitUserLoggedOut(response);
         }
-        return resolve(response);
+        resolve(response);
       } catch (err) {
-        return reject(err);
+        reject(err);
       }
     });
   }
