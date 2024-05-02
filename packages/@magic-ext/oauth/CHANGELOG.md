@@ -1,3 +1,122 @@
+# v22.0.1 (Fri Mar 22 2024)
+
+#### 🐛 Bug Fix
+
+- Pdeexp 681 fix magic js launching script [#729](https://github.com/magiclabs/magic-js/pull/729) ([@Ethella](https://github.com/Ethella))
+- test package release ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
+# v21.0.0 (Fri Mar 15 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
+# v20.0.0 (Sat Mar 09 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
+# v19.0.0 (Thu Feb 29 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
+# v18.0.0 (Tue Feb 27 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+
+#### Authors: 1
+
+- Magic Labs (team@magic.link)
+
+---
+
+# v16.1.1 (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-253-whitelabel-update-email-with-ui-missing-event-when-email-address-already-in-use ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v15.6.0 (Tue Jan 02 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and (rominhalltari@rohat92phx.lan)
+- Fix: use default import of crypto-js to fix unresolved imports after build [#694](https://github.com/magiclabs/magic-js/pull/694) ([@romin-halltari](https://github.com/romin-halltari))
+- Fix: use default import of crypto-js to fix unresolved imports after build ([@romin-halltari](https://github.com/romin-halltari))
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Romin Halltari (rominhalltari@rohat92phx.lan)
+
+---
+
 # v15.5.0 (Fri Dec 22 2023)
 
 #### 🚀 Enhancement

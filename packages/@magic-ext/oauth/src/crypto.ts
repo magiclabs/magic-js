@@ -1,6 +1,4 @@
-import { WordArray } from 'crypto-js';
-import SHA256 from 'crypto-js/sha256';
-import Base64 from 'crypto-js/enc-base64';
+import Crypto from 'crypto-js';
 
 const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
 const HAS_CRYPTO = typeof window !== 'undefined' && !!(window.crypto as any);
@@ -19,9 +17,9 @@ function bytesToVerifierString(bytes: Uint8Array) {
  * Stringifies argument (as CryptoJS `WordArray` or EcmaScript `ArrayBuffer`)
  * and encodes to URL-safe Base64.
  */
-function base64URLEncodeFromByteArray(wordArray: WordArray): string;
+function base64URLEncodeFromByteArray(wordArray: Crypto.WordArray): string;
 function base64URLEncodeFromByteArray(arrayBuffer: ArrayBuffer): string;
-function base64URLEncodeFromByteArray(arg: WordArray | ArrayBuffer): string {
+function base64URLEncodeFromByteArray(arg: Crypto.WordArray | ArrayBuffer): string {
   const makeURLSafe = (base64: string) => {
     return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
   };
@@ -36,7 +34,7 @@ function base64URLEncodeFromByteArray(arg: WordArray | ArrayBuffer): string {
     return makeURLSafe(base64);
   }
 
-  return makeURLSafe(Base64.stringify(arg));
+  return makeURLSafe(Crypto.enc.Base64.stringify(arg));
 }
 
 /**
@@ -50,7 +48,7 @@ async function sha256(message: string) {
     return crypto.subtle.digest('SHA-256', bytes).then(base64URLEncodeFromByteArray);
   }
 
-  return base64URLEncodeFromByteArray(SHA256(message));
+  return base64URLEncodeFromByteArray(Crypto.SHA256(message));
 }
 
 /**

@@ -5,6 +5,10 @@ import {
   LoginWithEmailOTPEventOnReceived,
   LoginWithMagicLinkEventEmit,
   LoginWithMagicLinkEventOnReceived,
+  RecencyCheckEventEmit,
+  RecencyCheckEventOnReceived,
+  UpdateEmailEventEmit,
+  UpdateEmailEventOnReceived,
 } from './auth-types';
 
 export type IntermediaryEvents =
@@ -16,4 +20,10 @@ export type IntermediaryEvents =
   | `${LoginWithMagicLinkEventOnReceived}`
   // Device Verification
   | `${DeviceVerificationEventEmit}`
-  | `${DeviceVerificationEventOnReceived}`;
+  | `${DeviceVerificationEventOnReceived}`
+  // Recency Check
+  | `${RecencyCheckEventEmit}`
+  | `${RecencyCheckEventOnReceived}`
+  // Update Email Events
+  | `${UpdateEmailEventOnReceived}`
+  | `${UpdateEmailEventEmit}`;

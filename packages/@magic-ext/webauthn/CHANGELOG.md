@@ -1,3 +1,110 @@
+# v22.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
+# v21.0.0 (Fri Mar 15 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
+# v20.0.0 (Sat Mar 09 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
+# v19.0.0 (Thu Feb 29 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
+# v18.0.0 (Tue Feb 27 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+
+#### Authors: 1
+
+- Magic Labs (team@magic.link)
+
+---
+
+# v16.1.1 (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-253-whitelabel-update-email-with-ui-missing-event-when-email-address-already-in-use ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v16.0.1 (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+- try export NPM_CONFIG_PROVENANCE=true for global provenance ([@Ethella](https://github.com/Ethella))
+- Add publishConfig to each package ([@Ethella](https://github.com/Ethella))
+- switch back to yarn ([@Ethella](https://github.com/Ethella))
+- update README.md to trigger publish ([@Ethella](https://github.com/Ethella))
+- trigger a publish ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v15.4.1 (Fri Dec 15 2023)
 
 #### 🐛 Bug Fix

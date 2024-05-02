@@ -1,3 +1,424 @@
+# (Wed Apr 24 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/sui@0.1.1`
+  - sui [#739](https://github.com/magiclabs/magic-js/pull/739) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# (Thu Apr 11 2024)
+
+#### 🐛 Bug Fix
+
+- ci: add .deepsource.toml [#728](https://github.com/magiclabs/magic-js/pull/728) ([@deepsource-autofix[bot]](https://github.com/deepsource-autofix[bot]) [@bcleary06](https://github.com/bcleary06))
+- `magic-sdk@28.0.3`
+  - allow clipboard access for the iframe [#704](https://github.com/magiclabs/magic-js/pull/704) ([@Dizigen](https://github.com/Dizigen) [@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 3
+
+- [@deepsource-autofix[bot]](https://github.com/deepsource-autofix[bot])
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# (Mon Apr 01 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@28.0.2`, `@magic-sdk/types@24.0.1`
+  - rebuild rpc types [#736](https://github.com/magiclabs/magic-js/pull/736) ([@joshuascan](https://github.com/joshuascan))
+
+#### ⚠️ Pushed to `master`
+
+- `@magic-sdk/provider@28.0.2`
+  - Revert "test" ([@joshuascan](https://github.com/joshuascan))
+  - test ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Sat Mar 23 2024)
+
+#### 🐛 Bug Fix
+
+- readme change [#731](https://github.com/magiclabs/magic-js/pull/731) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-sdk/provider@28.0.1`
+  - readme edit [#732](https://github.com/magiclabs/magic-js/pull/732) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Mar 22 2024)
+
+#### 🐛 Bug Fix
+
+- revert --dry-run [#730](https://github.com/magiclabs/magic-js/pull/730) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/oauth@22.0.1`
+  - Pdeexp 681 fix magic js launching script [#729](https://github.com/magiclabs/magic-js/pull/729) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Mar 22 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@9.0.0`
+  - Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+  - OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.0.0`, `@magic-sdk/types@24.0.0`
+  - Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+  - Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+  - Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-sdk/provider@28.0.0`, `@magic-sdk/react-native-bare@29.0.0`, `@magic-sdk/react-native-expo@29.0.0`, `@magic-sdk/types@24.0.0`
+  - Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+  - Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/oauth2@9.0.0`
+  - Add ability to use server callback url for start of oauth2 flow [#715](https://github.com/magiclabs/magic-js/pull/715) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🐛 Bug Fix
+
+- Update Auto to latest in an attempt to fix versioning error [#726](https://github.com/magiclabs/magic-js/pull/726) ([@Ariflo](https://github.com/Ariflo))
+- Update Pull Request Template [#719](https://github.com/magiclabs/magic-js/pull/719) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-sdk/provider@28.0.0`, `@magic-sdk/types@24.0.0`
+  - Add an option for crypto-checkout [#727](https://github.com/magiclabs/magic-js/pull/727) ([@octave08](https://github.com/octave08))
+- `@magic-ext/oauth2@9.0.0`
+  - updates readme [#724](https://github.com/magiclabs/magic-js/pull/724) ([@joshuascan](https://github.com/joshuascan))
+  - New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- `@magic-sdk/types@24.0.0`
+  - Removes `product_announcement` from JsonRpcResponsePayload [#720](https://github.com/magiclabs/magic-js/pull/720) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 4
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Mar 15 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@8.0.0`
+  - Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+  - OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@27.0.0`, `@magic-sdk/react-native-bare@28.0.0`, `@magic-sdk/react-native-expo@28.0.0`, `@magic-sdk/types@23.0.0`
+  - Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+  - Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/oauth2@8.0.0`
+  - Add ability to use server callback url for start of oauth2 flow [#715](https://github.com/magiclabs/magic-js/pull/715) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- `@magic-sdk/provider@27.0.0`, `@magic-sdk/types@23.0.0`
+  - Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+  - Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update Pull Request Template [#719](https://github.com/magiclabs/magic-js/pull/719) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/oauth2@8.0.0`
+  - updates readme [#724](https://github.com/magiclabs/magic-js/pull/724) ([@joshuascan](https://github.com/joshuascan))
+  - New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- `@magic-sdk/types@23.0.0`
+  - Removes `product_announcement` from JsonRpcResponsePayload [#720](https://github.com/magiclabs/magic-js/pull/720) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Thu Mar 14 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@7.0.0`
+  - Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+  - OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@27.0.0`, `@magic-sdk/react-native-bare@28.0.0`, `@magic-sdk/react-native-expo@28.0.0`, `@magic-sdk/types@23.0.0`
+  - Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/oauth2@7.0.0`
+  - Add ability to use server callback url for start of oauth2 flow [#715](https://github.com/magiclabs/magic-js/pull/715) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- `@magic-sdk/provider@27.0.0`, `@magic-sdk/types@23.0.0`
+  - Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+  - Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update Pull Request Template [#719](https://github.com/magiclabs/magic-js/pull/719) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/oauth2@7.0.0`
+  - updates readme [#724](https://github.com/magiclabs/magic-js/pull/724) ([@joshuascan](https://github.com/joshuascan))
+  - New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- `@magic-sdk/types@23.0.0`
+  - Removes `product_announcement` from JsonRpcResponsePayload [#720](https://github.com/magiclabs/magic-js/pull/720) ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Sat Mar 09 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@6.0.0`
+  - Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+  - OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@26.0.0`, `@magic-sdk/react-native-bare@27.0.0`, `@magic-sdk/react-native-expo@27.0.0`, `@magic-sdk/types@22.0.0`
+  - Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/oauth2@6.0.0`
+  - Add ability to use server callback url for start of oauth2 flow [#715](https://github.com/magiclabs/magic-js/pull/715) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- `@magic-sdk/provider@26.0.0`, `@magic-sdk/types@22.0.0`
+  - Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+  - Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update Pull Request Template [#719](https://github.com/magiclabs/magic-js/pull/719) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-sdk/types@22.0.0`
+  - Removes `product_announcement` from JsonRpcResponsePayload [#720](https://github.com/magiclabs/magic-js/pull/720) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/oauth2@6.0.0`
+  - New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Thu Feb 29 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@5.0.0`
+  - Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+  - OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@5.0.0`
+  - Add ability to use server callback url for start of oauth2 flow [#715](https://github.com/magiclabs/magic-js/pull/715) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- `@magic-sdk/provider@25.0.0`, `@magic-sdk/types@21.0.0`
+  - Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+  - Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Update Pull Request Template [#719](https://github.com/magiclabs/magic-js/pull/719) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-sdk/types@21.0.0`
+  - Removes `product_announcement` from JsonRpcResponsePayload [#720](https://github.com/magiclabs/magic-js/pull/720) ([@Ariflo](https://github.com/Ariflo))
+- `@magic-ext/oauth2@5.0.0`
+  - New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Wed Feb 28 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@4.0.0`
+  - Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+  - OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@4.0.0`
+  - Add ability to use server callback url for start of oauth2 flow [#715](https://github.com/magiclabs/magic-js/pull/715) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- `@magic-sdk/provider@25.0.0`, `@magic-sdk/types@21.0.0`
+  - Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+  - Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@4.0.0`
+  - New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Tue Feb 27 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@3.0.0`
+  - Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+  - OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@24.0.0`, `@magic-sdk/types@20.0.0`
+  - Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+  - Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@3.0.0`
+  - New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Mon Feb 26 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@2.0.0`
+  - Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+  - OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@23.0.0`, `@magic-sdk/types@19.0.0`
+  - Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@2.0.0`
+  - New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# (Thu Feb 22 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@1.0.0`
+  - Fixing publishing related to "auto" bug [#714](https://github.com/magiclabs/magic-js/pull/714) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+  - OAuth 2: fix publishing [#712](https://github.com/magiclabs/magic-js/pull/712) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@1.0.0`
+  - New OAuth 2 ext package [#710](https://github.com/magiclabs/magic-js/pull/710) ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 1
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+
+---
+
+# (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@18.1.1`
+  - updateEmail: Adds event for email already exists [#709](https://github.com/magiclabs/magic-js/pull/709) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Feb 09 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@22.1.0`, `@magic-sdk/types@18.1.0`
+  - [FEAT]: adding meta field to @magic-sdk magic constructor [#708](https://github.com/magiclabs/magic-js/pull/708) ([@bengriffin1](https://github.com/bengriffin1))
+
+#### Authors: 1
+
+- Ben Griffin ([@bengriffin1](https://github.com/bengriffin1))
+
+---
+
+# (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/webauthn@16.0.1`, `@magic-sdk/commons@18.0.1`, `@magic-sdk/pnp@16.0.1`, `@magic-sdk/provider@22.0.1`, `@magic-sdk/react-native-bare@23.0.1`, `@magic-sdk/react-native-expo@23.0.1`, `@magic-sdk/types@18.0.1`, `magic-sdk@22.0.1`
+  - Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Sat Jan 20 2024)
+
+#### 💥 Breaking Change
+
+- `@magic-sdk/provider@22.0.0`, `@magic-sdk/types@18.0.0`
+  - Enable whitelabel for updateEmail flow [#700](https://github.com/magiclabs/magic-js/pull/700) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Tue Jan 02 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@21.5.0`
+  - Use storage for faster calls to `isLoggedIn` on mobile [#689](https://github.com/magiclabs/magic-js/pull/689) ([@romin-halltari](https://github.com/romin-halltari) rominhalltari@rohat92phx.lan)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@15.6.0`
+  - Fix: use default import of crypto-js to fix unresolved imports after build [#694](https://github.com/magiclabs/magic-js/pull/694) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Romin Halltari (rominhalltari@rohat92phx.lan)
+
+---
+
 # (Fri Dec 22 2023)
 
 #### 🚀 Enhancement

@@ -117,6 +117,8 @@ export interface MagicSDKAdditionalConfiguration<
   extensions?: TExt;
   testMode?: boolean;
   deferPreload?: boolean;
+  useStorageCache?: boolean;
+  meta?: any; // Generic field for clients to add metadata
 }
 
 export class SDKBase {
@@ -126,6 +128,7 @@ export class SDKBase {
   protected readonly parameters: string;
   protected readonly networkHash: string;
   public readonly testMode: boolean;
+  public readonly useStorageCache: boolean;
 
   /**
    * Contains methods for starting a Magic SDK authentication flow.
@@ -167,6 +170,7 @@ export class SDKBase {
 
     const { defaultEndpoint, version } = SDKEnvironment;
     this.testMode = !!options?.testMode;
+    this.useStorageCache = !!options?.useStorageCache;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
 
     // Prepare built-in modules
@@ -190,6 +194,7 @@ export class SDKBase {
       ext: isEmpty(extConfig) ? undefined : extConfig,
       locale: options?.locale || 'en_US',
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
+      meta: options?.meta,
     });
     this.networkHash = getNetworkHash(this.apiKey, options?.network, isEmpty(extConfig) ? undefined : extConfig);
     if (!options?.deferPreload) this.preload();
