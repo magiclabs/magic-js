@@ -34,7 +34,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
   }
 
   public initialize() {
-    this.sdk.thirdPartyWallet.enabledWallets.web3Modal = true;
+    this.sdk.thirdPartyWallet.enabledWallets.web3modal = true;
     this.sdk.thirdPartyWallet.eventListeners.push({
       event: ThirdPartyWalletEvents.Web3ModalSelected,
       callback: async (payloadId) => {
