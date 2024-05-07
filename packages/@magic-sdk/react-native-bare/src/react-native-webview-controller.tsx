@@ -15,9 +15,9 @@ const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
 const DEFAULT_BACKGROUND_COLOR = '#FFFFFF';
 
 const config = new DatadogProviderConfiguration(
-  'pubba8b0a9cfeaec95909005507960cc103',
-  'rn-prod',
-  '1c3f9c8b-1060-4cfb-b87b-833e3bf34e3c',
+  'pub7091a72b7044b9398c00ce3f3243327f',
+  'nova-rn-prod',
+  'f2f99d17-00e4-46f2-b634-26559de9cb44',
   true, // track User interactions (e.g.: Tap on buttons. You can use 'accessibilityLabel' element property to give tap action the name, otherwise element type will be reported)
   true, // track XHR Resources
   true, // track Errors
