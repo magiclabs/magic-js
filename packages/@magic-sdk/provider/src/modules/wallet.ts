@@ -1,13 +1,13 @@
 import {
-  ThirdPartyWalletEvents,
   GasApiResponse,
   MagicPayloadMethod,
   GaslessTransactionRequest,
   RequestUserInfoScope,
   UserInfo,
   WalletInfo,
+  ConnectWithUIOptions,
+  ConnectWithUiEvents,
 } from '@magic-sdk/types';
-
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
@@ -15,17 +15,16 @@ import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { createPromiEvent } from '../util';
 import { clearDeviceShares } from '../util/device-share-web-crypto';
 
-export type ConnectWithUiEvents = {
-  'id-token-created': (params: { idToken: string }) => void;
-} & { [key in ThirdPartyWalletEvents]: () => void };
-
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
-  public connectWithUI() {
+  public connectWithUI(options: ConnectWithUIOptions) {
     const promiEvent = createPromiEvent<string[], ConnectWithUiEvents>(async (resolve, reject) => {
       try {
         const loginRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Login, [
-          this.sdk.thirdPartyWallet.enabledWallets,
+          {
+            enabledWallets: this.sdk.thirdPartyWallet.enabledWallets,
+            ...options,
+          },
         ]);
 
         const loginRequest = this.request<string[], ConnectWithUiEvents>(loginRequestPayload);

@@ -59,12 +59,13 @@ export enum ThirdPartyWalletEvents {
   Web3ModalSelected = 'web3modal_selected',
 }
 
-export interface UserEnv {
-  env: {
-    isMetaMaskInstalled: boolean;
-    isCoinbaseWalletInstalled: boolean;
-  };
+export interface ConnectWithUIOptions {
+  autoPromptThirdPartyWallet?: boolean;
 }
+
+export type ConnectWithUiEvents = {
+  'id-token-created': (params: { idToken: string }) => void;
+} & { [key in ThirdPartyWalletEvents]: () => void };
 
 // --- Payload methods
 
