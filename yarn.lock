@@ -1272,6 +1272,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@datadog/mobile-react-native@npm:^2.3.2":
+  version: 2.3.2
+  resolution: "@datadog/mobile-react-native@npm:2.3.2"
+  peerDependencies:
+    react: ">=16.13.1"
+    react-native: ">=0.63.4 <1.0"
+  checksum: 7bb8ced7954d6d0efda368c3d2762802ff3cb80b42094347cd359b6d4b93152d6c445252713cd3f9eda0fcfee37857d3fed009b739a1ef4419365d247df91190
+  languageName: node
+  linkType: hard
+
 "@endemolshinegroup/cosmiconfig-typescript-loader@npm:^3.0.2":
   version: 3.0.2
   resolution: "@endemolshinegroup/cosmiconfig-typescript-loader@npm:3.0.2"
@@ -2345,6 +2355,7 @@ __metadata:
     "@babel/core": ^7.15.0
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/runtime": ~7.10.4
+    "@datadog/mobile-react-native": ^2.3.2
     "@magic-sdk/commons": ^24.0.2
     "@magic-sdk/provider": ^28.0.2
     "@magic-sdk/types": ^24.0.1

@@ -1,8 +1,8 @@
 name: Canary
 on:
-  pull_request:
+  push:
     branches:
-      - "master"
+      - "rh-add-logs"
   merge_group:
     types: [checks_requested]
 

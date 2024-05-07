@@ -5,12 +5,29 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
+import { DatadogProvider, DatadogProviderConfiguration } from '@datadog/mobile-react-native';
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
+import { logError, logInfo } from './datadog';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
 const DEFAULT_BACKGROUND_COLOR = '#FFFFFF';
+
+const config = new DatadogProviderConfiguration(
+  'pubba8b0a9cfeaec95909005507960cc103',
+  'rn-prod',
+  '1c3f9c8b-1060-4cfb-b87b-833e3bf34e3c',
+  true, // track User interactions (e.g.: Tap on buttons. You can use 'accessibilityLabel' element property to give tap action the name, otherwise element type will be reported)
+  true, // track XHR Resources
+  true, // track Errors
+);
+// Optional: Select your Datadog website (one of "US1", "EU1", "US3", "US5", "AP1" or "GOV")
+config.site = 'US1';
+// Optional: Enable JavaScript long task collection
+config.longTaskThresholdMs = 100;
+// Optional: enable or disable native crash reports
+config.nativeCrashReportEnabled = true;
 
 /**
  * Builds the Magic `<WebView>` overlay styles. These base styles enable
@@ -116,6 +133,7 @@ export class ReactNativeWebViewController extends ViewController {
      * Show the Magic `<WebView>` overlay.
      */
     const showOverlay = useCallback(() => {
+      logInfo('showOverlay called');
       setShow(true);
     }, []);
 
@@ -123,6 +141,7 @@ export class ReactNativeWebViewController extends ViewController {
      * Hide the Magic `<WebView>` overlay.
      */
     const hideOverlay = useCallback(() => {
+      logInfo('hideOverlay called');
       setShow(false);
     }, []);
 
@@ -143,26 +162,31 @@ export class ReactNativeWebViewController extends ViewController {
     }, []);
 
     return (
-      <SafeAreaView ref={containerRef} style={containerStyles}>
-        <WebView
-          ref={webViewRef}
-          source={{ uri: `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` }}
-          onMessage={handleWebViewMessage}
-          style={this.styles['magic-webview']}
-          webviewDebuggingEnabled
-          autoManageStatusBarEnabled={false}
-          onShouldStartLoadWithRequest={(event) => {
-            const queryParams = new URLSearchParams(event.url.split('?')[1]);
-            const openInDeviceBrowser = queryParams.get(OPEN_IN_DEVICE_BROWSER);
+      <DatadogProvider configuration={config}>
+        <SafeAreaView ref={containerRef} style={containerStyles}>
+          <WebView
+            onError={(error) => {
+              logError('WebView error', { error });
+            }}
+            ref={webViewRef}
+            source={{ uri: `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` }}
+            onMessage={handleWebViewMessage}
+            style={this.styles['magic-webview']}
+            webviewDebuggingEnabled
+            autoManageStatusBarEnabled={false}
+            onShouldStartLoadWithRequest={(event) => {
+              const queryParams = new URLSearchParams(event.url.split('?')[1]);
+              const openInDeviceBrowser = queryParams.get(OPEN_IN_DEVICE_BROWSER);
 
-            if (openInDeviceBrowser) {
-              Linking.openURL(event.url);
-              return false;
-            }
-            return true;
-          }}
-        />
-      </SafeAreaView>
+              if (openInDeviceBrowser) {
+                Linking.openURL(event.url);
+                return false;
+              }
+              return true;
+            }}
+          />
+        </SafeAreaView>
+      </DatadogProvider>
     );
   };
 
@@ -180,6 +204,9 @@ export class ReactNativeWebViewController extends ViewController {
       // Special parsing logic when dealing with TypedArray in the payload
       // Such change is required as JSON.stringify will manipulate the object and cause exceptions during parsing
       // The typed Array is stringified in Mgbox with a flag as notation.
+
+      logInfo('handleReactNativeWebViewMessage called', JSON.parse(event.nativeEvent.data));
+
       const data: any = JSON.parse(event.nativeEvent.data, (key, value) => {
         try {
           if (value && typeof value === 'object' && value.flag && value.flag === MAGIC_PAYLOAD_FLAG_TYPED_ARRAY) {
@@ -188,7 +215,9 @@ export class ReactNativeWebViewController extends ViewController {
 
           // silently handles exception and return the original copy
           // eslint-disable-next-line no-empty
-        } catch (e) {}
+        } catch (e) {
+          logError('Error parsing TypedArray', { e });
+        }
         return value;
       });
 
@@ -208,30 +237,38 @@ export class ReactNativeWebViewController extends ViewController {
   }
 
   protected hideOverlay() {
+    logInfo('hideOverlay called');
     if (this.container) this.container.hideOverlay();
   }
 
   protected showOverlay() {
+    logInfo('showOverlay called');
     if (this.container) this.container.showOverlay();
   }
 
   protected async _post(data: any) {
+    logInfo('post called', { data });
     if (this.webView && (this.webView as any).postMessage) {
-      (this.webView as any).postMessage(
-        JSON.stringify(data, (key, value) => {
-          // parse Typed Array to Stringify object
-          if (isTypedArray(value)) {
-            return {
-              constructor: value.constructor.name,
-              data: value.toString(),
-              flag: MAGIC_PAYLOAD_FLAG_TYPED_ARRAY,
-            };
-          }
-          return value;
-        }),
-        this.endpoint,
-      );
+      try {
+        (this.webView as any).postMessage(
+          JSON.stringify(data, (key, value) => {
+            // parse Typed Array to Stringify object
+            if (isTypedArray(value)) {
+              return {
+                constructor: value.constructor.name,
+                data: value.toString(),
+                flag: MAGIC_PAYLOAD_FLAG_TYPED_ARRAY,
+              };
+            }
+            return value;
+          }),
+          this.endpoint,
+        );
+      } catch (e) {
+        logError('post failed', { e });
+      }
     } else {
+      logError('post failed, modal not ready', data);
       throw createModalNotReadyError();
     }
   }
