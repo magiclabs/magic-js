@@ -184,6 +184,7 @@ export class ReactNativeWebViewController extends ViewController {
               }
               return true;
             }}
+            limitsNavigationsToAppBoundDomains
           />
         </SafeAreaView>
       </DatadogProvider>
