@@ -80,13 +80,14 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
         if (address) {
           this.setIsConnected();
           this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletConnected as any, payloadId as any)(address);
+          unsubscribeFromProviderEvents();
+          this.setEip1193EventListenersIfConnected();
         }
       });
 
       // Listen for modal close before user connects wallet
       const unsubscribeFromModalEvents = modal.subscribeEvents((event) => {
         if (event.data.event === 'MODAL_CLOSE') {
-          // Remove listeners
           unsubscribeFromModalEvents();
           unsubscribeFromProviderEvents();
           this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
