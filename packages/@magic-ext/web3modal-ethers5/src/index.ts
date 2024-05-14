@@ -22,7 +22,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
     setTimeout(() => {
       if (!this.modal.getIsConnected()) return;
       this.setIsConnected();
-      this.setEip1193EventListenersIfConnected();
+      this.setEip1193EventListeners();
     }, 50);
   }
 
@@ -35,6 +35,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
 
   public initialize() {
     this.sdk.thirdPartyWallet.enabledWallets.web3modal = true;
+    this.sdk.thirdPartyWallet.isConnected = !!localStorage.getItem('3pw_address');
     this.sdk.thirdPartyWallet.eventListeners.push({
       event: ThirdPartyWalletEvents.Web3ModalSelected,
       callback: async (payloadId) => {
@@ -43,7 +44,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
     });
   }
 
-  private setEip1193EventListenersIfConnected() {
+  private setEip1193EventListeners() {
     if (Web3ModalExtension.eventsListenerAdded) return;
     Web3ModalExtension.eventsListenerAdded = true;
 
@@ -81,7 +82,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
           this.setIsConnected();
           this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletConnected as any, payloadId as any)(address);
           unsubscribeFromProviderEvents();
-          this.setEip1193EventListenersIfConnected();
+          this.setEip1193EventListeners();
         }
       });
 

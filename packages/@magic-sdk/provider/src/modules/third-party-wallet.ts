@@ -5,7 +5,7 @@ import { PromiEvent, createPromiEvent } from '../util';
 export class ThirdPartyWalletModule extends BaseModule {
   public eventListeners: { event: ThirdPartyWalletEvents; callback: (payloadId: string) => Promise<void> }[] = [];
   public enabledWallets: Record<string, boolean> = {};
-  public isConnected = !!localStorage.getItem('3pw_address');
+  public isConnected = false;
 
   public resetState() {
     localStorage.removeItem('3pw_provider');
@@ -15,7 +15,11 @@ export class ThirdPartyWalletModule extends BaseModule {
   }
 
   public requestOverride(payload: Partial<JsonRpcRequestPayload>) {
-    // Handle method overrides if getInfo/isLoggedIn/logout
+    // Handle method overrides if login/getInfo/isLoggedIn/logout
+    if (payload.method === MagicPayloadMethod.Login) {
+      this.resetState();
+      return super.request(payload);
+    }
     if (payload.method === MagicPayloadMethod.GetInfo) {
       return this.getInfo(payload);
     }
@@ -66,7 +70,6 @@ export class ThirdPartyWalletModule extends BaseModule {
         return this.web3modalLogout();
       }
       default:
-        this.resetState();
         return super.request(payload);
     }
   }

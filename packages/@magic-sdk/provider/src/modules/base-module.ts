@@ -29,7 +29,8 @@ export class BaseModule {
     if (
       this.sdk.thirdPartyWallet.isConnected &&
       payload.method !== MagicPayloadMethod.IntermediaryEvent &&
-      payload.method !== MagicPayloadMethod.NFTCheckout
+      payload.method !== MagicPayloadMethod.NFTCheckout &&
+      payload.method !== MagicPayloadMethod.Login
     ) {
       const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
         this.sdk.thirdPartyWallet.requestOverride(payload).then(resolve).catch(reject);
