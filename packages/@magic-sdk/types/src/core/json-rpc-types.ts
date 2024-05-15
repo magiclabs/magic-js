@@ -39,18 +39,13 @@ export interface UserInfo {
 }
 
 export interface WalletInfo {
-  walletType: 'magic' | 'metamask' | 'coinbase_wallet';
+  walletType: string;
 }
 
 export interface RequestUserInfoScope {
   scope?: {
     email?: 'required' | 'optional';
   };
-}
-
-export enum Wallets {
-  MetaMask = 'metamask',
-  CoinbaseWallet = 'coinbase_wallet',
 }
 
 export enum ThirdPartyWalletEvents {

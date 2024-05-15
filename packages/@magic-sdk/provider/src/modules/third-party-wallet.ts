@@ -114,8 +114,12 @@ export class ThirdPartyWalletModule extends BaseModule {
 
   private web3modalLogout(): PromiEvent<boolean, any> {
     return createPromiEvent<boolean, any>(async (resolve) => {
-      // @ts-ignore
-      await this.sdk.web3modal.modal?.disconnect();
+      try {
+        // @ts-ignore
+        await this.sdk.web3modal.modal?.disconnect();
+      } catch (error) {
+        console.error(error);
+      }
       resolve(true);
     });
   }
