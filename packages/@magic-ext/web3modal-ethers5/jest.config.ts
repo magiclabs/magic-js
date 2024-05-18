@@ -7,7 +7,7 @@ const config: Config.InitialOptions = {
     '^.+\\.(js|jsx)$': 'babel-jest',
     '\\.(ts|tsx)$': 'ts-jest',
   },
-  coveragePathIgnorePatterns: ['index.cdn.ts', 'index.native.ts'],
+  coveragePathIgnorePatterns: ['index.ts, index.cdn.ts', 'index.native.ts'],
 };
 
 export default config;

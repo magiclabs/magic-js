@@ -1,0 +1,30 @@
+import browserEnv from '@ikscodes/browser-env';
+import { createMagicSDK } from '../../../factories';
+import { mockLocalStorage } from '../../../mocks';
+import { BaseModule } from '../../../../src/modules/base-module';
+
+beforeEach(() => {
+  browserEnv.restore();
+  jest.useFakeTimers();
+  mockLocalStorage();
+});
+
+describe('third party wallet isLoggedIn', () => {
+  it('should call web3modalIsLoggedIn if provider is web3modal', () => {
+    localStorage.setItem('3pw_provider', 'web3modal');
+    const payload = { method: 'isLoggedIn' };
+    const magic = createMagicSDK();
+    const spy = jest.spyOn(magic.thirdPartyWallet, 'web3modalIsLoggedIn').mockImplementation(() => Promise.resolve({}));
+    magic.thirdPartyWallet.isLoggedIn(payload);
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should call super.request if provider is not set', () => {
+    const payload = { method: 'isLoggedIn' };
+    const magic = createMagicSDK();
+    const requestMock = jest.fn();
+    (BaseModule as any).prototype.request = requestMock;
+    magic.thirdPartyWallet.isLoggedIn(payload);
+    expect(requestMock).toHaveBeenCalled();
+  });
+});

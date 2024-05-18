@@ -39,7 +39,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
     this.sdk.thirdPartyWallet.eventListeners.push({
       event: ThirdPartyWalletEvents.Web3ModalSelected,
       callback: async (payloadId) => {
-        await this.connectToWeb3Modal(payloadId);
+        await this.connectToWeb3modal(payloadId);
       },
     });
   }
@@ -66,7 +66,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
     });
   }
 
-  private connectToWeb3Modal(payloadId: string) {
+  private connectToWeb3modal(payloadId: string) {
     const { modal } = this;
 
     const promiEvent = this.utils.createPromiEvent<string[]>(async () => {
