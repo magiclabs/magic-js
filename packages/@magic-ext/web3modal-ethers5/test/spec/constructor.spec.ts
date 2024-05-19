@@ -31,14 +31,14 @@ const web3modalParams = {
   },
 };
 
-test('constructor sets up modal and getIsConnected is false', async () => {
+test('constructor sets up modal and getIsConnected is false', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.modal.getIsConnected.mockReturnValueOnce(false);
   expect(magic.web3modal.modal).toBeDefined();
   expect(magic.web3modal.modal.getIsConnected()).toBeFalsy();
 });
 
-test('constructor sets event listeners when getIsConnected is true', async () => {
+test('constructor sets event listeners when getIsConnected is true', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.modal.getIsConnected = jest.fn().mockReturnValue(true);
   const setIsConnectedSpy = jest.spyOn(magic.web3modal, 'setIsConnected').mockImplementation(() => Promise.resolve({}));
@@ -49,70 +49,3 @@ test('constructor sets event listeners when getIsConnected is true', async () =>
   expect(setIsConnectedSpy).toBeCalled();
   expect(setEip1193EventListenersSpy).toBeCalled();
 });
-
-// test('setIsConnected', async () => {
-//   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
-//   magic.web3modal.setIsConnected();
-//   expect(localStorage.getItem('3pw_provider')).toEqual('web3modal');
-//   expect(localStorage.getItem('3pw_address')).toEqual('0x123');
-//   expect(localStorage.getItem('3pw_chainId')).toEqual('1');
-//   expect(magic.thirdPartyWallet.isConnected).toBeTruthy();
-// });
-
-// test('initialize', async () => {
-//   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
-//   magic.web3modal.initialize();
-//   expect(magic.thirdPartyWallet.enabledWallets.web3modal).toBeTruthy();
-//   expect(magic.thirdPartyWallet.isConnected).toBeFalsy();
-//   expect(magic.thirdPartyWallet.eventListeners.length).toEqual(1);
-// });
-
-// // this one is triggering the callback console.log
-// test('setEip1193EventListeners calls subscribeProvider', async () => {
-//   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
-//   magic.web3modal.setEip1193EventListeners();
-//   expect(magic.web3modal.modal.subscribeProvider).toBeCalled();
-// });
-
-// test('setEip1193EventListeners emits accountsChanged', async () => {
-//   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
-//   magic.web3modal.modal.subscribeProvider = jest.fn(
-//     (callback: (provider: { address: string; chainId: number }) => void) => {
-//       callback({ address: '0x123', chainId: 1 });
-//     },
-//   );
-//   const emitSpy = jest.spyOn(magic.rpcProvider, 'emit').mockImplementation(() => Promise.resolve({}));
-//   magic.web3modal.setEip1193EventListeners();
-//   expect(emitSpy).toBeCalledWith('accountsChanged', ['0x123']);
-// });
-
-// test('setEip1193EventListeners emits chainChanged', async () => {
-//   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
-//   localStorage.setItem('3pw_address', '0x123');
-//   magic.web3modal.modal.subscribeProvider = jest.fn(
-//     (callback: (provider: { address: string; chainId: number }) => void) => {
-//       callback({ address: '0x123', chainId: 1 });
-//     },
-//   );
-//   const emitSpy = jest.spyOn(magic.rpcProvider, 'emit').mockImplementation(() => Promise.resolve({}));
-//   magic.web3modal.setEip1193EventListeners();
-//   expect(magic.web3modal.modal.subscribeProvider).toBeCalled();
-//   expect(emitSpy).toBeCalledWith('chainChanged', [1]);
-// });
-
-// test('setEip1193EventListeners does not set listeners if they were already set', async () => {
-//   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
-//   magic.web3modal.eventsListenerAdded = true;
-//   const subscribeProviderSpy = jest.spyOn(magic.web3modal.modal, 'subscribeProvider');
-//   magic.web3modal.setEip1193EventListeners();
-//   expect(subscribeProviderSpy).toBeCalledTimes(0);
-// });
-
-// test('calls subscribeProvider callback', async () => {
-//   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
-//   const callback = jest.fn();
-//   magic.web3modal.eventsListenerAdded = false;
-//   jest.spyOn(magic.web3modal.modal, 'subscribeProvider').mockImplementation(callback);
-//   magic.web3modal.setEip1193EventListeners();
-//   expect(callback).toBeCalled();
-// });

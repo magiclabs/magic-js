@@ -1,5 +1,5 @@
 import browserEnv from '@ikscodes/browser-env';
-import { ConnectWithUiEvents } from '@magic-sdk/types';
+import { ConnectWithUiEvents, ThirdPartyWalletEvents } from '@magic-sdk/types';
 import { createPromiEvent } from '../../../../src/util';
 import { createMagicSDK } from '../../../factories';
 
@@ -9,7 +9,7 @@ beforeEach(() => {
 
 test('Generate JSON RPC request payload with method `mc_login`', async () => {
   const magic = createMagicSDK();
-  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>(async (resolve, reject) => {
+  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>((resolve) => {
     resolve(['0x12345']);
   });
   magic.wallet.request = jest.fn(() => mockPromiEvent);
@@ -22,7 +22,7 @@ test('Generate JSON RPC request payload with method `mc_login`', async () => {
 
 test('Generate JSON RPC request payload with params', async () => {
   const magic = createMagicSDK();
-  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>(async (resolve, reject) => {
+  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>((resolve) => {
     resolve(['0x12345']);
   });
   magic.wallet.request = jest.fn(() => mockPromiEvent);
@@ -40,18 +40,17 @@ test('Calls event listener callback', async () => {
   const magic = createMagicSDK();
   magic.thirdPartyWallet.eventListeners = eventListeners;
   magic.thirdPartyWallet.enabledWallets = { web3modal: true };
-  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>(async (resolve) => resolve(['0x12345']));
+  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>((resolve) => resolve(['0x12345']));
   magic.wallet.request = jest.fn(() => mockPromiEvent);
   const handle = magic.wallet.connectWithUI();
-  // @ts-ignore
-  mockPromiEvent.emit('web3modal_selected');
+  mockPromiEvent.emit('web3modal_selected' as ThirdPartyWalletEvents);
   await handle;
   expect(mockCallback).toHaveBeenCalledTimes(1);
 });
 
 test('Catches the error', async () => {
   const magic = createMagicSDK();
-  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>(async (resolve, reject) => {
+  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>((resolve, reject) => {
     reject(new Error('Error'));
   });
 

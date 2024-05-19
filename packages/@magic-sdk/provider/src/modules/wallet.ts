@@ -80,7 +80,7 @@ export class WalletModule extends BaseModule {
 
   /* Get user info such as the wallet type they are logged in with */
   // deprecating
-  public async getInfo() {
+  public getInfo() {
     createDeprecationWarning({
       method: 'wallet.getInfo()',
       removalVersions: ProductConsolidationMethodRemovalVersions,

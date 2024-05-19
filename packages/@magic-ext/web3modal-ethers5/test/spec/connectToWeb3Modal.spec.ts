@@ -33,31 +33,31 @@ const web3modalParams = {
   },
 };
 
-test('connectToWeb3modal returns promiEvent', async () => {
+test('connectToWeb3modal returns promiEvent', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   expect(isPromiEvent(magic.web3modal.connectToWeb3modal())).toBeTruthy();
 });
 
-test('connectToWeb3modal calls subscribeProvider', async () => {
+test('connectToWeb3modal calls subscribeProvider', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.connectToWeb3modal();
   expect(magic.web3modal.modal.subscribeProvider).toBeCalled();
 });
 
-test('connectToWeb3modal calls subscribeEvents', async () => {
+test('connectToWeb3modal calls subscribeEvents', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.connectToWeb3modal();
   expect(magic.web3modal.modal.subscribeEvents).toBeCalled();
 });
 
-test('connectToWeb3modal calls `open`', async () => {
+test('connectToWeb3modal calls `open`', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.connectToWeb3modal();
   expect(magic.web3modal.modal.open).toBeCalled();
 });
 
 // skip because it does not like calling the unsubscribe function
-test.skip('connectToWeb3modal emits wallet_rejected event on subscribeProvider error', async () => {
+test.skip('connectToWeb3modal emits wallet_rejected event on subscribeProvider error', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.modal.subscribeProvider = jest.fn((callback: (provider: { error: boolean }) => void) => {
     callback({ error: true });
@@ -70,7 +70,7 @@ test.skip('connectToWeb3modal emits wallet_rejected event on subscribeProvider e
 });
 
 // skip because it does not like calling the unsubscribe function
-test.skip('connectToWeb3modal emits wallet_connected event on `address` event', async () => {
+test.skip('connectToWeb3modal emits wallet_connected event on `address` event', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.modal.subscribeProvider = jest.fn((callback: (provider: { address: string }) => void) => {
     callback({ address: '0x123' });
@@ -90,7 +90,7 @@ test.skip('connectToWeb3modal emits wallet_connected event on `address` event', 
 });
 
 // skip because it does not like calling the unsubscribe function
-test.skip('connectToWeb3modal emits wallet_rejected event on "MODAL_CLOSE" event', async () => {
+test.skip('connectToWeb3modal emits wallet_rejected event on "MODAL_CLOSE" event', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.modal.subscribeEvents = jest.fn(
     (

@@ -30,13 +30,13 @@ const web3modalParams = {
   },
 };
 
-test('setEip1193EventListeners calls subscribeProvider', async () => {
+test('setEip1193EventListeners calls subscribeProvider', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.setEip1193EventListeners();
   expect(magic.web3modal.modal.subscribeProvider).toBeCalled();
 });
 
-test('setEip1193EventListeners does not set listeners if they were already set', async () => {
+test('setEip1193EventListeners does not set listeners if they were already set', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.eventsListenerAdded = true;
   const subscribeProviderSpy = jest.spyOn(magic.web3modal.modal, 'subscribeProvider');

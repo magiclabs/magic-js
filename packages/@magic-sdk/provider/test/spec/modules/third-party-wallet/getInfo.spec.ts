@@ -23,7 +23,8 @@ describe('third party wallet getInfo', () => {
     const payload = { method: 'getInfo' };
     const magic = createMagicSDK();
     const requestMock = jest.fn();
-    (BaseModule as any).prototype.request = requestMock;
+    // @ts-expect-error 'request' is protected
+    BaseModule.prototype.request = requestMock;
     magic.thirdPartyWallet.getInfo(payload);
     expect(requestMock).toHaveBeenCalled();
   });

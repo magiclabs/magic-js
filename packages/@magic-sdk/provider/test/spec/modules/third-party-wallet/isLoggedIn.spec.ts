@@ -23,7 +23,8 @@ describe('third party wallet isLoggedIn', () => {
     const payload = { method: 'isLoggedIn' };
     const magic = createMagicSDK();
     const requestMock = jest.fn();
-    (BaseModule as any).prototype.request = requestMock;
+    // @ts-expect-error 'request' is protected
+    BaseModule.prototype.request = requestMock;
     magic.thirdPartyWallet.isLoggedIn(payload);
     expect(requestMock).toHaveBeenCalled();
   });

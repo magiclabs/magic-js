@@ -29,7 +29,7 @@ const web3modalParams = {
   },
 };
 
-test('setIsConnected sets localStorage values', async () => {
+test('setIsConnected sets localStorage values', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.setIsConnected();
   expect(localStorage.getItem('3pw_provider')).toEqual('web3modal');

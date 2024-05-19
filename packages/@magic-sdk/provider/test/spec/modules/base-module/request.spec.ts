@@ -324,7 +324,7 @@ test('Calls third party wallet request override if third party wallet is connect
   expect(spy).toBeCalledTimes(1);
 });
 
-test('Does not call thirdPartyWallet requestOverride if method is magic_intermediary_event', async () => {
+test('Does not call thirdPartyWallet requestOverride if method is magic_intermediary_event', () => {
   mockLocalStorage();
   const response = new JsonRpcResponse(requestPayload).applyResult('magic_intermediary_event');
   const { baseModule } = createBaseModule(jest.fn().mockImplementation(() => Promise.resolve(response)));
@@ -335,7 +335,7 @@ test('Does not call thirdPartyWallet requestOverride if method is magic_intermed
   expect(spy).toBeCalledTimes(0);
 });
 
-test('Does not call thirdPartyWallet requestOverride if method is magic_nft_checkout', async () => {
+test('Does not call thirdPartyWallet requestOverride if method is magic_nft_checkout', () => {
   mockLocalStorage();
   const response = new JsonRpcResponse(requestPayload).applyResult('magic_nft_checkout');
   const { baseModule } = createBaseModule(jest.fn().mockImplementation(() => Promise.resolve(response)));
@@ -346,7 +346,7 @@ test('Does not call thirdPartyWallet requestOverride if method is magic_nft_chec
   expect(spy).toBeCalledTimes(0);
 });
 
-test('Does not call thirdPartyWallet requestOverride if method is mc_login', async () => {
+test('Does not call thirdPartyWallet requestOverride if method is mc_login', () => {
   mockLocalStorage();
   const response = new JsonRpcResponse(requestPayload).applyResult('mc_login');
   const { baseModule } = createBaseModule(jest.fn().mockImplementation(() => Promise.resolve(response)));

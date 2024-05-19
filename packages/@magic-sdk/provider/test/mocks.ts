@@ -44,10 +44,12 @@ export function mockLocalStorage() {
       ls[key] = value.toString();
     }),
     removeItem: jest.fn((key) => {
-      delete ls[key];
+      ls[key] = undefined;
     }),
     clear: jest.fn(() => {
-      Object.keys(ls).forEach((key) => delete ls[key]);
+      Object.keys(ls).forEach((key) => {
+        ls[key] = undefined;
+      });
     }),
   };
 

@@ -42,7 +42,7 @@ export class ThirdPartyWalletModule extends BaseModule {
 
   /* Core Method Overrides */
 
-  private isLoggedIn(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean, any> {
+  private isLoggedIn(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean> {
     switch (localStorage.getItem('3pw_provider')) {
       case 'web3modal':
         return this.web3modalIsLoggedIn();
@@ -52,7 +52,7 @@ export class ThirdPartyWalletModule extends BaseModule {
     }
   }
 
-  private getInfo(payload: Partial<JsonRpcRequestPayload>): PromiEvent<MagicUserMetadata, any> {
+  private getInfo(payload: Partial<JsonRpcRequestPayload>): PromiEvent<MagicUserMetadata> {
     switch (localStorage.getItem('3pw_provider')) {
       case 'web3modal':
         return this.web3modalGetInfo();
@@ -62,7 +62,7 @@ export class ThirdPartyWalletModule extends BaseModule {
     }
   }
 
-  private logout(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean, any> {
+  private logout(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean> {
     const provider = localStorage.getItem('3pw_provider');
     this.resetState();
     switch (provider) {
@@ -77,17 +77,17 @@ export class ThirdPartyWalletModule extends BaseModule {
   /* Web3Modal Methods */
 
   private web3modalRequest(payload: Partial<JsonRpcRequestPayload>) {
-    return createPromiEvent<any, any>((resolve, reject) => {
-      // @ts-ignore
+    return createPromiEvent<unknown>((resolve, reject) => {
+      // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
       this.sdk.web3modal.modal.getWalletProvider().request(payload).then(resolve).catch(reject);
     });
   }
 
   private web3modalIsLoggedIn() {
-    return createPromiEvent<boolean, any>((resolve) => {
+    return createPromiEvent<boolean>((resolve) => {
       // Required delay to allow web3modal to register connection
       setTimeout(() => {
-        // @ts-ignore
+        // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
         const isLoggedIn: boolean = this.sdk.web3modal.modal.getIsConnected();
         resolve(isLoggedIn);
       }, 50);
@@ -95,10 +95,10 @@ export class ThirdPartyWalletModule extends BaseModule {
   }
 
   private web3modalGetInfo() {
-    return createPromiEvent<MagicUserMetadata, any>((resolve) => {
-      // @ts-ignore
+    return createPromiEvent<MagicUserMetadata>((resolve) => {
+      // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
       const walletType = this.sdk.web3modal.modal.getWalletInfo()?.name;
-      // @ts-ignore
+      // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
       const userAddress = this.sdk.web3modal.modal.getAddress();
       resolve({
         publicAddress: userAddress,
@@ -106,17 +106,17 @@ export class ThirdPartyWalletModule extends BaseModule {
         issuer: `$did:ethr:${userAddress}`,
         phoneNumber: null,
         isMfaEnabled: false,
-        recoveryFactors: [] as any,
+        recoveryFactors: [],
         walletType,
       });
     });
   }
 
-  private web3modalLogout(): PromiEvent<boolean, any> {
-    return createPromiEvent<boolean, any>(async (resolve) => {
+  private web3modalLogout(): PromiEvent<boolean> {
+    return createPromiEvent<boolean>(async (resolve) => {
       try {
-        // @ts-ignore
-        await this.sdk.web3modal.modal?.disconnect();
+        // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
+        await this.sdk.web3modal.modal.disconnect();
       } catch (error) {
         console.error(error);
       }

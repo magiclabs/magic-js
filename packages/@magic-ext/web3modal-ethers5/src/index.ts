@@ -2,9 +2,9 @@ import { Extension, ThirdPartyWalletEvents } from '@magic-sdk/commons';
 import { Web3Modal, createWeb3Modal, defaultConfig } from '@web3modal/ethers5';
 import { Web3ModalExtensionOptions } from './types';
 
-export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
+export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
   name = 'web3modal' as const;
-  config: any = {};
+  config = {};
   modal: Web3Modal;
 
   static eventsListenerAdded = false;
@@ -35,7 +35,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
 
   public initialize() {
     this.sdk.thirdPartyWallet.enabledWallets.web3modal = true;
-    this.sdk.thirdPartyWallet.isConnected = !!localStorage.getItem('3pw_address');
+    this.sdk.thirdPartyWallet.isConnected = Boolean(localStorage.getItem('3pw_address'));
     this.sdk.thirdPartyWallet.eventListeners.push({
       event: ThirdPartyWalletEvents.Web3ModalSelected,
       callback: async (payloadId) => {
@@ -69,7 +69,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
   private connectToWeb3modal(payloadId: string) {
     const { modal } = this;
 
-    const promiEvent = this.utils.createPromiEvent<string[]>(async () => {
+    const promiEvent = this.utils.createPromiEvent<string[]>(() => {
       // Listen for wallet connected
       const unsubscribeFromProviderEvents = modal.subscribeProvider(({ address, error }) => {
         // User rejected connection request
@@ -80,7 +80,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal', any> {
         // If user connected wallet, keep listeners active
         if (address) {
           this.setIsConnected();
-          this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletConnected as any, payloadId as any)(address);
+          this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletConnected, payloadId)(address);
           unsubscribeFromProviderEvents();
           this.setEip1193EventListeners();
         }

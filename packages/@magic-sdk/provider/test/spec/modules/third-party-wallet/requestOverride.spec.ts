@@ -7,7 +7,8 @@ import { mockLocalStorage } from '../../../mocks';
 beforeEach(() => {
   browserEnv.restore();
   mockLocalStorage();
-  (BaseModule as any).prototype.request = jest.fn();
+  // @ts-expect-error 'request' is protected
+  BaseModule.prototype.request = jest.fn();
 });
 
 describe('third party wallet requestOverride', () => {
@@ -18,7 +19,8 @@ describe('third party wallet requestOverride', () => {
     magic.thirdPartyWallet.resetState = resetStateMock;
     magic.thirdPartyWallet.requestOverride(payload);
     expect(resetStateMock).toBeCalled();
-    expect((BaseModule as any).prototype.request.mock.calls[0][0]).toEqual(payload);
+    // @ts-expect-error 'request' is protected
+    expect(BaseModule.prototype.request.mock.calls[0][0]).toEqual(payload);
   });
 
   it('should call super.request for MagicPayloadMethod.GetInfo', () => {
@@ -48,7 +50,7 @@ describe('third party wallet requestOverride', () => {
     expect(logoutMock).toBeCalled();
   });
 
-  it('should call web3modalRequest if provider is web3modal', async () => {
+  it('should call web3modalRequest if provider is web3modal', () => {
     localStorage.setItem('3pw_provider', 'web3modal');
     const payload = { method: 'someMethod' };
     const magic = createMagicSDK();
@@ -57,10 +59,11 @@ describe('third party wallet requestOverride', () => {
     expect(spy).toBeCalled();
   });
 
-  it('should call super.request if provider is not set', async () => {
+  it('should call super.request if provider is not set', () => {
     const payload = { method: 'someMethod' };
     const magic = createMagicSDK();
     magic.thirdPartyWallet.requestOverride(payload);
-    expect((BaseModule as any).prototype.request.mock.calls[0][0]).toEqual(payload);
+    // @ts-expect-error 'request' is protected
+    expect(BaseModule.prototype.request.mock.calls[0][0]).toEqual(payload);
   });
 });
