@@ -1,3 +1,21 @@
+# (Mon May 20 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/solana@25.1.0`
+  - Add partialSignTransaction in sol-ext [#743](https://github.com/magiclabs/magic-js/pull/743) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/solana@25.1.0`
+  - Fix type mismatch for signTransaction in sol-ext [#693](https://github.com/magiclabs/magic-js/pull/693) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Wed Apr 24 2024)
 
 #### 🐛 Bug Fix

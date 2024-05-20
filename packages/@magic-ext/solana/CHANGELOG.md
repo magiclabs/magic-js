@@ -1,3 +1,22 @@
+# v25.1.0 (Mon May 20 2024)
+
+#### 🚀 Enhancement
+
+- Add partialSignTransaction in sol-ext [#743](https://github.com/magiclabs/magic-js/pull/743) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Fix type mismatch for signTransaction in sol-ext [#693](https://github.com/magiclabs/magic-js/pull/693) ([@octave08](https://github.com/octave08))
+- Merge branch 'master' into jayhwang-sc-91670-type-mismatch-2-in-solana-extension ([@octave08](https://github.com/octave08))
+- Add partialSignTransaction ([@octave08](https://github.com/octave08))
+- Change type from string to uint8array ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # v25.0.0 (Fri Mar 22 2024)
 
 #### 🚀 Enhancement
