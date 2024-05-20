@@ -51,7 +51,7 @@ describe('third party wallet requestOverride', () => {
   });
 
   it('should call web3modalRequest if provider is web3modal', () => {
-    localStorage.setItem('3pw_provider', 'web3modal');
+    localStorage.setItem('magic_3pw_provider', 'web3modal');
     const payload = { method: 'someMethod' };
     const magic = createMagicSDK();
     const spy = jest.spyOn(magic.thirdPartyWallet, 'web3modalRequest').mockImplementation(() => Promise.resolve({}));

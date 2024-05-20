@@ -9,7 +9,7 @@ beforeEach(() => {
 
 describe('third party wallet web3modalGetInfo', () => {
   it('should call getIsConnected', () => {
-    localStorage.setItem('3pw_provider', 'web3modal');
+    localStorage.setItem('magic_3pw_provider', 'web3modal');
     const payload = { method: 'getInfo' };
     const magic = createMagicSDK();
     const spy = jest.spyOn(magic.thirdPartyWallet, 'web3modalGetInfo').mockImplementation(() => Promise.resolve({}));

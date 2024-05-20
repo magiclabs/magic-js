@@ -27,15 +27,15 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
   }
 
   public setIsConnected() {
-    localStorage.setItem('3pw_provider', 'web3modal');
-    localStorage.setItem('3pw_address', this.modal.getAddress() as string);
-    localStorage.setItem('3pw_chainId', (this.modal.getChainId() as number).toString());
+    localStorage.setItem('magic_3pw_provider', 'web3modal');
+    localStorage.setItem('magic_3pw_address', this.modal.getAddress() as string);
+    localStorage.setItem('magic_3pw_chainId', (this.modal.getChainId() as number).toString());
     this.sdk.thirdPartyWallet.isConnected = true;
   }
 
   public initialize() {
     this.sdk.thirdPartyWallet.enabledWallets.web3modal = true;
-    this.sdk.thirdPartyWallet.isConnected = Boolean(localStorage.getItem('3pw_address'));
+    this.sdk.thirdPartyWallet.isConnected = Boolean(localStorage.getItem('magic_3pw_address'));
     this.sdk.thirdPartyWallet.eventListeners.push({
       event: ThirdPartyWalletEvents.Web3ModalSelected,
       callback: async (payloadId) => {
@@ -50,16 +50,16 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
 
     this.modal.subscribeProvider(({ address, chainId }) => {
       // If user disconnected all accounts from wallet
-      if (!address && localStorage.getItem('3pw_address')) {
+      if (!address && localStorage.getItem('magic_3pw_address')) {
         this.sdk.thirdPartyWallet.resetState();
         return this.sdk.rpcProvider.emit('accountsChanged', []);
       }
-      if (address && address !== localStorage.getItem('3pw_address')) {
-        localStorage.setItem('3pw_address', address);
+      if (address && address !== localStorage.getItem('magic_3pw_address')) {
+        localStorage.setItem('magic_3pw_address', address);
         return this.sdk.rpcProvider.emit('accountsChanged', [address]);
       }
-      if (chainId && chainId !== Number(localStorage.getItem('3pw_chainId'))) {
-        localStorage.setItem('3pw_chainId', chainId.toString());
+      if (chainId && chainId !== Number(localStorage.getItem('magic_3pw_chainId'))) {
+        localStorage.setItem('magic_3pw_chainId', chainId.toString());
         return this.sdk.rpcProvider.emit('chainChanged', chainId);
       }
       return null;

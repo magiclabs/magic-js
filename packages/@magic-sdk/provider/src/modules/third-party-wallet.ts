@@ -8,9 +8,9 @@ export class ThirdPartyWalletModule extends BaseModule {
   public isConnected = false;
 
   public resetState() {
-    localStorage.removeItem('3pw_provider');
-    localStorage.removeItem('3pw_address');
-    localStorage.removeItem('3pw_chainId');
+    localStorage.removeItem('magic_3pw_provider');
+    localStorage.removeItem('magic_3pw_address');
+    localStorage.removeItem('magic_3pw_chainId');
     this.isConnected = false;
   }
 
@@ -30,7 +30,7 @@ export class ThirdPartyWalletModule extends BaseModule {
       return this.logout(payload);
     }
     // Route all other requests to 3pw provider
-    switch (localStorage.getItem('3pw_provider')) {
+    switch (localStorage.getItem('magic_3pw_provider')) {
       case 'web3modal':
         return this.web3modalRequest(payload);
       // Fallback to default request
@@ -43,7 +43,7 @@ export class ThirdPartyWalletModule extends BaseModule {
   /* Core Method Overrides */
 
   private isLoggedIn(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean> {
-    switch (localStorage.getItem('3pw_provider')) {
+    switch (localStorage.getItem('magic_3pw_provider')) {
       case 'web3modal':
         return this.web3modalIsLoggedIn();
       default:
@@ -53,7 +53,7 @@ export class ThirdPartyWalletModule extends BaseModule {
   }
 
   private getInfo(payload: Partial<JsonRpcRequestPayload>): PromiEvent<MagicUserMetadata> {
-    switch (localStorage.getItem('3pw_provider')) {
+    switch (localStorage.getItem('magic_3pw_provider')) {
       case 'web3modal':
         return this.web3modalGetInfo();
       default:
@@ -63,7 +63,7 @@ export class ThirdPartyWalletModule extends BaseModule {
   }
 
   private logout(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean> {
-    const provider = localStorage.getItem('3pw_provider');
+    const provider = localStorage.getItem('magic_3pw_provider');
     this.resetState();
     switch (provider) {
       case 'web3modal': {

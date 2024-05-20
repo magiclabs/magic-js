@@ -32,8 +32,8 @@ const web3modalParams = {
 test('setIsConnected sets localStorage values', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.setIsConnected();
-  expect(localStorage.getItem('3pw_provider')).toEqual('web3modal');
-  expect(localStorage.getItem('3pw_address')).toEqual('0x123');
-  expect(localStorage.getItem('3pw_chainId')).toEqual('1');
+  expect(localStorage.getItem('magic_3pw_provider')).toEqual('web3modal');
+  expect(localStorage.getItem('magic_3pw_address')).toEqual('0x123');
+  expect(localStorage.getItem('magic_3pw_chainId')).toEqual('1');
   expect(magic.thirdPartyWallet.isConnected).toBeTruthy();
 });

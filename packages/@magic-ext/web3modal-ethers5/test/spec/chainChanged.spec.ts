@@ -32,7 +32,7 @@ const web3modalParams = {
 
 test('setEip1193EventListeners emits chainChanged', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
-  localStorage.setItem('3pw_address', '0x123');
+  localStorage.setItem('magic_3pw_address', '0x123');
   magic.web3modal.modal.subscribeProvider = jest.fn(
     (callback: (provider: { address: string; chainId: number }) => void) => {
       callback({ address: '0x123', chainId: 1 });
