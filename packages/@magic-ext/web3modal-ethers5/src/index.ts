@@ -1,5 +1,6 @@
 import { Extension } from '@magic-sdk/commons';
 import { Web3Modal, createWeb3Modal, defaultConfig } from '@web3modal/ethers5';
+import { ThirdPartyWalletEvents } from '@magic-sdk/types';
 import { Web3ModalExtensionOptions } from './types';
 
 export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
@@ -37,7 +38,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
     this.sdk.thirdPartyWallet.enabledWallets.web3modal = true;
     this.sdk.thirdPartyWallet.isConnected = Boolean(localStorage.getItem('magic_3pw_address'));
     this.sdk.thirdPartyWallet.eventListeners.push({
-      event: 'web3modal_selected',
+      event: 'web3modal_selected' as ThirdPartyWalletEvents,
       callback: async (payloadId) => {
         await this.connectToWeb3modal(payloadId);
       },
