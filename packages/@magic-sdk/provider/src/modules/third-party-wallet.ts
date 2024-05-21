@@ -1,9 +1,9 @@
-import { JsonRpcRequestPayload, MagicPayloadMethod, MagicUserMetadata, ThirdPartyWalletEvents } from '@magic-sdk/types';
+import { JsonRpcRequestPayload, MagicPayloadMethod, MagicUserMetadata } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { PromiEvent, createPromiEvent } from '../util';
 
 export class ThirdPartyWalletModule extends BaseModule {
-  public eventListeners: { event: ThirdPartyWalletEvents; callback: (payloadId: string) => Promise<void> }[] = [];
+  public eventListeners: { event: string; callback: (payloadId: string) => Promise<void> }[] = [];
   public enabledWallets: Record<string, boolean> = {};
   public isConnected = false;
 

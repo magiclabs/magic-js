@@ -1,4 +1,4 @@
-import { Extension, ThirdPartyWalletEvents } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import { Web3Modal, createWeb3Modal, defaultConfig } from '@web3modal/ethers5';
 import { Web3ModalExtensionOptions } from './types';
 
@@ -37,7 +37,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
     this.sdk.thirdPartyWallet.enabledWallets.web3modal = true;
     this.sdk.thirdPartyWallet.isConnected = Boolean(localStorage.getItem('magic_3pw_address'));
     this.sdk.thirdPartyWallet.eventListeners.push({
-      event: ThirdPartyWalletEvents.Web3ModalSelected,
+      event: 'web3modal_selected',
       callback: async (payloadId) => {
         await this.connectToWeb3modal(payloadId);
       },
@@ -75,12 +75,12 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
         // User rejected connection request
         if (error) {
           unsubscribeFromProviderEvents();
-          this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
+          this.createIntermediaryEvent('wallet_rejected', payloadId)();
         }
         // If user connected wallet, keep listeners active
         if (address) {
           this.setIsConnected();
-          this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletConnected, payloadId)(address);
+          this.createIntermediaryEvent('wallet_connected', payloadId)(address);
           unsubscribeFromProviderEvents();
           this.setEip1193EventListeners();
         }
@@ -91,7 +91,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
         if (event.data.event === 'MODAL_CLOSE') {
           unsubscribeFromModalEvents();
           unsubscribeFromProviderEvents();
-          this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
+          this.createIntermediaryEvent('wallet_rejected', payloadId)();
         }
       });
 
