@@ -35,5 +35,5 @@ test('setIsConnected sets localStorage values', () => {
   expect(localStorage.getItem('magic_3pw_provider')).toEqual('web3modal');
   expect(localStorage.getItem('magic_3pw_address')).toEqual('0x123');
   expect(localStorage.getItem('magic_3pw_chainId')).toEqual('1');
-  expect(magic.thirdPartyWallet.isConnected).toBeTruthy();
+  expect(magic.thirdPartyWallets.isConnected).toBeTruthy();
 });

@@ -15,7 +15,7 @@ describe('third party wallet isLoggedIn', () => {
     const payload = { method: 'isLoggedIn' };
     const magic = createMagicSDK();
     const spy = jest.spyOn(magic.thirdPartyWallet, 'web3modalIsLoggedIn').mockImplementation(() => Promise.resolve({}));
-    magic.thirdPartyWallet.isLoggedIn(payload);
+    magic.thirdPartyWallets.isLoggedIn(payload);
     expect(spy).toHaveBeenCalled();
   });
 
@@ -25,7 +25,7 @@ describe('third party wallet isLoggedIn', () => {
     const requestMock = jest.fn();
     // @ts-expect-error 'request' is protected
     BaseModule.prototype.request = requestMock;
-    magic.thirdPartyWallet.isLoggedIn(payload);
+    magic.thirdPartyWallets.isLoggedIn(payload);
     expect(requestMock).toHaveBeenCalled();
   });
 });

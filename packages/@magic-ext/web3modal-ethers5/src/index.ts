@@ -19,26 +19,30 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
       ethersConfig: defaultConfig({ metadata: configOptions }),
     });
 
-    // Set delay for web3modal to register if user is connected
-    setTimeout(() => {
-      if (!this.modal.getIsConnected()) return;
-      this.setIsConnected();
-      this.setEip1193EventListeners();
-    }, 50);
+    const unsubscribeFromProviderEvents = this.modal.subscribeProvider(({ status }) => {
+      if (status === 'connected') {
+        unsubscribeFromProviderEvents();
+        this.setIsConnected();
+        this.setEip1193EventListeners();
+      }
+      if (status === 'disconnected') {
+        unsubscribeFromProviderEvents();
+      }
+    });
   }
 
   public setIsConnected() {
     localStorage.setItem('magic_3pw_provider', 'web3modal');
     localStorage.setItem('magic_3pw_address', this.modal.getAddress() as string);
     localStorage.setItem('magic_3pw_chainId', (this.modal.getChainId() as number).toString());
-    this.sdk.thirdPartyWallet.isConnected = true;
+    this.sdk.thirdPartyWallets.isConnected = true;
   }
 
   public initialize() {
-    this.sdk.thirdPartyWallet.enabledWallets.web3modal = true;
-    this.sdk.thirdPartyWallet.isConnected = Boolean(localStorage.getItem('magic_3pw_address'));
-    this.sdk.thirdPartyWallet.eventListeners.push({
-      event: 'web3modal_selected' as ThirdPartyWalletEvents,
+    this.sdk.thirdPartyWallets.enabledWallets.web3modal = true;
+    this.sdk.thirdPartyWallets.isConnected = Boolean(localStorage.getItem('magic_3pw_address'));
+    this.sdk.thirdPartyWallets.eventListeners.push({
+      event: ThirdPartyWalletEvents.Web3ModalSelected,
       callback: async (payloadId) => {
         await this.connectToWeb3modal(payloadId);
       },
@@ -52,7 +56,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
     this.modal.subscribeProvider(({ address, chainId }) => {
       // If user disconnected all accounts from wallet
       if (!address && localStorage.getItem('magic_3pw_address')) {
-        this.sdk.thirdPartyWallet.resetState();
+        this.sdk.thirdPartyWallets.resetThirdPartyWalletState();
         return this.sdk.rpcProvider.emit('accountsChanged', []);
       }
       if (address && address !== localStorage.getItem('magic_3pw_address')) {
@@ -67,23 +71,33 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
     });
   }
 
+  private handleUserConnected(payloadId: string, address: string = this.modal.getAddress() as string) {
+    this.setIsConnected();
+    this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletConnected, payloadId)(address);
+    this.setEip1193EventListeners();
+  }
+
   private connectToWeb3modal(payloadId: string) {
     const { modal } = this;
 
-    const promiEvent = this.utils.createPromiEvent<string[]>(() => {
-      // Listen for wallet connected
+    const promiEvent = this.utils.createPromiEvent<string[]>(async () => {
+      // If user is already connected, emit event and return
+      if (this.modal.getIsConnected()) {
+        this.handleUserConnected(payloadId);
+        return;
+      }
+
+      // Listen for wallet connected event
       const unsubscribeFromProviderEvents = modal.subscribeProvider(({ address, error }) => {
         // User rejected connection request
         if (error) {
           unsubscribeFromProviderEvents();
-          this.createIntermediaryEvent('wallet_rejected', payloadId)();
+          this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
         }
         // If user connected wallet, keep listeners active
         if (address) {
-          this.setIsConnected();
-          this.createIntermediaryEvent('wallet_connected', payloadId)(address);
+          this.handleUserConnected(payloadId);
           unsubscribeFromProviderEvents();
-          this.setEip1193EventListeners();
         }
       });
 
@@ -92,7 +106,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
         if (event.data.event === 'MODAL_CLOSE') {
           unsubscribeFromModalEvents();
           unsubscribeFromProviderEvents();
-          this.createIntermediaryEvent('wallet_rejected', payloadId)();
+          this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
         }
       });
 

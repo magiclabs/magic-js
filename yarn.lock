@@ -2652,7 +2652,8 @@ __metadata:
   resolution: "@magic-ext/web3modal-ethers5@workspace:packages/@magic-ext/web3modal-ethers5"
   dependencies:
     "@magic-sdk/commons": ^24.0.2
-    "@web3modal/ethers5": ^4.1.11
+    "@magic-sdk/types": 24.0.2-canary.742.9175925480.0
+    "@web3modal/ethers5": 4.1.12-ethers-status.0
     ethers: 5.7.2
   languageName: unknown
   linkType: soft
@@ -2809,6 +2810,13 @@ __metadata:
   resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
   languageName: unknown
   linkType: soft
+
+"@magic-sdk/types@npm:24.0.2-canary.742.9175925480.0":
+  version: 24.0.2-canary.742.9175925480.0
+  resolution: "@magic-sdk/types@npm:24.0.2-canary.742.9175925480.0"
+  checksum: 102354d339b62dec9ff5fa6d4bea12b5ae717914f5684cf19aacf7cc7ac18a84b7e6b5537ba12aaae91b53dc6e856feac76f2d1a05829043b9f813525c4e3716
+  languageName: node
+  linkType: hard
 
 "@magic-sdk/types@npm:^10.0.0":
   version: 10.0.1
@@ -5459,39 +5467,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web3modal/common@npm:4.1.11":
-  version: 4.1.11
-  resolution: "@web3modal/common@npm:4.1.11"
+"@web3modal/common@npm:4.1.12-ethers-status.0":
+  version: 4.1.12-ethers-status.0
+  resolution: "@web3modal/common@npm:4.1.12-ethers-status.0"
   dependencies:
     bignumber.js: 9.1.2
     dayjs: 1.11.10
-  checksum: 4732494b0b82ab8633808c998c5b529dd7a2d9b58d178bf3aa9e55fb7016d1aa83c8f91b5f254b1aebf7fe027c95a272f9b5a372367c7118e6fd4c848f50f37b
+  checksum: c5d03794a2fcf9736e1c38ffa6cbbb992de40594ccd392bfc2ee490cf1d78f24743db80e1a6345037d63e6c8820293387c5d10999d6da43dcf6785febb2a8652
   languageName: node
   linkType: hard
 
-"@web3modal/core@npm:4.1.11":
-  version: 4.1.11
-  resolution: "@web3modal/core@npm:4.1.11"
+"@web3modal/core@npm:4.1.12-ethers-status.0":
+  version: 4.1.12-ethers-status.0
+  resolution: "@web3modal/core@npm:4.1.12-ethers-status.0"
   dependencies:
-    "@web3modal/common": 4.1.11
-    "@web3modal/wallet": 4.1.11
+    "@web3modal/common": 4.1.12-ethers-status.0
+    "@web3modal/wallet": 4.1.12-ethers-status.0
     valtio: 1.11.2
-  checksum: 9041a92e5bc217958c0b9e0657c6f668a2188210fb9ad408fc9dc0332dbe6f32a03a7d28679c457c75495fd5f56d5b4eb62956ad81605ad1debf7b647cb2a5bf
+  checksum: f8cdf584ffb5f2d264d135d35d35c8b91109fc590076335e1c64ec0ebbd6980e96ca995ea6fdd10001a0c6d5e70eea3405b4769422695d2fc19fce33899fe100
   languageName: node
   linkType: hard
 
-"@web3modal/ethers5@npm:^4.1.11":
-  version: 4.1.11
-  resolution: "@web3modal/ethers5@npm:4.1.11"
+"@web3modal/ethers5@npm:4.1.12-ethers-status.0":
+  version: 4.1.12-ethers-status.0
+  resolution: "@web3modal/ethers5@npm:4.1.12-ethers-status.0"
   dependencies:
     "@coinbase/wallet-sdk": 3.9.1
     "@walletconnect/ethereum-provider": 2.11.1
-    "@web3modal/polyfills": 4.1.11
-    "@web3modal/scaffold": 4.1.11
-    "@web3modal/scaffold-react": 4.1.11
-    "@web3modal/scaffold-utils": 4.1.11
-    "@web3modal/scaffold-vue": 4.1.11
-    "@web3modal/siwe": 4.1.11
+    "@web3modal/polyfills": 4.1.12-ethers-status.0
+    "@web3modal/scaffold": 4.1.12-ethers-status.0
+    "@web3modal/scaffold-react": 4.1.12-ethers-status.0
+    "@web3modal/scaffold-utils": 4.1.12-ethers-status.0
+    "@web3modal/scaffold-vue": 4.1.12-ethers-status.0
+    "@web3modal/siwe": 4.1.12-ethers-status.0
     valtio: 1.11.2
   peerDependencies:
     ethers: ">=4.1.0 <6.0.0"
@@ -5505,24 +5513,24 @@ __metadata:
       optional: true
     vue:
       optional: true
-  checksum: 597b268dcda4de8832d91553e3932171e5cecdee52db37e7cdcabc405c3c9881d090ffba375aa5917776abd6c8b076df1b2f931ad7cbfa62b8c4485a49d177fb
+  checksum: 6d296d0fe44da1b7a405e2b16948067052135d57d809920777e224c3cc1fed1014288ced9d075457acf8dadbab251c23fbbc9099625ab3af18ad1e7b16a7c2fe
   languageName: node
   linkType: hard
 
-"@web3modal/polyfills@npm:4.1.11":
-  version: 4.1.11
-  resolution: "@web3modal/polyfills@npm:4.1.11"
+"@web3modal/polyfills@npm:4.1.12-ethers-status.0":
+  version: 4.1.12-ethers-status.0
+  resolution: "@web3modal/polyfills@npm:4.1.12-ethers-status.0"
   dependencies:
     buffer: 6.0.3
-  checksum: 54684f91388aa932b19cc516b79d4231036963d624af4357810cb6470afce17ed74fa54a3767aaad2c94c16f44df409d8bf09da18e0b21e1d117661baf6343a6
+  checksum: a62687b3da3b6e2eef482d79ad918e52a26b6edaab5b4a3995f24cb79fbd8353099ae2e4c8f5a7f88a440fe64aa7f3dd8f23e31e813659e89c55dec89d342cd0
   languageName: node
   linkType: hard
 
-"@web3modal/scaffold-react@npm:4.1.11":
-  version: 4.1.11
-  resolution: "@web3modal/scaffold-react@npm:4.1.11"
+"@web3modal/scaffold-react@npm:4.1.12-ethers-status.0":
+  version: 4.1.12-ethers-status.0
+  resolution: "@web3modal/scaffold-react@npm:4.1.12-ethers-status.0"
   dependencies:
-    "@web3modal/scaffold": 4.1.11
+    "@web3modal/scaffold": 4.1.12-ethers-status.0
   peerDependencies:
     react: ">=17"
     react-dom: ">=17"
@@ -5531,78 +5539,78 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 34c1de14872369ec521cb9d1cf9ea7882b3740eb494995797b82e67cc6dc370735d3fc9d8b19d77b866916cca1aac6dc92d3937984c71f978057f4fecc0d17b1
+  checksum: ee132e693f0deb330ddb49b2ccaf09fd881c9242e6e8b00766fc2a142ff00acd0f34aa263c36703314e9d1f5193dadbe1068d42b7517408976a984a137e2d032
   languageName: node
   linkType: hard
 
-"@web3modal/scaffold-utils@npm:4.1.11":
-  version: 4.1.11
-  resolution: "@web3modal/scaffold-utils@npm:4.1.11"
+"@web3modal/scaffold-utils@npm:4.1.12-ethers-status.0":
+  version: 4.1.12-ethers-status.0
+  resolution: "@web3modal/scaffold-utils@npm:4.1.12-ethers-status.0"
   dependencies:
-    "@web3modal/core": 4.1.11
-    "@web3modal/polyfills": 4.1.11
+    "@web3modal/core": 4.1.12-ethers-status.0
+    "@web3modal/polyfills": 4.1.12-ethers-status.0
     valtio: 1.11.2
-  checksum: d028d24c8f66bea3f036e309bc5bf5fd859fb241f9ed1fc6f7f549326aaf1b5f8d8c402f1ffa293b9fe5edf0ca7d1658b89181d6510ee72365c8e07235a09c35
+  checksum: b7d970e4161df6158bd60648cc60395816073af9d44cb4626d03e68dc516854259a5fa08be1d1732b09cad0659e850a0439c47b5cd18afabec819bf0cce2489f
   languageName: node
   linkType: hard
 
-"@web3modal/scaffold-vue@npm:4.1.11":
-  version: 4.1.11
-  resolution: "@web3modal/scaffold-vue@npm:4.1.11"
+"@web3modal/scaffold-vue@npm:4.1.12-ethers-status.0":
+  version: 4.1.12-ethers-status.0
+  resolution: "@web3modal/scaffold-vue@npm:4.1.12-ethers-status.0"
   dependencies:
-    "@web3modal/scaffold": 4.1.11
+    "@web3modal/scaffold": 4.1.12-ethers-status.0
   peerDependencies:
     vue: ">=3"
   peerDependenciesMeta:
     vue:
       optional: true
-  checksum: 4e657009742366f105af1f0b172e45a3a7a27f69f70152c3fb91bb48277ea97412ef506d77cfb490d8cb7eabbd61010d7f5a9103705f0a12f42b45f62b871de7
+  checksum: faa0a798b381f58965a262b68da2461d1a527b1d3d325e8ea393686a792c80c8e48ade517baf15dbe48ada1042c54f870549a3c6caa27419fbae5f42a5002d84
   languageName: node
   linkType: hard
 
-"@web3modal/scaffold@npm:4.1.11":
-  version: 4.1.11
-  resolution: "@web3modal/scaffold@npm:4.1.11"
+"@web3modal/scaffold@npm:4.1.12-ethers-status.0":
+  version: 4.1.12-ethers-status.0
+  resolution: "@web3modal/scaffold@npm:4.1.12-ethers-status.0"
   dependencies:
-    "@web3modal/common": 4.1.11
-    "@web3modal/core": 4.1.11
-    "@web3modal/siwe": 4.1.11
-    "@web3modal/ui": 4.1.11
-    "@web3modal/wallet": 4.1.11
+    "@web3modal/common": 4.1.12-ethers-status.0
+    "@web3modal/core": 4.1.12-ethers-status.0
+    "@web3modal/siwe": 4.1.12-ethers-status.0
+    "@web3modal/ui": 4.1.12-ethers-status.0
+    "@web3modal/wallet": 4.1.12-ethers-status.0
     lit: 3.1.0
-  checksum: 0b15950e940e3ec2ba81f48e60892d7b07c38c4c81574fde24855dbb006948ecebfd4541243163ccdaad14c83378166f780bcf65e3951b567b1dc81cc9feeb75
+  checksum: 1f7143bbb6939d2ba6137ddd1ccaec11d08337170deafb7634cba0097a98f970ce9ac09777a5a8ad452d58861484abd7b94aacfbcff7691cf635a39679f285ab
   languageName: node
   linkType: hard
 
-"@web3modal/siwe@npm:4.1.11":
-  version: 4.1.11
-  resolution: "@web3modal/siwe@npm:4.1.11"
+"@web3modal/siwe@npm:4.1.12-ethers-status.0":
+  version: 4.1.12-ethers-status.0
+  resolution: "@web3modal/siwe@npm:4.1.12-ethers-status.0"
   dependencies:
-    "@web3modal/core": 4.1.11
-    "@web3modal/scaffold-utils": 4.1.11
+    "@web3modal/core": 4.1.12-ethers-status.0
+    "@web3modal/scaffold-utils": 4.1.12-ethers-status.0
     lit: 3.1.0
     valtio: 1.11.2
-  checksum: ee1fe973bdfed64670af301dc13bd3200e93d161d0dfb4ec9c2f3bc7f3103417dd0fffe51a1b9575cc5142de2c115f535e54533a9b03bd06c3f868fa67d9a3a9
+  checksum: b8919a42e013c6342b46a5263f589ed444bb71cf0ba674176edba300a26c824c2c970903d7e426f9663bdadd92d54264b6e7e78cd9c1fba05509845ca7615546
   languageName: node
   linkType: hard
 
-"@web3modal/ui@npm:4.1.11":
-  version: 4.1.11
-  resolution: "@web3modal/ui@npm:4.1.11"
+"@web3modal/ui@npm:4.1.12-ethers-status.0":
+  version: 4.1.12-ethers-status.0
+  resolution: "@web3modal/ui@npm:4.1.12-ethers-status.0"
   dependencies:
     lit: 3.1.0
     qrcode: 1.5.3
-  checksum: 8fefba2bb9b5fc941b5da0ab68d5bf12fe1c98482c52e040858e39068b09babbac81db83325cd0cf8e70f5e1a118a8da372de1ed98f3a4e24b03779626b7f176
+  checksum: 4ce1db35e9e31f84fcb940b0a20ea2c7cb018a1fb7b28f9b02d47cf098be35cc14819bbd5e95ef640b4f789ba735caed24c4c4aad0aa97d624a6cfc16561321e
   languageName: node
   linkType: hard
 
-"@web3modal/wallet@npm:4.1.11":
-  version: 4.1.11
-  resolution: "@web3modal/wallet@npm:4.1.11"
+"@web3modal/wallet@npm:4.1.12-ethers-status.0":
+  version: 4.1.12-ethers-status.0
+  resolution: "@web3modal/wallet@npm:4.1.12-ethers-status.0"
   dependencies:
-    "@web3modal/polyfills": 4.1.11
+    "@web3modal/polyfills": 4.1.12-ethers-status.0
     zod: 3.22.4
-  checksum: 15d5feb3d76519090ebe167c9319168838f39dd73132bd9a95560cacb2eee15d828d6ddc52d25936f95e116c13d66a225110fe4d14fe36f6c6ac534ed6f9f777
+  checksum: 5c77c30c5eea09d2e365f218b9e4ae5e82d7283f6a919d1074a9fa734ffb7ac66066d14ffaa80796d6f96880cb1d68ecb87e6e604a014b83a06b74133007b090
   languageName: node
   linkType: hard
 

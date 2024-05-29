@@ -22,14 +22,14 @@ export class WalletModule extends BaseModule {
       try {
         const loginRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Login, [
           {
-            enabledWallets: this.sdk.thirdPartyWallet.enabledWallets,
+            enabledWallets: this.sdk.thirdPartyWallets.enabledWallets,
             ...options,
           },
         ]);
 
         const loginRequest = this.request<string[], ConnectWithUiEvents>(loginRequestPayload);
 
-        this.sdk.thirdPartyWallet.eventListeners.forEach(({ event, callback }) => {
+        this.sdk.thirdPartyWallets.eventListeners.forEach(({ event, callback }) => {
           loginRequest.on(event, () => callback(loginRequestPayload.id as string));
         });
 

@@ -13,7 +13,7 @@ describe('third party wallet web3modalLogout', () => {
     const payload = { method: 'logout' };
     const magic = createMagicSDK();
     const spy = jest.spyOn(magic.thirdPartyWallet, 'web3modalLogout').mockImplementation(() => Promise.resolve({}));
-    magic.thirdPartyWallet.web3modalLogout(payload);
+    magic.thirdPartyWallets.web3modalLogout(payload);
     expect(spy).toHaveBeenCalledWith(payload);
   });
 });

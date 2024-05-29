@@ -27,7 +27,7 @@ const web3modalParams = {
 test('initialize updates `enabledWallets`, `isConnected`, and `eventListeners`', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.initialize();
-  expect(magic.thirdPartyWallet.enabledWallets.web3modal).toBeTruthy();
-  expect(magic.thirdPartyWallet.isConnected).toBeFalsy();
-  expect(magic.thirdPartyWallet.eventListeners.length).toEqual(1);
+  expect(magic.thirdPartyWallets.enabledWallets.web3modal).toBeTruthy();
+  expect(magic.thirdPartyWallets.isConnected).toBeFalsy();
+  expect(magic.thirdPartyWallets.eventListeners.length).toEqual(1);
 });

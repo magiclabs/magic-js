@@ -2,12 +2,12 @@ import { JsonRpcRequestPayload, MagicPayloadMethod, MagicUserMetadata, ThirdPart
 import { BaseModule } from './base-module';
 import { PromiEvent, createPromiEvent } from '../util';
 
-export class ThirdPartyWalletModule extends BaseModule {
+export class ThirdPartyWalletsModule extends BaseModule {
   public eventListeners: { event: ThirdPartyWalletEvents; callback: (payloadId: string) => Promise<void> }[] = [];
   public enabledWallets: Record<string, boolean> = {};
   public isConnected = false;
 
-  public resetState() {
+  public resetThirdPartyWalletState() {
     localStorage.removeItem('magic_3pw_provider');
     localStorage.removeItem('magic_3pw_address');
     localStorage.removeItem('magic_3pw_chainId');
@@ -17,7 +17,7 @@ export class ThirdPartyWalletModule extends BaseModule {
   public requestOverride(payload: Partial<JsonRpcRequestPayload>) {
     // Handle method overrides if login/getInfo/isLoggedIn/logout
     if (payload.method === MagicPayloadMethod.Login) {
-      this.resetState();
+      this.resetThirdPartyWalletState();
       return super.request(payload);
     }
     if (payload.method === MagicPayloadMethod.GetInfo) {
@@ -35,7 +35,7 @@ export class ThirdPartyWalletModule extends BaseModule {
         return this.web3modalRequest(payload);
       // Fallback to default request
       default:
-        this.resetState();
+        this.resetThirdPartyWalletState();
         return super.request(payload);
     }
   }
@@ -47,7 +47,7 @@ export class ThirdPartyWalletModule extends BaseModule {
       case 'web3modal':
         return this.web3modalIsLoggedIn();
       default:
-        this.resetState();
+        this.resetThirdPartyWalletState();
         return super.request(payload);
     }
   }
@@ -57,14 +57,14 @@ export class ThirdPartyWalletModule extends BaseModule {
       case 'web3modal':
         return this.web3modalGetInfo();
       default:
-        this.resetState();
+        this.resetThirdPartyWalletState();
         return super.request(payload);
     }
   }
 
   private logout(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean> {
     const provider = localStorage.getItem('magic_3pw_provider');
-    this.resetState();
+    this.resetThirdPartyWalletState();
     switch (provider) {
       case 'web3modal': {
         return this.web3modalLogout();
@@ -85,30 +85,75 @@ export class ThirdPartyWalletModule extends BaseModule {
 
   private web3modalIsLoggedIn() {
     return createPromiEvent<boolean>((resolve) => {
-      // Required delay to allow web3modal to register connection
-      setTimeout(() => {
+      // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
+      const walletStatus = this.sdk.web3modal.modal.getStatus();
+      if (walletStatus === 'connected') {
+        resolve(true);
+      }
+      if (walletStatus === 'disconnected') {
+        this.resetThirdPartyWalletState();
+        resolve(false);
+      }
+      if (walletStatus === 'reconnecting') {
         // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
-        const isLoggedIn: boolean = this.sdk.web3modal.modal.getIsConnected();
-        resolve(isLoggedIn);
-      }, 50);
+        const unsubscribeFromProviderEvents = this.sdk.web3modal.modal.subscribeProvider(({ status }) => {
+          if (status === 'connected') {
+            unsubscribeFromProviderEvents();
+            resolve(true);
+          }
+          if (status === 'disconnected') {
+            unsubscribeFromProviderEvents();
+            this.resetThirdPartyWalletState();
+            resolve(false);
+          }
+        });
+      }
     });
   }
 
+  private formatWeb3modalGetInfoResponse() {
+    // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
+    const walletType = this.sdk.web3modal.modal.getWalletInfo()?.name;
+    // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
+    const userAddress = this.sdk.web3modal.modal.getAddress();
+    return {
+      publicAddress: userAddress as string,
+      email: null,
+      issuer: `$did:ethr:${userAddress}`,
+      phoneNumber: null,
+      isMfaEnabled: false,
+      recoveryFactors: [] as [],
+      walletType: walletType || 'web3modal',
+    };
+  }
+
   private web3modalGetInfo() {
-    return createPromiEvent<MagicUserMetadata>((resolve) => {
+    return createPromiEvent<MagicUserMetadata>((resolve, reject) => {
       // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
-      const walletType = this.sdk.web3modal.modal.getWalletInfo()?.name;
-      // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
-      const userAddress = this.sdk.web3modal.modal.getAddress();
-      resolve({
-        publicAddress: userAddress,
-        email: null,
-        issuer: `$did:ethr:${userAddress}`,
-        phoneNumber: null,
-        isMfaEnabled: false,
-        recoveryFactors: [],
-        walletType,
-      });
+      const walletStatus = this.sdk.web3modal.modal.getStatus();
+      if (walletStatus === 'connected') {
+        resolve(this.formatWeb3modalGetInfoResponse());
+      }
+
+      if (walletStatus === 'disconnected') {
+        this.resetThirdPartyWalletState();
+        reject('Magic RPC Error: [-32603] Internal error: User denied account access.');
+      }
+
+      if (walletStatus === 'reconnecting') {
+        // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
+        const unsubscribeFromProviderEvents = this.sdk.web3modal.modal.subscribeProvider(({ status }) => {
+          if (status === 'connected') {
+            unsubscribeFromProviderEvents();
+            resolve(this.formatWeb3modalGetInfoResponse());
+          }
+          if (status === 'disconnected') {
+            unsubscribeFromProviderEvents();
+            this.resetThirdPartyWalletState();
+            reject('Magic RPC Error: [-32603] Internal error: User denied account access.');
+          }
+        });
+      }
     });
   }
 

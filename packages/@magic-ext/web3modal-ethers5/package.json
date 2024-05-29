@@ -28,10 +28,11 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^24.0.2"
+    "@magic-sdk/commons": "^24.0.2",
+    "@magic-sdk/types": "24.0.2-canary.742.9175925480.0"
   },
   "dependencies": {
-    "@web3modal/ethers5": "^4.1.11",
+    "@web3modal/ethers5": "4.1.12-ethers-status.0",
     "ethers": "5.7.2"
   }
 }

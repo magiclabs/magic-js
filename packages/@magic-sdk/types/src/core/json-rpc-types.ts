@@ -55,7 +55,7 @@ export enum ThirdPartyWalletEvents {
 }
 
 export interface ConnectWithUIOptions {
-  autoPromptThirdPartyWallet?: boolean;
+  autoPromptThirdPartyWallets?: boolean;
 }
 
 export type ConnectWithUiEvents = {

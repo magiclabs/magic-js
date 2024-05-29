@@ -16,8 +16,8 @@ describe('third party wallet requestOverride', () => {
     const payload = { method: MagicPayloadMethod.Login };
     const magic = createMagicSDK();
     const resetStateMock = jest.fn();
-    magic.thirdPartyWallet.resetState = resetStateMock;
-    magic.thirdPartyWallet.requestOverride(payload);
+    magic.thirdPartyWallets.resetThirdPartyWalletState = resetStateMock;
+    magic.thirdPartyWallets.requestOverride(payload);
     expect(resetStateMock).toBeCalled();
     // @ts-expect-error 'request' is protected
     expect(BaseModule.prototype.request.mock.calls[0][0]).toEqual(payload);
@@ -27,8 +27,8 @@ describe('third party wallet requestOverride', () => {
     const payload = { method: MagicPayloadMethod.GetInfo };
     const magic = createMagicSDK();
     const getInfoMock = jest.fn();
-    magic.thirdPartyWallet.getInfo = getInfoMock;
-    magic.thirdPartyWallet.requestOverride(payload);
+    magic.thirdPartyWallets.getInfo = getInfoMock;
+    magic.thirdPartyWallets.requestOverride(payload);
     expect(getInfoMock).toBeCalled();
   });
 
@@ -36,8 +36,8 @@ describe('third party wallet requestOverride', () => {
     const payload = { method: MagicPayloadMethod.IsLoggedIn };
     const magic = createMagicSDK();
     const isLoggedInMock = jest.fn();
-    magic.thirdPartyWallet.isLoggedIn = isLoggedInMock;
-    magic.thirdPartyWallet.requestOverride(payload);
+    magic.thirdPartyWallets.isLoggedIn = isLoggedInMock;
+    magic.thirdPartyWallets.requestOverride(payload);
     expect(isLoggedInMock).toBeCalled();
   });
 
@@ -45,8 +45,8 @@ describe('third party wallet requestOverride', () => {
     const payload = { method: MagicPayloadMethod.Logout };
     const magic = createMagicSDK();
     const logoutMock = jest.fn();
-    magic.thirdPartyWallet.logout = logoutMock;
-    magic.thirdPartyWallet.requestOverride(payload);
+    magic.thirdPartyWallets.logout = logoutMock;
+    magic.thirdPartyWallets.requestOverride(payload);
     expect(logoutMock).toBeCalled();
   });
 
@@ -55,14 +55,14 @@ describe('third party wallet requestOverride', () => {
     const payload = { method: 'someMethod' };
     const magic = createMagicSDK();
     const spy = jest.spyOn(magic.thirdPartyWallet, 'web3modalRequest').mockImplementation(() => Promise.resolve({}));
-    magic.thirdPartyWallet.requestOverride(payload);
+    magic.thirdPartyWallets.requestOverride(payload);
     expect(spy).toBeCalled();
   });
 
   it('should call super.request if provider is not set', () => {
     const payload = { method: 'someMethod' };
     const magic = createMagicSDK();
-    magic.thirdPartyWallet.requestOverride(payload);
+    magic.thirdPartyWallets.requestOverride(payload);
     // @ts-expect-error 'request' is protected
     expect(BaseModule.prototype.request.mock.calls[0][0]).toEqual(payload);
   });

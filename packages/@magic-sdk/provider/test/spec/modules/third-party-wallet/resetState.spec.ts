@@ -13,13 +13,13 @@ describe('third party wallet resetState', () => {
     localStorage.setItem('magic_3pw_provider', 'some_provider');
     localStorage.setItem('magic_3pw_address', 'some_address');
     localStorage.setItem('magic_3pw_chainId', 'some_chainId');
-    magic.thirdPartyWallet.isConnected = true;
+    magic.thirdPartyWallets.isConnected = true;
 
-    magic.thirdPartyWallet.resetState();
+    magic.thirdPartyWallets.resetThirdPartyWalletState();
 
     expect(localStorage.getItem('magic_3pw_provider')).toBeUndefined();
     expect(localStorage.getItem('magic_3pw_address')).toBeUndefined();
     expect(localStorage.getItem('magic_3pw_chainId')).toBeUndefined();
-    expect(magic.thirdPartyWallet.isConnected).toBe(false);
+    expect(magic.thirdPartyWallets.isConnected).toBe(false);
   });
 });

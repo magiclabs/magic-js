@@ -15,7 +15,7 @@ describe('third party wallet getInfo', () => {
     const payload = { method: 'getInfo' };
     const magic = createMagicSDK();
     const spy = jest.spyOn(magic.thirdPartyWallet, 'web3modalGetInfo').mockImplementation(() => Promise.resolve({}));
-    magic.thirdPartyWallet.getInfo(payload);
+    magic.thirdPartyWallets.getInfo(payload);
     expect(spy).toHaveBeenCalled();
   });
 
@@ -25,7 +25,7 @@ describe('third party wallet getInfo', () => {
     const requestMock = jest.fn();
     // @ts-expect-error 'request' is protected
     BaseModule.prototype.request = requestMock;
-    magic.thirdPartyWallet.getInfo(payload);
+    magic.thirdPartyWallets.getInfo(payload);
     expect(requestMock).toHaveBeenCalled();
   });
 });

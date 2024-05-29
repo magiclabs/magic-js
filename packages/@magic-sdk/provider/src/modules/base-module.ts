@@ -27,13 +27,13 @@ export class BaseModule {
    */
   protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
     if (
-      this.sdk.thirdPartyWallet.isConnected &&
+      this.sdk.thirdPartyWallets.isConnected &&
       payload.method !== MagicPayloadMethod.IntermediaryEvent &&
       payload.method !== MagicPayloadMethod.NFTCheckout &&
       payload.method !== MagicPayloadMethod.Login
     ) {
       const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
-        this.sdk.thirdPartyWallet.requestOverride(payload).then(resolve).catch(reject);
+        this.sdk.thirdPartyWallets.requestOverride(payload).then(resolve).catch(reject);
       });
       return promiEvent;
     }
