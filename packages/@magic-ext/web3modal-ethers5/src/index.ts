@@ -80,7 +80,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
   private connectToWeb3modal(payloadId: string) {
     const { modal } = this;
 
-    const promiEvent = this.utils.createPromiEvent<string[]>(async () => {
+    const promiEvent = this.utils.createPromiEvent<string[]>(() => {
       // If user is already connected, emit event and return
       if (this.modal.getIsConnected()) {
         this.handleUserConnected(payloadId);

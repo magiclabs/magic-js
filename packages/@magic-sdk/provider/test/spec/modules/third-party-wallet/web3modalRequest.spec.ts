@@ -12,7 +12,7 @@ describe('third party wallet web3modalRequest', () => {
     localStorage.setItem('magic_3pw_provider', 'web3modal');
     const payload = { method: 'request' };
     const magic = createMagicSDK();
-    const spy = jest.spyOn(magic.thirdPartyWallet, 'web3modalRequest').mockImplementation(() => Promise.resolve({}));
+    const spy = jest.spyOn(magic.thirdPartyWallets, 'web3modalRequest').mockImplementation(() => Promise.resolve({}));
     magic.thirdPartyWallets.web3modalRequest(payload);
     expect(spy).toHaveBeenCalledWith(payload);
   });

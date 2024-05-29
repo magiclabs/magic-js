@@ -7,7 +7,7 @@ const config: Config.InitialOptions = {
     '^.+\\.(js|jsx)$': 'babel-jest',
     '\\.(ts|tsx)$': 'ts-jest',
   },
-  coveragePathIgnorePatterns: ['third-party-wallet.ts'],
+  coveragePathIgnorePatterns: ['third-party-wallets.ts'],
 };
 
 export default config;

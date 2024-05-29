@@ -7,7 +7,7 @@ beforeEach(() => {
   mockLocalStorage();
 });
 
-describe('third party wallet resetState', () => {
+describe('third party wallet resetThirdPartyWalletState', () => {
   it('should clear relevant localStorage items and set isConnected to false', () => {
     const magic = createMagicSDK();
     localStorage.setItem('magic_3pw_provider', 'some_provider');

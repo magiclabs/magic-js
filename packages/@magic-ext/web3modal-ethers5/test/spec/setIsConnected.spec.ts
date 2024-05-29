@@ -11,6 +11,7 @@ jest.mock('@web3modal/ethers5', () => ({
       getIsConnected: jest.fn(),
       getAddress: jest.fn(() => '0x123'),
       getChainId: jest.fn(() => 1),
+      subscribeProvider: jest.fn(),
     };
   }),
 }));

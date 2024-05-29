@@ -33,7 +33,8 @@ const web3modalParams = {
 test('setEip1193EventListeners calls subscribeProvider', () => {
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   magic.web3modal.setEip1193EventListeners();
-  expect(magic.web3modal.modal.subscribeProvider).toBeCalled();
+  // once in constructor and once in setEip1193EventListeners
+  expect(magic.web3modal.modal.subscribeProvider).toBeCalledTimes(2);
 });
 
 test('setEip1193EventListeners does not set listeners if they were already set', () => {
@@ -41,5 +42,6 @@ test('setEip1193EventListeners does not set listeners if they were already set',
   magic.web3modal.eventsListenerAdded = true;
   const subscribeProviderSpy = jest.spyOn(magic.web3modal.modal, 'subscribeProvider');
   magic.web3modal.setEip1193EventListeners();
-  expect(subscribeProviderSpy).toBeCalledTimes(0);
+  // only once in constructor
+  expect(subscribeProviderSpy).toBeCalledTimes(1);
 });

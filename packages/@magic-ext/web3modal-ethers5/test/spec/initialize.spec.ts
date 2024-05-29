@@ -6,7 +6,11 @@ import { mockLocalStorage } from '../../../../@magic-sdk/provider/test/mocks';
 jest.mock('@web3modal/ethers5', () => ({
   Web3Modal: jest.fn(),
   defaultConfig: jest.fn(),
-  createWeb3Modal: jest.fn(),
+  createWeb3Modal: jest.fn(() => {
+    return {
+      subscribeProvider: jest.fn(),
+    };
+  }),
 }));
 
 beforeEach(() => {

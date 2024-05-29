@@ -14,7 +14,9 @@ describe('third party wallet isLoggedIn', () => {
     localStorage.setItem('magic_3pw_provider', 'web3modal');
     const payload = { method: 'isLoggedIn' };
     const magic = createMagicSDK();
-    const spy = jest.spyOn(magic.thirdPartyWallet, 'web3modalIsLoggedIn').mockImplementation(() => Promise.resolve({}));
+    const spy = jest
+      .spyOn(magic.thirdPartyWallets, 'web3modalIsLoggedIn')
+      .mockImplementation(() => Promise.resolve({}));
     magic.thirdPartyWallets.isLoggedIn(payload);
     expect(spy).toHaveBeenCalled();
   });
