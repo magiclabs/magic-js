@@ -29,3 +29,33 @@ describe('third party wallet getInfo', () => {
     expect(requestMock).toHaveBeenCalled();
   });
 });
+
+describe('format web3modal getinfo response', () => {
+  it('should format the response correctly', async () => {
+    const magic = createMagicSDK();
+
+    magic.web3modal = {
+      modal: {
+        getWalletInfo: jest.fn().mockReturnValue({
+          name: 'Magic',
+        }),
+        getAddress: jest.fn().mockReturnValue('0x1234567890'),
+      },
+    };
+
+    console.log(magic.web3modal.modal.getWalletInfo());
+    console.log(magic.web3modal.modal.getAddress());
+
+    const response = magic.thirdPartyWallets.formatWeb3modalGetInfoResponse();
+
+    expect(response).toEqual({
+      publicAddress: '0x1234567890',
+      email: null,
+      issuer: `$did:ethr:0x1234567890`,
+      phoneNumber: null,
+      isMfaEnabled: false,
+      recoveryFactors: [],
+      walletType: 'Magic',
+    });
+  });
+});
