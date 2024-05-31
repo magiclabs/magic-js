@@ -21,14 +21,12 @@ export class NFTModule extends BaseModule {
 
   /* Start an NFT Checkout flow with Paypal */
   public checkout(options: NFTCheckoutRequest) {
-    console.log('HEY');
     // const promiEvent = createPromiEvent<any, NFTCheckoutEvents>((resolve) => {
     // How to tell if user is logged in with a third-party wallet
 
     // TODO: remove this line after testing
     // const isThirdPartyWalletConnected = true;
     const isThirdPartyWalletConnected = this.sdk.thirdPartyWallets.isConnected;
-
     console.log({ isThirdPartyWalletConnected });
 
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.NFTCheckout, [
@@ -56,7 +54,6 @@ export class NFTModule extends BaseModule {
           // emit `nft-checkout-success` intermediary event to iframe if developer sent tx
           this.createIntermediaryEvent(NftCheckoutEventEmit.Success, requestPayload.id as string)(hash);
         } catch (error) {
-          console.log('7:10');
           console.log(error);
           // if rejected, emit `nft-checkout-failure` intermediary event to iframe
           this.createIntermediaryEvent(NftCheckoutEventEmit.Failure, requestPayload.id as string)();
