@@ -36,6 +36,8 @@
   },
   "dependencies": {
     "@magic-sdk/types": "^24.0.1",
+    "@web3modal/ethers5": "^4.2.3",
+    "ethers": "5.7.2",
     "eventemitter3": "^4.0.4",
     "web3-core": "1.5.2"
   },

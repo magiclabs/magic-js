@@ -9,7 +9,7 @@ import {
   WalletInfo,
   Wallets,
 } from '@magic-sdk/types';
-
+import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
@@ -26,6 +26,39 @@ export type ConnectWithUiEvents = {
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
   public connectWithUI() {
+    // 1. Get projectId at https://cloud.walletconnect.com
+    const projectId = 'b87562395f3da5dc8f836883773f74dc';
+
+    // 2. Set chains
+    const mainnet = {
+      chainId: 1,
+      name: 'Ethereum',
+      currency: 'ETH',
+      explorerUrl: 'https://etherscan.io',
+      rpcUrl: 'https://cloudflare-eth.com',
+    };
+
+    // 3. Create your application's metadata object
+    const metadata = {
+      name: 'My Website',
+      description: 'My Website description',
+      url: 'https://mywebsite.com', // url must match your domain & subdomain
+      icons: ['https://avatars.mywebsite.com/'],
+    };
+
+    // 4. Create Ethers config
+    const ethersConfig = defaultConfig({ metadata });
+
+    // 5. Create a Web3Modal instance
+    const modal = createWeb3Modal({
+      ethersConfig,
+      chains: [mainnet],
+      projectId,
+      enableAnalytics: true, // Optional - defaults to your Cloud configuration
+      enableOnramp: true, // Optional - false as default
+    });
+
+    modal.open();
     const promiEvent = createPromiEvent<string[], ConnectWithUiEvents>(async (resolve, reject) => {
       try {
         // If within metamask wallet browser, auto-connect without any UI (if dapp has metamask enabled)
