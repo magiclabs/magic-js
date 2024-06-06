@@ -1,4 +1,6 @@
+import { WalletEventOnReceived } from '@magic-sdk/types';
 import {
+  AuthEventOnReceived,
   DeviceVerificationEventEmit,
   DeviceVerificationEventOnReceived,
   LoginWithEmailOTPEventEmit,
@@ -26,4 +28,7 @@ export type IntermediaryEvents =
   | `${RecencyCheckEventOnReceived}`
   // Update Email Events
   | `${UpdateEmailEventOnReceived}`
-  | `${UpdateEmailEventEmit}`;
+  | `${UpdateEmailEventEmit}`
+  // Auth Events
+  | `${AuthEventOnReceived}`
+  | `${WalletEventOnReceived}`;
