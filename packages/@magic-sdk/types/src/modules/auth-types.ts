@@ -1,3 +1,5 @@
+import { WalletEventOnReceived } from '@magic-sdk/types';
+
 export interface LoginWithMagicLinkConfiguration {
   /**
    * The email address of the user attempting to login.
@@ -91,6 +93,8 @@ export type LoginWithEmailOTPEventHandlers = {
   [LoginWithEmailOTPEventOnReceived.EmailOTPSent]: () => void;
   [LoginWithEmailOTPEventOnReceived.InvalidEmailOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp]: () => void;
+  [AuthEventOnReceived.IDTokenCreated]: (idToken: string) => void;
+  [WalletEventOnReceived.WalletInfoFetched]: () => void;
 
   // Event sent
   [LoginWithEmailOTPEventEmit.VerifyEmailOtp]: (otp: string) => void;
@@ -204,4 +208,8 @@ export enum UpdateEmailEventOnReceived {
   EmailNotDeliverable = 'UpdateEmail/new-email-verification-email-not-deliverable',
   InvalidEmail = 'UpdateEmail/new-email-invalid',
   EmailAlreadyExists = 'UpdateEmail/new-email-already-exists',
+}
+
+export enum AuthEventOnReceived {
+  IDTokenCreated = 'Auth/id-token-created',
 }
