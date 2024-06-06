@@ -179,9 +179,11 @@ export abstract class ViewController {
       }
 
       if (!this.isReadyForRequest) {
+        console.log('waiting for ready')
         logInfo('waiting for ready', { msgType, payload });
         this.externalLogger?.log('waiting for ready', { msgType, payload });
         await this.waitForReady();
+        console.log('ready for requests')
         logInfo('ready for requests', { msgType, payload });
         this.externalLogger?.log('ready for requests', { msgType, payload });
       }
