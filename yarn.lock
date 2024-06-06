@@ -2360,6 +2360,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-sdk/provider@npm:28.0.4-canary.747.9407129816.0":
+  version: 28.0.4-canary.747.9407129816.0
+  resolution: "@magic-sdk/provider@npm:28.0.4-canary.747.9407129816.0"
+  dependencies:
+    "@magic-sdk/types": ^24.0.2
+    eventemitter3: ^4.0.4
+    web3-core: 1.5.2
+  peerDependencies:
+    "@datadog/browser-logs": ^5.8.0
+    localforage: ^1.7.4
+  checksum: 731894bf049cbb2b44a7ecac178e30b4600e7a57ad22a8675c78fb8b6a3576e6321db6d5421527461e021ce6afecf9c7731a094f0426428c9cbaef278c5ced33
+  languageName: node
+  linkType: hard
+
 "@magic-sdk/react-native-bare@^29.0.3, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
@@ -12793,7 +12807,7 @@ fsevents@^2.3.2:
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
     "@magic-sdk/commons": ^24.0.3
-    "@magic-sdk/provider": ^28.0.3
+    "@magic-sdk/provider": 28.0.4-canary.747.9407129816.0
     "@magic-sdk/types": ^24.0.2
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
