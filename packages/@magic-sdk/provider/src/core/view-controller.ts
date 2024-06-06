@@ -178,6 +178,9 @@ export abstract class ViewController {
         reject(error);
       }
 
+      console.log('this.isReadyForRequest: ', this.isReadyForRequest)
+      logInfo('this.isReadyForRequest', { isReadyForRequest: this.isReadyForRequest });
+
       if (!this.isReadyForRequest) {
         console.log('waiting for ready')
         logInfo('waiting for ready', { msgType, payload });
