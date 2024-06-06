@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/solana",
-  "version": "25.1.0",
+  "version": "25.1.1",
   "description": "magic solana extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,7 +28,7 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^24.0.2"
+    "@magic-sdk/commons": "^24.0.3"
   },
   "dependencies": {
     "@solana/web3.js": "^1.87.2"
