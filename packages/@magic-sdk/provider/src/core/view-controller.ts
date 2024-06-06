@@ -180,10 +180,10 @@ export abstract class ViewController {
 
       if (!this.isReadyForRequest) {
         logInfo('waiting for ready', { msgType, payload });
-        this.externalLogger.log('waiting for ready', { msgType, payload });
+        this.externalLogger?.log('waiting for ready', { msgType, payload });
         await this.waitForReady();
         logInfo('ready for requests', { msgType, payload });
-        this.externalLogger.log('ready for requests', { msgType, payload });
+        this.externalLogger?.log('ready for requests', { msgType, payload });
       }
 
       const batchData: JsonRpcResponse[] = [];
