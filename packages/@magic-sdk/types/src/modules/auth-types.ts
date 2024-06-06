@@ -1,3 +1,5 @@
+import { WalletEventOnReceived } from './wallet-types';
+
 export interface LoginWithMagicLinkConfiguration {
   /**
    * The email address of the user attempting to login.
@@ -75,40 +77,6 @@ export interface LoginWithEmailOTPConfiguration {
 }
 
 /**
- * EventHandlers
- */
-export type LoginWithMagicLinkEventHandlers = {
-  // Event Received
-  [LoginWithMagicLinkEventOnReceived.EmailSent]: () => void;
-  [LoginWithMagicLinkEventOnReceived.EmailNotDeliverable]: () => void;
-
-  // Event sent
-  [LoginWithMagicLinkEventEmit.Retry]: () => void;
-} & DeviceVerificationEventHandlers;
-
-export type LoginWithEmailOTPEventHandlers = {
-  // Event Received
-  [LoginWithEmailOTPEventOnReceived.EmailOTPSent]: () => void;
-  [LoginWithEmailOTPEventOnReceived.InvalidEmailOtp]: () => void;
-  [LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp]: () => void;
-
-  // Event sent
-  [LoginWithEmailOTPEventEmit.VerifyEmailOtp]: (otp: string) => void;
-  [LoginWithEmailOTPEventEmit.Cancel]: () => void;
-} & DeviceVerificationEventHandlers;
-
-type DeviceVerificationEventHandlers = {
-  // Event Received
-  [DeviceVerificationEventOnReceived.DeviceNeedsApproval]: () => void;
-  [DeviceVerificationEventOnReceived.DeviceVerificationEmailSent]: () => void;
-  [DeviceVerificationEventOnReceived.DeviceVerificationLinkExpired]: () => void;
-  [DeviceVerificationEventOnReceived.DeviceApproved]: () => void;
-
-  // Event sent
-  [DeviceVerificationEventEmit.Retry]: () => void;
-};
-
-/**
  * Auth Events Enum
  */
 export enum LoginWithMagicLinkEventEmit {
@@ -142,38 +110,6 @@ export enum DeviceVerificationEventOnReceived {
   DeviceVerificationEmailSent = 'device-verification-email-sent',
 }
 
-/**
- * Update Email
- */
-
-type RecencyCheckEventHandlers = {
-  [RecencyCheckEventOnReceived.PrimaryAuthFactorNeedsVerification]: () => void;
-  [RecencyCheckEventOnReceived.PrimaryAuthFactorVerified]: () => void;
-  [RecencyCheckEventOnReceived.InvalidEmailOtp]: () => void;
-  [RecencyCheckEventOnReceived.EmailNotDeliverable]: () => void;
-  [RecencyCheckEventOnReceived.EmailExpired]: () => void;
-  [RecencyCheckEventOnReceived.EmailSent]: () => void;
-
-  [RecencyCheckEventEmit.Cancel]: () => void;
-  [RecencyCheckEventEmit.Retry]: () => void;
-  [RecencyCheckEventEmit.VerifyEmailOtp]: (otp: string) => void;
-};
-
-export type UpdateEmailEventHandlers = {
-  [UpdateEmailEventOnReceived.NewAuthFactorNeedsVerification]: () => void;
-  [UpdateEmailEventOnReceived.EmailUpdated]: () => void;
-  [UpdateEmailEventOnReceived.InvalidEmailOtp]: () => void;
-  [UpdateEmailEventOnReceived.EmailNotDeliverable]: () => void;
-  [UpdateEmailEventOnReceived.EmailExpired]: () => void;
-  [UpdateEmailEventOnReceived.EmailSent]: () => void;
-  [UpdateEmailEventOnReceived.InvalidEmail]: () => void;
-  [UpdateEmailEventOnReceived.EmailAlreadyExists]: () => void;
-
-  [UpdateEmailEventEmit.Cancel]: () => void;
-  [UpdateEmailEventEmit.RetryWithNewEmail]: (email?: string) => void;
-  [UpdateEmailEventEmit.VerifyEmailOtp]: (otp: string) => void;
-} & RecencyCheckEventHandlers;
-
 export enum RecencyCheckEventEmit {
   Retry = 'Recency/auth-factor-retry',
   Cancel = 'Recency/auth-factor-verification-cancel',
@@ -205,3 +141,75 @@ export enum UpdateEmailEventOnReceived {
   InvalidEmail = 'UpdateEmail/new-email-invalid',
   EmailAlreadyExists = 'UpdateEmail/new-email-already-exists',
 }
+
+export enum AuthEventOnReceived {
+  IDTokenCreated = 'Auth/id-token-created',
+}
+
+/**
+ * EventHandlers
+ */
+export type LoginWithMagicLinkEventHandlers = {
+  // Event Received
+  [LoginWithMagicLinkEventOnReceived.EmailSent]: () => void;
+  [LoginWithMagicLinkEventOnReceived.EmailNotDeliverable]: () => void;
+
+  // Event sent
+  [LoginWithMagicLinkEventEmit.Retry]: () => void;
+} & DeviceVerificationEventHandlers;
+
+export type LoginWithEmailOTPEventHandlers = {
+  // Event Received
+  [LoginWithEmailOTPEventOnReceived.EmailOTPSent]: () => void;
+  [LoginWithEmailOTPEventOnReceived.InvalidEmailOtp]: () => void;
+  [LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp]: () => void;
+  [AuthEventOnReceived.IDTokenCreated]: (idToken: string) => void;
+  [WalletEventOnReceived.WalletInfoFetched]: () => void;
+
+  // Event sent
+  [LoginWithEmailOTPEventEmit.VerifyEmailOtp]: (otp: string) => void;
+  [LoginWithEmailOTPEventEmit.Cancel]: () => void;
+} & DeviceVerificationEventHandlers;
+
+type DeviceVerificationEventHandlers = {
+  // Event Received
+  [DeviceVerificationEventOnReceived.DeviceNeedsApproval]: () => void;
+  [DeviceVerificationEventOnReceived.DeviceVerificationEmailSent]: () => void;
+  [DeviceVerificationEventOnReceived.DeviceVerificationLinkExpired]: () => void;
+  [DeviceVerificationEventOnReceived.DeviceApproved]: () => void;
+
+  // Event sent
+  [DeviceVerificationEventEmit.Retry]: () => void;
+};
+
+/**
+ * Update Email
+ */
+
+type RecencyCheckEventHandlers = {
+  [RecencyCheckEventOnReceived.PrimaryAuthFactorNeedsVerification]: () => void;
+  [RecencyCheckEventOnReceived.PrimaryAuthFactorVerified]: () => void;
+  [RecencyCheckEventOnReceived.InvalidEmailOtp]: () => void;
+  [RecencyCheckEventOnReceived.EmailNotDeliverable]: () => void;
+  [RecencyCheckEventOnReceived.EmailExpired]: () => void;
+  [RecencyCheckEventOnReceived.EmailSent]: () => void;
+
+  [RecencyCheckEventEmit.Cancel]: () => void;
+  [RecencyCheckEventEmit.Retry]: () => void;
+  [RecencyCheckEventEmit.VerifyEmailOtp]: (otp: string) => void;
+};
+
+export type UpdateEmailEventHandlers = {
+  [UpdateEmailEventOnReceived.NewAuthFactorNeedsVerification]: () => void;
+  [UpdateEmailEventOnReceived.EmailUpdated]: () => void;
+  [UpdateEmailEventOnReceived.InvalidEmailOtp]: () => void;
+  [UpdateEmailEventOnReceived.EmailNotDeliverable]: () => void;
+  [UpdateEmailEventOnReceived.EmailExpired]: () => void;
+  [UpdateEmailEventOnReceived.EmailSent]: () => void;
+  [UpdateEmailEventOnReceived.InvalidEmail]: () => void;
+  [UpdateEmailEventOnReceived.EmailAlreadyExists]: () => void;
+
+  [UpdateEmailEventEmit.Cancel]: () => void;
+  [UpdateEmailEventEmit.RetryWithNewEmail]: (email?: string) => void;
+  [UpdateEmailEventEmit.VerifyEmailOtp]: (otp: string) => void;
+} & RecencyCheckEventHandlers;
