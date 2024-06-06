@@ -1,4 +1,4 @@
-import { WalletEventOnReceived } from '@magic-sdk/types';
+import { WalletEventOnReceived } from './wallet-types';
 
 export interface LoginWithMagicLinkConfiguration {
   /**
