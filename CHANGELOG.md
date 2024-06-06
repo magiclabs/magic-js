@@ -1,3 +1,16 @@
+# (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@24.0.2`
+  - Add two more events for EmailOTP [#746](https://github.com/magiclabs/magic-js/pull/746) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Mon May 20 2024)
 
 #### 🚀 Enhancement
