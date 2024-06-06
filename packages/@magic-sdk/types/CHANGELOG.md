@@ -1,3 +1,18 @@
+# v24.0.2 (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- Add two more events for EmailOTP [#746](https://github.com/magiclabs/magic-js/pull/746) ([@Ethella](https://github.com/Ethella))
+- fix was used before it was defined ([@Ethella](https://github.com/Ethella))
+- fix import ([@Ethella](https://github.com/Ethella))
+- Add two more events for EmailOTP ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v24.0.1 (Mon Apr 01 2024)
 
 #### 🐛 Bug Fix
