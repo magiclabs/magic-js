@@ -1,10 +1,7 @@
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 
 import browserEnv from '@ikscodes/browser-env';
-import { MagicPayloadMethod } from '@magic-sdk/types';
-
-import { isPromiEvent } from '../../../../src/util';
-import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
+import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
   browserEnv.restore();

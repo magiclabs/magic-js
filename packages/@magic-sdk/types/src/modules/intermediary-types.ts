@@ -11,7 +11,7 @@ import {
   UpdateEmailEventEmit,
   UpdateEmailEventOnReceived,
 } from './auth-types';
-import { NftCheckoutEventEmit, NftCheckoutEventOnReceived } from './nft-types';
+import { NftCheckoutIntermediaryEvents } from './nft-types';
 
 export type IntermediaryEvents =
   // EmailOTP
@@ -32,5 +32,4 @@ export type IntermediaryEvents =
   // Third Party Wallet Events
   | `${ThirdPartyWalletEvents}`
   // Nft Checkout Events
-  | `${NftCheckoutEventEmit}`
-  | `${NftCheckoutEventOnReceived}`;
+  | `${NftCheckoutIntermediaryEvents}`;

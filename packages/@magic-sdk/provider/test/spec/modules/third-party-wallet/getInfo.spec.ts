@@ -31,7 +31,7 @@ describe('third party wallet getInfo', () => {
 });
 
 describe('format web3modal getinfo response', () => {
-  it('should format the response correctly', async () => {
+  it('should format the response correctly', () => {
     const magic = createMagicSDK();
 
     magic.web3modal = {
@@ -51,7 +51,7 @@ describe('format web3modal getinfo response', () => {
     expect(response).toEqual({
       publicAddress: '0x1234567890',
       email: null,
-      issuer: `$did:ethr:0x1234567890`,
+      issuer: '$did:ethr:0x1234567890',
       phoneNumber: null,
       isMfaEnabled: false,
       recoveryFactors: [],

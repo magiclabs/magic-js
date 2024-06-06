@@ -1,22 +1,7 @@
 import browserEnv from '@ikscodes/browser-env';
-import { BaseModule } from '../../../../src/modules/base-module';
-import { createMagicSDK, createViewController } from '../../../factories';
+import { createMagicSDK } from '../../../factories';
 import { createPromiEvent } from '../../../../src/util';
-import { NftCheckoutEventHandler, NftCheckoutEventOnReceived } from '../../../../../types/src/modules/nft-types';
-
-function createBaseModule(postStub: jest.Mock) {
-  const sdk = createMagicSDK();
-  const viewController = createViewController('');
-
-  viewController.post = postStub;
-  Object.defineProperty(sdk, 'overlay', {
-    get: () => viewController,
-  });
-
-  const baseModule: any = new BaseModule(sdk);
-
-  return { baseModule };
-}
+import { NftCheckoutIntermediaryEvents, NftCheckoutEventHandler } from '../../../../../types/src/modules/nft-types';
 
 beforeEach(() => {
   browserEnv.restore();
@@ -114,7 +99,7 @@ test('Third party wallet is connected', async () => {
     isCryptoCheckoutEnabled: true,
   });
 
-  mockPromiEvent.emit(NftCheckoutEventOnReceived.Initiated, '0x1234');
+  mockPromiEvent.emit(NftCheckoutIntermediaryEvents.Initiated, '0x1234');
 
   expect(response.status).toBe('processed');
 

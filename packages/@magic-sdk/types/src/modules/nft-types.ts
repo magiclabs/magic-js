@@ -51,6 +51,11 @@ export interface NFTCheckoutRequest {
 
 export type NFTCheckoutResponse = NFTResponse;
 
+export type NFTCheckoutEvents = {
+  disconnect: () => void;
+  'nft-checkout-initiated': (rawTransaction: string) => void;
+};
+
 export interface NFTTransferRequest {
   tokenId: string;
   contractAddress: string;
@@ -60,18 +65,15 @@ export interface NFTTransferRequest {
 
 export type NFTTransferResponse = NFTResponse;
 
-export enum NftCheckoutEventEmit {
+export enum NftCheckoutIntermediaryEvents {
   Success = 'nft-checkout-success',
   Failure = 'nft-checkout-failure',
-}
-
-export enum NftCheckoutEventOnReceived {
   Initiated = 'nft-checkout-initiated',
+  Disconnect = 'disconnect',
 }
 
 export type NftCheckoutEventHandler = {
-  [NftCheckoutEventOnReceived.Initiated]: (rawTransaction: string) => void;
-
-  [NftCheckoutEventEmit.Success]: (signedTransaction: string) => void;
-  [NftCheckoutEventEmit.Failure]: () => void;
+  [NftCheckoutIntermediaryEvents.Initiated]: (rawTransaction: string) => void;
+  [NftCheckoutIntermediaryEvents.Success]: (signedTransaction: string) => void;
+  [NftCheckoutIntermediaryEvents.Failure]: () => void;
 };

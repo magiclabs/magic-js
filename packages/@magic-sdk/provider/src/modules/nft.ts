@@ -2,12 +2,12 @@ import {
   MagicPayloadMethod,
   NFTCheckoutRequest,
   NFTCheckoutResponse,
+  NFTCheckoutEvents,
   NFTPurchaseRequest,
   NFTPurchaseResponse,
   NFTTransferRequest,
   NFTTransferResponse,
-  NftCheckoutEventEmit,
-  NftCheckoutEventOnReceived,
+  NftCheckoutIntermediaryEvents,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -29,27 +29,26 @@ export class NFTModule extends BaseModule {
         walletProvider: isThirdPartyWalletConnected ? 'web3modal' : 'magic',
       },
     ]);
-    const req = this.request<NFTCheckoutResponse>(requestPayload);
+    const promiEvent = this.request<NFTCheckoutResponse, NFTCheckoutEvents>(requestPayload);
 
-    // Add intermediary event listener if user is purchasing with a third-party wallet
     if (isThirdPartyWalletConnected) {
-      req.on(NftCheckoutEventOnReceived.Initiated as any, async (rawTransaction) => {
+      promiEvent.on(NftCheckoutIntermediaryEvents.Initiated, async (rawTransaction) => {
         try {
-          // prompt third party wallet with transaction details
           const hash = await this.request({
             method: 'eth_sendTransaction',
             params: [rawTransaction],
           });
-
-          console.log('hash from sdk', hash);
-          this.createIntermediaryEvent(NftCheckoutEventEmit.Success, requestPayload.id as string)(hash);
+          this.createIntermediaryEvent(NftCheckoutIntermediaryEvents.Success, requestPayload.id as string)(hash);
         } catch (error) {
-          console.error('error from sdk', error);
-          this.createIntermediaryEvent(NftCheckoutEventEmit.Failure, requestPayload.id as string)();
+          this.createIntermediaryEvent(NftCheckoutIntermediaryEvents.Failure, requestPayload.id as string)();
         }
       });
+      promiEvent.on(NftCheckoutIntermediaryEvents.Disconnect, () => {
+        this.sdk.thirdPartyWallets.resetThirdPartyWalletState();
+        promiEvent.emit('disconnect');
+      });
     }
-    return req;
+    return promiEvent;
   }
 
   /* Start an NFT Transfer flow */
