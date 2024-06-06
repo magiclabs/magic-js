@@ -1,4 +1,5 @@
 import {
+  AuthEventOnReceived,
   DeviceVerificationEventEmit,
   DeviceVerificationEventOnReceived,
   LoginWithEmailOTPEventEmit,
@@ -10,6 +11,8 @@ import {
   UpdateEmailEventEmit,
   UpdateEmailEventOnReceived,
 } from './auth-types';
+
+import { WalletEventOnReceived } from './wallet-types';
 
 export type IntermediaryEvents =
   // EmailOTP
@@ -26,4 +29,7 @@ export type IntermediaryEvents =
   | `${RecencyCheckEventOnReceived}`
   // Update Email Events
   | `${UpdateEmailEventOnReceived}`
-  | `${UpdateEmailEventEmit}`;
+  | `${UpdateEmailEventEmit}`
+  // Auth Events
+  | `${AuthEventOnReceived}`
+  | `${WalletEventOnReceived}`;

@@ -1272,27 +1272,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@datadog/browser-core@npm:5.20.0":
-  version: 5.20.0
-  resolution: "@datadog/browser-core@npm:5.20.0"
-  checksum: 82fb37ee0d02bda6f958549fd7b0c7f075613172bcb27133d2fa2fb91b22f6b4b1002042c0e96960993ebf0cde1d14aa55cdfaa2bc99bc358a793e491563d5c2
-  languageName: node
-  linkType: hard
-
-"@datadog/browser-logs@npm:^5.8.0":
-  version: 5.20.0
-  resolution: "@datadog/browser-logs@npm:5.20.0"
-  dependencies:
-    "@datadog/browser-core": 5.20.0
-  peerDependencies:
-    "@datadog/browser-rum": 5.20.0
-  peerDependenciesMeta:
-    "@datadog/browser-rum":
-      optional: true
-  checksum: d3ead69bb892e7d4015c58bdf180a318e0e2efcb572e503334852a458c31014b26b9948b1aec759b6b5a2fc743045b071be6a58685b191249b3bc4235b407fca
-  languageName: node
-  linkType: hard
-
 "@endemolshinegroup/cosmiconfig-typescript-loader@npm:^3.0.2":
   version: 3.0.2
   resolution: "@endemolshinegroup/cosmiconfig-typescript-loader@npm:3.0.2"
@@ -2346,7 +2325,6 @@ __metadata:
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
     "@babel/plugin-transform-modules-commonjs": ^7.9.6
-    "@datadog/browser-logs": ^5.8.0
     "@magic-sdk/types": ^24.0.2
     "@peculiar/webcrypto": ^1.1.7
     eventemitter3: ^4.0.4
@@ -2355,24 +2333,9 @@ __metadata:
     tslib: ^2.3.1
     web3-core: 1.5.2
   peerDependencies:
-    "@datadog/browser-logs": ^5.8.0
     localforage: ^1.7.4
   languageName: unknown
   linkType: soft
-
-"@magic-sdk/provider@npm:28.0.4-canary.747.9407129816.0":
-  version: 28.0.4-canary.747.9407129816.0
-  resolution: "@magic-sdk/provider@npm:28.0.4-canary.747.9407129816.0"
-  dependencies:
-    "@magic-sdk/types": ^24.0.2
-    eventemitter3: ^4.0.4
-    web3-core: 1.5.2
-  peerDependencies:
-    "@datadog/browser-logs": ^5.8.0
-    localforage: ^1.7.4
-  checksum: 731894bf049cbb2b44a7ecac178e30b4600e7a57ad22a8675c78fb8b6a3576e6321db6d5421527461e021ce6afecf9c7731a094f0426428c9cbaef278c5ced33
-  languageName: node
-  linkType: hard
 
 "@magic-sdk/react-native-bare@^29.0.3, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
@@ -12807,7 +12770,7 @@ fsevents@^2.3.2:
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
     "@magic-sdk/commons": ^24.0.3
-    "@magic-sdk/provider": 28.0.4-canary.747.9407129816.0
+    "@magic-sdk/provider": ^28.0.3
     "@magic-sdk/types": ^24.0.2
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
