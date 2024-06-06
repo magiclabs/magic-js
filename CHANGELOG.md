@@ -1,3 +1,34 @@
+# (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@24.0.2`
+  - Add two more events for EmailOTP [#746](https://github.com/magiclabs/magic-js/pull/746) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Mon May 20 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/solana@25.1.0`
+  - Add partialSignTransaction in sol-ext [#743](https://github.com/magiclabs/magic-js/pull/743) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/solana@25.1.0`
+  - Fix type mismatch for signTransaction in sol-ext [#693](https://github.com/magiclabs/magic-js/pull/693) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Wed Apr 24 2024)
 
 #### 🐛 Bug Fix

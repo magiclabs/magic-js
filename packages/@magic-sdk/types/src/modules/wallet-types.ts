@@ -85,3 +85,7 @@ export interface GaslessTransactionRequest {
    */
   customData?: any;
 }
+
+export enum WalletEventOnReceived {
+  WalletInfoFetched = 'Wallet/wallet-info-fetched',
+}
