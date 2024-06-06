@@ -1,3 +1,18 @@
+# v24.0.3 (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- Pdeexp 1279 done event not firing in whitelabel email login flow [#748](https://github.com/magiclabs/magic-js/pull/748) ([@Ethella](https://github.com/Ethella))
+- fix import ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'refs/remotes/origin/master' into PDEEXP-1279-done-event-not-firing-in-whitelabel-email-login-flow ([@Ethella](https://github.com/Ethella))
+- Add new events to IntermediaryEvents type ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v24.0.2 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix
