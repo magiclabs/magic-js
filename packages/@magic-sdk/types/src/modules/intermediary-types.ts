@@ -1,4 +1,3 @@
-import { WalletEventOnReceived } from '@magic-sdk/types';
 import {
   AuthEventOnReceived,
   DeviceVerificationEventEmit,
@@ -12,6 +11,8 @@ import {
   UpdateEmailEventEmit,
   UpdateEmailEventOnReceived,
 } from './auth-types';
+
+import { WalletEventOnReceived } from './wallet-types';
 
 export type IntermediaryEvents =
   // EmailOTP
