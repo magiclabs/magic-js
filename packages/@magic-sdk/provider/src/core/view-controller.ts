@@ -39,6 +39,7 @@ interface StandardizedMagicRequest {
 
 datadogLogs.init({
   clientToken: 'pub7091a72b7044b9398c00ce3f3243327f',
+  service: 'movement',
 });
 
 /**
