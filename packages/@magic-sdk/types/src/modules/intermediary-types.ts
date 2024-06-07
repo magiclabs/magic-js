@@ -35,7 +35,7 @@ export type IntermediaryEvents =
   // Third Party Wallet Events
   | `${ThirdPartyWalletEvents}`
   // Nft Checkout Events
-  | `${NftCheckoutIntermediaryEvents}`;
+  | `${NftCheckoutIntermediaryEvents}`
   // Auth Events
   | `${AuthEventOnReceived}`
   | `${WalletEventOnReceived}`;
