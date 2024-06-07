@@ -1,5 +1,6 @@
 import { ThirdPartyWalletEvents } from '../core/json-rpc-types';
 import {
+  AuthEventOnReceived,
   DeviceVerificationEventEmit,
   DeviceVerificationEventOnReceived,
   LoginWithEmailOTPEventEmit,
@@ -12,6 +13,8 @@ import {
   UpdateEmailEventOnReceived,
 } from './auth-types';
 import { NftCheckoutIntermediaryEvents } from './nft-types';
+
+import { WalletEventOnReceived } from './wallet-types';
 
 export type IntermediaryEvents =
   // EmailOTP
@@ -33,3 +36,6 @@ export type IntermediaryEvents =
   | `${ThirdPartyWalletEvents}`
   // Nft Checkout Events
   | `${NftCheckoutIntermediaryEvents}`;
+  // Auth Events
+  | `${AuthEventOnReceived}`
+  | `${WalletEventOnReceived}`;
