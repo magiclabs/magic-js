@@ -119,6 +119,7 @@ export interface MagicSDKAdditionalConfiguration<
   deferPreload?: boolean;
   useStorageCache?: boolean;
   meta?: any; // Generic field for clients to add metadata
+  externalLogger?: any;
 }
 
 export class SDKBase {
@@ -129,6 +130,7 @@ export class SDKBase {
   protected readonly networkHash: string;
   public readonly testMode: boolean;
   public readonly useStorageCache: boolean;
+  public readonly externalLogger: any;
 
   /**
    * Contains methods for starting a Magic SDK authentication flow.
@@ -172,6 +174,7 @@ export class SDKBase {
     this.testMode = !!options?.testMode;
     this.useStorageCache = !!options?.useStorageCache;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
+    this.externalLogger = options?.externalLogger;
 
     // Prepare built-in modules
     this.auth = new AuthModule(this);
@@ -205,7 +208,12 @@ export class SDKBase {
    */
   protected get overlay(): ViewController {
     if (!SDKBase.__overlays__.has(this.parameters)) {
-      const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters, this.networkHash);
+      const controller = new SDKEnvironment.ViewController(
+        this.endpoint,
+        this.parameters,
+        this.networkHash,
+        this.externalLogger,
+      );
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore - We don't want to expose this method to the user, but we

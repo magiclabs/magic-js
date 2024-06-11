@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.9.6",
+    "@datadog/browser-logs": "^5.8.0",
     "@peculiar/webcrypto": "^1.1.7",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5",
@@ -40,6 +41,7 @@
     "web3-core": "1.5.2"
   },
   "peerDependencies": {
+    "@datadog/browser-logs": "^5.8.0",
     "localforage": "^1.7.4"
   },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"

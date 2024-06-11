@@ -6,6 +6,7 @@ import {
   MagicMessageRequest,
   SDKWarningCode,
 } from '@magic-sdk/types';
+import { datadogLogs } from '@datadog/browser-logs';
 import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
 import { getItem, setItem } from '../util/storage';
@@ -17,6 +18,7 @@ import {
   encryptAndPersistDeviceShare,
   getDecryptedDeviceShare,
 } from '../util/device-share-web-crypto';
+import { logInfo } from './datadog';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -34,6 +36,11 @@ interface StandardizedMagicRequest {
   rt?: string;
   deviceShare?: string;
 }
+
+datadogLogs.init({
+  clientToken: 'pubabac4d3c893a1ad69023911f42fce019',
+  service: 'movement',
+});
 
 /**
  * Get the originating payload from a batch request using the specified `id`.
@@ -132,6 +139,7 @@ export abstract class ViewController {
     protected readonly endpoint: string,
     protected readonly parameters: string,
     protected readonly networkHash: string,
+    protected readonly externalLogger: any,
   ) {
     this.checkIsReadyForRequest = this.waitForReady();
     this.isReadyForRequest = false;
@@ -170,8 +178,17 @@ export abstract class ViewController {
         reject(error);
       }
 
+      console.log('this.isReadyForRequest: ', this.isReadyForRequest)
+      logInfo('this.isReadyForRequest', { isReadyForRequest: this.isReadyForRequest });
+
       if (!this.isReadyForRequest) {
+        console.log('waiting for ready')
+        logInfo('waiting for ready', { msgType, payload });
+        this.externalLogger?.log('waiting for ready', { msgType, payload });
         await this.waitForReady();
+        console.log('ready for requests')
+        logInfo('ready for requests', { msgType, payload });
+        this.externalLogger?.log('ready for requests', { msgType, payload });
       }
 
       const batchData: JsonRpcResponse[] = [];

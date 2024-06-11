@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@magic-sdk/commons": "^24.0.5",
-    "@magic-sdk/provider": "^28.0.5",
+    "@magic-sdk/provider": "28.0.6-canary.747.9472311791.0",
     "@magic-sdk/types": "^24.0.4",
     "localforage": "^1.7.4"
   },
