@@ -1,3 +1,15 @@
+# v25.1.2 (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'refs/remotes/origin/master' into PDEEXP-1279-done-event-not-firing-in-whitelabel-email-login-flow ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v25.1.0 (Mon May 20 2024)
 
 #### 🚀 Enhancement
