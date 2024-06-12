@@ -1,3 +1,16 @@
+# v24.0.4 (Fri Jun 07 2024)
+
+#### 🐛 Bug Fix
+
+- update intermediary types [#749](https://github.com/magiclabs/magic-js/pull/749) ([@hcote](https://github.com/hcote))
+- update intermediary types ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v24.0.3 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix

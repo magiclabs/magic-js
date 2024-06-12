@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/provider",
-  "version": "28.0.4",
+  "version": "28.0.5",
   "description": "Core business logic for Magic SDK packages.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -35,7 +35,7 @@
     "tslib": "^2.3.1"
   },
   "dependencies": {
-    "@magic-sdk/types": "^24.0.3",
+    "@magic-sdk/types": "^24.0.4",
     "eventemitter3": "^4.0.4",
     "web3-core": "1.5.2"
   },
