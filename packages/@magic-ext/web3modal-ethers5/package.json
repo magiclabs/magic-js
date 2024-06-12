@@ -32,7 +32,7 @@
     "@magic-sdk/types": "24.0.2-canary.742.9175925480.0"
   },
   "dependencies": {
-    "@web3modal/ethers5": "4.1.12-ethers-status.0",
+    "@web3modal/ethers5": "5.0.1",
     "ethers": "5.7.2"
   }
 }

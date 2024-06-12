@@ -7,6 +7,7 @@ import {
   WalletInfo,
   ConnectWithUIOptions,
   ConnectWithUiEvents,
+  ShowUIPromiEvents,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -49,7 +50,7 @@ export class WalletModule extends BaseModule {
 
   /* Prompt Magic's Wallet UI (not available for users logged in with third party wallets) */
   public showUI() {
-    return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI));
+    return this.request<boolean, ShowUIPromiEvents>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI));
   }
 
   public showAddress() {
