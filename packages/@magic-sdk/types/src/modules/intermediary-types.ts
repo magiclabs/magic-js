@@ -2,6 +2,7 @@ import {
   AuthEventOnReceived,
   DeviceVerificationEventEmit,
   DeviceVerificationEventOnReceived,
+  FarcasterLoginEventEmit,
   LoginWithEmailOTPEventEmit,
   LoginWithEmailOTPEventOnReceived,
   LoginWithMagicLinkEventEmit,
@@ -35,4 +36,6 @@ export type IntermediaryEvents =
   | `${AuthEventOnReceived}`
   | `${WalletEventOnReceived}`
   // Nft Checkout Events
-  | `${NftCheckoutIntermediaryEvents}`;
+  | `${NftCheckoutIntermediaryEvents}`
+  // Farcaster Login Events
+  | `${FarcasterLoginEventEmit}`;

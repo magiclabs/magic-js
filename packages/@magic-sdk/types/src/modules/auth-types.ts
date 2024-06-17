@@ -146,6 +146,10 @@ export enum AuthEventOnReceived {
   IDTokenCreated = 'Auth/id-token-created',
 }
 
+export enum FarcasterLoginEventEmit {
+  SuccessSignIn = 'success_sign_in',
+}
+
 /**
  * EventHandlers
  */
