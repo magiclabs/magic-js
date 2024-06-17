@@ -32,7 +32,7 @@ interface Handler<E extends EventName> {
 
 const DEFAULT_RELAY_URL = 'https://relay.farcaster.xyz';
 const DEFAULT_SIWE_URI = 'https://example.com/login';
-const DEFAULT_TIMEOUT = 60_000;
+const DEFAULT_TIMEOUT = 60000;
 const DEFAULT_INTERVAL = 500;
 
 export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
@@ -71,7 +71,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
     const handle = {
       on: <T extends EventName>(event: T, callback: (params: EventMap[T]) => void) => {
         if (event === EVENT.CHANNEL) {
-          !(async () => {
+          (async () => {
             const { data } = await channelPromise;
 
             callback(data as any);
@@ -84,7 +84,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
           })();
         }
         if (event === EVENT.DONE) {
-          !(async () => {
+          (async () => {
             const { data } = await statusPromise;
 
             if (data.state !== 'completed') return;
@@ -94,7 +94,14 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
             }
 
             await this.request(
-              this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterLogin, [{ data }]),
+              this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterLogin, [
+                {
+                  channel_token: requestPayload.params[0].data.channelToken,
+                  message: data.message,
+                  signature: data.signature,
+                  fid: data.fid,
+                },
+              ]),
             );
 
             callback(data as any);
