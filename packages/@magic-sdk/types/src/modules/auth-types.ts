@@ -147,7 +147,7 @@ export enum AuthEventOnReceived {
 }
 
 export enum FarcasterLoginEventEmit {
-  SuccessSignIn = 'success_sign_in',
+  SuccessSignIn = 'Farcaster/success_sign_in',
 }
 
 /**
