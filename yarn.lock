@@ -2130,6 +2130,8 @@ __metadata:
     "@farcaster/auth-client": ^0.1.1
     "@magic-sdk/commons": ^24.0.5
     ethers: ^6.13.0
+  peerDependencies:
+    viem: ^2.15.1
   languageName: unknown
   linkType: soft
 
