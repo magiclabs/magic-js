@@ -7,9 +7,10 @@ import type {
 } from '@farcaster/auth-client';
 import { createAppClient, viemConnector } from '@farcaster/auth-client';
 import { FarcasterPayloadMethod } from './types';
+import { isMobile } from './utils';
 
-type Handle<E extends EventName> = {
-  on: Handler<E>;
+type Handle = {
+  on: Handler;
 };
 
 const EVENT = {
@@ -26,8 +27,10 @@ interface EventMap {
   error: AuthClientError;
 }
 
-interface Handler<E extends EventName> {
-  (event: E, callback: (params: EventMap[E]) => void): Handle<E>;
+interface Handler {
+  (event: 'channel', callback: (params: CreateChannelAPIResponse) => void): Handle;
+  (event: 'done', callback: (params: AuthenticateAPIResponse) => void): Handle;
+  (event: 'error', callback: (params: AuthClientError) => void): Handle;
 }
 
 const DEFAULT_RELAY_URL = 'https://relay.farcaster.xyz';
@@ -39,7 +42,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
   name = 'farcaster' as const;
   config: any = {};
 
-  public login = ({ showUI }: { showUI: boolean }): Handle<EventName> => {
+  public login = ({ showUI }: { showUI: boolean }): Handle => {
     const appClient = createAppClient({
       relay: DEFAULT_RELAY_URL,
       ethereum: viemConnector(),
@@ -67,14 +70,21 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
     });
 
     let requestPayload: JsonRpcRequestPayload;
+    let channel_token: string;
 
-    const handle = {
-      on: <T extends EventName>(event: T, callback: (params: EventMap[T]) => void) => {
+    const handle: Handle = {
+      on: (event, callback) => {
         if (event === EVENT.CHANNEL) {
           (async () => {
             const { data } = await channelPromise;
 
             callback(data as any);
+            channel_token = data.channelToken;
+
+            if (isMobile()) {
+              window.open(data.url, '_blank');
+              return;
+            }
 
             if (!showUI) return;
 
@@ -96,7 +106,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
             await this.request(
               this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterLogin, [
                 {
-                  channel_token: requestPayload.params[0].data.channelToken,
+                  channel_token,
                   message: data.message,
                   signature: data.signature,
                   fid: data.fid,
