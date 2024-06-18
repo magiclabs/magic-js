@@ -1,3 +1,16 @@
+# (Tue Jun 18 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@24.0.5`
+  - Add farcaster event types [#751](https://github.com/magiclabs/magic-js/pull/751) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # (Fri Jun 07 2024)
 
 #### 🐛 Bug Fix
