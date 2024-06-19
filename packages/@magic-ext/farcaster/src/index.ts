@@ -82,6 +82,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
             channel_token = data.channelToken;
 
             if (isMobile()) {
+              console.info(`Info: showUI parameter is ignored on mobile, open URL directly`);
               window.open(data.url, '_blank');
               return;
             }
