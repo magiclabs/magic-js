@@ -1,3 +1,16 @@
+# v24.0.5 (Tue Jun 18 2024)
+
+#### 🐛 Bug Fix
+
+- Add farcaster event types [#751](https://github.com/magiclabs/magic-js/pull/751) ([@ysm-dev](https://github.com/ysm-dev))
+- add farcaster event types ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # v24.0.4 (Fri Jun 07 2024)
 
 #### 🐛 Bug Fix

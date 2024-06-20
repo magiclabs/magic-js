@@ -1,7 +1,7 @@
 {
-  "name": "@magic-ext/gdkms",
-  "version": "11.0.6",
-  "description": "G-DKMS extension",
+  "name": "@magic-ext/farcaster",
+  "version": "0.0.2",
+  "description": "magic farcaster extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
@@ -12,7 +12,7 @@
     "dist"
   ],
   "target": "neutral",
-  "cdnGlobalName": "MagicGDKMSExtension",
+  "cdnGlobalName": "MagicFarcasterExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
@@ -25,12 +25,18 @@
   "externals": {
     "include": [
       "@magic-sdk/commons",
-      "@magic-sdk/types"
+      "viem"
+    ],
+    "exclude": [
+      "ethers"
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^24.0.6",
-    "@magic-sdk/types": "^24.0.5",
-    "@peculiar/webcrypto": "^1.4.3"
+    "@magic-sdk/commons": "^24.0.5"
+  },
+  "dependencies": {
+    "@farcaster/auth-client": "^0.1.1",
+    "ethers": "^6.13.0",
+    "viem": "^2.15.1"
   }
 }
