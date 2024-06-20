@@ -19,14 +19,6 @@ const EVENT = {
   ERROR: 'error',
 } as const;
 
-type EventName = typeof EVENT[keyof typeof EVENT];
-
-interface EventMap {
-  channel: CreateChannelAPIResponse;
-  done: AuthenticateAPIResponse;
-  error: AuthClientError;
-}
-
 interface Handler {
   (event: 'channel', callback: (params: CreateChannelAPIResponse) => void): Handle;
   (event: 'done', callback: (params: AuthenticateAPIResponse) => void): Handle;
@@ -87,9 +79,9 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
               return;
             }
 
-            if (!showUI) return;
-
-            requestPayload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [{ data }]);
+            requestPayload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
+              { data: { showUI, ...data } },
+            ]);
 
             this.request(requestPayload);
           })();
@@ -100,20 +92,16 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
 
             if (data.state !== 'completed') return;
 
-            if (showUI && requestPayload) {
-              this.createIntermediaryEvent(FarcasterLoginEventEmit.SuccessSignIn, requestPayload.id as any)();
-            }
-
-            await this.request(
-              this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterLogin, [
-                {
-                  channel_token,
-                  message: data.message,
-                  signature: data.signature,
-                  fid: data.fid,
-                },
-              ]),
-            );
+            this.createIntermediaryEvent(
+              FarcasterLoginEventEmit.SuccessSignIn,
+              requestPayload.id as any,
+            )({
+              channel_token,
+              message: data.message,
+              signature: data.signature,
+              fid: data.fid,
+              username: data.username,
+            });
 
             callback(data as any);
           })();
