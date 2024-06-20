@@ -25,7 +25,6 @@ type ErrorCallback = (params: AuthClientError) => void;
 
 const isChannelCallback = (callback: Function): callback is ChannelCallback => typeof callback === 'function';
 const isDoneCallback = (callback: Function): callback is DoneCallback => typeof callback === 'function';
-const isErrorCallback = (callback: Function): callback is ErrorCallback => typeof callback === 'function';
 
 interface Handler {
   (event: 'channel', callback: ChannelCallback): Handle;
