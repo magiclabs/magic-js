@@ -24,8 +24,7 @@
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons",
-      "viem"
+      "@magic-sdk/commons"
     ],
     "exclude": [
       "ethers"
@@ -36,7 +35,6 @@
   },
   "dependencies": {
     "@farcaster/auth-client": "^0.1.1",
-    "ethers": "^6.13.0",
-    "viem": "^2.15.1"
+    "ethers": "^6.13.0"
   }
 }
