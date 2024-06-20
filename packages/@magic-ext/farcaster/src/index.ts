@@ -19,10 +19,18 @@ const EVENT = {
   ERROR: 'error',
 } as const;
 
+type ChannelCallback = (params: CreateChannelAPIResponse) => void;
+type DoneCallback = (params: AuthenticateAPIResponse) => void;
+type ErrorCallback = (params: AuthClientError) => void;
+
+const isChannelCallback = (callback: Function): callback is ChannelCallback => typeof callback === 'function';
+const isDoneCallback = (callback: Function): callback is DoneCallback => typeof callback === 'function';
+const isErrorCallback = (callback: Function): callback is ErrorCallback => typeof callback === 'function';
+
 interface Handler {
-  (event: 'channel', callback: (params: CreateChannelAPIResponse) => void): Handle;
-  (event: 'done', callback: (params: AuthenticateAPIResponse) => void): Handle;
-  (event: 'error', callback: (params: AuthClientError) => void): Handle;
+  (event: 'channel', callback: ChannelCallback): Handle;
+  (event: 'done', callback: DoneCallback): Handle;
+  (event: 'error', callback: ErrorCallback): Handle;
 }
 
 const DEFAULT_RELAY_URL = 'https://relay.farcaster.xyz';
@@ -30,9 +38,9 @@ const DEFAULT_SIWE_URI = 'https://example.com/login';
 const DEFAULT_TIMEOUT = 60000;
 const DEFAULT_INTERVAL = 500;
 
-export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
+export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   name = 'farcaster' as const;
-  config: any = {};
+  config = {};
 
   public login = ({ showUI }: { showUI: boolean }): Handle => {
     const appClient = createAppClient({
@@ -66,15 +74,18 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
 
     const handle: Handle = {
       on: (event, callback) => {
-        if (event === EVENT.CHANNEL) {
+        if (event === 'channel') {
           (async () => {
             const { data } = await channelPromise;
 
-            callback(data as any);
+            if (!isChannelCallback(callback)) return;
+
+            callback(data);
+
             channel_token = data.channelToken;
 
             if (isMobile()) {
-              console.info(`Info: showUI parameter is ignored on mobile, open URL directly`);
+              console.info('Info: showUI parameter is ignored on mobile, open URL directly');
               window.open(data.url, '_blank');
               return;
             }
@@ -94,7 +105,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
 
             this.createIntermediaryEvent(
               FarcasterLoginEventEmit.SuccessSignIn,
-              requestPayload.id as any,
+              requestPayload.id as string,
             )({
               channel_token,
               message: data.message,
@@ -103,7 +114,9 @@ export class FarcasterExtension extends Extension.Internal<'farcaster', any> {
               username: data.username,
             });
 
-            callback(data as any);
+            if (!isDoneCallback(callback)) return;
+
+            callback(data);
           })();
         }
         if (event === EVENT.ERROR) {
