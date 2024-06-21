@@ -1,3 +1,16 @@
+# v0.0.3 (Fri Jun 21 2024)
+
+#### 🐛 Bug Fix
+
+- Fix: farcaster mobile login [#752](https://github.com/magiclabs/magic-js/pull/752) ([@ysm-dev](https://github.com/ysm-dev))
+- Fix: farcaster mobile login ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # v0.0.2 (Thu Jun 20 2024)
 
 #### 🐛 Bug Fix
