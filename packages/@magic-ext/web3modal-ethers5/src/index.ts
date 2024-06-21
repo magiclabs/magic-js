@@ -105,14 +105,14 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
       });
 
       // Listen for modal close before user connects wallet
-      // const unsubscribeFromModalEvents = modal.subscribeEvents((event) => {
-      //   if (event.data.event === 'MODAL_CLOSE') {
-      //     console.error('Modal closed')
-      //     unsubscribeFromModalEvents();
-      //     unsubscribeFromProviderEvents();
-      //     this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
-      //   }
-      // });
+      const unsubscribeFromModalEvents = modal.subscribeEvents((event) => {
+        if (event.data.event === 'MODAL_CLOSE') {
+          console.error('Modal closed');
+          unsubscribeFromModalEvents();
+          unsubscribeFromProviderEvents();
+          this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
+        }
+      });
 
       modal.open();
     });
