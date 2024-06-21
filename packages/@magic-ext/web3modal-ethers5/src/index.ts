@@ -93,6 +93,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
       const unsubscribeFromProviderEvents = modal.subscribeProvider(({ address, error }) => {
         // User rejected connection request
         if (error) {
+          console.error('Provider event error:', error);
           unsubscribeFromProviderEvents();
           this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
         }
@@ -104,13 +105,14 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
       });
 
       // Listen for modal close before user connects wallet
-      const unsubscribeFromModalEvents = modal.subscribeEvents((event) => {
-        if (event.data.event === 'MODAL_CLOSE') {
-          unsubscribeFromModalEvents();
-          unsubscribeFromProviderEvents();
-          this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
-        }
-      });
+      // const unsubscribeFromModalEvents = modal.subscribeEvents((event) => {
+      //   if (event.data.event === 'MODAL_CLOSE') {
+      //     console.error('Modal closed')
+      //     unsubscribeFromModalEvents();
+      //     unsubscribeFromProviderEvents();
+      //     this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
+      //   }
+      // });
 
       modal.open();
     });
