@@ -70,6 +70,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
 
     let popup: Window | null = null;
     let requestPayload: JsonRpcRequestPayload;
+    let rpcPromise: Promise<any> | null;
     let channel_token: string;
 
     if (isMobile()) {
@@ -97,7 +98,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
               { data: { showUI, ...data } },
             ]);
 
-            this.request(requestPayload);
+            rpcPromise = this.request(requestPayload);
           })();
         }
         if (event === EVENT.DONE) {
@@ -116,6 +117,8 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
               fid: data.fid,
               username: data.username,
             });
+
+            await rpcPromise;
 
             if (!isDoneCallback(callback)) return;
 
