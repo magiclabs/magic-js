@@ -68,8 +68,15 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
         });
     });
 
+    let popup: Window | null = null;
     let requestPayload: JsonRpcRequestPayload;
+    let rpcPromise: Promise<void> | null;
     let channel_token: string;
+
+    if (isMobile()) {
+      console.info('Info: showUI parameter is ignored on mobile, open URL directly');
+      popup = window.open();
+    }
 
     const handle: Handle = {
       on: (event, callback) => {
@@ -84,15 +91,14 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
             channel_token = data.channelToken;
 
             if (isMobile()) {
-              console.info('Info: showUI parameter is ignored on mobile, open URL directly');
-              window.open(data.url, '_blank');
+              popup?.location.assign(data.url);
             }
 
             requestPayload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
               { data: { showUI, ...data } },
             ]);
 
-            this.request(requestPayload);
+            rpcPromise = this.request(requestPayload);
           })();
         }
         if (event === EVENT.DONE) {
@@ -112,13 +118,18 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
               username: data.username,
             });
 
+            await rpcPromise;
+
             if (!isDoneCallback(callback)) return;
+
+            popup?.close();
 
             callback(data);
           })();
         }
         if (event === EVENT.ERROR) {
           statusPromise.catch((e) => {
+            popup?.close();
             callback(e);
           });
         }
