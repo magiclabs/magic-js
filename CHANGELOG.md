@@ -1,3 +1,16 @@
+# (Mon Jun 24 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.0.4`
+  - fix: iOS async popup [#753](https://github.com/magiclabs/magic-js/pull/753) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # (Fri Jun 21 2024)
 
 #### 🐛 Bug Fix

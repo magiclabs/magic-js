@@ -1,3 +1,18 @@
+# v0.0.4 (Mon Jun 24 2024)
+
+#### 🐛 Bug Fix
+
+- fix: iOS async popup [#753](https://github.com/magiclabs/magic-js/pull/753) ([@ysm-dev](https://github.com/ysm-dev))
+- fix: deepsource ([@ysm-dev](https://github.com/ysm-dev))
+- fix: rpc resolve timing ([@ysm-dev](https://github.com/ysm-dev))
+- fix: iOS async popup ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # v0.0.3 (Fri Jun 21 2024)
 
 #### 🐛 Bug Fix
