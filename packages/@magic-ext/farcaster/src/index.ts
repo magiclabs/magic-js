@@ -70,7 +70,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
 
     let popup: Window | null = null;
     let requestPayload: JsonRpcRequestPayload;
-    let rpcPromise: Promise<any> | null;
+    let rpcPromise: Promise<void> | null;
     let channel_token: string;
 
     if (isMobile()) {
