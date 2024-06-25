@@ -36,12 +36,28 @@ const DEFAULT_RELAY_URL = 'https://relay.farcaster.xyz';
 const DEFAULT_SIWE_URI = 'https://example.com/login';
 const DEFAULT_TIMEOUT = 60000;
 const DEFAULT_INTERVAL = 500;
+const DEFAULT_SHOW_UI = true;
+
+type LoginParams = {
+  showUI: boolean;
+};
 
 export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   name = 'farcaster' as const;
   config = {};
 
-  public login = ({ showUI }: { showUI: boolean }): Handle => {
+  public login = (params?: LoginParams): Handle => {
+    const showUI = params?.showUI ?? DEFAULT_SHOW_UI;
+    let popup: Window | null = null;
+    let requestPayload: JsonRpcRequestPayload;
+    let rpcPromise: Promise<void> | null;
+    let channel_token: string;
+
+    if (isMobile()) {
+      console.info('Info: showUI parameter is ignored on mobile, open URL directly');
+      popup = window.open();
+    }
+
     const appClient = createAppClient({
       relay: DEFAULT_RELAY_URL,
       ethereum: viemConnector(),
@@ -53,6 +69,18 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
     });
 
     const statusPromise: WatchStatusResponse = channelPromise.then(({ data }) => {
+      if (isMobile()) {
+        popup?.location.assign(data.url);
+      }
+
+      channel_token = data.channelToken;
+
+      requestPayload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
+        { data: { showUI, ...data } },
+      ]);
+
+      rpcPromise = this.request(requestPayload);
+
       return appClient
         .watchStatus({
           channelToken: data.channelToken,
@@ -68,15 +96,28 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
         });
     });
 
-    let popup: Window | null = null;
-    let requestPayload: JsonRpcRequestPayload;
-    let rpcPromise: Promise<void> | null;
-    let channel_token: string;
+    statusPromise
+      .then(async ({ data }) => {
+        if (data.state !== 'completed') return;
 
-    if (isMobile()) {
-      console.info('Info: showUI parameter is ignored on mobile, open URL directly');
-      popup = window.open();
-    }
+        this.createIntermediaryEvent(
+          FarcasterLoginEventEmit.SuccessSignIn,
+          requestPayload.id as string,
+        )({
+          channel_token,
+          message: data.message,
+          signature: data.signature,
+          fid: data.fid,
+          username: data.username,
+        });
+
+        await rpcPromise;
+
+        popup?.close();
+      })
+      .catch((e) => {
+        popup?.close();
+      });
 
     const handle: Handle = {
       on: (event, callback) => {
@@ -87,18 +128,6 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
             if (!isChannelCallback(callback)) return;
 
             callback(data);
-
-            channel_token = data.channelToken;
-
-            if (isMobile()) {
-              popup?.location.assign(data.url);
-            }
-
-            requestPayload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
-              { data: { showUI, ...data } },
-            ]);
-
-            rpcPromise = this.request(requestPayload);
           })();
         }
         if (event === EVENT.DONE) {
@@ -107,29 +136,13 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
 
             if (data.state !== 'completed') return;
 
-            this.createIntermediaryEvent(
-              FarcasterLoginEventEmit.SuccessSignIn,
-              requestPayload.id as string,
-            )({
-              channel_token,
-              message: data.message,
-              signature: data.signature,
-              fid: data.fid,
-              username: data.username,
-            });
-
-            await rpcPromise;
-
             if (!isDoneCallback(callback)) return;
-
-            popup?.close();
 
             callback(data);
           })();
         }
         if (event === EVENT.ERROR) {
           statusPromise.catch((e) => {
-            popup?.close();
             callback(e);
           });
         }
