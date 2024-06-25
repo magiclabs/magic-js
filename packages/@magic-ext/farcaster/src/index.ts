@@ -116,6 +116,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
         popup?.close();
       })
       .catch((e) => {
+        console.error(e)
         popup?.close();
       });
 
