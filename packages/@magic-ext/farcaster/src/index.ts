@@ -51,7 +51,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
       { data: { showUI, domain, channel: this.channel, isMobile: isMobile() } },
     ]);
 
-    const handle = this.request<void, FarcasterLoginEventHandlers>(payload);
+    const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
 
     if (isMobile()) {
       if (this.channel) {
