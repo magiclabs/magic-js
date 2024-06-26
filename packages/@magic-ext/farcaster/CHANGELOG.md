@@ -1,3 +1,20 @@
+# v0.0.5 (Wed Jun 26 2024)
+
+#### 🐛 Bug Fix
+
+- fix: move logic to outside of handle function [#754](https://github.com/magiclabs/magic-js/pull/754) ([@ysm-dev](https://github.com/ysm-dev))
+- fix: mobile ([@ysm-dev](https://github.com/ysm-dev))
+- fix: type ([@ysm-dev](https://github.com/ysm-dev))
+- refactor: move watch logic to mandrake ([@ysm-dev](https://github.com/ysm-dev))
+- Add console ([@ysm-dev](https://github.com/ysm-dev))
+- fix: move logic to outside of handle function ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # v0.0.4 (Mon Jun 24 2024)
 
 #### 🐛 Bug Fix
