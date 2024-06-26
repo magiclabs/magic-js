@@ -1,6 +1,5 @@
 import { Extension } from '@magic-sdk/commons';
 import type { CreateChannelAPIResponse, AuthenticateAPIResponse, AuthClientError } from '@farcaster/auth-client';
-import { createAppClient, viemConnector } from '@farcaster/auth-client';
 import { FarcasterPayloadMethod } from './types';
 import { isMobile } from './utils';
 
@@ -25,22 +24,6 @@ type FarcasterLoginEventHandlers = {
 export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   name = 'farcaster' as const;
   config = {};
-  appClient = createAppClient({ ethereum: viemConnector() });
-  channel: CreateChannelAPIResponse | null = null;
-
-  constructor() {
-    super();
-    if (isMobile()) {
-      this.appClient
-        .createChannel({
-          siweUri: `${location.origin}/login`,
-          domain: location.host,
-        })
-        .then(({ data }) => {
-          this.channel = data;
-        });
-    }
-  }
 
   public login = (params?: LoginParams) => {
     const showUI = params?.showUI ?? DEFAULT_SHOW_UI;
@@ -48,17 +31,21 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
     const domain = location.origin;
 
     const payload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
-      { data: { showUI, domain, channel: this.channel, isMobile: isMobile() } },
+      {
+        data: {
+          showUI,
+          domain,
+          isMobile: isMobile(),
+        },
+      },
     ]);
 
     const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
 
     if (isMobile()) {
-      if (this.channel) {
-        location.href = this.channel.url;
-      } else {
-        return handle;
-      }
+      handle.on('channel', (channel) => {
+        window.open(channel.url, '_blank');
+      });
     }
 
     return handle;
