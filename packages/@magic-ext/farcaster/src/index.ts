@@ -1,142 +1,52 @@
-import { Extension, FarcasterLoginEventEmit, JsonRpcRequestPayload } from '@magic-sdk/commons';
-import type {
-  CreateChannelAPIResponse,
-  AuthenticateAPIResponse,
-  WatchStatusResponse,
-  AuthClientError,
-} from '@farcaster/auth-client';
-import { createAppClient, viemConnector } from '@farcaster/auth-client';
+import { Extension } from '@magic-sdk/commons';
+import type { CreateChannelAPIResponse, AuthenticateAPIResponse, AuthClientError } from '@farcaster/auth-client';
 import { FarcasterPayloadMethod } from './types';
 import { isMobile } from './utils';
 
-type Handle = {
-  on: Handler;
+const DEFAULT_SHOW_UI = true;
+
+type LoginParams = {
+  showUI: boolean;
 };
 
-const EVENT = {
-  CHANNEL: 'channel',
-  DONE: 'done',
-  ERROR: 'error',
+const FarcasterLoginEventOnReceived = {
+  OpenChannel: 'channel',
+  Success: 'success',
+  Failed: 'failed',
 } as const;
 
-type ChannelCallback = (params: CreateChannelAPIResponse) => void;
-type DoneCallback = (params: AuthenticateAPIResponse) => void;
-type ErrorCallback = (params: AuthClientError) => void;
-
-const isChannelCallback = (callback: Function): callback is ChannelCallback => typeof callback === 'function';
-const isDoneCallback = (callback: Function): callback is DoneCallback => typeof callback === 'function';
-
-interface Handler {
-  (event: 'channel', callback: ChannelCallback): Handle;
-  (event: 'done', callback: DoneCallback): Handle;
-  (event: 'error', callback: ErrorCallback): Handle;
-}
-
-const DEFAULT_RELAY_URL = 'https://relay.farcaster.xyz';
-const DEFAULT_SIWE_URI = 'https://example.com/login';
-const DEFAULT_TIMEOUT = 60000;
-const DEFAULT_INTERVAL = 500;
+type FarcasterLoginEventHandlers = {
+  [FarcasterLoginEventOnReceived.OpenChannel]: (channel: CreateChannelAPIResponse) => void;
+  [FarcasterLoginEventOnReceived.Success]: (data: AuthenticateAPIResponse) => void;
+  [FarcasterLoginEventOnReceived.Failed]: (error: AuthClientError) => void;
+};
 
 export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   name = 'farcaster' as const;
   config = {};
 
-  public login = ({ showUI }: { showUI: boolean }): Handle => {
-    const appClient = createAppClient({
-      relay: DEFAULT_RELAY_URL,
-      ethereum: viemConnector(),
-    });
+  public login = (params?: LoginParams) => {
+    const showUI = params?.showUI ?? DEFAULT_SHOW_UI;
 
-    const channelPromise = appClient.createChannel({
-      siweUri: DEFAULT_SIWE_URI,
-      domain: window.location.host,
-    });
+    const domain = location.origin;
 
-    const statusPromise: WatchStatusResponse = channelPromise.then(({ data }) => {
-      return appClient
-        .watchStatus({
-          channelToken: data.channelToken,
-          timeout: DEFAULT_TIMEOUT,
-          interval: DEFAULT_INTERVAL,
-        })
-        .then((r) => {
-          if (r.isError) {
-            throw r.error;
-          } else {
-            return r;
-          }
-        });
-    });
+    const payload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
+      {
+        data: {
+          showUI,
+          domain,
+          isMobile: isMobile(),
+        },
+      },
+    ]);
 
-    let popup: Window | null = null;
-    let requestPayload: JsonRpcRequestPayload;
-    let rpcPromise: Promise<void> | null;
-    let channel_token: string;
+    const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
 
     if (isMobile()) {
-      console.info('Info: showUI parameter is ignored on mobile, open URL directly');
-      popup = window.open();
+      handle.on('channel', (channel) => {
+        window.open(channel.url, '_blank');
+      });
     }
-
-    const handle: Handle = {
-      on: (event, callback) => {
-        if (event === 'channel') {
-          (async () => {
-            const { data } = await channelPromise;
-
-            if (!isChannelCallback(callback)) return;
-
-            callback(data);
-
-            channel_token = data.channelToken;
-
-            if (isMobile()) {
-              popup?.location.assign(data.url);
-            }
-
-            requestPayload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
-              { data: { showUI, ...data } },
-            ]);
-
-            rpcPromise = this.request(requestPayload);
-          })();
-        }
-        if (event === EVENT.DONE) {
-          (async () => {
-            const { data } = await statusPromise;
-
-            if (data.state !== 'completed') return;
-
-            this.createIntermediaryEvent(
-              FarcasterLoginEventEmit.SuccessSignIn,
-              requestPayload.id as string,
-            )({
-              channel_token,
-              message: data.message,
-              signature: data.signature,
-              fid: data.fid,
-              username: data.username,
-            });
-
-            await rpcPromise;
-
-            if (!isDoneCallback(callback)) return;
-
-            popup?.close();
-
-            callback(data);
-          })();
-        }
-        if (event === EVENT.ERROR) {
-          statusPromise.catch((e) => {
-            popup?.close();
-            callback(e);
-          });
-        }
-
-        return handle;
-      },
-    };
 
     return handle;
   };
