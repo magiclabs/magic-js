@@ -21,6 +21,7 @@ type FarcasterLoginEventHandlers = {
   [FarcasterLoginEventOnReceived.Failed]: (error: AuthClientError) => void;
 };
 
+const FARCASTER_RELAY_URL = 'https://relay.farcaster.xyz';
 export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   name = 'farcaster' as const;
   config = {};
@@ -30,7 +31,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
     super();
 
     (async () => {
-      const json = await fetch(`https://relay.farcaster.xyz/v1/channel`, {
+      const json = await fetch(`${FARCASTER_RELAY_URL}/v1/channel`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,8 +48,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
 
   public login = (params?: LoginParams) => {
     if (!this.channel) {
-      console.info('Channel not created yet. Please wait for the channel to be created.');
-      return;
+      throw new Error('Channel not created yet.');
     }
 
     const showUI = params?.showUI ?? DEFAULT_SHOW_UI;
