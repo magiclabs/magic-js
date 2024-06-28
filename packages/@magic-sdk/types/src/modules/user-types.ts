@@ -22,7 +22,8 @@ export interface MagicUserMetadata {
   email: string | null;
   phoneNumber: string | null;
   isMfaEnabled: boolean;
-  recoveryFactors: [RecoveryFactor];
+  recoveryFactors: [RecoveryFactor] | [];
+  walletType: string;
 }
 
 type RecoveryFactor = {

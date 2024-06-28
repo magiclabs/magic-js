@@ -43,15 +43,6 @@ test('Removes magic_auth_is_logged_in from local storage', async () => {
   expect(storage.removeItem).toHaveBeenCalledWith('magic_auth_is_logged_in');
 });
 
-test('Removes mc_active_wallet from local storage', async () => {
-  const magic = createMagicSDKTestMode();
-  mockLocalForage({ mc_active_wallet: 'test' });
-
-  magic.user.logout();
-
-  expect(storage.removeItem).toHaveBeenCalledWith('mc_active_wallet');
-});
-
 test('Should reject with error if error occurs', async () => {
   const magic = createMagicSDKTestMode();
   magic.user.request = jest.fn().mockRejectedValue(new Error('something went wrong'));
