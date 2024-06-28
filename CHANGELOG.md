@@ -1,3 +1,16 @@
+# (Fri Jun 28 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.0.6`
+  - fix: fix mobile, move channel logic to magic-ext/farcaster [#755](https://github.com/magiclabs/magic-js/pull/755) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # (Wed Jun 26 2024)
 
 #### 🐛 Bug Fix
