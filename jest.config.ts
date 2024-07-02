@@ -9,8 +9,8 @@ const config: Config.InitialOptions = {
   testTimeout: 30000, // 30s
   coverageThreshold: {
     global: {
-      lines: 98,
-      statements: 98,
+      lines: 99,
+      statements: 99,
       functions: 98,
       branches: 98,
     },
