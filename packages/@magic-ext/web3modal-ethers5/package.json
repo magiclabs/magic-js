@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "@web3modal/ethers5": "5.0.3",
-    "@web3modal/polyfills": "^5.0.3",
     "ethers": "5.7.2"
   }
 }

@@ -2654,7 +2654,6 @@ __metadata:
     "@magic-sdk/commons": ^24.0.2
     "@magic-sdk/types": 24.0.2-canary.742.9175925480.0
     "@web3modal/ethers5": 5.0.3
-    "@web3modal/polyfills": ^5.0.3
     ethers: 5.7.2
   languageName: unknown
   linkType: soft
@@ -5566,7 +5565,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web3modal/polyfills@npm:5.0.3, @web3modal/polyfills@npm:^5.0.3":
+"@web3modal/polyfills@npm:5.0.3":
   version: 5.0.3
   resolution: "@web3modal/polyfills@npm:5.0.3"
   dependencies:

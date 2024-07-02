@@ -2,7 +2,7 @@ import { Extension } from '@magic-sdk/commons';
 import { Web3Modal, createWeb3Modal, defaultConfig } from '@web3modal/ethers5';
 import { ThirdPartyWalletEvents } from '@magic-sdk/types';
 import { Web3ModalExtensionOptions } from './types';
-import '@web3modal/polyfills';
+
 export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
   name = 'web3modal' as const;
   config = {};
@@ -107,7 +107,6 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
       // Listen for modal close before user connects wallet
       const unsubscribeFromModalEvents = modal.subscribeEvents((event) => {
         if (event.data.event === 'MODAL_CLOSE') {
-          console.error('Modal closed');
           unsubscribeFromModalEvents();
           unsubscribeFromProviderEvents();
           this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
