@@ -16,7 +16,7 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
     this.modal = createWeb3Modal({
       ...modalOptions,
       ...{ themeVariables: { ...(modalOptions.themeVariables || {}), '--w3m-z-index': 3000000000 } },
-      ethersConfig: defaultConfig({ metadata: configOptions }),
+      ethersConfig: defaultConfig(configOptions),
     });
 
     const unsubscribeFromProviderEvents = this.modal.subscribeProvider(({ status }) => {
