@@ -1,3 +1,55 @@
+# (Fri Jun 28 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.0.6`
+  - fix: fix mobile, move channel logic to magic-ext/farcaster [#755](https://github.com/magiclabs/magic-js/pull/755) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Wed Jun 26 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.0.5`
+  - fix: move logic to outside of handle function [#754](https://github.com/magiclabs/magic-js/pull/754) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Mon Jun 24 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.0.4`
+  - fix: iOS async popup [#753](https://github.com/magiclabs/magic-js/pull/753) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Fri Jun 21 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.0.3`
+  - Fix: farcaster mobile login [#752](https://github.com/magiclabs/magic-js/pull/752) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # (Thu Jun 20 2024)
 
 #### 🐛 Bug Fix
