@@ -29,8 +29,7 @@
     "@types/rimraf": "^3.0.2",
     "@types/tsc-watch": "^4.2.0",
     "@types/whatwg-url": "^6.4.0",
-    "@typescript-eslint/eslint-plugin": "^7.13.1",
-    "@typescript-eslint/parser": "^7.13.1",
+    "@typescript-eslint/eslint-plugin": "~3.4.0",
     "auto": "^11.1.2",
     "babel-jest": "^27.0.6",
     "brotli-size": "^4.0.0",
@@ -70,7 +69,7 @@
     "ts-node": "^10.2.0",
     "tsc-watch": "^4.2.9",
     "tslib": "^2.3.1",
-    "typescript": "^5.4.5",
+    "typescript": "~4.4.2",
     "wsrun": "^5.2.1",
     "zombi": "^3.3.0"
   },
