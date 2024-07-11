@@ -1,3 +1,19 @@
+# v28.1.0 (Thu Jul 11 2024)
+
+#### 🚀 Enhancement
+
+- Fix: consider the provider ready after 15s even if the message hasn't arrived [#760](https://github.com/magiclabs/magic-js/pull/760) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- fix: set a wait time for the magic_overlay_ready message ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v28.0.4 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix
