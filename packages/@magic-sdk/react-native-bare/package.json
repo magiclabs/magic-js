@@ -19,7 +19,7 @@
   "dependencies": {
     "@aveq-research/localforage-asyncstorage-driver": "^3.0.1",
     "@magic-sdk/commons": "^24.0.6",
-    "@magic-sdk/provider": "^28.0.6",
+    "@magic-sdk/provider": "^28.1.0",
     "@magic-sdk/types": "^24.0.5",
     "@react-native-async-storage/async-storage": "^1.15.5",
     "@types/lodash": "^4.14.158",
