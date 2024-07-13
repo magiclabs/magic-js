@@ -1,3 +1,16 @@
+# v0.1.0 (Thu Jul 11 2024)
+
+#### 🐛 Bug Fix
+
+- fix: remove farcaster deps [#758](https://github.com/magiclabs/magic-js/pull/758) ([@ysm-dev](https://github.com/ysm-dev))
+- fix: remove farcaster deps ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # v0.0.6 (Fri Jun 28 2024)
 
 #### 🐛 Bug Fix

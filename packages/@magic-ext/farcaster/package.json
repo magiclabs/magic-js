@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/farcaster",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "magic farcaster extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -24,19 +24,10 @@
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons",
-      "viem"
-    ],
-    "exclude": [
-      "ethers"
+      "@magic-sdk/commons"
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^24.0.5"
-  },
-  "dependencies": {
-    "@farcaster/auth-client": "^0.1.1",
-    "ethers": "^6.13.0",
-    "viem": "^2.15.1"
+    "@magic-sdk/commons": "^24.1.0"
   }
 }

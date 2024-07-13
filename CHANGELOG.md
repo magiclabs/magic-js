@@ -1,3 +1,22 @@
+# (Thu Jul 11 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.1.0`
+  - Fix: consider the provider ready after 15s even if the message hasn't arrived [#760](https://github.com/magiclabs/magic-js/pull/760) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.1.0`
+  - fix: remove farcaster deps [#758](https://github.com/magiclabs/magic-js/pull/758) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # (Fri Jun 28 2024)
 
 #### 🐛 Bug Fix
