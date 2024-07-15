@@ -70,6 +70,7 @@ type FarcasterLoginEventHandlers = {
 };
 
 const FARCASTER_RELAY_URL = 'https://relay.farcaster.xyz';
+
 export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   name = 'farcaster' as const;
   config = {};
@@ -79,7 +80,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
     super();
 
     (async () => {
-      const json = await fetch(`${FARCASTER_RELAY_URL}/v1/channel`, {
+      this.channel = await fetch(`${FARCASTER_RELAY_URL}/v1/channel`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,8 +90,6 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
           siweUri: window.location.origin,
         }),
       }).then<CreateChannelAPIResponse>((r) => r.json());
-
-      this.channel = json;
     })();
   }
 
@@ -99,27 +98,19 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
       throw new Error('Channel not created yet.');
     }
 
-    const showUI = params?.showUI ?? DEFAULT_SHOW_UI;
-
-    const domain = window.location.origin;
-
     const payload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
       {
         data: {
-          showUI,
-          domain,
+          showUI: params?.showUI ?? DEFAULT_SHOW_UI,
+          domain: window.location.origin,
           isMobile: isMobile(),
           channel: this.channel,
         },
       },
     ]);
 
-    const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
-
-    if (isMobile()) {
-      window.location.href = this.channel.url;
-    }
-
-    return handle;
+    return this.request<string, FarcasterLoginEventHandlers>(payload);
   };
 }
+
+export { isMobile };
