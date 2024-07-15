@@ -1,3 +1,16 @@
+# (Mon Jul 15 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.1.1`
+  - Do not open native farcaster app on mobile [#764](https://github.com/magiclabs/magic-js/pull/764) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # (Thu Jul 11 2024)
 
 #### 🚀 Enhancement

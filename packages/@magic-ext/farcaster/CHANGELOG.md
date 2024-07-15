@@ -1,3 +1,16 @@
+# v0.1.1 (Mon Jul 15 2024)
+
+#### 🐛 Bug Fix
+
+- Do not open native farcaster app on mobile [#764](https://github.com/magiclabs/magic-js/pull/764) ([@ysm-dev](https://github.com/ysm-dev))
+- Do not open app on mobile ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # v0.1.0 (Thu Jul 11 2024)
 
 #### 🐛 Bug Fix
