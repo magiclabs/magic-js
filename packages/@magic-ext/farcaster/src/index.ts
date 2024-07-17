@@ -1,6 +1,6 @@
 import { Extension } from '@magic-sdk/commons';
 import { FarcasterPayloadMethod } from './types';
-import { isMobile } from './utils';
+import { isMainFrame, isMobile } from './utils';
 
 const DEFAULT_SHOW_UI = true;
 
@@ -109,7 +109,13 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
       },
     ]);
 
-    return this.request<string, FarcasterLoginEventHandlers>(payload);
+    const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
+
+    if (isMobile() && isMainFrame()) {
+      window.location.href = this.channel.url;
+    }
+
+    return handle;
   };
 }
 
