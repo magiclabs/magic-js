@@ -1,5 +1,18 @@
 # (Wed Jul 17 2024)
 
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.2.1`
+  - Open native app when mobile, in mainframe [#767](https://github.com/magiclabs/magic-js/pull/767) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Wed Jul 17 2024)
+
 #### 🚀 Enhancement
 
 - `@magic-sdk/provider@28.2.0`
