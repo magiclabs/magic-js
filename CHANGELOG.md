@@ -1,3 +1,21 @@
+# (Wed Jul 17 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.2.0`
+  - feat: add onramperParams arg to showUI [#766](https://github.com/magiclabs/magic-js/pull/766) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/solana@25.3.0`
+  - fix: partialSignTransaction return type is Uint8Array [#765](https://github.com/magiclabs/magic-js/pull/765) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # (Mon Jul 15 2024)
 
 #### 🐛 Bug Fix
