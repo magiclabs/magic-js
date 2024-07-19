@@ -1,3 +1,42 @@
+# v0.2.1 (Wed Jul 17 2024)
+
+#### 🐛 Bug Fix
+
+- Open native app when mobile, in mainframe [#767](https://github.com/magiclabs/magic-js/pull/767) ([@ysm-dev](https://github.com/ysm-dev))
+- Open native app when mobile, in mainframe ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# v0.1.1 (Mon Jul 15 2024)
+
+#### 🐛 Bug Fix
+
+- Do not open native farcaster app on mobile [#764](https://github.com/magiclabs/magic-js/pull/764) ([@ysm-dev](https://github.com/ysm-dev))
+- Do not open app on mobile ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# v0.1.0 (Thu Jul 11 2024)
+
+#### 🐛 Bug Fix
+
+- fix: remove farcaster deps [#758](https://github.com/magiclabs/magic-js/pull/758) ([@ysm-dev](https://github.com/ysm-dev))
+- fix: remove farcaster deps ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
 # v0.0.6 (Fri Jun 28 2024)
 
 #### 🐛 Bug Fix

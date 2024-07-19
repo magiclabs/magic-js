@@ -23,6 +23,10 @@ export type ConnectWithUiEvents = {
   wallet_selected: (params: { wallet: Wallets }) => any;
 };
 
+type ShowUiConfig = {
+  onramperParams?: { [key: string]: string };
+};
+
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
   public connectWithUI() {
@@ -60,8 +64,8 @@ export class WalletModule extends BaseModule {
   }
 
   /* Prompt Magic's Wallet UI (not available for users logged in with third party wallets) */
-  public showUI() {
-    return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI));
+  public showUI(config?: ShowUiConfig) {
+    return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI, [config]));
   }
 
   public showAddress() {

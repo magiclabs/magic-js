@@ -1,3 +1,36 @@
+# v28.2.0 (Wed Jul 17 2024)
+
+#### 🚀 Enhancement
+
+- feat: add onramperParams arg to showUI [#766](https://github.com/magiclabs/magic-js/pull/766) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into rh-onramper-params ([@romin-halltari](https://github.com/romin-halltari))
+- feat: add onramperParams arg to showUI ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v28.1.0 (Thu Jul 11 2024)
+
+#### 🚀 Enhancement
+
+- Fix: consider the provider ready after 15s even if the message hasn't arrived [#760](https://github.com/magiclabs/magic-js/pull/760) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- fix: set a wait time for the magic_overlay_ready message ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v28.0.4 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix

@@ -14,7 +14,18 @@ test('Generate JSON RPC request payload with method `magic_wallet`', async () =>
 
   const requestPayload = magic.wallet.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_wallet');
-  expect(requestPayload.params).toEqual([]);
+  expect(requestPayload.params).toEqual([undefined]);
+});
+
+test('Generate JSON RPC request payload with method `magic_wallet` with onramperParams', async () => {
+  const magic = createMagicSDK();
+  magic.wallet.request = jest.fn();
+
+  magic.wallet.showUI({ onramperParams: { onlyCryptos: 'matic_polygon' } });
+
+  const requestPayload = magic.wallet.request.mock.calls[0][0];
+  expect(requestPayload.method).toBe('magic_wallet');
+  expect(requestPayload.params).toEqual([{ onramperParams: { onlyCryptos: 'matic_polygon' } }]);
 });
 
 test('method should return a PromiEvent', () => {
