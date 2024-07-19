@@ -66,10 +66,10 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithSMS(configuration: LoginWithSmsConfiguration) {
-    const { phoneNumber } = configuration;
+    const { phoneNumber, showUI = true } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
-      [{ phoneNumber, showUI: true }],
+      [{ phoneNumber, showUI }],
     );
     return this.request<string | null>(requestPayload);
   }
