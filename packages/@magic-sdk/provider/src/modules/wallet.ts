@@ -16,6 +16,10 @@ import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { createPromiEvent } from '../util';
 import { clearDeviceShares } from '../util/device-share-web-crypto';
 
+type ShowUiConfig = {
+  onramperParams?: { [key: string]: string };
+};
+
 export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
   public connectWithUI(options?: ConnectWithUIOptions) {
@@ -49,8 +53,8 @@ export class WalletModule extends BaseModule {
   }
 
   /* Prompt Magic's Wallet UI (not available for users logged in with third party wallets) */
-  public showUI() {
-    return this.request<boolean, ShowUIPromiEvents>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI));
+  public showUI(config?: ShowUiConfig) {
+    return this.request<boolean, ShowUIPromiEvents>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI, [config]));
   }
 
   public showAddress() {

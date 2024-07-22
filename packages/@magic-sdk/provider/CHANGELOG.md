@@ -1,3 +1,20 @@
+# v28.2.0 (Wed Jul 17 2024)
+
+#### 🚀 Enhancement
+
+- feat: add onramperParams arg to showUI [#766](https://github.com/magiclabs/magic-js/pull/766) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into rh-onramper-params ([@romin-halltari](https://github.com/romin-halltari))
+- feat: add onramperParams arg to showUI ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v28.1.0 (Thu Jul 11 2024)
 
 #### 🚀 Enhancement

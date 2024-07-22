@@ -22,3 +22,7 @@ export function isIOS(): boolean {
 export function isMobile(): boolean {
   return isAndroid() || isIOS();
 }
+
+export function isMainFrame(): boolean {
+  return typeof window !== 'undefined' && window === window.top;
+}

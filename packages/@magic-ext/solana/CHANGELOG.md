@@ -1,3 +1,16 @@
+# v25.3.0 (Wed Jul 17 2024)
+
+#### 🐛 Bug Fix
+
+- fix: partialSignTransaction return type is Uint8Array [#765](https://github.com/magiclabs/magic-js/pull/765) ([@romin-halltari](https://github.com/romin-halltari))
+- fix: partialSignTransaction return type is Uint8Array ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v25.1.2 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix
