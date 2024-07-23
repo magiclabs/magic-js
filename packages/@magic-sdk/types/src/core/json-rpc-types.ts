@@ -48,6 +48,12 @@ export interface RequestUserInfoScope {
   };
 }
 
+export enum LocalStorageKeys {
+  PROVIDER = 'magic_3pw_provider',
+  ADDRESS = 'magic_3pw_address',
+  CHAIN_ID = 'magic_3pw_chainId',
+}
+
 export enum ThirdPartyWalletEvents {
   WalletConnected = 'wallet_connected',
   WalletRejected = 'wallet_rejected',

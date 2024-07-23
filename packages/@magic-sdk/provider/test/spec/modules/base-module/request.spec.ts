@@ -10,8 +10,6 @@ import { MSG_TYPES } from '../../../constants';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { mockLocalStorage } from '../../../mocks';
 
-// TODO: add tests here
-
 function createBaseModule(postStub: jest.Mock) {
   const sdk = createMagicSDK();
   const viewController = createViewController('');
