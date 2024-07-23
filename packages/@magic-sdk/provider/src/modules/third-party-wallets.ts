@@ -1,10 +1,4 @@
-import {
-  JsonRpcRequestPayload,
-  LocalStorageKeys,
-  MagicPayloadMethod,
-  MagicUserMetadata,
-  ThirdPartyWalletEvents,
-} from '@magic-sdk/types';
+import { JsonRpcRequestPayload, MagicPayloadMethod, MagicUserMetadata, ThirdPartyWalletEvents } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { PromiEvent, createPromiEvent } from '../util';
 
@@ -14,9 +8,9 @@ export class ThirdPartyWalletsModule extends BaseModule {
   public isConnected = false;
 
   public resetThirdPartyWalletState() {
-    localStorage.removeItem(LocalStorageKeys.PROVIDER);
-    localStorage.removeItem(LocalStorageKeys.ADDRESS);
-    localStorage.removeItem(LocalStorageKeys.CHAIN_ID);
+    localStorage.removeItem('magic_3pw_provider');
+    localStorage.removeItem('magic_3pw_address');
+    localStorage.removeItem('magic_3pw_chainId');
     this.isConnected = false;
   }
 
@@ -36,7 +30,7 @@ export class ThirdPartyWalletsModule extends BaseModule {
       return this.logout(payload);
     }
     // Route all other requests to 3pw provider
-    switch (localStorage.getItem(LocalStorageKeys.PROVIDER)) {
+    switch (localStorage.getItem('magic_3pw_provider')) {
       case 'web3modal':
         return this.web3modalRequest(payload);
       // Fallback to default request
@@ -49,7 +43,7 @@ export class ThirdPartyWalletsModule extends BaseModule {
   /* Core Method Overrides */
 
   private isLoggedIn(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean> {
-    switch (localStorage.getItem(LocalStorageKeys.PROVIDER)) {
+    switch (localStorage.getItem('magic_3pw_provider')) {
       case 'web3modal':
         return this.web3modalIsLoggedIn();
       default:
@@ -59,7 +53,7 @@ export class ThirdPartyWalletsModule extends BaseModule {
   }
 
   private getInfo(payload: Partial<JsonRpcRequestPayload>): PromiEvent<MagicUserMetadata> {
-    switch (localStorage.getItem(LocalStorageKeys.PROVIDER)) {
+    switch (localStorage.getItem('magic_3pw_provider')) {
       case 'web3modal':
         return this.web3modalGetInfo();
       default:
@@ -69,7 +63,7 @@ export class ThirdPartyWalletsModule extends BaseModule {
   }
 
   private logout(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean> {
-    const provider = localStorage.getItem(LocalStorageKeys.PROVIDER);
+    const provider = localStorage.getItem('magic_3pw_provider');
     this.resetThirdPartyWalletState();
     switch (provider) {
       case 'web3modal': {
