@@ -2615,7 +2615,7 @@ __metadata:
   resolution: "@magic-ext/web3modal-ethers5@workspace:packages/@magic-ext/web3modal-ethers5"
   dependencies:
     "@magic-sdk/commons": ^24.0.2
-    "@magic-sdk/types": 24.0.2-canary.742.9175925480.0
+    "@magic-sdk/types": 24.0.6-canary.742.10067162636.0
     "@web3modal/ethers5": 5.0.3
     ethers: 5.7.2
   languageName: unknown
@@ -2774,10 +2774,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/types@npm:24.0.2-canary.742.9175925480.0":
-  version: 24.0.2-canary.742.9175925480.0
-  resolution: "@magic-sdk/types@npm:24.0.2-canary.742.9175925480.0"
-  checksum: 102354d339b62dec9ff5fa6d4bea12b5ae717914f5684cf19aacf7cc7ac18a84b7e6b5537ba12aaae91b53dc6e856feac76f2d1a05829043b9f813525c4e3716
+"@magic-sdk/types@npm:24.0.6-canary.742.10067162636.0":
+  version: 24.0.6-canary.742.10067162636.0
+  resolution: "@magic-sdk/types@npm:24.0.6-canary.742.10067162636.0"
+  checksum: e1f8fa2aaa77d60f03147ce396ddd895e01cfe24f79fd732188ef5dbc527fbfcfa0fee68fb6ac3d4a43784d096b43c76d8e2f03026aa38fce6e36f1a6611c4ce
   languageName: node
   linkType: hard
 

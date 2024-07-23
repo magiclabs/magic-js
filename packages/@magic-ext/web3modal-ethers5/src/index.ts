@@ -1,6 +1,6 @@
 import { Extension } from '@magic-sdk/commons';
 import { Web3Modal, createWeb3Modal, defaultConfig } from '@web3modal/ethers5';
-import { ThirdPartyWalletEvents } from '@magic-sdk/types';
+import { LocalStorageKeys, ThirdPartyWalletEvents } from '@magic-sdk/types';
 import { Web3ModalExtensionOptions } from './types';
 
 export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
@@ -32,15 +32,15 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
   }
 
   public setIsConnected() {
-    localStorage.setItem('magic_3pw_provider', 'web3modal');
-    localStorage.setItem('magic_3pw_address', this.modal.getAddress() as string);
-    localStorage.setItem('magic_3pw_chainId', (this.modal.getChainId() as number).toString());
+    localStorage.setItem(LocalStorageKeys.PROVIDER, 'web3modal');
+    localStorage.setItem(LocalStorageKeys.ADDRESS, this.modal.getAddress() as string);
+    localStorage.setItem(LocalStorageKeys.CHAIN_ID, (this.modal.getChainId() as number).toString());
     this.sdk.thirdPartyWallets.isConnected = true;
   }
 
   public initialize() {
     this.sdk.thirdPartyWallets.enabledWallets.web3modal = true;
-    this.sdk.thirdPartyWallets.isConnected = Boolean(localStorage.getItem('magic_3pw_address'));
+    this.sdk.thirdPartyWallets.isConnected = Boolean(localStorage.getItem(LocalStorageKeys.ADDRESS));
     this.sdk.thirdPartyWallets.eventListeners.push({
       event: ThirdPartyWalletEvents.Web3ModalSelected,
       callback: async (payloadId) => {
@@ -55,16 +55,16 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
 
     this.modal.subscribeProvider(({ address, chainId }) => {
       // If user disconnected all accounts from wallet
-      if (!address && localStorage.getItem('magic_3pw_address')) {
+      if (!address && localStorage.getItem(LocalStorageKeys.ADDRESS)) {
         this.sdk.thirdPartyWallets.resetThirdPartyWalletState();
         return this.sdk.rpcProvider.emit('accountsChanged', []);
       }
-      if (address && address !== localStorage.getItem('magic_3pw_address')) {
-        localStorage.setItem('magic_3pw_address', address);
+      if (address && address !== localStorage.getItem(LocalStorageKeys.ADDRESS)) {
+        localStorage.setItem(LocalStorageKeys.ADDRESS, address);
         return this.sdk.rpcProvider.emit('accountsChanged', [address]);
       }
-      if (chainId && chainId !== Number(localStorage.getItem('magic_3pw_chainId'))) {
-        localStorage.setItem('magic_3pw_chainId', chainId.toString());
+      if (chainId && chainId !== Number(localStorage.getItem(LocalStorageKeys.CHAIN_ID))) {
+        localStorage.setItem(LocalStorageKeys.CHAIN_ID, chainId.toString());
         return this.sdk.rpcProvider.emit('chainChanged', chainId);
       }
       return null;
