@@ -90,6 +90,7 @@ export enum LoginWithMagicLinkEventOnReceived {
 
 export enum LoginWithEmailOTPEventEmit {
   VerifyEmailOtp = 'verify-email-otp',
+  VerifyMFACode = 'verify-mfa-code', // Sukhrobbek
   Cancel = 'cancel',
 }
 
@@ -97,6 +98,7 @@ export enum LoginWithEmailOTPEventOnReceived {
   EmailOTPSent = 'email-otp-sent',
   InvalidEmailOtp = 'invalid-email-otp',
   ExpiredEmailOtp = 'expired-email-otp',
+  MfaSentHandle = 'mfa_sent_handle', // Sukhrobbek
 }
 
 export enum DeviceVerificationEventEmit {
@@ -114,6 +116,7 @@ export enum RecencyCheckEventEmit {
   Retry = 'Recency/auth-factor-retry',
   Cancel = 'Recency/auth-factor-verification-cancel',
   VerifyEmailOtp = 'Recency/auth-factor-verify-email-otp',
+  VerifyMFACode = 'Recency/verify-mfa-code', // Sukhrobbek
 }
 
 export enum RecencyCheckEventOnReceived {
@@ -167,11 +170,13 @@ export type LoginWithEmailOTPEventHandlers = {
   [LoginWithEmailOTPEventOnReceived.EmailOTPSent]: () => void;
   [LoginWithEmailOTPEventOnReceived.InvalidEmailOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp]: () => void;
+  [LoginWithEmailOTPEventOnReceived.MfaSentHandle]: () => void; // Sukhrobbek
   [AuthEventOnReceived.IDTokenCreated]: (idToken: string) => void;
   [WalletEventOnReceived.WalletInfoFetched]: () => void;
 
   // Event sent
   [LoginWithEmailOTPEventEmit.VerifyEmailOtp]: (otp: string) => void;
+  [LoginWithEmailOTPEventEmit.VerifyMFACode]: (mfa: string) => void; // Sukhrobbek
   [LoginWithEmailOTPEventEmit.Cancel]: () => void;
 } & DeviceVerificationEventHandlers;
 
@@ -201,6 +206,7 @@ type RecencyCheckEventHandlers = {
   [RecencyCheckEventEmit.Cancel]: () => void;
   [RecencyCheckEventEmit.Retry]: () => void;
   [RecencyCheckEventEmit.VerifyEmailOtp]: (otp: string) => void;
+  [RecencyCheckEventEmit.VerifyMFACode]: (mfa: string) => void;
 };
 
 export type UpdateEmailEventHandlers = {
