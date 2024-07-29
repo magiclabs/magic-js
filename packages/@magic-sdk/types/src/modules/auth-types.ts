@@ -97,8 +97,9 @@ export enum LoginWithEmailOTPEventEmit {
 export enum LoginWithEmailOTPEventOnReceived {
   EmailOTPSent = 'email-otp-sent',
   InvalidEmailOtp = 'invalid-email-otp',
+  InvalidMfaOtp = 'invalid-mfa-otp',
   ExpiredEmailOtp = 'expired-email-otp',
-  MfaSentHandle = 'mfa_sent_handle',
+  MfaSentHandle = 'mfa-sent-handle',
 }
 
 export enum DeviceVerificationEventEmit {
@@ -169,6 +170,7 @@ export type LoginWithEmailOTPEventHandlers = {
   // Event Received
   [LoginWithEmailOTPEventOnReceived.EmailOTPSent]: () => void;
   [LoginWithEmailOTPEventOnReceived.InvalidEmailOtp]: () => void;
+  [LoginWithEmailOTPEventOnReceived.InvalidMfaOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.MfaSentHandle]: () => void;
   [AuthEventOnReceived.IDTokenCreated]: (idToken: string) => void;
