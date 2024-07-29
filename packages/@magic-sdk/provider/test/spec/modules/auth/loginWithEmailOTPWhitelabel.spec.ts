@@ -27,3 +27,23 @@ test('Generates JSON RPC pending for otp-input-sent', async () => {
   const intermediaryEventSecondMethod = magic.auth.createIntermediaryEvent.mock.calls[1][0];
   expect(intermediaryEventSecondMethod).toBe('cancel');
 });
+
+test('Generates JSON RPC pending for verify-mfa-code', async () => {
+  const magic = createMagicSDK();
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  const createIntermediaryEventFn = jest.fn();
+  magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
+
+  const handle = magic.auth.loginWithEmailOTP({ email: expectedEmail, showUI: false });
+
+  const troll_mfa = '123456';
+  handle.emit('verify-mfa-code', troll_mfa);
+  handle.emit('cancel');
+
+  const verifyEvent = magic.auth.createIntermediaryEvent.mock.calls[0];
+  expect(verifyEvent[0]).toBe('verify-mfa-code');
+  expect(createIntermediaryEventFn.mock.calls[0][0]).toBe(troll_mfa);
+
+  const intermediaryEventSecondMethod = magic.auth.createIntermediaryEvent.mock.calls[1][0];
+  expect(intermediaryEventSecondMethod).toBe('cancel');
+});
