@@ -28,7 +28,7 @@ test('Generates JSON RPC pending for otp-input-sent', async () => {
   expect(intermediaryEventSecondMethod).toBe('cancel');
 });
 
-test('Generates JSON RPC pending for verify-mfa-code', async () => {
+test('Generates JSON RPC pending for verify-mfa-code', () => {
   const magic = createMagicSDK();
   magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
   const createIntermediaryEventFn = jest.fn();
