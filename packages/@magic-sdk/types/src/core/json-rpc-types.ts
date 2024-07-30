@@ -39,7 +39,7 @@ export interface UserInfo {
 }
 
 export interface WalletInfo {
-  walletType: 'magic' | 'metamask' | 'coinbase_wallet';
+  walletType: string;
 }
 
 export interface RequestUserInfoScope {
@@ -48,23 +48,29 @@ export interface RequestUserInfoScope {
   };
 }
 
-export enum Wallets {
-  MetaMask = 'metamask',
-  CoinbaseWallet = 'coinbase_wallet',
+export enum LocalStorageKeys {
+  PROVIDER = 'magic_3pw_provider',
+  ADDRESS = 'magic_3pw_address',
+  CHAIN_ID = 'magic_3pw_chainId',
 }
 
-export enum Events {
-  WalletSelected = 'wallet_selected',
+export enum ThirdPartyWalletEvents {
   WalletConnected = 'wallet_connected',
   WalletRejected = 'wallet_rejected',
+  Web3ModalSelected = 'web3modal_selected',
 }
 
-export interface UserEnv {
-  env: {
-    isMetaMaskInstalled: boolean;
-    isCoinbaseWalletInstalled: boolean;
-  };
+export interface ConnectWithUIOptions {
+  autoPromptThirdPartyWallets?: boolean;
 }
+
+export type ConnectWithUiEvents = {
+  'id-token-created': (params: { idToken: string }) => void;
+} & { [key in ThirdPartyWalletEvents]: () => void };
+
+export type ShowUIPromiEvents = {
+  disconnect: () => void;
+};
 
 // --- Payload methods
 
