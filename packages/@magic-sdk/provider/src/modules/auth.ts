@@ -77,10 +77,10 @@ export class AuthModule extends BaseModule {
 
     if (!showUI && handle) {
       handle.on(LoginWithSmsOTPEventEmit.VerifySmsOtp, (otp: string) => {
-        this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.VerifySmsOtp, requestPayload.id as any)(otp);
+        this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.VerifySmsOtp, requestPayload.id as string)(otp);
       });
       handle.on(LoginWithSmsOTPEventEmit.Cancel, () => {
-        this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.Cancel, requestPayload.id as any)();
+        this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.Cancel, requestPayload.id as string)();
       });
     }
 
