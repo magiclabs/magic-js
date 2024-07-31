@@ -73,12 +73,14 @@ export class AuthModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
       [{ phoneNumber, showUI }],
     );
+
     const handle = this.request<string | null, LoginWithSmsOTPEventHandlers>(requestPayload);
 
     if (!showUI && handle) {
       handle.on(LoginWithSmsOTPEventEmit.VerifySmsOtp, (otp: string) => {
         this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.VerifySmsOtp, requestPayload.id as string)(otp);
       });
+
       handle.on(LoginWithSmsOTPEventEmit.Cancel, () => {
         this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.Cancel, requestPayload.id as string)();
       });
