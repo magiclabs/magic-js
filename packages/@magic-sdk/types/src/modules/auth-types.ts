@@ -103,6 +103,17 @@ export enum LoginWithEmailOTPEventEmit {
   Cancel = 'cancel',
 }
 
+export enum LoginWithSmsOTPEventEmit {
+  VerifySmsOtp = 'verify-sms-otp',
+  Cancel = 'cancel',
+}
+
+export enum LoginWithSmsOTPEventOnReceived {
+  SmsOTPSent = 'sms-otp-sent',
+  InvalidSmsOtp = 'invalid-sms-otp',
+  ExpiredSmsOtp = 'expired-sms-otp',
+}
+
 export enum LoginWithEmailOTPEventOnReceived {
   EmailOTPSent = 'email-otp-sent',
   InvalidEmailOtp = 'invalid-email-otp',
@@ -171,6 +182,17 @@ export type LoginWithMagicLinkEventHandlers = {
   // Event sent
   [LoginWithMagicLinkEventEmit.Retry]: () => void;
 } & DeviceVerificationEventHandlers;
+
+export type LoginWithSmsOTPEventHandlers = {
+  // Event sent
+  [LoginWithSmsOTPEventEmit.VerifySmsOtp]: (otp: string) => void;
+  [LoginWithSmsOTPEventEmit.Cancel]: () => void;
+
+  // Event received
+  [LoginWithSmsOTPEventOnReceived.SmsOTPSent]: () => void;
+  [LoginWithSmsOTPEventOnReceived.InvalidSmsOtp]: () => void;
+  [LoginWithSmsOTPEventOnReceived.ExpiredSmsOtp]: () => void;
+};
 
 export type LoginWithEmailOTPEventHandlers = {
   // Event Received

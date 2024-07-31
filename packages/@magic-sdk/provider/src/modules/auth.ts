@@ -11,6 +11,8 @@ import {
   UpdateEmailEventHandlers,
   UpdateEmailEventEmit,
   RecencyCheckEventEmit,
+  LoginWithSmsOTPEventEmit,
+  LoginWithSmsOTPEventHandlers,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -71,7 +73,18 @@ export class AuthModule extends BaseModule {
       this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
       [{ phoneNumber, showUI }],
     );
-    return this.request<string | null>(requestPayload);
+    const handle = this.request<string | null, LoginWithSmsOTPEventHandlers>(requestPayload);
+
+    if (!showUI && handle) {
+      handle.on(LoginWithSmsOTPEventEmit.VerifySmsOtp, (otp: string) => {
+        this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.VerifySmsOtp, requestPayload.id as any)(otp);
+      });
+      handle.on(LoginWithSmsOTPEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.Cancel, requestPayload.id as any)();
+      });
+    }
+
+    return handle;
   }
 
   /**
