@@ -38,7 +38,7 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
   expect(requestPayload.params).toEqual([{ phoneNumber: expectedPhoneNumber, showUI: false }]);
 });
 
-test('Generates JSON RPC pending for otp-input-sent', async () => {
+test('Generates JSON RPC pending for otp-input-sent', () => {
   const magic = createMagicSDK();
   magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
   const createIntermediaryEventFn = jest.fn();
