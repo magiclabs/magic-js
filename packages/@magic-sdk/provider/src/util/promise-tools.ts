@@ -30,7 +30,6 @@ type DefaultEvents<TResult> = {
   done: (result: TResult) => void;
   error: (reason: any) => void;
   settled: () => void;
-  disconnect: () => void;
 };
 
 /**

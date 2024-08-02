@@ -38,6 +38,10 @@ export interface UserInfo {
   email?: string;
 }
 
+export type ShowUIPromiEvents = {
+  disconnect: () => void;
+};
+
 export interface WalletInfo {
   walletType: 'magic' | 'metamask' | 'coinbase_wallet';
 }
