@@ -92,6 +92,7 @@ export interface OAuthRedirectConfiguration {
   redirectURI: string;
   scope?: string[];
   loginHint?: string;
+  lifespan?: number;
 }
 
 export enum OAuthErrorCode {

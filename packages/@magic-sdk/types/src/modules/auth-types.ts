@@ -29,6 +29,11 @@ export interface LoginWithMagicLinkConfiguration {
   overrides?: {
     variation?: string;
   };
+
+  /**
+   * The number of seconds until the generated Decenteralized ID token will expire.
+   */
+  lifespan?: number;
 }
 
 export interface LoginWithSmsConfiguration {
@@ -36,6 +41,11 @@ export interface LoginWithSmsConfiguration {
    * Specify the phone number of the user attempting to login.
    */
   phoneNumber: string;
+
+  /**
+   * The number of seconds until the generated Decenteralized ID token will expire.
+   */
+  lifespan?: number;
 }
 export interface LoginWithEmailOTPConfiguration {
   /**
@@ -74,6 +84,23 @@ export interface LoginWithEmailOTPConfiguration {
   overrides?: {
     variation?: string;
   };
+
+  /**
+   * The number of seconds until the generated Decenteralized ID token will expire.
+   */
+  lifespan?: number;
+}
+
+export interface LoginWithCredentialConfiguration {
+  /**
+   * A credential token or a valid query string (prefixed with ? or #)
+   */
+  credentialOrQueryString?: string;
+
+  /**
+   * The number of seconds until the generated Decenteralized ID token will expire.
+   */
+  lifespan?: number;
 }
 
 /**
