@@ -54,7 +54,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     });
   }
 
-  public getRedirectResult(lifespan: number) {
+  public getRedirectResult(lifespan?: number) {
     const queryString = window.location.search;
 
     // Remove the query from the redirect callback as a precaution to prevent
@@ -66,7 +66,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   }
 }
 
-function getResult(this: OAuthExtension, queryString: string, lifespan: number) {
+function getResult(this: OAuthExtension, queryString: string, lifespan?: number) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
     const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
       {
