@@ -13,6 +13,7 @@ import {
   RecencyCheckEventEmit,
   LoginWithSmsOTPEventEmit,
   LoginWithSmsOTPEventHandlers,
+  LoginWithCredentialConfiguration,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -53,11 +54,11 @@ export class AuthModule extends BaseModule {
       }).log();
     }
 
-    const { email, showUI = true, redirectURI, overrides } = configuration;
+    const { email, showUI = true, redirectURI, overrides, lifespan } = configuration;
 
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
-      [{ email, showUI, redirectURI, overrides }],
+      [{ email, showUI, redirectURI, overrides, lifespan }],
     );
     return this.request<string | null, LoginWithMagicLinkEventHandlers>(requestPayload);
   }
@@ -68,10 +69,10 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithSMS(configuration: LoginWithSmsConfiguration) {
-    const { phoneNumber, showUI = true, deviceCheckUI } = configuration;
+    const { phoneNumber, showUI = true, deviceCheckUI, lifespan } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
-      [{ phoneNumber, showUI }],
+      [{ phoneNumber, showUI, lifespan }],
     );
 
     const handle = this.request<string | null, LoginWithSmsOTPEventHandlers>(requestPayload);
@@ -101,10 +102,10 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
-    const { email, showUI, deviceCheckUI, overrides } = configuration;
+    const { email, showUI, deviceCheckUI, overrides, lifespan } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
-      [{ email, showUI, deviceCheckUI, overrides }],
+      [{ email, showUI, deviceCheckUI, overrides, lifespan }],
     );
     const handle = this.request<string | null, LoginWithEmailOTPEventHandlers>(requestPayload);
     if (!deviceCheckUI && handle) {
@@ -133,7 +134,8 @@ export class AuthModule extends BaseModule {
    * If no argument is provided, a credential is automatically parsed from
    * `window.location.search`.
    */
-  public loginWithCredential(credentialOrQueryString?: string) {
+  public loginWithCredential(configuration?: LoginWithCredentialConfiguration) {
+    const { credentialOrQueryString, lifespan } = configuration || {};
     let credentialResolved = credentialOrQueryString ?? '';
 
     if (!credentialOrQueryString && SDKEnvironment.platform === 'web') {
@@ -146,7 +148,7 @@ export class AuthModule extends BaseModule {
 
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithCredentialTestMode : MagicPayloadMethod.LoginWithCredential,
-      [credentialResolved],
+      [credentialResolved, lifespan],
     );
 
     return this.request<string | null>(requestPayload);
