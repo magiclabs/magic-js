@@ -8,6 +8,7 @@ import {
   UserInfo,
   WalletInfo,
   Wallets,
+  ShowUIPromiEvents,
 } from '@magic-sdk/types';
 
 import { BaseModule } from './base-module';
@@ -65,7 +66,7 @@ export class WalletModule extends BaseModule {
 
   /* Prompt Magic's Wallet UI (not available for users logged in with third party wallets) */
   public showUI(config?: ShowUiConfig) {
-    return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI, [config]));
+    return this.request<boolean, ShowUIPromiEvents>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowUI, [config]));
   }
 
   public showAddress() {
