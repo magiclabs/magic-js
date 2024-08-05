@@ -16,7 +16,7 @@ import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { setItem, getItem, removeItem } from '../util/storage';
 import { ProductConsolidationMethodRemovalVersions } from './auth';
-import { createPromiEvent, EventsDefinition } from '../util';
+import { createPromiEvent } from '../util';
 import { clearDeviceShares } from '../util/device-share-web-crypto';
 
 export type ConnectWithUiEvents = {
