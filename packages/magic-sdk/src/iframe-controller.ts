@@ -72,7 +72,7 @@ export class IframeController extends ViewController {
             createDuplicateIframeWarning().log();
           }
         } catch (error) {
-          console.error(error);
+          console.error((error as Error).message);
         }
       };
 
