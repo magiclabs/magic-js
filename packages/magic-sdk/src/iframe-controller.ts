@@ -57,18 +57,22 @@ export class IframeController extends ViewController {
     (this as any).test = 'hello';
     this.iframe = new Promise((resolve) => {
       const onload = () => {
-        if (!checkForSameSrcInstances(encodeURIComponent(this.parameters))) {
-          const iframe = document.createElement('iframe');
-          iframe.classList.add('magic-iframe');
-          iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
-          iframe.title = 'Secure Modal';
-          iframe.src = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
-          iframe.allow = 'clipboard-read; clipboard-write';
-          applyOverlayStyles(iframe);
-          document.body.appendChild(iframe);
-          resolve(iframe);
-        } else {
-          createDuplicateIframeWarning().log();
+        try {
+          if (!checkForSameSrcInstances(encodeURIComponent(this.parameters))) {
+            const iframe = document.createElement('iframe');
+            iframe.classList.add('magic-iframe');
+            iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
+            iframe.title = 'Secure Modal';
+            iframe.src = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
+            iframe.allow = 'clipboard-read; clipboard-write';
+            applyOverlayStyles(iframe);
+            document.body.appendChild(iframe);
+            resolve(iframe);
+          } else {
+            createDuplicateIframeWarning().log();
+          }
+        } catch (error) {
+          console.error(error);
         }
       };
 
