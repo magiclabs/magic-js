@@ -57,7 +57,7 @@ export async function createURI(this: OAuthExtension, configuration: OAuthRedire
   await this.utils.storage.removeItem(OAUTH_REDIRECT_METADATA_KEY);
 
   // Unpack configuration, generate crypto values, and persist to storage.
-  const { provider, redirectURI, scope, loginHint } = configuration;
+  const { provider, redirectURI, scope, loginHint, lifespan } = configuration;
   const { verifier, challenge, state } = await createCryptoChallenge();
   const bundleId = getBundleId();
 
@@ -88,6 +88,7 @@ export async function createURI(this: OAuthExtension, configuration: OAuthRedire
     redirectURI && `redirect_uri=${encodeURIComponent(redirectURI)}`,
     loginHint && `login_hint=${encodeURIComponent(loginHint)}`,
     bundleId && `bundleId=${encodeURIComponent(bundleId)}`,
+    lifespan && `lifespan=${encodeURIComponent(lifespan)}`,
   ].reduce((prev, next) => (next ? `${prev}&${next}` : prev));
 
   return {
