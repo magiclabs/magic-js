@@ -1,3 +1,21 @@
+# (Mon Aug 05 2024)
+
+#### 🐛 Bug Fix
+
+- INF-311 add codeowners [#769](https://github.com/magiclabs/magic-js/pull/769) ([@andrew-magic](https://github.com/andrew-magic))
+- `@magic-sdk/provider@28.2.1`, `@magic-sdk/types@24.0.6`
+  - feat: Added new event type in order to prevent typescript error [#773](https://github.com/magiclabs/magic-js/pull/773) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- `@magic-ext/oauth@22.2.1`, `@magic-ext/oauth2@9.2.1`, `@magic-ext/react-native-bare-oauth@25.2.1`, `@magic-ext/react-native-expo-oauth@25.2.1`, `@magic-sdk/provider@28.2.1`, `@magic-sdk/types@24.0.6`
+  - add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+
+#### Authors: 3
+
+- [@andrew-magic](https://github.com/andrew-magic)
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # (Wed Jul 17 2024)
 
 #### 🐛 Bug Fix

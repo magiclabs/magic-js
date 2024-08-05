@@ -1,3 +1,22 @@
+# v28.2.1 (Mon Aug 05 2024)
+
+#### 🐛 Bug Fix
+
+- feat: Added new event type in order to prevent typescript error [#773](https://github.com/magiclabs/magic-js/pull/773) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into PDEEXP-1454-typescript-should-recognize-the-disconnect-event-on-show-ui ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- feat: Added new event type in order to prevent typescript error and removed the unused import ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+- feat: Added new event type in order to prevent typescript error ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- chore: update a unit test ([@otabek-magic](https://github.com/otabek-magic))
+- add lifespan parameter to login methods ([@otabek-magic](https://github.com/otabek-magic))
+
+#### Authors: 2
+
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v28.2.0 (Wed Jul 17 2024)
 
 #### 🚀 Enhancement

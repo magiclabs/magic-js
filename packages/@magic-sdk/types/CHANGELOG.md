@@ -1,3 +1,20 @@
+# v24.0.6 (Mon Aug 05 2024)
+
+#### 🐛 Bug Fix
+
+- feat: Added new event type in order to prevent typescript error [#773](https://github.com/magiclabs/magic-js/pull/773) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into PDEEXP-1454-typescript-should-recognize-the-disconnect-event-on-show-ui ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+- feat: Added new event type in order to prevent typescript error ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods ([@otabek-magic](https://github.com/otabek-magic))
+
+#### Authors: 2
+
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v24.0.5 (Tue Jun 18 2024)
 
 #### 🐛 Bug Fix

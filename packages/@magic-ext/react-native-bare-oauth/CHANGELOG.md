@@ -1,3 +1,18 @@
+# v25.2.1 (Mon Aug 05 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1454-typescript-should-recognize-the-disconnect-event-on-show-ui ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+- add lifespan parameter to login methods ([@otabek-magic](https://github.com/otabek-magic))
+
+#### Authors: 2
+
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v25.0.4 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix
