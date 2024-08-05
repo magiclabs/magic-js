@@ -4,6 +4,7 @@ import {
   DeviceVerificationEventOnReceived,
   FarcasterLoginEventEmit,
   LoginWithEmailOTPEventEmit,
+  LoginWithSmsOTPEventEmit,
   LoginWithEmailOTPEventOnReceived,
   LoginWithMagicLinkEventEmit,
   LoginWithMagicLinkEventOnReceived,
@@ -11,6 +12,7 @@ import {
   RecencyCheckEventOnReceived,
   UpdateEmailEventEmit,
   UpdateEmailEventOnReceived,
+  LoginWithSmsOTPEventOnReceived,
 } from './auth-types';
 import { NftCheckoutIntermediaryEvents } from './nft-types';
 
@@ -20,6 +22,9 @@ export type IntermediaryEvents =
   // EmailOTP
   | `${LoginWithEmailOTPEventEmit}`
   | `${LoginWithEmailOTPEventOnReceived}`
+  // SmsOTP
+  | `${LoginWithSmsOTPEventEmit}`
+  | `${LoginWithSmsOTPEventOnReceived}`
   // MagicLink
   | `${LoginWithMagicLinkEventEmit}`
   | `${LoginWithMagicLinkEventOnReceived}`
