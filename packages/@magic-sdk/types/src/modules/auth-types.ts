@@ -46,6 +46,19 @@ export interface LoginWithSmsConfiguration {
    * continue the SMS OTP flow.
    */
   showUI?: boolean;
+
+  /**
+   * Device Unrecognized UI will enforce showing up to secure user's login
+   *
+   * When set to true (default), an improved device recognition UI will be displayed to the user,
+   * prompting them to verify their login by checking their email for device approval. This feature
+   * enhances authentication security.
+   *
+   * This param will only be affect if showUI is false. When set to false,
+   * developers have the flexibility to implement their own customized UI to
+   * handle device check events, providing a more tailored user experience.
+   */
+  deviceCheckUI?: boolean;
 }
 export interface LoginWithEmailOTPConfiguration {
   /**
@@ -106,6 +119,7 @@ export enum LoginWithEmailOTPEventEmit {
 export enum LoginWithSmsOTPEventEmit {
   VerifySmsOtp = 'verify-sms-otp',
   Cancel = 'cancel',
+  Retry = 'retry',
 }
 
 export enum LoginWithSmsOTPEventOnReceived {
@@ -187,12 +201,13 @@ export type LoginWithSmsOTPEventHandlers = {
   // Event sent
   [LoginWithSmsOTPEventEmit.VerifySmsOtp]: (otp: string) => void;
   [LoginWithSmsOTPEventEmit.Cancel]: () => void;
+  [LoginWithSmsOTPEventEmit.Retry]: () => void;
 
   // Event received
   [LoginWithSmsOTPEventOnReceived.SmsOTPSent]: () => void;
   [LoginWithSmsOTPEventOnReceived.InvalidSmsOtp]: () => void;
   [LoginWithSmsOTPEventOnReceived.ExpiredSmsOtp]: () => void;
-};
+} & DeviceVerificationEventHandlers;
 
 export type LoginWithEmailOTPEventHandlers = {
   // Event Received

@@ -68,13 +68,19 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithSMS(configuration: LoginWithSmsConfiguration) {
-    const { phoneNumber, showUI = true } = configuration;
+    const { phoneNumber, showUI = true, deviceCheckUI } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
       [{ phoneNumber, showUI }],
     );
 
     const handle = this.request<string | null, LoginWithSmsOTPEventHandlers>(requestPayload);
+
+    if (!deviceCheckUI && handle) {
+      handle.on(DeviceVerificationEventEmit.Retry, () => {
+        this.createIntermediaryEvent(DeviceVerificationEventEmit.Retry, requestPayload.id as string)();
+      });
+    }
 
     if (!showUI && handle) {
       handle.on(LoginWithSmsOTPEventEmit.VerifySmsOtp, (otp: string) => {
