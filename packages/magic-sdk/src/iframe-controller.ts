@@ -66,6 +66,9 @@ export class IframeController extends ViewController {
           iframe.allow = 'clipboard-read; clipboard-write';
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
+          iframe.onerror = (event) => {
+            console.error('Magic Overlay Error:', event);
+          };
           resolve(iframe);
         } else {
           createDuplicateIframeWarning().log();
