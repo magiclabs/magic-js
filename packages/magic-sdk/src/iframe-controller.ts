@@ -66,6 +66,12 @@ export class IframeController extends ViewController {
           iframe.allow = 'clipboard-read; clipboard-write';
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
+          console.log('ENDPOINT: ', this.endpoint);
+          window.addEventListener('message', (event: MessageEvent) => {
+            if (event.data && event.data.error) {
+              console.error('RECEIVED ERROR: ', event.data.error);
+            }
+          });
           iframe.addEventListener('error', (event) => {
             console.error('Event listener error: ', event);
           });
