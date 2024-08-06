@@ -8,6 +8,7 @@ import { ViewController, createDuplicateIframeWarning, createURL, createModalNot
  * to render above all other DOM content.
  */
 const overlayStyles: Partial<CSSStyleDeclaration> = {
+  display: 'block',
   visibility: 'hidden',
   position: 'fixed',
   top: '0',
@@ -98,7 +99,6 @@ export class IframeController extends ViewController {
 
   protected async showOverlay() {
     const iframe = await this.iframe;
-    iframe.style.display = 'block';
     iframe.style.visibility = 'visible';
     this.activeElement = document.activeElement;
     iframe.focus();
