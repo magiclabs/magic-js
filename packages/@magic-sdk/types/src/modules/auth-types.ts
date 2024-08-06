@@ -43,6 +43,29 @@ export interface LoginWithSmsConfiguration {
   phoneNumber: string;
 
   /**
+   * When `true`, a pre-built modal interface will show to the user, directing
+   * them to check their SMS for the one time passcode (OTP) to complete their
+   * authentication.
+   *
+   * When `false`, developers will be able to implement their own custom UI to
+   * continue the SMS OTP flow.
+   */
+  showUI?: boolean;
+
+  /**
+   * Device Unrecognized UI will enforce showing up to secure user's login
+   *
+   * When set to true (default), an improved device recognition UI will be displayed to the user,
+   * prompting them to verify their login by checking their email for device approval. This feature
+   * enhances authentication security.
+   *
+   * This param will only be affect if showUI is false. When set to false,
+   * developers have the flexibility to implement their own customized UI to
+   * handle device check events, providing a more tailored user experience.
+   */
+  deviceCheckUI?: boolean;
+
+  /*
    * The number of seconds until the generated Decenteralized ID token will expire.
    */
   lifespan?: number;
@@ -120,6 +143,18 @@ export enum LoginWithEmailOTPEventEmit {
   Cancel = 'cancel',
 }
 
+export enum LoginWithSmsOTPEventEmit {
+  VerifySmsOtp = 'verify-sms-otp',
+  Cancel = 'cancel',
+  Retry = 'retry',
+}
+
+export enum LoginWithSmsOTPEventOnReceived {
+  SmsOTPSent = 'sms-otp-sent',
+  InvalidSmsOtp = 'invalid-sms-otp',
+  ExpiredSmsOtp = 'expired-sms-otp',
+}
+
 export enum LoginWithEmailOTPEventOnReceived {
   EmailOTPSent = 'email-otp-sent',
   InvalidEmailOtp = 'invalid-email-otp',
@@ -187,6 +222,18 @@ export type LoginWithMagicLinkEventHandlers = {
 
   // Event sent
   [LoginWithMagicLinkEventEmit.Retry]: () => void;
+} & DeviceVerificationEventHandlers;
+
+export type LoginWithSmsOTPEventHandlers = {
+  // Event sent
+  [LoginWithSmsOTPEventEmit.VerifySmsOtp]: (otp: string) => void;
+  [LoginWithSmsOTPEventEmit.Cancel]: () => void;
+  [LoginWithSmsOTPEventEmit.Retry]: () => void;
+
+  // Event received
+  [LoginWithSmsOTPEventOnReceived.SmsOTPSent]: () => void;
+  [LoginWithSmsOTPEventOnReceived.InvalidSmsOtp]: () => void;
+  [LoginWithSmsOTPEventOnReceived.ExpiredSmsOtp]: () => void;
 } & DeviceVerificationEventHandlers;
 
 export type LoginWithEmailOTPEventHandlers = {
