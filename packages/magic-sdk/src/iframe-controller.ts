@@ -66,8 +66,23 @@ export class IframeController extends ViewController {
           iframe.allow = 'clipboard-read; clipboard-write';
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
+          iframe.addEventListener('error', (event) => {
+            console.error('Event listener error: ', event);
+          });
+          iframe.onload = () => {
+            try {
+              const iframeDocument = iframe.contentDocument || iframe?.contentWindow?.document;
+              const pre = iframeDocument?.querySelector('pre');
+              if (pre) {
+                console.log('Error from iframe: ', pre.textContent);
+              }
+            } catch (error) {
+              console.error('Error accessing iframe content: ', error);
+            }
+          };
+
           iframe.onerror = (event) => {
-            console.error('Magic Overlay Error:', event);
+            console.error('Magic Overlay Error: ', event);
           };
           resolve(iframe);
         } else {
