@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign  */
 
-import { EthNetworkConfiguration, QueryParameters, SupportedLocale } from '@magic-sdk/types';
+import { EthNetworkConfiguration, QueryParameters, SDKErrorCode, SupportedLocale } from '@magic-sdk/types';
 import type { AbstractProvider } from 'web3-core';
 import { coerce, satisfies } from '../util/semver';
 import { encodeJSON } from '../util/base64-json';
@@ -8,6 +8,8 @@ import {
   createMissingApiKeyError,
   createReactNativeEndpointConfigurationWarning,
   createIncompatibleExtensionsError,
+  MagicSDKError,
+  createModalNotReadyError,
 } from './sdk-exceptions';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
@@ -224,6 +226,10 @@ export class SDKBase {
    * has completed loading and is ready for requests.
    */
   public async preload() {
-    await this.overlay.checkIsReadyForRequest;
+    try {
+      await this.overlay.checkIsReadyForRequest;
+    } catch (err) {
+      createModalNotReadyError();
+    }
   }
 }
