@@ -9,7 +9,6 @@ import {
   createReactNativeEndpointConfigurationWarning,
   createIncompatibleExtensionsError,
   MagicSDKError,
-  createModalNotReadyError,
 } from './sdk-exceptions';
 import { AuthModule } from '../modules/auth';
 import { UserModule } from '../modules/user';
@@ -228,8 +227,12 @@ export class SDKBase {
   public async preload() {
     try {
       await this.overlay.checkIsReadyForRequest;
-    } catch (err) {
-      createModalNotReadyError();
+    } catch {
+      const error = new MagicSDKError(
+        SDKErrorCode.ModalNotReady,
+        'Something went wrong. Please refresh the page and try again.',
+      );
+      console.error(error);
     }
   }
 }
