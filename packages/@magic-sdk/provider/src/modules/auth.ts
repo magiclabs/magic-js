@@ -96,6 +96,9 @@ export class AuthModule extends BaseModule {
       handle.on(LoginWithEmailOTPEventEmit.VerifyEmailOtp, (otp: string) => {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
       });
+      handle.on(LoginWithEmailOTPEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
+      });
       handle.on(LoginWithEmailOTPEventEmit.Cancel, () => {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.Cancel, requestPayload.id as any)();
       });
@@ -157,6 +160,9 @@ export class AuthModule extends BaseModule {
       });
       handle.on(RecencyCheckEventEmit.VerifyEmailOtp, (otp: string) => {
         this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
+      });
+      handle.on(RecencyCheckEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
       });
       handle.on(UpdateEmailEventEmit.RetryWithNewEmail, (newEmail?) => {
         this.createIntermediaryEvent(UpdateEmailEventEmit.RetryWithNewEmail, requestPayload.id as any)(newEmail);
