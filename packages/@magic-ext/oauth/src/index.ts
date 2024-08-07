@@ -50,7 +50,7 @@ async function createURI(this: OAuthExtension, configuration: OAuthRedirectConfi
   await this.utils.storage.removeItem(OAUTH_REDIRECT_METADATA_KEY);
 
   // Unpack configuration, generate crypto values, and persist to storage.
-  const { provider, redirectURI, scope, loginHint, lifespan } = configuration;
+  const { provider, redirectURI, scope, loginHint } = configuration;
   const { verifier, challenge, state } = await createCryptoChallenge();
 
   /* Stringify for RN Async storage */
@@ -77,7 +77,6 @@ async function createURI(this: OAuthExtension, configuration: OAuthRedirectConfi
     scope && `scope=${encodeURIComponent(scope.join(' '))}`,
     redirectURI && `redirect_uri=${encodeURIComponent(redirectURI)}`,
     loginHint && `login_hint=${encodeURIComponent(loginHint)}`,
-    lifespan && `lifespan=${encodeURIComponent(lifespan)}`,
   ].reduce((prev, next) => (next ? `${prev}&${next}` : prev));
 
   return {
