@@ -4,6 +4,8 @@ import {
   DeviceVerificationEventOnReceived,
   FarcasterLoginEventEmit,
   LoginWithEmailOTPEventEmit,
+  LoginWithSmsOTPEventEmit,
+  LoginWithSmsOTPEventOnReceived,
   LoginWithEmailOTPEventOnReceived,
   LoginWithMagicLinkEventEmit,
   LoginWithMagicLinkEventOnReceived,
@@ -20,6 +22,9 @@ export type IntermediaryEvents =
   // EmailOTP
   | `${LoginWithEmailOTPEventEmit}`
   | `${LoginWithEmailOTPEventOnReceived}`
+  // SmsOTP
+  | `${LoginWithSmsOTPEventEmit}`
+  | `${LoginWithSmsOTPEventOnReceived}`
   // MagicLink
   | `${LoginWithMagicLinkEventEmit}`
   | `${LoginWithMagicLinkEventOnReceived}`

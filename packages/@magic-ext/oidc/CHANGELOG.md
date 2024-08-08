@@ -1,3 +1,23 @@
+# v11.3.0 (Thu Aug 08 2024)
+
+#### 🚀 Enhancement
+
+- Chore/pdeexp 1658 update login sdk method to handle did lifespan [#775](https://github.com/magiclabs/magic-js/pull/775) ([@otabek-magic](https://github.com/otabek-magic))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into khamdam-sc-PDEEXP-54-whitelabel-sms-types ([@khamdam-magic](https://github.com/khamdam-magic))
+- Merge branch 'master' into PDEEXP-1393-MFA-Blocks-Login-for-Whitelabel-Email-Logins ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- feat: add lifespan to loginWithOIDC ([@otabek-magic](https://github.com/otabek-magic))
+
+#### Authors: 3
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v11.0.4 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix

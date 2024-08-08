@@ -54,7 +54,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     });
   }
 
-  public getRedirectResult() {
+  public getRedirectResult(lifespan?: number) {
     const queryString = window.location.search;
 
     // Remove the query from the redirect callback as a precaution to prevent
@@ -62,17 +62,18 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     const urlWithoutQuery = window.location.origin + window.location.pathname;
     window.history.replaceState(null, '', urlWithoutQuery);
 
-    return getResult.call(this, queryString);
+    return getResult.call(this, queryString, lifespan);
   }
 }
 
-function getResult(this: OAuthExtension, queryString: string) {
+function getResult(this: OAuthExtension, queryString: string, lifespan?: number) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
     const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
       {
         authorizationResponseParams: queryString,
         magicApiKey: this.sdk.apiKey,
         platform: 'web',
+        lifespan,
       },
     ]);
 

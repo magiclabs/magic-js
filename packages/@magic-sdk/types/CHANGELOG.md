@@ -1,3 +1,34 @@
+# v24.1.0 (Thu Aug 08 2024)
+
+#### 🚀 Enhancement
+
+- Add new types for whitelabel sms [#777](https://github.com/magiclabs/magic-js/pull/777) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into khamdam-sc-PDEEXP-54-whitelabel-sms-types ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: remove redundant param ([@khamdam-magic](https://github.com/khamdam-magic))
+- Added event due to the ticket:PDEEXP-1393 [#770](https://github.com/magiclabs/magic-js/pull/770) (sukhrobbekodilov@204-108.ip.sola.uz [@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into PDEEXP-1393-MFA-Blocks-Login-for-Whitelabel-Email-Logins ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- fix: add new whitelabel types ([@khamdam-magic](https://github.com/khamdam-magic))
+- feat: Added new event type in order to prevent typescript error [#773](https://github.com/magiclabs/magic-js/pull/773) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into PDEEXP-1454-typescript-should-recognize-the-disconnect-event-on-show-ui ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+- feat: Added new event type in order to prevent typescript error ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods ([@otabek-magic](https://github.com/otabek-magic))
+- feat: Added event due to the ticket:PDEEXP-1393 (sukhrobbekodilov@204-108.ip.sola.uz)
+- Added event due to the ticket:PDEEXP-1393 and removed comments (sukhrobbekodilov@204-108.ip.sola.uz)
+- Added event due to the ticket:PDEEXP-1393 (sukhrobbekodilov@204-108.ip.sola.uz)
+
+#### Authors: 4
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+- Sukhrobbek Odilov (sukhrobbekodilov@204-108.ip.sola.uz)
+
+---
+
 # v24.0.5 (Tue Jun 18 2024)
 
 #### 🐛 Bug Fix
