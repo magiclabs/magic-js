@@ -1,3 +1,29 @@
+# v28.3.0 (Thu Aug 08 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into khamdam-sc-PDEEXP-54-whitelabel-sms-types ([@khamdam-magic](https://github.com/khamdam-magic))
+- Added event due to the ticket:PDEEXP-1393 [#770](https://github.com/magiclabs/magic-js/pull/770) (sukhrobbekodilov@204-108.ip.sola.uz [@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into PDEEXP-1393-MFA-Blocks-Login-for-Whitelabel-Email-Logins ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- feat: Added new event type in order to prevent typescript error [#773](https://github.com/magiclabs/magic-js/pull/773) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into PDEEXP-1454-typescript-should-recognize-the-disconnect-event-on-show-ui ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- feat: Added new event type in order to prevent typescript error and removed the unused import ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+- feat: Added new event type in order to prevent typescript error ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- chore: update a unit test ([@otabek-magic](https://github.com/otabek-magic))
+- add lifespan parameter to login methods ([@otabek-magic](https://github.com/otabek-magic))
+- Added event due to the ticket:PDEEXP-1393 and removed async as I do not use await (sukhrobbekodilov@204-108.ip.sola.uz)
+- Added event due to the ticket:PDEEXP-1393 (sukhrobbekodilov@204-108.ip.sola.uz)
+
+#### Authors: 4
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+- Sukhrobbek Odilov (sukhrobbekodilov@204-108.ip.sola.uz)
+
+---
+
 # v28.2.0 (Wed Jul 17 2024)
 
 #### 🚀 Enhancement
