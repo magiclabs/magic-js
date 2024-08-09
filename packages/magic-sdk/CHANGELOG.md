@@ -1,3 +1,18 @@
+# v28.3.1 (Fri Aug 09 2024)
+
+#### 🐛 Bug Fix
+
+- change display css to visibility [#772](https://github.com/magiclabs/magic-js/pull/772) ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into hcote-visibility-update ([@hcote](https://github.com/hcote))
+- fix tests ([@hcote](https://github.com/hcote))
+- change display css to visibility ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v28.0.5 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix

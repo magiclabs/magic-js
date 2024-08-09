@@ -1,3 +1,15 @@
+# v22.3.1 (Fri Aug 09 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-visibility-update ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v22.0.6 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix

@@ -13,7 +13,7 @@ beforeEach(() => {
 test('Change display style to `block`', async () => {
   (IframeController.prototype as any).init = function () {
     this.iframe = {
-      style: { display: 'none' },
+      style: { visibility: 'hidden' },
       focus: () => {},
     };
 
@@ -24,7 +24,7 @@ test('Change display style to `block`', async () => {
 
   await (overlay as any).showOverlay();
 
-  expect((overlay as any).iframe.style.display).toBe('block');
+  expect((overlay as any).iframe.style.visibility).toBe('visible');
 });
 
 test('Calls `iframe.focus()`', async () => {
