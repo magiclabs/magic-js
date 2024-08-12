@@ -247,16 +247,13 @@ export abstract class ViewController {
         unsubscribe();
       });
 
-      // We expect the overlay to be ready within 15 seconds.
-      // Sometimes the message is not properly processed due to
-      // webview issues. In that case, after 15 seconds we consider
-      // the overlay ready, to avoid requests hanging forever.
+      // Adding test check to solve a test leaking issue
       if (process.env.NODE_ENV !== 'test') {
-        setTimeout(() => {
-          this.isReadyForRequest = true;
-          resolve();
-          unsubscribe();
-        }, 15000);
+        // We expect the overlay to be ready within 15 seconds.
+        // Sometimes the message is not properly processed due to
+        // webview issues. In that case, after 15 seconds we consider
+        // the overlay ready, to avoid requests hanging forever.
+        this.autoReady(resolve, unsubscribe);
       }
     });
   }
@@ -278,5 +275,16 @@ export abstract class ViewController {
         new MagicSDKWarning(SDKWarningCode.ProductAnnouncement, event.data.response.result.product_announcement).log();
       }
     });
+  }
+
+  private async autoReady(
+    resolve: { (value: void | PromiseLike<void>): void; (): void },
+    unsubscribe: RemoveEventListenerFunction,
+  ) {
+    setTimeout(() => {
+      this.isReadyForRequest = true;
+      resolve();
+      unsubscribe();
+    }, 15000);
   }
 }
