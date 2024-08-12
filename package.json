@@ -9,7 +9,7 @@
     "build": "$INIT_CWD/scripts/bin/clean.ts && $INIT_CWD/scripts/bin/build.ts",
     "clean": "$INIT_CWD/scripts/bin/clean.ts",
     "lint": "$INIT_CWD/scripts/bin/lint.ts",
-    "test": "$INIT_CWD/scripts/bin/test.ts",
+    "test": "$INIT_CWD/scripts/bin/test.ts --detectOpenHandles",
     "scaffold": "$INIT_CWD/scripts/bin/scaffold/run.tsx",
     "postinstall": "husky install"
   },
