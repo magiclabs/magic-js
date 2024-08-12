@@ -141,6 +141,16 @@ export class UserModule extends BaseModule {
     this.userLoggedOutCallbacks.push(callback);
   }
 
+  public enableMFA() {
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA);
+    return this.request<boolean>(requestPayload);
+  }
+
+  public disableMFA() {
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.DisableMFA);
+    return this.request<boolean>(requestPayload);
+  }
+
   // Private members
   private emitUserLoggedOut(loggedOut: boolean): void {
     this.userLoggedOutCallbacks.forEach((callback) => {
