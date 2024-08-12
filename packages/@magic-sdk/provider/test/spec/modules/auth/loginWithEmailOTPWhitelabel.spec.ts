@@ -1,4 +1,5 @@
 import browserEnv from '@ikscodes/browser-env';
+import { LoginWithEmailOTPEventEmit } from '@magic-sdk/types';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
