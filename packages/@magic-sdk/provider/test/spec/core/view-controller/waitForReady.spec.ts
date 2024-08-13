@@ -17,10 +17,10 @@ test('Receive MAGIC_OVERLAY_READY, resolve `waitForReady` promise', (done) => {
   window.postMessage({ msgType: MSG_TYPES().MAGIC_OVERLAY_READY }, '*');
 });
 
-test.skip('Resolve `waitForReady` promise after timeout', (done) => {
+test('Resolve `waitForReady` promise after timeout', (done) => {
   jest.useFakeTimers();
   const overlay = createViewController('');
-  const waitForReady = (overlay as any).autoReady();
+  const waitForReady = (overlay as any).waitForReady();
 
   waitForReady.then(() => {
     done();

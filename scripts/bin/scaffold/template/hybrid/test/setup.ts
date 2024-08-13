@@ -5,9 +5,4 @@ import { mockConsole } from "../../../../../utils/mock-console";
 browserEnv();
 beforeEach(() => {
     mockConsole();
-    jest.useFakeTimers();
-});
-afterEach(() => {
-    jest.runOnlyPendingTimers(); // Runs any pending timers
-    jest.useRealTimers(); // Switch back to real timers
 });
