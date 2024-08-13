@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/sui",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "magic sui extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^24.3.0"
+    "@magic-sdk/commons": "^24.4.0"
   }
 }
