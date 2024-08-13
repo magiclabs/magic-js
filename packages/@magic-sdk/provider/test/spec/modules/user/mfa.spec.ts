@@ -1,6 +1,6 @@
 import { createMagicSDK } from '../../../factories';
 
-test('Resolves immediately when cached magic.user.enableMFA.spec is true', async () => {
+test('Resolves immediately when cached magic.user.enableMFA.spec is true', () => {
   const magic = createMagicSDK();
   magic.user.request = jest.fn();
 
@@ -11,7 +11,7 @@ test('Resolves immediately when cached magic.user.enableMFA.spec is true', async
   expect(requestPayload.params).toEqual([]);
 });
 
-test('Resolves immediately when cached magic.user.enableMFA.spec is true', async () => {
+test('Resolves immediately when cached magic.user.enableMFA.spec is true', () => {
   const magic = createMagicSDK();
   magic.user.request = jest.fn();
 
