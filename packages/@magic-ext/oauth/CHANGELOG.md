@@ -1,3 +1,15 @@
+# v22.4.0 (Tue Aug 13 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v22.3.0 (Thu Aug 08 2024)
 
 #### 🚀 Enhancement

@@ -1,3 +1,27 @@
+# (Tue Aug 13 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.4.0`, `@magic-sdk/types@24.2.0`
+  - Enable MFA to be standalone flow [#778](https://github.com/magiclabs/magic-js/pull/778) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@28.4.0`
+  - Revert unexpected master changes [#780](https://github.com/magiclabs/magic-js/pull/780) ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- detectOpenHandles ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/aptos@11.4.0`, `@magic-ext/gdkms@11.4.0`, `@magic-ext/harmony@23.4.0`, `@magic-ext/sui@0.5.0`, `@magic-sdk/provider@28.4.0`, `@magic-sdk/react-native-bare@29.4.0`, `@magic-sdk/react-native-expo@29.4.0`, `magic-sdk@28.4.0`
+  - silent console.warn and error in tests ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri Aug 09 2024)
 
 #### 🐛 Bug Fix

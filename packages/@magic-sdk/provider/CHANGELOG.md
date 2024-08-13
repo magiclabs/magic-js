@@ -1,3 +1,34 @@
+# v28.4.0 (Tue Aug 13 2024)
+
+#### 🚀 Enhancement
+
+- Enable MFA to be standalone flow [#778](https://github.com/magiclabs/magic-js/pull/778) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- remove async ([@Ethella](https://github.com/Ethella))
+- fix tests and revert changes ([@Ethella](https://github.com/Ethella))
+- revert changes, add tests ([@Ethella](https://github.com/Ethella))
+- add test environment check to avoid setTimeout ([@Ethella](https://github.com/Ethella))
+- add useFakeTimers ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- Merge branch 'fix-pipeline' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- Revert unexpected master changes [#780](https://github.com/magiclabs/magic-js/pull/780) ([@Ethella](https://github.com/Ethella))
+- Revert unexpected master changes ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- expose enable MFA and disable MFA ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- silent console.warn and error in tests ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v28.3.0 (Thu Aug 08 2024)
 
 #### 🐛 Bug Fix

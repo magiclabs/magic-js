@@ -1,3 +1,22 @@
+# v0.5.0 (Tue Aug 13 2024)
+
+#### 🐛 Bug Fix
+
+- add test environment check to avoid setTimeout ([@Ethella](https://github.com/Ethella))
+- add useFakeTimers ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- silent console.warn and error in tests ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v0.1.3 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix

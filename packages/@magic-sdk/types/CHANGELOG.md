@@ -1,3 +1,24 @@
+# v24.2.0 (Tue Aug 13 2024)
+
+#### 🚀 Enhancement
+
+- Enable MFA to be standalone flow [#778](https://github.com/magiclabs/magic-js/pull/778) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- Merge branch 'fix-pipeline' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- expose enable MFA and disable MFA ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- add two more flags ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v24.1.0 (Thu Aug 08 2024)
 
 #### 🚀 Enhancement
