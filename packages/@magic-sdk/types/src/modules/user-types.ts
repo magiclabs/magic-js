@@ -18,6 +18,7 @@ export interface GenerateIdTokenConfiguration extends GetIdTokenConfiguration {
 
 export enum AllowAllEvents {
   ClosedByUser = 'closed-by-user',
+  ClosedByUserHandle = 'closed-by-user-handle',
 }
 
 export interface MagicUserMetadata {
