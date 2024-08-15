@@ -16,7 +16,7 @@ export interface GenerateIdTokenConfiguration extends GetIdTokenConfiguration {
   attachment?: string;
 }
 
-export enum AllowAllEvents {
+export enum UserEvents {
   ClosedByUser = 'closed-by-user',
   ClosedByUserHandle = 'closed-by-user-handle',
 }
