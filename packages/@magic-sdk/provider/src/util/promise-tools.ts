@@ -1,4 +1,3 @@
-import { UserEventsEmit, UserEventsOnReceived } from '@magic-sdk/types';
 import { TypedEmitter, EventsDefinition, createTypedEmitter } from './events';
 
 /**
@@ -31,7 +30,6 @@ type DefaultEvents<TResult> = {
   done: (result: TResult) => void;
   error: (reason: any) => void;
   settled: () => void;
-  [UserEventsOnReceived.ClosedByUser]: () => void;
 };
 
 /**
@@ -129,9 +127,6 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
     ),
   );
 
-  result.on(UserEventsEmit.ClosedByUser, () => {
-    result.emit(UserEventsOnReceived.ClosedByUser);
-  });
   return result;
 }
 
