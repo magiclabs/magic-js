@@ -16,6 +16,14 @@ export interface GenerateIdTokenConfiguration extends GetIdTokenConfiguration {
   attachment?: string;
 }
 
+export enum UserEventsEmit {
+  ClosedByUser = 'closed-by-user-emit',
+}
+
+export enum UserEventsOnReceived {
+  ClosedByUser = 'closed-by-user',
+}
+
 export interface MagicUserMetadata {
   issuer: string | null;
   publicAddress: string | null;
