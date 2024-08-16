@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native-bare",
-  "version": "29.0.2",
+  "version": "29.4.0",
   "description": "Passwordless authentication for React Native (Bare).",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -19,9 +19,9 @@
   "dependencies": {
     "@aveq-research/localforage-asyncstorage-driver": "^3.0.1",
     "@datadog/mobile-react-native": "^2.3.2",
-    "@magic-sdk/commons": "^24.0.2",
-    "@magic-sdk/provider": "^28.0.2",
-    "@magic-sdk/types": "^24.0.1",
+    "@magic-sdk/commons": "^24.4.0",
+    "@magic-sdk/provider": "^28.4.0",
+    "@magic-sdk/types": "^24.2.0",
     "@react-native-async-storage/async-storage": "^1.15.5",
     "@types/lodash": "^4.14.158",
     "buffer": "~5.6.0",

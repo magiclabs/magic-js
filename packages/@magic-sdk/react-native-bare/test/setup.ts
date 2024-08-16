@@ -4,6 +4,7 @@ import 'regenerator-runtime/runtime';
 
 import browserEnv from '@ikscodes/browser-env';
 import { removeReactDependencies } from './mocks';
+import { mockConsole } from '../../../../scripts/utils/mock-console';
 
 browserEnv([
   'setTimeout',
@@ -15,4 +16,7 @@ browserEnv([
   'console',
   'window',
 ]);
+beforeEach(() => {
+  mockConsole();
+});
 removeReactDependencies();

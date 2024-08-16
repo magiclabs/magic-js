@@ -1,3 +1,266 @@
+# (Tue Aug 13 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.4.0`, `@magic-sdk/types@24.2.0`
+  - Enable MFA to be standalone flow [#778](https://github.com/magiclabs/magic-js/pull/778) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@28.4.0`
+  - Revert unexpected master changes [#780](https://github.com/magiclabs/magic-js/pull/780) ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- detectOpenHandles ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/aptos@11.4.0`, `@magic-ext/gdkms@11.4.0`, `@magic-ext/harmony@23.4.0`, `@magic-ext/sui@0.5.0`, `@magic-sdk/provider@28.4.0`, `@magic-sdk/react-native-bare@29.4.0`, `@magic-sdk/react-native-expo@29.4.0`, `magic-sdk@28.4.0`
+  - silent console.warn and error in tests ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Aug 09 2024)
+
+#### 🐛 Bug Fix
+
+- `magic-sdk@28.3.1`
+  - change display css to visibility [#772](https://github.com/magiclabs/magic-js/pull/772) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# (Thu Aug 08 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@24.1.0`
+  - Add new types for whitelabel sms [#777](https://github.com/magiclabs/magic-js/pull/777) ([@khamdam-magic](https://github.com/khamdam-magic))
+- `@magic-ext/oauth@22.3.0`, `@magic-ext/oauth2@9.3.0`, `@magic-ext/oidc@11.3.0`, `@magic-ext/react-native-bare-oauth@25.3.0`, `@magic-ext/react-native-expo-oauth@25.3.0`
+  - Chore/pdeexp 1658 update login sdk method to handle did lifespan [#775](https://github.com/magiclabs/magic-js/pull/775) ([@otabek-magic](https://github.com/otabek-magic))
+
+#### 🐛 Bug Fix
+
+- INF-311 add codeowners [#769](https://github.com/magiclabs/magic-js/pull/769) ([@andrew-magic](https://github.com/andrew-magic))
+- `@magic-sdk/provider@28.3.0`, `@magic-sdk/types@24.1.0`
+  - Added event due to the ticket:PDEEXP-1393 [#770](https://github.com/magiclabs/magic-js/pull/770) (sukhrobbekodilov@204-108.ip.sola.uz [@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+  - feat: Added new event type in order to prevent typescript error [#773](https://github.com/magiclabs/magic-js/pull/773) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- `@magic-ext/oauth@22.3.0`, `@magic-ext/oauth2@9.3.0`, `@magic-ext/react-native-bare-oauth@25.3.0`, `@magic-ext/react-native-expo-oauth@25.3.0`, `@magic-sdk/provider@28.3.0`, `@magic-sdk/types@24.1.0`
+  - add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+
+#### Authors: 5
+
+- [@andrew-magic](https://github.com/andrew-magic)
+- [@khamdam-magic](https://github.com/khamdam-magic)
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+- Sukhrobbek Odilov (sukhrobbekodilov@204-108.ip.sola.uz)
+
+---
+
+# (Wed Jul 17 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.2.1`
+  - Open native app when mobile, in mainframe [#767](https://github.com/magiclabs/magic-js/pull/767) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Wed Jul 17 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.2.0`
+  - feat: add onramperParams arg to showUI [#766](https://github.com/magiclabs/magic-js/pull/766) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/solana@25.3.0`
+  - fix: partialSignTransaction return type is Uint8Array [#765](https://github.com/magiclabs/magic-js/pull/765) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# (Mon Jul 15 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.1.1`
+  - Do not open native farcaster app on mobile [#764](https://github.com/magiclabs/magic-js/pull/764) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Thu Jul 11 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.1.0`
+  - Fix: consider the provider ready after 15s even if the message hasn't arrived [#760](https://github.com/magiclabs/magic-js/pull/760) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.1.0`
+  - fix: remove farcaster deps [#758](https://github.com/magiclabs/magic-js/pull/758) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 2
+
+- [@romin-halltari](https://github.com/romin-halltari)
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Fri Jun 28 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.0.6`
+  - fix: fix mobile, move channel logic to magic-ext/farcaster [#755](https://github.com/magiclabs/magic-js/pull/755) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Wed Jun 26 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.0.5`
+  - fix: move logic to outside of handle function [#754](https://github.com/magiclabs/magic-js/pull/754) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Mon Jun 24 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.0.4`
+  - fix: iOS async popup [#753](https://github.com/magiclabs/magic-js/pull/753) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Fri Jun 21 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.0.3`
+  - Fix: farcaster mobile login [#752](https://github.com/magiclabs/magic-js/pull/752) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Thu Jun 20 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/farcaster@0.0.2`
+  - feat: Add farcaster extension [#750](https://github.com/magiclabs/magic-js/pull/750) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Tue Jun 18 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@24.0.5`
+  - Add farcaster event types [#751](https://github.com/magiclabs/magic-js/pull/751) ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# (Fri Jun 07 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@24.0.4`
+  - update intermediary types [#749](https://github.com/magiclabs/magic-js/pull/749) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@24.0.3`
+  - Pdeexp 1279 done event not firing in whitelabel email login flow [#748](https://github.com/magiclabs/magic-js/pull/748) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@24.0.2`
+  - Add two more events for EmailOTP [#746](https://github.com/magiclabs/magic-js/pull/746) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Mon May 20 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/solana@25.1.0`
+  - Add partialSignTransaction in sol-ext [#743](https://github.com/magiclabs/magic-js/pull/743) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/solana@25.1.0`
+  - Fix type mismatch for signTransaction in sol-ext [#693](https://github.com/magiclabs/magic-js/pull/693) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
 # (Wed Apr 24 2024)
 
 #### 🐛 Bug Fix

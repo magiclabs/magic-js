@@ -38,6 +38,10 @@ export interface UserInfo {
   email?: string;
 }
 
+export type ShowUIPromiEvents = {
+  disconnect: () => void;
+};
+
 export interface WalletInfo {
   walletType: 'magic' | 'metamask' | 'coinbase_wallet';
 }
@@ -121,4 +125,6 @@ export enum MagicPayloadMethod {
   ShowBalances = 'magic_show_balances',
   SendGaslessTransaction = 'eth_sendGaslessTransaction',
   RevealPK = 'magic_reveal_key',
+  EnableMFA = 'magic_auth_enable_mfa_flow',
+  DisableMFA = 'magic_auth_disable_mfa_flow',
 }
