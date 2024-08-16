@@ -101,10 +101,12 @@ export class ReactNativeWebViewController extends ViewController {
 
     useEffect(() => {
       this.isConnectedToInternet = isConnected;
+      logInfo('isConnectedToInternet changed', { isConnected });
     }, [isConnected]);
 
     useEffect(() => {
       return () => {
+        logInfo('Relayer unmounted');
         this.isReadyForRequest = false;
       };
     }, []);
