@@ -17,11 +17,11 @@ export interface GenerateIdTokenConfiguration extends GetIdTokenConfiguration {
 }
 
 export enum UserEventsEmit {
-  ClosedByUser = 'closed-by-user-emit',
+  ClosedByUser = 'closed-by-user',
 }
 
 export enum UserEventsOnReceived {
-  ClosedByUser = 'closed-by-user',
+  ClosedByUser = 'closed-by-user-on-received',
 }
 
 export interface MagicUserMetadata {
