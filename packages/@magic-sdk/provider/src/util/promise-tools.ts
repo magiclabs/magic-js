@@ -30,7 +30,7 @@ type DefaultEvents<TResult> = {
   done: (result: TResult) => void;
   error: (reason: any) => void;
   settled: () => void;
-  'closed-by-user-handle': () => void;
+  'closed-by-user-emit': () => void;
 };
 
 /**
@@ -128,8 +128,8 @@ export function createPromiEvent<TResult, TEvents extends EventsDefinition = voi
     ),
   );
 
-  result.on('closed-by-user', () => {
-    result.emit('closed-by-user-handle');
+  result.on('closed-by-user-on-recieved', () => {
+    result.emit('closed-by-user-emit');
   });
   return result;
 }
