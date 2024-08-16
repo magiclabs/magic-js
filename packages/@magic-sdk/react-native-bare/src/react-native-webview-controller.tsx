@@ -165,6 +165,24 @@ export class ReactNativeWebViewController extends ViewController {
       <DatadogProvider configuration={config}>
         <SafeAreaView ref={containerRef} style={containerStyles}>
           <WebView
+            onHttpError={(event) => {
+              logError('WebView HTTP error', { event });
+            }}
+            onLoadEnd={() => {
+              logInfo('WebView load ended');
+            }}
+            onLoadProgress={(event) => {
+              logInfo('WebView load progress', { event });
+            }}
+            onLoadStart={() => {
+              logInfo('WebView load started');
+            }}
+            onLayout={() => {
+              logInfo('WebView layout changed');
+            }}
+            onContentProcessDidTerminate={() => {
+              logError('WebView content process terminated');
+            }}
             onError={(error) => {
               logError('WebView error', { error });
             }}
