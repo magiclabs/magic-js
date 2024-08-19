@@ -1,3 +1,39 @@
+# v9.4.0 (Tue Aug 13 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v9.3.0 (Thu Aug 08 2024)
+
+#### 🚀 Enhancement
+
+- Chore/pdeexp 1658 update login sdk method to handle did lifespan [#775](https://github.com/magiclabs/magic-js/pull/775) ([@otabek-magic](https://github.com/otabek-magic))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into khamdam-sc-PDEEXP-54-whitelabel-sms-types ([@khamdam-magic](https://github.com/khamdam-magic))
+- Merge branch 'master' into PDEEXP-1393-MFA-Blocks-Login-for-Whitelabel-Email-Logins ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- fix: remove lifespan from loginWithPopup and loginWithRedirect as they don't return did token ([@otabek-magic](https://github.com/otabek-magic))
+- Merge branch 'master' into PDEEXP-1454-typescript-should-recognize-the-disconnect-event-on-show-ui ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+- fix: make lifespan optional in oauth2 ([@otabek-magic](https://github.com/otabek-magic))
+- add lifespan parameter to login methods ([@otabek-magic](https://github.com/otabek-magic))
+
+#### Authors: 3
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v9.0.4 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix

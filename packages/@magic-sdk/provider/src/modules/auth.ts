@@ -69,19 +69,13 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithSMS(configuration: LoginWithSmsConfiguration) {
-    const { phoneNumber, showUI = true, deviceCheckUI, lifespan } = configuration;
+    const { phoneNumber, showUI = true, lifespan } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
       [{ phoneNumber, showUI, lifespan }],
     );
 
     const handle = this.request<string | null, LoginWithSmsOTPEventHandlers>(requestPayload);
-
-    if (!deviceCheckUI && handle) {
-      handle.on(DeviceVerificationEventEmit.Retry, () => {
-        this.createIntermediaryEvent(DeviceVerificationEventEmit.Retry, requestPayload.id as string)();
-      });
-    }
 
     if (!showUI && handle) {
       handle.on(LoginWithSmsOTPEventEmit.VerifySmsOtp, (otp: string) => {
@@ -116,6 +110,9 @@ export class AuthModule extends BaseModule {
     if (!showUI && handle) {
       handle.on(LoginWithEmailOTPEventEmit.VerifyEmailOtp, (otp: string) => {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
+      });
+      handle.on(LoginWithEmailOTPEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
       });
       handle.on(LoginWithEmailOTPEventEmit.Cancel, () => {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.Cancel, requestPayload.id as any)();
@@ -178,6 +175,9 @@ export class AuthModule extends BaseModule {
       });
       handle.on(RecencyCheckEventEmit.VerifyEmailOtp, (otp: string) => {
         this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
+      });
+      handle.on(RecencyCheckEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
       });
       handle.on(UpdateEmailEventEmit.RetryWithNewEmail, (newEmail?) => {
         this.createIntermediaryEvent(UpdateEmailEventEmit.RetryWithNewEmail, requestPayload.id as any)(newEmail);

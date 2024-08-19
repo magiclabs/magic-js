@@ -1,3 +1,68 @@
+# (Tue Aug 13 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.4.0`, `@magic-sdk/types@24.2.0`
+  - Enable MFA to be standalone flow [#778](https://github.com/magiclabs/magic-js/pull/778) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@28.4.0`
+  - Revert unexpected master changes [#780](https://github.com/magiclabs/magic-js/pull/780) ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- detectOpenHandles ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/aptos@11.4.0`, `@magic-ext/gdkms@11.4.0`, `@magic-ext/harmony@23.4.0`, `@magic-ext/sui@0.5.0`, `@magic-sdk/provider@28.4.0`, `@magic-sdk/react-native-bare@29.4.0`, `@magic-sdk/react-native-expo@29.4.0`, `magic-sdk@28.4.0`
+  - silent console.warn and error in tests ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Aug 09 2024)
+
+#### 🐛 Bug Fix
+
+- `magic-sdk@28.3.1`
+  - change display css to visibility [#772](https://github.com/magiclabs/magic-js/pull/772) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# (Thu Aug 08 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@24.1.0`
+  - Add new types for whitelabel sms [#777](https://github.com/magiclabs/magic-js/pull/777) ([@khamdam-magic](https://github.com/khamdam-magic))
+- `@magic-ext/oauth@22.3.0`, `@magic-ext/oauth2@9.3.0`, `@magic-ext/oidc@11.3.0`, `@magic-ext/react-native-bare-oauth@25.3.0`, `@magic-ext/react-native-expo-oauth@25.3.0`
+  - Chore/pdeexp 1658 update login sdk method to handle did lifespan [#775](https://github.com/magiclabs/magic-js/pull/775) ([@otabek-magic](https://github.com/otabek-magic))
+
+#### 🐛 Bug Fix
+
+- INF-311 add codeowners [#769](https://github.com/magiclabs/magic-js/pull/769) ([@andrew-magic](https://github.com/andrew-magic))
+- `@magic-sdk/provider@28.3.0`, `@magic-sdk/types@24.1.0`
+  - Added event due to the ticket:PDEEXP-1393 [#770](https://github.com/magiclabs/magic-js/pull/770) (sukhrobbekodilov@204-108.ip.sola.uz [@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+  - feat: Added new event type in order to prevent typescript error [#773](https://github.com/magiclabs/magic-js/pull/773) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- `@magic-ext/oauth@22.3.0`, `@magic-ext/oauth2@9.3.0`, `@magic-ext/react-native-bare-oauth@25.3.0`, `@magic-ext/react-native-expo-oauth@25.3.0`, `@magic-sdk/provider@28.3.0`, `@magic-sdk/types@24.1.0`
+  - add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+
+#### Authors: 5
+
+- [@andrew-magic](https://github.com/andrew-magic)
+- [@khamdam-magic](https://github.com/khamdam-magic)
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+- Sukhrobbek Odilov (sukhrobbekodilov@204-108.ip.sola.uz)
+
+---
+
 # (Wed Jul 17 2024)
 
 #### 🐛 Bug Fix

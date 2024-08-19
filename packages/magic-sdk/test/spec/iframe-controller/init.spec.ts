@@ -15,7 +15,7 @@ function createOverlayElementsStub() {
         src: null,
         classList: { add: classListAddStub },
         dataset: {},
-        style: { display: 'none' },
+        style: { visibility: 'hidden' },
       };
     }
 

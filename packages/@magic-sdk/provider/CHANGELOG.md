@@ -1,3 +1,60 @@
+# v28.4.0 (Tue Aug 13 2024)
+
+#### 🚀 Enhancement
+
+- Enable MFA to be standalone flow [#778](https://github.com/magiclabs/magic-js/pull/778) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- remove async ([@Ethella](https://github.com/Ethella))
+- fix tests and revert changes ([@Ethella](https://github.com/Ethella))
+- revert changes, add tests ([@Ethella](https://github.com/Ethella))
+- add test environment check to avoid setTimeout ([@Ethella](https://github.com/Ethella))
+- add useFakeTimers ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- Merge branch 'fix-pipeline' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- Revert unexpected master changes [#780](https://github.com/magiclabs/magic-js/pull/780) ([@Ethella](https://github.com/Ethella))
+- Revert unexpected master changes ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- expose enable MFA and disable MFA ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- silent console.warn and error in tests ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v28.3.0 (Thu Aug 08 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into khamdam-sc-PDEEXP-54-whitelabel-sms-types ([@khamdam-magic](https://github.com/khamdam-magic))
+- Added event due to the ticket:PDEEXP-1393 [#770](https://github.com/magiclabs/magic-js/pull/770) (sukhrobbekodilov@204-108.ip.sola.uz [@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into PDEEXP-1393-MFA-Blocks-Login-for-Whitelabel-Email-Logins ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- feat: Added new event type in order to prevent typescript error [#773](https://github.com/magiclabs/magic-js/pull/773) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into PDEEXP-1454-typescript-should-recognize-the-disconnect-event-on-show-ui ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- feat: Added new event type in order to prevent typescript error and removed the unused import ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+- feat: Added new event type in order to prevent typescript error ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- chore: update a unit test ([@otabek-magic](https://github.com/otabek-magic))
+- add lifespan parameter to login methods ([@otabek-magic](https://github.com/otabek-magic))
+- Added event due to the ticket:PDEEXP-1393 and removed async as I do not use await (sukhrobbekodilov@204-108.ip.sola.uz)
+- Added event due to the ticket:PDEEXP-1393 (sukhrobbekodilov@204-108.ip.sola.uz)
+
+#### Authors: 4
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+- Sukhrobbek Odilov (sukhrobbekodilov@204-108.ip.sola.uz)
+
+---
+
 # v28.2.0 (Wed Jul 17 2024)
 
 #### 🚀 Enhancement

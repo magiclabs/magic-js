@@ -1,3 +1,37 @@
+# v28.4.0 (Tue Aug 13 2024)
+
+#### 🐛 Bug Fix
+
+- add test environment check to avoid setTimeout ([@Ethella](https://github.com/Ethella))
+- add useFakeTimers ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- silent console.warn and error in tests ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v28.3.1 (Fri Aug 09 2024)
+
+#### 🐛 Bug Fix
+
+- change display css to visibility [#772](https://github.com/magiclabs/magic-js/pull/772) ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into hcote-visibility-update ([@hcote](https://github.com/hcote))
+- fix tests ([@hcote](https://github.com/hcote))
+- change display css to visibility ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v28.0.5 (Thu Jun 06 2024)
 
 #### 🐛 Bug Fix
