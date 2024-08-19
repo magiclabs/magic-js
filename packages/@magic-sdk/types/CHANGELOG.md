@@ -1,3 +1,20 @@
+# v24.3.0 (Mon Aug 19 2024)
+
+#### 🚀 Enhancement
+
+- feat: added new event for controlling close by user [#781](https://github.com/magiclabs/magic-js/pull/781) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- feat: added new event for controlling close by user [#783](https://github.com/magiclabs/magic-js/pull/783) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- feat: added new event for controlling close by user ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v24.2.0 (Tue Aug 13 2024)
 
 #### 🚀 Enhancement
