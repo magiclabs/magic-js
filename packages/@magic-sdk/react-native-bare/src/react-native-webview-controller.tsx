@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
-import { Linking, StyleSheet, View } from 'react-native';
+import { AppState, Linking, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
@@ -9,6 +9,7 @@ import { DatadogProvider, DatadogProviderConfiguration } from '@datadog/mobile-r
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 import { logError, logInfo } from './datadog';
+import localForage from "localforage";
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -109,6 +110,29 @@ export class ReactNativeWebViewController extends ViewController {
         logInfo('Relayer unmounted');
         this.isReadyForRequest = false;
       };
+    }, []);
+
+    useEffect(() => {
+      // log AppState
+      AppState.addEventListener('change', async (newAppState) => {
+        if (newAppState === 'active') {
+          const lastPostTimestamp: string | null = await localForage.getItem('lastPost');
+          if (lastPostTimestamp) {
+            const lastPostDate = new Date(lastPostTimestamp).getTime();
+            const now = new Date().getTime();
+            const tenMinutes = 10 * 60 * 1000;
+
+            // if last post was more than 10 minutes ago and app
+            // is coming from background reload the webview.
+            if (now - lastPostDate > tenMinutes) {
+              this.isReadyForRequest = false;
+              this.webView?.reload();
+              logInfo('Webview reloaded');
+            }
+          }
+        }
+        logInfo('AppState changed', { newAppState });
+      })
     }, []);
 
     /**
@@ -270,6 +294,7 @@ export class ReactNativeWebViewController extends ViewController {
   protected async _post(data: any) {
     logInfo('post called', { data });
     if (this.webView && (this.webView as any).postMessage) {
+      localForage.setItem('lastPost', new Date().toDateString());
       try {
         (this.webView as any).postMessage(
           JSON.stringify(data, (key, value) => {
