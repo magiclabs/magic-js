@@ -14,8 +14,6 @@ import {
   LoginWithSmsOTPEventEmit,
   LoginWithSmsOTPEventHandlers,
   LoginWithCredentialConfiguration,
-  LoginWithSmsOTPEventEmit,
-  LoginWithSmsOTPEventHandlers,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
