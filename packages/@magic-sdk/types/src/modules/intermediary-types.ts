@@ -5,7 +5,6 @@ import {
   FarcasterLoginEventEmit,
   LoginWithEmailOTPEventEmit,
   LoginWithSmsOTPEventEmit,
-  LoginWithSmsOTPEventOnReceived,
   LoginWithEmailOTPEventOnReceived,
   LoginWithMagicLinkEventEmit,
   LoginWithMagicLinkEventOnReceived,
@@ -13,6 +12,7 @@ import {
   RecencyCheckEventOnReceived,
   UpdateEmailEventEmit,
   UpdateEmailEventOnReceived,
+  LoginWithSmsOTPEventOnReceived,
 } from './auth-types';
 import { NftCheckoutIntermediaryEvents } from './nft-types';
 
