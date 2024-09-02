@@ -10,7 +10,7 @@ beforeEach(() => {
   browserEnv.stub('console.log', jest.fn());
 });
 
-test('Change visibility style to `hidden`', async () => {
+test('Change visibility style to `hidden` and opacity to 0', async () => {
   (IframeController.prototype as any).init = function () {
     this.iframe = {
       style: { visibility: 'hidden' },
@@ -23,7 +23,7 @@ test('Change visibility style to `hidden`', async () => {
 
   await (overlay as any).hideOverlay();
 
-  expect((overlay as any).iframe).toEqual({ style: { visibility: 'hidden' } });
+  expect((overlay as any).iframe).toEqual({ style: { visibility: 'hidden', opacity: '0' } });
 });
 
 test('If `activeElement` exists and can be focused, calls `activeElement.focus()`', async () => {
