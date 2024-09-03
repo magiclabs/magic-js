@@ -13,7 +13,7 @@ beforeEach(() => {
 test('Change visibility style to `hidden` and opacity to 0', async () => {
   (IframeController.prototype as any).init = function () {
     this.iframe = {
-      style: { visibility: 'hidden' },
+      style: { visibility: 'hidden', opacity: '0' },
     };
 
     return Promise.resolve();
