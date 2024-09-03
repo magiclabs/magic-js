@@ -1,3 +1,21 @@
+# v28.6.0 (Tue Sep 03 2024)
+
+#### 🐛 Bug Fix
+
+- fix: on iOS Safari it shows a white screen when using display: 'block', visibility: 'hidden' [#788](https://github.com/magiclabs/magic-js/pull/788) ([@romin-halltari](https://github.com/romin-halltari))
+- fix: test ([@romin-halltari](https://github.com/romin-halltari))
+- fix: on iOS Safari it shows a white screen when using display: 'block', visibility: 'hidden' ([@romin-halltari](https://github.com/romin-halltari))
+- Merge branch 'master' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: update branch ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix(): resolve conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 2
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v28.4.0 (Tue Aug 13 2024)
 
 #### 🐛 Bug Fix

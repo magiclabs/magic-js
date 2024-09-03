@@ -1,3 +1,17 @@
+# v25.7.0 (Tue Sep 03 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: update branch ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix(): resolve conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
 # v25.5.0 (Tue Aug 13 2024)
 
 #### 🐛 Bug Fix

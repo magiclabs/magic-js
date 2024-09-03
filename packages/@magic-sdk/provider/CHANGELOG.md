@@ -1,3 +1,32 @@
+# v28.6.0 (Tue Sep 03 2024)
+
+#### 🚀 Enhancement
+
+- Enable whitelabel customization for sms login [#768](https://github.com/magiclabs/magic-js/pull/768) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### 🐛 Bug Fix
+
+- fix: resolve conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+- Merge branch 'khamdam-sc-PDEEXP-54-whitelabel-sms-login' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- Merge branch 'master' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: add whitelabel sms ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: update branch ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: resolve PR conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: add devicecheck handlers ([@khamdam-magic](https://github.com/khamdam-magic))
+- Merge branch 'master' into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: fix unit test ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: add unit test ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: replace any type with string ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: add intermediary handles for sms whitelabeling ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix(): resolve conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix(auth): enable whitelabel sms login ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
 # v28.5.0 (Mon Aug 19 2024)
 
 #### 🚀 Enhancement

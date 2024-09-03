@@ -1,3 +1,22 @@
+# (Tue Sep 03 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.6.0`, `@magic-sdk/types@24.4.0`
+  - Enable whitelabel customization for sms login [#768](https://github.com/magiclabs/magic-js/pull/768) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### 🐛 Bug Fix
+
+- `magic-sdk@28.6.0`
+  - fix: on iOS Safari it shows a white screen when using display: 'block', visibility: 'hidden' [#788](https://github.com/magiclabs/magic-js/pull/788) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 2
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # (Mon Aug 19 2024)
 
 #### 🚀 Enhancement
