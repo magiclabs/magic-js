@@ -106,6 +106,8 @@ export class ReactNativeWebViewController extends ViewController {
     }, [isConnected]);
 
     useEffect(() => {
+      // reset lastPost when webview is first mounted
+      localForage.setItem('lastPost', null)
       return () => {
         logInfo('Relayer unmounted');
         this.isReadyForRequest = false;
@@ -281,6 +283,19 @@ export class ReactNativeWebViewController extends ViewController {
     }
   }
 
+  private async msgPostedAfterInactivity() {
+    const lastPostTimestamp: string | null = await localForage.getItem('lastPost');
+    if (lastPostTimestamp) {
+      const lastPostDate = new Date(lastPostTimestamp).getTime();
+      const now = new Date().getTime();
+      const tenMinutes = 10 * 60 * 1000;
+
+      // if last post was more than 10 minutes ago, return true;
+      return now - lastPostDate > tenMinutes;
+    }
+    return false;
+  }
+
   protected hideOverlay() {
     logInfo('hideOverlay called');
     if (this.container) this.container.hideOverlay();
@@ -294,8 +309,20 @@ export class ReactNativeWebViewController extends ViewController {
   protected async _post(data: any) {
     logInfo('post called', { data });
     if (this.webView && (this.webView as any).postMessage) {
-      localForage.setItem('lastPost', new Date().toDateString());
+        // if last post was more than 10 minutes ago, reload the webview.
+        if (await this.msgPostedAfterInactivity()) {
+          this.isReadyForRequest = false;
+          this.webView?.reload();
+          logInfo('Webview reloaded');
+
+          await localForage.setItem('lastPost', new Date().toDateString());
+
+          this._post(data);
+          return;
+        }
+
       try {
+        await localForage.setItem('lastPost', new Date().toDateString());
         (this.webView as any).postMessage(
           JSON.stringify(data, (key, value) => {
             // parse Typed Array to Stringify object
