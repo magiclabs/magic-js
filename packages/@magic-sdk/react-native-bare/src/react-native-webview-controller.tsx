@@ -5,10 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EventEmitter } from 'events';
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 import { logError, logInfo } from './datadog';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -64,6 +65,7 @@ export class ReactNativeWebViewController extends ViewController {
   private webView!: WebView | null;
   private container!: ViewWrapper | null;
   private styles: any;
+  private eventEmitter = new EventEmitter();
 
   protected init() {
     this.webView = null;
@@ -82,6 +84,7 @@ export class ReactNativeWebViewController extends ViewController {
   /* istanbul ignore next */
   public Relayer: React.FC<{ backgroundColor?: string }> = (backgroundColor) => {
     const [show, setShow] = useState(false);
+    const [mountOverlay, setMountOverlay] = useState(true);
     const isConnected = useInternetConnection();
 
     useEffect(() => {
@@ -91,12 +94,30 @@ export class ReactNativeWebViewController extends ViewController {
 
     useEffect(() => {
       // reset lastPost when webview is first mounted
-      AsyncStorage.setItem('lastPost', '')
+      AsyncStorage.setItem('lastMessage', '');
       return () => {
         logInfo('Relayer unmounted');
         this.isReadyForRequest = false;
       };
     }, []);
+
+    useEffect(() => {
+      this.eventEmitter.addListener('messagePosted', async (message) => {
+        if (await this.msgPostedAfterInactivity()) {
+          this.isReadyForRequest = false;
+          setMountOverlay(false);
+          logInfo('Webview unmounted');
+          this.post(message.msgType, message.payload);
+        }
+        await AsyncStorage.setItem('lastMessage', new Date().toISOString());
+      });
+    }, []);
+
+    useEffect(() => {
+      if (!mountOverlay) {
+        setTimeout(() => setMountOverlay(true), 10);
+      }
+    }, [mountOverlay]);
 
     /**
      * Saves a reference to the underlying `<WebView>` node so we can interact
@@ -146,53 +167,57 @@ export class ReactNativeWebViewController extends ViewController {
       ];
     }, [show]);
 
-    const handleWebViewMessage = useCallback((event: any) => {
+    const handleWebViewMessage = useCallback(async (event: any) => {
       this.handleReactNativeWebViewMessage(event);
     }, []);
 
-    return (
-        <SafeAreaView ref={containerRef} style={containerStyles}>
-          <WebView
-            onHttpError={(event) => {
-              logError('WebView HTTP error', { event });
-            }}
-            onLoadEnd={() => {
-              logInfo('WebView load ended');
-            }}
-            onLoadProgress={(event) => {
-              logInfo('WebView load progress', { event });
-            }}
-            onLoadStart={() => {
-              logInfo('WebView load started');
-            }}
-            onLayout={() => {
-              logInfo('WebView layout changed');
-            }}
-            onContentProcessDidTerminate={() => {
-              logError('WebView content process terminated');
-            }}
-            onError={(error) => {
-              logError('WebView error', { error });
-            }}
-            ref={webViewRef}
-            source={{ uri: `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` }}
-            onMessage={handleWebViewMessage}
-            style={this.styles['magic-webview']}
-            webviewDebuggingEnabled
-            autoManageStatusBarEnabled={false}
-            onShouldStartLoadWithRequest={(event) => {
-              const queryParams = new URLSearchParams(event.url.split('?')[1]);
-              const openInDeviceBrowser = queryParams.get(OPEN_IN_DEVICE_BROWSER);
+    if (!mountOverlay) {
+      return null;
+    }
 
-              if (openInDeviceBrowser) {
-                Linking.openURL(event.url);
-                return false;
-              }
-              return true;
-            }}
-            limitsNavigationsToAppBoundDomains
-          />
-        </SafeAreaView>
+    return (
+      <SafeAreaView ref={containerRef} style={containerStyles}>
+        <WebView
+          onHttpError={(event) => {
+            logError('WebView HTTP error', { event });
+          }}
+          onLoadEnd={() => {
+            logInfo('WebView load ended');
+          }}
+          onLoadProgress={(event) => {
+            logInfo('WebView load progress', { event });
+          }}
+          onLoadStart={() => {
+            logInfo('WebView load started');
+          }}
+          onLayout={() => {
+            logInfo('WebView layout changed');
+          }}
+          onContentProcessDidTerminate={() => {
+            logError('WebView content process terminated');
+          }}
+          onError={(error) => {
+            logError('WebView error', { error });
+          }}
+          ref={webViewRef}
+          source={{ uri: `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` }}
+          onMessage={handleWebViewMessage}
+          style={this.styles['magic-webview']}
+          webviewDebuggingEnabled
+          autoManageStatusBarEnabled={false}
+          onShouldStartLoadWithRequest={(event) => {
+            const queryParams = new URLSearchParams(event.url.split('?')[1]);
+            const openInDeviceBrowser = queryParams.get(OPEN_IN_DEVICE_BROWSER);
+
+            if (openInDeviceBrowser) {
+              Linking.openURL(event.url);
+              return false;
+            }
+            return true;
+          }}
+          limitsNavigationsToAppBoundDomains
+        />
+      </SafeAreaView>
     );
   };
 
@@ -243,8 +268,8 @@ export class ReactNativeWebViewController extends ViewController {
   }
 
   private async msgPostedAfterInactivity() {
-    const lastPostTimestamp: string | null = await AsyncStorage.getItem('lastPost');
-    logInfo('lastPostTimestamp: ', lastPostTimestamp)
+    const lastPostTimestamp: string | null = await AsyncStorage.getItem('lastMessage');
+    logInfo('lastPostTimestamp: ', lastPostTimestamp);
     if (lastPostTimestamp) {
       const lastPostDate = new Date(lastPostTimestamp).getTime();
       const now = new Date().getTime();
@@ -268,42 +293,33 @@ export class ReactNativeWebViewController extends ViewController {
 
   protected async _post(data: any) {
     logInfo('post called', { data });
-    console.log('this.isReadyForRequest: ', this.isReadyForRequest)
+    console.log('this.isReadyForRequest: ', this.isReadyForRequest);
+
     if (this.webView && (this.webView as any).postMessage) {
-        // if last post was more than 10 minutes ago, reload the webview.
-        if (await this.msgPostedAfterInactivity()) {
-          this.isReadyForRequest = false;
-          this.webView?.reload();
-          logInfo('Webview reloaded');
-
-          await AsyncStorage.setItem('lastPost', new Date().toISOString());
-
-          this.post(data.msgType, data.payload);
-          return;
+      this.eventEmitter.emit('messagePosted', data);
+      if (!(await this.msgPostedAfterInactivity())) {
+        try {
+          (this.webView as any).postMessage(
+            JSON.stringify(data, (key, value) => {
+              // parse Typed Array to Stringify object
+              if (isTypedArray(value)) {
+                return {
+                  constructor: value.constructor.name,
+                  data: value.toString(),
+                  flag: MAGIC_PAYLOAD_FLAG_TYPED_ARRAY,
+                };
+              }
+              return value;
+            }),
+            this.endpoint,
+          );
+        } catch (e) {
+          logError('post failed', { e });
         }
-
-      try {
-        await AsyncStorage.setItem('lastPost', new Date().toISOString());
-        (this.webView as any).postMessage(
-          JSON.stringify(data, (key, value) => {
-            // parse Typed Array to Stringify object
-            if (isTypedArray(value)) {
-              return {
-                constructor: value.constructor.name,
-                data: value.toString(),
-                flag: MAGIC_PAYLOAD_FLAG_TYPED_ARRAY,
-              };
-            }
-            return value;
-          }),
-          this.endpoint,
-        );
-      } catch (e) {
-        logError('post failed', { e });
+      } else {
+        logError('post failed, modal not ready', data);
+        throw createModalNotReadyError();
       }
-    } else {
-      logError('post failed, modal not ready', data);
-      throw createModalNotReadyError();
     }
   }
 }

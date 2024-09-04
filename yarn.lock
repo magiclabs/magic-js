@@ -2395,6 +2395,7 @@ __metadata:
     "@testing-library/react-native": ^12.4.0
     "@types/lodash": ^4.14.158
     buffer: ~5.6.0
+    events: ^3.3.0
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
     lodash: ^4.17.19
@@ -8385,6 +8386,13 @@ __metadata:
   version: 4.0.7
   resolution: "eventemitter3@npm:4.0.7"
   checksum: 1875311c42fcfe9c707b2712c32664a245629b42bb0a5a84439762dd0fd637fc54d078155ea83c2af9e0323c9ac13687e03cfba79b03af9f40c89b4960099374
+  languageName: node
+  linkType: hard
+
+"events@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "events@npm:3.3.0"
+  checksum: f6f487ad2198aa41d878fa31452f1a3c00958f46e9019286ff4787c84aac329332ab45c9cdc8c445928fc6d7ded294b9e005a7fce9426488518017831b272780
   languageName: node
   linkType: hard
 
