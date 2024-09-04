@@ -9,7 +9,7 @@ import { DatadogProvider, DatadogProviderConfiguration } from '@datadog/mobile-r
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 import { logError, logInfo } from './datadog';
-import localForage from "localforage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -107,7 +107,7 @@ export class ReactNativeWebViewController extends ViewController {
 
     useEffect(() => {
       // reset lastPost when webview is first mounted
-      localForage.setItem('lastPost', null)
+      AsyncStorage.setItem('lastPost', '')
       return () => {
         logInfo('Relayer unmounted');
         this.isReadyForRequest = false;
@@ -118,7 +118,7 @@ export class ReactNativeWebViewController extends ViewController {
       // log AppState
       AppState.addEventListener('change', async (newAppState) => {
         if (newAppState === 'active') {
-          const lastPostTimestamp: string | null = await localForage.getItem('lastPost');
+          const lastPostTimestamp: string | null = await AsyncStorage.getItem('lastPost');
           if (lastPostTimestamp) {
             const lastPostDate = new Date(lastPostTimestamp).getTime();
             const now = new Date().getTime();
@@ -284,7 +284,7 @@ export class ReactNativeWebViewController extends ViewController {
   }
 
   private async msgPostedAfterInactivity() {
-    const lastPostTimestamp: string | null = await localForage.getItem('lastPost');
+    const lastPostTimestamp: string | null = await AsyncStorage.getItem('lastPost');
     if (lastPostTimestamp) {
       const lastPostDate = new Date(lastPostTimestamp).getTime();
       const now = new Date().getTime();
@@ -315,14 +315,14 @@ export class ReactNativeWebViewController extends ViewController {
           this.webView?.reload();
           logInfo('Webview reloaded');
 
-          await localForage.setItem('lastPost', new Date().toDateString());
+          await AsyncStorage.setItem('lastPost', new Date().toDateString());
 
           this._post(data);
           return;
         }
 
       try {
-        await localForage.setItem('lastPost', new Date().toDateString());
+        await AsyncStorage.setItem('lastPost', new Date().toDateString());
         (this.webView as any).postMessage(
           JSON.stringify(data, (key, value) => {
             // parse Typed Array to Stringify object
