@@ -1,11 +1,10 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
-import { AppState, Linking, StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
-import { DatadogProvider, DatadogProviderConfiguration } from '@datadog/mobile-react-native';
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 import { logError, logInfo } from './datadog';
@@ -14,21 +13,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
 const DEFAULT_BACKGROUND_COLOR = '#FFFFFF';
-
-const config = new DatadogProviderConfiguration(
-  'pub7091a72b7044b9398c00ce3f3243327f',
-  'nova-rn-prod',
-  'f2f99d17-00e4-46f2-b634-26559de9cb44',
-  true, // track User interactions (e.g.: Tap on buttons. You can use 'accessibilityLabel' element property to give tap action the name, otherwise element type will be reported)
-  true, // track XHR Resources
-  true, // track Errors
-);
-// Optional: Select your Datadog website (one of "US1", "EU1", "US3", "US5", "AP1" or "GOV")
-config.site = 'US1';
-// Optional: Enable JavaScript long task collection
-config.longTaskThresholdMs = 100;
-// Optional: enable or disable native crash reports
-config.nativeCrashReportEnabled = true;
 
 /**
  * Builds the Magic `<WebView>` overlay styles. These base styles enable
@@ -114,29 +98,6 @@ export class ReactNativeWebViewController extends ViewController {
       };
     }, []);
 
-    useEffect(() => {
-      // log AppState
-      AppState.addEventListener('change', async (newAppState) => {
-        if (newAppState === 'active') {
-          const lastPostTimestamp: string | null = await AsyncStorage.getItem('lastPost');
-          if (lastPostTimestamp) {
-            const lastPostDate = new Date(lastPostTimestamp).getTime();
-            const now = new Date().getTime();
-            const tenMinutes = 10 * 60 * 1000;
-
-            // if last post was more than 10 minutes ago and app
-            // is coming from background reload the webview.
-            if (now - lastPostDate > tenMinutes) {
-              this.isReadyForRequest = false;
-              this.webView?.reload();
-              logInfo('Webview reloaded');
-            }
-          }
-        }
-        logInfo('AppState changed', { newAppState });
-      })
-    }, []);
-
     /**
      * Saves a reference to the underlying `<WebView>` node so we can interact
      * with incoming messages.
@@ -190,7 +151,6 @@ export class ReactNativeWebViewController extends ViewController {
     }, []);
 
     return (
-      <DatadogProvider configuration={config}>
         <SafeAreaView ref={containerRef} style={containerStyles}>
           <WebView
             onHttpError={(event) => {
@@ -233,7 +193,6 @@ export class ReactNativeWebViewController extends ViewController {
             limitsNavigationsToAppBoundDomains
           />
         </SafeAreaView>
-      </DatadogProvider>
     );
   };
 
@@ -285,13 +244,14 @@ export class ReactNativeWebViewController extends ViewController {
 
   private async msgPostedAfterInactivity() {
     const lastPostTimestamp: string | null = await AsyncStorage.getItem('lastPost');
+    logInfo('lastPostTimestamp: ', lastPostTimestamp)
     if (lastPostTimestamp) {
       const lastPostDate = new Date(lastPostTimestamp).getTime();
       const now = new Date().getTime();
-      const tenMinutes = 10 * 60 * 1000;
+      const fiveMinutes = 5 * 60 * 1000;
 
-      // if last post was more than 10 minutes ago, return true;
-      return now - lastPostDate > tenMinutes;
+      // if last post was more than 5 minutes ago, return true;
+      return now - lastPostDate > fiveMinutes;
     }
     return false;
   }
@@ -308,6 +268,7 @@ export class ReactNativeWebViewController extends ViewController {
 
   protected async _post(data: any) {
     logInfo('post called', { data });
+    console.log('this.isReadyForRequest: ', this.isReadyForRequest)
     if (this.webView && (this.webView as any).postMessage) {
         // if last post was more than 10 minutes ago, reload the webview.
         if (await this.msgPostedAfterInactivity()) {
@@ -315,14 +276,14 @@ export class ReactNativeWebViewController extends ViewController {
           this.webView?.reload();
           logInfo('Webview reloaded');
 
-          await AsyncStorage.setItem('lastPost', new Date().toDateString());
+          await AsyncStorage.setItem('lastPost', new Date().toISOString());
 
-          this._post(data);
+          this.post(data.msgType, data.payload);
           return;
         }
 
       try {
-        await AsyncStorage.setItem('lastPost', new Date().toDateString());
+        await AsyncStorage.setItem('lastPost', new Date().toISOString());
         (this.webView as any).postMessage(
           JSON.stringify(data, (key, value) => {
             // parse Typed Array to Stringify object
