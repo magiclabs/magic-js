@@ -8,6 +8,17 @@ beforeEach(() => {
   reactNativeStyleSheetStub();
 });
 
+const emitStub = jest.fn();
+
+jest.mock('react-native-event-listeners', () => {
+  return {
+    EventRegister: {
+      emit: emitStub,
+      addEventListener: jest.fn(),
+    },
+  };
+});
+
 test('Calls webView._post with the expected arguments', async () => {
   const overlay = createReactNativeWebViewController('http://example.com');
 
@@ -54,8 +65,6 @@ test('Process Typed Array in a Solana Request', async () => {
 test('Emits msg_posted_after_inactivity_event when msgPostedAfterInactivity returns true', async () => {
   const overlay = createReactNativeWebViewController('http://example.com');
 
-  const emitStub = jest.fn();
-  overlay.eventEmitter.emit = emitStub;
   overlay.msgPostedAfterInactivity = () => true;
   await overlay._post({ thisIsData: 'hello world' });
 

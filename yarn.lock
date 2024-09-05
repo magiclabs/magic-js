@@ -2361,7 +2361,6 @@ __metadata:
     "@testing-library/react-native": ^12.4.0
     "@types/lodash": ^4.14.158
     buffer: ~5.6.0
-    events: ^3.3.0
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
     lodash: ^4.17.19
@@ -2370,6 +2369,7 @@ __metadata:
     react: ^16.13.1
     react-native: ^0.62.2
     react-native-device-info: ^10.3.0
+    react-native-event-listeners: ^1.0.7
     react-native-safe-area-context: ^4.4.1
     react-native-webview: ^12.4.0
     react-test-renderer: ^16.13.1
@@ -2411,6 +2411,7 @@ __metadata:
     process: ~0.11.10
     react: ^16.13.1
     react-native: ^0.62.2
+    react-native-event-listeners: ^1.0.7
     react-native-safe-area-context: ^4.4.1
     react-native-webview: ">=12.4.0"
     react-test-renderer: ^16.13.1
@@ -8345,13 +8346,6 @@ __metadata:
   version: 4.0.7
   resolution: "eventemitter3@npm:4.0.7"
   checksum: 1875311c42fcfe9c707b2712c32664a245629b42bb0a5a84439762dd0fd637fc54d078155ea83c2af9e0323c9ac13687e03cfba79b03af9f40c89b4960099374
-  languageName: node
-  linkType: hard
-
-"events@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "events@npm:3.3.0"
-  checksum: f6f487ad2198aa41d878fa31452f1a3c00958f46e9019286ff4787c84aac329332ab45c9cdc8c445928fc6d7ded294b9e005a7fce9426488518017831b272780
   languageName: node
   linkType: hard
 
@@ -15847,6 +15841,15 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
+"react-native-event-listeners@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "react-native-event-listeners@npm:1.0.7"
+  dependencies:
+    type-detect: ^4.0.8
+  checksum: 107bab3a09d58c0e93c93245e6affac6937cf0e48c0af699adb259b65048f3a11315d70b5fd0fbaeffe9312567ab93c48dc74b594967d8d102aff96017950265
+  languageName: node
+  linkType: hard
+
 "react-native-inappbrowser-reborn@npm:^3.7.0":
   version: 3.7.0
   resolution: "react-native-inappbrowser-reborn@npm:3.7.0"
@@ -18459,6 +18462,13 @@ resolve@~1.7.1:
   version: 4.0.8
   resolution: "type-detect@npm:4.0.8"
   checksum: 62b5628bff67c0eb0b66afa371bd73e230399a8d2ad30d852716efcc4656a7516904570cd8631a49a3ce57c10225adf5d0cbdcb47f6b0255fe6557c453925a15
+  languageName: node
+  linkType: hard
+
+"type-detect@npm:^4.0.8":
+  version: 4.1.0
+  resolution: "type-detect@npm:4.1.0"
+  checksum: 3b32f873cd02bc7001b00a61502b7ddc4b49278aabe68d652f732e1b5d768c072de0bc734b427abf59d0520a5f19a2e07309ab921ef02018fa1cb4af155cdb37
   languageName: node
   linkType: hard
 

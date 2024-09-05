@@ -6,7 +6,7 @@ import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { EventEmitter } from 'events';
+import { EventRegister } from 'react-native-event-listeners';
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 
@@ -65,7 +65,6 @@ export class ReactNativeWebViewController extends ViewController {
   private webView!: WebView | null;
   private container!: ViewWrapper | null;
   private styles: any;
-  private eventEmitter = new EventEmitter();
 
   protected init() {
     this.webView = null;
@@ -100,7 +99,7 @@ export class ReactNativeWebViewController extends ViewController {
     }, []);
 
     useEffect(() => {
-      this.eventEmitter.addListener(MSG_POSTED_AFTER_INACTIVITY_EVENT, async (message) => {
+      EventRegister.addEventListener(MSG_POSTED_AFTER_INACTIVITY_EVENT, async (message) => {
         // If inactivity has been determined, the message is posted only after a brief
         // unmount and re-mount of the webview. This is to ensure the webview is accepting messages.
         // iOS kills webview processes after a certain period of inactivity, like when the app is
@@ -262,7 +261,7 @@ export class ReactNativeWebViewController extends ViewController {
 
   protected async _post(data: any) {
     if (await this.msgPostedAfterInactivity()) {
-      this.eventEmitter.emit(MSG_POSTED_AFTER_INACTIVITY_EVENT, data);
+      EventRegister.emit(MSG_POSTED_AFTER_INACTIVITY_EVENT, data);
       return;
     }
     if (this.webView && (this.webView as any).postMessage) {
