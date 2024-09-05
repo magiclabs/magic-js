@@ -50,3 +50,15 @@ test('Process Typed Array in a Solana Request', async () => {
     'http://example.com',
   ]);
 });
+
+test('Emits msg_posted_after_inactivity_event when msgPostedAfterInactivity returns true', async () => {
+  const overlay = createReactNativeWebViewController('http://example.com');
+
+  const emitStub = jest.fn();
+  overlay.eventEmitter.emit = emitStub;
+  overlay.msgPostedAfterInactivity = () => true;
+  await overlay._post({ thisIsData: 'hello world' });
+
+  expect(emitStub).toBeCalledTimes(1);
+  expect(emitStub).toHaveBeenCalledWith('msg_posted_after_inactivity_event', { thisIsData: 'hello world' });
+});
