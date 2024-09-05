@@ -14,7 +14,7 @@ import { logError, logInfo } from './datadog';
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
 const DEFAULT_BACKGROUND_COLOR = '#FFFFFF';
-
+const MSG_POSTED_AFTER_INACTIVITY_EVENT = 'msg_posted_after_inactivity_event';
 /**
  * Builds the Magic `<WebView>` overlay styles. These base styles enable
  * `<WebView>` UI to render above all other DOM content.
@@ -102,13 +102,11 @@ export class ReactNativeWebViewController extends ViewController {
     }, []);
 
     useEffect(() => {
-      this.eventEmitter.addListener('messagePosted', async (message) => {
-        if (await this.msgPostedAfterInactivity()) {
-          this.isReadyForRequest = false;
-          setMountOverlay(false);
-          logInfo('Webview unmounted');
-          this.post(message.msgType, message.payload);
-        }
+      this.eventEmitter.addListener(MSG_POSTED_AFTER_INACTIVITY_EVENT, async (message) => {
+        this.isReadyForRequest = false;
+        setMountOverlay(false);
+        logInfo('Webview unmounted');
+        this.post(message.msgType, message.payload);
         await AsyncStorage.setItem('lastMessage', new Date().toISOString());
       });
     }, []);
@@ -294,32 +292,33 @@ export class ReactNativeWebViewController extends ViewController {
   protected async _post(data: any) {
     logInfo('post called', { data });
     console.log('this.isReadyForRequest: ', this.isReadyForRequest);
-
+    if (await this.msgPostedAfterInactivity()) {
+      this.eventEmitter.emit(MSG_POSTED_AFTER_INACTIVITY_EVENT, data);
+      return;
+    }
     if (this.webView && (this.webView as any).postMessage) {
-      this.eventEmitter.emit('messagePosted', data);
-      if (!(await this.msgPostedAfterInactivity())) {
-        try {
-          (this.webView as any).postMessage(
-            JSON.stringify(data, (key, value) => {
-              // parse Typed Array to Stringify object
-              if (isTypedArray(value)) {
-                return {
-                  constructor: value.constructor.name,
-                  data: value.toString(),
-                  flag: MAGIC_PAYLOAD_FLAG_TYPED_ARRAY,
-                };
-              }
-              return value;
-            }),
-            this.endpoint,
-          );
-        } catch (e) {
-          logError('post failed', { e });
-        }
-      } else {
-        logError('post failed, modal not ready', data);
-        throw createModalNotReadyError();
+      try {
+        (this.webView as any).postMessage(
+          JSON.stringify(data, (key, value) => {
+            // parse Typed Array to Stringify object
+            if (isTypedArray(value)) {
+              return {
+                constructor: value.constructor.name,
+                data: value.toString(),
+                flag: MAGIC_PAYLOAD_FLAG_TYPED_ARRAY,
+              };
+            }
+            return value;
+          }),
+          this.endpoint,
+        );
+        AsyncStorage.setItem('lastMessage', new Date().toISOString());
+      } catch (e) {
+        logError('post failed', { e });
       }
+    } else {
+      logError('post failed, modal not ready', data);
+      throw createModalNotReadyError();
     }
   }
 }

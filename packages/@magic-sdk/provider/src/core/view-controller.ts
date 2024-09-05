@@ -242,6 +242,7 @@ export abstract class ViewController {
   private waitForReady() {
     return new Promise<void>((resolve) => {
       const unsubscribe = this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
+        console.log('MAGIC_OVERLAY_READY came');
         this.isReadyForRequest = true;
         resolve();
         unsubscribe();
