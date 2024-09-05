@@ -14,6 +14,7 @@ const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
 const DEFAULT_BACKGROUND_COLOR = '#FFFFFF';
 const MSG_POSTED_AFTER_INACTIVITY_EVENT = 'msg_posted_after_inactivity_event';
+const LAST_MESSAGE_TIME = 'lastMessageTime';
 /**
  * Builds the Magic `<WebView>` overlay styles. These base styles enable
  * `<WebView>` UI to render above all other DOM content.
@@ -92,7 +93,7 @@ export class ReactNativeWebViewController extends ViewController {
 
     useEffect(() => {
       // reset lastMessage when webview is first mounted
-      AsyncStorage.setItem('lastMessageTime', '');
+      AsyncStorage.setItem(LAST_MESSAGE_TIME, '');
       return () => {
         this.isReadyForRequest = false;
       };
@@ -107,7 +108,7 @@ export class ReactNativeWebViewController extends ViewController {
         this.isReadyForRequest = false;
         setMountOverlay(false);
         this.post(message.msgType, message.payload);
-        await AsyncStorage.setItem('lastMessageTime', new Date().toISOString());
+        await AsyncStorage.setItem(LAST_MESSAGE_TIME, new Date().toISOString());
       });
     }, []);
 
@@ -238,7 +239,7 @@ export class ReactNativeWebViewController extends ViewController {
   }
 
   private async msgPostedAfterInactivity() {
-    const lastPostTimestamp: string | null = await AsyncStorage.getItem('lastMessageTime');
+    const lastPostTimestamp: string | null = await AsyncStorage.getItem(LAST_MESSAGE_TIME);
     if (lastPostTimestamp) {
       const lastPostDate = new Date(lastPostTimestamp).getTime();
       const now = new Date().getTime();
@@ -279,7 +280,7 @@ export class ReactNativeWebViewController extends ViewController {
         }),
         this.endpoint,
       );
-      AsyncStorage.setItem('lastMessageTime', new Date().toISOString());
+      AsyncStorage.setItem(LAST_MESSAGE_TIME, new Date().toISOString());
     } else {
       throw createModalNotReadyError();
     }
