@@ -5,13 +5,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EventRegister } from 'react-native-event-listeners';
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
 const DEFAULT_BACKGROUND_COLOR = '#FFFFFF';
-
+const MSG_POSTED_AFTER_INACTIVITY_EVENT = 'msg_posted_after_inactivity_event';
+const LAST_MESSAGE_TIME = 'lastMessageTime';
 /**
  * Builds the Magic `<WebView>` overlay styles. These base styles enable
  * `<WebView>` UI to render above all other DOM content.
@@ -80,6 +83,7 @@ export class ReactNativeWebViewController extends ViewController {
   /* istanbul ignore next */
   public Relayer: React.FC<{ backgroundColor?: string }> = (backgroundColor) => {
     const [show, setShow] = useState(false);
+    const [mountOverlay, setMountOverlay] = useState(true);
     const isConnected = useInternetConnection();
 
     useEffect(() => {
@@ -87,10 +91,32 @@ export class ReactNativeWebViewController extends ViewController {
     }, [isConnected]);
 
     useEffect(() => {
+      // reset lastMessage when webview is first mounted
+      AsyncStorage.setItem(LAST_MESSAGE_TIME, '');
       return () => {
         this.isReadyForRequest = false;
       };
     }, []);
+
+    useEffect(() => {
+      EventRegister.addEventListener(MSG_POSTED_AFTER_INACTIVITY_EVENT, async (message) => {
+        // If inactivity has been determined, the message is posted only after a brief
+        // unmount and re-mount of the webview. This is to ensure the webview is accepting messages.
+        // iOS kills webview processes after a certain period of inactivity, like when the app is
+        // on background for long periods of time.
+        this.isReadyForRequest = false;
+        setMountOverlay(false);
+        this.post(message.msgType, message.payload);
+        await AsyncStorage.setItem(LAST_MESSAGE_TIME, new Date().toISOString());
+      });
+    }, []);
+
+    useEffect(() => {
+      if (!mountOverlay) {
+        // Briefly unmount and re-mount the webview to ensure it's ready to accept messages.
+        setTimeout(() => setMountOverlay(true), 10);
+      }
+    }, [mountOverlay]);
 
     /**
      * Saves a reference to the underlying `<WebView>` node so we can interact
@@ -138,9 +164,13 @@ export class ReactNativeWebViewController extends ViewController {
       ];
     }, [show]);
 
-    const handleWebViewMessage = useCallback((event: any) => {
+    const handleWebViewMessage = useCallback((event: unknown) => {
       this.handleReactNativeWebViewMessage(event);
     }, []);
+
+    if (!mountOverlay) {
+      return null;
+    }
 
     return (
       <SafeAreaView ref={containerRef} style={containerStyles}>
@@ -207,6 +237,20 @@ export class ReactNativeWebViewController extends ViewController {
     }
   }
 
+  private async msgPostedAfterInactivity() {
+    const lastPostTimestamp: string | null = await AsyncStorage.getItem(LAST_MESSAGE_TIME);
+    if (lastPostTimestamp) {
+      const lastPostDate = new Date(lastPostTimestamp).getTime();
+      const now = new Date().getTime();
+      const fiveMinutes = 5 * 60 * 1000;
+
+      // there's been inactivity if the new message is posted
+      // 5 min or more after the last message.
+      return now - lastPostDate > fiveMinutes;
+    }
+    return false;
+  }
+
   protected hideOverlay() {
     if (this.container) this.container.hideOverlay();
   }
@@ -216,6 +260,10 @@ export class ReactNativeWebViewController extends ViewController {
   }
 
   protected async _post(data: any) {
+    if (await this.msgPostedAfterInactivity()) {
+      EventRegister.emit(MSG_POSTED_AFTER_INACTIVITY_EVENT, data);
+      return;
+    }
     if (this.webView && (this.webView as any).postMessage) {
       (this.webView as any).postMessage(
         JSON.stringify(data, (key, value) => {
@@ -231,6 +279,7 @@ export class ReactNativeWebViewController extends ViewController {
         }),
         this.endpoint,
       );
+      AsyncStorage.setItem(LAST_MESSAGE_TIME, new Date().toISOString());
     } else {
       throw createModalNotReadyError();
     }
