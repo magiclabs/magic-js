@@ -1,3 +1,16 @@
+# (Fri Sep 06 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/react-native-bare@29.7.0`, `@magic-sdk/react-native-expo@29.7.0`
+  - fix: remount the webview after inactivity before posting a message to avoid timeouts [#798](https://github.com/magiclabs/magic-js/pull/798) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # (Tue Sep 03 2024)
 
 #### 🚀 Enhancement

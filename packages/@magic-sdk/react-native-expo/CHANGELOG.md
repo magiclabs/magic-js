@@ -1,3 +1,19 @@
+# v29.7.0 (Fri Sep 06 2024)
+
+#### 🚀 Enhancement
+
+- fix: remount the webview after inactivity before posting a message to avoid timeouts [#798](https://github.com/magiclabs/magic-js/pull/798) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- fix: do the same for expo ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v29.6.0 (Tue Sep 03 2024)
 
 #### 🐛 Bug Fix
