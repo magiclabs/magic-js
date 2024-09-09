@@ -1,7 +1,6 @@
 export interface CosmosConfig {
   rpcUrl: string;
   prefix?: string;
-  network?: string;
 }
 
 export enum CosmosPayloadMethod {
