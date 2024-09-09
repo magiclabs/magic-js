@@ -1,3 +1,17 @@
+# v23.6.1 (Mon Sep 09 2024)
+
+#### 🐛 Bug Fix
+
+- cosmos update [#801](https://github.com/magiclabs/magic-js/pull/801) ([@hcote](https://github.com/hcote))
+- fix: remove network ([@hcote](https://github.com/hcote))
+- cosmos update ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v23.6.0 (Tue Sep 03 2024)
 
 #### 🐛 Bug Fix
