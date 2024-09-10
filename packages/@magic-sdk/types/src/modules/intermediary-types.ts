@@ -17,6 +17,7 @@ import {
 import { NftCheckoutIntermediaryEvents } from './nft-types';
 
 import { WalletEventOnReceived } from './wallet-types';
+import { UiEventsEmit } from './common-types';
 
 export type IntermediaryEvents =
   // EmailOTP
@@ -43,4 +44,6 @@ export type IntermediaryEvents =
   // Nft Checkout Events
   | `${NftCheckoutIntermediaryEvents}`
   // Farcaster Login Events
-  | `${FarcasterLoginEventEmit}`;
+  | `${FarcasterLoginEventEmit}`
+  // Ui Events
+  | `${UiEventsEmit}`;
