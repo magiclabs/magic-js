@@ -1,3 +1,19 @@
+# v24.6.0 (Wed Sep 11 2024)
+
+#### 🚀 Enhancement
+
+- fix: export common types [#806](https://github.com/magiclabs/magic-js/pull/806) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- fix: export common types ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v24.5.0 (Wed Sep 11 2024)
 
 #### 🚀 Enhancement
