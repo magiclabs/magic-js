@@ -114,14 +114,14 @@ export interface LoginWithCredentialConfiguration {
 }
 
 export interface EnableMfaConfiguration {
-    /**
+  /**
    * When `true`, a pre-built modal interface will show to the user, directing
    * them to enable MFA usign Google Authenticator app.
    *
    * When `false`, developers will be able to implement their own custom UI to
    * continue the SMS OTP flow.
    */
-    showUI?: boolean;
+  showUI?: boolean;
 }
 
 /**
@@ -217,11 +217,11 @@ export enum FarcasterLoginEventEmit {
 export enum EnableMFAEventOnReceived {
   MFASecretGenerated = 'mfa-secret-generated',
   InvalidMFAOtp = 'invalid-mfa-otp',
-  MFARecoveryCodes = 'mfa-recovery-codes'
+  MFARecoveryCodes = 'mfa-recovery-codes',
 }
 export enum EnableMFAEventEmit {
   VerifyMFACode = 'verify-mfa-code',
-  FinishMFASetup = 'finish-mfa-setup',
+  Cancel = 'cancel-mfa-setup',
 }
 
 /**
@@ -320,5 +320,5 @@ export type EnableMFAEventHandlers = {
 
   // Event sent
   [EnableMFAEventEmit.VerifyMFACode]: (totp: string) => void;
-  [EnableMFAEventEmit.FinishMFASetup]: () => void;
-}
+  [EnableMFAEventEmit.Cancel]: () => void;
+};
