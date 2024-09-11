@@ -2,6 +2,19 @@
 
 #### 🚀 Enhancement
 
+- `@magic-sdk/types@24.6.0`
+  - fix: export common types [#806](https://github.com/magiclabs/magic-js/pull/806) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# (Wed Sep 11 2024)
+
+#### 🚀 Enhancement
+
 - `@magic-sdk/types@24.5.0`
   - feat: add UiEventsEmit type [#805](https://github.com/magiclabs/magic-js/pull/805) ([@romin-halltari](https://github.com/romin-halltari))
 
