@@ -14,3 +14,4 @@ export * from './modules/user-types';
 export * from './modules/intermediary-types';
 export * from './modules/nft-types';
 export * from './modules/wallet-types';
+export * from './modules/common-types';
