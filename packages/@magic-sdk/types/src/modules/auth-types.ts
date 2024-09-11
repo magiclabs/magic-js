@@ -113,6 +113,17 @@ export interface LoginWithCredentialConfiguration {
   lifespan?: number;
 }
 
+export interface EnableMfaConfiguration {
+  /**
+   * When `true`, a pre-built modal interface will show to the user, directing
+   * them to enable MFA usign Google Authenticator app.
+   *
+   * When `false`, developers will be able to implement their own custom UI to
+   * continue the SMS OTP flow.
+   */
+  showUI?: boolean;
+}
+
 /**
  * Auth Events Enum
  */
@@ -203,6 +214,16 @@ export enum FarcasterLoginEventEmit {
   SuccessSignIn = 'Farcaster/success_sign_in',
 }
 
+export enum EnableMFAEventOnReceived {
+  MFASecretGenerated = 'mfa-secret-generated',
+  InvalidMFAOtp = 'invalid-mfa-otp',
+  MFARecoveryCodes = 'mfa-recovery-codes',
+}
+export enum EnableMFAEventEmit {
+  VerifyMFACode = 'verify-mfa-code',
+  Cancel = 'cancel-mfa-setup',
+}
+
 /**
  * EventHandlers
  */
@@ -286,3 +307,18 @@ export type UpdateEmailEventHandlers = {
   [UpdateEmailEventEmit.RetryWithNewEmail]: (email?: string) => void;
   [UpdateEmailEventEmit.VerifyEmailOtp]: (otp: string) => void;
 } & RecencyCheckEventHandlers;
+
+/**
+ * Enable MFA
+ */
+
+export type EnableMFAEventHandlers = {
+  // Event Received
+  [EnableMFAEventOnReceived.MFASecretGenerated]: (QRCode: string, key: string) => void;
+  [EnableMFAEventOnReceived.InvalidMFAOtp]: (error: string) => void;
+  [EnableMFAEventOnReceived.MFARecoveryCodes]: (recoveryCodes: string) => void;
+
+  // Event sent
+  [EnableMFAEventEmit.VerifyMFACode]: (totp: string) => void;
+  [EnableMFAEventEmit.Cancel]: () => void;
+};
