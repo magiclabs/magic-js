@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/tezos",
-  "version": "23.8.0",
+  "version": "23.9.0",
   "description": "magic tezos extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^24.8.0"
+    "@magic-sdk/commons": "^24.9.0"
   }
 }
