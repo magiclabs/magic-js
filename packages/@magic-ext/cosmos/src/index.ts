@@ -10,8 +10,10 @@ export class CosmosExtension extends Extension.Internal<'cosmos', any> {
 
     this.config = {
       rpcUrl: cosmosConfig.rpcUrl,
-      prefix: cosmosConfig.prefix,
       chainType: 'COSMOS',
+      options: {
+        chain: cosmosConfig.chain,
+      },
     };
   }
 
