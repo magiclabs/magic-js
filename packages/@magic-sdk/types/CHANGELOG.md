@@ -1,3 +1,19 @@
+# v24.5.0 (Wed Sep 11 2024)
+
+#### 🚀 Enhancement
+
+- feat: add UiEventsEmit type [#805](https://github.com/magiclabs/magic-js/pull/805) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- feat: add UiEventsEmit type ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v24.4.0 (Tue Sep 03 2024)
 
 #### 🚀 Enhancement
