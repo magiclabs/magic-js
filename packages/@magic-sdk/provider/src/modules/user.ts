@@ -145,11 +145,13 @@ export class UserModule extends BaseModule {
   }
 
   public enableMFA(configuration: EnableMfaConfiguration) {
-    const { showUI } = configuration;
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA);
+    // const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA, [{showUI}]);
+    // const handle = this.request<string | null, EnableMFAEventHandlers>(requestPayload);
+    const { showUI = true } = configuration;
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA, [{ showUI }]);
     const handle = this.request<string | null, EnableMFAEventHandlers>(requestPayload);
 
-    if (!showUI) {
+    if (!showUI && handle) {
       handle.on(EnableMFAEventEmit.VerifyMFACode, (totp: string) => {
         this.createIntermediaryEvent(EnableMFAEventEmit.VerifyMFACode, requestPayload.id as string)(totp);
       });
