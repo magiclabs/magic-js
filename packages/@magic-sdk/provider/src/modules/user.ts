@@ -151,11 +151,11 @@ export class UserModule extends BaseModule {
 
     if (!showUI) {
       handle.on(EnableMFAEventEmit.VerifyMFACode, (totp: string) => {
-        this.createIntermediaryEvent(EnableMFAEventEmit.VerifyMFACode, requestPayload.id as any)(totp);
+        this.createIntermediaryEvent(EnableMFAEventEmit.VerifyMFACode, requestPayload.id as string)(totp);
       });
 
       handle.on(EnableMFAEventEmit.Cancel, () => {
-        this.createIntermediaryEvent(EnableMFAEventEmit.Cancel, requestPayload.id as any)();
+        this.createIntermediaryEvent(EnableMFAEventEmit.Cancel, requestPayload.id as string)();
       });
     }
     return handle;
