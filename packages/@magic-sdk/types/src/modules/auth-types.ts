@@ -119,7 +119,7 @@ export interface EnableMfaConfiguration {
    * them to enable MFA usign Google Authenticator app.
    *
    * When `false`, developers will be able to implement their own custom UI to
-   * continue the SMS OTP flow.
+   * continue the enable MFA flow.
    */
   showUI?: boolean;
 }

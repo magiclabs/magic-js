@@ -13,6 +13,8 @@ import {
   UpdateEmailEventEmit,
   UpdateEmailEventOnReceived,
   LoginWithSmsOTPEventOnReceived,
+  EnableMFAEventEmit,
+  EnableMFAEventOnReceived,
 } from './auth-types';
 import { NftCheckoutIntermediaryEvents } from './nft-types';
 
@@ -46,4 +48,7 @@ export type IntermediaryEvents =
   // Farcaster Login Events
   | `${FarcasterLoginEventEmit}`
   // Ui Events
-  | `${UiEventsEmit}`;
+  | `${UiEventsEmit}`
+  // Enable MFA Events
+  | `${EnableMFAEventOnReceived}`
+  | `${EnableMFAEventEmit}`;
