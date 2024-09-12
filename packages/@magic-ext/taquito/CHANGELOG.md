@@ -1,3 +1,17 @@
+# v20.9.0 (Wed Sep 11 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into hcote-cosmos-options ([@hcote](https://github.com/hcote))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v20.6.0 (Tue Sep 03 2024)
 
 #### 🐛 Bug Fix

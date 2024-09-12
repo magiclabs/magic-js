@@ -2,6 +2,26 @@
 
 #### 🚀 Enhancement
 
+- `@magic-sdk/types@24.7.0`
+  - feat: implement new events for MFA whitelabel [#803](https://github.com/magiclabs/magic-js/pull/803) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@bcleary06](https://github.com/bcleary06))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/cosmos@23.9.0`
+  - fix: move prefix to options, rename [#807](https://github.com/magiclabs/magic-js/pull/807) ([@hcote](https://github.com/hcote))
+
+#### Authors: 3
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# (Wed Sep 11 2024)
+
+#### 🚀 Enhancement
+
 - `@magic-sdk/types@24.6.0`
   - fix: export common types [#806](https://github.com/magiclabs/magic-js/pull/806) ([@romin-halltari](https://github.com/romin-halltari))
 

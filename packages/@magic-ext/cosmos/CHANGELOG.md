@@ -1,3 +1,19 @@
+# v23.9.0 (Wed Sep 11 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- fix: move prefix to options, rename [#807](https://github.com/magiclabs/magic-js/pull/807) ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into hcote-cosmos-options ([@hcote](https://github.com/hcote))
+- fix: move prefix to options, rename ([@hcote](https://github.com/hcote))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v23.6.1 (Mon Sep 09 2024)
 
 #### 🐛 Bug Fix

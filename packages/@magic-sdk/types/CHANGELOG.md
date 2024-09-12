@@ -1,3 +1,25 @@
+# v24.7.0 (Wed Sep 11 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement new events for MFA whitelabel [#803](https://github.com/magiclabs/magic-js/pull/803) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@bcleary06](https://github.com/bcleary06))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: add new event for MFA whitelabel support & update yarn.lock ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into hcote-cosmos-options ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@bcleary06](https://github.com/bcleary06))
+- feat: implement new events for MFA whitelabel ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 3
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v24.6.0 (Wed Sep 11 2024)
 
 #### 🚀 Enhancement
