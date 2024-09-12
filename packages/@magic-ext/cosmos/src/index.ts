@@ -35,7 +35,7 @@ export class CosmosExtension extends Extension.Internal<'cosmos', any> {
     });
   };
 
-  public signTypedData = async (message: string) => {
+  public signTypedData = (message: string) => {
     return this.request({
       id: 42,
       jsonrpc: '2.0',
