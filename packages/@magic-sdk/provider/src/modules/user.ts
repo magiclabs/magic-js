@@ -7,7 +7,7 @@ import {
   RequestUserInfoScope,
   RecoverAccountConfiguration,
   ShowSettingsConfiguration,
-  EnableMfaConfiguration,
+  EnableMFAConfiguration,
   EnableMFAEventEmit,
   EnableMFAEventHandlers,
 } from '@magic-sdk/types';
@@ -144,7 +144,7 @@ export class UserModule extends BaseModule {
     this.userLoggedOutCallbacks.push(callback);
   }
 
-  public enableMFA(configuration: EnableMfaConfiguration) {
+  public enableMFA(configuration: EnableMFAConfiguration) {
     // const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA, [{showUI}]);
     // const handle = this.request<string | null, EnableMFAEventHandlers>(requestPayload);
     const { showUI = true } = configuration;
