@@ -113,13 +113,24 @@ export interface LoginWithCredentialConfiguration {
   lifespan?: number;
 }
 
-export interface EnableMfaConfiguration {
+export interface EnableMFAConfiguration {
   /**
    * When `true`, a pre-built modal interface will show to the user, directing
    * them to enable MFA usign Google Authenticator app.
    *
    * When `false`, developers will be able to implement their own custom UI to
    * continue the enable MFA flow.
+   */
+  showUI?: boolean;
+}
+
+export interface DisableMFAConfiguration {
+  /**
+   * When `true`, a pre-built modal interface will show to the user, directing
+   * them to disable MFA.
+   *
+   * When `false`, developers will be able to implement their own custom UI to
+   * continue the disable MFA flow.
    */
   showUI?: boolean;
 }
@@ -224,6 +235,18 @@ export enum EnableMFAEventEmit {
   Cancel = 'cancel-mfa-setup',
 }
 
+export enum DisableMFAEventOnReceived {
+  MFACodeRequested = 'mfa-code-requested',
+  InvalidMFAOtp = 'invalid-mfa-otp',
+  InvalidRecoveryCode = 'invalid-recovery-code',
+}
+
+export enum DisableMFAEventEmit {
+  VerifyMFACode = 'verify-mfa-code',
+  LostDevice = 'lost-device',
+  Cancel = 'cancel-mfa-disable',
+}
+
 /**
  * EventHandlers
  */
@@ -321,4 +344,14 @@ export type EnableMFAEventHandlers = {
   // Event sent
   [EnableMFAEventEmit.VerifyMFACode]: (totp: string) => void;
   [EnableMFAEventEmit.Cancel]: () => void;
+};
+
+/**
+ * Disable MFA
+ */
+
+export type DisableMFAEventHandlers = {
+  [DisableMFAEventOnReceived.MFACodeRequested]: () => void;
+  [DisableMFAEventOnReceived.InvalidMFAOtp]: (error: string) => void;
+  [DisableMFAEventOnReceived.InvalidRecoveryCode]: () => void;
 };
