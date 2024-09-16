@@ -15,6 +15,8 @@ import {
   LoginWithSmsOTPEventOnReceived,
   EnableMFAEventEmit,
   EnableMFAEventOnReceived,
+  DisableMFAEventOnReceived,
+  DisableMFAEventEmit,
 } from './auth-types';
 import { NftCheckoutIntermediaryEvents } from './nft-types';
 
@@ -51,4 +53,7 @@ export type IntermediaryEvents =
   | `${UiEventsEmit}`
   // Enable MFA Events
   | `${EnableMFAEventOnReceived}`
-  | `${EnableMFAEventEmit}`;
+  | `${EnableMFAEventEmit}`
+  // Disable MFA Events
+  | `${DisableMFAEventOnReceived}`
+  | `${DisableMFAEventEmit}`;

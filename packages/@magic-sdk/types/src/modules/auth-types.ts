@@ -351,7 +351,13 @@ export type EnableMFAEventHandlers = {
  */
 
 export type DisableMFAEventHandlers = {
+  // Event Received
   [DisableMFAEventOnReceived.MFACodeRequested]: () => void;
   [DisableMFAEventOnReceived.InvalidMFAOtp]: (error: string) => void;
   [DisableMFAEventOnReceived.InvalidRecoveryCode]: () => void;
+
+  // Event sent
+  [DisableMFAEventEmit.VerifyMFACode]: (totp: string) => void;
+  [DisableMFAEventEmit.LostDevice]: (recoveryCode: string) => void;
+  [DisableMFAEventEmit.Cancel]: () => void;
 };
