@@ -7,6 +7,9 @@ import {
   RequestUserInfoScope,
   RecoverAccountConfiguration,
   ShowSettingsConfiguration,
+  EnableMfaConfiguration,
+  EnableMFAEventEmit,
+  EnableMFAEventHandlers,
 } from '@magic-sdk/types';
 import { getItem, setItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
@@ -141,9 +144,23 @@ export class UserModule extends BaseModule {
     this.userLoggedOutCallbacks.push(callback);
   }
 
-  public enableMFA() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA);
-    return this.request<boolean>(requestPayload);
+  public enableMFA(configuration: EnableMfaConfiguration) {
+    // const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA, [{showUI}]);
+    // const handle = this.request<string | null, EnableMFAEventHandlers>(requestPayload);
+    const { showUI = true } = configuration;
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA, [{ showUI }]);
+    const handle = this.request<string | null, EnableMFAEventHandlers>(requestPayload);
+
+    if (!showUI && handle) {
+      handle.on(EnableMFAEventEmit.VerifyMFACode, (totp: string) => {
+        this.createIntermediaryEvent(EnableMFAEventEmit.VerifyMFACode, requestPayload.id as string)(totp);
+      });
+
+      handle.on(EnableMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(EnableMFAEventEmit.Cancel, requestPayload.id as string)();
+      });
+    }
+    return handle;
   }
 
   public disableMFA() {
