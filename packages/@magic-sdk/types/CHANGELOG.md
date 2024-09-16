@@ -1,3 +1,19 @@
+# v24.8.0 (Mon Sep 16 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement disable MFA types [#812](https://github.com/magiclabs/magic-js/pull/812) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- feat: implement disable MFA types ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v24.7.0 (Wed Sep 11 2024)
 
 #### 🚀 Enhancement
