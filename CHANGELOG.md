@@ -1,3 +1,16 @@
+# (Fri Sep 13 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/cosmos@23.9.1`
+  - add cosmos method [#809](https://github.com/magiclabs/magic-js/pull/809) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # (Wed Sep 11 2024)
 
 #### 🚀 Enhancement

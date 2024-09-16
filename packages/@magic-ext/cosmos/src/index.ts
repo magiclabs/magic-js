@@ -35,6 +35,15 @@ export class CosmosExtension extends Extension.Internal<'cosmos', any> {
     });
   };
 
+  public signTypedData = (message: string) => {
+    return this.request({
+      id: 42,
+      jsonrpc: '2.0',
+      method: CosmosPayloadMethod.SignTypedData,
+      params: { message },
+    });
+  };
+
   public sendTokens = async (
     recipientAddress: string,
     transferAmount: string | number,
