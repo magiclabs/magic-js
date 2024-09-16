@@ -145,8 +145,6 @@ export class UserModule extends BaseModule {
   }
 
   public enableMFA(configuration: EnableMFAConfiguration) {
-    // const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA, [{showUI}]);
-    // const handle = this.request<string | null, EnableMFAEventHandlers>(requestPayload);
     const { showUI = true } = configuration;
     const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA, [{ showUI }]);
     const handle = this.request<string | null, EnableMFAEventHandlers>(requestPayload);
