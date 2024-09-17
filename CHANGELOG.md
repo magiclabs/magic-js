@@ -1,3 +1,16 @@
+# (Mon Sep 16 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@24.8.0`
+  - feat: implement disable MFA types [#812](https://github.com/magiclabs/magic-js/pull/812) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Fri Sep 13 2024)
 
 #### 🐛 Bug Fix
