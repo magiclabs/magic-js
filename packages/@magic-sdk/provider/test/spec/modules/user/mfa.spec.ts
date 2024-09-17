@@ -33,6 +33,17 @@ test('Resolves immediately when cached magic.user.enableMFA.spec is true with em
   expect(requestPayload.params).toEqual([{ showUI: true }]);
 });
 
+test('Resolves immediately when cached magic.user.enableMFA.spec is true without any params', async () => {
+  const magic = createMagicSDK();
+  magic.user.request = jest.fn();
+
+  await magic.user.enableMFA();
+
+  const requestPayload = magic.user.request.mock.calls[0][0];
+  expect(requestPayload.method).toBe('magic_auth_enable_mfa_flow');
+  expect(requestPayload.params).toEqual([{ showUI: true }]);
+});
+
 test('Resolves immediately when cached magic.user.enableMFA.spec is true with ShowUI: true', () => {
   const magic = createMagicSDK();
   magic.user.request = jest.fn();
@@ -55,11 +66,22 @@ test('Resolves immediately when cached magic.user.enableMFA.spec is true with Sh
   expect(requestPayload.params).toEqual([{ showUI: false }]);
 });
 
-test('Resolves immediately when cached magic.user.enableMFA.spec is true with empty param', () => {
+test('Resolves immediately when cached magic.user.enableMFA.spec is true with empty object', () => {
   const magic = createMagicSDK();
   magic.user.request = jest.fn();
 
   magic.user.disableMFA({});
+
+  const requestPayload = magic.user.request.mock.calls[0][0];
+  expect(requestPayload.method).toBe('magic_auth_disable_mfa_flow');
+  expect(requestPayload.params).toEqual([{ showUI: true }]);
+});
+
+test('Resolves immediately when cached magic.user.enableMFA.spec is true without any params', () => {
+  const magic = createMagicSDK();
+  magic.user.request = jest.fn();
+
+  magic.user.disableMFA();
 
   const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_disable_mfa_flow');
