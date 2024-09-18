@@ -1,5 +1,3 @@
-import { DisableMFAEventEmit, DisableMFAEventOnReceived } from '@magic-sdk/types/dist/types';
-import { EnableMFAEventEmit } from 'magic-sdk';
 import { createMagicSDK } from '../../../factories';
 
 test('Resolves immediately when cached magic.user.enableMFA.spec is true with ShowUI: true', async () => {
