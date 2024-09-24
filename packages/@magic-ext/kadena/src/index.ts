@@ -17,7 +17,7 @@ export class KadenaExtension extends Extension.Internal<'kadena'> {
     };
   }
 
-  public async signTransaction(hash: string): Promise<KadenaSignTransactionResponse> {
+  public signTransaction(hash: string): Promise<KadenaSignTransactionResponse> {
     return this.request(this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransaction, [{ hash }]));
   }
 }

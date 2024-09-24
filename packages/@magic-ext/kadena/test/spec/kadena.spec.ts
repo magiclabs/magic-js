@@ -7,7 +7,7 @@ beforeEach(() => {
   browserEnv.restore();
 });
 
-test('Sends params as payload', async () => {
+test('Sends params as payload', () => {
   const magic = createMagicSDKWithExtension({}, [
     new KadenaExtension({
       rpcUrl: '',
