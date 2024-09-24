@@ -1,9 +1,9 @@
 import { Extension } from '@magic-sdk/commons';
-import { KadenaConfig, KadenaPayloadMethod } from './types';
+import { KadenaConfig, KadenaPayloadMethod, KadenaSignTransactionResponse } from './types';
 
-export class KadenaExtension extends Extension.Internal<'kadena', any> {
+export class KadenaExtension extends Extension.Internal<'kadena'> {
   name = 'kadena' as const;
-  config: any = {};
+  config = {};
   rpcUrl: string;
   chainId: string;
 
@@ -17,7 +17,7 @@ export class KadenaExtension extends Extension.Internal<'kadena', any> {
     };
   }
 
-  public async signTransaction(hash: string): Promise<any> {
+  public async signTransaction(hash: string): Promise<KadenaSignTransactionResponse> {
     return this.request(this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransaction, [{ hash }]));
   }
 }

@@ -12,7 +12,7 @@ test('Sends params as payload', async () => {
     new KadenaExtension({
       rpcUrl: '',
       chainId: '',
-    } as any),
+    }),
   ]);
   magic.kadena.request = jest.fn();
 

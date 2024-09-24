@@ -6,3 +6,8 @@ export interface KadenaConfig {
 export enum KadenaPayloadMethod {
   KadenaSignTransaction = 'kda_signTransaction',
 }
+
+export interface KadenaSignTransactionResponse {
+  sig: string;
+  pubKey: string;
+}
