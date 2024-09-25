@@ -16,11 +16,11 @@ test('Sends params as payload', () => {
   ]);
   magic.kadena.request = jest.fn();
 
-  const params = { hash: '0x123' };
+  const params = '0x123';
 
   magic.kadena.signTransaction(params);
 
-  const requestPayload = magic.harmony.request.mock.calls[0][0];
+  const requestPayload = magic.kadena.request.mock.calls[0][0];
   expect(requestPayload.method).toBe(KadenaPayloadMethod.KadenaSignTransaction);
-  expect(requestPayload.params).toEqual(params);
+  expect(requestPayload.params).toEqual([{ hash: '0x123' }]);
 });
