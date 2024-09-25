@@ -1,3 +1,21 @@
+# (Wed Sep 25 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.11.0`, `@magic-sdk/types@24.9.0`
+  - White label support for MFA | Should not be merged before Mandrake [#808](https://github.com/magiclabs/magic-js/pull/808) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@24.9.0`
+  - Pdeexp 1711 disable mfa flow types [#811](https://github.com/magiclabs/magic-js/pull/811) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Mon Sep 16 2024)
 
 #### 🚀 Enhancement
