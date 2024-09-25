@@ -337,9 +337,9 @@ export type UpdateEmailEventHandlers = {
 
 export type EnableMFAEventHandlers = {
   // Event Received
-  [EnableMFAEventOnReceived.MFASecretGenerated]: (QRCode: string, key: string) => void;
-  [EnableMFAEventOnReceived.InvalidMFAOtp]: (error: string) => void;
-  [EnableMFAEventOnReceived.MFARecoveryCodes]: (recoveryCodes: string) => void;
+  [EnableMFAEventOnReceived.MFASecretGenerated]: ({ QRCode, key }: { QRCode: string; key: string }) => void;
+  [EnableMFAEventOnReceived.InvalidMFAOtp]: ({ errorCode }: { errorCode: string }) => void;
+  [EnableMFAEventOnReceived.MFARecoveryCodes]: ({ recoveryCode }: { recoveryCode: string }) => void;
 
   // Event sent
   [EnableMFAEventEmit.VerifyMFACode]: (totp: string) => void;
@@ -351,7 +351,13 @@ export type EnableMFAEventHandlers = {
  */
 
 export type DisableMFAEventHandlers = {
+  // Event Received
   [DisableMFAEventOnReceived.MFACodeRequested]: () => void;
-  [DisableMFAEventOnReceived.InvalidMFAOtp]: (error: string) => void;
+  [DisableMFAEventOnReceived.InvalidMFAOtp]: ({ errorCode }: { errorCode: string }) => void;
   [DisableMFAEventOnReceived.InvalidRecoveryCode]: () => void;
+
+  // Event sent
+  [DisableMFAEventEmit.VerifyMFACode]: (totp: string) => void;
+  [DisableMFAEventEmit.LostDevice]: (recoveryCode: string) => void;
+  [DisableMFAEventEmit.Cancel]: () => void;
 };

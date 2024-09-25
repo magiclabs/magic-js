@@ -7,6 +7,12 @@ import {
   RequestUserInfoScope,
   RecoverAccountConfiguration,
   ShowSettingsConfiguration,
+  EnableMFAConfiguration,
+  EnableMFAEventEmit,
+  EnableMFAEventHandlers,
+  DisableMFAConfiguration,
+  DisableMFAEventHandlers,
+  DisableMFAEventEmit,
 } from '@magic-sdk/types';
 import { getItem, setItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
@@ -141,14 +147,43 @@ export class UserModule extends BaseModule {
     this.userLoggedOutCallbacks.push(callback);
   }
 
-  public enableMFA() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA);
-    return this.request<boolean>(requestPayload);
+  public enableMFA(configuration: EnableMFAConfiguration) {
+    const { showUI = true } = configuration;
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.EnableMFA, [{ showUI }]);
+    const handle = this.request<string | boolean | null, EnableMFAEventHandlers>(requestPayload);
+
+    if (!showUI && handle) {
+      handle.on(EnableMFAEventEmit.VerifyMFACode, (totp: string) => {
+        this.createIntermediaryEvent(EnableMFAEventEmit.VerifyMFACode, requestPayload.id as string)(totp);
+      });
+
+      handle.on(EnableMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(EnableMFAEventEmit.Cancel, requestPayload.id as string)();
+      });
+    }
+    return handle;
   }
 
-  public disableMFA() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.DisableMFA);
-    return this.request<boolean>(requestPayload);
+  public disableMFA(configuration: DisableMFAConfiguration) {
+    const { showUI = true } = configuration;
+
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.DisableMFA, [{ showUI }]);
+    const handle = this.request<string | boolean | null, DisableMFAEventHandlers>(requestPayload);
+
+    if (!showUI && handle) {
+      handle.on(DisableMFAEventEmit.VerifyMFACode, (totp: string) => {
+        this.createIntermediaryEvent(DisableMFAEventEmit.VerifyMFACode, requestPayload.id as string)(totp);
+      });
+
+      handle.on(DisableMFAEventEmit.LostDevice, (recoveryCode: string) => {
+        this.createIntermediaryEvent(DisableMFAEventEmit.LostDevice, requestPayload.id as string)(recoveryCode);
+      });
+
+      handle.on(DisableMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(DisableMFAEventEmit.Cancel, requestPayload.id as string)();
+      });
+    }
+    return handle;
   }
 
   // Private members
