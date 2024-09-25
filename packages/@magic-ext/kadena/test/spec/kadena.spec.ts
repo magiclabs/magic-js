@@ -11,7 +11,7 @@ test('Sends params as payload', () => {
   const magic = createMagicSDKWithExtension({}, [
     new KadenaExtension({
       rpcUrl: '',
-      chainId: '',
+      chainId: '1',
     }),
   ]);
   magic.kadena.request = jest.fn();
