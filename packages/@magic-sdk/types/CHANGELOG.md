@@ -1,3 +1,26 @@
+# v24.9.0 (Wed Sep 25 2024)
+
+#### 🚀 Enhancement
+
+- White label support for MFA | Should not be merged before Mandrake [#808](https://github.com/magiclabs/magic-js/pull/808) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- feat: update mfa whitelabel types ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement disable mfa method ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Pdeexp 1711 disable mfa flow types [#811](https://github.com/magiclabs/magic-js/pull/811) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support' into PDEEXP-1711-disable-mfa-flow-types ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into PDEEXP-1711-disable-mfa-flow-types ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement disable mfa types ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: add handlers to enable MFA method ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v24.8.0 (Mon Sep 16 2024)
 
 #### 🚀 Enhancement

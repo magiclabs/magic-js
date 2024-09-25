@@ -1,3 +1,16 @@
+# v23.11.0 (Wed Sep 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into PDEEXP-1711-disable-mfa-flow-types ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v23.9.1 (Fri Sep 13 2024)
 
 #### 🐛 Bug Fix
