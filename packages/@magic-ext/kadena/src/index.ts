@@ -1,19 +1,22 @@
 import { Extension } from '@magic-sdk/commons';
-import { ChainId, KadenaConfig, KadenaPayloadMethod, KadenaSignTransactionResponse } from './types';
+import { KadenaConfig, KadenaPayloadMethod, KadenaSignTransactionResponse } from './types';
 
 export class KadenaExtension extends Extension.Internal<'kadena'> {
   name = 'kadena' as const;
   config = {};
-  rpcUrl: string;
-  chainId: ChainId;
 
   constructor(public kadenaConfig: KadenaConfig) {
     super();
 
-    this.rpcUrl = kadenaConfig.rpcUrl;
-    this.chainId = kadenaConfig.chainId;
     this.config = {
       chainType: 'KADENA',
+      rpcUrl: kadenaConfig.rpcUrl,
+      chainId: kadenaConfig.chainId,
+      options: {
+        network: kadenaConfig.network,
+        networkId: kadenaConfig.networkId,
+        createAccountsOnChain: Boolean(kadenaConfig.createAccountsOnChain),
+      },
     };
   }
 

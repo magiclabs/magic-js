@@ -1,6 +1,9 @@
 export interface KadenaConfig {
   rpcUrl: string;
   chainId: ChainId;
+  network: 'testnet' | 'mainnet';
+  networkId: string;
+  createAccountsOnChain?: boolean;
 }
 
 export enum KadenaPayloadMethod {

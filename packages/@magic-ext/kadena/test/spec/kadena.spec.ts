@@ -12,6 +12,9 @@ test('Sends params as payload', () => {
     new KadenaExtension({
       rpcUrl: '',
       chainId: '1',
+      networkId: 'testnet04',
+      network: 'testnet',
+      createAccountsOnChain: true,
     }),
   ]);
   magic.kadena.request = jest.fn();
