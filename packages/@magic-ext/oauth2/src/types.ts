@@ -96,6 +96,8 @@ export interface OAuthRedirectConfiguration {
   redirectURI: string;
   scope?: string[];
   loginHint?: string;
+  shouldReturnURI?: boolean;
+  optionalQuery?: string;
 }
 
 export enum OAuthErrorCode {
