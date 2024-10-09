@@ -97,6 +97,10 @@ export class IframeController extends ViewController {
         }
       }
     });
+
+    window.addEventListener('beforeunload', () => {
+      this.stopHeartBeat();
+    });
   }
 
   protected async showOverlay() {
@@ -119,6 +123,15 @@ export class IframeController extends ViewController {
     const iframe = await this.iframe;
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);
+    } else {
+      throw createModalNotReadyError();
+    }
+  }
+
+  protected async reloadIframe() {
+    const iframe = await this.iframe;
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.location.reload();
     } else {
       throw createModalNotReadyError();
     }
