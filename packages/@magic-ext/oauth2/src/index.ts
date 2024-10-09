@@ -21,7 +21,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   };
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
-    return this.utils.createPromiEvent<void | string>(async (resolve, reject) => {
+    return this.utils.createPromiEvent<null | string>(async (resolve, reject) => {
       const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
         {
           ...configuration,
@@ -53,11 +53,11 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           resolve(redirectURI);
         } else {
           window.location.href = redirectURI;
-          resolve();
+          resolve(null);
         }
       }
 
-      resolve();
+      resolve(null);
     });
   }
 
