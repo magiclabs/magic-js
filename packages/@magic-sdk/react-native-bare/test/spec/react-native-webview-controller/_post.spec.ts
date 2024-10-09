@@ -1,12 +1,22 @@
 import browserEnv from '@ikscodes/browser-env';
-import { createModalNotReadyError, createResponseTimeoutError } from '@magic-sdk/provider';
-import { SDKErrorCode } from '@magic-sdk/types';
+import { createModalNotReadyError } from '@magic-sdk/provider';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
 beforeEach(() => {
   browserEnv.restore();
   reactNativeStyleSheetStub();
+});
+
+const emitStub = jest.fn();
+
+jest.mock('react-native-event-listeners', () => {
+  return {
+    EventRegister: {
+      emit: emitStub,
+      addEventListener: jest.fn(),
+    },
+  };
 });
 
 test('Calls webView._post with the expected arguments', async () => {
@@ -52,87 +62,12 @@ test('Process Typed Array in a Solana Request', async () => {
   ]);
 });
 
-test('Throws RESPONSE_TIMEOUT error if response takes longer than 10 seconds', async () => {
+test('Emits msg_posted_after_inactivity_event when msgPostedAfterInactivity returns true', async () => {
   const overlay = createReactNativeWebViewController('http://example.com');
 
-  const postStub = jest.fn();
-  overlay.webView = { postMessage: postStub };
+  overlay.msgPostedAfterInactivity = () => true;
+  await overlay._post({ thisIsData: 'hello world' });
 
-  // Assume `_post` method returns a promise that rejects upon timeout
-  const payload = { method: 'testMethod', id: 123 };
-
-  try {
-    await overlay._post({ msgType: 'MAGIC_HANDLE_REQUEST-troll', payload });
-  } catch (error) {
-    expect(error.code).toBe(SDKErrorCode.ResponseTimeout);
-  }
-});
-
-test('Adds a timeout to messageTimeouts map on message send', async () => {
-  const overlay = createReactNativeWebViewController('http://example.com');
-
-  overlay.webView = { postMessage: jest.fn() };
-  const payload = { method: 'testMethod', id: 123 };
-
-  try {
-    await overlay._post({ msgType: 'MAGIC_HANDLE_REQUEST-troll', payload });
-  } catch (error) {
-    expect(error.code).toBe(SDKErrorCode.ResponseTimeout);
-  }
-
-  expect(overlay.messageTimeouts.has(123)).toBe(true);
-});
-
-test('Removes timeout from messageTimeouts map on response', async () => {
-  const overlay = createReactNativeWebViewController('http://example.com');
-
-  // Mock the WebView and its postMessage method
-  overlay.webView = { postMessage: jest.fn() };
-
-  const payload = { method: 'testMethod', id: 123 };
-  try {
-    await overlay._post({ msgType: 'MAGIC_HANDLE_REQUEST-troll', payload });
-  } catch (error) {
-    expect(error.code).toBe(SDKErrorCode.ResponseTimeout);
-  }
-
-  try {
-    // Simulate receiving a response by directly invoking the message handler
-    overlay.handleReactNativeWebViewMessage({
-      nativeEvent: {
-        data: JSON.stringify({ response: { id: 123 } }),
-      },
-    });
-  } catch (e) {
-    console.log(e);
-  }
-
-  expect(overlay.messageTimeouts.has(123)).toBe(true);
-});
-
-test('Removes timeout from messageTimeouts map on timeout', async () => {
-  expect.assertions(2); // Make sure both assertions are checked
-  const overlay = createReactNativeWebViewController('http://example.com');
-
-  overlay.webView = { postMessage: jest.fn() };
-
-  // Mock setTimeout to immediately invoke its callback to simulate a timeout
-  jest.spyOn(global, 'setTimeout').mockImplementationOnce((cb) => {
-    cb();
-    return 123; // Return a mock timer ID
-  });
-
-  const payload = { method: 'testMethod', id: 123 };
-
-  try {
-    await overlay._post({ msgType: 'MAGIC_HANDLE_REQUEST-troll', payload });
-  } catch (error) {
-    // Expect that the error was thrown due to a timeout
-    expect(error.code).toBe(SDKErrorCode.ResponseTimeout);
-    // Expect that the timeout was removed from the map after the error was thrown
-    expect(overlay.messageTimeouts.has(123)).toBe(false);
-  }
-
-  // Restore original setTimeout function
-  jest.restoreAllMocks();
+  expect(emitStub).toBeCalledTimes(1);
+  expect(emitStub).toHaveBeenCalledWith('msg_posted_after_inactivity_event', { thisIsData: 'hello world' });
 });

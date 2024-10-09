@@ -1,3 +1,157 @@
+# v29.12.0 (Wed Sep 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v29.10.0 (Wed Sep 11 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into hcote-cosmos-options ([@hcote](https://github.com/hcote))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v29.7.0 (Fri Sep 06 2024)
+
+#### 🚀 Enhancement
+
+- fix: remount the webview after inactivity before posting a message to avoid timeouts [#798](https://github.com/magiclabs/magic-js/pull/798) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- fix: do the same for expo ([@romin-halltari](https://github.com/romin-halltari))
+- fix: use const ([@romin-halltari](https://github.com/romin-halltari))
+- fix: remount the webview after inactivity before posting a message to avoid timeouts ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v29.6.0 (Tue Sep 03 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: update branch ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix(): resolve conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
+# v29.4.0 (Tue Aug 13 2024)
+
+#### 🐛 Bug Fix
+
+- add test environment check to avoid setTimeout ([@Ethella](https://github.com/Ethella))
+- add useFakeTimers ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- silent console.warn and error in tests ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.4 (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'refs/remotes/origin/master' into PDEEXP-1279-done-event-not-firing-in-whitelabel-email-login-flow ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Fix tests ([@Ariflo](https://github.com/Ariflo))
+- WIP ([@Ariflo](https://github.com/Ariflo))
+- Update testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- payload is optional ([@Ariflo](https://github.com/Ariflo))
+- Shrink code syntax ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Throw ResponseTimeout SDK Error for responses that take more than 5 seconds ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 4
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
+# v28.0.0 (Fri Mar 15 2024)
+
+#### 🚀 Enhancement
+
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Additional testing ([@Ariflo](https://github.com/Ariflo))
+- Fix tests ([@Ariflo](https://github.com/Ariflo))
+- WIP ([@Ariflo](https://github.com/Ariflo))
+- Update testing ([@Ariflo](https://github.com/Ariflo))
+- Add testing to error factory ([@Ariflo](https://github.com/Ariflo))
+- payload is optional ([@Ariflo](https://github.com/Ariflo))
+- Shrink code syntax ([@Ariflo](https://github.com/Ariflo))
+- Pass params to createResponseTimeoutError ([@Ariflo](https://github.com/Ariflo))
+- Throw ResponseTimeout SDK Error for responses that take more than 5 seconds ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
 # v27.0.0 (Sat Mar 09 2024)
 
 #### 🚀 Enhancement

@@ -1,3 +1,141 @@
+# v22.11.0 (Wed Sep 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v22.9.0 (Wed Sep 11 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into hcote-cosmos-options ([@hcote](https://github.com/hcote))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v22.6.0 (Tue Sep 03 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: update branch ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: resolve PR conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix(): resolve conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
+# v22.4.0 (Tue Aug 13 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.3.0 (Thu Aug 08 2024)
+
+#### 🚀 Enhancement
+
+- Chore/pdeexp 1658 update login sdk method to handle did lifespan [#775](https://github.com/magiclabs/magic-js/pull/775) ([@otabek-magic](https://github.com/otabek-magic))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into khamdam-sc-PDEEXP-54-whitelabel-sms-types ([@khamdam-magic](https://github.com/khamdam-magic))
+- Merge branch 'master' into PDEEXP-1393-MFA-Blocks-Login-for-Whitelabel-Email-Logins ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- fix: remove lifespan from loginWithPopup and loginWithRedirect as they don't return did token ([@otabek-magic](https://github.com/otabek-magic))
+- Merge branch 'master' into PDEEXP-1454-typescript-should-recognize-the-disconnect-event-on-show-ui ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+- fix: make lifespan parameter optional ([@otabek-magic](https://github.com/otabek-magic))
+- add lifespan parameter to login methods ([@otabek-magic](https://github.com/otabek-magic))
+
+#### Authors: 3
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v22.0.5 (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'refs/remotes/origin/master' into PDEEXP-1279-done-event-not-firing-in-whitelabel-email-login-flow ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.0.1 (Fri Mar 22 2024)
+
+#### 🐛 Bug Fix
+
+- Pdeexp 681 fix magic js launching script [#729](https://github.com/magiclabs/magic-js/pull/729) ([@Ethella](https://github.com/Ethella))
+- test package release ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
+# v21.0.0 (Fri Mar 15 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
 # v20.0.0 (Sat Mar 09 2024)
 
 #### 🐛 Bug Fix

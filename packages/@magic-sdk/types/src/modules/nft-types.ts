@@ -1,4 +1,4 @@
-export type NFTResponseStatus = 'cancelled' | 'processed' | 'declined' | 'expired';
+export type NFTResponseStatus = 'cancelled' | 'pending' | 'processed' | 'declined' | 'expired';
 
 export type NFTResponse = {
   status: NFTResponseStatus;
@@ -44,9 +44,29 @@ export interface NFTCheckoutRequest {
   imageUrl: string;
   quantity?: number; // default is 1
   walletAddress?: string; // default is user's wallet address
+  // If enabled, the user will be able to pay with crypto. the default is false
+  isCryptoCheckoutEnabled?: boolean;
 }
 
 export type NFTCheckoutResponse = NFTResponse;
+
+export type NFTCheckoutEvents = {
+  disconnect: () => void;
+  'nft-checkout-initiated': (rawTransaction: string) => void;
+};
+
+export enum NftCheckoutIntermediaryEvents {
+  Success = 'nft-checkout-success',
+  Failure = 'nft-checkout-failure',
+  Initiated = 'nft-checkout-initiated',
+  Disconnect = 'disconnect',
+}
+
+export type NftCheckoutEventHandler = {
+  [NftCheckoutIntermediaryEvents.Initiated]: (rawTransaction: string) => void;
+  [NftCheckoutIntermediaryEvents.Success]: (signedTransaction: string) => void;
+  [NftCheckoutIntermediaryEvents.Failure]: () => void;
+};
 
 export interface NFTTransferRequest {
   tokenId: string;

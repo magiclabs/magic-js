@@ -246,6 +246,16 @@ export abstract class ViewController {
         resolve();
         unsubscribe();
       });
+
+      // We expect the overlay to be ready within 15 seconds.
+      // Sometimes the message is not properly processed due to
+      // webview issues. In that case, after 15 seconds we consider
+      // the overlay ready, to avoid requests hanging forever.
+      setTimeout(() => {
+        this.isReadyForRequest = true;
+        resolve();
+        unsubscribe();
+      }, 15000);
     });
   }
 

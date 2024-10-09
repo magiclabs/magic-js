@@ -18,7 +18,7 @@ export class SolanaExtension extends Extension.Internal<'solana', any> {
   }
 
   public signTransaction = (transaction: Transaction | VersionedTransaction, serializeConfig?: SerializeConfig) => {
-    return this.request<{ rawTransaction: string }>({
+    return this.request<{ rawTransaction: Uint8Array }>({
       id: 42,
       jsonrpc: '2.0',
       method: SOLANA_PAYLOAD_METHODS.SIGN_TRANSACTION,
@@ -37,6 +37,22 @@ export class SolanaExtension extends Extension.Internal<'solana', any> {
       method: SOLANA_PAYLOAD_METHODS.SIGN_MESSAGE,
       params: {
         message,
+      },
+    });
+  };
+
+  public partialSignTransaction = (
+    transaction: Transaction | VersionedTransaction,
+    serializeConfig?: SerializeConfig,
+  ) => {
+    return this.request<{ rawTransaction: Uint8Array }>({
+      id: 42,
+      jsonrpc: '2.0',
+      method: SOLANA_PAYLOAD_METHODS.PARTIAL_SIGN_TRANSACTION,
+      params: {
+        type: transaction instanceof Transaction ? 'legacy' : 0,
+        serialized: transaction.serialize(serializeConfig),
+        serializeConfig,
       },
     });
   };

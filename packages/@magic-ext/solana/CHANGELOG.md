@@ -1,3 +1,135 @@
+# v25.12.0 (Wed Sep 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v25.10.0 (Wed Sep 11 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into hcote-cosmos-options ([@hcote](https://github.com/hcote))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v25.7.0 (Tue Sep 03 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: update branch ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix(): resolve conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
+# v25.5.0 (Tue Aug 13 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v25.3.0 (Wed Jul 17 2024)
+
+#### 🐛 Bug Fix
+
+- fix: partialSignTransaction return type is Uint8Array [#765](https://github.com/magiclabs/magic-js/pull/765) ([@romin-halltari](https://github.com/romin-halltari))
+- fix: partialSignTransaction return type is Uint8Array ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v25.1.2 (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'refs/remotes/origin/master' into PDEEXP-1279-done-event-not-firing-in-whitelabel-email-login-flow ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v25.1.0 (Mon May 20 2024)
+
+#### 🚀 Enhancement
+
+- Add partialSignTransaction in sol-ext [#743](https://github.com/magiclabs/magic-js/pull/743) ([@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- Fix type mismatch for signTransaction in sol-ext [#693](https://github.com/magiclabs/magic-js/pull/693) ([@octave08](https://github.com/octave08))
+- Merge branch 'master' into jayhwang-sc-91670-type-mismatch-2-in-solana-extension ([@octave08](https://github.com/octave08))
+- Add partialSignTransaction ([@octave08](https://github.com/octave08))
+- Change type from string to uint8array ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# v25.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
+# v24.0.0 (Fri Mar 15 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
 # v23.0.0 (Sat Mar 09 2024)
 
 #### 🐛 Bug Fix

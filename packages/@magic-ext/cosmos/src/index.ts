@@ -11,6 +11,9 @@ export class CosmosExtension extends Extension.Internal<'cosmos', any> {
     this.config = {
       rpcUrl: cosmosConfig.rpcUrl,
       chainType: 'COSMOS',
+      options: {
+        chain: cosmosConfig.chain,
+      },
     };
   }
 
@@ -29,6 +32,15 @@ export class CosmosExtension extends Extension.Internal<'cosmos', any> {
       jsonrpc: '2.0',
       method: CosmosPayloadMethod.Sign,
       params: { message, fee },
+    });
+  };
+
+  public signTypedData = (message: string) => {
+    return this.request({
+      id: 42,
+      jsonrpc: '2.0',
+      method: CosmosPayloadMethod.SignTypedData,
+      params: { message },
     });
   };
 

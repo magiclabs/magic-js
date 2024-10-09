@@ -8,7 +8,8 @@ import { ViewController, createDuplicateIframeWarning, createURL, createModalNot
  * to render above all other DOM content.
  */
 const overlayStyles: Partial<CSSStyleDeclaration> = {
-  display: 'none',
+  display: 'block',
+  visibility: 'hidden',
   position: 'fixed',
   top: '0',
   right: '0',
@@ -17,6 +18,8 @@ const overlayStyles: Partial<CSSStyleDeclaration> = {
   borderRadius: '0',
   border: 'none',
   zIndex: '2147483647',
+  // necessary for iOS Safari
+  opacity: '0',
 };
 
 /**
@@ -63,6 +66,7 @@ export class IframeController extends ViewController {
           iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
           iframe.title = 'Secure Modal';
           iframe.src = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
+          iframe.allow = 'clipboard-read; clipboard-write';
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
           resolve(iframe);
@@ -97,14 +101,16 @@ export class IframeController extends ViewController {
 
   protected async showOverlay() {
     const iframe = await this.iframe;
-    iframe.style.display = 'block';
+    iframe.style.visibility = 'visible';
+    iframe.style.opacity = '1';
     this.activeElement = document.activeElement;
     iframe.focus();
   }
 
   protected async hideOverlay() {
     const iframe = await this.iframe;
-    iframe.style.display = 'none';
+    iframe.style.visibility = 'hidden';
+    iframe.style.opacity = '0';
     if (this.activeElement?.focus) this.activeElement.focus();
     this.activeElement = null;
   }

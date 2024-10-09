@@ -1,3 +1,326 @@
+# v24.9.0 (Wed Sep 25 2024)
+
+#### 🚀 Enhancement
+
+- White label support for MFA | Should not be merged before Mandrake [#808](https://github.com/magiclabs/magic-js/pull/808) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- feat: update mfa whitelabel types ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement disable mfa method ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Pdeexp 1711 disable mfa flow types [#811](https://github.com/magiclabs/magic-js/pull/811) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support' into PDEEXP-1711-disable-mfa-flow-types ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into PDEEXP-1711-disable-mfa-flow-types ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement disable mfa types ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: add handlers to enable MFA method ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v24.8.0 (Mon Sep 16 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement disable MFA types [#812](https://github.com/magiclabs/magic-js/pull/812) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- feat: implement disable MFA types ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v24.7.0 (Wed Sep 11 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement new events for MFA whitelabel [#803](https://github.com/magiclabs/magic-js/pull/803) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@bcleary06](https://github.com/bcleary06))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: add new event for MFA whitelabel support & update yarn.lock ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into hcote-cosmos-options ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@bcleary06](https://github.com/bcleary06))
+- feat: implement new events for MFA whitelabel ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 3
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v24.6.0 (Wed Sep 11 2024)
+
+#### 🚀 Enhancement
+
+- fix: export common types [#806](https://github.com/magiclabs/magic-js/pull/806) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- fix: export common types ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v24.5.0 (Wed Sep 11 2024)
+
+#### 🚀 Enhancement
+
+- feat: add UiEventsEmit type [#805](https://github.com/magiclabs/magic-js/pull/805) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### 🐛 Bug Fix
+
+- feat: add UiEventsEmit type ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v24.4.0 (Tue Sep 03 2024)
+
+#### 🚀 Enhancement
+
+- Enable whitelabel customization for sms login [#768](https://github.com/magiclabs/magic-js/pull/768) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'khamdam-sc-PDEEXP-54-whitelabel-sms-login' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- Merge branch 'master' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: update branch ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: resolve PR conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: add devicecheck handlers ([@khamdam-magic](https://github.com/khamdam-magic))
+- Merge branch 'master' into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: add intermediary handles for sms whitelabeling ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix(): resolve conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix(auth): enable whitelabel sms login ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
+# v24.3.0 (Mon Aug 19 2024)
+
+#### 🚀 Enhancement
+
+- feat: added new event for controlling close by user [#781](https://github.com/magiclabs/magic-js/pull/781) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- feat: added new event for controlling close by user [#783](https://github.com/magiclabs/magic-js/pull/783) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- feat: added new event for controlling close by user ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v24.2.0 (Tue Aug 13 2024)
+
+#### 🚀 Enhancement
+
+- Enable MFA to be standalone flow [#778](https://github.com/magiclabs/magic-js/pull/778) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- Merge branch 'fix-pipeline' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- expose enable MFA and disable MFA ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+- add two more flags ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v24.1.0 (Thu Aug 08 2024)
+
+#### 🚀 Enhancement
+
+- Add new types for whitelabel sms [#777](https://github.com/magiclabs/magic-js/pull/777) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into khamdam-sc-PDEEXP-54-whitelabel-sms-types ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: remove redundant param ([@khamdam-magic](https://github.com/khamdam-magic))
+- Added event due to the ticket:PDEEXP-1393 [#770](https://github.com/magiclabs/magic-js/pull/770) (sukhrobbekodilov@204-108.ip.sola.uz [@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into PDEEXP-1393-MFA-Blocks-Login-for-Whitelabel-Email-Logins ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- fix: add new whitelabel types ([@khamdam-magic](https://github.com/khamdam-magic))
+- feat: Added new event type in order to prevent typescript error [#773](https://github.com/magiclabs/magic-js/pull/773) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into PDEEXP-1454-typescript-should-recognize-the-disconnect-event-on-show-ui ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods [#771](https://github.com/magiclabs/magic-js/pull/771) ([@otabek-magic](https://github.com/otabek-magic))
+- feat: Added new event type in order to prevent typescript error ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- add lifespan parameter to login methods ([@otabek-magic](https://github.com/otabek-magic))
+- feat: Added event due to the ticket:PDEEXP-1393 (sukhrobbekodilov@204-108.ip.sola.uz)
+- Added event due to the ticket:PDEEXP-1393 and removed comments (sukhrobbekodilov@204-108.ip.sola.uz)
+- Added event due to the ticket:PDEEXP-1393 (sukhrobbekodilov@204-108.ip.sola.uz)
+
+#### Authors: 4
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+- Sukhrobbek Odilov (sukhrobbekodilov@204-108.ip.sola.uz)
+
+---
+
+# v24.0.5 (Tue Jun 18 2024)
+
+#### 🐛 Bug Fix
+
+- Add farcaster event types [#751](https://github.com/magiclabs/magic-js/pull/751) ([@ysm-dev](https://github.com/ysm-dev))
+- add farcaster event types ([@ysm-dev](https://github.com/ysm-dev))
+
+#### Authors: 1
+
+- Chris Yang ([@ysm-dev](https://github.com/ysm-dev))
+
+---
+
+# v24.0.4 (Fri Jun 07 2024)
+
+#### 🐛 Bug Fix
+
+- update intermediary types [#749](https://github.com/magiclabs/magic-js/pull/749) ([@hcote](https://github.com/hcote))
+- update intermediary types ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v24.0.3 (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- Pdeexp 1279 done event not firing in whitelabel email login flow [#748](https://github.com/magiclabs/magic-js/pull/748) ([@Ethella](https://github.com/Ethella))
+- fix import ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'refs/remotes/origin/master' into PDEEXP-1279-done-event-not-firing-in-whitelabel-email-login-flow ([@Ethella](https://github.com/Ethella))
+- Add new events to IntermediaryEvents type ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v24.0.2 (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- Add two more events for EmailOTP [#746](https://github.com/magiclabs/magic-js/pull/746) ([@Ethella](https://github.com/Ethella))
+- fix was used before it was defined ([@Ethella](https://github.com/Ethella))
+- fix import ([@Ethella](https://github.com/Ethella))
+- Add two more events for EmailOTP ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v24.0.1 (Mon Apr 01 2024)
+
+#### 🐛 Bug Fix
+
+- rebuild rpc types [#736](https://github.com/magiclabs/magic-js/pull/736) ([@joshuascan](https://github.com/joshuascan))
+- rename reveal PK type ([@joshuascan](https://github.com/joshuascan))
+- re-add RevealPrivateKey type ([@joshuascan](https://github.com/joshuascan))
+- remove PK type ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v24.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+- Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+- Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Add an option for crypto-checkout [#727](https://github.com/magiclabs/magic-js/pull/727) ([@octave08](https://github.com/octave08))
+- Add an option for crypto checkout ([@octave08](https://github.com/octave08))
+- Update nft-response-status ([@octave08](https://github.com/octave08))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- Adds ResponseTimeout SDKErrorCode ([@Ariflo](https://github.com/Ariflo))
+- Removes `product_announcement` from JsonRpcResponsePayload [#720](https://github.com/magiclabs/magic-js/pull/720) ([@Ariflo](https://github.com/Ariflo))
+- Remove product_announcement from JsonRpcResponsePayload ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Update ViewController Listener and types to push log when product_announcement avaliable ([@Ariflo](https://github.com/Ariflo))
+- Adds product_type to types package ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+- adds reveal key method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 5
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jay Hwang ([@octave08](https://github.com/octave08))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
+# v23.0.0 (Fri Mar 15 2024)
+
+#### 🚀 Enhancement
+
+- Reverts - Adds Response Time out Error to RN SDKs [#725](https://github.com/magiclabs/magic-js/pull/725) ([@Ariflo](https://github.com/Ariflo))
+- Adds Response Time out Error to RN SDKs [#721](https://github.com/magiclabs/magic-js/pull/721) ([@Ariflo](https://github.com/Ariflo))
+- Add new "Product Announcement" Relayer Message Type [#718](https://github.com/magiclabs/magic-js/pull/718) ([@Ariflo](https://github.com/Ariflo))
+- Warn developers of Coming Deprecation of Universal Wallet API Keys [#716](https://github.com/magiclabs/magic-js/pull/716) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Reverts - Adds Response Time out Error to RN SDKs ([@Ariflo](https://github.com/Ariflo))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Adds ResponseTimeout SDKErrorCode ([@Ariflo](https://github.com/Ariflo))
+- Removes `product_announcement` from JsonRpcResponsePayload [#720](https://github.com/magiclabs/magic-js/pull/720) ([@Ariflo](https://github.com/Ariflo))
+- Remove product_announcement from JsonRpcResponsePayload ([@Ariflo](https://github.com/Ariflo))
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Update ViewController Listener and types to push log when product_announcement avaliable ([@Ariflo](https://github.com/Ariflo))
+- Adds product_type to types package ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Magic Labs (team@magic.link)
+
+---
+
 # v22.0.0 (Sat Mar 09 2024)
 
 #### 🚀 Enhancement
