@@ -2,6 +2,19 @@
 
 #### 🚀 Enhancement
 
+- `@magic-ext/kadena@0.2.0`
+  - kadena [#813](https://github.com/magiclabs/magic-js/pull/813) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# (Thu Oct 10 2024)
+
+#### 🚀 Enhancement
+
 - `@magic-sdk/types@24.10.0`
   - feat: add ping pong types for heartbeat [#815](https://github.com/magiclabs/magic-js/pull/815) ([@khamdam-magic](https://github.com/khamdam-magic))
 
