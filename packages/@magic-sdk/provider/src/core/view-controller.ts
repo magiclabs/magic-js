@@ -147,7 +147,7 @@ export abstract class ViewController {
   protected abstract _post(data: MagicMessageRequest): Promise<void>;
   protected abstract hideOverlay(): void;
   protected abstract showOverlay(): void;
-  protected abstract reloadIframe(): void;
+  protected reloadIframe?(): Promise<void> | undefined;
 
   private lastPingTime = Date.now();
   private pingTimer: ReturnType<typeof setInterval> | null = null;
@@ -273,19 +273,21 @@ export abstract class ViewController {
     this.lastPingTime = Date.now();
   };
 
+  private heartBeatCheck = () => {
+    this.pingTimer = setInterval(async () => {
+      this.ping();
+      const timeSinceLastPing = Date.now() - this.lastPingTime;
+
+      if (timeSinceLastPing > RELOAD_THRESHOLD) {
+        await this.reloadIframe?.();
+      }
+    }, PING_INTERVAL);
+  };
+
   private startHeartBeat = () => {
-    const heartBeatCheck = () => {
-      this.pingTimer = setInterval(() => {
-        this.ping();
-        const timeSinceLastPing = Date.now() - this.lastPingTime;
-
-        if (timeSinceLastPing > RELOAD_THRESHOLD) {
-          this.reloadIframe();
-        }
-      }, PING_INTERVAL);
-    };
-
-    setTimeout(heartBeatCheck, INITIAL_HEARTBEAT_DELAY);
+    if (this.reloadIframe) {
+      setTimeout(this.heartBeatCheck, INITIAL_HEARTBEAT_DELAY);
+    }
   };
 
   protected stopHeartBeat = () => {
