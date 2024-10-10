@@ -8,10 +8,12 @@ export enum MagicIncomingWindowMessage {
   MAGIC_HANDLE_EVENT = 'MAGIC_HANDLE_EVENT',
   MAGIC_MG_BOX_SEND_RECEIPT = 'MAGIC_MG_BOX_SEND_RECEIPT',
   MAGIC_SEND_PRODUCT_ANNOUNCEMENT = 'MAGIC_SEND_PRODUCT_ANNOUNCEMENT',
+  MAGIC_PONG = 'MAGIC_PONG',
 }
 
 export enum MagicOutgoingWindowMessage {
   MAGIC_HANDLE_REQUEST = 'MAGIC_HANDLE_REQUEST',
+  MAGIC_PING = 'MAGIC_PING',
 }
 
 /** The shape of responding window message datas from the Magic iframe context. */
