@@ -1,3 +1,16 @@
+# (Thu Oct 10 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@24.10.0`
+  - feat: add ping pong types for heartbeat [#815](https://github.com/magiclabs/magic-js/pull/815) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
 # (Wed Sep 25 2024)
 
 #### 🚀 Enhancement
