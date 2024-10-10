@@ -130,7 +130,7 @@ export class IframeController extends ViewController {
 
   protected async reloadIframe() {
     const iframe = await this.iframe;
-    if (iframe && iframe.contentWindow) {
+    if (iframe?.contentWindow) {
       iframe.contentWindow.location.reload();
     } else {
       throw createModalNotReadyError();
