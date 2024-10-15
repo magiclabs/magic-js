@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-expressions */
 
 import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
+import { MagicIncomingWindowMessage, MagicMessageRequest, MagicOutgoingWindowMessage } from '@magic-sdk/types';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
@@ -45,13 +46,22 @@ function checkForSameSrcInstances(parameters: string) {
   return Boolean(iframes.find((iframe) => iframe.src.includes(parameters)));
 }
 
+const PING_INTERVAL = 10000; // 5 seconds
+const RELOAD_THRESHOLD = 10000; // 10 seconds
+const INITIAL_HEARTBEAT_DELAY = 5000; // 1 hour
+
 /**
  * View controller for the Magic `<iframe>` overlay.
  */
 export class IframeController extends ViewController {
   private iframe!: Promise<HTMLIFrameElement>;
   private activeElement: any = null;
+  private lastPingTime = Date.now();
+  private pingTimer: ReturnType<typeof setInterval> | null = null;
 
+  private getIframeSrc() {
+    return createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
+  }
   /**
    * Initializes the underlying `<iframe>` element.
    * Initializes the underlying `Window.onmessage` event listener.
@@ -65,7 +75,7 @@ export class IframeController extends ViewController {
           iframe.classList.add('magic-iframe');
           iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
           iframe.title = 'Secure Modal';
-          iframe.src = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
+          iframe.src = this.getIframeSrc();
           iframe.allow = 'clipboard-read; clipboard-write';
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
@@ -84,9 +94,20 @@ export class IframeController extends ViewController {
       }
     });
 
+    this.iframe.then((iframe) => {
+      iframe.addEventListener('load', async () => {
+        await this.startHeartBeat();
+      });
+    });
+
     window.addEventListener('message', (event: MessageEvent) => {
       if (event.origin === this.endpoint) {
         if (event.data && event.data.msgType && this.messageHandlers.size) {
+          const isPong = event.data.msgType.includes('MAGIC_PONG');
+
+          if (isPong) {
+            this.lastPingTime = Date.now();
+          }
           // If the response object is undefined, we ensure it's at least an
           // empty object before passing to the event listener.
           /* istanbul ignore next */
@@ -128,11 +149,43 @@ export class IframeController extends ViewController {
     }
   }
 
-  protected async reloadIframe() {
+  private heartBeatCheck() {
+    this.pingTimer = setInterval(async () => {
+      const message = { msgType: `MAGIC_PING-${this.parameters}`, payload: [] };
+
+      await this._post(message);
+
+      const timeSinceLastPing = Date.now() - this.lastPingTime;
+
+      if (timeSinceLastPing > RELOAD_THRESHOLD) {
+        await this.reloadIframe();
+      }
+    }, PING_INTERVAL);
+  }
+
+  private async startHeartBeat() {
     const iframe = await this.iframe;
 
-    if (iframe?.contentWindow) {
-      iframe.contentWindow.location.reload();
+    if (iframe) {
+      setTimeout(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
+    }
+  }
+
+  private stopHeartBeat() {
+    if (this.pingTimer) {
+      clearInterval(this.pingTimer);
+
+      this.pingTimer = null;
+    }
+  }
+
+  private async reloadIframe() {
+    const iframe = await this.iframe;
+
+    if (iframe) {
+      iframe.src = '';
+      iframe.src = this.getIframeSrc();
+      this.lastPingTime = Date.now();
     } else {
       throw createModalNotReadyError();
     }
