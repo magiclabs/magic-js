@@ -13,6 +13,8 @@ import {
   DisableMFAConfiguration,
   DisableMFAEventHandlers,
   DisableMFAEventEmit,
+  RecoveryFactorEventHandlers,
+  RecoverAccountEmit,
 } from '@magic-sdk/types';
 import { getItem, setItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
@@ -118,11 +120,18 @@ export class UserModule extends BaseModule {
   }
 
   public recoverAccount(configuration: RecoverAccountConfiguration) {
+    const { showUI = true } = configuration || {};
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.RecoverAccountTestMode : MagicPayloadMethod.RecoverAccount,
       [configuration],
     );
-    return this.request<boolean | null>(requestPayload);
+    const handle = this.request<boolean | null, RecoveryFactorEventHandlers>(requestPayload);
+    if (!showUI && handle) {
+      handle.on(RecoverAccountEmit.SendOtpCode, (otp: string) => {
+        this.createIntermediaryEvent(RecoverAccountEmit.SendOtpCode, requestPayload.id as string)(otp);
+      });
+    }
+    return handle;
   }
 
   public revealPrivateKey() {

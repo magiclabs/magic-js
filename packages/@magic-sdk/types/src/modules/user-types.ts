@@ -38,6 +38,17 @@ type RecoveryFactor = {
   value: string;
 };
 
+export enum RecoverAccountOnReceived {
+  EnterOtpCode = 'enter-otp-code',
+}
+export enum RecoverAccountEmit {
+  SendOtpCode = 'send-otp-code',
+}
+export type RecoveryFactorEventHandlers = {
+  [RecoverAccountEmit.SendOtpCode]: (otp: string) => void;
+  [RecoverAccountOnReceived.EnterOtpCode]: () => void;
+};
+
 export enum RecoveryMethodType {
   PhoneNumber = 'phone_number',
 }
@@ -73,6 +84,7 @@ export interface RecoverAccountConfiguration {
    * The email to recover
    */
   email: string;
+  showUI?: boolean;
 }
 
 export interface ShowSettingsConfiguration {
