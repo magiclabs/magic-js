@@ -1,7 +1,7 @@
 {
-  "name": "@magic-ext/icon",
-  "version": "23.12.0",
-  "description": "magic icon extension",
+  "name": "@magic-ext/kadena",
+  "version": "0.2.0",
+  "description": "Magic Kadena Extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
@@ -12,7 +12,7 @@
     "dist"
   ],
   "target": "neutral",
-  "cdnGlobalName": "MagicIconExtension",
+  "cdnGlobalName": "MagicKadenaExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^24.12.0"
+    "@magic-sdk/commons": "^24.10.0"
   }
 }
