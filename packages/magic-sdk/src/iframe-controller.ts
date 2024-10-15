@@ -46,9 +46,11 @@ function checkForSameSrcInstances(parameters: string) {
   return Boolean(iframes.find((iframe) => iframe.src.includes(parameters)));
 }
 
-const PING_INTERVAL = 10000; // 5 seconds
-const RELOAD_THRESHOLD = 10000; // 10 seconds
-const INITIAL_HEARTBEAT_DELAY = 5000; // 1 hour
+const SECOND = 1000;
+const MINUTE = 60 * SECOND;
+const RESPONSE_DELAY = 15 * SECOND; // 15 seconds
+const PING_INTERVAL = 2 * MINUTE; // 2 minutes
+const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
 
 /**
  * View controller for the Magic `<iframe>` overlay.
@@ -57,7 +59,8 @@ export class IframeController extends ViewController {
   private iframe!: Promise<HTMLIFrameElement>;
   private activeElement: any = null;
   private lastPingTime = Date.now();
-  private pingTimer: ReturnType<typeof setInterval> | null = null;
+  private intervalTimer: ReturnType<typeof setInterval> | null = null;
+  private timeoutTimer: ReturnType<typeof setTimeout> | null = null;
 
   private getIframeSrc() {
     return createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
@@ -103,9 +106,9 @@ export class IframeController extends ViewController {
     window.addEventListener('message', (event: MessageEvent) => {
       if (event.origin === this.endpoint) {
         if (event.data && event.data.msgType && this.messageHandlers.size) {
-          const isPong = event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG);
+          const isPongMessage = event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG);
 
-          if (isPong) {
+          if (isPongMessage) {
             this.lastPingTime = Date.now();
           }
           // If the response object is undefined, we ensure it's at least an
@@ -150,15 +153,16 @@ export class IframeController extends ViewController {
   }
 
   private heartBeatCheck() {
-    this.pingTimer = setInterval(async () => {
+    this.intervalTimer = setInterval(async () => {
       const message = { msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`, payload: [] };
 
       await this._post(message);
 
       const timeSinceLastPing = Date.now() - this.lastPingTime;
 
-      if (timeSinceLastPing > RELOAD_THRESHOLD) {
+      if (timeSinceLastPing > RESPONSE_DELAY) {
         await this.reloadIframe();
+        this.lastPingTime = Date.now();
       }
     }, PING_INTERVAL);
   }
@@ -167,15 +171,19 @@ export class IframeController extends ViewController {
     const iframe = await this.iframe;
 
     if (iframe) {
-      setTimeout(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
+      this.timeoutTimer = setTimeout(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
     }
   }
 
   private stopHeartBeat() {
-    if (this.pingTimer) {
-      clearInterval(this.pingTimer);
+    if (this.timeoutTimer) {
+      clearTimeout(this.timeoutTimer);
+      this.timeoutTimer = null;
+    }
 
-      this.pingTimer = null;
+    if (this.intervalTimer) {
+      clearInterval(this.intervalTimer);
+      this.intervalTimer = null;
     }
   }
 
@@ -185,7 +193,6 @@ export class IframeController extends ViewController {
     if (iframe) {
       iframe.src = '';
       iframe.src = this.getIframeSrc();
-      this.lastPingTime = Date.now();
     } else {
       throw createModalNotReadyError();
     }
