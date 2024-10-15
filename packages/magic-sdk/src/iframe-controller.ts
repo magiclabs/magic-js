@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-expressions */
 
 import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
-import { MagicIncomingWindowMessage, MagicMessageRequest, MagicOutgoingWindowMessage } from '@magic-sdk/types';
+import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage } from '@magic-sdk/types';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
@@ -103,7 +103,7 @@ export class IframeController extends ViewController {
     window.addEventListener('message', (event: MessageEvent) => {
       if (event.origin === this.endpoint) {
         if (event.data && event.data.msgType && this.messageHandlers.size) {
-          const isPong = event.data.msgType.includes('MAGIC_PONG');
+          const isPong = event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG);
 
           if (isPong) {
             this.lastPingTime = Date.now();
@@ -151,7 +151,7 @@ export class IframeController extends ViewController {
 
   private heartBeatCheck() {
     this.pingTimer = setInterval(async () => {
-      const message = { msgType: `MAGIC_PING-${this.parameters}`, payload: [] };
+      const message = { msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`, payload: [] };
 
       await this._post(message);
 
