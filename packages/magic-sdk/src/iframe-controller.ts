@@ -98,9 +98,11 @@ export class IframeController extends ViewController {
     });
 
     this.iframe.then((iframe) => {
-      iframe.addEventListener('load', async () => {
-        await this.startHeartBeat();
-      });
+      if (iframe instanceof HTMLIFrameElement) {
+        iframe.addEventListener('load', async () => {
+          await this.startHeartBeat();
+        });
+      }
     });
 
     window.addEventListener('message', (event: MessageEvent) => {
@@ -191,7 +193,6 @@ export class IframeController extends ViewController {
     const iframe = await this.iframe;
 
     if (iframe) {
-      iframe.src = '';
       iframe.src = this.getIframeSrc();
     } else {
       throw createModalNotReadyError();
