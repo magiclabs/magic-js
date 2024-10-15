@@ -113,10 +113,6 @@ async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
   await setItem('rt', event.data.rt);
 }
 
-const PING_INTERVAL = 5000; // 5 seconds
-const RELOAD_THRESHOLD = 10000; // 10 seconds
-const INITIAL_HEARTBEAT_DELAY = 3600000; // 1 hour
-
 export abstract class ViewController {
   public checkIsReadyForRequest: Promise<void>;
   public isReadyForRequest: boolean;
@@ -140,17 +136,12 @@ export abstract class ViewController {
     this.checkIsReadyForRequest = this.waitForReady();
     this.isReadyForRequest = false;
     this.listen();
-    this.startHeartBeat();
   }
 
   protected abstract init(): void;
   protected abstract _post(data: MagicMessageRequest): Promise<void>;
   protected abstract hideOverlay(): void;
   protected abstract showOverlay(): void;
-  protected reloadIframe?(): Promise<void> | undefined;
-
-  private lastPingTime = Date.now();
-  private pingTimer: ReturnType<typeof setInterval> | null = null;
 
   /**
    * Send a payload to the Magic `<iframe>` for processing and automatically
@@ -268,36 +259,6 @@ export abstract class ViewController {
     });
   }
 
-  private ping = () => {
-    this._post({ msgType: MagicOutgoingWindowMessage.MAGIC_PING, payload: [] });
-    this.lastPingTime = Date.now();
-  };
-
-  private heartBeatCheck = () => {
-    this.pingTimer = setInterval(async () => {
-      this.ping();
-      const timeSinceLastPing = Date.now() - this.lastPingTime;
-
-      if (timeSinceLastPing > RELOAD_THRESHOLD) {
-        await this.reloadIframe?.();
-      }
-    }, PING_INTERVAL);
-  };
-
-  private startHeartBeat = () => {
-    if (this.reloadIframe) {
-      setTimeout(this.heartBeatCheck, INITIAL_HEARTBEAT_DELAY);
-    }
-  };
-
-  protected stopHeartBeat = () => {
-    if (this.pingTimer) {
-      clearInterval(this.pingTimer);
-
-      this.pingTimer = null;
-    }
-  };
-
   /**
    * Listen for messages sent from the underlying Magic `<WebView>`.
    */
@@ -314,10 +275,6 @@ export abstract class ViewController {
       if (event.data.response.result.product_announcement) {
         new MagicSDKWarning(SDKWarningCode.ProductAnnouncement, event.data.response.result.product_announcement).log();
       }
-    });
-
-    this.on(MagicIncomingWindowMessage.MAGIC_PONG, () => {
-      this.lastPingTime = Date.now();
     });
   }
 }
