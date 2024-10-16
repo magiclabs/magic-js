@@ -86,7 +86,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
 
       // try to open the pop up.
       popup = window.open(
-        `http://localhost:3024/oauth2/popup/start/${configuration.provider}?dpop=${jwt}&magicApiKey=${this.sdk.apiKey}`,
+        `https://auth.magic.link/oauth2/popup/start/${configuration.provider}?dpop=${jwt}&magicApiKey=${this.sdk.apiKey}`,
         '_blank',
         `width=${width},height=${height},left=${left},top=${top}`,
       );
