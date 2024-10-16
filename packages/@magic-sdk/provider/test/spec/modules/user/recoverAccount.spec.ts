@@ -37,7 +37,7 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
   expect(requestPayload.method).toBe('magic_auth_recover_account_testing_mode');
   expect(requestPayload.params).toEqual([{ email: 'test' }]);
 });
-test('attach event handlers when showUI is false', async () => {
+test('attach event handlers when showUI is false', () => {
   const magic = createMagicSDK();
   const mockOn = jest.fn();
   const mockHandle = { on: mockOn };
@@ -47,7 +47,7 @@ test('attach event handlers when showUI is false', async () => {
 
   expect(mockOn).toHaveBeenCalledWith('send-otp-code', expect.any(Function));
 });
-test('does not attach event handlers when showUI is true (default)', async () => {
+test('does not attach event handlers when showUI is true (default)', () => {
   const magic = createMagicSDK();
   const mockOn = jest.fn();
   const mockHandle = { on: mockOn };
@@ -57,7 +57,7 @@ test('does not attach event handlers when showUI is true (default)', async () =>
 
   expect(mockOn).not.toHaveBeenCalled();
 });
-test('handle recoverAccount without configuration', async () => {
+test('handle recoverAccount without configuration', () => {
   const magic = createMagicSDK();
   magic.user.request = jest.fn();
 
@@ -67,7 +67,7 @@ test('handle recoverAccount without configuration', async () => {
   expect(requestPayload.method).toBe('magic_auth_recover_account');
   expect(requestPayload.params).toEqual([undefined]);
 });
-test('handle request failure gracefully', async () => {
+test('handle request failure gracefully', () => {
   const magic = createMagicSDK();
   magic.user.request = jest.fn(() => {
     throw new Error('Request failed');
@@ -75,7 +75,7 @@ test('handle request failure gracefully', async () => {
 
   expect(() => magic.user.recoverAccount({ email: 'test' })).toThrow('Request failed');
 });
-test('handle invalid configuration', async () => {
+test('handle invalid configuration', () => {
   const magic = createMagicSDK();
   magic.user.request = jest.fn();
 
@@ -98,13 +98,13 @@ test('handles null configuration gracefully', async () => {
   const magic = createMagicSDK();
   magic.user.request = jest.fn();
 
-  await magic.user.recoverAccount(null as any);
+  await magic.user.recoverAccount(null);
 
   const requestPayload = magic.user.request.mock.calls[0][0];
   expect(requestPayload.method).toBe('magic_auth_recover_account');
   expect(requestPayload.params).toEqual([null]);
 });
-test('gracefully handles invalid event emission', async () => {
+test('gracefully handles invalid event emission', () => {
   const magic = createMagicSDK();
   const mockOn = jest.fn();
   const mockHandle = { on: mockOn };
