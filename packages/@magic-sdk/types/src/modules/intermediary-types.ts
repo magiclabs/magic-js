@@ -22,6 +22,7 @@ import { NftCheckoutIntermediaryEvents } from './nft-types';
 
 import { WalletEventOnReceived } from './wallet-types';
 import { UiEventsEmit } from './common-types';
+import { RecoveryFactorEventEmit, RecoveryFactorEventOnReceived } from './user-types';
 
 export type IntermediaryEvents =
   // EmailOTP
@@ -45,6 +46,9 @@ export type IntermediaryEvents =
   // Auth Events
   | `${AuthEventOnReceived}`
   | `${WalletEventOnReceived}`
+  // Show Settings Events
+  | `${RecoveryFactorEventOnReceived}`
+  | `${RecoveryFactorEventEmit}`
   // Nft Checkout Events
   | `${NftCheckoutIntermediaryEvents}`
   // Farcaster Login Events

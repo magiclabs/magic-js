@@ -13,6 +13,9 @@ import {
   DisableMFAConfiguration,
   DisableMFAEventHandlers,
   DisableMFAEventEmit,
+  RecencyCheckEventEmit,
+  RecoveryFactorEventHandlers,
+  RecoveryFactorEventEmit,
 } from '@magic-sdk/types';
 import { getItem, setItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
@@ -110,11 +113,30 @@ export class UserModule extends BaseModule {
   }
 
   public showSettings(configuration?: ShowSettingsConfiguration) {
+    const { showUI = true } = configuration || {};
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.UserSettingsTestMode : MagicPayloadMethod.UserSettings,
       [configuration],
     );
-    return this.request<MagicUserMetadata>(requestPayload);
+    const handle = this.request<string | null, RecoveryFactorEventHandlers>(requestPayload);
+    if (!showUI && handle) {
+      handle.on(RecoveryFactorEventEmit.SendNewPhoneNumber, (phone_number: string) => {
+        this.createIntermediaryEvent(
+          RecoveryFactorEventEmit.SendNewPhoneNumber,
+          requestPayload.id as string,
+        )(phone_number);
+      });
+      handle.on(RecoveryFactorEventEmit.SendOtpCode, (otp: string) => {
+        this.createIntermediaryEvent(RecoveryFactorEventEmit.SendOtpCode, requestPayload.id as string)(otp);
+      });
+      handle.on(RecoveryFactorEventEmit.StartEditPhoneNumber, () => {
+        this.createIntermediaryEvent(RecoveryFactorEventEmit.StartEditPhoneNumber, requestPayload.id as string)();
+      });
+      handle.on(RecencyCheckEventEmit.VerifyEmailOtp, (otp: string) => {
+        this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyEmailOtp, requestPayload.id as string)(otp);
+      });
+    }
+    return handle;
   }
 
   public recoverAccount(configuration: RecoverAccountConfiguration) {

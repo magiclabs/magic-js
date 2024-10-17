@@ -302,7 +302,7 @@ type DeviceVerificationEventHandlers = {
  * Update Email
  */
 
-type RecencyCheckEventHandlers = {
+export type RecencyCheckEventHandlers = {
   [RecencyCheckEventOnReceived.PrimaryAuthFactorNeedsVerification]: () => void;
   [RecencyCheckEventOnReceived.PrimaryAuthFactorVerified]: () => void;
   [RecencyCheckEventOnReceived.InvalidEmailOtp]: () => void;
