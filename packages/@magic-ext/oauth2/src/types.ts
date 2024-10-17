@@ -3,6 +3,7 @@ import { MagicUserMetadata } from '@magic-sdk/types';
 export enum OAuthPayloadMethods {
   Start = 'magic_oauth_login_with_redirect_start',
   Verify = 'magic_oauth_login_with_redirect_verify',
+  StartPopup = 'magic_oauth_login_with_popup_start',
 }
 
 export type OAuthProvider =
@@ -111,3 +112,27 @@ export enum OAuthErrorCode {
   ServerError = 'server_error',
   TemporarilyUnavailable = 'temporarily_unavailable',
 }
+
+export interface OAuthPopupConfiguration {
+  provider: OAuthProvider;
+}
+
+export interface OAuthPopupResult {
+  verifyData: OAuthVerifyResponse;
+  requestOriginMessage: string;
+}
+
+export type OAuthVerifyResponse = {
+  authUserId: string;
+  authUserSessionToken: string;
+  oauthAccessToken: string;
+  refreshToken?: string;
+  factorsRequired?: MfaFactors;
+  loginFlowContext?: string;
+  userInfo: OpenIDConnectUserInfo;
+};
+
+export type MfaFactors = Array<{
+  type: Array<'email_link' | 'totp' | 'recovery_codes' | 'public_address' | 'sms'>;
+  isVerified: boolean;
+}>;
