@@ -82,11 +82,16 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       const height = 568;
       const left = window.screenLeft + (window.outerWidth / 2 - width / 2);
       const top = window.screenTop + window.outerHeight * 0.15;
-      const jwt = await createJwt();
+      const dpop = (await createJwt()) as string;
+      const magicApiKey = this.sdk.apiKey;
+      const params = new URLSearchParams({
+        dpop,
+        magicApiKey,
+      });
 
       // try to open the pop up.
       popup = window.open(
-        `https://auth.magic.link/oauth2/popup/start/${configuration.provider}?dpop=${jwt}&magicApiKey=${this.sdk.apiKey}`,
+        `https://auth.magic.link/oauth2/popup/start?${params.toString()}`,
         '_blank',
         `width=${width},height=${height},left=${left},top=${top}`,
       );
@@ -98,7 +103,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       }
 
       const messageListener = (event: MessageEvent) => {
-        if (event.data.msgType !== MagicIncomingWindowMessage.MAGIC_POPUP_RESPONSE) return;
+        if (event.data.msgType !== MagicIncomingWindowMessage.MAGIC_POPUP_RESPONSE || event.source !== popup) return;
 
         if (
           event.data.method === MagicIncomingWindowMessage.MAGIC_POPUP_OAUTH_VERIFY_RESPONSE ||
