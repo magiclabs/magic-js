@@ -174,7 +174,7 @@ export class AuthModule extends BaseModule {
         this.createIntermediaryEvent(RecencyCheckEventEmit.Cancel, requestPayload.id as any)();
       });
       handle.on(RecencyCheckEventEmit.VerifyEmailOtp, (otp: string) => {
-        this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
+        this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyEmailOtp, requestPayload.id as string)(otp);
       });
       handle.on(RecencyCheckEventEmit.VerifyMFACode, (mfa: string) => {
         this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
