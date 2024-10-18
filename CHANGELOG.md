@@ -1,3 +1,21 @@
+# (Fri Oct 18 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.13.0`, `@magic-sdk/types@24.11.0`
+  - feat: recovery facto whitelabeling [#818](https://github.com/magiclabs/magic-js/pull/818) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- Update .deepsource.toml [#804](https://github.com/magiclabs/magic-js/pull/804) ([@Magic-Brandan](https://github.com/Magic-Brandan))
+
+#### Authors: 2
+
+- [@Magic-Brandan](https://github.com/Magic-Brandan)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # (Thu Oct 10 2024)
 
 #### 🚀 Enhancement

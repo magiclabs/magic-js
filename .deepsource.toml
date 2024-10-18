@@ -5,3 +5,7 @@ name = "secrets"
 
 [[analyzers]]
 name = "javascript"
+
+[[analyzers]]
+name = "secrets"
+enabled = true

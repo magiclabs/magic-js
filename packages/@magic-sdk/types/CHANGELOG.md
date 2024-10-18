@@ -1,3 +1,22 @@
+# v24.11.0 (Fri Oct 18 2024)
+
+#### 🚀 Enhancement
+
+- feat: recovery facto whitelabeling [#818](https://github.com/magiclabs/magic-js/pull/818) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-350-White-label-recovery-factor-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Update .deepsource.toml [#804](https://github.com/magiclabs/magic-js/pull/804) ([@Magic-Brandan](https://github.com/Magic-Brandan))
+- feat: recovery facto whitelabeling ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 2
+
+- [@Magic-Brandan](https://github.com/Magic-Brandan)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v24.10.0 (Thu Oct 10 2024)
 
 #### 🚀 Enhancement
