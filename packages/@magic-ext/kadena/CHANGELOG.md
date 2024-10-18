@@ -1,3 +1,15 @@
+# v0.3.0 (Fri Oct 18 2024)
+
+#### 🐛 Bug Fix
+
+- Update .deepsource.toml [#804](https://github.com/magiclabs/magic-js/pull/804) ([@Magic-Brandan](https://github.com/Magic-Brandan))
+
+#### Authors: 1
+
+- [@Magic-Brandan](https://github.com/Magic-Brandan)
+
+---
+
 # v0.2.0 (Thu Oct 10 2024)
 
 #### 🚀 Enhancement
