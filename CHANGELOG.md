@@ -2,6 +2,19 @@
 
 #### 🚀 Enhancement
 
+- `@magic-sdk/types@24.12.0`
+  - feat: a new type for malformed phone number [#821](https://github.com/magiclabs/magic-js/pull/821) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# (Fri Oct 18 2024)
+
+#### 🚀 Enhancement
+
 - `@magic-sdk/provider@28.13.0`, `@magic-sdk/types@24.11.0`
   - feat: recovery facto whitelabeling [#818](https://github.com/magiclabs/magic-js/pull/818) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
 

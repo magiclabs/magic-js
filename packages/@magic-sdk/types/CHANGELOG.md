@@ -1,3 +1,21 @@
+# v24.12.0 (Fri Oct 18 2024)
+
+#### 🚀 Enhancement
+
+- feat: a new type for malformed phone number [#821](https://github.com/magiclabs/magic-js/pull/821) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- fix: correcting misspelling ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into missed_type_for_recovery_factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- feat: a new type for malformed phone number ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v24.11.0 (Fri Oct 18 2024)
 
 #### 🚀 Enhancement
