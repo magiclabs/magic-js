@@ -38,6 +38,7 @@ export enum RecoveryFactorEventOnReceived {
   EnterNewPhoneNumber = 'enter-new-phone-number',
   EnterOtpCode = 'enter-otp-code',
   RecoveryFactorAlreadyExists = 'recovery-factor-already-exists',
+  MalformedPhoneNumber = 'malfromed-phone-number',
   InvalidOtpCode = 'invalid-otp-code',
 }
 
@@ -62,6 +63,7 @@ export type RecoveryFactorEventHandlers = {
   [RecoveryFactorEventOnReceived.EnterNewPhoneNumber]: () => void;
   [RecoveryFactorEventOnReceived.EnterOtpCode]: () => void;
   [RecoveryFactorEventOnReceived.RecoveryFactorAlreadyExists]: () => void;
+  [RecoveryFactorEventOnReceived.MalformedPhoneNumber]: () => void;
   [RecoveryFactorEventOnReceived.InvalidOtpCode]: () => void;
 } & RecencyCheckEventHandlers;
 
