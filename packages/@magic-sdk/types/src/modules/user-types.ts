@@ -38,7 +38,7 @@ export enum RecoveryFactorEventOnReceived {
   EnterNewPhoneNumber = 'enter-new-phone-number',
   EnterOtpCode = 'enter-otp-code',
   RecoveryFactorAlreadyExists = 'recovery-factor-already-exists',
-  MalformedPhoneNumber = 'malfromed-phone-number',
+  MalformedPhoneNumber = 'malformed-phone-number',
   InvalidOtpCode = 'invalid-otp-code',
 }
 
