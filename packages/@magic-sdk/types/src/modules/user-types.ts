@@ -1,3 +1,4 @@
+import { RecencyCheckEventHandlers } from './auth-types';
 import { DeepLinkPage } from '../core/deep-link-pages';
 
 export interface GetIdTokenConfiguration {
@@ -33,10 +34,38 @@ export interface MagicUserMetadata {
   recoveryFactors: [RecoveryFactor];
 }
 
+export enum RecoveryFactorEventOnReceived {
+  EnterNewPhoneNumber = 'enter-new-phone-number',
+  EnterOtpCode = 'enter-otp-code',
+  RecoveryFactorAlreadyExists = 'recovery-factor-already-exists',
+  MalformedPhoneNumber = 'malformed-phone-number',
+  InvalidOtpCode = 'invalid-otp-code',
+}
+
+export enum RecoveryFactorEventEmit {
+  SendNewPhoneNumber = 'send-new-phone-number',
+  SendOtpCode = 'send-otp-code',
+  StartEditPhoneNumber = 'start-edit-phone-number',
+}
+
 type RecoveryFactor = {
   type: RecoveryMethodType;
   value: string;
 };
+
+export type RecoveryFactorEventHandlers = {
+  // Event Received
+  [RecoveryFactorEventEmit.SendNewPhoneNumber]: (phone_number: string) => void;
+  [RecoveryFactorEventEmit.SendOtpCode]: (otp: string) => void;
+  [RecoveryFactorEventEmit.StartEditPhoneNumber]: () => void;
+
+  // Event sent
+  [RecoveryFactorEventOnReceived.EnterNewPhoneNumber]: () => void;
+  [RecoveryFactorEventOnReceived.EnterOtpCode]: () => void;
+  [RecoveryFactorEventOnReceived.RecoveryFactorAlreadyExists]: () => void;
+  [RecoveryFactorEventOnReceived.MalformedPhoneNumber]: () => void;
+  [RecoveryFactorEventOnReceived.InvalidOtpCode]: () => void;
+} & RecencyCheckEventHandlers;
 
 export enum RecoveryMethodType {
   PhoneNumber = 'phone_number',
@@ -80,4 +109,5 @@ export interface ShowSettingsConfiguration {
    * deep linking destination
    */
   page: DeepLinkPage;
+  showUI?: boolean;
 }
