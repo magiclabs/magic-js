@@ -115,7 +115,7 @@ export class AuthModule extends BaseModule {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
       });
       handle.on(LoginWithEmailOTPEventEmit.LostDevice, (recoveryCode: string) => {
-        this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.LostDevice, requestPayload.id as any)(recoveryCode);
+        this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.LostDevice, requestPayload.id as string)(recoveryCode);
       });
       handle.on(LoginWithEmailOTPEventEmit.Cancel, () => {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.Cancel, requestPayload.id as any)();
