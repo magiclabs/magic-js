@@ -1,3 +1,34 @@
+# v28.14.0 (Fri Oct 18 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into missed_type_for_recovery_factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v28.13.0 (Fri Oct 18 2024)
+
+#### 🚀 Enhancement
+
+- feat: recovery facto whitelabeling [#818](https://github.com/magiclabs/magic-js/pull/818) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-350-White-label-recovery-factor-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Update .deepsource.toml [#804](https://github.com/magiclabs/magic-js/pull/804) ([@Magic-Brandan](https://github.com/Magic-Brandan))
+- feat: recovery facto whitelabeling ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 2
+
+- [@Magic-Brandan](https://github.com/Magic-Brandan)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v28.11.0 (Wed Sep 25 2024)
 
 #### 🚀 Enhancement
