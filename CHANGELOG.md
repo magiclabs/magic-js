@@ -1,3 +1,16 @@
+# (Tue Oct 22 2024)
+
+#### 🚀 Enhancement
+
+- `magic-sdk@28.15.0`
+  - feat: add iframe heartbeat implementation. [#816](https://github.com/magiclabs/magic-js/pull/816) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
 # (Fri Oct 18 2024)
 
 #### 🚀 Enhancement
