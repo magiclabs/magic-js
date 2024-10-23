@@ -173,6 +173,7 @@ export enum LoginWithEmailOTPEventOnReceived {
   InvalidMfaOtp = 'invalid-mfa-otp',
   ExpiredEmailOtp = 'expired-email-otp',
   MfaSentHandle = 'mfa-sent-handle',
+  RecoveryCodeSentHandle = 'recovery-code-sent-handle',
   InvalidRecoveryCode = 'invalid-recovery-code',
 }
 
@@ -281,6 +282,7 @@ export type LoginWithEmailOTPEventHandlers = {
   [LoginWithEmailOTPEventOnReceived.InvalidMfaOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.MfaSentHandle]: () => void;
+  [LoginWithEmailOTPEventOnReceived.RecoveryCodeSentHandle]: () => void;
   [LoginWithEmailOTPEventOnReceived.InvalidRecoveryCode]: () => void;
   [AuthEventOnReceived.IDTokenCreated]: (idToken: string) => void;
   [WalletEventOnReceived.WalletInfoFetched]: () => void;
