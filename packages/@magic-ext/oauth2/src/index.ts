@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import { Extension } from '@magic-sdk/commons';
+import { Extension, MagicIncomingWindowMessage } from '@magic-sdk/commons';
 import {
   OAuthErrorData,
   OAuthRedirectError,
@@ -8,6 +8,7 @@ import {
   OAuthRedirectConfiguration,
   OAuthPayloadMethods,
   OAuthRedirectStartResult,
+  OAuthPopupConfiguration,
 } from './types';
 
 export class OAuthExtension extends Extension.Internal<'oauth2'> {
@@ -63,6 +64,90 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     window.history.replaceState(null, '', urlWithoutQuery);
 
     return getResult.call(this, queryString, lifespan);
+  }
+
+  public loginWithPopup(configuration: OAuthPopupConfiguration) {
+    let popup: Window | null = null;
+    const width = 448;
+    const height = 568;
+    const left = window.screenLeft + (window.outerWidth / 2 - width / 2);
+    const top = window.screenTop + window.outerHeight * 0.15;
+
+    return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
+      // Reject if popup already exists to prevent multiple instances
+      if (popup) {
+        reject(new Error('Popup window already exists'));
+        return;
+      }
+
+      const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
+        {
+          ...configuration,
+          redirectURI: 'http://localhost:3024/oauth2/popup/verify',
+          apiKey: this.sdk.apiKey,
+          platform: 'web',
+        },
+      ]);
+
+      const result = await this.request<OAuthRedirectStartResult | OAuthRedirectError>(parseRedirectResult);
+      const successResult = result as OAuthRedirectStartResult;
+      const errorResult = result as OAuthRedirectError;
+
+      if (errorResult.error) {
+        reject(
+          this.createError<OAuthErrorData>(errorResult.error, errorResult.error_description ?? 'An error occurred.', {
+            errorURI: errorResult.error_uri,
+            provider: errorResult.provider,
+          }),
+        );
+      }
+      if (!successResult?.oauthAuthoriationURI) {
+        reject(new Error('Internal error'));
+      }
+
+      console.log('Starting OAuth Popup');
+
+      popup = window.open(
+        successResult.oauthAuthoriationURI,
+        '_blank',
+        `width=${width},height=${height},left=${left},top=${top}`,
+      );
+
+      if (!popup) {
+        reject(new Error('Failed to open popup window'));
+        return;
+      }
+
+      const checkPopupClosed = setInterval(() => {
+        if (popup?.closed) {
+          clearInterval(checkPopupClosed);
+          reject(new Error('User denied action'));
+        }
+      }, 1000);
+
+      const messageListener = async (event: MessageEvent) => {
+        if (event.data.msgType !== MagicIncomingWindowMessage.MAGIC_POPUP_RESPONSE || event.source !== popup) return;
+
+        if (event.data.method === MagicIncomingWindowMessage.MAGIC_POPUP_OAUTH_VERIFY_RESPONSE) {
+          window.removeEventListener('message', messageListener);
+          clearInterval(checkPopupClosed);
+
+          if (event.data.payload.authorizationResponseParams) {
+            console.log('Verifying OAuth response');
+            try {
+              const verificationResult = await getResult.call(this, event.data.payload.authorizationResponseParams);
+              resolve(verificationResult);
+            } catch (error) {
+              reject(error);
+            }
+          } else {
+            reject(new Error('Internal error: Missing authorization response'));
+          }
+        }
+      };
+
+      window.addEventListener('message', messageListener);
+    });
   }
 }
 
