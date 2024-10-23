@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import { Extension } from '@magic-sdk/commons';
+import { Extension, MagicIncomingWindowMessage } from '@magic-sdk/commons';
+import { createJwt, createPromiEvent } from '@magic-sdk/provider';
 import {
   OAuthErrorData,
   OAuthRedirectError,
@@ -8,6 +9,8 @@ import {
   OAuthRedirectConfiguration,
   OAuthPayloadMethods,
   OAuthRedirectStartResult,
+  OAuthPopupConfiguration,
+  OAuthPopupResult,
 } from './types';
 
 export class OAuthExtension extends Extension.Internal<'oauth2'> {
@@ -63,6 +66,70 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     window.history.replaceState(null, '', urlWithoutQuery);
 
     return getResult.call(this, queryString, lifespan);
+  }
+
+  public loginWithPopup(configuration: OAuthPopupConfiguration) {
+    let popup: Window | null = null;
+
+    const promiEvent = createPromiEvent<OAuthPopupResult>(async (resolve, reject) => {
+      // see if the popup already exists.
+      if (popup) {
+        reject(new Error('Popup window already exists'));
+        return;
+      }
+
+      const width = 448;
+      const height = 568;
+      const left = window.screenLeft + (window.outerWidth / 2 - width / 2);
+      const top = window.screenTop + window.outerHeight * 0.15;
+      const dpop = (await createJwt()) as string;
+      const magicApiKey = this.sdk.apiKey;
+      const params = new URLSearchParams({
+        dpop,
+        magicApiKey,
+      });
+
+      // try to open the pop up.
+      popup = window.open(
+        `https://auth.magic.link/oauth2/popup/start?${params.toString()}`,
+        '_blank',
+        `width=${width},height=${height},left=${left},top=${top}`,
+      );
+
+      // see if the popup was blocked and throw an error accordingly
+      if (!popup) {
+        reject(new Error('Failed to open popup window'));
+        return;
+      }
+
+      const messageListener = (event: MessageEvent) => {
+        if (event.data.msgType !== MagicIncomingWindowMessage.MAGIC_POPUP_RESPONSE || event.source !== popup) return;
+
+        if (
+          event.data.method === MagicIncomingWindowMessage.MAGIC_POPUP_OAUTH_VERIFY_RESPONSE ||
+          event.data.method === MagicIncomingWindowMessage.MAGIC_POPUP_OAUTH_ERROR
+        ) {
+          window.removeEventListener('message', messageListener);
+
+          if (event.data.payload.error) {
+            reject(new Error(event.data.payload.error));
+          } else {
+            resolve(event.data.payload);
+          }
+        }
+      };
+
+      window.addEventListener('message', messageListener);
+
+      const checkPopupClosed = setInterval(() => {
+        if (popup?.closed) {
+          clearInterval(checkPopupClosed);
+          reject(new Error('User denied action'));
+        }
+      }, 1000);
+    });
+
+    return promiEvent;
   }
 }
 
