@@ -151,6 +151,7 @@ export enum LoginWithEmailOTPEventEmit {
   VerifyEmailOtp = 'verify-email-otp',
   VerifyMFACode = 'verify-mfa-code',
   LostDevice = 'lost-device',
+  VerifyRecoveryCode = 'verify-recovery-code',
   Cancel = 'cancel',
 }
 
@@ -287,7 +288,8 @@ export type LoginWithEmailOTPEventHandlers = {
   // Event sent
   [LoginWithEmailOTPEventEmit.VerifyEmailOtp]: (otp: string) => void;
   [LoginWithEmailOTPEventEmit.VerifyMFACode]: (mfa: string) => void;
-  [LoginWithEmailOTPEventEmit.LostDevice]: (recoveryCode: string) => void;
+  [LoginWithEmailOTPEventEmit.LostDevice]: () => void;
+  [LoginWithEmailOTPEventEmit.VerifyRecoveryCode]: (recoveryCode: string) => void;
   [LoginWithEmailOTPEventEmit.Cancel]: () => void;
 } & DeviceVerificationEventHandlers;
 
