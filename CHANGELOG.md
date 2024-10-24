@@ -1,3 +1,29 @@
+# (Tue Oct 22 2024)
+
+#### 🚀 Enhancement
+
+- `magic-sdk@28.15.0`
+  - feat: add iframe heartbeat implementation. [#816](https://github.com/magiclabs/magic-js/pull/816) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
+# (Fri Oct 18 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@24.12.0`
+  - feat: a new type for malformed phone number [#821](https://github.com/magiclabs/magic-js/pull/821) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # (Fri Oct 18 2024)
 
 #### 🚀 Enhancement
