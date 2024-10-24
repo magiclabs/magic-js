@@ -132,6 +132,9 @@ export class UserModule extends BaseModule {
       handle.on(RecoveryFactorEventEmit.StartEditPhoneNumber, () => {
         this.createIntermediaryEvent(RecoveryFactorEventEmit.StartEditPhoneNumber, requestPayload.id as string)();
       });
+      handle.on(RecoveryFactorEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(RecoveryFactorEventEmit.Cancel, requestPayload.id as string)();
+      });
       handle.on(RecencyCheckEventEmit.VerifyEmailOtp, (otp: string) => {
         this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyEmailOtp, requestPayload.id as string)(otp);
       });

@@ -45,6 +45,7 @@ export enum RecoveryFactorEventOnReceived {
 export enum RecoveryFactorEventEmit {
   SendNewPhoneNumber = 'send-new-phone-number',
   SendOtpCode = 'send-otp-code',
+  Cancel = 'cancel',
   StartEditPhoneNumber = 'start-edit-phone-number',
 }
 
@@ -58,6 +59,7 @@ export type RecoveryFactorEventHandlers = {
   [RecoveryFactorEventEmit.SendNewPhoneNumber]: (phone_number: string) => void;
   [RecoveryFactorEventEmit.SendOtpCode]: (otp: string) => void;
   [RecoveryFactorEventEmit.StartEditPhoneNumber]: () => void;
+  [RecoveryFactorEventEmit.Cancel]: () => void;
 
   // Event sent
   [RecoveryFactorEventOnReceived.EnterNewPhoneNumber]: () => void;
