@@ -2332,7 +2332,7 @@ __metadata:
     "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@babel/runtime": ^7.9.6
     "@magic-ext/oauth": ^22.14.0
-    magic-sdk: ^28.14.0
+    magic-sdk: ^28.15.0
   languageName: unknown
   linkType: soft
 
@@ -12780,7 +12780,7 @@ fsevents@^2.3.2:
   languageName: unknown
   linkType: soft
 
-"magic-sdk@^28.14.0, magic-sdk@workspace:packages/magic-sdk":
+"magic-sdk@^28.15.0, magic-sdk@workspace:packages/magic-sdk":
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
