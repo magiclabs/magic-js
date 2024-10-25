@@ -8,6 +8,7 @@ jest.mock('@magic-sdk/types', () => ({
   RecoveryFactorEventEmit: {
     SendNewPhoneNumber: 'send-new-phone-number',
     SendOtpCode: 'send-otp-code',
+    Cancel: 'cancel',
     StartEditPhoneNumber: 'start-edit-phone-number',
   },
 }));
@@ -146,6 +147,25 @@ test('ShowSettings should call createIntermediaryEvent with StartEditPhoneNumber
   magic.user.createIntermediaryEvent = jest.fn(() => createIntermediaryEventFn);
 
   const startEditPhoneNumberListener = mockOn.mock.calls.find((call) => call[0] === 'start-edit-phone-number')[1];
+
+  startEditPhoneNumberListener();
+
+  expect(createIntermediaryEventFn).toHaveBeenCalled();
+});
+test('ShowSettings should call createIntermediaryEvent with Cancel', () => {
+  const magic = createMagicSDK();
+  const mockOn = jest.fn();
+  const mockHandle = { on: mockOn };
+
+  magic.user.request = jest.fn().mockReturnValue(mockHandle);
+
+  const config = { page: DeepLinkPage.Recovery, showUI: false };
+  magic.user.showSettings(config);
+
+  const createIntermediaryEventFn = jest.fn();
+  magic.user.createIntermediaryEvent = jest.fn(() => createIntermediaryEventFn);
+
+  const startEditPhoneNumberListener = mockOn.mock.calls.find((call) => call[0] === 'cancel')[1];
 
   startEditPhoneNumberListener();
 
