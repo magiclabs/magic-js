@@ -2,6 +2,26 @@
 
 #### 🚀 Enhancement
 
+- `@magic-sdk/provider@28.16.0`, `@magic-sdk/types@24.14.0`
+  - Pdeexp 1951 lost device event does not emit whitelabel mfa provider [#826](https://github.com/magiclabs/magic-js/pull/826) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@24.14.0`
+  - feat: add invalid-recovery-code type to loginWithEmailOtp [#827](https://github.com/magiclabs/magic-js/pull/827) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+  - Pdeexp 1951 lost device event does not emit whitelabel mfa [#825](https://github.com/magiclabs/magic-js/pull/825) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Oct 25 2024)
+
+#### 🚀 Enhancement
+
 - `@magic-sdk/provider@28.15.0`, `@magic-sdk/types@24.13.0`
   - fix: cancel event for recovery factor [#829](https://github.com/magiclabs/magic-js/pull/829) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
 
