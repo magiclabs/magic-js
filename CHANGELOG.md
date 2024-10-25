@@ -1,3 +1,16 @@
+# (Fri Oct 25 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.15.0`, `@magic-sdk/types@24.13.0`
+  - fix: cancel event for recovery factor [#829](https://github.com/magiclabs/magic-js/pull/829) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # (Tue Oct 22 2024)
 
 #### 🚀 Enhancement

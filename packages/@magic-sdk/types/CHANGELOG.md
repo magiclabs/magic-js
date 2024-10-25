@@ -1,3 +1,20 @@
+# v24.13.0 (Fri Oct 25 2024)
+
+#### 🚀 Enhancement
+
+- fix: cancel event for recovery factor [#829](https://github.com/magiclabs/magic-js/pull/829) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into cancel-event-for-recovery-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- fix: cancel event for recovery factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v24.12.0 (Fri Oct 18 2024)
 
 #### 🚀 Enhancement
