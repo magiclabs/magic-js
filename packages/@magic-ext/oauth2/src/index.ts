@@ -105,8 +105,6 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
         reject(new Error('Internal error'));
       }
 
-      console.log('Starting OAuth Popup');
-
       popup = window.open(
         successResult.oauthAuthoriationURI,
         '_blank',
@@ -133,7 +131,6 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           clearInterval(checkPopupClosed);
 
           if (event.data.payload.authorizationResponseParams) {
-            console.log('Verifying OAuth response');
             try {
               const verificationResult = await getResult.call(this, event.data.payload.authorizationResponseParams);
               resolve(verificationResult);
