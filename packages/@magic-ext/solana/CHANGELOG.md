@@ -1,3 +1,15 @@
+# v25.16.0 (Fri Oct 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into cancel-event-for-recovery-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v25.15.0 (Fri Oct 18 2024)
 
 #### 🐛 Bug Fix
