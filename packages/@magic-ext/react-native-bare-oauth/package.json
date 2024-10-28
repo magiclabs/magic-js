@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/react-native-bare-oauth",
-  "version": "25.15.0",
+  "version": "25.17.0",
   "description": "Magic SDK OAuth Extension for Bare React Native environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -30,8 +30,8 @@
     "react-native-device-info": "^10.3.0"
   },
   "devDependencies": {
-    "@magic-sdk/react-native-bare": "^29.15.0",
-    "@magic-sdk/types": "^24.12.0",
+    "@magic-sdk/react-native-bare": "^29.17.0",
+    "@magic-sdk/types": "^24.14.0",
     "@types/crypto-js": "~3.1.47",
     "react-native-inappbrowser-reborn": "^3.7.0"
   },
