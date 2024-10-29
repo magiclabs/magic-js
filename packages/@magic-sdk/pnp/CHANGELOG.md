@@ -1,3 +1,27 @@
+# v22.17.0 (Fri Oct 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1951-Lost-Device-Event-Does-Not-Emit-Whitelabel-MFA-provider ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.16.0 (Fri Oct 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into cancel-event-for-recovery-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v22.15.0 (Tue Oct 22 2024)
 
 #### 🐛 Bug Fix

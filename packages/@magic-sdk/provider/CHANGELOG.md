@@ -1,3 +1,44 @@
+# v28.16.0 (Fri Oct 25 2024)
+
+#### 🚀 Enhancement
+
+- Pdeexp 1951 lost device event does not emit whitelabel mfa provider [#826](https://github.com/magiclabs/magic-js/pull/826) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1951-Lost-Device-Event-Does-Not-Emit-Whitelabel-MFA-provider ([@Ethella](https://github.com/Ethella))
+- feat: add tests for login with email otp whitelabel ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into PDEEXP-1951-Lost-Device-Event-Does-Not-Emit-Whitelabel-MFA-provider ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- fix: update verify recovery code ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: seperate lost-device and verify-recovery-code for login with email otp ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- fix: deepsource error ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: add invalid-recovery-code type to loginWithEmailOtp [#827](https://github.com/magiclabs/magic-js/pull/827) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement lost-device event handler in loginWithEmailOTP method ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v28.15.0 (Fri Oct 25 2024)
+
+#### 🚀 Enhancement
+
+- fix: cancel event for recovery factor [#829](https://github.com/magiclabs/magic-js/pull/829) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into cancel-event-for-recovery-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- fix: cancel event for recovery factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v28.14.0 (Fri Oct 18 2024)
 
 #### 🐛 Bug Fix
