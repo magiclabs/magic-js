@@ -83,9 +83,9 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
         {
           ...configuration,
-          redirectURI: 'https://auth.magic.link/oauth2/popup/verify',
           apiKey: this.sdk.apiKey,
           platform: 'web',
+          loginWithPopup: true,
         },
       ]);
 
