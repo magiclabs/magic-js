@@ -146,7 +146,10 @@ export class UserModule extends BaseModule {
 
   public recoverAccount(configuration: RecoverAccountConfiguration) {
     const { email, showUI } = configuration;
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RecoverAccount, [{ email, showUI }]);
+    const requestPayload = createJsonRpcRequestPayload(
+      this.sdk.testMode ? MagicPayloadMethod.RecoverAccountTestMode : MagicPayloadMethod.RecoverAccount,
+      [{ email, showUI }],
+    );
     const handle = this.request<string | boolean | null, RecoverAccountEventHandlers>(requestPayload);
 
     if (!showUI && handle) {
