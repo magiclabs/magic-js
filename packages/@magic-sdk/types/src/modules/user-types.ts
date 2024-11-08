@@ -120,12 +120,14 @@ export enum RecoverAccountEventOnReceived {
   LoginThrottled = 'login-throttled',
   InvalidSmsOtp = 'invalid-sms-otp',
   SmsVerified = 'sms-verified',
+  AccountRecovered = 'account-recovered',
 }
 
 export enum RecoverAccountEventEmit {
   Cancel = 'cancel',
   VerifyOtp = 'verify-otp-code',
   ResendSms = 'resend-sms-otp',
+  UpdateEmail = 'update-email',
 }
 
 export type RecoverAccountEventHandlers = {
@@ -133,6 +135,7 @@ export type RecoverAccountEventHandlers = {
   [RecoverAccountEventEmit.Cancel]: () => void;
   [RecoverAccountEventEmit.VerifyOtp]: (otp: string) => void;
   [RecoverAccountEventEmit.ResendSms]: () => void;
+  [RecoverAccountEventEmit.UpdateEmail]: (email: string) => void;
 
   // Event sent
   [RecoverAccountEventOnReceived.SmsOtpSent]: ({ phoneNumber }: { phoneNumber: string }) => void;
@@ -145,4 +148,5 @@ export type RecoverAccountEventHandlers = {
     errorCode: string;
   }) => {};
   [RecoverAccountEventOnReceived.SmsVerified]: () => {};
+  [RecoverAccountEventOnReceived.AccountRecovered]: () => {};
 };
