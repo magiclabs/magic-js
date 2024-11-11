@@ -121,6 +121,7 @@ export enum RecoverAccountEventOnReceived {
   InvalidSmsOtp = 'invalid-sms-otp',
   SmsVerified = 'sms-verified',
   AccountRecovered = 'account-recovered',
+  UpdateEmailRequired = 'update-email-required',
 }
 
 export enum RecoverAccountEventEmit {
@@ -149,4 +150,5 @@ export type RecoverAccountEventHandlers = {
   }) => {};
   [RecoverAccountEventOnReceived.SmsVerified]: () => {};
   [RecoverAccountEventOnReceived.AccountRecovered]: () => {};
+  [RecoverAccountEventOnReceived.UpdateEmailRequired]: () => {};
 };
