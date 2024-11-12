@@ -1,5 +1,11 @@
 import { Extension } from '@magic-sdk/commons';
-import { KadenaConfig, KadenaPayloadMethod, KadenaSignTransactionResponse } from './types';
+import {
+  KadenaConfig,
+  KadenaGetInfoResponse,
+  KadenaPayloadMethod,
+  KadenaSignTransactionResponse,
+  LoginWithSpireKeyResponse,
+} from './types';
 
 export class KadenaExtension extends Extension.Internal<'kadena'> {
   name = 'kadena' as const;
@@ -22,5 +28,15 @@ export class KadenaExtension extends Extension.Internal<'kadena'> {
 
   public signTransaction(hash: string): Promise<KadenaSignTransactionResponse> {
     return this.request(this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransaction, [{ hash }]));
+  }
+
+  public loginWithSpireKey(): Promise<LoginWithSpireKeyResponse> {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaLoginWithSpireKey, []);
+    return this.request<LoginWithSpireKeyResponse>(requestPayload);
+  }
+
+  public getInfo(): Promise<KadenaGetInfoResponse> {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaGetInfo, []);
+    return this.request<KadenaGetInfoResponse>(requestPayload);
   }
 }
