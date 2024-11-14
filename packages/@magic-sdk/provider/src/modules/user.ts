@@ -16,6 +16,8 @@ import {
   RecencyCheckEventEmit,
   RecoveryFactorEventHandlers,
   RecoveryFactorEventEmit,
+  RecoverAccountEventHandlers,
+  RecoverAccountEventEmit,
 } from '@magic-sdk/types';
 import { getItem, setItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
@@ -143,11 +145,26 @@ export class UserModule extends BaseModule {
   }
 
   public recoverAccount(configuration: RecoverAccountConfiguration) {
+    const { email, showUI } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.RecoverAccountTestMode : MagicPayloadMethod.RecoverAccount,
-      [configuration],
+      [{ email, showUI }],
     );
-    return this.request<boolean | null>(requestPayload);
+    const handle = this.request<string | boolean | null, RecoverAccountEventHandlers>(requestPayload);
+
+    if (!showUI && handle) {
+      handle.on(RecoverAccountEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(RecoverAccountEventEmit.Cancel, requestPayload.id as string)();
+      });
+      handle.on(RecoverAccountEventEmit.ResendSms, () => {
+        this.createIntermediaryEvent(RecoverAccountEventEmit.ResendSms, requestPayload.id as string)();
+      });
+      handle.on(RecoverAccountEventEmit.VerifyOtp, (otp: string) => {
+        this.createIntermediaryEvent(RecoverAccountEventEmit.VerifyOtp, requestPayload.id as string)(otp);
+      });
+    }
+
+    return handle;
   }
 
   public revealPrivateKey() {
