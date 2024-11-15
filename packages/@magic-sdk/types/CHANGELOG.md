@@ -1,3 +1,23 @@
+# v24.15.0 (Fri Nov 15 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement transition from recover account to update email flow … [#833](https://github.com/magiclabs/magic-js/pull/833) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Pdeexp 1544 implement magic auth recover account provider [#832](https://github.com/magiclabs/magic-js/pull/832) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- feat: add update-email-required event to recover account ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into PDEEXP-1544-Implement-magic_auth_recover_account_provider ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement transition from recover account to update email flow events ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement recover account events ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v24.14.0 (Fri Oct 25 2024)
 
 #### 🚀 Enhancement

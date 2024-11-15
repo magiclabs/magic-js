@@ -76,3 +76,59 @@ test('method should create intermediary event on VerifyOtp', () => {
 
   expect(verifyEvent).toBe('verify-otp-code');
 });
+
+test('method should create intermediary event on UpdateEmail', () => {
+  const magic = createMagicSDK();
+  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  const createIntermediaryEventFn = jest.fn();
+  magic.user.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
+
+  const handle = magic.user.recoverAccount({ email: 'test', showUI: false });
+  handle.emit('update-email');
+
+  const UpdateEmail = magic.user.createIntermediaryEvent.mock.calls[0][0];
+
+  expect(UpdateEmail).toBe('update-email');
+});
+
+test('method should create intermediary event on UpdateEmailEventEmit.Cancel', () => {
+  const magic = createMagicSDK();
+  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  const createIntermediaryEventFn = jest.fn();
+  magic.user.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
+
+  const handle = magic.user.recoverAccount({ email: 'test', showUI: false });
+  handle.emit('UpdateEmail/new-email-verification-cancel');
+
+  const cancelEvent = magic.user.createIntermediaryEvent.mock.calls[0][0];
+
+  expect(cancelEvent).toBe('UpdateEmail/new-email-verification-cancel');
+});
+
+test('method should create intermediary event on RetryWithNewEmail', () => {
+  const magic = createMagicSDK();
+  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  const createIntermediaryEventFn = jest.fn();
+  magic.user.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
+
+  const handle = magic.user.recoverAccount({ email: 'test', showUI: false });
+  handle.emit('UpdateEmail/retry-with-new-email');
+
+  const retryEvent = magic.user.createIntermediaryEvent.mock.calls[0][0];
+
+  expect(retryEvent).toBe('UpdateEmail/retry-with-new-email');
+});
+
+test('method should create intermediary event on VerifyEmailOtp', () => {
+  const magic = createMagicSDK();
+  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  const createIntermediaryEventFn = jest.fn();
+  magic.user.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
+
+  const handle = magic.user.recoverAccount({ email: 'test', showUI: false });
+  handle.emit('UpdateEmail/new-email-verify-otp');
+
+  const retryEvent = magic.user.createIntermediaryEvent.mock.calls[0][0];
+
+  expect(retryEvent).toBe('UpdateEmail/new-email-verify-otp');
+});
