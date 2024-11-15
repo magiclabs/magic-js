@@ -104,6 +104,7 @@ export interface RecoverAccountConfiguration {
    * The email to recover
    */
   email: string;
+  showUI: boolean;
 }
 
 export interface ShowSettingsConfiguration {
@@ -113,3 +114,41 @@ export interface ShowSettingsConfiguration {
   page: DeepLinkPage;
   showUI?: boolean;
 }
+
+export enum RecoverAccountEventOnReceived {
+  SmsOtpSent = 'sms-otp-sent',
+  LoginThrottled = 'login-throttled',
+  InvalidSmsOtp = 'invalid-sms-otp',
+  SmsVerified = 'sms-verified',
+  AccountRecovered = 'account-recovered',
+  UpdateEmailRequired = 'update-email-required',
+}
+
+export enum RecoverAccountEventEmit {
+  Cancel = 'cancel',
+  VerifyOtp = 'verify-otp-code',
+  ResendSms = 'resend-sms-otp',
+  UpdateEmail = 'update-email',
+}
+
+export type RecoverAccountEventHandlers = {
+  // Event Received
+  [RecoverAccountEventEmit.Cancel]: () => void;
+  [RecoverAccountEventEmit.VerifyOtp]: (otp: string) => void;
+  [RecoverAccountEventEmit.ResendSms]: () => void;
+  [RecoverAccountEventEmit.UpdateEmail]: (email: string) => void;
+
+  // Event sent
+  [RecoverAccountEventOnReceived.SmsOtpSent]: ({ phoneNumber }: { phoneNumber: string }) => void;
+  [RecoverAccountEventOnReceived.LoginThrottled]: (error: string) => {};
+  [RecoverAccountEventOnReceived.InvalidSmsOtp]: ({
+    errorMessage,
+    errorCode,
+  }: {
+    errorMessage: string;
+    errorCode: string;
+  }) => {};
+  [RecoverAccountEventOnReceived.SmsVerified]: () => {};
+  [RecoverAccountEventOnReceived.AccountRecovered]: () => {};
+  [RecoverAccountEventOnReceived.UpdateEmailRequired]: () => {};
+};

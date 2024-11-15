@@ -95,6 +95,7 @@ export interface OAuthRedirectConfiguration {
   provider: OAuthProvider;
   redirectURI: string;
   scope?: string[];
+  customData?: string;
   loginHint?: string;
 }
 
