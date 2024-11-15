@@ -1,3 +1,17 @@
+# v9.17.1 (Fri Nov 15 2024)
+
+#### 🐛 Bug Fix
+
+- feat: add customData property to OAuthRedirectConfiguration [#837](https://github.com/magiclabs/magic-js/pull/837) ([@romin-halltari](https://github.com/romin-halltari))
+- Merge branch 'master' into M2PB-403-custom-data ([@romin-halltari](https://github.com/romin-halltari))
+- feat: add customData property to OAuthRedirectConfiguration ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
 # v9.16.0 (Fri Oct 25 2024)
 
 #### 🐛 Bug Fix
