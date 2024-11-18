@@ -1,3 +1,30 @@
+# (Fri Nov 15 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@9.17.1`
+  - feat: add customData property to OAuthRedirectConfiguration [#837](https://github.com/magiclabs/magic-js/pull/837) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# (Fri Nov 15 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.17.0`, `@magic-sdk/types@24.15.0`
+  - feat: implement transition from recover account to update email flow … [#833](https://github.com/magiclabs/magic-js/pull/833) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+  - Pdeexp 1544 implement magic auth recover account provider [#832](https://github.com/magiclabs/magic-js/pull/832) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Fri Oct 25 2024)
 
 #### 🚀 Enhancement
