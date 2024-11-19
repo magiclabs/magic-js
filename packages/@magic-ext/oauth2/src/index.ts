@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import { Extension } from '@magic-sdk/commons';
 import {
   OAuthErrorData,

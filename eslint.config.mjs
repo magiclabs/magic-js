@@ -41,9 +41,11 @@ export default [
     files: ['**/*.ts', '**/*.tsx'],
 
     rules: {
-      'no-alert': 'error',
+      'no-alert': 0,
+      'no-dupe-class-members': 0,
       'no-underscore-dangle': 0,
       'no-useless-constructor': 0,
+      'no-unused-vars': 0,
       'no-redeclare': 1,
       'class-methods-use-this': 0,
       'importPlugin/extensions': 0,

@@ -1,6 +1,3 @@
-/* eslint-disable no-useless-return */
-/* eslint-disable consistent-return */
-
 import { getScriptData } from './utils/script-data';
 
 // PnP contexts

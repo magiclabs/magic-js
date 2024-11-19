@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return, prefer-spread */
-
 import {
   JsonRpcRequestPayload,
   JsonRpcRequestCallback,
@@ -24,14 +22,13 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
 
   public readonly isMagic = true;
 
-  /* eslint-disable prettier/prettier */
   public sendAsync(payload: Partial<JsonRpcRequestPayload>, onRequestComplete: JsonRpcRequestCallback): void;
   public sendAsync(payload: Partial<JsonRpcRequestPayload>[], onRequestComplete: JsonRpcBatchRequestCallback): void;
   public sendAsync(
     payload: Partial<JsonRpcRequestPayload> | Partial<JsonRpcRequestPayload>[],
     onRequestComplete: JsonRpcRequestCallback | JsonRpcBatchRequestCallback,
   ): void;
-  /* eslint-enable prettier/prettier */
+
   public sendAsync(
     payload: Partial<JsonRpcRequestPayload> | Partial<JsonRpcRequestPayload>[],
     onRequestComplete: JsonRpcRequestCallback | JsonRpcBatchRequestCallback,
@@ -49,16 +46,16 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
       this.overlay
         .post(
           MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
-          payload.map((p) => {
+          payload.map(p => {
             const standardizedPayload = standardizeJsonRpcRequestPayload(p);
             this.prefixPayloadMethodForTestMode(standardizedPayload);
             return standardizedPayload;
           }),
         )
-        .then((batchResponse) => {
+        .then(batchResponse => {
           (onRequestComplete as JsonRpcBatchRequestCallback)(
             null,
-            batchResponse.map((response) => ({
+            batchResponse.map(response => ({
               ...response.payload,
               error: response.hasError ? new MagicRPCError(response.payload.error) : null,
             })),
@@ -67,7 +64,7 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     } else {
       const finalPayload = standardizeJsonRpcRequestPayload(payload);
       this.prefixPayloadMethodForTestMode(finalPayload);
-      this.overlay.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, finalPayload).then((response) => {
+      this.overlay.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, finalPayload).then(response => {
         (onRequestComplete as JsonRpcRequestCallback)(
           response.hasError ? new MagicRPCError(response.payload.error) : null,
           response.payload,
@@ -76,14 +73,13 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     }
   }
 
-  /* eslint-disable prettier/prettier */
   public send<ResultType = any>(method: string, params?: any[]): PromiEvent<ResultType>;
   public send(
     payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
     onRequestComplete: JsonRpcRequestCallback,
   ): void;
   public send<ResultType>(payload: JsonRpcRequestPayload, none: void): JsonRpcResponsePayload<ResultType>;
-  /* eslint-enable prettier/prettier */
+
   public send<ResultType = any>(
     payloadOrMethod: string | JsonRpcRequestPayload | JsonRpcRequestPayload[],
     onRequestCompleteOrParams: JsonRpcRequestCallback | any[] | void,
@@ -101,7 +97,6 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     // Case #2
     // Web3 <= 1.0.0-beta.37 uses `send` with a callback for async queries.
     if (Array.isArray(payloadOrMethod) || !!onRequestCompleteOrParams) {
-      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion */
       this.sendAsync(payloadOrMethod, onRequestCompleteOrParams as any);
       return;
     }
@@ -140,7 +135,6 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     // In test mode, we prefix all RPC methods with `test/` so that the
     // Magic <iframe> can handle them without requiring network calls.
     if (this.sdk.testMode) {
-      // eslint-disable-next-line no-param-reassign
       payload.method = `${testModePrefix}${payload.method}`;
     }
   }

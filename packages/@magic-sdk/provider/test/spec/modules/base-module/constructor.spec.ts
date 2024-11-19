@@ -1,5 +1,3 @@
-/* eslint-disable no-new, global-require */
-
 import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';

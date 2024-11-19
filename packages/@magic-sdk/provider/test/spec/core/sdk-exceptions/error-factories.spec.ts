@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable global-require */
-
 import browserEnv from '@ikscodes/browser-env';
 import { Extension } from '../../../../src/modules/base-extension';
 import { mockSDKEnvironmentConstant, restoreSDKEnvironmentConstants } from '../../../mocks';

@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable global-require */
+/* global LocalForageDbMethods */
 
 import browserEnv from '@ikscodes/browser-env';
 import localForage from 'localforage';
