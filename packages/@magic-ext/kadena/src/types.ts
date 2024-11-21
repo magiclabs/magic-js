@@ -12,9 +12,32 @@ export enum KadenaPayloadMethod {
   KadenaGetInfo = 'kda_getInfo',
 }
 
-export interface KadenaSignTransactionResponse {
+export type KadenaSignTransactionResponse = ISignatureWithPublicKey | SignedTransactions;
+
+export interface ISignatureWithPublicKey {
   sig: string;
   pubKey: string;
+}
+
+interface Sig {
+  sig: string;
+  pubKey: string;
+}
+
+export interface IUnsignedCommand {
+  hash: string;
+  cmd: string;
+  sigs: [undefined];
+}
+
+interface ICommand {
+  hash: string;
+  cmd: string;
+  sigs: Sig[];
+}
+
+export interface SignedTransactions {
+  transactions: (IUnsignedCommand | ICommand)[];
 }
 
 export interface KadenaGetInfoResponse {
