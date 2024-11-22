@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 export default [
   ...rootEslintConfig,
   {
-    ignores: ['node_modules', 'coverage', 'dist', 'eslintrc.config.mjs', 'jest.config.ts'],
+    ignores: ['node_modules', 'coverage', 'dist', 'eslint.config.mjs', 'jest.config.ts'],
   },
   {
     languageOptions: {
