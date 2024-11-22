@@ -2,8 +2,8 @@ import { Extension } from '@magic-sdk/commons';
 import {
   IUnsignedCommand,
   KadenaConfig,
-  KadenaGetInfoResponse,
   KadenaPayloadMethod,
+  KadenaUserMetadata,
   LoginWithSpireKeyResponse,
   SignTransactionResponse,
   SignTransactionWithSpireKeyResponse,
@@ -46,8 +46,8 @@ export class KadenaExtension extends Extension.Internal<'kadena'> {
     return this.request<LoginWithSpireKeyResponse>(requestPayload);
   }
 
-  public getInfo(): Promise<KadenaGetInfoResponse> {
+  public getInfo(): Promise<KadenaUserMetadata> {
     const requestPayload = this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaGetInfo, []);
-    return this.request<KadenaGetInfoResponse>(requestPayload);
+    return this.request<KadenaUserMetadata>(requestPayload);
   }
 }

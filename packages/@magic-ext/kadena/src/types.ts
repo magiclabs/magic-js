@@ -39,7 +39,7 @@ export interface SignTransactionWithSpireKeyResponse {
   transactions: (IUnsignedCommand | ICommand)[];
 }
 
-export interface KadenaGetInfoResponse {
+export interface KadenaUserMetadata {
   accountName: string;
   publicKey: string;
   loginType: string;
