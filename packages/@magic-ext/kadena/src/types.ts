@@ -15,7 +15,7 @@ export enum KadenaPayloadMethod {
 
 export interface SignTransactionResponse {
   sig: string;
-  pubKey: string;
+  pubKey?: string;
 }
 
 export interface IUnsignedCommand {
