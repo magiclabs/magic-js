@@ -25,7 +25,7 @@ test('Sends params as payload', () => {
 
   const requestPayload = magic.kadena.request.mock.calls[0][0];
   expect(requestPayload.method).toBe(KadenaPayloadMethod.KadenaSignTransaction);
-  expect(requestPayload.params).toEqual([{ hash: '0x123' }]);
+  expect(requestPayload.params).toEqual([{ tx: '0x123' }]);
 });
 
 test('Generate JSON RPC request payload with method `kda_loginWithSpireKey`', () => {
