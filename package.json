@@ -85,7 +85,8 @@
     ]
   },
   "resolutions": {
-    "@rollup/plugin-commonjs": "^17.0.0"
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "eslint": "9.14.0"
   },
   "repository": "magiclabs/magic-js",
   "author": "Magic Labs <team@magic.link>",
