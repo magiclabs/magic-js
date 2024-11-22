@@ -4,8 +4,9 @@ import {
   KadenaConfig,
   KadenaGetInfoResponse,
   KadenaPayloadMethod,
-  KadenaSignTransactionResponse,
   LoginWithSpireKeyResponse,
+  SignTransactionResponse,
+  SignTransactionWithSpireKeyResponse,
 } from './types';
 
 export class KadenaExtension extends Extension.Internal<'kadena'> {
@@ -27,8 +28,16 @@ export class KadenaExtension extends Extension.Internal<'kadena'> {
     };
   }
 
-  public signTransaction(tx: string | IUnsignedCommand): Promise<KadenaSignTransactionResponse> {
-    return this.request(this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransaction, [{ tx }]));
+  public signTransaction(hash: string): Promise<SignTransactionResponse> {
+    return this.request(this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransaction, [{ hash }]));
+  }
+
+  public async signTransactionWithSpireKey(
+    transaction: IUnsignedCommand,
+  ): Promise<SignTransactionWithSpireKeyResponse> {
+    return this.request(
+      this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransactionWithSpireKey, [{ transaction }]),
+    );
   }
 
   public loginWithSpireKey(): Promise<LoginWithSpireKeyResponse> {
