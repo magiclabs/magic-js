@@ -46,6 +46,7 @@ export interface KadenaGetInfoResponse {
   isMfaEnabled: boolean;
   email?: string;
   phoneNumber?: string;
+  spireKeyInfo?: Account;
 }
 
 type Guard = RefKeyset | Keyset;
