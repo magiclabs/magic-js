@@ -7,19 +7,13 @@ export interface KadenaConfig {
 }
 
 export enum KadenaPayloadMethod {
-  KadenaSignTransaction = 'kda_signTransaction',
   KadenaLoginWithSpireKey = 'kda_loginWithSpireKey',
   KadenaGetInfo = 'kda_getInfo',
+  KadenaSignTransaction = 'kda_signTransaction',
+  KadenaSignTransactionWithSpireKey = 'kda_signTransactionWithSpireKey',
 }
 
-export type KadenaSignTransactionResponse = ISignatureWithPublicKey | SignedTransactions;
-
-export interface ISignatureWithPublicKey {
-  sig: string;
-  pubKey: string;
-}
-
-interface Sig {
+export interface SignTransactionResponse {
   sig: string;
   pubKey: string;
 }
@@ -30,25 +24,32 @@ export interface IUnsignedCommand {
   sigs: [undefined];
 }
 
-interface ICommand {
+export interface Sig {
+  sig: string;
+  pubKey?: string;
+}
+
+export interface ICommand {
   hash: string;
   cmd: string;
   sigs: Sig[];
 }
 
-export interface SignedTransactions {
+export interface SignTransactionWithSpireKeyResponse {
   transactions: (IUnsignedCommand | ICommand)[];
 }
 
 export interface KadenaGetInfoResponse {
-  email: string | undefined;
-  issuer: string;
   accountName: string;
   publicKey: string;
-  loginType: 'spire_key' | 'email_otp' | 'sms';
+  loginType: string;
+  isMfaEnabled: boolean;
+  email?: string;
+  phoneNumber?: string;
 }
 
 type Guard = RefKeyset | Keyset;
+
 type RefKeyset = {
   keysetref: {
     ns: string;
@@ -71,6 +72,20 @@ type Device = {
   name?: string;
 };
 
+interface ITransactionDescriptor {
+  requestKey: string;
+  chainId: ChainId;
+  networkId: string;
+}
+
+type QueuedTx = ITransactionDescriptor;
+
+type RequestedFungible = {
+  fungible: string;
+  amount: number;
+  target?: ChainId;
+};
+
 type Account = {
   alias: string;
   accountName: string;
@@ -86,23 +101,7 @@ type Account = {
   requestedFungibles?: RequestedFungible[];
 };
 
-interface ITransactionDescriptor {
-  requestKey: string;
-  chainId: ChainId;
-  networkId: string;
-}
-
-type QueuedTx = ITransactionDescriptor;
-
-type RequestedFungible = {
-  fungible: string;
-  amount: number;
-  target?: ChainId;
-};
-
-export type LoginWithSpireKeyResponse = Account & {
-  isReady: () => Promise<Account>;
-};
+export type LoginWithSpireKeyResponse = Account;
 
 export type ChainId =
   | '0'
