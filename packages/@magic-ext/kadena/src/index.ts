@@ -35,9 +35,10 @@ export class KadenaExtension extends Extension.Internal<'kadena'> {
   public async signTransactionWithSpireKey(
     transaction: IUnsignedCommand,
   ): Promise<SignTransactionWithSpireKeyResponse> {
-    return this.request(
+    const signedTransaction = await this.request(
       this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransactionWithSpireKey, [{ transaction }]),
     );
+    return signedTransaction;
   }
 
   public loginWithSpireKey(): Promise<LoginWithSpireKeyResponse> {
