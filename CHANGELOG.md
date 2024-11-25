@@ -1,3 +1,16 @@
+# (Mon Nov 25 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@9.18.0`, `@magic-sdk/types@24.16.0`
+  - feat: implement OAuth login with Popup [#828](https://github.com/magiclabs/magic-js/pull/828) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Fri Nov 15 2024)
 
 #### 🐛 Bug Fix
