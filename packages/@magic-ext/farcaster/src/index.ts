@@ -75,10 +75,6 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   name = 'farcaster' as const;
   config = {};
 
-  constructor() {
-    super();
-  }
-
   public login = async (params?: LoginParams) => {
     const response = await fetch(`${FARCASTER_RELAY_URL}/v1/channel`, {
       method: 'POST',
