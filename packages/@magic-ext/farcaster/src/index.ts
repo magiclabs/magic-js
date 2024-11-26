@@ -76,45 +76,53 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   config = {};
 
   public login = async (params?: LoginParams) => {
-    const response = await fetch(`${FARCASTER_RELAY_URL}/v1/channel`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        domain: window.location.host,
-        siweUri: window.location.origin,
-      }),
+    const promiEvent = this.utils.createPromiEvent<string>(async (resolve, reject) => {
+      try {
+        const response = await fetch(`${FARCASTER_RELAY_URL}/v1/channel`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            domain: window.location.host,
+            siweUri: window.location.origin,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Error creating channel.');
+        }
+
+        const channel = (await response.json()) as CreateChannelAPIResponse;
+
+        if (!channel) {
+          throw new Error('Channel not created yet.');
+        }
+
+        const payload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
+          {
+            data: {
+              showUI: params?.showUI ?? DEFAULT_SHOW_UI,
+              domain: window.location.origin,
+              isMobile: isMobile(),
+              channel,
+            },
+          },
+        ]);
+
+        const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
+
+        if (isMobile() && isMainFrame()) {
+          window.location.href = channel.url;
+        }
+
+        const res = await handle;
+        resolve(res);
+      } catch (error) {
+        reject(error);
+      }
     });
-
-    if (!response.ok) {
-      throw new Error('Error creating channel.');
-    }
-
-    const channel = (await response.json()) as CreateChannelAPIResponse;
-
-    if (!channel) {
-      throw new Error('Channel not created yet.');
-    }
-
-    const payload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
-      {
-        data: {
-          showUI: params?.showUI ?? DEFAULT_SHOW_UI,
-          domain: window.location.origin,
-          isMobile: isMobile(),
-          channel,
-        },
-      },
-    ]);
-
-    const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
-
-    if (isMobile() && isMainFrame()) {
-      window.location.href = channel.url;
-    }
-
-    return handle;
+    return promiEvent;
   };
 }
 
