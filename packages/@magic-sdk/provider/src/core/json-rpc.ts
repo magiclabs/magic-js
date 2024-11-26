@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-
 import { JsonRpcRequestPayload, JsonRpcResponsePayload, JsonRpcError } from '@magic-sdk/types';
 import { isJsonRpcResponsePayload } from '../util/type-guards';
 import { getPayloadId } from '../util/get-payload-id';
@@ -46,7 +44,6 @@ export function standardizeJsonRpcRequestPayload(payload: Partial<JsonRpcRequest
     markPayloadAsPreprocessed(payload);
   }
 
-  /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion */
   return payload as JsonRpcRequestPayload;
 }
 

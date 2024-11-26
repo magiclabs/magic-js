@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { Extension } from '@magic-sdk/commons';
 import { ZilliqaConfig, ConfigType } from './type';
 

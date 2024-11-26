@@ -1,6 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable prefer-spread */
-
 import browserEnv from '@ikscodes/browser-env';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '@magic-sdk/types';
 import { createViewController, TestViewController } from '../../../factories';
@@ -46,7 +43,7 @@ function responseEvent(values: { result?: any; error?: any; id?: number; deviceS
  */
 function stubViewController(viewController: any, events: [MagicIncomingWindowMessage, any][]) {
   const timeouts = [];
-  const handlerSpy = jest.fn(() => timeouts.forEach((t) => t && clearTimeout(t)));
+  const handlerSpy = jest.fn(() => timeouts.forEach(t => t && clearTimeout(t)));
   const onSpy = jest.fn((msgType, handler) => {
     events.forEach((event, i) => {
       if (msgType === event[0]) {

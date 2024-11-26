@@ -1,6 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-unused-expressions */
-
 import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage } from '@magic-sdk/types';
 
@@ -29,7 +26,6 @@ const overlayStyles: Partial<CSSStyleDeclaration> = {
  */
 function applyOverlayStyles(elem: HTMLElement) {
   for (const [cssProperty, value] of Object.entries(overlayStyles)) {
-    /* eslint-disable-next-line no-param-reassign */
     (elem.style as any)[cssProperty as any] = value;
   }
 }
@@ -43,7 +39,7 @@ function applyOverlayStyles(elem: HTMLElement) {
  */
 function checkForSameSrcInstances(parameters: string) {
   const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
-  return Boolean(iframes.find((iframe) => iframe.src.includes(parameters)));
+  return Boolean(iframes.find(iframe => iframe.src.includes(parameters)));
 }
 
 const SECOND = 1000;
@@ -71,7 +67,7 @@ export class IframeController extends ViewController {
    */
   protected init() {
     (this as any).test = 'hello';
-    this.iframe = new Promise((resolve) => {
+    this.iframe = new Promise(resolve => {
       const onload = () => {
         if (!checkForSameSrcInstances(encodeURIComponent(this.parameters))) {
           const iframe = document.createElement('iframe');
@@ -97,7 +93,7 @@ export class IframeController extends ViewController {
       }
     });
 
-    this.iframe.then((iframe) => {
+    this.iframe.then(iframe => {
       if (iframe instanceof HTMLIFrameElement) {
         iframe.addEventListener('load', async () => {
           await this.startHeartBeat();

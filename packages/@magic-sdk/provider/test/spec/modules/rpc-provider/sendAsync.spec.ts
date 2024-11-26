@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-
 import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 import { createInvalidArgumentError } from '../../../../src/core/sdk-exceptions';
@@ -34,7 +32,7 @@ test('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `null`', 
   expect(() => magic.rpcProvider.sendAsync({} as any, null as any)).toThrow(expectedError);
 });
 
-test('Async, with full RPC payload + callback; success response', (done) => {
+test('Async, with full RPC payload + callback; success response', done => {
   const magic = createMagicSDK();
 
   const postStub = jest.fn().mockImplementation(() => Promise.resolve({ hasError: false, payload: 'test' }));
@@ -55,7 +53,7 @@ test('Async, with full RPC payload + callback; success response', (done) => {
   expect(requestPayload.params).toEqual(['hello world']);
 });
 
-test('Async, with full RPC payload + callback; error response', (done) => {
+test('Async, with full RPC payload + callback; error response', done => {
   const magic = createMagicSDK();
 
   const postStub = jest.fn(() =>
@@ -79,7 +77,7 @@ test('Async, with full RPC payload + callback; error response', (done) => {
   expect(requestPayload.params).toEqual(['hello world']);
 });
 
-test('Async, with batch RPC payload + callback; success responses', (done) => {
+test('Async, with batch RPC payload + callback; success responses', done => {
   const magic = createMagicSDK();
 
   const response1 = { hasError: false, payload: { result: 'test1' } };
@@ -108,7 +106,7 @@ test('Async, with batch RPC payload + callback; success responses', (done) => {
   expect(requestPayloads[1].params).toEqual(['hello world']);
 });
 
-test('Async, with full RPC payload + callback; error responses', (done) => {
+test('Async, with full RPC payload + callback; error responses', done => {
   const magic = createMagicSDK();
 
   const response1 = { hasError: true, payload: { error: { code: -32603, message: 'test1' }, result: null } };

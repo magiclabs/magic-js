@@ -27,9 +27,9 @@ export function shuffle(array: any) {
 
     // And swap it with the current element.
     temporaryValue = array[currentIndex];
-    // eslint-disable-next-line no-param-reassign
+
     array[currentIndex] = array[randomIndex];
-    // eslint-disable-next-line no-param-reassign
+
     array[randomIndex] = temporaryValue;
   }
 }

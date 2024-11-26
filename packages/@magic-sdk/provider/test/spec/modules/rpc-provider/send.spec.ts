@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-
 import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
