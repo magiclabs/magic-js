@@ -76,52 +76,60 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   config = {};
 
   public login = (params?: LoginParams) => {
-    const promiEvent = this.utils.createPromiEvent<string, FarcasterLoginEventHandlers>(async (resolve, reject) => {
-      try {
-        const response = await fetch(`${FARCASTER_RELAY_URL}/v1/channel`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            domain: window.location.host,
-            siweUri: window.location.origin,
-          }),
+    const fetchChannel = () =>
+      fetch(`${FARCASTER_RELAY_URL}/v1/channel`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          domain: window.location.host,
+          siweUri: window.location.origin,
+        }),
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error creating channel.');
+          }
+          return response.json();
+        })
+        .then(channel => {
+          if (!channel) {
+            throw new Error('Channel not created yet.');
+          }
+          return channel;
         });
 
-        if (!response.ok) {
-          throw new Error('Error creating channel.');
-        }
-
-        const channel = (await response.json()) as CreateChannelAPIResponse;
-
-        if (!channel) {
-          throw new Error('Channel not created yet.');
-        }
-
-        const payload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
-          {
-            data: {
-              showUI: params?.showUI ?? DEFAULT_SHOW_UI,
-              domain: window.location.origin,
-              isMobile: isMobile(),
-              channel,
+    try {
+      const handle = fetchChannel()
+        .then((channel: CreateChannelAPIResponse) => {
+          const payload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
+            {
+              data: {
+                showUI: params?.showUI ?? DEFAULT_SHOW_UI,
+                domain: window.location.origin,
+                isMobile: isMobile(),
+                channel,
+              },
             },
-          },
-        ]);
+          ]);
 
-        const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
+          const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
 
-        if (isMobile() && isMainFrame()) {
-          window.location.href = channel.url;
-        }
+          if (isMobile() && isMainFrame()) {
+            window.location.href = channel.url;
+          }
 
-        resolve(handle);
-      } catch (error) {
-        reject(error);
-      }
-    });
-    return promiEvent;
+          return handle;
+        })
+        .catch(error => {
+          throw new Error(error);
+        });
+
+      return handle;
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
   };
 }
 
