@@ -76,7 +76,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   config = {};
 
   public login = (params?: LoginParams) => {
-    const promiEvent = this.utils.createPromiEvent<string>(async (resolve, reject) => {
+    const promiEvent = this.utils.createPromiEvent<string, FarcasterLoginEventHandlers>(async (resolve, reject) => {
       try {
         const response = await fetch(`${FARCASTER_RELAY_URL}/v1/channel`, {
           method: 'POST',
