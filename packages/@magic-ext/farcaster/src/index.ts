@@ -116,8 +116,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
           window.location.href = channel.url;
         }
 
-        const res = await handle;
-        resolve(res);
+        resolve(handle);
       } catch (error) {
         reject(error);
       }
