@@ -1,3 +1,15 @@
+# v28.18.0 (Mon Nov 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1954-OAuth-popup-flow-consolidation ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v28.17.0 (Fri Nov 15 2024)
 
 #### 🚀 Enhancement

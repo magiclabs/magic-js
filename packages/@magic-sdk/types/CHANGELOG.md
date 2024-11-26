@@ -1,3 +1,20 @@
+# v24.16.0 (Mon Nov 25 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement OAuth login with Popup [#828](https://github.com/magiclabs/magic-js/pull/828) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1954-OAuth-popup-flow-consolidation ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement OAuth login with Popup ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v24.15.0 (Fri Nov 15 2024)
 
 #### 🚀 Enhancement

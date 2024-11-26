@@ -1,3 +1,25 @@
+# v9.18.0 (Mon Nov 25 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement OAuth login with Popup [#828](https://github.com/magiclabs/magic-js/pull/828) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1954-OAuth-popup-flow-consolidation ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- chore: clean up unused vars ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement login with popup consolidation ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: assign popup verify url in mandrake ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- chore: update redirectURL for loginWithPopup ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- chore: cleanup logs ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement OAuth login with Popup ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v9.17.1 (Fri Nov 15 2024)
 
 #### 🐛 Bug Fix
