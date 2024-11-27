@@ -88,6 +88,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
     const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
 
     handle.on('channel', (channel: CreateChannelAPIResponse) => {
+      console.log('channel from res', channel);
       if (isMobile() && isMainFrame()) {
         window.location.href = channel.url;
       }
