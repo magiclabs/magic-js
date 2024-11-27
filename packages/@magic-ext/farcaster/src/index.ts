@@ -69,51 +69,29 @@ type FarcasterLoginEventHandlers = {
   [FarcasterLoginEventOnReceived.Failed]: (error: AuthClientError) => void;
 };
 
-const FARCASTER_RELAY_URL = 'https://relay.farcaster.xyz';
-
 export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   name = 'farcaster' as const;
   config = {};
-  channel: CreateChannelAPIResponse | null = null;
-
-  constructor() {
-    super();
-
-    (async () => {
-      this.channel = await fetch(`${FARCASTER_RELAY_URL}/v1/channel`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          domain: window.location.host,
-          siweUri: window.location.origin,
-        }),
-      }).then<CreateChannelAPIResponse>((r) => r.json());
-    })();
-  }
 
   public login = (params?: LoginParams) => {
-    if (!this.channel) {
-      throw new Error('Channel not created yet.');
-    }
-
     const payload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
       {
         data: {
           showUI: params?.showUI ?? DEFAULT_SHOW_UI,
           domain: window.location.origin,
           isMobile: isMobile(),
-          channel: this.channel,
+          isMainFrame: isMainFrame(),
         },
       },
     ]);
 
     const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
 
-    if (isMobile() && isMainFrame()) {
-      window.location.href = this.channel.url;
-    }
+    handle.on('channel', (channel: CreateChannelAPIResponse) => {
+      if (isMobile() && isMainFrame()) {
+        window.location.href = channel.url;
+      }
+    });
 
     return handle;
   };
