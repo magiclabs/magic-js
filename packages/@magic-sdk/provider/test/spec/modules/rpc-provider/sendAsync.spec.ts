@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 import { createInvalidArgumentError } from '../../../../src/core/sdk-exceptions';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Throws INVALID_ARGUMENT error if `onRequestCallback` argument is `undefined`', () => {

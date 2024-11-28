@@ -1,9 +1,7 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv({ url: 'http://localhost' });
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('If metamask browser, wallet and address params should be populated', async () => {

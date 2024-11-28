@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
 import { createMagicSDKCtor } from '../../../factories';
 import { AuthModule } from '../../../../src/modules/auth';
@@ -7,7 +6,7 @@ import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { Extension } from '../../../../src/modules/base-extension';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.restoreAllMocks();
   jest.resetAllMocks();
 });
 
@@ -65,7 +64,7 @@ test('Initialize `MagicSDK` with custom endpoint', () => {
 });
 
 test('Initialize `MagicSDK` when `window.location` is missing', () => {
-  browserEnv.stub('location', undefined);
+  jest.spyOn(window, 'location', 'get').mockReturnValue(undefined);
 
   const Ctor = createMagicSDKCtor();
   const magic = new Ctor(TEST_API_KEY);
@@ -324,7 +323,7 @@ test('Initialize `MagicSDK` with incompatible Expo React Native extension (versi
 test('Warns upon construction of `MagicSDK` instance if `endpoint` parameter is provided with `react-native` target.', () => {
   const Ctor = createMagicSDKCtor({ platform: 'react-native' });
   const consoleWarnStub = jest.fn();
-  browserEnv.stub('console.warn', consoleWarnStub);
+  jest.spyOn(console, 'warn').mockImplementation(consoleWarnStub);
   const { createReactNativeEndpointConfigurationWarning } = require('../../../../src/core/sdk-exceptions');
   const expectedWarning = createReactNativeEndpointConfigurationWarning();
   new Ctor(TEST_API_KEY, { endpoint: 'https://example.com' } as any);
@@ -334,7 +333,7 @@ test('Warns upon construction of `MagicSDK` instance if `endpoint` parameter is 
 test('Does not warn upon construction of `MagicSDK` instance if `endpoint` parameter is omitted with `react-native` target.', () => {
   const Ctor = createMagicSDKCtor({ platform: 'react-native' });
   const consoleWarnStub = jest.fn();
-  browserEnv.stub('console.warn', consoleWarnStub);
+  jest.spyOn(console, 'warn').mockImplementation(consoleWarnStub);
   new Ctor(TEST_API_KEY);
   expect(consoleWarnStub).not.toBeCalled();
 });

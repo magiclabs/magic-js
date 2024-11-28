@@ -1,11 +1,10 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicPayloadMethod } from '@magic-sdk/types';
 
 import { isPromiEvent } from '../../../../src/util';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   jest.restoreAllMocks();
 });
 
@@ -25,13 +24,13 @@ test('If no parameters are given & platform target is "web", URL search string a
   const magic = createMagicSDK({ platform: 'web' });
   magic.auth.request = jest.fn();
 
-  browserEnv.stub('window.history.replaceState', () => {});
+  jest.spyOn(window.history, 'replaceState').mockImplementation(() => {});
 
-  browserEnv.stub('window.location', {
+  jest.spyOn(window, 'location', 'get').mockReturnValue({
     search: '?magic_credential=asdf',
     origin: 'http://example.com',
     pathname: '/hello/world',
-  });
+  } as any);
 
   await magic.auth.loginWithCredential();
 

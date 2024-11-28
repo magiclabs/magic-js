@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { DeepLinkPage } from '@magic-sdk/types/src/core/deep-link-pages';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { isPromiEvent } from '../../../../src/util';
@@ -14,7 +13,7 @@ jest.mock('@magic-sdk/types', () => ({
 }));
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   jest.restoreAllMocks();
 });
 
@@ -146,7 +145,7 @@ test('ShowSettings should call createIntermediaryEvent with StartEditPhoneNumber
   const createIntermediaryEventFn = jest.fn();
   magic.user.createIntermediaryEvent = jest.fn(() => createIntermediaryEventFn);
 
-  const startEditPhoneNumberListener = mockOn.mock.calls.find((call) => call[0] === 'start-edit-phone-number')[1];
+  const startEditPhoneNumberListener = mockOn.mock.calls.find(call => call[0] === 'start-edit-phone-number')[1];
 
   startEditPhoneNumberListener();
 
@@ -165,7 +164,7 @@ test('ShowSettings should call createIntermediaryEvent with Cancel', () => {
   const createIntermediaryEventFn = jest.fn();
   magic.user.createIntermediaryEvent = jest.fn(() => createIntermediaryEventFn);
 
-  const startEditPhoneNumberListener = mockOn.mock.calls.find((call) => call[0] === 'cancel')[1];
+  const startEditPhoneNumberListener = mockOn.mock.calls.find(call => call[0] === 'cancel')[1];
 
   startEditPhoneNumberListener();
 
@@ -305,9 +304,7 @@ test('ShowSettings should attach event listeners for VerifyEmailOtp event', () =
   const createIntermediaryEventFn = jest.fn();
   magic.user.createIntermediaryEvent = jest.fn(() => createIntermediaryEventFn);
 
-  const verifyEmailOtpListener = mockOn.mock.calls.find(
-    (call) => call[0] === 'Recency/auth-factor-verify-email-otp',
-  )[1];
+  const verifyEmailOtpListener = mockOn.mock.calls.find(call => call[0] === 'Recency/auth-factor-verify-email-otp')[1];
 
   verifyEmailOtpListener(otp);
 

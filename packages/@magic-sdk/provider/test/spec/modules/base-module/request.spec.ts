@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import { createViewController, createMagicSDK } from '../../../factories';
@@ -29,9 +28,9 @@ const requestPayload: JsonRpcRequestPayload = {
 };
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.restoreAllMocks();
   // Silence the "duplicate iframes" warning.
-  browserEnv.stub('console.warn', () => {});
+  jest.spyOn(console, 'warn').mockImplementation(() => {});
 });
 
 test('Resolves with a successful response', async () => {

@@ -1,12 +1,11 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createViewController } from '../../../factories';
 import { MSG_TYPES } from '../../../constants';
 
 beforeEach(() => {
-  browserEnv();
+  jest.resetAllMocks();
 });
 
-test('Receive MAGIC_OVERLAY_READY, resolve `waitForReady` promise', (done) => {
+test('Receive MAGIC_OVERLAY_READY, resolve `waitForReady` promise', done => {
   const overlay = createViewController('');
   const waitForReady = (overlay as any).waitForReady();
 
@@ -17,7 +16,7 @@ test('Receive MAGIC_OVERLAY_READY, resolve `waitForReady` promise', (done) => {
   window.postMessage({ msgType: MSG_TYPES().MAGIC_OVERLAY_READY }, '*');
 });
 
-test('Resolve `waitForReady` promise after timeout', (done) => {
+test('Resolve `waitForReady` promise after timeout', done => {
   jest.useFakeTimers();
   const overlay = createViewController('');
   const waitForReady = (overlay as any).waitForReady();

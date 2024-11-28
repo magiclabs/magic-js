@@ -1,10 +1,5 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicIncomingWindowMessage } from '@magic-sdk/types';
 import { createViewController } from '../../../factories';
-
-beforeEach(() => {
-  browserEnv();
-});
 
 /**
  * We start with 3 listeners whenever a `ViewController` is created.

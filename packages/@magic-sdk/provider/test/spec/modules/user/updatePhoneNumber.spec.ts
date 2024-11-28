@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { isPromiEvent } from '../../../../src/util';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test.skip('Generate JSON RPC request payload with method `magic_auth_update_phone_number`', async () => {

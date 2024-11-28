@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { RecencyCheckEventEmit, UpdateEmailEventEmit } from '@magic-sdk/types';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Generate JSON RPC request payload with method `magic_auth_update_email` whitelabel and start recency check', async () => {

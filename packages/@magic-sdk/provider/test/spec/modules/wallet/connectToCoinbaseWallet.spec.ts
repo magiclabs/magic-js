@@ -1,9 +1,7 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv({ url: 'http://localhost' });
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Returns connected wallet address in array and does not change the window.href', async () => {

@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { isPromiEvent, storage } from '../../../../src/util';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { mockLocalForage } from '../../../mocks';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Generate JSON RPC request payload with method `magic_auth_logout`', async () => {
