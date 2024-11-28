@@ -98,14 +98,13 @@ export interface OAuthRedirectConfiguration {
   scope?: string[];
   customData?: string;
   loginHint?: string;
+  shouldReturnURI?: boolean;
 }
 
 export interface OAuthPopupConfiguration {
   provider: OAuthProvider;
   scope?: string[];
   loginHint?: string;
-  shouldReturnURI?: boolean;
-  optionalQuery?: string;
 }
 
 export enum OAuthErrorCode {
