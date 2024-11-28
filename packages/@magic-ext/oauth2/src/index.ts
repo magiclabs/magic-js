@@ -20,7 +20,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   };
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
-    return this.utils.createPromiEvent<void>(async (resolve, reject) => {
+    return this.utils.createPromiEvent<null | string>(async (resolve, reject) => {
       const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
         {
           ...configuration,
@@ -43,18 +43,25 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       }
 
       if (successResult?.oauthAuthoriationURI) {
-        window.location.href = successResult.useMagicServerCallback
+        const redirectURI = successResult.useMagicServerCallback
           ? // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
             new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
           : successResult.oauthAuthoriationURI;
+
+        if (configuration?.shouldReturnURI) {
+          resolve(redirectURI);
+        } else {
+          window.location.href = redirectURI;
+          resolve(null);
+        }
       }
 
-      resolve();
+      resolve(null);
     });
   }
 
-  public getRedirectResult(lifespan?: number) {
-    const queryString = window.location.search;
+  public getRedirectResult(lifespan?: number, optionalQueryString?: string) {
+    const queryString = optionalQueryString || window.location.search;
 
     // Remove the query from the redirect callback as a precaution to prevent
     // malicious parties from parsing it before we have a chance to use it.

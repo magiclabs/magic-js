@@ -98,6 +98,7 @@ export interface OAuthRedirectConfiguration {
   scope?: string[];
   customData?: string;
   loginHint?: string;
+  shouldReturnURI?: boolean;
 }
 
 export interface OAuthPopupConfiguration {
