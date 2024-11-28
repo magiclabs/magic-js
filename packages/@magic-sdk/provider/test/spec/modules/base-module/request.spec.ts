@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 import browserEnv from '@ikscodes/browser-env';
 import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
@@ -68,13 +66,13 @@ test('Return value is a `PromiEvent`', async () => {
   expect(isPromiEvent(result)).toBe(true);
 });
 
-test('Emits events received from the `ViewController`', (done) => {
+test('Emits events received from the `ViewController`', done => {
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
   const { baseModule } = createBaseModule(
     jest.fn().mockImplementation(
       () =>
-        new Promise((resolve) => {
+        new Promise(resolve => {
           setTimeout(() => {
             resolve(response);
           }, 1000);
@@ -82,7 +80,7 @@ test('Emits events received from the `ViewController`', (done) => {
     ),
   );
 
-  baseModule.request(requestPayload).on('hello_a', (result) => {
+  baseModule.request(requestPayload).on('hello_a', result => {
     expect(result).toBe('world');
     done();
   });
@@ -96,7 +94,7 @@ test('Emits events received from the `ViewController`', (done) => {
   );
 });
 
-test('Receive no further events after the response from `ViewController` resolves', (done) => {
+test('Receive no further events after the response from `ViewController` resolves', done => {
   expect.assertions(1);
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
@@ -104,7 +102,7 @@ test('Receive no further events after the response from `ViewController` resolve
   const postStubPromises = [];
   const { baseModule } = createBaseModule(
     jest.fn().mockImplementation(() => {
-      const promise = new Promise((resolve) => {
+      const promise = new Promise(resolve => {
         setTimeout(() => {
           resolve(response);
         }, 100);
@@ -116,7 +114,7 @@ test('Receive no further events after the response from `ViewController` resolve
 
   const request = baseModule
     .request(requestPayload)
-    .on('hello_b', (result) => {
+    .on('hello_b', result => {
       expect(result).toBe('world');
     })
     .on('hello_b2', () => {
@@ -148,13 +146,13 @@ test('Receive no further events after the response from `ViewController` resolve
   });
 });
 
-test('Falls back to empty array if `params` is missing from event', (done) => {
+test('Falls back to empty array if `params` is missing from event', done => {
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
   const { baseModule } = createBaseModule(
     jest.fn().mockImplementation(
       () =>
-        new Promise((resolve) => {
+        new Promise(resolve => {
           setTimeout(() => {
             resolve(response);
           }, 1000);
@@ -176,13 +174,13 @@ test('Falls back to empty array if `params` is missing from event', (done) => {
   );
 });
 
-test('Ignores events with malformed response', (done) => {
+test('Ignores events with malformed response', done => {
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
   const { baseModule } = createBaseModule(
     jest.fn().mockImplementation(
       () =>
-        new Promise((resolve) => {
+        new Promise(resolve => {
           setTimeout(() => {
             resolve(response);
           }, 1000);

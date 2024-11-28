@@ -1,3 +1,109 @@
+# v28.18.0 (Mon Nov 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1954-OAuth-popup-flow-consolidation ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v28.17.0 (Fri Nov 15 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement transition from recover account to update email flow … [#833](https://github.com/magiclabs/magic-js/pull/833) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Pdeexp 1544 implement magic auth recover account provider [#832](https://github.com/magiclabs/magic-js/pull/832) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1544-Implement-magic_auth_recover_account_provider ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement transition from recover account to update email flow events ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: add tests for recover account ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- fix: add condition for test mode ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- fix: update method name ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement recover account method ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v28.16.0 (Fri Oct 25 2024)
+
+#### 🚀 Enhancement
+
+- Pdeexp 1951 lost device event does not emit whitelabel mfa provider [#826](https://github.com/magiclabs/magic-js/pull/826) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1951-Lost-Device-Event-Does-Not-Emit-Whitelabel-MFA-provider ([@Ethella](https://github.com/Ethella))
+- feat: add tests for login with email otp whitelabel ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into PDEEXP-1951-Lost-Device-Event-Does-Not-Emit-Whitelabel-MFA-provider ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- fix: update verify recovery code ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: seperate lost-device and verify-recovery-code for login with email otp ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- fix: deepsource error ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: add invalid-recovery-code type to loginWithEmailOtp [#827](https://github.com/magiclabs/magic-js/pull/827) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement lost-device event handler in loginWithEmailOTP method ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v28.15.0 (Fri Oct 25 2024)
+
+#### 🚀 Enhancement
+
+- fix: cancel event for recovery factor [#829](https://github.com/magiclabs/magic-js/pull/829) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into cancel-event-for-recovery-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- fix: cancel event for recovery factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v28.14.0 (Fri Oct 18 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into missed_type_for_recovery_factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v28.13.0 (Fri Oct 18 2024)
+
+#### 🚀 Enhancement
+
+- feat: recovery facto whitelabeling [#818](https://github.com/magiclabs/magic-js/pull/818) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-350-White-label-recovery-factor-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Update .deepsource.toml [#804](https://github.com/magiclabs/magic-js/pull/804) ([@Magic-Brandan](https://github.com/Magic-Brandan))
+- feat: recovery facto whitelabeling ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 2
+
+- [@Magic-Brandan](https://github.com/Magic-Brandan)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
 # v28.11.0 (Wed Sep 25 2024)
 
 #### 🚀 Enhancement

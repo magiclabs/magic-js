@@ -150,6 +150,8 @@ export enum LoginWithMagicLinkEventOnReceived {
 export enum LoginWithEmailOTPEventEmit {
   VerifyEmailOtp = 'verify-email-otp',
   VerifyMFACode = 'verify-mfa-code',
+  LostDevice = 'lost-device',
+  VerifyRecoveryCode = 'verify-recovery-code',
   Cancel = 'cancel',
 }
 
@@ -171,6 +173,9 @@ export enum LoginWithEmailOTPEventOnReceived {
   InvalidMfaOtp = 'invalid-mfa-otp',
   ExpiredEmailOtp = 'expired-email-otp',
   MfaSentHandle = 'mfa-sent-handle',
+  RecoveryCodeSentHandle = 'recovery-code-sent-handle',
+  InvalidRecoveryCode = 'invalid-recovery-code',
+  RecoveryCodeSuccess = 'recovery-code-success',
 }
 
 export enum DeviceVerificationEventEmit {
@@ -278,12 +283,17 @@ export type LoginWithEmailOTPEventHandlers = {
   [LoginWithEmailOTPEventOnReceived.InvalidMfaOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.MfaSentHandle]: () => void;
+  [LoginWithEmailOTPEventOnReceived.RecoveryCodeSentHandle]: () => void;
+  [LoginWithEmailOTPEventOnReceived.InvalidRecoveryCode]: () => void;
+  [LoginWithEmailOTPEventOnReceived.RecoveryCodeSuccess]: () => void;
   [AuthEventOnReceived.IDTokenCreated]: (idToken: string) => void;
   [WalletEventOnReceived.WalletInfoFetched]: () => void;
 
   // Event sent
   [LoginWithEmailOTPEventEmit.VerifyEmailOtp]: (otp: string) => void;
   [LoginWithEmailOTPEventEmit.VerifyMFACode]: (mfa: string) => void;
+  [LoginWithEmailOTPEventEmit.LostDevice]: () => void;
+  [LoginWithEmailOTPEventEmit.VerifyRecoveryCode]: (recoveryCode: string) => void;
   [LoginWithEmailOTPEventEmit.Cancel]: () => void;
 } & DeviceVerificationEventHandlers;
 
@@ -302,7 +312,7 @@ type DeviceVerificationEventHandlers = {
  * Update Email
  */
 
-type RecencyCheckEventHandlers = {
+export type RecencyCheckEventHandlers = {
   [RecencyCheckEventOnReceived.PrimaryAuthFactorNeedsVerification]: () => void;
   [RecencyCheckEventOnReceived.PrimaryAuthFactorVerified]: () => void;
   [RecencyCheckEventOnReceived.InvalidEmailOtp]: () => void;

@@ -1,3 +1,135 @@
+# v24.16.0 (Mon Nov 25 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement OAuth login with Popup [#828](https://github.com/magiclabs/magic-js/pull/828) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1954-OAuth-popup-flow-consolidation ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement OAuth login with Popup ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v24.15.0 (Fri Nov 15 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement transition from recover account to update email flow … [#833](https://github.com/magiclabs/magic-js/pull/833) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Pdeexp 1544 implement magic auth recover account provider [#832](https://github.com/magiclabs/magic-js/pull/832) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- feat: add update-email-required event to recover account ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into PDEEXP-1544-Implement-magic_auth_recover_account_provider ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement transition from recover account to update email flow events ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement recover account events ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v24.14.0 (Fri Oct 25 2024)
+
+#### 🚀 Enhancement
+
+- Pdeexp 1951 lost device event does not emit whitelabel mfa provider [#826](https://github.com/magiclabs/magic-js/pull/826) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1951-Lost-Device-Event-Does-Not-Emit-Whitelabel-MFA-provider ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-1951-Lost-Device-Event-Does-Not-Emit-Whitelabel-MFA-provider ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: add RecoveryCodeSuccess event for login with email otp ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: add recovery-code-sent-handle event for login with email otp ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: seperate lost-device and verify-recovery-code for login with email otp ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: add invalid-recovery-code type to loginWithEmailOtp [#827](https://github.com/magiclabs/magic-js/pull/827) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: add invalid-recovery-code type to loginWithEmailOtp ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Pdeexp 1951 lost device event does not emit whitelabel mfa [#825](https://github.com/magiclabs/magic-js/pull/825) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement lost-device type for login with email otp ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v24.13.0 (Fri Oct 25 2024)
+
+#### 🚀 Enhancement
+
+- fix: cancel event for recovery factor [#829](https://github.com/magiclabs/magic-js/pull/829) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into cancel-event-for-recovery-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- fix: cancel event for recovery factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v24.12.0 (Fri Oct 18 2024)
+
+#### 🚀 Enhancement
+
+- feat: a new type for malformed phone number [#821](https://github.com/magiclabs/magic-js/pull/821) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- fix: correcting misspelling ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Merge branch 'master' into missed_type_for_recovery_factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- feat: a new type for malformed phone number ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v24.11.0 (Fri Oct 18 2024)
+
+#### 🚀 Enhancement
+
+- feat: recovery facto whitelabeling [#818](https://github.com/magiclabs/magic-js/pull/818) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-350-White-label-recovery-factor-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+- Update .deepsource.toml [#804](https://github.com/magiclabs/magic-js/pull/804) ([@Magic-Brandan](https://github.com/Magic-Brandan))
+- feat: recovery facto whitelabeling ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 2
+
+- [@Magic-Brandan](https://github.com/Magic-Brandan)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v24.10.0 (Thu Oct 10 2024)
+
+#### 🚀 Enhancement
+
+- feat: add ping pong types for heartbeat [#815](https://github.com/magiclabs/magic-js/pull/815) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### 🐛 Bug Fix
+
+- feat: add ping pong types ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
 # v24.9.0 (Wed Sep 25 2024)
 
 #### 🚀 Enhancement

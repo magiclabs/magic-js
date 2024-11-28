@@ -1,3 +1,76 @@
+# v22.19.0 (Mon Nov 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1954-OAuth-popup-flow-consolidation ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v22.17.0 (Fri Oct 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1951-Lost-Device-Event-Does-Not-Emit-Whitelabel-MFA-provider ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.16.0 (Fri Oct 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into cancel-event-for-recovery-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v22.15.0 (Tue Oct 22 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-1908-Iframe-heartbeat ([@khamdam-magic](https://github.com/khamdam-magic))
+- Merge branch 'master' into khamdam-sc-PDEEXP-1908-Iframe-heartbeat ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
+# v22.14.0 (Fri Oct 18 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into missed_type_for_recovery_factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v22.13.0 (Fri Oct 18 2024)
+
+#### 🐛 Bug Fix
+
+- Update .deepsource.toml [#804](https://github.com/magiclabs/magic-js/pull/804) ([@Magic-Brandan](https://github.com/Magic-Brandan))
+
+#### Authors: 1
+
+- [@Magic-Brandan](https://github.com/Magic-Brandan)
+
+---
+
 # v22.11.0 (Wed Sep 25 2024)
 
 #### 🐛 Bug Fix

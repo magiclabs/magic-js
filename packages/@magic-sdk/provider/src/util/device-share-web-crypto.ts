@@ -16,7 +16,6 @@ export async function clearDeviceShares() {
     }
   });
   for (const key of keysToRemove) {
-    // eslint-disable-next-line no-await-in-loop
     await removeItem(key);
   }
 }

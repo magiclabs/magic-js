@@ -1,5 +1,3 @@
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
-
 import browserEnv from '@ikscodes/browser-env';
 import { MagicExtensionWarning } from '../../../../src/core/sdk-exceptions';
 import { Extension } from '../../../../src/modules/base-extension';

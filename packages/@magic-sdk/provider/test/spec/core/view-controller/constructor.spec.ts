@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-
 import browserEnv from '@ikscodes/browser-env';
 import { ViewController } from '../../../../src/core/view-controller';
 

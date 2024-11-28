@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign  */
-
 import { EthNetworkConfiguration, QueryParameters, SupportedLocale } from '@magic-sdk/types';
 import type { AbstractProvider } from 'web3-core';
 import { coerce, satisfies } from '../util/semver';
@@ -67,7 +65,7 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
   const incompatibleExtensions: Extension<string>[] = [];
 
   if (Array.isArray(extensions)) {
-    extensions.forEach((ext) => {
+    extensions.forEach(ext => {
       if (checkExtensionCompat(ext)) {
         ext.init(this);
         if (ext.name || ext.name !== Extension.Anonymous) {
@@ -82,7 +80,7 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
       }
     });
   } else {
-    Object.keys(extensions).forEach((name) => {
+    Object.keys(extensions).forEach(name => {
       if (checkExtensionCompat(extensions[name])) {
         extensions[name].init(this);
         const ext = extensions[name];
@@ -161,7 +159,10 @@ export class SDKBase {
   /**
    * Creates an instance of Magic SDK.
    */
-  constructor(public readonly apiKey: string, options?: MagicSDKAdditionalConfiguration) {
+  constructor(
+    public readonly apiKey: string,
+    options?: MagicSDKAdditionalConfiguration,
+  ) {
     if (!apiKey) throw createMissingApiKeyError();
 
     if (SDKEnvironment.platform === 'react-native' && options?.endpoint) {
@@ -207,7 +208,6 @@ export class SDKBase {
     if (!SDKBase.__overlays__.has(this.parameters)) {
       const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters, this.networkHash);
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore - We don't want to expose this method to the user, but we
       // need to invoke in here so that the `ViewController` is ready for use.
       controller.init();

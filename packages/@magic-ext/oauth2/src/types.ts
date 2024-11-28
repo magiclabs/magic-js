@@ -3,6 +3,7 @@ import { MagicUserMetadata } from '@magic-sdk/types';
 export enum OAuthPayloadMethods {
   Start = 'magic_oauth_login_with_redirect_start',
   Verify = 'magic_oauth_login_with_redirect_verify',
+  Popup = 'magic_oauth_login_with_popup',
 }
 
 export type OAuthProvider =
@@ -94,6 +95,13 @@ export interface OAuthRedirectError {
 export interface OAuthRedirectConfiguration {
   provider: OAuthProvider;
   redirectURI: string;
+  scope?: string[];
+  customData?: string;
+  loginHint?: string;
+}
+
+export interface OAuthPopupConfiguration {
+  provider: OAuthProvider;
   scope?: string[];
   loginHint?: string;
   shouldReturnURI?: boolean;

@@ -27,7 +27,7 @@
     }
   },
 
-  "include": ["**/src/**/*.ts", "**/src/**/*.tsx", "**/src/**/*.js"],
+  "include": ["**/src/**/*.ts", "**/src/**/*.tsx", "**/src/**/*.js", "**/eslint.config.mjs"],
   "exclude": ["**/node_modules", "**/jest.config.ts", "**/coverage", "**/dist"],
 
   "ts-node": {

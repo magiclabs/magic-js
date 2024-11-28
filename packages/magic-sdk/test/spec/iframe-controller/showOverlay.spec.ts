@@ -1,5 +1,3 @@
-/* eslint-disable func-names */
-
 import browserEnv from '@ikscodes/browser-env';
 import { createIframeController } from '../../factories';
 import { IframeController } from '../../../src/iframe-controller';

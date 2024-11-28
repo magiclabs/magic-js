@@ -1,3 +1,87 @@
+# v9.18.0 (Mon Nov 25 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement OAuth login with Popup [#828](https://github.com/magiclabs/magic-js/pull/828) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1954-OAuth-popup-flow-consolidation ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- chore: clean up unused vars ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement login with popup consolidation ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: assign popup verify url in mandrake ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- chore: update redirectURL for loginWithPopup ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- chore: cleanup logs ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement OAuth login with Popup ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v9.17.1 (Fri Nov 15 2024)
+
+#### 🐛 Bug Fix
+
+- feat: add customData property to OAuthRedirectConfiguration [#837](https://github.com/magiclabs/magic-js/pull/837) ([@romin-halltari](https://github.com/romin-halltari))
+- Merge branch 'master' into M2PB-403-custom-data ([@romin-halltari](https://github.com/romin-halltari))
+- feat: add customData property to OAuthRedirectConfiguration ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v9.16.0 (Fri Oct 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1951-Lost-Device-Event-Does-Not-Emit-Whitelabel-MFA-provider ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v9.15.0 (Fri Oct 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into cancel-event-for-recovery-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v9.14.0 (Fri Oct 18 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into missed_type_for_recovery_factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v9.13.0 (Fri Oct 18 2024)
+
+#### 🐛 Bug Fix
+
+- Update .deepsource.toml [#804](https://github.com/magiclabs/magic-js/pull/804) ([@Magic-Brandan](https://github.com/Magic-Brandan))
+
+#### Authors: 1
+
+- [@Magic-Brandan](https://github.com/Magic-Brandan)
+
+---
+
 # v9.11.0 (Wed Sep 25 2024)
 
 #### 🐛 Bug Fix

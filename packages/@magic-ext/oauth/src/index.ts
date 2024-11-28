@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import { Extension } from '@magic-sdk/commons';
 import {
   OAuthErrorData,
@@ -21,7 +19,7 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   };
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
-    return this.utils.createPromiEvent<null | string>(async (resolve) => {
+    return this.utils.createPromiEvent<null | string>(async resolve => {
       const { provider, query } = await createURI.call(this, configuration);
 
       // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.

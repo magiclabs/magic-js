@@ -1,3 +1,146 @@
+# (Mon Nov 25 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@9.18.0`, `@magic-sdk/types@24.16.0`
+  - feat: implement OAuth login with Popup [#828](https://github.com/magiclabs/magic-js/pull/828) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Fri Nov 15 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@9.17.1`
+  - feat: add customData property to OAuthRedirectConfiguration [#837](https://github.com/magiclabs/magic-js/pull/837) ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# (Fri Nov 15 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.17.0`, `@magic-sdk/types@24.15.0`
+  - feat: implement transition from recover account to update email flow … [#833](https://github.com/magiclabs/magic-js/pull/833) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+  - Pdeexp 1544 implement magic auth recover account provider [#832](https://github.com/magiclabs/magic-js/pull/832) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Fri Oct 25 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.16.0`, `@magic-sdk/types@24.14.0`
+  - Pdeexp 1951 lost device event does not emit whitelabel mfa provider [#826](https://github.com/magiclabs/magic-js/pull/826) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@24.14.0`
+  - feat: add invalid-recovery-code type to loginWithEmailOtp [#827](https://github.com/magiclabs/magic-js/pull/827) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+  - Pdeexp 1951 lost device event does not emit whitelabel mfa [#825](https://github.com/magiclabs/magic-js/pull/825) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Oct 25 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.15.0`, `@magic-sdk/types@24.13.0`
+  - fix: cancel event for recovery factor [#829](https://github.com/magiclabs/magic-js/pull/829) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# (Tue Oct 22 2024)
+
+#### 🚀 Enhancement
+
+- `magic-sdk@28.15.0`
+  - feat: add iframe heartbeat implementation. [#816](https://github.com/magiclabs/magic-js/pull/816) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
+# (Fri Oct 18 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@24.12.0`
+  - feat: a new type for malformed phone number [#821](https://github.com/magiclabs/magic-js/pull/821) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# (Fri Oct 18 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@28.13.0`, `@magic-sdk/types@24.11.0`
+  - feat: recovery facto whitelabeling [#818](https://github.com/magiclabs/magic-js/pull/818) ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### 🐛 Bug Fix
+
+- Update .deepsource.toml [#804](https://github.com/magiclabs/magic-js/pull/804) ([@Magic-Brandan](https://github.com/Magic-Brandan))
+
+#### Authors: 2
+
+- [@Magic-Brandan](https://github.com/Magic-Brandan)
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# (Thu Oct 10 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/kadena@0.2.0`
+  - kadena [#813](https://github.com/magiclabs/magic-js/pull/813) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# (Thu Oct 10 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@24.10.0`
+  - feat: add ping pong types for heartbeat [#815](https://github.com/magiclabs/magic-js/pull/815) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
 # (Wed Sep 25 2024)
 
 #### 🚀 Enhancement

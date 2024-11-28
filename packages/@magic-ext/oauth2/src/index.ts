@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import { Extension } from '@magic-sdk/commons';
 import {
   OAuthErrorData,
@@ -8,6 +6,7 @@ import {
   OAuthRedirectConfiguration,
   OAuthPayloadMethods,
   OAuthRedirectStartResult,
+  OAuthPopupConfiguration,
 } from './types';
 
 export class OAuthExtension extends Extension.Internal<'oauth2'> {
@@ -70,6 +69,18 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     window.history.replaceState(null, '', urlWithoutQuery);
 
     return getResult.call(this, queryString, lifespan);
+  }
+
+  public loginWithPopup(configuration: OAuthPopupConfiguration) {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
+      {
+        ...configuration,
+        apiKey: this.sdk.apiKey,
+        platform: 'web',
+      },
+    ]);
+
+    return this.request<OAuthRedirectResult | OAuthRedirectError>(requestPayload);
   }
 }
 

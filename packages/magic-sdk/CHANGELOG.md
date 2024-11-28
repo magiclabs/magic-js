@@ -1,3 +1,88 @@
+# v28.19.0 (Mon Nov 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1954-OAuth-popup-flow-consolidation ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v28.17.0 (Fri Oct 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1951-Lost-Device-Event-Does-Not-Emit-Whitelabel-MFA-provider ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v28.16.0 (Fri Oct 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into cancel-event-for-recovery-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v28.15.0 (Tue Oct 22 2024)
+
+#### 🚀 Enhancement
+
+- feat: add iframe heartbeat implementation. [#816](https://github.com/magiclabs/magic-js/pull/816) ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-1908-Iframe-heartbeat ([@khamdam-magic](https://github.com/khamdam-magic))
+- Merge branch 'master' into khamdam-sc-PDEEXP-1908-Iframe-heartbeat ([@khamdam-magic](https://github.com/khamdam-magic))
+- chore: update test coverage for magic-sdk ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: fix test issues ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: update iframe controller ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: use Magic message enums ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: add heartbeat to iframecontroller ([@khamdam-magic](https://github.com/khamdam-magic))
+- test: add new tests ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: fix deep source error ([@khamdam-magic](https://github.com/khamdam-magic))
+- feat: add iframe heartbeat ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
+# v28.14.0 (Fri Oct 18 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into missed_type_for_recovery_factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v28.13.0 (Fri Oct 18 2024)
+
+#### 🐛 Bug Fix
+
+- Update .deepsource.toml [#804](https://github.com/magiclabs/magic-js/pull/804) ([@Magic-Brandan](https://github.com/Magic-Brandan))
+
+#### Authors: 1
+
+- [@Magic-Brandan](https://github.com/Magic-Brandan)
+
+---
+
 # v28.11.0 (Wed Sep 25 2024)
 
 #### 🐛 Bug Fix
