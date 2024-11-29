@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicPayloadMethod } from '@magic-sdk/types';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { GDKMSExtension } from '../../src';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Construct Encrypt Request with `magic_auth_encrypt_v1`', async () => {

@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { BCS, TxnBuilderTypes } from 'aptos';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { AptosExtension } from '../../src';
@@ -32,7 +31,7 @@ const MESSAGE_PAYLOAD = {
 };
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Construct GetAccount request with `aptos_getAccount`', async () => {

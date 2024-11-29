@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { KadenaPayloadMethod } from '../../src/types';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { KadenaExtension } from '../../src';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Sends params as payload', () => {
