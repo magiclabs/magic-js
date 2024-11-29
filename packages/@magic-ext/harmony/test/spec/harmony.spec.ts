@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { HarmonyPayloadMethod } from '../../src/types';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { HarmonyExtension } from '../../src';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Sends params as payload', async () => {

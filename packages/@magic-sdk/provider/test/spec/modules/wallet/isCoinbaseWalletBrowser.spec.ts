@@ -1,8 +1,7 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Returns true if provider.isCoinbaseBrowser is true', async () => {

@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { JsonRpcError, JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
 
@@ -19,7 +18,7 @@ function createJsonRcpError(): JsonRpcError {
 }
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.restoreAllMocks();
 });
 
 test('Add a formatted error to the response with `JsonRpcError` object as argument', () => {

@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createModalNotReadyError } from '@magic-sdk/provider';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   reactNativeStyleSheetStub();
 });
 

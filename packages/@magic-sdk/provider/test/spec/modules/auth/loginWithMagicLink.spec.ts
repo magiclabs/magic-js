@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicPayloadMethod, SDKWarningCode } from '@magic-sdk/types';
 
 import { SDKEnvironment } from '../../../../src/core/sdk-environment';
@@ -8,7 +7,7 @@ import * as SdkExceptions from '../../../../src/core/sdk-exceptions';
 import { ProductConsolidationMethodRemovalVersions } from '../../../../src/modules/auth';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   jest.restoreAllMocks();
 });
 

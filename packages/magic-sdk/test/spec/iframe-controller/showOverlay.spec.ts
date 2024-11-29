@@ -1,11 +1,10 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createIframeController } from '../../factories';
 import { IframeController } from '../../../src/iframe-controller';
 
 beforeEach(() => {
-  browserEnv.restore();
-  browserEnv.stub('addEventListener', jest.fn());
-  browserEnv.stub('console.warn', jest.fn());
+  jest.restoreAllMocks();
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
+  jest.spyOn(console, 'warn').mockImplementation(jest.fn());
 });
 
 test('Change display style to `block`', async () => {
@@ -56,7 +55,7 @@ test('Saves the current `document.activeElement`', async () => {
 
   const overlay = createIframeController();
 
-  browserEnv.stub('document.activeElement', 'qwertyqwerty');
+  jest.spyOn(document, 'activeElement', 'get').mockReturnValue('qwertyqwerty' as any);
 
   expect((overlay as any).activeElement).toBe(null);
 

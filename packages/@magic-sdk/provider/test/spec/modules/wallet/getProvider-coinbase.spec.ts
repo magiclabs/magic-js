@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 import { mockLocalForage } from '../../../mocks';
 import * as storage from '../../../../src/util/storage';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 
   mockLocalForage();
 });

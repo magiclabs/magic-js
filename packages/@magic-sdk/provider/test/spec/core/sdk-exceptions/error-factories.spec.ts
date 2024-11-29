@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { Extension } from '../../../../src/modules/base-extension';
 import { mockSDKEnvironmentConstant, restoreSDKEnvironmentConstants } from '../../../mocks';
 
@@ -12,7 +11,7 @@ function errorAssertions(error: any, expectedCode: string, expectedMessage: stri
 
 beforeEach(() => {
   jest.resetModules();
-  browserEnv.restore();
+  jest.resetAllMocks();
   restoreSDKEnvironmentConstants();
 });
 

@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '@magic-sdk/types';
 import { createViewController, TestViewController } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
@@ -73,13 +72,13 @@ let FAKE_STORE: any = {};
 let viewController: TestViewController;
 
 beforeEach(() => {
+  jest.resetAllMocks();
   jest.restoreAllMocks();
   createJwtStub = jest.spyOn(webCryptoUtils, 'createJwt');
   getDecryptedDeviceShareStub = jest.spyOn(deviceShareWebCryptoUtils, 'getDecryptedDeviceShare');
   clearDeviceSharesStub = jest.spyOn(deviceShareWebCryptoUtils, 'clearDeviceShares');
   jest.spyOn(global.console, 'info').mockImplementation(() => {});
-  browserEnv();
-  browserEnv.stub('addEventListener', jest.fn());
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
   jest.spyOn(storage, 'getItem').mockImplementation((key: string) => FAKE_STORE[key]);
   jest.spyOn(storage, 'setItem').mockImplementation(async (key: string, value: any) => {
     FAKE_STORE[key] = value;

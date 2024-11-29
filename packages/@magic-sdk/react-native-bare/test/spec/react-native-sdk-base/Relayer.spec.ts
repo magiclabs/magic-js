@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.restoreAllMocks();
   reactNativeStyleSheetStub();
 });
 

@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { isPromiEvent } from '../../../../src/util';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Generate JSON RPC request payload with method `magic_auth_get_id_token`', async () => {

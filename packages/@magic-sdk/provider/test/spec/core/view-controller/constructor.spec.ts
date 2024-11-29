@@ -1,8 +1,7 @@
-import browserEnv from '@ikscodes/browser-env';
 import { ViewController } from '../../../../src/core/view-controller';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Instantiates `ViewController`', async () => {

@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { isPromiEvent } from '../../../../src';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Generate JSON RPC request payload with method `magic_auth_recover_account`', async () => {
