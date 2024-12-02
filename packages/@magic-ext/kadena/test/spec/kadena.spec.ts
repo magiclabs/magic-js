@@ -71,7 +71,7 @@ test('Generate JSON RPC request payload with method `kda_loginWithSpireKey`', ()
   expect(requestPayload.method).toBe(KadenaPayloadMethod.KadenaLoginWithSpireKey);
 });
 
-test('Generate JSON RPC request payload with method `kda_getInfo`', () => {
+test('Generate JSON RPC request payload with method `kda_getUserInfo`', () => {
   const magic = createMagicSDKWithExtension({}, [
     new KadenaExtension({
       rpcUrl: '',
@@ -83,8 +83,8 @@ test('Generate JSON RPC request payload with method `kda_getInfo`', () => {
   ]);
   magic.kadena.request = jest.fn();
 
-  magic.kadena.getInfo();
+  magic.kadena.getUserInfo();
 
   const requestPayload = magic.kadena.request.mock.calls[0][0];
-  expect(requestPayload.method).toBe(KadenaPayloadMethod.KadenaGetInfo);
+  expect(requestPayload.method).toBe(KadenaPayloadMethod.KadenaGetUserInfo);
 });

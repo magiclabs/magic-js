@@ -46,8 +46,8 @@ export class KadenaExtension extends Extension.Internal<'kadena'> {
     return this.request<LoginWithSpireKeyResponse>(requestPayload);
   }
 
-  public getInfo(): Promise<KadenaUserMetadata> {
-    const requestPayload = this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaGetInfo, []);
+  public getUserInfo(): Promise<KadenaUserMetadata> {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaGetUserInfo, []);
     return this.request<KadenaUserMetadata>(requestPayload);
   }
 }

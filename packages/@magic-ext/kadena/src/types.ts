@@ -8,7 +8,7 @@ export interface KadenaConfig {
 
 export enum KadenaPayloadMethod {
   KadenaLoginWithSpireKey = 'kda_loginWithSpireKey',
-  KadenaGetInfo = 'kda_getInfo',
+  KadenaGetUserInfo = 'kda_getUserInfo',
   KadenaSignTransaction = 'kda_signTransaction',
   KadenaSignTransactionWithSpireKey = 'kda_signTransactionWithSpireKey',
 }
