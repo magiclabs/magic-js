@@ -78,9 +78,6 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
       {
         data: {
           showUI: params?.showUI ?? DEFAULT_SHOW_UI,
-          domain: window.location.origin,
-          isMobile: isMobile(),
-          isMainFrame: isMainFrame(),
         },
       },
     ]);
