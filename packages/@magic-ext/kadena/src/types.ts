@@ -22,7 +22,10 @@ export interface KdaUnsignedCommand {
   cmd: string;
   hash: string;
   sigs: Array<
-    | string
+    | {
+        sig: string;
+        pubKey?: string;
+      }
     | {
         pubKey: string;
         sig?: string;
