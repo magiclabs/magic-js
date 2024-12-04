@@ -1,6 +1,6 @@
 import { Extension } from '@magic-sdk/commons';
 import {
-  IUnsignedCommand,
+  KdaUnsignedCommand,
   KadenaConfig,
   KadenaPayloadMethod,
   KadenaUserMetadata,
@@ -33,7 +33,7 @@ export class KadenaExtension extends Extension.Internal<'kadena'> {
   }
 
   public async signTransactionWithSpireKey(
-    transaction: IUnsignedCommand,
+    transaction: KdaUnsignedCommand,
   ): Promise<SignTransactionWithSpireKeyResponse> {
     const signedTransaction = await this.request(
       this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransactionWithSpireKey, [{ transaction }]),

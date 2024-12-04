@@ -18,25 +18,29 @@ export interface SignTransactionResponse {
   pubKey?: string;
 }
 
-export interface IUnsignedCommand {
+export interface KdaUnsignedCommand {
+  cmd: string;
+  hash: string;
+  sigs: Array<
+    | string
+    | {
+        pubKey: string;
+        sig?: string;
+      }
+    | undefined
+  >;
+}
+export interface KdaSignedCommand {
   hash: string;
   cmd: string;
-  sigs: [undefined];
-}
-
-export interface Sig {
-  sig: string;
-  pubKey?: string;
-}
-
-export interface ICommand {
-  hash: string;
-  cmd: string;
-  sigs: Sig[];
+  sigs: {
+    sig: string;
+    pubKey?: string;
+  }[];
 }
 
 export interface SignTransactionWithSpireKeyResponse {
-  transactions: (IUnsignedCommand | ICommand)[];
+  transactions: (KdaUnsignedCommand | KdaSignedCommand)[];
 }
 
 export interface KadenaUserMetadata {
