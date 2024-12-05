@@ -1,3 +1,35 @@
+# (Thu Dec 05 2024)
+
+#### 🐛 Bug Fix
+
+- fix: typos [#830](https://github.com/magiclabs/magic-js/pull/830) ([@omahs](https://github.com/omahs) [@Ethella](https://github.com/Ethella))
+- `@magic-ext/farcaster@0.18.1`
+  - farcaster login channel reuse [#841](https://github.com/magiclabs/magic-js/pull/841) ([@hcote](https://github.com/hcote))
+- `@magic-ext/algorand@23.18.1`, `@magic-ext/aptos@11.18.1`, `@magic-ext/avalanche@23.18.1`, `@magic-ext/bitcoin@23.18.1`, `@magic-ext/conflux@21.18.1`, `@magic-ext/cosmos@23.18.1`, `@magic-ext/ed25519@19.18.1`, `@magic-ext/farcaster@0.18.1`, `@magic-ext/flow@23.18.1`, `@magic-ext/gdkms@11.18.1`, `@magic-ext/harmony@23.18.1`, `@magic-ext/hedera@1.0.4`, `@magic-ext/icon@23.18.1`, `@magic-ext/kadena@0.8.1`, `@magic-ext/near@23.18.1`, `@magic-ext/oauth@22.18.1`, `@magic-ext/oauth2@9.18.1`, `@magic-ext/oidc@11.18.1`, `@magic-ext/polkadot@23.18.1`, `@magic-ext/react-native-bare-oauth@25.19.1`, `@magic-ext/react-native-expo-oauth@25.19.1`, `@magic-ext/solana@25.19.1`, `@magic-ext/sui@0.19.1`, `@magic-ext/taquito@20.18.1`, `@magic-ext/terra@20.18.1`, `@magic-ext/tezos@23.18.1`, `@magic-ext/webauthn@22.18.1`, `@magic-ext/zilliqa@23.18.1`, `@magic-sdk/commons@24.18.1`, `@magic-sdk/pnp@22.19.1`, `@magic-sdk/provider@28.18.1`, `@magic-sdk/react-native-bare@29.19.1`, `@magic-sdk/react-native-expo@29.19.1`, `@magic-sdk/types@24.16.1`, `magic-sdk@28.19.1`
+  - chore: bump eslint version [#834](https://github.com/magiclabs/magic-js/pull/834) ([@otabek-magic](https://github.com/otabek-magic) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- [@otabek-magic](https://github.com/otabek-magic)
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- omahs ([@omahs](https://github.com/omahs))
+
+---
+
+# (Mon Nov 25 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@9.18.0`, `@magic-sdk/types@24.16.0`
+  - feat: implement OAuth login with Popup [#828](https://github.com/magiclabs/magic-js/pull/828) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Fri Nov 15 2024)
 
 #### 🐛 Bug Fix

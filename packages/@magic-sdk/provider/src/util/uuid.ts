@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 export function uuid() {
   const u = window.crypto.getRandomValues(new Uint8Array(16));
 

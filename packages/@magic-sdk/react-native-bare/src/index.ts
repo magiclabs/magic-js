@@ -1,10 +1,3 @@
-/*
-  eslint-disable
-
-  global-require,
-  @typescript-eslint/no-var-requires
- */
-
 /* istanbul ignore file */
 
 import 'regenerator-runtime/runtime';
@@ -38,9 +31,9 @@ global.URL = URLPolyfill as any;
 global.URLSearchParams = URLSearchParamsPolyfill as any;
 
 /* istanbul ignore next */
-global.btoa = (str) => Buffer.from(str, 'binary').toString('base64');
+global.btoa = str => Buffer.from(str, 'binary').toString('base64');
 /* istanbul ignore next */
-global.atob = (b64Encoded) => Buffer.from(b64Encoded, 'base64').toString('binary');
+global.atob = b64Encoded => Buffer.from(b64Encoded, 'base64').toString('binary');
 
 export * from '@magic-sdk/commons';
 

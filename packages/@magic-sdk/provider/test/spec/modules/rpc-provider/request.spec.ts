@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 import browserEnv from '@ikscodes/browser-env';
 import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';

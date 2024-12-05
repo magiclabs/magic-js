@@ -7,6 +7,7 @@ import { MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventRegister } from 'react-native-event-listeners';
+/* global NodeJS */
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 
@@ -81,7 +82,7 @@ export class ReactNativeWebViewController extends ViewController {
   // is sufficient (this logic is stable right now and not expected to change in
   // the forseeable future).
   /* istanbul ignore next */
-  public Relayer: React.FC<{ backgroundColor?: string }> = (backgroundColor) => {
+  public Relayer: React.FC<{ backgroundColor?: string }> = backgroundColor => {
     const [show, setShow] = useState(false);
     const [mountOverlay, setMountOverlay] = useState(true);
     const isConnected = useInternetConnection();
@@ -99,7 +100,7 @@ export class ReactNativeWebViewController extends ViewController {
     }, []);
 
     useEffect(() => {
-      EventRegister.addEventListener(MSG_POSTED_AFTER_INACTIVITY_EVENT, async (message) => {
+      EventRegister.addEventListener(MSG_POSTED_AFTER_INACTIVITY_EVENT, async message => {
         // If inactivity has been determined, the message is posted only after a brief
         // unmount and re-mount of the webview. This is to ensure the webview is accepting messages.
         // iOS kills webview processes after a certain period of inactivity, like when the app is
@@ -181,7 +182,7 @@ export class ReactNativeWebViewController extends ViewController {
           style={this.styles['magic-webview']}
           autoManageStatusBarEnabled={false}
           webviewDebuggingEnabled
-          onShouldStartLoadWithRequest={(event) => {
+          onShouldStartLoadWithRequest={event => {
             const queryParams = new URLSearchParams(event.url.split('?')[1]);
             const openInDeviceBrowser = queryParams.get(OPEN_IN_DEVICE_BROWSER);
 
@@ -225,7 +226,7 @@ export class ReactNativeWebViewController extends ViewController {
       if (data && data.msgType && this.messageHandlers.size) {
         // If the response object is undefined, we ensure it's at least an
         // empty object before passing to the event listener.
-        /* eslint-disable-next-line no-param-reassign */
+
         data.response = data.response ?? {};
 
         // Reconstruct event from RN event
