@@ -13,12 +13,12 @@ export enum KadenaPayloadMethod {
   KadenaSignTransactionWithSpireKey = 'kda_signTransactionWithSpireKey',
 }
 
-export interface SignTransactionResponse {
+export interface SignatureWithPublicKey {
   sig: string;
   pubKey?: string;
 }
 
-export interface KdaUnsignedCommand {
+export interface UnsignedCommand {
   cmd: string;
   hash: string;
   sigs: Array<
@@ -33,7 +33,7 @@ export interface KdaUnsignedCommand {
     | undefined
   >;
 }
-export interface KdaSignedCommand {
+export interface SignedCommand {
   hash: string;
   cmd: string;
   sigs: {
@@ -42,8 +42,8 @@ export interface KdaSignedCommand {
   }[];
 }
 
-export interface SignTransactionWithSpireKeyResponse {
-  transactions: (KdaUnsignedCommand | KdaSignedCommand)[];
+export interface SignedTransactions {
+  transactions: (UnsignedCommand | SignedCommand)[];
 }
 
 export interface KadenaUserMetadata {
@@ -109,7 +109,7 @@ type Account = {
   requestedFungibles?: RequestedFungible[];
 };
 
-export type LoginWithSpireKeyResponse = Account;
+export type SpireKeyAccount = Account;
 
 export type ChainId =
   | '0'

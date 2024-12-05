@@ -1,12 +1,12 @@
 import { Extension } from '@magic-sdk/commons';
 import {
-  KdaUnsignedCommand,
+  UnsignedCommand,
   KadenaConfig,
   KadenaPayloadMethod,
   KadenaUserMetadata,
-  LoginWithSpireKeyResponse,
-  SignTransactionResponse,
-  SignTransactionWithSpireKeyResponse,
+  SpireKeyAccount,
+  SignatureWithPublicKey,
+  SignedTransactions,
 } from './types';
 
 export class KadenaExtension extends Extension.Internal<'kadena'> {
@@ -28,22 +28,20 @@ export class KadenaExtension extends Extension.Internal<'kadena'> {
     };
   }
 
-  public signTransaction(hash: string): Promise<SignTransactionResponse> {
+  public signTransaction(hash: string): Promise<SignatureWithPublicKey> {
     return this.request(this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransaction, [{ hash }]));
   }
 
-  public async signTransactionWithSpireKey(
-    transaction: KdaUnsignedCommand,
-  ): Promise<SignTransactionWithSpireKeyResponse> {
+  public async signTransactionWithSpireKey(transaction: UnsignedCommand): Promise<SignedTransactions> {
     const signedTransaction = await this.request(
       this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransactionWithSpireKey, [{ transaction }]),
     );
     return signedTransaction;
   }
 
-  public loginWithSpireKey(): Promise<LoginWithSpireKeyResponse> {
+  public loginWithSpireKey(): Promise<SpireKeyAccount> {
     const requestPayload = this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaLoginWithSpireKey, []);
-    return this.request<LoginWithSpireKeyResponse>(requestPayload);
+    return this.request<SpireKeyAccount>(requestPayload);
   }
 
   public getUserInfo(): Promise<KadenaUserMetadata> {
