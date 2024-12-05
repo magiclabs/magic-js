@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/avalanche",
-  "version": "23.18.0",
+  "version": "23.18.1",
   "description": "magic avalanche extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^24.18.0"
+    "@magic-sdk/commons": "^24.18.1"
   }
 }
