@@ -21,7 +21,6 @@ export class KadenaExtension extends Extension.Internal<'kadena'> {
       rpcUrl: kadenaConfig.rpcUrl,
       chainId: kadenaConfig.chainId,
       options: {
-        network: kadenaConfig.network,
         networkId: kadenaConfig.networkId,
         createAccountsOnChain: Boolean(kadenaConfig.createAccountsOnChain),
       },
