@@ -1,3 +1,22 @@
+# (Sat Dec 07 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/kadena@0.9.0`
+  - feat: spire key methods [#835](https://github.com/magiclabs/magic-js/pull/835) ([@joshuascan](https://github.com/joshuascan) [@hcote](https://github.com/hcote))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/kadena@0.9.0`
+  - update [#839](https://github.com/magiclabs/magic-js/pull/839) ([@hcote](https://github.com/hcote))
+
+#### Authors: 2
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Thu Dec 05 2024)
 
 #### 🐛 Bug Fix

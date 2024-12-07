@@ -1,3 +1,33 @@
+# v0.9.0 (Sat Dec 07 2024)
+
+#### 🚀 Enhancement
+
+- feat: spire key methods [#835](https://github.com/magiclabs/magic-js/pull/835) ([@joshuascan](https://github.com/joshuascan) [@hcote](https://github.com/hcote))
+
+#### 🐛 Bug Fix
+
+- remove network config ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into PDEEXP-2014-add-kadena-methods-to-sdk ([@hcote](https://github.com/hcote))
+- update types ([@hcote](https://github.com/hcote))
+- fix: update type ([@hcote](https://github.com/hcote))
+- fix: update types ([@hcote](https://github.com/hcote))
+- chore: updates user info name ([@joshuascan](https://github.com/joshuascan))
+- chore: rename kadena metadata type ([@joshuascan](https://github.com/joshuascan))
+- update type ([@hcote](https://github.com/hcote))
+- update [#839](https://github.com/magiclabs/magic-js/pull/839) ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into PDEEXP-2014-add-kadena-methods-to-sdk ([@joshuascan](https://github.com/joshuascan))
+- chore: fix test ([@joshuascan](https://github.com/joshuascan))
+- chore: updates types ([@joshuascan](https://github.com/joshuascan))
+- chore: adds tests ([@joshuascan](https://github.com/joshuascan))
+- feat: spire key methods ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v0.8.1 (Thu Dec 05 2024)
 
 #### 🐛 Bug Fix
