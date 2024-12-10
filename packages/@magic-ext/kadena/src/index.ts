@@ -7,6 +7,7 @@ import {
   SpireKeyAccount,
   SignatureWithPublicKey,
   SignedTransactions,
+  OptimalTransactionsAccount,
 } from './types';
 
 export class KadenaExtension extends Extension.Internal<'kadena'> {
@@ -31,9 +32,14 @@ export class KadenaExtension extends Extension.Internal<'kadena'> {
     return this.request(this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransaction, [{ hash }]));
   }
 
-  public async signTransactionWithSpireKey(transaction: UnsignedCommand): Promise<SignedTransactions> {
+  public async signTransactionWithSpireKey(
+    transaction: UnsignedCommand,
+    accounts?: OptimalTransactionsAccount[]
+  ): Promise<SignedTransactions> {
     const signedTransaction = await this.request(
-      this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransactionWithSpireKey, [{ transaction }]),
+      this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransactionWithSpireKey, [
+        { transaction, accounts: accounts || undefined },
+      ])
     );
     return signedTransaction;
   }
