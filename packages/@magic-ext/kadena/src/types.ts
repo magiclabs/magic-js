@@ -110,6 +110,8 @@ type Account = {
 
 export type SpireKeyAccount = Account;
 
+export type OptimalTransactionsAccount = Pick<Account, 'chainIds' | 'accountName' | 'networkId' | 'requestedFungibles'>;
+
 export type ChainId =
   | '0'
   | '1'
