@@ -4,6 +4,7 @@ export enum OAuthPayloadMethods {
   Start = 'magic_oauth_login_with_redirect_start',
   Verify = 'magic_oauth_login_with_redirect_verify',
   Popup = 'magic_oauth_login_with_popup',
+  VerifyTelegramData = 'magic_oauth_verify_telegram_data',
 }
 
 export type OAuthProvider =
@@ -101,7 +102,7 @@ export interface OAuthRedirectConfiguration {
 }
 
 export interface OAuthPopupConfiguration {
-  provider: OAuthProvider;
+  provider: OAuthProvider | 'telegram';
   scope?: string[];
   loginHint?: string;
 }
