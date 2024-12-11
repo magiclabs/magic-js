@@ -1,3 +1,16 @@
+# (Wed Dec 11 2024)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/kadena@0.9.1`
+  - fix: add accounts param to spirekey send tx [#844](https://github.com/magiclabs/magic-js/pull/844) ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # (Sat Dec 07 2024)
 
 #### 🚀 Enhancement
