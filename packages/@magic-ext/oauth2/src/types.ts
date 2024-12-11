@@ -20,6 +20,8 @@ export type OAuthProvider =
   | 'twitch'
   | 'microsoft';
 
+type OAuthPopupProvider = OAuthProvider | 'telegram';
+
 export interface OAuthErrorData {
   provider: OAuthProvider;
   errorURI?: string;
@@ -102,7 +104,7 @@ export interface OAuthRedirectConfiguration {
 }
 
 export interface OAuthPopupConfiguration {
-  provider: OAuthProvider | 'telegram';
+  provider: OAuthPopupProvider;
   scope?: string[];
   loginHint?: string;
 }
