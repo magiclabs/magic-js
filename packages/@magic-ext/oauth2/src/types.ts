@@ -4,6 +4,7 @@ export enum OAuthPayloadMethods {
   Start = 'magic_oauth_login_with_redirect_start',
   Verify = 'magic_oauth_login_with_redirect_verify',
   Popup = 'magic_oauth_login_with_popup',
+  VerifyTelegramData = 'magic_oauth_verify_telegram_data',
 }
 
 export type OAuthProvider =
@@ -18,6 +19,8 @@ export type OAuthProvider =
   | 'discord'
   | 'twitch'
   | 'microsoft';
+
+type OAuthPopupProvider = OAuthProvider | 'telegram';
 
 export interface OAuthErrorData {
   provider: OAuthProvider;
@@ -101,7 +104,7 @@ export interface OAuthRedirectConfiguration {
 }
 
 export interface OAuthPopupConfiguration {
-  provider: OAuthProvider;
+  provider: OAuthPopupProvider;
   scope?: string[];
   loginHint?: string;
 }
