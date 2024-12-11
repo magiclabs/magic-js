@@ -1,3 +1,21 @@
+# v9.19.0 (Wed Dec 11 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement seamless telegram login [#843](https://github.com/magiclabs/magic-js/pull/843) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- feat: create new type OAuthPopupProvider ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into PDEEXP-1958-Implement-Telegram-OAuth-for-Mandrake ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement seamless telegram login ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v9.18.1 (Thu Dec 05 2024)
 
 #### 🐛 Bug Fix

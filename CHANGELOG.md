@@ -1,5 +1,18 @@
 # (Wed Dec 11 2024)
 
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@9.19.0`
+  - feat: implement seamless telegram login [#843](https://github.com/magiclabs/magic-js/pull/843) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Wed Dec 11 2024)
+
 #### 🐛 Bug Fix
 
 - `@magic-ext/kadena@0.9.1`
