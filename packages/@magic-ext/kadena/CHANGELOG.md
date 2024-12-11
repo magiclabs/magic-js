@@ -1,3 +1,16 @@
+# v0.9.1 (Wed Dec 11 2024)
+
+#### 🐛 Bug Fix
+
+- fix: add accounts param to spirekey send tx [#844](https://github.com/magiclabs/magic-js/pull/844) ([@hcote](https://github.com/hcote))
+- fix: add accounts param to spirekey send tx ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v0.9.0 (Sat Dec 07 2024)
 
 #### 🚀 Enhancement
