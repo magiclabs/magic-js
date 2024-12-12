@@ -67,10 +67,8 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           resolve(redirectURI);
         } else {
           window.location.href = redirectURI;
-          resolve(null);
         }
       }
-
       resolve(null);
     });
   }
