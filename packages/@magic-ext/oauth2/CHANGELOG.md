@@ -1,3 +1,40 @@
+# v9.19.0 (Wed Dec 11 2024)
+
+#### 🚀 Enhancement
+
+- feat: implement seamless telegram login [#843](https://github.com/magiclabs/magic-js/pull/843) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- feat: create new type OAuthPopupProvider ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into PDEEXP-1958-Implement-Telegram-OAuth-for-Mandrake ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- feat: implement seamless telegram login ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v9.18.1 (Thu Dec 05 2024)
+
+#### 🐛 Bug Fix
+
+- fix: typos [#830](https://github.com/magiclabs/magic-js/pull/830) ([@omahs](https://github.com/omahs) [@Ethella](https://github.com/Ethella))
+- chore: bump eslint version [#834](https://github.com/magiclabs/magic-js/pull/834) ([@otabek-magic](https://github.com/otabek-magic) [@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-1985-bump-magic-sdk-eslint-version-to-9 ([@otabek-magic](https://github.com/otabek-magic))
+- chore: update eslint config ([@otabek-magic](https://github.com/otabek-magic))
+- chore: update to eslint 9 in magic-sdk magic-ext ([@otabek-magic](https://github.com/otabek-magic))
+- Merge branch 'master' into patch-1 ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@otabek-magic](https://github.com/otabek-magic)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- omahs ([@omahs](https://github.com/omahs))
+
+---
+
 # v9.18.0 (Mon Nov 25 2024)
 
 #### 🚀 Enhancement

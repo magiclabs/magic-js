@@ -1,3 +1,65 @@
+# v0.9.1 (Wed Dec 11 2024)
+
+#### 🐛 Bug Fix
+
+- fix: add accounts param to spirekey send tx [#844](https://github.com/magiclabs/magic-js/pull/844) ([@hcote](https://github.com/hcote))
+- fix: add accounts param to spirekey send tx ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v0.9.0 (Sat Dec 07 2024)
+
+#### 🚀 Enhancement
+
+- feat: spire key methods [#835](https://github.com/magiclabs/magic-js/pull/835) ([@joshuascan](https://github.com/joshuascan) [@hcote](https://github.com/hcote))
+
+#### 🐛 Bug Fix
+
+- remove network config ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into PDEEXP-2014-add-kadena-methods-to-sdk ([@hcote](https://github.com/hcote))
+- update types ([@hcote](https://github.com/hcote))
+- fix: update type ([@hcote](https://github.com/hcote))
+- fix: update types ([@hcote](https://github.com/hcote))
+- chore: updates user info name ([@joshuascan](https://github.com/joshuascan))
+- chore: rename kadena metadata type ([@joshuascan](https://github.com/joshuascan))
+- update type ([@hcote](https://github.com/hcote))
+- update [#839](https://github.com/magiclabs/magic-js/pull/839) ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into PDEEXP-2014-add-kadena-methods-to-sdk ([@joshuascan](https://github.com/joshuascan))
+- chore: fix test ([@joshuascan](https://github.com/joshuascan))
+- chore: updates types ([@joshuascan](https://github.com/joshuascan))
+- chore: adds tests ([@joshuascan](https://github.com/joshuascan))
+- feat: spire key methods ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v0.8.1 (Thu Dec 05 2024)
+
+#### 🐛 Bug Fix
+
+- fix: typos [#830](https://github.com/magiclabs/magic-js/pull/830) ([@omahs](https://github.com/omahs) [@Ethella](https://github.com/Ethella))
+- chore: bump eslint version [#834](https://github.com/magiclabs/magic-js/pull/834) ([@otabek-magic](https://github.com/otabek-magic) [@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-1985-bump-magic-sdk-eslint-version-to-9 ([@otabek-magic](https://github.com/otabek-magic))
+- chore: update eslint config ([@otabek-magic](https://github.com/otabek-magic))
+- chore: update to eslint 9 in magic-sdk magic-ext ([@otabek-magic](https://github.com/otabek-magic))
+- Merge branch 'master' into patch-1 ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@otabek-magic](https://github.com/otabek-magic)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- omahs ([@omahs](https://github.com/omahs))
+
+---
+
 # v0.8.0 (Mon Nov 25 2024)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,21 @@
+# v1.0.4 (Thu Dec 05 2024)
+
+#### 🐛 Bug Fix
+
+- fix: typos [#830](https://github.com/magiclabs/magic-js/pull/830) ([@omahs](https://github.com/omahs) [@Ethella](https://github.com/Ethella))
+- chore: bump eslint version [#834](https://github.com/magiclabs/magic-js/pull/834) ([@otabek-magic](https://github.com/otabek-magic) [@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-1985-bump-magic-sdk-eslint-version-to-9 ([@otabek-magic](https://github.com/otabek-magic))
+- chore: update eslint config ([@otabek-magic](https://github.com/otabek-magic))
+- chore: update to eslint 9 in magic-sdk magic-ext ([@otabek-magic](https://github.com/otabek-magic))
+
+#### Authors: 3
+
+- [@otabek-magic](https://github.com/otabek-magic)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- omahs ([@omahs](https://github.com/omahs))
+
+---
+
 # v1.0.3 (Tue Nov 21 2023)
 
 #### 🐛 Bug Fix
