@@ -63,7 +63,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
           : successResult.oauthAuthoriationURI;
 
-        if (configuration?.shouldReturnURI) {
+        if (successResult?.shouldReturnURI) {
           resolve(redirectURI);
         } else {
           window.location.href = redirectURI;
@@ -120,8 +120,8 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           console.log('Error while verifying telegram data', verificationError);
         }
       }
-    } catch (seamlessLoginError) { 
-      console.log('Error while loading telegram-web-app script', seamlessLoginError); 
+    } catch (seamlessLoginError) {
+      console.log('Error while loading telegram-web-app script', seamlessLoginError);
     }
   }
 }

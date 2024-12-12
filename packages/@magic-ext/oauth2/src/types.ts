@@ -73,6 +73,7 @@ export type OpenIDConnectUserInfo = OpenIDConnectProfile &
 export interface OAuthRedirectStartResult {
   oauthAuthoriationURI?: string;
   useMagicServerCallback?: boolean;
+  shouldReturnURI?: boolean;
 }
 
 export interface OAuthRedirectResult {
@@ -101,7 +102,6 @@ export interface OAuthRedirectConfiguration {
   scope?: string[];
   customData?: string;
   loginHint?: string;
-  shouldReturnURI?: boolean;
 }
 
 export interface OAuthPopupConfiguration {
