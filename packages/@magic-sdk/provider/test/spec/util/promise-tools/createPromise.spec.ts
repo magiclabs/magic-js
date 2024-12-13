@@ -5,13 +5,13 @@ beforeEach(() => {
 });
 
 test('Creates a native `Promise`', () => {
-  const p = createPromise(resolve => resolve());
+  const p = createPromise(resolve => resolve(true));
 
   expect(p instanceof Promise).toBe(true);
 });
 
 test('Resolves the `Promise`', done => {
-  createPromise(resolve => resolve()).then(() => {
+  createPromise(resolve => resolve(true)).then(() => {
     done();
   });
 });

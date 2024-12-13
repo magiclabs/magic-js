@@ -13,7 +13,7 @@ beforeEach(() => {
 function assertEncodedQueryParams(parameters: string, expectedParams: any = {}) {
   const defaultExpectedParams = {
     API_KEY: TEST_API_KEY,
-    DOMAIN_ORIGIN: 'null',
+    DOMAIN_ORIGIN: window.location ? window.location.origin : '',
     host: 'auth.magic.link',
     sdk: 'magic-sdk',
     version: '1.0.0-test',
@@ -47,7 +47,7 @@ test('Fail to initialize `MagicSDK`', () => {
     const Ctor = createMagicSDKCtor();
     new Ctor(undefined as any);
   } catch (err) {
-    expect(err.message).toBe(
+    expect((err as Error).message).toBe(
       'Magic SDK Error: [MISSING_API_KEY] Please provide an API key that you acquired from the Magic developer dashboard.',
     );
   }
@@ -64,7 +64,7 @@ test('Initialize `MagicSDK` with custom endpoint', () => {
 });
 
 test('Initialize `MagicSDK` when `window.location` is missing', () => {
-  jest.spyOn(window, 'location', 'get').mockReturnValue(undefined);
+  jest.spyOn(window, 'location', 'get').mockReturnValue(undefined as unknown as Location);
 
   const Ctor = createMagicSDKCtor();
   const magic = new Ctor(TEST_API_KEY);
@@ -127,6 +127,7 @@ class NoopExtSupportingWeb extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': '>1.0.0',
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': false,
     '@magic-sdk/react-native-expo': false,
   };
@@ -137,6 +138,7 @@ class NoopExtSupportingBareReactNative extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': '>1.0.0',
     '@magic-sdk/react-native-expo': false,
   };
@@ -147,6 +149,7 @@ class NoopExtSupportingExpoReactNative extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': false,
     '@magic-sdk/react-native-expo': '>1.0.0',
   };

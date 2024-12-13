@@ -116,6 +116,7 @@ class NoopExtSupportingWeb extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': '>1.0.0',
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': false,
     '@magic-sdk/react-native-expo': false,
   };
@@ -126,6 +127,7 @@ class NoopExtSupportingBareReactNative extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': '>1.0.0',
     '@magic-sdk/react-native-expo': false,
   };
@@ -136,6 +138,7 @@ class NoopExtSupportingExpoReactNative extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': false,
     '@magic-sdk/react-native-expo': '>1.0.0',
   };

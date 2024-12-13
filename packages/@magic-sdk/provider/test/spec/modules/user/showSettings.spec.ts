@@ -1,4 +1,6 @@
-import { DeepLinkPage } from '@magic-sdk/types/src/core/deep-link-pages';
+// import { DeepLinkPage } from '@magic-sdk/types/src/core/deep-link-pages';
+import { DeepLinkPage } from '../../../../../types/src/core/deep-link-pages';
+
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { isPromiEvent } from '../../../../src/util';
 
@@ -284,7 +286,7 @@ test('ShowSettings should handle request failure gracefully', () => {
   try {
     magic.user.showSettings();
   } catch (error) {
-    expect(error.message).toBe('Request failed');
+    expect((error as Error).message).toBe('Request failed');
   }
 });
 

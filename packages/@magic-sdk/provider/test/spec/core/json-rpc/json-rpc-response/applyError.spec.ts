@@ -1,4 +1,4 @@
-import { JsonRpcError, JsonRpcRequestPayload } from '@magic-sdk/types';
+import { JsonRpcError, JsonRpcRequestPayload, RPCErrorCode } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
 
 function createSourcePayload(): JsonRpcRequestPayload {
@@ -13,7 +13,7 @@ function createSourcePayload(): JsonRpcRequestPayload {
 function createJsonRcpError(): JsonRpcError {
   return {
     message: 'hello wolrd',
-    code: 1,
+    code: RPCErrorCode.InternalError,
   };
 }
 

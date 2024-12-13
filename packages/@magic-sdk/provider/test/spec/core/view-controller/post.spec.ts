@@ -41,7 +41,8 @@ function responseEvent(values: { result?: any; error?: any; id?: number; deviceS
  * `ViewController.post` logic).
  */
 function stubViewController(viewController: any, events: [MagicIncomingWindowMessage, any][]) {
-  const timeouts = [];
+  // eslint-disable-next-line no-undef
+  const timeouts: NodeJS.Timeout[] = [];
   const handlerSpy = jest.fn(() => timeouts.forEach(t => t && clearTimeout(t)));
   const onSpy = jest.fn((msgType, handler) => {
     events.forEach((event, i) => {
@@ -60,14 +61,14 @@ function stubViewController(viewController: any, events: [MagicIncomingWindowMes
   return { handlerSpy, onSpy, postSpy };
 }
 
-let createJwtStub;
-let getDecryptedDeviceShareStub;
-let clearDeviceSharesStub;
+let createJwtStub: jest.SpyInstance<Promise<string | undefined>, [], any>;
+let getDecryptedDeviceShareStub: jest.SpyInstance<Promise<string | undefined>>;;
+let clearDeviceSharesStub: jest.SpyInstance<Promise<void>, [], any>;
 const FAKE_JWT_TOKEN = 'hot tokens';
 const FAKE_DEVICE_SHARE = 'fake device share';
 const FAKE_RT = 'will freshen';
 const FAKE_INJECTED_JWT = 'fake injected jwt';
-let FAKE_STORE: any = {};
+let FAKE_STORE: {[key: string]: any} = {};
 
 let viewController: TestViewController;
 

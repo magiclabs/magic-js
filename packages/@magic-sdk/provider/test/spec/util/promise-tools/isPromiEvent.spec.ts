@@ -5,7 +5,7 @@ beforeEach(() => {
 });
 
 test('Returns `true` for valid `PromiEvent` object', () => {
-  const p = createPromiEvent(resolve => resolve());
+  const p = createPromiEvent(resolve => resolve(true));
 
   expect(isPromiEvent(p)).toBe(true);
 });
