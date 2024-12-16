@@ -9,6 +9,16 @@ import {
   OAuthPopupConfiguration,
 } from './types';
 
+declare global {
+  interface Window {
+    Telegram?: {
+      WebApp: {
+        initData: string
+      };
+    };
+  }
+}
+
 export class OAuthExtension extends Extension.Internal<'oauth2'> {
   name = 'oauth2' as const;
   config = {};
@@ -19,8 +29,13 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     '@magic-sdk/react-native-expo': false,
   };
 
+  constructor() {
+    super();
+    this.seamlessTelegramLogin();
+  }
+
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
-    return this.utils.createPromiEvent<void>(async (resolve, reject) => {
+    return this.utils.createPromiEvent<null | string>(async (resolve, reject) => {
       const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
         {
           ...configuration,
@@ -43,18 +58,23 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       }
 
       if (successResult?.oauthAuthoriationURI) {
-        window.location.href = successResult.useMagicServerCallback
+        const redirectURI = successResult.useMagicServerCallback
           ? // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-            new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
+          new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
           : successResult.oauthAuthoriationURI;
-      }
 
-      resolve();
+        if (successResult?.shouldReturnURI) {
+          resolve(redirectURI);
+        } else {
+          window.location.href = redirectURI;
+        }
+      }
+      resolve(null);
     });
   }
 
-  public getRedirectResult(lifespan?: number) {
-    const queryString = window.location.search;
+  public getRedirectResult(lifespan?: number, optionalQueryString?: string) {
+    const queryString = optionalQueryString || window.location.search;
 
     // Remove the query from the redirect callback as a precaution to prevent
     // malicious parties from parsing it before we have a chance to use it.
@@ -74,6 +94,33 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     ]);
 
     return this.request<OAuthRedirectResult | OAuthRedirectError>(requestPayload);
+  }
+
+  protected seamlessTelegramLogin() {
+    try {
+      const hash = window.location.hash.toString();
+      if (!hash.includes('#tgWebAppData')) return;
+
+      const script = document.createElement('script');
+      script.src = 'https://telegram.org/js/telegram-web-app.js';
+      document.head.prepend(script);
+
+      script.onload = async () => {
+        try {
+          const userData = window.Telegram?.WebApp.initData;
+          const requestPayload = this.utils.createJsonRpcRequestPayload(
+            OAuthPayloadMethods.VerifyTelegramData,
+            [{ userData, isMiniApp: true }],
+          );
+
+          await this.request<string | null>(requestPayload);
+        } catch (verificationError) {
+          console.log('Error while verifying telegram data', verificationError);
+        }
+      }
+    } catch (seamlessLoginError) {
+      console.log('Error while loading telegram-web-app script', seamlessLoginError);
+    }
   }
 }
 

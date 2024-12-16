@@ -1,3 +1,38 @@
+# v0.18.1 (Thu Dec 05 2024)
+
+#### 🐛 Bug Fix
+
+- farcaster login channel reuse [#841](https://github.com/magiclabs/magic-js/pull/841) ([@hcote](https://github.com/hcote))
+- update params ([@hcote](https://github.com/hcote))
+- remove unused params ([@hcote](https://github.com/hcote))
+- remove log ([@hcote](https://github.com/hcote))
+- add log ([@hcote](https://github.com/hcote))
+- Merge branch 'PDEEXP-2077-farcaster-login-channel-reuse-causes-login-error' of https://github.com/magiclabs/magic-js into PDEEXP-2077-farcaster-login-channel-reuse-causes-login-error ([@hcote](https://github.com/hcote))
+- move channel call to iframe ([@hcote](https://github.com/hcote))
+- revert ([@hcote](https://github.com/hcote))
+- refactor ([@hcote](https://github.com/hcote))
+- fix resolve value ([@hcote](https://github.com/hcote))
+- update type ([@hcote](https://github.com/hcote))
+- remove async ([@hcote](https://github.com/hcote))
+- refactor to keep promiEvent type ([@hcote](https://github.com/hcote))
+- remove unused constructor ([@hcote](https://github.com/hcote))
+- farcaster login channel reuse ([@hcote](https://github.com/hcote))
+- fix: typos [#830](https://github.com/magiclabs/magic-js/pull/830) ([@omahs](https://github.com/omahs) [@Ethella](https://github.com/Ethella))
+- chore: bump eslint version [#834](https://github.com/magiclabs/magic-js/pull/834) ([@otabek-magic](https://github.com/otabek-magic) [@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-1985-bump-magic-sdk-eslint-version-to-9 ([@otabek-magic](https://github.com/otabek-magic))
+- chore: update eslint config ([@otabek-magic](https://github.com/otabek-magic))
+- chore: update to eslint 9 in magic-sdk magic-ext ([@otabek-magic](https://github.com/otabek-magic))
+- Merge branch 'master' into patch-1 ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- [@otabek-magic](https://github.com/otabek-magic)
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- omahs ([@omahs](https://github.com/omahs))
+
+---
+
 # v0.18.0 (Mon Nov 25 2024)
 
 #### 🐛 Bug Fix
