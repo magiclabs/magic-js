@@ -67,7 +67,7 @@ export function createMagicSDKTestMode(environment: { [P in keyof SDKEnvironment
   return new Ctor(TEST_API_KEY, { testMode: true });
 }
 
-export function createMagicSDKWithExtension(environment: { [P in keyof SDKEnvironment]?: any } = {}, extensions = []) {
+export function createMagicSDKWithExtension(environment: { [P in keyof SDKEnvironment]?: any } = {}, extensions:any[] = []) {
   const Ctor = createMagicSDKCtor(environment);
   return new Ctor(TEST_API_KEY, { extensions });
 }

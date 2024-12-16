@@ -2,6 +2,7 @@ import { BCS, TxnBuilderTypes } from 'aptos';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { AptosExtension } from '../../src';
 import { AptosPayloadMethod } from '../../src/type';
+import { TextEncoder, TextDecoder } from 'util';
 
 const APTOS_NODE_URL = 'https://fullnode.testnet.aptoslabs.com';
 
@@ -29,6 +30,10 @@ const MESSAGE_PAYLOAD = {
   message: 'Hello Aptos Extension!',
   nonce: 'random-nonce',
 };
+
+beforeAll(() => {
+  Object.assign(global, { TextEncoder, TextDecoder });
+})
 
 beforeEach(() => {
   jest.resetAllMocks();

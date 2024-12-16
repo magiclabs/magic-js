@@ -63,7 +63,7 @@ test('should store public and private keys after creating JWT', async () => {
 test('private key should be non exportable', async () => {
   await createJwt();
   const privateKey = FAKE_STORE[STORE_KEY_PRIVATE_KEY];
-  expect(() => crypto.subtle.exportKey('jwk', privateKey)).toThrow();
+  expect(() => crypto.subtle.exportKey('jwk', privateKey)).rejects.toThrow();
 });
 
 test('when asked should clear keys', async () => {

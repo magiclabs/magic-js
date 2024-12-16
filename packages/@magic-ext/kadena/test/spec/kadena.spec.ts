@@ -23,6 +23,6 @@ test('Sends params as payload', () => {
   magic.kadena.signTransaction(params);
 
   const requestPayload = magic.kadena.request.mock.calls[0][0];
-  expect(requestPayload.method).toBe(KadenaPayloadMethod.KadenaSignTransaction);
+  expect(requestPayload.method).toBe(KadenaPayloadMethod.KadenaSignTransaction as any);
   expect(requestPayload.params).toEqual([{ hash: '0x123' }]);
 });
