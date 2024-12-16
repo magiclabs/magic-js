@@ -24,13 +24,13 @@ test('If no parameters are given & platform target is "web", URL search string a
   const magic = createMagicSDK({ platform: 'web' });
   magic.auth.request = jest.fn();
 
-  jest.spyOn(window.history, 'replaceState').mockImplementation(() => {});
+  jest.spyOn(window.history, 'replaceState').mockImplementation(() => { });
 
   jest.spyOn(window, 'location', 'get').mockReturnValue({
     search: '?magic_credential=asdf',
     origin: 'http://example.com',
     pathname: '/hello/world',
-  } as any);
+  } as unknown as Location);
 
   await magic.auth.loginWithCredential();
 

@@ -54,12 +54,13 @@ test('Saves the current `document.activeElement`', async () => {
   };
 
   const overlay = createIframeController();
+  const mockElement = document.createElement('div');
 
-  jest.spyOn(document, 'activeElement', 'get').mockReturnValue('qwertyqwerty' as any);
+  jest.spyOn(document, 'activeElement', 'get').mockReturnValue(mockElement);
 
   expect((overlay as any).activeElement).toBe(null);
 
   await (overlay as any).showOverlay();
 
-  expect((overlay as any).activeElement).toBe('qwertyqwerty');
+  expect((overlay as any).activeElement).toBe(mockElement);
 });

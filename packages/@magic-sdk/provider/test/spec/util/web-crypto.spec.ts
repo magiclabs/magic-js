@@ -3,7 +3,7 @@ import * as storage from '../../../src/util/storage';
 import { clearKeys, createJwt, STORE_KEY_PRIVATE_KEY, STORE_KEY_PUBLIC_JWK } from '../../../src/util/web-crypto';
 import { TextEncoder } from 'util';
 
-let FAKE_STORE: { [key: string]: any } = {};
+let FAKE_STORE: Record<string, any> = {};
 
 beforeAll(() => {
   jest.spyOn(storage, 'getItem').mockImplementation(async (key: string) => FAKE_STORE[key]);

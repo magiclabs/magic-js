@@ -61,14 +61,14 @@ function stubViewController(viewController: any, events: [MagicIncomingWindowMes
   return { handlerSpy, onSpy, postSpy };
 }
 
-let createJwtStub: jest.SpyInstance<Promise<string | undefined>, [], any>;
+let createJwtStub: jest.SpyInstance<Promise<string | undefined>>;
 let getDecryptedDeviceShareStub: jest.SpyInstance<Promise<string | undefined>>;;
-let clearDeviceSharesStub: jest.SpyInstance<Promise<void>, [], any>;
+let clearDeviceSharesStub: jest.SpyInstance<Promise<void>>;
 const FAKE_JWT_TOKEN = 'hot tokens';
 const FAKE_DEVICE_SHARE = 'fake device share';
 const FAKE_RT = 'will freshen';
 const FAKE_INJECTED_JWT = 'fake injected jwt';
-let FAKE_STORE: {[key: string]: any} = {};
+let FAKE_STORE: Record<string, any> = {};
 
 let viewController: TestViewController;
 

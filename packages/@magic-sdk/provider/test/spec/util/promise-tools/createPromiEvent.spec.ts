@@ -3,7 +3,7 @@ import { TypedEmitter } from '../../../../src/util/events';
 
 type DefaultEvents<TResult> = {
   done: (result: TResult) => void;
-  error: (reason: any) => void;
+  error: (reason: unknown) => void;
   settled: () => void;
 };
 
@@ -62,7 +62,7 @@ test('Attaches `Promise` methods to `TypedEmitter` results', () => {
     const p = createPromiEvent(resolve => resolve(true))[emitterMethod]('done', () => {});
 
     promiseMethods.forEach(promiseMethod => {
-      expect(typeof (p as any)[promiseMethod] === 'function').toBe(true);
+      expect(typeof (p as Record<string, any>)[promiseMethod] === 'function').toBe(true);
     });
 
     emitterStub.mockReset();
