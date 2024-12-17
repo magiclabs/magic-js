@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { createSynchronousWeb3MethodWarning } from '../../../../src/core/sdk-exceptions';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.restoreAllMocks();
   (RPCProviderModule as any).prototype.request = jest.fn();
   (RPCProviderModule as any).prototype.sendAsync = jest.fn();
 });
@@ -66,7 +65,7 @@ test('Sync (legacy behavior), with full RPC payload and no callback', async () =
   const magic = createMagicSDK();
 
   const consoleWarnStub = jest.fn();
-  browserEnv.stub('console.warn', consoleWarnStub);
+  jest.spyOn(console, 'warn').mockImplementation(consoleWarnStub);
 
   const result = magic.rpcProvider.send({ jsonrpc: '2.0', id: 1, method: 'eth_call', params: ['hello world'] });
   const expectedWarning = createSynchronousWeb3MethodWarning();

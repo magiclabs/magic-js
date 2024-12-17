@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS, TEST_API_KEY } from './constants';
 
 export function createReactNativeWebViewController(endpoint = MAGIC_RELAYER_FULL_URL) {
@@ -10,6 +9,6 @@ export function createReactNativeWebViewController(endpoint = MAGIC_RELAYER_FULL
 
 export function createMagicSDK(endpoint = MAGIC_RELAYER_FULL_URL) {
   const { Magic } = jest.requireActual('../src/index.ts');
-  browserEnv.stub('console.warn', jest.fn());
+  jest.spyOn(console, 'warn').mockImplementation(jest.fn());
   return new Magic(TEST_API_KEY, { endpoint });
 }

@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicPayloadMethod, SDKWarningCode } from '@magic-sdk/types';
 
 import { SDKEnvironment } from '../../../../src/core/sdk-environment';
@@ -8,7 +7,7 @@ import * as SdkExceptions from '../../../../src/core/sdk-exceptions';
 import { ProductConsolidationMethodRemovalVersions } from '../../../../src/modules/auth';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   jest.restoreAllMocks();
 });
 
@@ -92,7 +91,7 @@ test('Throws error when the SDK version is 19 or higher', async () => {
     await magic.auth.loginWithMagicLink({ email: 'test' });
   } catch (err) {
     // Check if the error message is as expected
-    expect(err.message).toBe(
+    expect((err as Error).message).toBe(
       'loginWithMagicLink() is deprecated for this package, please utlize a passcode method like loginWithSMS or loginWithEmailOTP instead.',
     );
   }

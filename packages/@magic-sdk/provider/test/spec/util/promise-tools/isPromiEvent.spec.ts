@@ -1,18 +1,17 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createPromiEvent, isPromiEvent } from '../../../../src/util/promise-tools';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Returns `true` for valid `PromiEvent` object', () => {
-  const p = createPromiEvent((resolve) => resolve());
+  const promiEvent = createPromiEvent(resolve => resolve(true));
 
-  expect(isPromiEvent(p)).toBe(true);
+  expect(isPromiEvent(promiEvent)).toBe(true);
 });
 
 test('Returns `false` for invalid `PromiEvent` object', () => {
-  const p = {};
+  const promiEvent = {};
 
-  expect(isPromiEvent(p)).toBe(false);
+  expect(isPromiEvent(promiEvent)).toBe(false);
 });

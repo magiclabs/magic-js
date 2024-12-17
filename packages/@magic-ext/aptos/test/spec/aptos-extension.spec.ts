@@ -1,8 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { BCS, TxnBuilderTypes } from 'aptos';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { AptosExtension } from '../../src';
 import { AptosPayloadMethod } from '../../src/type';
+import { TextEncoder, TextDecoder } from 'util';
 
 const APTOS_NODE_URL = 'https://fullnode.testnet.aptoslabs.com';
 
@@ -31,8 +31,12 @@ const MESSAGE_PAYLOAD = {
   nonce: 'random-nonce',
 };
 
+beforeAll(() => {
+  Object.assign(global, { TextEncoder, TextDecoder });
+})
+
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Construct GetAccount request with `aptos_getAccount`', async () => {

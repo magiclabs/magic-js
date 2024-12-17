@@ -1,8 +1,7 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicSDKWarning } from '../../../../../src/core/sdk-exceptions';
 
 beforeEach(() => {
-  browserEnv();
+  jest.resetAllMocks();
 });
 
 test('Instantiate `MagicSDKWarning`', () => {

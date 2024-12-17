@@ -5,7 +5,7 @@ test('Given `undefined`, returns false', async () => {
 });
 
 test('Given `null`, returns false', async () => {
-  expect(isJsonRpcRequestPayload(null)).toBe(false);
+  expect(isJsonRpcRequestPayload(null as unknown as undefined)).toBe(false);
 });
 
 test('Given without `JsonRpcRequestPayload.jsonrpc`, returns false', async () => {

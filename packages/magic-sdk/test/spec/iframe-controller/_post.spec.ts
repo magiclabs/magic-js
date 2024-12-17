@@ -1,12 +1,11 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createModalNotReadyError } from '@magic-sdk/provider';
 import { createIframeController } from '../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
-  browserEnv.stub('addEventListener', jest.fn());
+  jest.restoreAllMocks();
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
   // Don't let JSDOM try to load the iframe
-  browserEnv.stub('document.body.appendChild', jest.fn());
+  jest.spyOn(document.body, 'appendChild').mockImplementation(jest.fn());
 });
 
 test('Calls iframe.contentWindow.postMessage with the expected arguments', async () => {
