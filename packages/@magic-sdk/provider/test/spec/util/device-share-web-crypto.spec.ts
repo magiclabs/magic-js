@@ -10,7 +10,7 @@ import {
   getDecryptedDeviceShare,
 } from '../../../src/util/device-share-web-crypto';
 
-let FAKE_STORE: Record<string, any> = {};
+let FAKE_STORE: Record<string, unknown> = {};
 const FAKE_NETWORK_HASH = 'network_hash';
 
 const FAKE_PLAINTEXT_SHARE = `AQICAHg1y7j1UY7sfTib6h9cN2Kh7v0WhCRwQxEPhGAQ2m5OgQGrJvUP6MKiuj9yD96y6B4eAAABPzCCATsGCSqGSIb3DQEHBqCCASwwggEoAgEAMIIBIQYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAy6tbGg/6//2IJs9xUCARCAgfOY3knm1i2kGjLXQFoqEjOeLr/UGwHQ+AW1y20UoCX3ght68egu06Hg54JF/mCGgSDt7R7dFSOuGvapE9OEyFYz4f1+tpWb5PPaLReBRTTTfw/8Xgsfzl6iXACsLKqyXEeWci+/vOWDLqu73E0uy5StyN5InZLwHCJe4l+KMEr5C7JZvobQh4NVBT5SqgQXmLGXGGH/2ydkq8zkgVGDT9jQlqqpUH83UMFQwHSwbJRRyYLxBwQKTO0AODfqk5OnWRA+BoDC8HMFyQUb4nS+BgDlgTgL7Kg/H/Echr+SlQKJdWJnvf3BjSBwO8z5kVpxRo5xwG4=`;

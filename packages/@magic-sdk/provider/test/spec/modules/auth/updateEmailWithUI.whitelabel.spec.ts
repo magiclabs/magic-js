@@ -7,7 +7,7 @@ beforeEach(() => {
 
 test('Generate JSON RPC request payload with method `magic_auth_update_email` whitelabel and start recency check', async () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -27,7 +27,7 @@ test('Generate JSON RPC request payload with method `magic_auth_update_email` wh
 
 test('Whitelabel `magic_auth_update_email`, recency check Retry event', async () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -41,7 +41,7 @@ test('Whitelabel `magic_auth_update_email`, recency check Retry event', async ()
 
 test('Whitelabel `magic_auth_update_email`, Update Email, fire retry with Email event', async () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -58,7 +58,7 @@ test('Whitelabel `magic_auth_update_email`, Update Email, fire retry with Email 
 
 test('Generate JSON RPC request payload with method `magic_auth_update_email` whitelabel and start verify Email otp ', async () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 

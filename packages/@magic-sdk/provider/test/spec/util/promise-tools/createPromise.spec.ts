@@ -5,9 +5,9 @@ beforeEach(() => {
 });
 
 test('Creates a native `Promise`', () => {
-  const p = createPromise(resolve => resolve(true));
+  const promiEvent = createPromise(resolve => resolve(true));
 
-  expect(p instanceof Promise).toBe(true);
+  expect(promiEvent instanceof Promise).toBe(true);
 });
 
 test('Resolves the `Promise`', done => {

@@ -9,7 +9,7 @@ const expectedEmail = 'john.doe@mail.com';
 
 test('Generates JSON RPC pending for otp-input-sent', async () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -29,7 +29,7 @@ test('Generates JSON RPC pending for otp-input-sent', async () => {
 
 test('Generates JSON RPC pending for verify-mfa-code', () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -49,7 +49,7 @@ test('Generates JSON RPC pending for verify-mfa-code', () => {
 
 test('Generates JSON RPC pending for lost-device', () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -67,7 +67,7 @@ test('Generates JSON RPC pending for lost-device', () => {
 
 test('Generates JSON RPC pending for verify-recovery-code', () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 

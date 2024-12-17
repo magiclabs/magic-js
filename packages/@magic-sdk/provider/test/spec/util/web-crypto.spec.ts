@@ -3,7 +3,7 @@ import * as storage from '../../../src/util/storage';
 import { clearKeys, createJwt, STORE_KEY_PRIVATE_KEY, STORE_KEY_PUBLIC_JWK } from '../../../src/util/web-crypto';
 import { TextEncoder } from 'util';
 
-let FAKE_STORE: Record<string, any> = {};
+let FAKE_STORE: Record<string, CryptoKey | null> = {};
 
 beforeAll(() => {
   jest.spyOn(storage, 'getItem').mockImplementation(async (key: string) => FAKE_STORE[key]);
@@ -62,7 +62,7 @@ test('should store public and private keys after creating JWT', async () => {
 
 test('private key should be non exportable', async () => {
   await createJwt();
-  const privateKey = FAKE_STORE[STORE_KEY_PRIVATE_KEY];
+  const privateKey = FAKE_STORE[STORE_KEY_PRIVATE_KEY] as CryptoKey;
   expect(() => crypto.subtle.exportKey('jwk', privateKey)).rejects.toThrow();
 });
 

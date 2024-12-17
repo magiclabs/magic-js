@@ -30,7 +30,7 @@ const requestPayload: JsonRpcRequestPayload = {
 beforeEach(() => {
   jest.restoreAllMocks();
   // Silence the "duplicate iframes" warning.
-  jest.spyOn(console, 'warn').mockImplementation(() => {});
+  jest.spyOn(console, 'warn').mockImplementation(() => { /* noop */ });
 });
 
 test('Resolves with a successful response', async () => {
@@ -113,7 +113,7 @@ test('Receive no further events after the response from `ViewController` resolve
 
   const request = baseModule
     .request(requestPayload)
-    .on('hello_b', (result:string) => {
+    .on('hello_b', (result: string) => {
       expect(result).toBe('world');
     })
     .on('hello_b2', () => {
@@ -159,7 +159,7 @@ test('Falls back to empty array if `params` is missing from event', done => {
     ),
   );
 
-  baseModule.request(requestPayload).on('hello_c', (...args:[]) => {
+  baseModule.request(requestPayload).on('hello_c', (...args: []) => {
     expect(args).toEqual([]);
     done();
   });

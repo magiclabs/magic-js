@@ -68,7 +68,7 @@ const FAKE_JWT_TOKEN = 'hot tokens';
 const FAKE_DEVICE_SHARE = 'fake device share';
 const FAKE_RT = 'will freshen';
 const FAKE_INJECTED_JWT = 'fake injected jwt';
-let FAKE_STORE: Record<string, any> = {};
+let FAKE_STORE: Record<string, string> = {};
 
 let viewController: TestViewController;
 
@@ -78,9 +78,17 @@ beforeEach(() => {
   createJwtStub = jest.spyOn(webCryptoUtils, 'createJwt');
   getDecryptedDeviceShareStub = jest.spyOn(deviceShareWebCryptoUtils, 'getDecryptedDeviceShare');
   clearDeviceSharesStub = jest.spyOn(deviceShareWebCryptoUtils, 'clearDeviceShares');
-  jest.spyOn(global.console, 'info').mockImplementation(() => {});
+  jest.spyOn(global.console, 'info').mockImplementation(() => { });
   jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
-  jest.spyOn(storage, 'getItem').mockImplementation((key: string) => FAKE_STORE[key]);
+  jest.spyOn(storage, 'getItem').mockImplementation((key: string, callback?: (err: unknown, value: unknown) => void) => {
+    const value = FAKE_STORE[key];
+
+    if (callback) {
+      callback(null, value);
+    }
+
+    return Promise.resolve(value);
+  });
   jest.spyOn(storage, 'setItem').mockImplementation(async (key: string, value: any) => {
     FAKE_STORE[key] = value;
   });
@@ -205,7 +213,7 @@ test('Sends payload without rt if no jwt can be made', async () => {
 });
 
 test('Sends payload when web crypto jwt fails', async () => {
-  const consoleErrorStub = jest.spyOn(global.console, 'error').mockImplementationOnce(() => {});
+  const consoleErrorStub = jest.spyOn(global.console, 'error').mockImplementationOnce(() => { });
   createJwtStub.mockRejectedValueOnce('danger');
   FAKE_STORE.rt = FAKE_RT;
 

@@ -43,8 +43,7 @@ test('Initialize MagicRPCError with `undefined` argument', () => {
 
 test('Initialize MagicRPCError with unknown error code argument', () => {
   const err = new MagicRPCError({
-    // @ts-ignore
-    code: 1,
+    code: -32603,
     message: 'hello world',
     data: exampleData,
   });
