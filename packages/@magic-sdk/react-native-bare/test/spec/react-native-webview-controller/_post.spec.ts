@@ -1,7 +1,6 @@
 import { createModalNotReadyError } from '@magic-sdk/provider';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
-import { ReactNativeWebViewController } from '../../../src/react-native-webview-controller';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 beforeEach(() => {
@@ -83,7 +82,7 @@ test('returns true when more than 5 minutes have passed since the last post', as
 
   const sixMinutesAgo = new Date(Date.now() - 6 * 60 * 1000).toISOString();
   (AsyncStorage.getItem as jest.Mock).mockResolvedValue(sixMinutesAgo);
-  const result = await (controller as any).msgPostedAfterInactivity();
+  const result = await controller.msgPostedAfterInactivity();
   expect(result).toBe(true);
   expect(AsyncStorage.getItem).toHaveBeenCalledWith('lastMessageTime');
 })

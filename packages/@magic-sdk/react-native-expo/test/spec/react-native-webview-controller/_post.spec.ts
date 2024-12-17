@@ -82,7 +82,7 @@ test('returns true when more than 5 minutes have passed since the last post', as
 
   const sixMinutesAgo = new Date(Date.now() - 6 * 60 * 1000).toISOString();
   (AsyncStorage.getItem as jest.Mock).mockResolvedValue(sixMinutesAgo);
-  const result = await (controller as any).msgPostedAfterInactivity();
+  const result = await controller.msgPostedAfterInactivity();
   expect(result).toBe(true);
   expect(AsyncStorage.getItem).toHaveBeenCalledWith('lastMessageTime');
 })
