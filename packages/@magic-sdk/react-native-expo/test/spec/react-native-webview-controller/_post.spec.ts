@@ -1,6 +1,7 @@
 import { createModalNotReadyError } from '@magic-sdk/provider';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -17,6 +18,11 @@ jest.mock('react-native-event-listeners', () => {
     },
   };
 });
+
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+}));
 
 test('Calls webView._post with the expected arguments', async () => {
   const overlay = createReactNativeWebViewController('http://example.com');
@@ -70,3 +76,13 @@ test('Emits msg_posted_after_inactivity_event when msgPostedAfterInactivity retu
   expect(emitStub).toBeCalledTimes(1);
   expect(emitStub).toHaveBeenCalledWith('msg_posted_after_inactivity_event', { thisIsData: 'hello world' });
 });
+
+test('returns true when more than 5 minutes have passed since the last post', async () => {
+  const controller = createReactNativeWebViewController('http://example.com');
+
+  const sixMinutesAgo = new Date(Date.now() - 6 * 60 * 1000).toISOString();
+  (AsyncStorage.getItem as jest.Mock).mockResolvedValue(sixMinutesAgo);
+  const result = await (controller as any).msgPostedAfterInactivity();
+  expect(result).toBe(true);
+  expect(AsyncStorage.getItem).toHaveBeenCalledWith('lastMessageTime');
+})
