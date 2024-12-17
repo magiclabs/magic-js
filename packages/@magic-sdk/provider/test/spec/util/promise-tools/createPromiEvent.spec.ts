@@ -1,4 +1,4 @@
-import { createPromiEvent, PromiEvent } from '../../../../src/util/promise-tools';
+import { createPromiEvent } from '../../../../src/util/promise-tools';
 import { TypedEmitter } from '../../../../src/util/events';
 
 type DefaultEvents<TResult> = {
