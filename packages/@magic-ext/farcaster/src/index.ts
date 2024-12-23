@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/commons';
+import {Extension, FarcasterLoginEventEmit} from '@magic-sdk/commons';
 import { FarcasterPayloadMethod } from './types';
 import { isMainFrame, isMobile } from './utils';
 
@@ -67,6 +67,8 @@ type FarcasterLoginEventHandlers = {
   [FarcasterLoginEventOnReceived.OpenChannel]: (channel: CreateChannelAPIResponse) => void;
   [FarcasterLoginEventOnReceived.Success]: (data: StatusAPIResponse) => void;
   [FarcasterLoginEventOnReceived.Failed]: (error: AuthClientError) => void;
+
+  [FarcasterLoginEventEmit.Cancel]: () => void;
 };
 
 export class FarcasterExtension extends Extension.Internal<'farcaster'> {
@@ -90,6 +92,10 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
       if (isMobile() && isMainFrame()) {
         window.location.href = channel.url;
       }
+    });
+
+    handle.on(FarcasterLoginEventEmit.Cancel, () => {
+      this.createIntermediaryEvent(FarcasterLoginEventEmit.Cancel, payload.id as any)();
     });
 
     return handle;

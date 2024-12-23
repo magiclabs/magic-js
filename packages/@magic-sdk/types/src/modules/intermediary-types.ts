@@ -2,7 +2,6 @@ import {
   AuthEventOnReceived,
   DeviceVerificationEventEmit,
   DeviceVerificationEventOnReceived,
-  FarcasterLoginEventEmit,
   LoginWithEmailOTPEventEmit,
   LoginWithSmsOTPEventEmit,
   LoginWithEmailOTPEventOnReceived,
@@ -17,6 +16,7 @@ import {
   EnableMFAEventOnReceived,
   DisableMFAEventOnReceived,
   DisableMFAEventEmit,
+  FarcasterLoginEventEmit,
 } from './auth-types';
 import { NftCheckoutIntermediaryEvents } from './nft-types';
 
