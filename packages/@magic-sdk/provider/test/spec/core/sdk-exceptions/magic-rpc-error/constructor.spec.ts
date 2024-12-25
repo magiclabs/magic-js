@@ -1,11 +1,10 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicRPCError } from '../../../../../src/core/sdk-exceptions';
 
 const exampleData =
   '0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000011555345525f554e52454749535445524544000000000000000000000000000000';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Initialize `MagicRPCError` with object argument', () => {
@@ -44,8 +43,7 @@ test('Initialize MagicRPCError with `undefined` argument', () => {
 
 test('Initialize MagicRPCError with unknown error code argument', () => {
   const err = new MagicRPCError({
-    // @ts-ignore
-    code: 1,
+    code: -32603,
     message: 'hello world',
     data: exampleData,
   });

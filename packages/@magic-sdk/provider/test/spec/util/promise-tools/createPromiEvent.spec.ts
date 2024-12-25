@@ -1,61 +1,68 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createPromiEvent } from '../../../../src/util/promise-tools';
 import { TypedEmitter } from '../../../../src/util/events';
 
-const chainingEmitterMethods = ['on', 'once', 'addListener', 'off', 'removeListener', 'removeAllListeners'];
+type DefaultEvents<TResult> = {
+  done: (result: TResult) => void;
+  error: (reason: unknown) => void;
+  settled: () => void;
+};
+
+type TypedEmitterMethods = keyof TypedEmitter<DefaultEvents<unknown>>;
+
+const chainingEmitterMethods: TypedEmitterMethods[] = ['on', 'once', 'addListener', 'off', 'removeListener', 'removeAllListeners'];
 const nonChainingEmitterMethods = ['emit', 'eventNames', 'listeners', 'listenerCount'];
 const typedEmitterMethods = [...chainingEmitterMethods, ...nonChainingEmitterMethods];
 const promiseMethods = ['then', 'catch', 'finally'];
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Creates a native `Promise`', () => {
-  const p = createPromiEvent((resolve) => resolve());
+  const promiEvent = createPromiEvent(resolve => resolve(true));
 
-  expect(p instanceof Promise).toBe(true);
+  expect(promiEvent instanceof Promise).toBe(true);
 });
 
 test('Attaches `TypedEmitter` methods to the initial value', () => {
-  const p = createPromiEvent((resolve) => resolve());
+  const promiEvent = createPromiEvent(resolve => resolve(true));
 
-  typedEmitterMethods.forEach((method) => {
-    expect(typeof p[method] === 'function').toBe(true);
+  typedEmitterMethods.forEach(method => {
+    expect(typeof promiEvent[method as keyof typeof promiEvent] === 'function').toBe(true);
   });
 });
 
 test('Attaches `TypedEmitter` methods to `Promise.then` result', () => {
-  const p = createPromiEvent((resolve) => resolve()).then();
+  const promiEvent = createPromiEvent(resolve => resolve(true)).then();
 
-  typedEmitterMethods.forEach((method) => {
-    expect(typeof p[method] === 'function').toBe(true);
+  typedEmitterMethods.forEach(method => {
+    expect(typeof promiEvent[method as keyof typeof promiEvent] === 'function').toBe(true);
   });
 });
 
 test('Attaches `TypedEmitter` methods to `Promise.catch` result', () => {
-  const p = createPromiEvent((resolve) => resolve()).catch();
+  const promiEvent = createPromiEvent(resolve => resolve(true)).catch();
 
-  typedEmitterMethods.forEach((method) => {
-    expect(typeof p[method] === 'function').toBe(true);
+  typedEmitterMethods.forEach(method => {
+    expect(typeof promiEvent[method as keyof typeof promiEvent] === 'function').toBe(true);
   });
 });
 
 test('Attaches `TypedEmitter` methods to `Promise.finally` result', () => {
-  const p = createPromiEvent((resolve) => resolve()).catch();
+  const promiEvent = createPromiEvent(resolve => resolve(true)).catch();
 
-  typedEmitterMethods.forEach((method) => {
-    expect(typeof p[method] === 'function').toBe(true);
+  typedEmitterMethods.forEach(method => {
+    expect(typeof promiEvent[method as keyof typeof promiEvent] === 'function').toBe(true);
   });
 });
 
 test('Attaches `Promise` methods to `TypedEmitter` results', () => {
-  chainingEmitterMethods.forEach((emitterMethod) => {
+  chainingEmitterMethods.forEach(emitterMethod => {
     const emitterStub = jest.spyOn(TypedEmitter.prototype, emitterMethod as any).mockImplementation();
-    const p = createPromiEvent((resolve) => resolve())[emitterMethod]();
+    const promiEvent = createPromiEvent(resolve => resolve(true))[emitterMethod]('done', () => { /* noop */ });
 
-    promiseMethods.forEach((promiseMethod) => {
-      expect(typeof p[promiseMethod] === 'function').toBe(true);
+    promiseMethods.forEach(promiseMethod => {
+      expect(typeof promiEvent[promiseMethod as keyof typeof promiEvent] === 'function').toBe(true);
     });
 
     emitterStub.mockReset();
@@ -63,32 +70,36 @@ test('Attaches `Promise` methods to `TypedEmitter` results', () => {
   });
 });
 
-test('Emits "done" event upon Promise resolution', (done) => {
-  createPromiEvent((resolve) => resolve('hello')).on('done', (result) => {
+test('Emits "done" event upon Promise resolution', done => {
+  createPromiEvent(resolve => resolve('hello')).on('done', result => {
     expect(result).toBe('hello');
     done();
   });
 });
 
-test('Emits "settled" event upon Promise resolution', (done) => {
-  createPromiEvent((resolve) => resolve()).on('settled', () => {
+test('Emits "settled" event upon Promise resolution', done => {
+  createPromiEvent(resolve => resolve(true)).on('settled', () => {
     done();
   });
 });
 
-test('Emits "error" event upon Promise reject', (done) => {
+test('Emits "error" event upon Promise reject', done => {
   createPromiEvent((resolve, reject) => reject('goodbye'))
-    .on('error', (err) => {
+    .on('error', err => {
       expect(err).toBe('goodbye' as any);
       done();
     })
-    .catch(() => {});
+    .catch(() => {
+      /* noop */
+    });
 });
 
-test('Emits "settled" event upon Promise reject', (done) => {
+test('Emits "settled" event upon Promise reject', done => {
   createPromiEvent((resolve, reject) => reject())
     .on('settled', () => {
       done();
     })
-    .catch(() => {});
+    .catch(() => {
+      /* noop */
+    });
 });

@@ -1,8 +1,9 @@
 import { Crypto } from '@peculiar/webcrypto';
 import * as storage from '../../../src/util/storage';
 import { clearKeys, createJwt, STORE_KEY_PRIVATE_KEY, STORE_KEY_PUBLIC_JWK } from '../../../src/util/web-crypto';
+import { TextEncoder } from 'util';
 
-let FAKE_STORE = {};
+let FAKE_STORE: Record<string, CryptoKey | null> = {};
 
 beforeAll(() => {
   jest.spyOn(storage, 'getItem').mockImplementation(async (key: string) => FAKE_STORE[key]);
@@ -12,10 +13,15 @@ beforeAll(() => {
   jest.spyOn(storage, 'removeItem').mockImplementation(async (key: string) => {
     FAKE_STORE[key] = null;
   });
+
+  Object.assign(global, { TextEncoder });
 });
 
 beforeEach(() => {
-  (window as any).crypto = new Crypto();
+  Object.defineProperty(window, 'crypto', {
+    value: new Crypto,
+    writable: true,
+  });
 });
 
 afterEach(() => {
@@ -39,7 +45,7 @@ test('should give undefined if missing private key', async () => {
 test('should return jwt if supported', async () => {
   const jwt = await createJwt();
   expect(jwt).toBeTruthy();
-  expect(jwt.split('.').length).toEqual(3);
+  expect(jwt?.split('.')?.length).toEqual(3);
 });
 
 test('jwt is unique', async () => {
@@ -56,8 +62,8 @@ test('should store public and private keys after creating JWT', async () => {
 
 test('private key should be non exportable', async () => {
   await createJwt();
-  const privateKey = FAKE_STORE[STORE_KEY_PRIVATE_KEY];
-  expect(() => crypto.subtle.exportKey('jwk', privateKey)).toThrow();
+  const privateKey = FAKE_STORE[STORE_KEY_PRIVATE_KEY] as CryptoKey;
+  expect(() => crypto.subtle.exportKey('jwk', privateKey)).rejects.toThrow();
 });
 
 test('when asked should clear keys', async () => {

@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
 import { createViewController, createMagicSDK } from '../../../factories';
@@ -29,9 +28,9 @@ const requestPayload: JsonRpcRequestPayload = {
 };
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.restoreAllMocks();
   // Silence the "duplicate iframes" warning.
-  browserEnv.stub('console.warn', () => {});
+  jest.spyOn(console, 'warn').mockImplementation(() => { /* noop */ });
 });
 
 test('Resolves with a successful response', async () => {
@@ -80,7 +79,7 @@ test('Emits events received from the `ViewController`', done => {
     ),
   );
 
-  baseModule.request(requestPayload).on('hello_a', result => {
+  baseModule.request(requestPayload).on('hello_a', (result: string) => {
     expect(result).toBe('world');
     done();
   });
@@ -99,7 +98,7 @@ test('Receive no further events after the response from `ViewController` resolve
 
   const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
 
-  const postStubPromises = [];
+  const postStubPromises: Promise<unknown>[] = [];
   const { baseModule } = createBaseModule(
     jest.fn().mockImplementation(() => {
       const promise = new Promise(resolve => {
@@ -114,7 +113,7 @@ test('Receive no further events after the response from `ViewController` resolve
 
   const request = baseModule
     .request(requestPayload)
-    .on('hello_b', result => {
+    .on('hello_b', (result: string) => {
       expect(result).toBe('world');
     })
     .on('hello_b2', () => {
@@ -160,7 +159,7 @@ test('Falls back to empty array if `params` is missing from event', done => {
     ),
   );
 
-  baseModule.request(requestPayload).on('hello_c', (...args) => {
+  baseModule.request(requestPayload).on('hello_c', (...args: []) => {
     expect(args).toEqual([]);
     done();
   });

@@ -25,8 +25,16 @@ export function restoreSDKEnvironmentConstants() {
   jest.unmock('../src/core/sdk-environment');
 }
 
-export function mockLocalForage(FAKE_STORE = {}) {
-  jest.spyOn(storage, 'getItem').mockImplementation((key: string) => FAKE_STORE[key]);
+export function mockLocalForage(FAKE_STORE: Record<string, unknown> = {}) {
+  jest.spyOn(storage, 'getItem').mockImplementation((key: string, callback?: (err: unknown, value: unknown) => void) => {
+    const value = FAKE_STORE[key];
+
+    if (callback) {
+      callback(null, value);
+    }
+
+    return Promise.resolve(value);
+  });
   jest.spyOn(storage, 'setItem').mockImplementation(async (key: string, value: any) => {
     FAKE_STORE[key] = value;
   });

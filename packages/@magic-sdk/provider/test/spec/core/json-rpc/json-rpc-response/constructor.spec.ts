@@ -1,8 +1,7 @@
-import browserEnv from '@ikscodes/browser-env';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Initialize JsonRpcResponse instance if argument is `instanceof` JsonRpcReponse', () => {

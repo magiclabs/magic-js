@@ -1,8 +1,7 @@
-import browserEnv from '@ikscodes/browser-env';
 import { TypedEmitter, createTypedEmitter } from '../../../../src/util/events';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Returns an object containing a `TypedEmitter` instance & two helper functions', () => {

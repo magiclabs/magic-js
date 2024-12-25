@@ -1,11 +1,10 @@
-import browserEnv from '@ikscodes/browser-env';
 import { Wallets } from '@magic-sdk/types';
 import { ConnectWithUiEvents } from '../../../../src/modules/wallet';
 import { createPromiEvent } from '../../../../src/util';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Generate JSON RPC request payload with method `mc_login` and `env` params as an object', async () => {
@@ -68,7 +67,7 @@ test('throws error auto-connecting if metamask browser', async () => {
   try {
     await magic.wallet.connectWithUI();
   } catch (err) {
-    expect(err.message).toBe('Connection error');
+    expect((err as Error).message).toBe('Connection error');
   }
 });
 
@@ -110,6 +109,6 @@ test('throws error auto-connecting if coinbase wallet browser', async () => {
   try {
     await magic.wallet.connectWithUI();
   } catch (err) {
-    expect(err.message).toBe('Connection error');
+    expect((err as Error).message).toBe('Connection error');
   }
 });

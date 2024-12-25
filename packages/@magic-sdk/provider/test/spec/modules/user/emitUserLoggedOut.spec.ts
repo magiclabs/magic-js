@@ -1,9 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
-
-beforeEach(() => {
-  browserEnv.restore();
-});
 
 test('emitUserLoggedOut emits event', () => {
   const magic = createMagicSDK();

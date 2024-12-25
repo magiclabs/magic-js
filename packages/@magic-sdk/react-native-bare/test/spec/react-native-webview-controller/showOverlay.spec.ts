@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 
 beforeEach(() => {
-  browserEnv();
+  jest.resetAllMocks();
   reactNativeStyleSheetStub();
 });
 
