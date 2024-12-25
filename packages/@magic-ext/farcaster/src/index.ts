@@ -95,7 +95,7 @@ export class FarcasterExtension extends Extension.Internal<'farcaster'> {
     });
 
     handle.on(FarcasterLoginEventEmit.Cancel, () => {
-      this.createIntermediaryEvent(FarcasterLoginEventEmit.Cancel, payload.id as any)();
+      this.createIntermediaryEvent(FarcasterLoginEventEmit.Cancel, payload.id as string)();
     });
 
     return handle;
