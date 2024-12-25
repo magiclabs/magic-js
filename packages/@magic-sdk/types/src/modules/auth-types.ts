@@ -227,7 +227,7 @@ export enum AuthEventOnReceived {
 }
 
 export enum FarcasterLoginEventEmit {
-  SuccessSignIn = 'Farcaster/success_sign_in',
+  Cancel = 'Farcaster/cancel',
 }
 
 export enum EnableMFAEventOnReceived {
