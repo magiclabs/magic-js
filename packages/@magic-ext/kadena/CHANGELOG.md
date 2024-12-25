@@ -1,3 +1,16 @@
+# v0.10.0 (Wed Dec 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-530-wallet-connect-login-with-redirect ([@Ethella](https://github.com/Ethella))
+- resolve conflict ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v0.9.1 (Wed Dec 11 2024)
 
 #### 🐛 Bug Fix

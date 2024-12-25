@@ -1,3 +1,24 @@
+# v22.19.0 (Wed Dec 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-530-wallet-connect-login-with-redirect ([@Ethella](https://github.com/Ethella))
+- revert change ([@Ethella](https://github.com/Ethella))
+- revert changes ([@Ethella](https://github.com/Ethella))
+- resolve conflict ([@Ethella](https://github.com/Ethella))
+- * fix deepsource ([@Ethella](https://github.com/Ethella))
+- * resolve conflict ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-530-wallet-connect-login-with-redirect ([@mattupham](https://github.com/mattupham))
+- add optional queryString ([@mattupham](https://github.com/mattupham))
+- add redirect to OAuth v2 ([@mattupham](https://github.com/mattupham))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # v22.18.1 (Thu Dec 05 2024)
 
 #### 🐛 Bug Fix

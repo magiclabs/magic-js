@@ -1,3 +1,25 @@
+# v24.17.0 (Wed Dec 25 2024)
+
+#### 🚀 Enhancement
+
+- add cancel event to farcaster [#846](https://github.com/magiclabs/magic-js/pull/846) ([@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- add cancel event to farcaster ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into PDEEXP-530-wallet-connect-login-with-redirect ([@Ethella](https://github.com/Ethella))
+- resolve conflict ([@Ethella](https://github.com/Ethella))
+- * resolve conflict ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-530-wallet-connect-login-with-redirect ([@mattupham](https://github.com/mattupham))
+
+#### Authors: 3
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # v24.16.1 (Thu Dec 05 2024)
 
 #### 🐛 Bug Fix

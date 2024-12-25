@@ -1,3 +1,20 @@
+# (Wed Dec 25 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/farcaster@0.19.0`, `@magic-sdk/types@24.17.0`
+  - add cancel event to farcaster [#846](https://github.com/magiclabs/magic-js/pull/846) ([@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- `@magic-ext/oauth2@9.20.0`
+  - add shouldReturnURI to configuration [#723](https://github.com/magiclabs/magic-js/pull/723) ([@mattupham](https://github.com/mattupham) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # (Wed Dec 11 2024)
 
 #### 🚀 Enhancement
