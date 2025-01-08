@@ -141,15 +141,15 @@ export type RecoverAccountEventHandlers = {
 
   // Event sent
   [RecoverAccountEventOnReceived.SmsOtpSent]: ({ phoneNumber }: { phoneNumber: string }) => void;
-  [RecoverAccountEventOnReceived.LoginThrottled]: (error: string) => {};
+  [RecoverAccountEventOnReceived.LoginThrottled]: (error: string) => void;
   [RecoverAccountEventOnReceived.InvalidSmsOtp]: ({
     errorMessage,
     errorCode,
   }: {
     errorMessage: string;
     errorCode: string;
-  }) => {};
-  [RecoverAccountEventOnReceived.SmsVerified]: () => {};
-  [RecoverAccountEventOnReceived.AccountRecovered]: () => {};
-  [RecoverAccountEventOnReceived.UpdateEmailRequired]: () => {};
+  }) => void;
+  [RecoverAccountEventOnReceived.SmsVerified]: () => void;
+  [RecoverAccountEventOnReceived.AccountRecovered]: () => void;
+  [RecoverAccountEventOnReceived.UpdateEmailRequired]: () => void;
 };
