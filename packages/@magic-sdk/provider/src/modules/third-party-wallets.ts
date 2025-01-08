@@ -90,7 +90,7 @@ export class ThirdPartyWalletsModule extends BaseModule {
   }
 
   private web3modalIsLoggedIn() {
-    return createPromiEvent<boolean>((resolve) => {
+    return createPromiEvent<boolean>(resolve => {
       // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
       const walletStatus = this.sdk.web3modal.modal.getStatus();
       if (walletStatus === 'connected') {
@@ -125,7 +125,7 @@ export class ThirdPartyWalletsModule extends BaseModule {
     return {
       publicAddress: userAddress as string,
       email: null,
-      issuer: `$did:ethr:${userAddress}`,
+      issuer: `did:ethr:${userAddress}`,
       phoneNumber: null,
       isMfaEnabled: false,
       recoveryFactors: [] as [],
@@ -164,7 +164,7 @@ export class ThirdPartyWalletsModule extends BaseModule {
   }
 
   private web3modalLogout(): PromiEvent<boolean> {
-    return createPromiEvent<boolean>(async (resolve) => {
+    return createPromiEvent<boolean>(async resolve => {
       try {
         // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
         await this.sdk.web3modal.modal.disconnect();
