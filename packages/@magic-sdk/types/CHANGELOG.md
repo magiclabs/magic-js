@@ -1,3 +1,36 @@
+# v24.18.0 (Wed Jan 08 2025)
+
+#### 🚀 Enhancement
+
+- add web3modal extension [#742](https://github.com/magiclabs/magic-js/pull/742) ([@hcote](https://github.com/hcote) [@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- address comment ([@hcote](https://github.com/hcote))
+- fix: deepsource ([@hcote](https://github.com/hcote))
+- type duplication fix ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into hcote-web3modal ([@hcote](https://github.com/hcote))
+- update localstoragekeys to enum ([@hcote](https://github.com/hcote))
+- update web3modal package ([@hcote](https://github.com/hcote))
+- yarn.lock ([@hcote](https://github.com/hcote))
+- add intermediary events for nft.checkout ([@hcote](https://github.com/hcote))
+- Jayhwang nft checkout [#744](https://github.com/magiclabs/magic-js/pull/744) ([@octave08](https://github.com/octave08) jay.hwang@magic.link)
+- pluralize thirdpartywallets & update to web3modal canary version for status ([@hcote](https://github.com/hcote))
+- fix deepsource lint errors ([@hcote](https://github.com/hcote))
+- remove old tests ([@hcote](https://github.com/hcote))
+- add connectWIthUI options param ([@hcote](https://github.com/hcote))
+- dont route nftCheckout to 3pw ([@hcote](https://github.com/hcote))
+- typing updates ([@hcote](https://github.com/hcote))
+- add web3modal extension ([@hcote](https://github.com/hcote))
+
+#### Authors: 3
+
+- Gyujeong Hwang ([@octave08](https://github.com/octave08))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jay Hwang (jay.hwang@magic.link)
+
+---
+
 # v24.17.0 (Wed Dec 25 2024)
 
 #### 🚀 Enhancement

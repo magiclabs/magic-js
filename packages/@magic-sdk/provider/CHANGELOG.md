@@ -1,3 +1,51 @@
+# v28.20.0 (Wed Jan 08 2025)
+
+#### 🚀 Enhancement
+
+- add web3modal extension [#742](https://github.com/magiclabs/magic-js/pull/742) ([@hcote](https://github.com/hcote) [@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- fix: issuer ([@hcote](https://github.com/hcote))
+- address comment ([@hcote](https://github.com/hcote))
+- fix: test coverage ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into hcote-web3modal ([@hcote](https://github.com/hcote))
+- re-add localstragekeys enum ([@hcote](https://github.com/hcote))
+- fix: types does not have export yet ([@hcote](https://github.com/hcote))
+- update localstoragekeys to enum ([@hcote](https://github.com/hcote))
+- remove polyfills ([@hcote](https://github.com/hcote))
+- update web3modal package ([@hcote](https://github.com/hcote))
+- add intermediary events for nft.checkout ([@hcote](https://github.com/hcote))
+- nft checkout update ([@hcote](https://github.com/hcote))
+- Jayhwang nft checkout [#744](https://github.com/magiclabs/magic-js/pull/744) ([@octave08](https://github.com/octave08) jay.hwang@magic.link)
+- fix tests ([@hcote](https://github.com/hcote))
+- pluralize thirdpartywallets & update to web3modal canary version for status ([@hcote](https://github.com/hcote))
+- update import ([@hcote](https://github.com/hcote))
+- temp: remove reference to ThirdPartyWallets ([@hcote](https://github.com/hcote))
+- update ls key names ([@hcote](https://github.com/hcote))
+- fix deepsource lint errors ([@hcote](https://github.com/hcote))
+- update tests ([@hcote](https://github.com/hcote))
+- remove old tests ([@hcote](https://github.com/hcote))
+- update isConnected initialization ([@hcote](https://github.com/hcote))
+- make param optional ([@hcote](https://github.com/hcote))
+- add connectWIthUI options param ([@hcote](https://github.com/hcote))
+- dont route nftCheckout to 3pw ([@hcote](https://github.com/hcote))
+- move all logic to thirdpartywallet module ([@hcote](https://github.com/hcote))
+- add returns to fns routing to tpw methods ([@hcote](https://github.com/hcote))
+- fix logout on disconnect ([@hcote](https://github.com/hcote))
+- typing updates ([@hcote](https://github.com/hcote))
+- move override methods to thirdpartywallet module ([@hcote](https://github.com/hcote))
+- remove unused vars ([@hcote](https://github.com/hcote))
+- add web3modal extension ([@hcote](https://github.com/hcote))
+
+#### Authors: 3
+
+- Gyujeong Hwang ([@octave08](https://github.com/octave08))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jay Hwang (jay.hwang@magic.link)
+
+---
+
 # v28.19.0 (Wed Dec 25 2024)
 
 #### 🐛 Bug Fix

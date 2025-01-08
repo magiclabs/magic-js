@@ -1,3 +1,17 @@
+# v28.21.0 (Wed Jan 08 2025)
+
+#### 🐛 Bug Fix
+
+- undo change ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into hcote-web3modal ([@hcote](https://github.com/hcote))
+- update iframe.allow for google login ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v28.20.0 (Wed Dec 25 2024)
 
 #### 🐛 Bug Fix

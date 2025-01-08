@@ -1,3 +1,23 @@
+# (Wed Jan 08 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/web3modal-ethers5@0.2.0`, `@magic-sdk/provider@28.20.0`, `@magic-sdk/types@24.18.0`
+  - add web3modal extension [#742](https://github.com/magiclabs/magic-js/pull/742) ([@hcote](https://github.com/hcote) [@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@28.20.0`, `@magic-sdk/types@24.18.0`
+  - Jayhwang nft checkout [#744](https://github.com/magiclabs/magic-js/pull/744) ([@octave08](https://github.com/octave08) jay.hwang@magic.link)
+
+#### Authors: 3
+
+- Gyujeong Hwang ([@octave08](https://github.com/octave08))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jay Hwang (jay.hwang@magic.link)
+
+---
+
 # (Wed Dec 25 2024)
 
 #### 🚀 Enhancement

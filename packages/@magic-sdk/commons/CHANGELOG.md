@@ -1,3 +1,15 @@
+# v24.20.0 (Wed Jan 08 2025)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-web3modal ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
 # v24.19.0 (Wed Dec 25 2024)
 
 #### 🐛 Bug Fix
