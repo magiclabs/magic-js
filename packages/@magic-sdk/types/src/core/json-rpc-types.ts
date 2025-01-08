@@ -72,10 +72,6 @@ export type ConnectWithUiEvents = {
   'id-token-created': (params: { idToken: string }) => void;
 } & { [key in ThirdPartyWalletEvents]: () => void };
 
-export type ShowUIPromiEvents = {
-  disconnect: () => void;
-};
-
 // --- Payload methods
 
 /**
