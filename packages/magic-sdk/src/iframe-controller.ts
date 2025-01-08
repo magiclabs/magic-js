@@ -75,7 +75,7 @@ export class IframeController extends ViewController {
           iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
           iframe.title = 'Secure Modal';
           iframe.src = this.getIframeSrc();
-          iframe.allow = 'identity-credentials-get; clipboard-read; clipboard-write';
+          iframe.allow = 'clipboard-read; clipboard-write';
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
           resolve(iframe);
