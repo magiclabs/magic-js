@@ -11,6 +11,9 @@ import {
   UpdateEmailEventHandlers,
   UpdateEmailEventEmit,
   RecencyCheckEventEmit,
+  LoginWithSmsOTPEventEmit,
+  LoginWithSmsOTPEventHandlers,
+  LoginWithCredentialConfiguration,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -51,11 +54,11 @@ export class AuthModule extends BaseModule {
       }).log();
     }
 
-    const { email, showUI = true, redirectURI, overrides } = configuration;
+    const { email, showUI = true, redirectURI, overrides, lifespan } = configuration;
 
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithMagicLinkTestMode : MagicPayloadMethod.LoginWithMagicLink,
-      [{ email, showUI, redirectURI, overrides }],
+      [{ email, showUI, redirectURI, overrides, lifespan }],
     );
     return this.request<string | null, LoginWithMagicLinkEventHandlers>(requestPayload);
   }
@@ -66,12 +69,25 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithSMS(configuration: LoginWithSmsConfiguration) {
-    const { phoneNumber } = configuration;
+    const { phoneNumber, showUI = true, lifespan } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithSmsTestMode : MagicPayloadMethod.LoginWithSms,
-      [{ phoneNumber, showUI: true }],
+      [{ phoneNumber, showUI, lifespan }],
     );
-    return this.request<string | null>(requestPayload);
+
+    const handle = this.request<string | null, LoginWithSmsOTPEventHandlers>(requestPayload);
+
+    if (!showUI && handle) {
+      handle.on(LoginWithSmsOTPEventEmit.VerifySmsOtp, (otp: string) => {
+        this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.VerifySmsOtp, requestPayload.id as string)(otp);
+      });
+
+      handle.on(LoginWithSmsOTPEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.Cancel, requestPayload.id as string)();
+      });
+    }
+
+    return handle;
   }
 
   /**
@@ -80,10 +96,10 @@ export class AuthModule extends BaseModule {
    * of 15 minutes)
    */
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
-    const { email, showUI, deviceCheckUI, overrides } = configuration;
+    const { email, showUI, deviceCheckUI, overrides, lifespan } = configuration;
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithEmailOTPTestMode : MagicPayloadMethod.LoginWithEmailOTP,
-      [{ email, showUI, deviceCheckUI, overrides }],
+      [{ email, showUI, deviceCheckUI, overrides, lifespan }],
     );
     const handle = this.request<string | null, LoginWithEmailOTPEventHandlers>(requestPayload);
     if (!deviceCheckUI && handle) {
@@ -94,6 +110,18 @@ export class AuthModule extends BaseModule {
     if (!showUI && handle) {
       handle.on(LoginWithEmailOTPEventEmit.VerifyEmailOtp, (otp: string) => {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
+      });
+      handle.on(LoginWithEmailOTPEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
+      });
+      handle.on(LoginWithEmailOTPEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.LostDevice, requestPayload.id as string)();
+      });
+      handle.on(LoginWithEmailOTPEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(
+          LoginWithEmailOTPEventEmit.VerifyRecoveryCode,
+          requestPayload.id as string,
+        )(recoveryCode);
       });
       handle.on(LoginWithEmailOTPEventEmit.Cancel, () => {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.Cancel, requestPayload.id as any)();
@@ -112,7 +140,8 @@ export class AuthModule extends BaseModule {
    * If no argument is provided, a credential is automatically parsed from
    * `window.location.search`.
    */
-  public loginWithCredential(credentialOrQueryString?: string) {
+  public loginWithCredential(configuration?: LoginWithCredentialConfiguration) {
+    const { credentialOrQueryString, lifespan } = configuration || {};
     let credentialResolved = credentialOrQueryString ?? '';
 
     if (!credentialOrQueryString && SDKEnvironment.platform === 'web') {
@@ -125,7 +154,7 @@ export class AuthModule extends BaseModule {
 
     const requestPayload = createJsonRpcRequestPayload(
       this.sdk.testMode ? MagicPayloadMethod.LoginWithCredentialTestMode : MagicPayloadMethod.LoginWithCredential,
-      [credentialResolved],
+      [credentialResolved, lifespan],
     );
 
     return this.request<string | null>(requestPayload);
@@ -154,7 +183,10 @@ export class AuthModule extends BaseModule {
         this.createIntermediaryEvent(RecencyCheckEventEmit.Cancel, requestPayload.id as any)();
       });
       handle.on(RecencyCheckEventEmit.VerifyEmailOtp, (otp: string) => {
-        this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyEmailOtp, requestPayload.id as any)(otp);
+        this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyEmailOtp, requestPayload.id as string)(otp);
+      });
+      handle.on(RecencyCheckEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(RecencyCheckEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
       });
       handle.on(UpdateEmailEventEmit.RetryWithNewEmail, (newEmail?) => {
         this.createIntermediaryEvent(UpdateEmailEventEmit.RetryWithNewEmail, requestPayload.id as any)(newEmail);

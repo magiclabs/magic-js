@@ -4,7 +4,7 @@ This monorepo implements a custom build system using a combination of tools:
 
 - [Yarn](https://yarnpkg.com) (for dependency management)
 - [`wsrun`](https://github.com/hfour/wsrun) (for running workspace scripts)
-- [ESBuild](https://esbuild.github.io) (for transpilation, minifaction, and bundling of source codes)
+- [ESBuild](https://esbuild.github.io) (for transpilation, minification, and bundling of source codes)
 - [TypeScript](https://www.typescriptlang.org) (for static typing)
 - [ESLint](https://eslint.org) (for TypeScript/JavaScript linting)
 

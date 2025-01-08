@@ -1,5 +1,3 @@
-/* eslint-disable prefer-destructuring */
-
 const allPossiblePNPScripts = document.querySelectorAll('script[data-magic-publishable-api-key]');
 const thisScript = (document.currentScript ??
   allPossiblePNPScripts[allPossiblePNPScripts.length - 1]) as HTMLScriptElement;

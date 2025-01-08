@@ -8,6 +8,17 @@ beforeEach(() => {
   reactNativeStyleSheetStub();
 });
 
+const emitStub = jest.fn();
+
+jest.mock('react-native-event-listeners', () => {
+  return {
+    EventRegister: {
+      emit: emitStub,
+      addEventListener: jest.fn(),
+    },
+  };
+});
+
 test('Calls webView._post with the expected arguments', async () => {
   const overlay = createReactNativeWebViewController('http://example.com');
 
@@ -49,4 +60,14 @@ test('Process Typed Array in a Solana Request', async () => {
     '{"msgType":"MAGIC_HANDLE_REQUEST-troll","payload":{"id":3,"jsonrpc":"2.0","method":"sol_signMessage","params":{"message":{"constructor":"Uint8Array","data":"72,101,108,108,111","flag":"MAGIC_PAYLOAD_FLAG_TYPED_ARRAY"}}}}',
     'http://example.com',
   ]);
+});
+
+test('Emits msg_posted_after_inactivity_event when msgPostedAfterInactivity returns true', async () => {
+  const overlay = createReactNativeWebViewController('http://example.com');
+
+  overlay.msgPostedAfterInactivity = () => true;
+  await overlay._post({ thisIsData: 'hello world' });
+
+  expect(emitStub).toBeCalledTimes(1);
+  expect(emitStub).toHaveBeenCalledWith('msg_posted_after_inactivity_event', { thisIsData: 'hello world' });
 });

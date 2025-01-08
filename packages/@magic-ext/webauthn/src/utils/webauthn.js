@@ -1,5 +1,5 @@
 const lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-/* eslint-disable */
+
 /* istanbul ignore next  */
 function fromByteArray(uint8) {
   let i;
@@ -69,7 +69,7 @@ function hexEncode(buf) {
  * @param {PublicKeyCredential} newAssertion
  */
 /* istanbul ignore next  */
-export const transformNewAssertionForServer = (newAssertion) => {
+export const transformNewAssertionForServer = newAssertion => {
   const attObj = new Uint8Array(newAssertion.response.attestationObject);
   const clientDataJSON = new Uint8Array(newAssertion.response.clientDataJSON);
   const rawId = new Uint8Array(newAssertion.rawId);
@@ -91,7 +91,7 @@ export const transformNewAssertionForServer = (newAssertion) => {
  * @param {PublicKeyCredential} newAssertion
  */
 /* istanbul ignore next  */
-export const transformAssertionForServer = (newAssertion) => {
+export const transformAssertionForServer = newAssertion => {
   const authData = new Uint8Array(newAssertion.response.authenticatorData);
   const clientDataJSON = new Uint8Array(newAssertion.response.clientDataJSON);
   const rawId = new Uint8Array(newAssertion.rawId);

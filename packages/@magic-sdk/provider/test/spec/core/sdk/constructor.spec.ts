@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable no-new, class-methods-use-this, global-require */
-
 import browserEnv from '@ikscodes/browser-env';
 import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
 import { createMagicSDKCtor } from '../../../factories';

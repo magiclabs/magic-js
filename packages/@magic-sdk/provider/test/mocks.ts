@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import type { SDKEnvironment } from '../src/core/sdk-environment';
 import * as storage from '../src/util/storage';
 

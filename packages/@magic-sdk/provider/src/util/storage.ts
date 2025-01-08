@@ -1,5 +1,6 @@
 import { SDKEnvironment } from '../core/sdk-environment';
 
+/* global  LocalForage LocalForageDbMethods */
 let lf: LocalForage;
 
 /**

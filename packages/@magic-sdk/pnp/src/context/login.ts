@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-
 import { getScriptData } from '../utils/script-data';
 import { createMagicInstance } from '../utils/magic-instance';
 

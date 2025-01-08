@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-
 import browserEnv from '@ikscodes/browser-env';
 import { IframeController } from '../../../src/iframe-controller';
 import { ENCODED_QUERY_PARAMS, MAGIC_RELAYER_FULL_URL } from '../../constants';
@@ -8,14 +6,14 @@ import { createIframeController } from '../../factories';
 function createOverlayElementsStub() {
   const classListAddStub = jest.fn();
 
-  const createElementStub = jest.fn().mockImplementation((arg) => {
+  const createElementStub = jest.fn().mockImplementation(arg => {
     if (arg === 'iframe') {
       return {
         className: null,
         src: null,
         classList: { add: classListAddStub },
         dataset: {},
-        style: { display: 'none' },
+        style: { visibility: 'hidden' },
       };
     }
 
@@ -126,7 +124,7 @@ test('Adds `message` event listener', () => {
   expect(addEventListenerStub.mock.calls[0][0]).toBe('message');
 });
 
-test('Ignores events with different origin than expected', (done) => {
+test('Ignores events with different origin than expected', done => {
   browserEnv.stub('addEventListener', jest.fn());
   browserEnv.stub('removeEventListener', jest.fn());
 
@@ -142,7 +140,7 @@ test('Ignores events with different origin than expected', (done) => {
   }, 0);
 });
 
-test('Ignores events with undefined `data` attribute', (done) => {
+test('Ignores events with undefined `data` attribute', done => {
   browserEnv.stub('addEventListener', jest.fn());
   browserEnv.stub('removeEventListener', jest.fn());
 
@@ -158,7 +156,7 @@ test('Ignores events with undefined `data` attribute', (done) => {
   }, 0);
 });
 
-test('Ignores events with undefined `data.msgType`', (done) => {
+test('Ignores events with undefined `data.msgType`', done => {
   browserEnv.stub('addEventListener', jest.fn());
   browserEnv.stub('removeEventListener', jest.fn());
 
@@ -174,7 +172,7 @@ test('Ignores events with undefined `data.msgType`', (done) => {
   }, 0);
 });
 
-test('Executes events where `messageHandlers` size is > 0', (done) => {
+test('Executes events where `messageHandlers` size is > 0', done => {
   const viewController = createIframeController();
   const onHandlerStub = jest.fn();
   (viewController as any).endpoint = ''; // Force `event.origin` and `this.endpoint` to be equivalent
@@ -189,7 +187,7 @@ test('Executes events where `messageHandlers` size is > 0', (done) => {
   }, 0);
 });
 
-test('Ignores events where `messageHandlers` size is === 0', (done) => {
+test('Ignores events where `messageHandlers` size is === 0', done => {
   browserEnv.stub('location', new URL(MAGIC_RELAYER_FULL_URL));
 
   const viewController = createIframeController();
@@ -203,7 +201,7 @@ test('Ignores events where `messageHandlers` size is === 0', (done) => {
   }, 0);
 });
 
-test('Ignores events where `event.origin` and `this.endpoint` are not equivalent', (done) => {
+test('Ignores events where `event.origin` and `this.endpoint` are not equivalent', done => {
   browserEnv.stub('location', new URL(MAGIC_RELAYER_FULL_URL));
 
   const viewController = createIframeController();

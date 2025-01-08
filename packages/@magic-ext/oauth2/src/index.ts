@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import { Extension } from '@magic-sdk/commons';
 import {
   OAuthErrorData,
@@ -8,7 +6,18 @@ import {
   OAuthRedirectConfiguration,
   OAuthPayloadMethods,
   OAuthRedirectStartResult,
+  OAuthPopupConfiguration,
 } from './types';
+
+declare global {
+  interface Window {
+    Telegram?: {
+      WebApp: {
+        initData: string
+      };
+    };
+  }
+}
 
 export class OAuthExtension extends Extension.Internal<'oauth2'> {
   name = 'oauth2' as const;
@@ -20,8 +29,13 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     '@magic-sdk/react-native-expo': false,
   };
 
+  constructor() {
+    super();
+    this.seamlessTelegramLogin();
+  }
+
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
-    return this.utils.createPromiEvent<void>(async (resolve, reject) => {
+    return this.utils.createPromiEvent<null | string>(async (resolve, reject) => {
       const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
         {
           ...configuration,
@@ -44,35 +58,80 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       }
 
       if (successResult?.oauthAuthoriationURI) {
-        window.location.href = successResult.useMagicServerCallback
+        const redirectURI = successResult.useMagicServerCallback
           ? // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-            new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
+          new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
           : successResult.oauthAuthoriationURI;
-      }
 
-      resolve();
+        if (successResult?.shouldReturnURI) {
+          resolve(redirectURI);
+        } else {
+          window.location.href = redirectURI;
+        }
+      }
+      resolve(null);
     });
   }
 
-  public getRedirectResult() {
-    const queryString = window.location.search;
+  public getRedirectResult(lifespan?: number, optionalQueryString?: string) {
+    const queryString = optionalQueryString || window.location.search;
 
     // Remove the query from the redirect callback as a precaution to prevent
     // malicious parties from parsing it before we have a chance to use it.
     const urlWithoutQuery = window.location.origin + window.location.pathname;
     window.history.replaceState(null, '', urlWithoutQuery);
 
-    return getResult.call(this, queryString);
+    return getResult.call(this, queryString, lifespan);
+  }
+
+  public loginWithPopup(configuration: OAuthPopupConfiguration) {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
+      {
+        ...configuration,
+        apiKey: this.sdk.apiKey,
+        platform: 'web',
+      },
+    ]);
+
+    return this.request<OAuthRedirectResult | OAuthRedirectError>(requestPayload);
+  }
+
+  protected seamlessTelegramLogin() {
+    try {
+      const hash = window.location.hash.toString();
+      if (!hash.includes('#tgWebAppData')) return;
+
+      const script = document.createElement('script');
+      script.src = 'https://telegram.org/js/telegram-web-app.js';
+      document.head.prepend(script);
+
+      script.onload = async () => {
+        try {
+          const userData = window.Telegram?.WebApp.initData;
+          const requestPayload = this.utils.createJsonRpcRequestPayload(
+            OAuthPayloadMethods.VerifyTelegramData,
+            [{ userData, isMiniApp: true }],
+          );
+
+          await this.request<string | null>(requestPayload);
+        } catch (verificationError) {
+          console.log('Error while verifying telegram data', verificationError);
+        }
+      }
+    } catch (seamlessLoginError) {
+      console.log('Error while loading telegram-web-app script', seamlessLoginError);
+    }
   }
 }
 
-function getResult(this: OAuthExtension, queryString: string) {
+function getResult(this: OAuthExtension, queryString: string, lifespan?: number) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
     const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
       {
         authorizationResponseParams: queryString,
         magicApiKey: this.sdk.apiKey,
         platform: 'web',
+        lifespan,
       },
     ]);
 

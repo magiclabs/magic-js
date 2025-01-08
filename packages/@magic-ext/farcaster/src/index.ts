@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/commons';
+import {Extension, FarcasterLoginEventEmit} from '@magic-sdk/commons';
 import { FarcasterPayloadMethod } from './types';
 import { isMainFrame, isMobile } from './utils';
 
@@ -67,53 +67,36 @@ type FarcasterLoginEventHandlers = {
   [FarcasterLoginEventOnReceived.OpenChannel]: (channel: CreateChannelAPIResponse) => void;
   [FarcasterLoginEventOnReceived.Success]: (data: StatusAPIResponse) => void;
   [FarcasterLoginEventOnReceived.Failed]: (error: AuthClientError) => void;
-};
 
-const FARCASTER_RELAY_URL = 'https://relay.farcaster.xyz';
+  [FarcasterLoginEventEmit.Cancel]: () => void;
+};
 
 export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   name = 'farcaster' as const;
   config = {};
-  channel: CreateChannelAPIResponse | null = null;
-
-  constructor() {
-    super();
-
-    (async () => {
-      this.channel = await fetch(`${FARCASTER_RELAY_URL}/v1/channel`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          domain: window.location.host,
-          siweUri: window.location.origin,
-        }),
-      }).then<CreateChannelAPIResponse>((r) => r.json());
-    })();
-  }
 
   public login = (params?: LoginParams) => {
-    if (!this.channel) {
-      throw new Error('Channel not created yet.');
-    }
-
     const payload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
       {
         data: {
           showUI: params?.showUI ?? DEFAULT_SHOW_UI,
-          domain: window.location.origin,
-          isMobile: isMobile(),
-          channel: this.channel,
+          domain: window.location.host,
+          siweUri: window.location.origin,
         },
       },
     ]);
 
     const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
 
-    if (isMobile() && isMainFrame()) {
-      window.location.href = this.channel.url;
-    }
+    handle.on('channel', (channel: CreateChannelAPIResponse) => {
+      if (isMobile() && isMainFrame()) {
+        window.location.href = channel.url;
+      }
+    });
+
+    handle.on(FarcasterLoginEventEmit.Cancel, () => {
+      this.createIntermediaryEvent(FarcasterLoginEventEmit.Cancel, payload.id as string)();
+    });
 
     return handle;
   };

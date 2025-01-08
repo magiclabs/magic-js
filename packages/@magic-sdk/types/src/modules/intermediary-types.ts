@@ -3,8 +3,8 @@ import {
   AuthEventOnReceived,
   DeviceVerificationEventEmit,
   DeviceVerificationEventOnReceived,
-  FarcasterLoginEventEmit,
   LoginWithEmailOTPEventEmit,
+  LoginWithSmsOTPEventEmit,
   LoginWithEmailOTPEventOnReceived,
   LoginWithMagicLinkEventEmit,
   LoginWithMagicLinkEventOnReceived,
@@ -12,15 +12,31 @@ import {
   RecencyCheckEventOnReceived,
   UpdateEmailEventEmit,
   UpdateEmailEventOnReceived,
+  LoginWithSmsOTPEventOnReceived,
+  EnableMFAEventEmit,
+  EnableMFAEventOnReceived,
+  DisableMFAEventOnReceived,
+  DisableMFAEventEmit,
+  FarcasterLoginEventEmit,
 } from './auth-types';
 import { NftCheckoutIntermediaryEvents } from './nft-types';
 
 import { WalletEventOnReceived } from './wallet-types';
+import { UiEventsEmit } from './common-types';
+import {
+  RecoverAccountEventEmit,
+  RecoverAccountEventOnReceived,
+  RecoveryFactorEventEmit,
+  RecoveryFactorEventOnReceived,
+} from './user-types';
 
 export type IntermediaryEvents =
   // EmailOTP
   | `${LoginWithEmailOTPEventEmit}`
   | `${LoginWithEmailOTPEventOnReceived}`
+  // SmsOTP
+  | `${LoginWithSmsOTPEventEmit}`
+  | `${LoginWithSmsOTPEventOnReceived}`
   // MagicLink
   | `${LoginWithMagicLinkEventEmit}`
   | `${LoginWithMagicLinkEventOnReceived}`
@@ -40,7 +56,21 @@ export type IntermediaryEvents =
   // Auth Events
   | `${AuthEventOnReceived}`
   | `${WalletEventOnReceived}`
+  // Show Settings Events
+  | `${RecoveryFactorEventOnReceived}`
+  | `${RecoveryFactorEventEmit}`
   // Nft Checkout Events
   | `${NftCheckoutIntermediaryEvents}`
   // Farcaster Login Events
-  | `${FarcasterLoginEventEmit}`;
+  | `${FarcasterLoginEventEmit}`
+  // Ui Events
+  | `${UiEventsEmit}`
+  // Enable MFA Events
+  | `${EnableMFAEventOnReceived}`
+  | `${EnableMFAEventEmit}`
+  // Disable MFA Events
+  | `${DisableMFAEventOnReceived}`
+  | `${DisableMFAEventEmit}`
+  // Recover Account Events
+  | `${RecoverAccountEventOnReceived}`
+  | `${RecoverAccountEventEmit}`;

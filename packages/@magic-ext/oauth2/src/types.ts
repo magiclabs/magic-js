@@ -3,6 +3,8 @@ import { MagicUserMetadata } from '@magic-sdk/types';
 export enum OAuthPayloadMethods {
   Start = 'magic_oauth_login_with_redirect_start',
   Verify = 'magic_oauth_login_with_redirect_verify',
+  Popup = 'magic_oauth_login_with_popup',
+  VerifyTelegramData = 'magic_oauth_verify_telegram_data',
 }
 
 export type OAuthProvider =
@@ -17,6 +19,8 @@ export type OAuthProvider =
   | 'discord'
   | 'twitch'
   | 'microsoft';
+
+type OAuthPopupProvider = OAuthProvider | 'telegram';
 
 export interface OAuthErrorData {
   provider: OAuthProvider;
@@ -69,6 +73,7 @@ export type OpenIDConnectUserInfo = OpenIDConnectProfile &
 export interface OAuthRedirectStartResult {
   oauthAuthoriationURI?: string;
   useMagicServerCallback?: boolean;
+  shouldReturnURI?: boolean;
 }
 
 export interface OAuthRedirectResult {
@@ -94,6 +99,13 @@ export interface OAuthRedirectError {
 export interface OAuthRedirectConfiguration {
   provider: OAuthProvider;
   redirectURI: string;
+  scope?: string[];
+  customData?: string;
+  loginHint?: string;
+}
+
+export interface OAuthPopupConfiguration {
+  provider: OAuthPopupProvider;
   scope?: string[];
   loginHint?: string;
 }
