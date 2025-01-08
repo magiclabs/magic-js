@@ -48,9 +48,8 @@ export class UserModule extends BaseModule {
     return this.request<string>(requestPayload);
   }
 
-  public async getInfo() {
-    const activeWallet = await getItem(this.localForageKey);
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, [{ walletType: activeWallet }]);
+  public getInfo() {
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, []);
     return this.request<MagicUserMetadata>(requestPayload);
   }
 
@@ -90,7 +89,6 @@ export class UserModule extends BaseModule {
   }
 
   public logout() {
-    removeItem(this.localForageKey);
     removeItem(this.localForageIsLoggedInKey);
     clearDeviceShares();
 
@@ -253,7 +251,6 @@ export class UserModule extends BaseModule {
     });
   }
 
-  private localForageKey = 'mc_active_wallet';
   private localForageIsLoggedInKey = 'magic_auth_is_logged_in';
   private userLoggedOutCallbacks: UserLoggedOutCallback[] = [];
 }

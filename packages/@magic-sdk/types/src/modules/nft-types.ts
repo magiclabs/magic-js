@@ -46,6 +46,7 @@ export interface NFTCheckoutRequest {
   walletAddress?: string; // default is user's wallet address
   // If enabled, the user will be able to pay with crypto. the default is false
   isCryptoCheckoutEnabled?: boolean;
+  walletProvider?: 'magic' | 'web3modal';
 }
 
 export type NFTCheckoutResponse = NFTResponse;
@@ -54,6 +55,15 @@ export type NFTCheckoutEvents = {
   disconnect: () => void;
   'nft-checkout-initiated': (rawTransaction: string) => void;
 };
+
+export interface NFTTransferRequest {
+  tokenId: string;
+  contractAddress: string;
+  quantity?: number;
+  recipient?: string;
+}
+
+export type NFTTransferResponse = NFTResponse;
 
 export enum NftCheckoutIntermediaryEvents {
   Success = 'nft-checkout-success',
@@ -67,12 +77,3 @@ export type NftCheckoutEventHandler = {
   [NftCheckoutIntermediaryEvents.Success]: (signedTransaction: string) => void;
   [NftCheckoutIntermediaryEvents.Failure]: () => void;
 };
-
-export interface NFTTransferRequest {
-  tokenId: string;
-  contractAddress: string;
-  quantity?: number;
-  recipient?: string;
-}
-
-export type NFTTransferResponse = NFTResponse;
