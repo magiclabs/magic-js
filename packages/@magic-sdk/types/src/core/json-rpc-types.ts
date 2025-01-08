@@ -130,3 +130,10 @@ export enum MagicPayloadMethod {
   EnableMFA = 'magic_auth_enable_mfa_flow',
   DisableMFA = 'magic_auth_disable_mfa_flow',
 }
+
+// Methods to not route if connected to third party wallet
+export const routeToMagicMethods = [
+  MagicPayloadMethod.IntermediaryEvent,
+  MagicPayloadMethod.NFTCheckout,
+  MagicPayloadMethod.Login,
+];
