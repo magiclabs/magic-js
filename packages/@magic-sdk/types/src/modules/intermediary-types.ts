@@ -69,3 +69,6 @@ export type IntermediaryEvents =
   // Recover Account Events
   | `${RecoverAccountEventOnReceived}`
   | `${RecoverAccountEventEmit}`;
+  // SpireKey Events
+  // | `${SpireKeyEventOnReceived}`
+  // | `${SpireKeyEventEmit}`
