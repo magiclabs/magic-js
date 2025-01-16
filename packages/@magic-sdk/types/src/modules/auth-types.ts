@@ -365,6 +365,7 @@ export type DisableMFAEventHandlers = {
   [DisableMFAEventOnReceived.MFACodeRequested]: () => void;
   [DisableMFAEventOnReceived.InvalidMFAOtp]: ({ errorCode }: { errorCode: string }) => void;
   [DisableMFAEventOnReceived.InvalidRecoveryCode]: () => void;
+  [LoginWithEmailOTPEventOnReceived.RecoveryCodeSuccess]: () => void;
 
   // Event sent
   [DisableMFAEventEmit.VerifyMFACode]: (totp: string) => void;
