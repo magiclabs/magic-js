@@ -29,5 +29,9 @@
   },
   "devDependencies": {
     "@magic-sdk/commons": "^24.20.0"
+  },
+  "dependencies": {
+    "@kadena/client": "^1.16.0",
+    "@kadena/spirekey-sdk": "^1.0.0"
   }
 }

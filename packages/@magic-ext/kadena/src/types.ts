@@ -12,6 +12,11 @@ export enum KadenaPayloadMethod {
   KadenaSignTransactionWithSpireKey = 'kda_signTransactionWithSpireKey',
 }
 
+export type LoginWithSpireKeyEvents = Record<string, (...args: any[]) => void> & {
+  'login-signature-prompt': () => void;
+  'spirekey-connected': () => void;
+};
+
 export interface SignatureWithPublicKey {
   sig: string;
   pubKey?: string;
