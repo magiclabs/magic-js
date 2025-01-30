@@ -6,8 +6,9 @@ import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage } from '@magic-s
  * to render above all other DOM content.
  */
 const overlayStyles: Partial<CSSStyleDeclaration> = {
-  display: 'none',
+  display: 'block',
   visibility: 'hidden',
+  pointerEvents: 'none',
   position: 'fixed',
   top: '0',
   right: '0',
@@ -127,8 +128,8 @@ export class IframeController extends ViewController {
 
   protected async showOverlay() {
     const iframe = await this.iframe;
-    iframe.style.display = 'block';
     iframe.style.visibility = 'visible';
+    iframe.style.pointerEvents = 'auto';
     iframe.style.opacity = '1';
     this.activeElement = document.activeElement;
     iframe.focus();
@@ -136,8 +137,8 @@ export class IframeController extends ViewController {
 
   protected async hideOverlay() {
     const iframe = await this.iframe;
-    iframe.style.display = 'none';
     iframe.style.visibility = 'hidden';
+    iframe.style.pointerEvents = 'none';
     iframe.style.opacity = '0';
     if (this.activeElement?.focus) this.activeElement.focus();
     this.activeElement = null;
