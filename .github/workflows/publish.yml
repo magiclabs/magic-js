@@ -2,7 +2,7 @@ name: Publish
 on:
   push:
     branches:
-      - "master"
+      - 'master'
 
 env:
   GITHUB_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
@@ -52,13 +52,14 @@ jobs:
         run: yarn build
 
       - name: Upload Build Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-output
           path: |
             packages/@magic-ext/*/dist
             packages/@magic-sdk/*/dist
             packages/*/dist
+          overwrite: true
 
   publish:
     runs-on: ubuntu-20.04
@@ -88,7 +89,7 @@ jobs:
           yarn install --immutable
 
       - name: Download Build Results
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-output
           path: packages
