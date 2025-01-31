@@ -16,7 +16,7 @@ const overlayStyles: Partial<CSSStyleDeclaration> = {
   height: '100%',
   borderRadius: '0',
   border: 'none',
-  zIndex: '2147483647',
+  zIndex: '-1',
   // necessary for iOS Safari
   opacity: '0',
 };
@@ -130,6 +130,7 @@ export class IframeController extends ViewController {
     const iframe = await this.iframe;
     iframe.style.visibility = 'visible';
     iframe.style.pointerEvents = 'auto';
+    iframe.style.zIndex = '2147483647';
     iframe.style.opacity = '1';
     this.activeElement = document.activeElement;
     iframe.focus();
@@ -139,6 +140,7 @@ export class IframeController extends ViewController {
     const iframe = await this.iframe;
     iframe.style.visibility = 'hidden';
     iframe.style.pointerEvents = 'none';
+    iframe.style.zIndex = '-1';
     iframe.style.opacity = '0';
     if (this.activeElement?.focus) this.activeElement.focus();
     this.activeElement = null;

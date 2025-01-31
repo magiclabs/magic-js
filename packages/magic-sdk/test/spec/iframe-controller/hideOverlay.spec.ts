@@ -21,7 +21,9 @@ test('Change visibility style to `hidden` and opacity to 0', async () => {
 
   await (overlay as any).hideOverlay();
 
-  expect((overlay as any).iframe).toEqual({ style: { visibility: 'hidden', opacity: '0', pointerEvents: 'none' } });
+  expect((overlay as any).iframe).toEqual({
+    style: { visibility: 'hidden', opacity: '0', pointerEvents: 'none', zIndex: '-1' },
+  });
 });
 
 test('If `activeElement` exists and can be focused, calls `activeElement.focus()`', async () => {
