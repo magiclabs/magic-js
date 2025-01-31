@@ -8,7 +8,6 @@ import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage } from '@magic-s
 const overlayStyles: Partial<CSSStyleDeclaration> = {
   display: 'block',
   visibility: 'hidden',
-  pointerEvents: 'none',
   position: 'fixed',
   top: '0',
   right: '0',
@@ -16,9 +15,11 @@ const overlayStyles: Partial<CSSStyleDeclaration> = {
   height: '100%',
   borderRadius: '0',
   border: 'none',
-  zIndex: '-1',
   // necessary for iOS Safari
   opacity: '0',
+  // necessary for iOS 17 and earlier
+  zIndex: '-1',
+  transform: 'scale(0)',
 };
 
 /**
@@ -129,8 +130,8 @@ export class IframeController extends ViewController {
   protected async showOverlay() {
     const iframe = await this.iframe;
     iframe.style.visibility = 'visible';
-    iframe.style.pointerEvents = 'auto';
     iframe.style.zIndex = '2147483647';
+    iframe.style.transform = 'scale(1)';
     iframe.style.opacity = '1';
     this.activeElement = document.activeElement;
     iframe.focus();
@@ -139,8 +140,8 @@ export class IframeController extends ViewController {
   protected async hideOverlay() {
     const iframe = await this.iframe;
     iframe.style.visibility = 'hidden';
-    iframe.style.pointerEvents = 'none';
     iframe.style.zIndex = '-1';
+    iframe.style.transform = 'scale(0)';
     iframe.style.opacity = '0';
     if (this.activeElement?.focus) this.activeElement.focus();
     this.activeElement = null;
