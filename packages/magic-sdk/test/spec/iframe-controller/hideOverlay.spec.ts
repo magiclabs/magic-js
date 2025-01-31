@@ -22,7 +22,7 @@ test('Change visibility style to `hidden` and opacity to 0', async () => {
   await (overlay as any).hideOverlay();
 
   expect((overlay as any).iframe).toEqual({
-    style: { visibility: 'hidden', opacity: '0', zIndex: '-1', transform: 'scale(0)' },
+    style: { visibility: 'hidden', opacity: '0', zIndex: '-1' },
   });
 });
 

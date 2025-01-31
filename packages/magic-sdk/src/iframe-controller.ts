@@ -19,7 +19,6 @@ const overlayStyles: Partial<CSSStyleDeclaration> = {
   opacity: '0',
   // necessary for iOS 17 and earlier
   zIndex: '-1',
-  transform: 'scale(0)',
 };
 
 /**
@@ -131,7 +130,6 @@ export class IframeController extends ViewController {
     const iframe = await this.iframe;
     iframe.style.visibility = 'visible';
     iframe.style.zIndex = '2147483647';
-    iframe.style.transform = 'scale(1)';
     iframe.style.opacity = '1';
     this.activeElement = document.activeElement;
     iframe.focus();
@@ -141,7 +139,6 @@ export class IframeController extends ViewController {
     const iframe = await this.iframe;
     iframe.style.visibility = 'hidden';
     iframe.style.zIndex = '-1';
-    iframe.style.transform = 'scale(0)';
     iframe.style.opacity = '0';
     if (this.activeElement?.focus) this.activeElement.focus();
     this.activeElement = null;
