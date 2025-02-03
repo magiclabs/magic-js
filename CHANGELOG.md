@@ -1,3 +1,17 @@
+# (Mon Feb 03 2025)
+
+#### 🐛 Bug Fix
+
+- chore: migrate upload-artifact to v4 [#852](https://github.com/magiclabs/magic-js/pull/852) ([@joshuascan](https://github.com/joshuascan))
+- `magic-sdk@28.21.1`
+  - fix: unable to scroll on ios safari [#851](https://github.com/magiclabs/magic-js/pull/851) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Wed Jan 08 2025)
 
 #### 🚀 Enhancement

@@ -1,3 +1,23 @@
+# v28.21.1 (Mon Feb 03 2025)
+
+#### 🐛 Bug Fix
+
+- fix: unable to scroll on ios safari [#851](https://github.com/magiclabs/magic-js/pull/851) ([@joshuascan](https://github.com/joshuascan))
+- chore: remove scale ([@joshuascan](https://github.com/joshuascan))
+- chore: adds scale prop ([@joshuascan](https://github.com/joshuascan))
+- chore: adjust zindex ([@joshuascan](https://github.com/joshuascan))
+- Merge remote-tracking branch 'refs/remotes/origin/PDEEXP-2252-unable-to-scroll-on-i-os-safari' into PDEEXP-2252-unable-to-scroll-on-i-os-safari ([@joshuascan](https://github.com/joshuascan))
+- chore: fix test ([@joshuascan](https://github.com/joshuascan))
+- Merge branch 'master' into PDEEXP-2252-unable-to-scroll-on-i-os-safari ([@joshuascan](https://github.com/joshuascan))
+- chore: switch to point events ([@joshuascan](https://github.com/joshuascan))
+- chore: readd display values ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v28.21.0 (Wed Jan 08 2025)
 
 #### 🐛 Bug Fix
