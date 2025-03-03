@@ -2,19 +2,13 @@ import {
   GasApiResponse,
   MagicPayloadMethod,
   GaslessTransactionRequest,
-  RequestUserInfoScope,
-  UserInfo,
-  WalletInfo,
   ConnectWithUIOptions,
   ConnectWithUiEvents,
   ShowUIPromiEvents,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
-import { createDeprecationWarning } from '../core/sdk-exceptions';
-import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { createPromiEvent } from '../util';
-import { clearDeviceShares } from '../util/device-share-web-crypto';
 
 type ShowUiConfig = {
   onramperParams?: { [key: string]: string };
@@ -81,42 +75,5 @@ export class WalletModule extends BaseModule {
     return this.request<GasApiResponse>(
       createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [address, transaction]),
     );
-  }
-
-  /* Get user info such as the wallet type they are logged in with */
-  // deprecating
-  public getInfo() {
-    createDeprecationWarning({
-      method: 'wallet.getInfo()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: 'user.getInfo()',
-    }).log();
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.GetInfo, []);
-    return this.request<WalletInfo>(requestPayload);
-  }
-
-  /* Logout user */
-  // deprecating
-  public disconnect() {
-    createDeprecationWarning({
-      method: 'wallet.disconnect()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: 'user.logout()',
-    }).log();
-    clearDeviceShares();
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Disconnect);
-    return this.request<boolean>(requestPayload);
-  }
-
-  /* Request email address from logged in user */
-  // deprecating
-  public requestUserInfoWithUI(scope?: RequestUserInfoScope) {
-    createDeprecationWarning({
-      method: 'wallet.requestUserInfoWithUI()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: 'user.requestUserInfoWithUI()',
-    }).log();
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RequestUserInfoWithUI, scope ? [scope] : []);
-    return this.request<UserInfo>(requestPayload);
   }
 }

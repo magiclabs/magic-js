@@ -16,7 +16,7 @@ export async function settings(): Promise<void> {
   const magic = createMagicInstance(apiKey, src.origin, locale);
 
   try {
-    const prevUserMetadata = magic.pnp.encodeUserMetadata(await magic.user.getMetadata());
+    const prevUserMetadata = magic.pnp.encodeUserMetadata(await magic.user.getInfo());
     const currUserMetadata = magic.pnp.encodeUserMetadata(await magic.pnp.showSettings());
     window.location.href = `${redirectURI}?prev_user_metadata=${prevUserMetadata}&curr_user_metadata=${currUserMetadata}`;
   } catch {

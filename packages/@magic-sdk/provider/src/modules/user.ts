@@ -24,8 +24,6 @@ import {
 import { getItem, setItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
-import { createDeprecationWarning } from '../core/sdk-exceptions';
-import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { clearDeviceShares } from '../util/device-share-web-crypto';
 import { createPromiEvent } from '../util';
 
@@ -188,19 +186,6 @@ export class UserModule extends BaseModule {
     return this.request<boolean>(requestPayload);
   }
 
-  // Deprecating
-  public getMetadata() {
-    createDeprecationWarning({
-      method: 'user.getMetadata()',
-      removalVersions: ProductConsolidationMethodRemovalVersions,
-      useInstead: 'user.getInfo()',
-    }).log();
-    const requestPayload = createJsonRpcRequestPayload(
-      this.sdk.testMode ? MagicPayloadMethod.GetMetadataTestMode : MagicPayloadMethod.GetMetadata,
-    );
-    return this.request<MagicUserMetadata>(requestPayload);
-  }
-
   public onUserLoggedOut(callback: UserLoggedOutCallback): void {
     this.userLoggedOutCallbacks.push(callback);
   }
@@ -246,7 +231,7 @@ export class UserModule extends BaseModule {
 
   // Private members
   private emitUserLoggedOut(loggedOut: boolean): void {
-    this.userLoggedOutCallbacks.forEach((callback) => {
+    this.userLoggedOutCallbacks.forEach(callback => {
       callback(loggedOut);
     });
   }
