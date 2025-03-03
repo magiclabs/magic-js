@@ -27,7 +27,7 @@ export async function callback(): Promise<void> {
 
   async function handleMagicLinkRedirectCallback() {
     const idToken = await magic.auth.loginWithCredential();
-    const userMetadata = await magic.user.getMetadata();
+    const userMetadata = await magic.user.getInfo();
     dispatchReadyEvent(magic, { idToken, userMetadata });
   }
 
@@ -35,7 +35,7 @@ export async function callback(): Promise<void> {
     const idToken = await magic.user.getIdToken();
     const prevUserMetadata = magic.pnp.decodeUserMetadata(urlParams.get('prev_user_metadata')) ?? undefined;
     const currUserMetadata =
-      magic.pnp.decodeUserMetadata(urlParams.get('curr_user_metadata')) ?? (await magic.user.getMetadata());
+      magic.pnp.decodeUserMetadata(urlParams.get('curr_user_metadata')) ?? (await magic.user.getInfo());
     clearURLQuery();
     dispatchReadyEvent(magic, { idToken, userMetadata: currUserMetadata, prevUserMetadata });
   }
@@ -53,7 +53,7 @@ export async function callback(): Promise<void> {
   async function handleGenericCallback() {
     const idToken = urlParams.get('didt') || (await magic.user.getIdToken());
     clearURLQuery();
-    const userMetadata = await magic.user.getMetadata();
+    const userMetadata = await magic.user.getInfo();
     dispatchReadyEvent(magic, { idToken: decodeURIComponent(idToken), userMetadata });
   }
 
