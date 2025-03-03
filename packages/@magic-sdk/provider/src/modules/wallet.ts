@@ -2,19 +2,13 @@ import {
   GasApiResponse,
   MagicPayloadMethod,
   GaslessTransactionRequest,
-  RequestUserInfoScope,
-  UserInfo,
-  WalletInfo,
   ConnectWithUIOptions,
   ConnectWithUiEvents,
   ShowUIPromiEvents,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
-import { createDeprecationWarning } from '../core/sdk-exceptions';
-import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { createPromiEvent } from '../util';
-import { clearDeviceShares } from '../util/device-share-web-crypto';
 
 type ShowUiConfig = {
   onramperParams?: { [key: string]: string };

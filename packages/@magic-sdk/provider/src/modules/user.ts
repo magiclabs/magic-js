@@ -24,8 +24,6 @@ import {
 import { getItem, setItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
-import { createDeprecationWarning } from '../core/sdk-exceptions';
-import { ProductConsolidationMethodRemovalVersions } from './auth';
 import { clearDeviceShares } from '../util/device-share-web-crypto';
 import { createPromiEvent } from '../util';
 
