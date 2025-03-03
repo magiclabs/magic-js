@@ -22,7 +22,7 @@
 - See the `@magic-sdk/react-native-bare` [README](https://github.com/magiclabs/magic-js/tree/master/packages/%40magic-sdk/react-native-bare#readme) for Bare React Native package specific information.
 - See the `@magic-sdk/react-native-expo` [README](https://github.com/magiclabs/magic-js/tree/master/packages/%40magic-sdk/react-native-expo#readme) for Expo React Native package specific information.
 
-## ⚡️ Quick Start
+## ⚡️ Quickstart
 
 ### Installation
 
