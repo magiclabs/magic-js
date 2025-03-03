@@ -1,3 +1,23 @@
+# v29.0.0 (Mon Mar 03 2025)
+
+#### 💥 Breaking Change
+
+- Remove deprecated methods [#857](https://github.com/magiclabs/magic-js/pull/857) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- chore: fix deepsource ([@joshuascan](https://github.com/joshuascan))
+- chore: removes deprecated wallet methods ([@joshuascan](https://github.com/joshuascan))
+- chore: remove user.getMetadata ([@joshuascan](https://github.com/joshuascan))
+- revert manual bump ([@joshuascan](https://github.com/joshuascan))
+- chore: bump provider version number ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v28.20.0 (Wed Jan 08 2025)
 
 #### 🚀 Enhancement

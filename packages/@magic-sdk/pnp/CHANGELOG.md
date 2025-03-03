@@ -1,3 +1,19 @@
+# v23.0.0 (Mon Mar 03 2025)
+
+#### 💥 Breaking Change
+
+- Remove deprecated methods [#857](https://github.com/magiclabs/magic-js/pull/857) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- chore: remove user.getMetadata ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v22.21.0 (Wed Jan 08 2025)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,18 @@
+# (Mon Mar 03 2025)
+
+#### 💥 Breaking Change
+
+- Increase major version [#856](https://github.com/magiclabs/magic-js/pull/856) ([@joshuascan](https://github.com/joshuascan))
+- Major version bump [#854](https://github.com/magiclabs/magic-js/pull/854) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-sdk/pnp@23.0.0`, `@magic-sdk/provider@29.0.0`
+  - Remove deprecated methods [#857](https://github.com/magiclabs/magic-js/pull/857) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Mon Feb 03 2025)
 
 #### 🐛 Bug Fix
