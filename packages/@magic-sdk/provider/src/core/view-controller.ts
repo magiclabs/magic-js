@@ -17,6 +17,8 @@ import {
   encryptAndPersistDeviceShare,
   getDecryptedDeviceShare,
 } from '../util/device-share-web-crypto';
+import { logger } from './dd-tracker';
+import { sdkInitializationTimeout, sdkPerformance } from './sdk';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -43,7 +45,7 @@ function getRequestPayloadFromBatch(
   id?: string | number | null,
 ): JsonRpcRequestPayload | undefined {
   return id && Array.isArray(requestPayload)
-    ? requestPayload.find((p) => p.id === id)
+    ? requestPayload.find(p => p.id === id)
     : (requestPayload as JsonRpcRequestPayload);
 }
 
@@ -171,11 +173,12 @@ export abstract class ViewController {
       }
 
       if (!this.isReadyForRequest) {
+        logger.warn('Request is pending for overlay being ready', { duration: performance.now() - sdkPerformance });
         await this.waitForReady();
       }
 
       const batchData: JsonRpcResponse[] = [];
-      const batchIds = Array.isArray(payload) ? payload.map((p) => p.id) : [];
+      const batchIds = Array.isArray(payload) ? payload.map(p => p.id) : [];
       const msg = await createMagicRequest(`${msgType}-${this.parameters}`, payload, this.networkHash);
 
       await this._post(msg);
@@ -240,22 +243,14 @@ export abstract class ViewController {
   }
 
   private waitForReady() {
-    return new Promise<void>((resolve) => {
+    return new Promise<void>(resolve => {
       const unsubscribe = this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
         this.isReadyForRequest = true;
         resolve();
+        clearTimeout(sdkInitializationTimeout);
+        logger.warn('Magic Overlay is ready for requests', { duration: performance.now() - sdkPerformance });
         unsubscribe();
       });
-
-      // We expect the overlay to be ready within 15 seconds.
-      // Sometimes the message is not properly processed due to
-      // webview issues. In that case, after 15 seconds we consider
-      // the overlay ready, to avoid requests hanging forever.
-      setTimeout(() => {
-        this.isReadyForRequest = true;
-        resolve();
-        unsubscribe();
-      }, 15000);
     });
   }
 

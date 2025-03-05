@@ -96,5 +96,8 @@
       "released"
     ]
   },
-  "packageManager": "yarn@3.6.0"
+  "packageManager": "yarn@3.6.0",
+  "dependencies": {
+    "@datadog/browser-logs": "^6.4.0"
+  }
 }

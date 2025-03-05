@@ -18,6 +18,7 @@ import { Extension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
 import { NFTModule } from '../modules/nft';
+import { logger } from './dd-tracker';
 
 /**
  * Checks if the given `ext` is compatible with the platform & version of Magic
@@ -120,6 +121,9 @@ export interface MagicSDKAdditionalConfiguration<
   meta?: any; // Generic field for clients to add metadata
 }
 
+export let sdkPerformance: number;
+export let sdkInitializationTimeout: ReturnType<typeof setTimeout>;
+
 export class SDKBase {
   private static readonly __overlays__: Map<string, ViewController> = new Map();
 
@@ -169,6 +173,11 @@ export class SDKBase {
     public readonly apiKey: string,
     options?: MagicSDKAdditionalConfiguration,
   ) {
+    sdkPerformance = performance.now();
+    sdkInitializationTimeout = setTimeout(() => {
+      logger.error('Magic SDK initialization takes more than 30s');
+    }, 30000);
+
     if (!apiKey) throw createMissingApiKeyError();
 
     if (SDKEnvironment.platform === 'react-native' && options?.endpoint) {
