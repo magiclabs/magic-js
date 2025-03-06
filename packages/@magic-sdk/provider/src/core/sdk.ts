@@ -174,6 +174,7 @@ export class SDKBase {
     options?: MagicSDKAdditionalConfiguration,
   ) {
     sdkPerformance = performance.now();
+    logger.log('Magic SDK initialization started', { apiKey });
     sdkInitializationTimeout = setTimeout(() => {
       logger.error('Magic SDK initialization takes more than 30s');
     }, 30000);
