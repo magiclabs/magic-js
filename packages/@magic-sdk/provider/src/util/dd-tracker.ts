@@ -6,7 +6,7 @@ type LogType = (typeof logType)[number];
 datadogLogs.init({
   clientToken: 'pube2f71cb15fa207650d3c38c76cee479e',
   site: 'datadoghq.com',
-  service: 'mandrake',
+  service: 'magic-sdk',
   version: process.env.WEB_VERSION,
   forwardErrorsToLogs: true,
   usePartitionedCrossSiteSessionCookie: true,

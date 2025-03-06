@@ -128,7 +128,7 @@ export class IframeController extends ViewController {
     const iframe = await this.iframe;
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);
-      logger.info('Request has been sent the iframe', { data });
+      logger.info('Request is sent to the iframe', { data });
       clearTimeout(sdkInitializationTimeout);
     } else {
       throw createModalNotReadyError();
