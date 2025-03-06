@@ -1,3 +1,16 @@
+# (Thu Mar 06 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.0.1`
+  - remove 15s auto success [#861](https://github.com/magiclabs/magic-js/pull/861) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Mon Mar 03 2025)
 
 #### 💥 Breaking Change
