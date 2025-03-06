@@ -4,6 +4,7 @@ import {
   createURL,
   createModalNotReadyError,
   logger,
+  sdkInitializationTimeout,
 } from '@magic-sdk/provider';
 
 /**
@@ -127,7 +128,8 @@ export class IframeController extends ViewController {
     const iframe = await this.iframe;
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);
-      logger.warn('Request has been sent the iframe', { data });
+      logger.info('Request has been sent the iframe', { data });
+      clearTimeout(sdkInitializationTimeout);
     } else {
       throw createModalNotReadyError();
     }
