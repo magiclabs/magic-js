@@ -17,7 +17,7 @@ import {
   encryptAndPersistDeviceShare,
   getDecryptedDeviceShare,
 } from '../util/device-share-web-crypto';
-import { logger } from './dd-tracker';
+import { logger } from '../util/dd-tracker';
 import { sdkInitializationTimeout, sdkPerformance } from './sdk';
 
 interface RemoveEventListenerFunction {

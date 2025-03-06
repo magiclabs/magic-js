@@ -1,5 +1,4 @@
 import { Logger, StatusType, datadogLogs } from '@datadog/browser-logs';
-import { version } from '../../../../magic-sdk/package.json';
 
 const logType = ['log', 'debug', 'info', 'warn', 'error'] as const;
 type LogType = (typeof logType)[number];
@@ -8,7 +7,7 @@ datadogLogs.init({
   clientToken: 'pube2f71cb15fa207650d3c38c76cee479e',
   site: 'datadoghq.com',
   service: 'mandrake',
-  version: version,
+  version: process.env.WEB_VERSION,
   forwardErrorsToLogs: true,
   usePartitionedCrossSiteSessionCookie: true,
   sessionSampleRate: 100,

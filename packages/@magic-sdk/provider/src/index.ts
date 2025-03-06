@@ -8,3 +8,4 @@ export * from './core/sdk-exceptions';
 export { Extension } from './modules/base-extension';
 export type { WithExtensions, InstanceWithExtensions } from './modules/base-extension';
 export * from './util';
+export { logger } from './util/dd-tracker';

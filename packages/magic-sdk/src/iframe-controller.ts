@@ -1,6 +1,11 @@
-import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
+import {
+  ViewController,
+  createDuplicateIframeWarning,
+  createURL,
+  createModalNotReadyError,
+  logger,
+} from '@magic-sdk/provider';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage } from '@magic-sdk/types';
-import { logger } from '@magic-sdk/provider/src/core/dd-tracker';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI

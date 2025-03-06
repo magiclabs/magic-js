@@ -18,7 +18,7 @@ import { Extension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
 import { NFTModule } from '../modules/nft';
-import { logger } from './dd-tracker';
+import { logger } from '../util/dd-tracker';
 
 /**
  * Checks if the given `ext` is compatible with the platform & version of Magic
