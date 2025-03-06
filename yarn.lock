@@ -1276,6 +1276,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@datadog/browser-core@npm:6.4.0":
+  version: 6.4.0
+  resolution: "@datadog/browser-core@npm:6.4.0"
+  checksum: d1d1cf6621b0838d49aacda665533d0d593c17e7b60b2c027c72f72e7d28156c9036d1e8f7e08a12c477f0108de6f02118d96bb781e8c14d37893080e3b428fc
+  languageName: node
+  linkType: hard
+
+"@datadog/browser-logs@npm:^6.4.0":
+  version: 6.4.0
+  resolution: "@datadog/browser-logs@npm:6.4.0"
+  dependencies:
+    "@datadog/browser-core": 6.4.0
+  peerDependencies:
+    "@datadog/browser-rum": 6.4.0
+  peerDependenciesMeta:
+    "@datadog/browser-rum":
+      optional: true
+  checksum: 97b4fa384f37f277460de12049a6bd6aecbec1e1d07614de0209b90ddcd8a94af4291564dadd26f0d3fc4fa820b9d2277e969ab75b00b9449e6fa1365822fa79
+  languageName: node
+  linkType: hard
+
 "@endemolshinegroup/cosmiconfig-typescript-loader@npm:^3.0.2":
   version: 3.0.2
   resolution: "@endemolshinegroup/cosmiconfig-typescript-loader@npm:3.0.2"
@@ -2714,6 +2735,7 @@ __metadata:
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
     "@babel/plugin-transform-modules-commonjs": ^7.9.6
+    "@datadog/browser-logs": ^6.4.0
     "@magic-sdk/types": ^24.18.0
     "@peculiar/webcrypto": ^1.1.7
     eventemitter3: ^4.0.4
