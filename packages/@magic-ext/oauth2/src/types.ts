@@ -107,7 +107,7 @@ export interface OAuthRedirectConfiguration {
 export interface OAuthVerificationConfiguration {
   lifespan?: number;
   optionalQueryString?: string;
-  returnPublicAddress?: boolean;
+  skipDIDToken?: boolean;
 }
 
 export interface OAuthPopupConfiguration {
