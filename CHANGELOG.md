@@ -1,3 +1,16 @@
+# (Tue Mar 11 2025)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@11.0.0`
+  - add skipDIDToken to magic.oauth.getRedirectResult [#862](https://github.com/magiclabs/magic-js/pull/862) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Thu Mar 06 2025)
 
 #### 🐛 Bug Fix
