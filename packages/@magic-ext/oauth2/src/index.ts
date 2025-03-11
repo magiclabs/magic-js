@@ -7,13 +7,14 @@ import {
   OAuthPayloadMethods,
   OAuthRedirectStartResult,
   OAuthPopupConfiguration,
+  OAuthVerificationConfiguration,
 } from './types';
 
 declare global {
   interface Window {
     Telegram?: {
       WebApp: {
-        initData: string
+        initData: string;
       };
     };
   }
@@ -60,7 +61,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       if (successResult?.oauthAuthoriationURI) {
         const redirectURI = successResult.useMagicServerCallback
           ? // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-          new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
+            new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
           : successResult.oauthAuthoriationURI;
 
         if (successResult?.shouldReturnURI) {
@@ -73,15 +74,15 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     });
   }
 
-  public getRedirectResult(lifespan?: number, optionalQueryString?: string) {
-    const queryString = optionalQueryString || window.location.search;
+  public getRedirectResult(configuration: OAuthVerificationConfiguration) {
+    const queryString = configuration.optionalQueryString || window.location.search;
 
     // Remove the query from the redirect callback as a precaution to prevent
     // malicious parties from parsing it before we have a chance to use it.
     const urlWithoutQuery = window.location.origin + window.location.pathname;
     window.history.replaceState(null, '', urlWithoutQuery);
 
-    return getResult.call(this, queryString, lifespan);
+    return getResult.call(this, configuration, queryString);
   }
 
   public loginWithPopup(configuration: OAuthPopupConfiguration) {
@@ -108,30 +109,29 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       script.onload = async () => {
         try {
           const userData = window.Telegram?.WebApp.initData;
-          const requestPayload = this.utils.createJsonRpcRequestPayload(
-            OAuthPayloadMethods.VerifyTelegramData,
-            [{ userData, isMiniApp: true }],
-          );
+          const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.VerifyTelegramData, [
+            { userData, isMiniApp: true },
+          ]);
 
           await this.request<string | null>(requestPayload);
         } catch (verificationError) {
           console.log('Error while verifying telegram data', verificationError);
         }
-      }
+      };
     } catch (seamlessLoginError) {
       console.log('Error while loading telegram-web-app script', seamlessLoginError);
     }
   }
 }
 
-function getResult(this: OAuthExtension, queryString: string, lifespan?: number) {
+function getResult(this: OAuthExtension, configuration: OAuthVerificationConfiguration, queryString: string) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
     const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
       {
         authorizationResponseParams: queryString,
         magicApiKey: this.sdk.apiKey,
         platform: 'web',
-        lifespan,
+        ...configuration,
       },
     ]);
 
