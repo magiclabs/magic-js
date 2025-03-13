@@ -1,3 +1,17 @@
+# v29.0.1 (Thu Mar 06 2025)
+
+#### 🐛 Bug Fix
+
+- remove 15s auto success [#861](https://github.com/magiclabs/magic-js/pull/861) ([@Ethella](https://github.com/Ethella))
+- remove test ([@Ethella](https://github.com/Ethella))
+- remove 15s auto success ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v29.0.0 (Mon Mar 03 2025)
 
 #### 💥 Breaking Change

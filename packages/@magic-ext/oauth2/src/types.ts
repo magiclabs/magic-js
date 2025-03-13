@@ -104,6 +104,12 @@ export interface OAuthRedirectConfiguration {
   loginHint?: string;
 }
 
+export interface OAuthVerificationConfiguration {
+  lifespan?: number;
+  optionalQueryString?: string;
+  skipDIDToken?: boolean;
+}
+
 export interface OAuthPopupConfiguration {
   provider: OAuthPopupProvider;
   scope?: string[];

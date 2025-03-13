@@ -1,3 +1,21 @@
+# v11.0.0 (Tue Mar 11 2025)
+
+#### 💥 Breaking Change
+
+- add skipDIDToken to magic.oauth.getRedirectResult [#862](https://github.com/magiclabs/magic-js/pull/862) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- change the name returnPublicAddress to skipDIDToken ([@Ethella](https://github.com/Ethella))
+- make returnPublicAddress optional ([@Ethella](https://github.com/Ethella))
+- add return public address ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v9.21.0 (Wed Jan 08 2025)
 
 #### 🐛 Bug Fix
