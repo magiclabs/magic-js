@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-export { SDKBase, sdkInitializationTimeout } from './core/sdk';
+export { SDKBase, sdkInitializationTimeout30s, sdkInitializationTimeout60s } from './core/sdk';
 export type { MagicSDKAdditionalConfiguration, MagicSDKExtensionsOption } from './core/sdk';
 export { createSDK } from './core/sdk-environment';
 export { ViewController } from './core/view-controller';

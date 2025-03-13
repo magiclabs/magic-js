@@ -4,8 +4,10 @@ import {
   createURL,
   createModalNotReadyError,
   logger,
-  sdkInitializationTimeout,
+  sdkInitializationTimeout30s,
+  sdkInitializationTimeout60s,
 } from '@magic-sdk/provider';
+import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage } from '@magic-sdk/types';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
@@ -49,12 +51,21 @@ function checkForSameSrcInstances(parameters: string) {
   return Boolean(iframes.find(iframe => iframe.src.includes(parameters)));
 }
 
+const SECOND = 1000;
+const MINUTE = 60 * SECOND;
+const RESPONSE_DELAY = 15 * SECOND; // 15 seconds
+const PING_INTERVAL = 2 * MINUTE; // 2 minutes
+const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
+
 /**
  * View controller for the Magic `<iframe>` overlay.
  */
 export class IframeController extends ViewController {
   private iframe!: Promise<HTMLIFrameElement>;
   private activeElement: any = null;
+  private lastPingTime = Date.now();
+  private intervalTimer: ReturnType<typeof setInterval> | null = null;
+  private timeoutTimer: ReturnType<typeof setTimeout> | null = null;
 
   private getIframeSrc() {
     return createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
@@ -74,6 +85,9 @@ export class IframeController extends ViewController {
           iframe.title = 'Secure Modal';
           iframe.src = this.getIframeSrc();
           iframe.allow = 'clipboard-read; clipboard-write';
+          iframe.onload = event => {
+            logger.log('iframe DOM Loaded', { event });
+          };
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
           resolve(iframe);
@@ -91,9 +105,22 @@ export class IframeController extends ViewController {
       }
     });
 
+    this.iframe.then(iframe => {
+      if (iframe instanceof HTMLIFrameElement) {
+        iframe.addEventListener('load', async () => {
+          await this.startHeartBeat();
+        });
+      }
+    });
+
     window.addEventListener('message', (event: MessageEvent) => {
       if (event.origin === this.endpoint) {
         if (event.data && event.data.msgType && this.messageHandlers.size) {
+          const isPongMessage = event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG);
+
+          if (isPongMessage) {
+            this.lastPingTime = Date.now();
+          }
           // If the response object is undefined, we ensure it's at least an
           // empty object before passing to the event listener.
           /* istanbul ignore next */
@@ -103,6 +130,10 @@ export class IframeController extends ViewController {
           }
         }
       }
+    });
+
+    window.addEventListener('beforeunload', () => {
+      this.stopHeartBeat();
     });
   }
 
@@ -129,7 +160,53 @@ export class IframeController extends ViewController {
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);
       logger.info('Request is sent to the iframe', { data });
-      clearTimeout(sdkInitializationTimeout);
+      clearTimeout(sdkInitializationTimeout30s);
+      clearTimeout(sdkInitializationTimeout60s);
+    } else {
+      throw createModalNotReadyError();
+    }
+  }
+
+  private heartBeatCheck() {
+    this.intervalTimer = setInterval(async () => {
+      const message = { msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`, payload: [] };
+
+      await this._post(message);
+
+      const timeSinceLastPing = Date.now() - this.lastPingTime;
+
+      if (timeSinceLastPing > RESPONSE_DELAY) {
+        await this.reloadIframe();
+        this.lastPingTime = Date.now();
+      }
+    }, PING_INTERVAL);
+  }
+
+  private async startHeartBeat() {
+    const iframe = await this.iframe;
+
+    if (iframe) {
+      this.timeoutTimer = setTimeout(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
+    }
+  }
+
+  private stopHeartBeat() {
+    if (this.timeoutTimer) {
+      clearTimeout(this.timeoutTimer);
+      this.timeoutTimer = null;
+    }
+
+    if (this.intervalTimer) {
+      clearInterval(this.intervalTimer);
+      this.intervalTimer = null;
+    }
+  }
+
+  private async reloadIframe() {
+    const iframe = await this.iframe;
+
+    if (iframe) {
+      iframe.src = this.getIframeSrc();
     } else {
       throw createModalNotReadyError();
     }

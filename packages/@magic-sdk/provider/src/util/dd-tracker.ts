@@ -38,7 +38,6 @@ export function getClientLogger(): Logger {
               //@ts-expect-error Requires ugly "type as" to pass typing
               target[prop as keyof Logger](message, combinedProperties);
             }
-            console.log('Magic SDK Log:', message);
           };
         }
 

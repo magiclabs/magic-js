@@ -122,7 +122,8 @@ export interface MagicSDKAdditionalConfiguration<
 }
 
 export let sdkPerformance: number;
-export let sdkInitializationTimeout: ReturnType<typeof setTimeout>;
+export let sdkInitializationTimeout30s: ReturnType<typeof setTimeout>;
+export let sdkInitializationTimeout60s: ReturnType<typeof setTimeout>;
 
 export class SDKBase {
   private static readonly __overlays__: Map<string, ViewController> = new Map();
@@ -175,9 +176,12 @@ export class SDKBase {
   ) {
     sdkPerformance = performance.now();
     logger.log('Magic SDK initialization started', { apiKey });
-    sdkInitializationTimeout = setTimeout(() => {
+    sdkInitializationTimeout30s = setTimeout(() => {
       logger.error('Magic SDK initialization takes more than 30s');
     }, 30000);
+    sdkInitializationTimeout60s = setTimeout(() => {
+      logger.error('Magic SDK initialization takes more than 60s');
+    }, 60000);
 
     if (!apiKey) throw createMissingApiKeyError();
 
