@@ -1,4 +1,12 @@
-import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
+import {
+  ViewController,
+  createDuplicateIframeWarning,
+  createURL,
+  createModalNotReadyError,
+  logger,
+  sdkInitializationTimeout30s,
+  sdkInitializationTimeout60s,
+} from '@magic-sdk/provider';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage } from '@magic-sdk/types';
 
 /**
@@ -77,6 +85,9 @@ export class IframeController extends ViewController {
           iframe.title = 'Secure Modal';
           iframe.src = this.getIframeSrc();
           iframe.allow = 'clipboard-read; clipboard-write';
+          iframe.onload = event => {
+            logger.log('iframe DOM Loaded', { event });
+          };
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
           resolve(iframe);
@@ -148,6 +159,9 @@ export class IframeController extends ViewController {
     const iframe = await this.iframe;
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);
+      logger.info('Request is sent to the iframe', { data });
+      clearTimeout(sdkInitializationTimeout30s);
+      clearTimeout(sdkInitializationTimeout60s);
     } else {
       throw createModalNotReadyError();
     }

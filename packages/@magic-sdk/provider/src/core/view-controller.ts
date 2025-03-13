@@ -17,6 +17,8 @@ import {
   encryptAndPersistDeviceShare,
   getDecryptedDeviceShare,
 } from '../util/device-share-web-crypto';
+import { logger } from '../util/dd-tracker';
+import { sdkInitializationTimeout30s, sdkInitializationTimeout60s, sdkPerformance } from './sdk';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -171,6 +173,7 @@ export abstract class ViewController {
       }
 
       if (!this.isReadyForRequest) {
+        logger.warn('Request is pending for overlay being ready', { duration: performance.now() - sdkPerformance });
         await this.waitForReady();
       }
 
@@ -244,6 +247,9 @@ export abstract class ViewController {
       const unsubscribe = this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
         this.isReadyForRequest = true;
         resolve();
+        clearTimeout(sdkInitializationTimeout30s);
+        clearTimeout(sdkInitializationTimeout60s);
+        logger.info('Magic Overlay is ready for requests', { duration: performance.now() - sdkPerformance });
         unsubscribe();
       });
     });
