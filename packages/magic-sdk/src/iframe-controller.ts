@@ -145,7 +145,8 @@ export class IframeController extends ViewController {
   }
 
   protected async _post(data: any) {
-    const iframe = await this.iframe;
+    const iframe = await this.checkIframeExists();
+
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);
     } else {
@@ -196,5 +197,18 @@ export class IframeController extends ViewController {
     } else {
       throw createModalNotReadyError();
     }
+  }
+
+  async checkIframeExists() {
+    // Check if the iframe is already in the DOM
+    const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
+    const iframe = iframes.find(iframe => iframe.src.includes(this.parameters));
+
+    // Recreate iframe if it doesn't exist in the current doc
+    if (!iframe) {
+      this.init();
+    }
+
+    return await this.iframe;
   }
 }
