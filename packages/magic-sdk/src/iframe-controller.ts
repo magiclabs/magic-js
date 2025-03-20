@@ -56,8 +56,8 @@ export class IframeController extends ViewController {
   private iframe!: Promise<HTMLIFrameElement>;
   private activeElement: any = null;
   private lastPingTime = Date.now();
-  private intervalTimer: ReturnType<typeof setInterval> | null = null;
-  private timeoutTimer: ReturnType<typeof setTimeout> | null = null;
+  private heartbeatIntervalTimer: ReturnType<typeof setInterval> | null = null;
+  private heartbeatTimeoutTimer: ReturnType<typeof setTimeout> | null = null;
 
   private getIframeSrc() {
     return createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
@@ -148,7 +148,8 @@ export class IframeController extends ViewController {
     const iframe = await this.checkIframeExists();
 
     if (iframe && iframe.contentWindow) {
-      console.log('endpoint', this.endpoint);
+      console.log('_post endpoint', this.endpoint);
+      console.log('_post iframe', iframe);
       try {
         iframe.contentWindow.postMessage(data, this.endpoint);
       } catch (e) {
@@ -173,7 +174,7 @@ export class IframeController extends ViewController {
 
     if (iframe) {
       const heartBeatCheck = () => {
-        this.intervalTimer = setInterval(async () => {
+        this.heartbeatIntervalTimer = setInterval(async () => {
           const message = { msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`, payload: [] };
 
           await this._post(message);
@@ -187,19 +188,19 @@ export class IframeController extends ViewController {
         }, PING_INTERVAL);
       };
 
-      this.timeoutTimer = setTimeout(() => heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
+      this.heartbeatTimeoutTimer = setTimeout(() => heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
     }
   }
 
   private stopHeartBeat() {
-    if (this.timeoutTimer) {
-      clearTimeout(this.timeoutTimer);
-      this.timeoutTimer = null;
+    if (this.heartbeatTimeoutTimer) {
+      clearTimeout(this.heartbeatTimeoutTimer);
+      this.heartbeatTimeoutTimer = null;
     }
 
-    if (this.intervalTimer) {
-      clearInterval(this.intervalTimer);
-      this.intervalTimer = null;
+    if (this.heartbeatIntervalTimer) {
+      clearInterval(this.heartbeatIntervalTimer);
+      this.heartbeatIntervalTimer = null;
     }
   }
 
@@ -207,14 +208,15 @@ export class IframeController extends ViewController {
     const iframe = await this.iframe;
 
     if (iframe) {
+      // reload the iframe source
       iframe.src = this.getIframeSrc();
-      // Reset HeartBeat
-      this.stopHeartBeat();
-      this.startHeartBeat();
     } else {
-      console.log('reload createModalNotReadyError', iframe);
-      throw createModalNotReadyError();
+      this.init();
+      console.log('Magic SDK: iframe lost, re-initiating');
     }
+    // Reset HeartBeat
+    this.stopHeartBeat();
+    this.startHeartBeat();
   }
 
   async checkIframeExists() {
@@ -223,7 +225,6 @@ export class IframeController extends ViewController {
     const iframe = iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters)));
 
     console.log('iframe', iframe);
-
     // Recreate iframe if it doesn't exist in the current doc
     if (!iframe) {
       this.init();
