@@ -150,6 +150,7 @@ export class IframeController extends ViewController {
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);
     } else {
+      console.log('_post', iframe);
       throw createModalNotReadyError();
     }
   }
@@ -195,6 +196,7 @@ export class IframeController extends ViewController {
     if (iframe) {
       iframe.src = this.getIframeSrc();
     } else {
+      console.log('reload createModalNotReadyError', iframe);
       throw createModalNotReadyError();
     }
   }
