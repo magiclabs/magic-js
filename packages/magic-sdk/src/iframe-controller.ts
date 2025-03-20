@@ -46,7 +46,7 @@ function checkForSameSrcInstances(parameters: string) {
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
 const RESPONSE_DELAY = 15 * SECOND; // 15 seconds
-const PING_INTERVAL = 2 * MINUTE; // 2 minutes
+const PING_INTERVAL = 5 * MINUTE; // 5 minutes
 const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
 
 /**
@@ -148,33 +148,46 @@ export class IframeController extends ViewController {
     const iframe = await this.checkIframeExists();
 
     if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage(data, this.endpoint);
+      console.log('endpoint', this.endpoint);
+      try {
+        iframe.contentWindow.postMessage(data, this.endpoint);
+      } catch (e) {
+        console.log('error', e);
+      }
     } else {
       console.log('_post', iframe);
       throw createModalNotReadyError();
     }
   }
 
-  private heartBeatCheck() {
-    this.intervalTimer = setInterval(async () => {
-      const message = { msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`, payload: [] };
-
-      await this._post(message);
-
-      const timeSinceLastPing = Date.now() - this.lastPingTime;
-
-      if (timeSinceLastPing > RESPONSE_DELAY) {
-        await this.reloadIframe();
-        this.lastPingTime = Date.now();
-      }
-    }, PING_INTERVAL);
-  }
+  /**
+   * This code implements a heartbeat monitoring system to ensure the iframe remains active and responsive.
+   * It periodically sends a ping message to the iframe at regular intervals (every 5 minutes).
+   * If the iframe fails to respond within 15 seconds, it triggers a reload to restore functionality.
+   * The heartbeat starts after an initial delay of 1 hour and can be stopped when no longer needed.
+   * @private
+   */
 
   private async startHeartBeat() {
     const iframe = await this.iframe;
 
     if (iframe) {
-      this.timeoutTimer = setTimeout(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
+      const heartBeatCheck = () => {
+        this.intervalTimer = setInterval(async () => {
+          const message = { msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`, payload: [] };
+
+          await this._post(message);
+
+          const timeSinceLastPing = Date.now() - this.lastPingTime;
+
+          if (timeSinceLastPing > RESPONSE_DELAY) {
+            await this.reloadIframe();
+            this.lastPingTime = Date.now();
+          }
+        }, PING_INTERVAL);
+      };
+
+      this.timeoutTimer = setTimeout(() => heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
     }
   }
 
@@ -195,6 +208,9 @@ export class IframeController extends ViewController {
 
     if (iframe) {
       iframe.src = this.getIframeSrc();
+      // Reset HeartBeat
+      this.stopHeartBeat();
+      this.startHeartBeat();
     } else {
       console.log('reload createModalNotReadyError', iframe);
       throw createModalNotReadyError();
@@ -204,7 +220,9 @@ export class IframeController extends ViewController {
   async checkIframeExists() {
     // Check if the iframe is already in the DOM
     const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
-    const iframe = iframes.find(iframe => iframe.src.includes(this.parameters));
+    const iframe = iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters)));
+
+    console.log('iframe', iframe);
 
     // Recreate iframe if it doesn't exist in the current doc
     if (!iframe) {
