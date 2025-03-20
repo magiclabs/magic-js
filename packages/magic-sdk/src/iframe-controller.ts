@@ -1,4 +1,10 @@
-import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
+import {
+  createDuplicateIframeWarning,
+  createModalLostError,
+  createModalNotReadyError,
+  createURL,
+  ViewController,
+} from '@magic-sdk/provider';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage } from '@magic-sdk/types';
 
 /**
@@ -147,16 +153,14 @@ export class IframeController extends ViewController {
   protected async _post(data: any) {
     const iframe = await this.checkIframeExists();
 
+    if (!iframe) {
+      this.init();
+      throw createModalLostError();
+    }
+
     if (iframe && iframe.contentWindow) {
-      console.log('_post endpoint', this.endpoint);
-      console.log('_post iframe', iframe);
-      try {
-        iframe.contentWindow.postMessage(data, this.endpoint);
-      } catch (e) {
-        console.log('error', e);
-      }
+      iframe.contentWindow.postMessage(data, this.endpoint);
     } else {
-      console.log('_post', iframe);
       throw createModalNotReadyError();
     }
   }
@@ -222,14 +226,6 @@ export class IframeController extends ViewController {
   async checkIframeExists() {
     // Check if the iframe is already in the DOM
     const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
-    const iframe = iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters)));
-
-    console.log('iframe', iframe);
-    // Recreate iframe if it doesn't exist in the current doc
-    if (!iframe) {
-      this.init();
-    }
-
-    return await this.iframe;
+    return iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters)));
   }
 }
