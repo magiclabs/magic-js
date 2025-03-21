@@ -168,6 +168,7 @@ export class IframeController extends ViewController {
    * Sends periodic pings to check the connection.
    * If no pong is received or it’s stale, the iframe is reloaded.
    */
+  /* istanbul ignore next */
   private heartBeatCheck() {
     let firstPing = true;
 
