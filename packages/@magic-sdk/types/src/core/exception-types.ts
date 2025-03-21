@@ -1,7 +1,7 @@
 export enum SDKErrorCode {
   MissingApiKey = 'MISSING_API_KEY',
   ModalNotReady = 'MODAL_NOT_READY',
-  ModalLost = 'MODAL_WAS_LOST',
+  ConnectionLost = 'CONNECTION_WAS_LOST',
   MalformedResponse = 'MALFORMED_RESPONSE',
   InvalidArgument = 'INVALID_ARGUMENT',
   ExtensionNotInitialized = 'EXTENSION_NOT_INITIALIZED',

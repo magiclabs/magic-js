@@ -126,7 +126,7 @@ export function createModalNotReadyError() {
 }
 
 export function createModalLostError() {
-  return new MagicSDKError(SDKErrorCode.ModalLost, 'Modal was lost, Reinitializing. please try again.');
+  return new MagicSDKError(SDKErrorCode.ConnectionLost, 'Modal Disconnected, Reinitializing. please try again.');
 }
 
 export function createMalformedResponseError() {
