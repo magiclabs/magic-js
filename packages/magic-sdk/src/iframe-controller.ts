@@ -165,13 +165,9 @@ export class IframeController extends ViewController {
   }
 
   /**
-   * This code implements a heartbeat monitoring system to ensure the iframe remains active and responsive.
-   * It periodically sends a ping message to the iframe at regular intervals (every 5 minutes).
-   * If the iframe fails to respond within 15 seconds, it triggers a reload to restore functionality.
-   * The heartbeat starts after an initial delay of 1 hour and can be stopped when no longer needed.
-   * @private
+   * Sends periodic pings to check the connection.
+   * If no pong is received or it’s stale, the iframe is reloaded.
    */
-
   private heartBeatCheck() {
     let firstPing = true;
 
