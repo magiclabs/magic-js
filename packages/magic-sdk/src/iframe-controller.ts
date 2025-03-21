@@ -175,17 +175,21 @@ export class IframeController extends ViewController {
 
   private heartBeatCheck() {
     this.heartbeatIntervalTimer = setInterval(async () => {
-      const message = { msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`, payload: [] };
+      const timeSinceLastPongMs = Date.now() - this.lastPongTime;
 
-      await this._post(message);
-
-      const timeSinceLastPong = Date.now() - this.lastPongTime;
-
-      // If the there's no Pong in between two pings
-      // reload the iframe
-      if (timeSinceLastPong > PING_INTERVAL) {
-        await this.reloadIframe();
+      // Check if the time since the last Pong exceeds the expected Ping interval.
+      // If true, the iframe may be frozen or unresponsive, attempt to reload it.
+      // Otherwise, continue sending Ping messages to maintain connection.
+      if (timeSinceLastPongMs > PING_INTERVAL) {
+        this.reloadIframe();
         this.lastPongTime = Date.now();
+      } else {
+        const message = {
+          msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`,
+          payload: [],
+        };
+
+        await this._post(message);
       }
     }, PING_INTERVAL);
   }

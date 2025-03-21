@@ -166,7 +166,6 @@ export abstract class ViewController {
   ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
     return createPromise(async (resolve, reject) => {
       if (!this.isConnectedToInternet) {
-        console.log('isConnectedToInternet', !this.isConnectedToInternet);
         const error = createModalNotReadyError();
         reject(error);
       }
