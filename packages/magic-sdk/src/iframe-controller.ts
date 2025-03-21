@@ -60,7 +60,7 @@ const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
 export class IframeController extends ViewController {
   private iframe!: Promise<HTMLIFrameElement>;
   private activeElement: any = null;
-  private lastPongTime = Date.now();
+  private lastPongTime: null | number = null;
   private heartbeatIntervalTimer: ReturnType<typeof setInterval> | null = null;
   private heartbeatDebounce = debounce(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
 
@@ -109,9 +109,7 @@ export class IframeController extends ViewController {
 
     window.addEventListener('message', (event: MessageEvent) => {
       if (event.origin === this.endpoint && event.data.msgType) {
-        const isPongMessage = event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG);
-
-        if (isPongMessage) {
+        if (event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG)) {
           // Mark the Pong time
           this.lastPongTime = Date.now();
         }
@@ -175,23 +173,40 @@ export class IframeController extends ViewController {
    */
 
   private heartBeatCheck() {
+    let firstPing = true;
+
+    // Helper function to send a ping message.
+    const sendPing = async () => {
+      const message = {
+        msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`,
+        payload: [],
+      };
+      await this._post(message);
+    };
+
     this.heartbeatIntervalTimer = setInterval(async () => {
-      const timeSinceLastPongMs = Date.now() - this.lastPongTime;
-
-      // Check if the time since the last Pong exceeds the expected Ping interval.
-      // If true, the iframe may be frozen or unresponsive, attempt to reload it.
-      // Otherwise, continue sending Ping messages to maintain connection.
-      if (timeSinceLastPongMs > PING_INTERVAL) {
-        this.reloadIframe();
-        this.lastPongTime = Date.now();
+      // If no pong has ever been received.
+      if (!this.lastPongTime) {
+        if (!firstPing) {
+          // On subsequent ping with no previous pong response, reload the iframe.
+          this.reloadIframe();
+          firstPing = true;
+          return;
+        }
       } else {
-        const message = {
-          msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`,
-          payload: [],
-        };
-
-        await this._post(message);
+        // If we have a pong, check how long ago it was received.
+        const timeSinceLastPong = Date.now() - this.lastPongTime;
+        if (timeSinceLastPong > PING_INTERVAL * 2) {
+          // If the pong is too stale, reload the iframe.
+          this.reloadIframe();
+          firstPing = true;
+          return;
+        }
       }
+
+      // Send a new ping message and update the counter.
+      await sendPing();
+      firstPing = false;
     }, PING_INTERVAL);
   }
 
@@ -199,6 +214,7 @@ export class IframeController extends ViewController {
   // Kill any existing PingPong interval
   private stopHeartBeat() {
     this.heartbeatDebounce();
+    this.lastPongTime = null;
 
     if (this.heartbeatIntervalTimer) {
       clearInterval(this.heartbeatIntervalTimer);
@@ -228,9 +244,7 @@ export class IframeController extends ViewController {
   }
 }
 
-type Procedure = (...args: any[]) => void;
-
-function debounce<T extends Procedure>(func: T, delay: number): T {
+function debounce<T extends (...args: unknown[]) => void>(func: T, delay: number) {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
   return function (...args: Parameters<T>): void {
@@ -241,5 +255,5 @@ function debounce<T extends Procedure>(func: T, delay: number): T {
     timeoutId = setTimeout(() => {
       func(...args);
     }, delay);
-  } as T;
+  };
 }
