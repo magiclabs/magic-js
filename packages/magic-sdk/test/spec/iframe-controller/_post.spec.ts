@@ -14,9 +14,7 @@ test('Calls iframe.contentWindow.postMessage with the expected arguments', async
 
   const postMessageStub = jest.fn();
 
-  (overlay as any).checkIframeExistsInDOM = jest
-    .fn()
-    .mockResolvedValue({ contentWindow: { postMessage: postMessageStub } });
+  overlay.checkIframeExistsInDOM = jest.fn().mockResolvedValue({ contentWindow: { postMessage: postMessageStub } });
 
   await (overlay as any)._post({ thisIsData: 'hello world' });
 
