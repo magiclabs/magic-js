@@ -51,7 +51,6 @@ function checkForSameSrcInstances(parameters: string) {
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
-const RESPONSE_DELAY = 15 * SECOND; // 15 seconds
 const PING_INTERVAL = 5 * MINUTE; // 5 minutes
 const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
 
@@ -61,7 +60,7 @@ const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
 export class IframeController extends ViewController {
   private iframe!: Promise<HTMLIFrameElement>;
   private activeElement: any = null;
-  private lastPingTime = Date.now();
+  private lastPongTime = Date.now();
   private heartbeatIntervalTimer: ReturnType<typeof setInterval> | null = null;
   private heartbeatTimeoutTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -114,7 +113,8 @@ export class IframeController extends ViewController {
           const isPongMessage = event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG);
 
           if (isPongMessage) {
-            this.lastPingTime = Date.now();
+            // Mark the Pong time
+            this.lastPongTime = Date.now();
           }
           // If the response object is undefined, we ensure it's at least an
           // empty object before passing to the event listener.
@@ -151,7 +151,7 @@ export class IframeController extends ViewController {
   }
 
   protected async _post(data: any) {
-    const iframe = await this.checkIframeExists();
+    const iframe = await this.checkIframeExistsInDOM();
 
     if (!iframe) {
       this.init();
@@ -173,26 +173,28 @@ export class IframeController extends ViewController {
    * @private
    */
 
+  private heartBeatCheck() {
+    this.heartbeatIntervalTimer = setInterval(async () => {
+      const message = { msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`, payload: [] };
+
+      await this._post(message);
+
+      const timeSinceLastPong = Date.now() - this.lastPongTime;
+
+      // If the there's no Pong in between two pings
+      // reload the iframe
+      if (timeSinceLastPong > PING_INTERVAL) {
+        await this.reloadIframe();
+        this.lastPongTime = Date.now();
+      }
+    }, PING_INTERVAL);
+  }
+
   private async startHeartBeat() {
     const iframe = await this.iframe;
 
     if (iframe) {
-      const heartBeatCheck = () => {
-        this.heartbeatIntervalTimer = setInterval(async () => {
-          const message = { msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`, payload: [] };
-
-          await this._post(message);
-
-          const timeSinceLastPing = Date.now() - this.lastPingTime;
-
-          if (timeSinceLastPing > RESPONSE_DELAY) {
-            await this.reloadIframe();
-            this.lastPingTime = Date.now();
-          }
-        }, PING_INTERVAL);
-      };
-
-      this.heartbeatTimeoutTimer = setTimeout(() => heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
+      this.heartbeatTimeoutTimer = setTimeout(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
     }
   }
 
@@ -211,19 +213,19 @@ export class IframeController extends ViewController {
   private async reloadIframe() {
     const iframe = await this.iframe;
 
+    // Reset HeartBeat
+    this.stopHeartBeat();
+
     if (iframe) {
       // reload the iframe source
       iframe.src = this.getIframeSrc();
     } else {
       this.init();
-      console.log('Magic SDK: iframe lost, re-initiating');
+      console.warn('Magic SDK: Modal lost, re-initiating');
     }
-    // Reset HeartBeat
-    this.stopHeartBeat();
-    this.startHeartBeat();
   }
 
-  async checkIframeExists() {
+  async checkIframeExistsInDOM() {
     // Check if the iframe is already in the DOM
     const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
     return iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters)));
