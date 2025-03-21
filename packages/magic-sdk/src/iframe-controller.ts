@@ -62,7 +62,7 @@ export class IframeController extends ViewController {
   private activeElement: any = null;
   private lastPongTime = Date.now();
   private heartbeatIntervalTimer: ReturnType<typeof setInterval> | null = null;
-  private heartbeatTimeoutTimer: ReturnType<typeof setTimeout> | null = null;
+  private heartbeatDebounce = debounce(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
 
   private getIframeSrc() {
     return createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
@@ -102,24 +102,25 @@ export class IframeController extends ViewController {
     this.iframe.then(iframe => {
       if (iframe instanceof HTMLIFrameElement) {
         iframe.addEventListener('load', async () => {
-          await this.startHeartBeat();
+          this.heartbeatDebounce();
         });
       }
     });
 
     window.addEventListener('message', (event: MessageEvent) => {
-      if (event.origin === this.endpoint) {
-        if (event.data && event.data.msgType && this.messageHandlers.size) {
-          const isPongMessage = event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG);
+      if (event.origin === this.endpoint && event.data.msgType) {
+        const isPongMessage = event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG);
 
-          if (isPongMessage) {
-            // Mark the Pong time
-            this.lastPongTime = Date.now();
-          }
+        if (isPongMessage) {
+          // Mark the Pong time
+          this.lastPongTime = Date.now();
+        }
+
+        if (event.data && this.messageHandlers.size) {
           // If the response object is undefined, we ensure it's at least an
           // empty object before passing to the event listener.
-          /* istanbul ignore next */
           event.data.response = event.data.response ?? {};
+          this.stopHeartBeat();
           for (const handler of this.messageHandlers.values()) {
             handler(event);
           }
@@ -194,19 +195,10 @@ export class IframeController extends ViewController {
     }, PING_INTERVAL);
   }
 
-  private async startHeartBeat() {
-    const iframe = await this.iframe;
-
-    if (iframe) {
-      this.heartbeatTimeoutTimer = setTimeout(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
-    }
-  }
-
+  // Debounce revival mechanism
+  // Kill any existing PingPong interval
   private stopHeartBeat() {
-    if (this.heartbeatTimeoutTimer) {
-      clearTimeout(this.heartbeatTimeoutTimer);
-      this.heartbeatTimeoutTimer = null;
-    }
+    this.heartbeatDebounce();
 
     if (this.heartbeatIntervalTimer) {
       clearInterval(this.heartbeatIntervalTimer);
@@ -234,4 +226,20 @@ export class IframeController extends ViewController {
     const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
     return iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters)));
   }
+}
+
+type Procedure = (...args: any[]) => void;
+
+function debounce<T extends Procedure>(func: T, delay: number): T {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  return function (...args: Parameters<T>): void {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  } as T;
 }
