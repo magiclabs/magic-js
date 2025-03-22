@@ -1,5 +1,5 @@
 import browserEnv from '@ikscodes/browser-env';
-import { createModalNotReadyError } from '@magic-sdk/provider';
+import { createModalLostError } from '@magic-sdk/provider';
 import { createIframeController } from '../../factories';
 
 beforeEach(() => {
@@ -13,7 +13,8 @@ test('Calls iframe.contentWindow.postMessage with the expected arguments', async
   const overlay = createIframeController('http://example.com');
 
   const postMessageStub = jest.fn();
-  (overlay as any).iframe = { contentWindow: { postMessage: postMessageStub } };
+
+  overlay.checkIframeExistsInDOM = jest.fn().mockResolvedValue({ contentWindow: { postMessage: postMessageStub } });
 
   await (overlay as any)._post({ thisIsData: 'hello world' });
 
@@ -25,6 +26,6 @@ test('Throws MODAL_NOT_READY error if iframe.contentWindow is nil', async () => 
 
   (overlay as any).iframe = undefined;
 
-  const expectedError = createModalNotReadyError();
+  const expectedError = createModalLostError();
   expect(() => (overlay as any)._post({ thisIsData: 'hello world' })).rejects.toThrow(expectedError);
 });
