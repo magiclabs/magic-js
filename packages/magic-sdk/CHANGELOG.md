@@ -1,3 +1,27 @@
+# v29.0.2 (Sat Mar 22 2025)
+
+#### 🐛 Bug Fix
+
+- implement checkIframeExists [#863](https://github.com/magiclabs/magic-js/pull/863) ([@Ethella](https://github.com/Ethella))
+- ignore ([@Ethella](https://github.com/Ethella))
+- update comment ([@Ethella](https://github.com/Ethella))
+- fix test ([@Ethella](https://github.com/Ethella))
+- improve debounce logic ([@Ethella](https://github.com/Ethella))
+- rewrite revival logic and use debounce instead ([@Ethella](https://github.com/Ethella))
+- update comments ([@Ethella](https://github.com/Ethella))
+- fix interval not working properly ([@Ethella](https://github.com/Ethella))
+- Add new errors to catch modal being missing ([@Ethella](https://github.com/Ethella))
+- add more console.log ([@Ethella](https://github.com/Ethella))
+- add try catch around postMessage ([@Ethella](https://github.com/Ethella))
+- add console.log ([@Ethella](https://github.com/Ethella))
+- implement checkIframeExists ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v28.21.1 (Mon Feb 03 2025)
 
 #### 🐛 Bug Fix

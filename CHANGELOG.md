@@ -1,3 +1,16 @@
+# (Sat Mar 22 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.0.2`, `@magic-sdk/types@24.18.1`, `magic-sdk@29.0.2`
+  - implement checkIframeExists [#863](https://github.com/magiclabs/magic-js/pull/863) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Tue Mar 11 2025)
 
 #### 💥 Breaking Change
