@@ -26,13 +26,13 @@
     ]
   },
   "dependencies": {
-    "crypto-js": "^3.3.0",
+    "crypto-js": "^4.2.0",
     "react-native-device-info": "^10.3.0"
   },
   "devDependencies": {
     "@magic-sdk/react-native-bare": "^30.0.2",
     "@magic-sdk/types": "^24.18.1",
-    "@types/crypto-js": "~3.1.47",
+    "@types/crypto-js": "~4.2.0",
     "react-native-inappbrowser-reborn": "^3.7.0"
   },
   "peerDependencies": {
