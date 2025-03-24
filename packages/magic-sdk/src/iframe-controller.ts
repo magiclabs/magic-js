@@ -1,4 +1,10 @@
-import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
+import {
+  createDuplicateIframeWarning,
+  createModalLostError,
+  createModalNotReadyError,
+  createURL,
+  ViewController,
+} from '@magic-sdk/provider';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage } from '@magic-sdk/types';
 
 /**
@@ -45,8 +51,7 @@ function checkForSameSrcInstances(parameters: string) {
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
-const RESPONSE_DELAY = 15 * SECOND; // 15 seconds
-const PING_INTERVAL = 2 * MINUTE; // 2 minutes
+const PING_INTERVAL = 5 * MINUTE; // 5 minutes
 const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
 
 /**
@@ -55,9 +60,9 @@ const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
 export class IframeController extends ViewController {
   private iframe!: Promise<HTMLIFrameElement>;
   private activeElement: any = null;
-  private lastPingTime = Date.now();
-  private intervalTimer: ReturnType<typeof setInterval> | null = null;
-  private timeoutTimer: ReturnType<typeof setTimeout> | null = null;
+  private lastPongTime: null | number = null;
+  private heartbeatIntervalTimer: ReturnType<typeof setInterval> | null = null;
+  private heartbeatDebounce = debounce(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
 
   private getIframeSrc() {
     return createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
@@ -97,23 +102,23 @@ export class IframeController extends ViewController {
     this.iframe.then(iframe => {
       if (iframe instanceof HTMLIFrameElement) {
         iframe.addEventListener('load', async () => {
-          await this.startHeartBeat();
+          this.heartbeatDebounce();
         });
       }
     });
 
     window.addEventListener('message', (event: MessageEvent) => {
-      if (event.origin === this.endpoint) {
-        if (event.data && event.data.msgType && this.messageHandlers.size) {
-          const isPongMessage = event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG);
+      if (event.origin === this.endpoint && event.data.msgType) {
+        if (event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG)) {
+          // Mark the Pong time
+          this.lastPongTime = Date.now();
+        }
 
-          if (isPongMessage) {
-            this.lastPingTime = Date.now();
-          }
+        if (event.data && this.messageHandlers.size) {
           // If the response object is undefined, we ensure it's at least an
           // empty object before passing to the event listener.
-          /* istanbul ignore next */
           event.data.response = event.data.response ?? {};
+          this.stopHeartBeat();
           for (const handler of this.messageHandlers.values()) {
             handler(event);
           }
@@ -145,7 +150,13 @@ export class IframeController extends ViewController {
   }
 
   protected async _post(data: any) {
-    const iframe = await this.iframe;
+    const iframe = await this.checkIframeExistsInDOM();
+
+    if (!iframe) {
+      this.init();
+      throw createModalLostError();
+    }
+
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);
     } else {
@@ -153,48 +164,93 @@ export class IframeController extends ViewController {
     }
   }
 
+  /**
+   * Sends periodic pings to check the connection.
+   * If no pong is received or it’s stale, the iframe is reloaded.
+   */
+  /* istanbul ignore next */
   private heartBeatCheck() {
-    this.intervalTimer = setInterval(async () => {
-      const message = { msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`, payload: [] };
+    let firstPing = true;
 
+    // Helper function to send a ping message.
+    const sendPing = async () => {
+      const message = {
+        msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`,
+        payload: [],
+      };
       await this._post(message);
+    };
 
-      const timeSinceLastPing = Date.now() - this.lastPingTime;
-
-      if (timeSinceLastPing > RESPONSE_DELAY) {
-        await this.reloadIframe();
-        this.lastPingTime = Date.now();
+    this.heartbeatIntervalTimer = setInterval(async () => {
+      // If no pong has ever been received.
+      if (!this.lastPongTime) {
+        if (!firstPing) {
+          // On subsequent ping with no previous pong response, reload the iframe.
+          this.reloadIframe();
+          firstPing = true;
+          return;
+        }
+      } else {
+        // If we have a pong, check how long ago it was received.
+        const timeSinceLastPong = Date.now() - this.lastPongTime;
+        if (timeSinceLastPong > PING_INTERVAL * 2) {
+          // If the pong is too stale, reload the iframe.
+          this.reloadIframe();
+          firstPing = true;
+          return;
+        }
       }
+
+      // Send a new ping message and update the counter.
+      await sendPing();
+      firstPing = false;
     }, PING_INTERVAL);
   }
 
-  private async startHeartBeat() {
-    const iframe = await this.iframe;
-
-    if (iframe) {
-      this.timeoutTimer = setTimeout(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
-    }
-  }
-
+  // Debounce revival mechanism
+  // Kill any existing PingPong interval
   private stopHeartBeat() {
-    if (this.timeoutTimer) {
-      clearTimeout(this.timeoutTimer);
-      this.timeoutTimer = null;
-    }
+    this.heartbeatDebounce();
+    this.lastPongTime = null;
 
-    if (this.intervalTimer) {
-      clearInterval(this.intervalTimer);
-      this.intervalTimer = null;
+    if (this.heartbeatIntervalTimer) {
+      clearInterval(this.heartbeatIntervalTimer);
+      this.heartbeatIntervalTimer = null;
     }
   }
 
   private async reloadIframe() {
     const iframe = await this.iframe;
 
+    // Reset HeartBeat
+    this.stopHeartBeat();
+
     if (iframe) {
+      // reload the iframe source
       iframe.src = this.getIframeSrc();
     } else {
-      throw createModalNotReadyError();
+      this.init();
+      console.warn('Magic SDK: Modal lost, re-initiating');
     }
   }
+
+  async checkIframeExistsInDOM() {
+    // Check if the iframe is already in the DOM
+    const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
+    return iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters)));
+  }
+}
+
+function debounce<T extends (...args: unknown[]) => void>(func: T, delay: number) {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  return function (...args: Parameters<T>): void {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
 }

@@ -1,3 +1,17 @@
+# v24.18.1 (Sat Mar 22 2025)
+
+#### 🐛 Bug Fix
+
+- implement checkIframeExists [#863](https://github.com/magiclabs/magic-js/pull/863) ([@Ethella](https://github.com/Ethella))
+- update Error message ([@Ethella](https://github.com/Ethella))
+- Add new errors to catch modal being missing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v24.18.0 (Wed Jan 08 2025)
 
 #### 🚀 Enhancement
