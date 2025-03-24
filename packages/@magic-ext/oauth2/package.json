@@ -29,10 +29,9 @@
     ]
   },
   "dependencies": {
-    "crypto-js": "^3.3.0"
+    "crypto-js": "^4.2.0"
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^25.0.1",
-    "@types/crypto-js": "~3.1.47"
+    "@types/crypto-js": "4.2.0"
   }
 }

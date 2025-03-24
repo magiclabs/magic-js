@@ -2542,9 +2542,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth2@workspace:packages/@magic-ext/oauth2"
   dependencies:
-    "@magic-sdk/commons": ^25.0.1
-    "@types/crypto-js": ~3.1.47
-    crypto-js: ^3.3.0
+    "@types/crypto-js": 4.2.0
+    crypto-js: ^4.2.0
   languageName: unknown
   linkType: soft
 
@@ -2552,9 +2551,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
   dependencies:
-    "@magic-sdk/commons": ^25.0.1
-    "@types/crypto-js": ~3.1.47
-    crypto-js: ^3.3.0
+    "@types/crypto-js": ~4.2.0
+    crypto-js: ^4.2.0
   languageName: unknown
   linkType: soft
 
@@ -2580,8 +2578,8 @@ __metadata:
   dependencies:
     "@magic-sdk/react-native-bare": ^30.0.1
     "@magic-sdk/types": ^24.18.0
-    "@types/crypto-js": ~3.1.47
-    crypto-js: ^3.3.0
+    "@types/crypto-js": ~4.2.0
+    crypto-js: ^4.2.0
     react-native-device-info: ^10.3.0
     react-native-inappbrowser-reborn: ^3.7.0
   peerDependencies:
@@ -2596,8 +2594,8 @@ __metadata:
   dependencies:
     "@magic-sdk/react-native-expo": ^30.0.1
     "@magic-sdk/types": ^10.0.0
-    "@types/crypto-js": ~3.1.47
-    crypto-js: ^3.3.0
+    "@types/crypto-js": ~4.2.0
+    crypto-js: ^4.2.0
     expo-application: ^5.0.1
     expo-web-browser: ">=12.0.0"
   peerDependencies:
@@ -4558,10 +4556,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/crypto-js@npm:~3.1.47":
-  version: 3.1.47
-  resolution: "@types/crypto-js@npm:3.1.47"
-  checksum: fdeabd526cb3bf3a37300752a2a7313d360292a08b40c97709981ba520cf66b90b872672e32da3c5f0ad29faa8dcd22d14a8f418e24ba6a1e154acd5a123d050
+"@types/crypto-js@npm:4.2.0":
+  version: 4.2.0
+  resolution: "@types/crypto-js@npm:4.2.0"
+  checksum: bf2f9fc7140d2fd16f443e306f80d4a822d9b35df61e7fbad0c483849d47d4953ca986741c218d84e2f3b9ac77a976ffc7c9064e6655b38c47864c02d756e68a
+  languageName: node
+  linkType: hard
+
+"@types/crypto-js@npm:~4.2.0":
+  version: 4.2.2
+  resolution: "@types/crypto-js@npm:4.2.2"
+  checksum: 727daa0d2db35f0abefbab865c23213b6ee6a270e27e177939bbe4b70d1e84c2202d9fac4ea84859c4b4d49a4ee50f948f601327a39b69ec013288018ba07ca5
   languageName: node
   linkType: hard
 
@@ -8339,10 +8344,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypto-js@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "crypto-js@npm:3.3.0"
-  checksum: 193923143a4784b2f974366068d96fe8280168fd3fef2bfea9551a5c3e32096f5a8fa49ff4eeb5bd0b9716d325618d38cfbe6125e359a4ef488fbca93e600824
+"crypto-js@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "crypto-js@npm:4.2.0"
+  checksum: f051666dbc077c8324777f44fbd3aaea2986f198fe85092535130d17026c7c2ccf2d23ee5b29b36f7a4a07312db2fae23c9094b644cc35f7858b1b4fcaf27774
   languageName: node
   linkType: hard
 
