@@ -32,6 +32,7 @@
     "crypto-js": "^4.2.0"
   },
   "devDependencies": {
+    "@magic-sdk/commons": "latest",
     "@types/crypto-js": "~4.2.0"
   }
 }

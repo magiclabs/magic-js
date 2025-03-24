@@ -2542,6 +2542,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth2@workspace:packages/@magic-ext/oauth2"
   dependencies:
+    "@magic-sdk/commons": latest
     "@types/crypto-js": 4.2.0
     crypto-js: ^4.2.0
   languageName: unknown
@@ -2551,6 +2552,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
   dependencies:
+    "@magic-sdk/commons": latest
     "@types/crypto-js": ~4.2.0
     crypto-js: ^4.2.0
   languageName: unknown
@@ -2576,6 +2578,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-bare-oauth@workspace:packages/@magic-ext/react-native-bare-oauth"
   dependencies:
+    "@magic-sdk/commons": latest
     "@magic-sdk/react-native-bare": ^30.0.1
     "@magic-sdk/types": ^24.18.0
     "@types/crypto-js": ~4.2.0
@@ -2692,6 +2695,16 @@ __metadata:
     "@magic-sdk/provider": ">=4.3.0"
     "@magic-sdk/types": ">=3.1.1"
   checksum: 43c71771ddf3355d16fe1eed29d778cdb01b40b2af5f67a07173d0c41b3bc3f14a8513221948a84191805372b2d34f1097e8f0de771ed867c3485ffb1805dcd8
+  languageName: node
+  linkType: hard
+
+"@magic-sdk/commons@npm:latest":
+  version: 25.0.2
+  resolution: "@magic-sdk/commons@npm:25.0.2"
+  peerDependencies:
+    "@magic-sdk/provider": ">=18.6.0"
+    "@magic-sdk/types": ">=15.8.0"
+  checksum: 0d1fcf38d0d19493a1baae23d328e11135fc4c36b53600313b96ce229c86c988321ef47568a462ed7e2f3e3e1f0108a660ce3a54ac028e3a9778b8eeb0938b05
   languageName: node
   linkType: hard
 

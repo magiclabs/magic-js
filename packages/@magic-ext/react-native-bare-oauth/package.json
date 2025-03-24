@@ -30,6 +30,7 @@
     "react-native-device-info": "^10.3.0"
   },
   "devDependencies": {
+    "@magic-sdk/commons": "latest",
     "@magic-sdk/react-native-bare": "^30.0.1",
     "@magic-sdk/types": "^24.18.0",
     "@types/crypto-js": "~4.2.0",

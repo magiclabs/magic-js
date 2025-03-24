@@ -17,9 +17,9 @@ function bytesToVerifierString(bytes: Uint8Array) {
  * Stringifies argument (as CryptoJS `WordArray` or EcmaScript `ArrayBuffer`)
  * and encodes to URL-safe Base64.
  */
-function base64URLEncodeFromByteArray(wordArray: Crypto.WordArray): string;
+function base64URLEncodeFromByteArray(wordArray: Crypto.lib.WordArray): string;
 function base64URLEncodeFromByteArray(arrayBuffer: ArrayBuffer): string;
-function base64URLEncodeFromByteArray(arg: Crypto.WordArray | ArrayBuffer): string {
+function base64URLEncodeFromByteArray(arg: Crypto.lib.WordArray | ArrayBuffer): string {
   const makeURLSafe = (base64: string) => {
     return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
   };
@@ -27,7 +27,7 @@ function base64URLEncodeFromByteArray(arg: Crypto.WordArray | ArrayBuffer): stri
   if (arg instanceof ArrayBuffer) {
     const bytes = new Uint8Array(arg);
     const utf8Binary = Array.from(bytes)
-      .map((value) => String.fromCharCode(value))
+      .map(value => String.fromCharCode(value))
       .join('');
 
     const base64 = btoa(utf8Binary);
