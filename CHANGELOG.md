@@ -1,3 +1,16 @@
+# (Mon Mar 24 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@23.0.3`, `@magic-ext/oauth2@11.0.2`, `@magic-ext/react-native-bare-oauth@26.0.3`, `@magic-ext/react-native-expo-oauth@26.0.3`
+  - bump crypto-js [#864](https://github.com/magiclabs/magic-js/pull/864) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Sat Mar 22 2025)
 
 #### 🐛 Bug Fix

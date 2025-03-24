@@ -1,3 +1,15 @@
+# v23.0.3 (Mon Mar 24 2025)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into bump-cryptojs ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v23.0.0 (Mon Mar 03 2025)
 
 #### 💥 Breaking Change

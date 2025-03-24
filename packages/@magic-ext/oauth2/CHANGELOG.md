@@ -1,3 +1,17 @@
+# v11.0.2 (Mon Mar 24 2025)
+
+#### 🐛 Bug Fix
+
+- bump crypto-js [#864](https://github.com/magiclabs/magic-js/pull/864) ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into bump-cryptojs ([@Ethella](https://github.com/Ethella))
+- bump crypto-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v11.0.0 (Tue Mar 11 2025)
 
 #### 💥 Breaking Change
