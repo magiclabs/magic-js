@@ -8,116 +8,27 @@ import {
 } from '@magic-sdk/types';
 import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
-import { getItem, setItem } from '../util/storage';
-import { createJwt } from '../util/web-crypto';
-import { SDKEnvironment } from './sdk-environment';
 import { MagicSDKWarning, createModalNotReadyError } from './sdk-exceptions';
-import {
-  clearDeviceShares,
-  encryptAndPersistDeviceShare,
-  getDecryptedDeviceShare,
-} from '../util/device-share-web-crypto';
+import { clearDeviceShares, encryptAndPersistDeviceShare } from '../util/device-share-web-crypto';
+import { createURL } from '../util/url';
+import { createMagicRequest, persistMagicEventRefreshToken, standardizeResponse } from '../util/view-controller-utils';
 
 interface RemoveEventListenerFunction {
   (): void;
 }
 
-interface StandardizedResponse {
-  id?: string | number;
-  response?: JsonRpcResponse;
-}
-
-interface StandardizedMagicRequest {
-  msgType: string;
-  payload: JsonRpcRequestPayload<any> | JsonRpcRequestPayload<any>[];
-  jwt?: string;
-  rt?: string;
-  deviceShare?: string;
-}
-
-/**
- * Get the originating payload from a batch request using the specified `id`.
- */
-function getRequestPayloadFromBatch(
-  requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
-  id?: string | number | null,
-): JsonRpcRequestPayload | undefined {
-  return id && Array.isArray(requestPayload)
-    ? requestPayload.find(p => p.id === id)
-    : (requestPayload as JsonRpcRequestPayload);
-}
-
-/**
- * Ensures the incoming response follows the expected schema and parses for a
- * JSON RPC payload ID.
- */
-function standardizeResponse(
-  requestPayload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
-  event: MagicMessageEvent,
-): StandardizedResponse {
-  const id = event.data.response?.id;
-  const requestPayloadResolved = getRequestPayloadFromBatch(requestPayload, id);
-
-  if (id && requestPayloadResolved) {
-    // Build a standardized response object
-    const response = new JsonRpcResponse(requestPayloadResolved)
-      .applyResult(event.data.response.result)
-      .applyError(event.data.response.error);
-
-    return { id, response };
-  }
-
-  return {};
-}
-
-async function createMagicRequest(
-  msgType: string,
-  payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
-  networkHash: string,
-) {
-  const rt = await getItem<string>('rt');
-  let jwt;
-
-  // only for webcrypto platforms
-  if (SDKEnvironment.platform === 'web') {
-    try {
-      jwt = (await getItem<string>('jwt')) ?? (await createJwt());
-    } catch (e) {
-      console.error('webcrypto error', e);
-    }
-  }
-
-  const request: StandardizedMagicRequest = { msgType, payload };
-
-  if (jwt) {
-    request.jwt = jwt;
-  }
-  if (jwt && rt) {
-    request.rt = rt;
-  }
-
-  // Grab the device share if it exists for the network
-  const decryptedDeviceShare = await getDecryptedDeviceShare(networkHash);
-  if (decryptedDeviceShare) {
-    request.deviceShare = decryptedDeviceShare;
-  }
-
-  return request;
-}
-
-async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
-  if (!event.data.rt) {
-    return;
-  }
-
-  await setItem('rt', event.data.rt);
-}
+const SECOND = 1000;
+const MINUTE = 60 * SECOND;
+const PING_INTERVAL = 5 * MINUTE; // 5 minutes
+const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
 
 export abstract class ViewController {
-  public checkIsReadyForRequest: Promise<void>;
   public isReadyForRequest: boolean;
   protected readonly messageHandlers = new Set<(event: MagicMessageEvent) => any>();
   protected isConnectedToInternet = true;
+  protected lastPongTime: null | number = null;
+  protected heartbeatIntervalTimer: ReturnType<typeof setInterval> | null = null;
+  protected heartbeatDebounce = debounce(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
 
   /**
    * Create an instance of `ViewController`
@@ -133,7 +44,6 @@ export abstract class ViewController {
     protected readonly parameters: string,
     protected readonly networkHash: string,
   ) {
-    this.checkIsReadyForRequest = this.waitForReady();
     this.isReadyForRequest = false;
     this.listen();
   }
@@ -142,6 +52,12 @@ export abstract class ViewController {
   protected abstract _post(data: MagicMessageRequest): Promise<void>;
   protected abstract hideOverlay(): void;
   protected abstract showOverlay(): void;
+  protected abstract checkRelayerExistsInDOM(): boolean;
+  protected abstract reloadRelayer(): Promise<void>;
+
+  protected getRelayerSrc() {
+    return createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
+  }
 
   /**
    * Send a payload to the Magic `<iframe>` for processing and automatically
@@ -239,7 +155,13 @@ export abstract class ViewController {
     return () => this.messageHandlers.delete(listener);
   }
 
-  private waitForReady() {
+  waitForReady() {
+    const isRelayerExisted = this.checkRelayerExistsInDOM();
+
+    if (!isRelayerExisted) {
+      this.init();
+    }
+
     return new Promise<void>(resolve => {
       const unsubscribe = this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
         this.isReadyForRequest = true;
@@ -267,4 +189,73 @@ export abstract class ViewController {
       }
     });
   }
+
+  /**
+   * Sends periodic pings to check the connection.
+   * If no pong is received or it’s stale, the iframe is reloaded.
+   */
+  /* istanbul ignore next */
+  private heartBeatCheck() {
+    let firstPing = true;
+
+    // Helper function to send a ping message.
+    const sendPing = async () => {
+      const message = {
+        msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`,
+        payload: [],
+      };
+      await this._post(message);
+    };
+
+    this.heartbeatIntervalTimer = setInterval(async () => {
+      // If no pong has ever been received.
+      if (!this.lastPongTime) {
+        if (!firstPing) {
+          // On subsequent ping with no previous pong response, reload the iframe.
+          this.reloadRelayer();
+          firstPing = true;
+          return;
+        }
+      } else {
+        // If we have a pong, check how long ago it was received.
+        const timeSinceLastPong = Date.now() - this.lastPongTime;
+        if (timeSinceLastPong > PING_INTERVAL * 2) {
+          // If the pong is too stale, reload the iframe.
+          this.reloadRelayer();
+          firstPing = true;
+          return;
+        }
+      }
+
+      // Send a new ping message and update the counter.
+      await sendPing();
+      firstPing = false;
+    }, PING_INTERVAL);
+  }
+
+  // Debounce revival mechanism
+  // Kill any existing PingPong interval
+  protected stopHeartBeat() {
+    this.heartbeatDebounce();
+    this.lastPongTime = null;
+
+    if (this.heartbeatIntervalTimer) {
+      clearInterval(this.heartbeatIntervalTimer);
+      this.heartbeatIntervalTimer = null;
+    }
+  }
+}
+
+function debounce<T extends (...args: unknown[]) => void>(func: T, delay: number) {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  return function (...args: Parameters<T>): void {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
 }

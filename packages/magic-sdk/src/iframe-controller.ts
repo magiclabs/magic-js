@@ -1,11 +1,5 @@
-import {
-  createDuplicateIframeWarning,
-  createModalLostError,
-  createModalNotReadyError,
-  createURL,
-  ViewController,
-} from '@magic-sdk/provider';
-import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage } from '@magic-sdk/types';
+import { createDuplicateIframeWarning, createModalNotReadyError, createURL, ViewController } from '@magic-sdk/provider';
+import { MagicIncomingWindowMessage } from '@magic-sdk/types';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
@@ -49,24 +43,13 @@ function checkForSameSrcInstances(parameters: string) {
   return Boolean(iframes.find(iframe => iframe.src.includes(parameters)));
 }
 
-const SECOND = 1000;
-const MINUTE = 60 * SECOND;
-const PING_INTERVAL = 5 * MINUTE; // 5 minutes
-const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
-
 /**
  * View controller for the Magic `<iframe>` overlay.
  */
 export class IframeController extends ViewController {
-  private iframe!: Promise<HTMLIFrameElement>;
   private activeElement: any = null;
-  private lastPongTime: null | number = null;
-  private heartbeatIntervalTimer: ReturnType<typeof setInterval> | null = null;
-  private heartbeatDebounce = debounce(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
+  private iframe!: Promise<HTMLIFrameElement>;
 
-  private getIframeSrc() {
-    return createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
-  }
   /**
    * Initializes the underlying `<iframe>` element.
    * Initializes the underlying `Window.onmessage` event listener.
@@ -80,7 +63,7 @@ export class IframeController extends ViewController {
           iframe.classList.add('magic-iframe');
           iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
           iframe.title = 'Secure Modal';
-          iframe.src = this.getIframeSrc();
+          iframe.src = this.getRelayerSrc();
           iframe.allow = 'clipboard-read; clipboard-write';
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
@@ -150,13 +133,7 @@ export class IframeController extends ViewController {
   }
 
   protected async _post(data: any) {
-    const iframe = await this.checkIframeExistsInDOM();
-
-    if (!iframe) {
-      this.init();
-      throw createModalLostError();
-    }
-
+    const iframe = await this.iframe;
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, this.endpoint);
     } else {
@@ -164,62 +141,13 @@ export class IframeController extends ViewController {
     }
   }
 
-  /**
-   * Sends periodic pings to check the connection.
-   * If no pong is received or it’s stale, the iframe is reloaded.
-   */
-  /* istanbul ignore next */
-  private heartBeatCheck() {
-    let firstPing = true;
-
-    // Helper function to send a ping message.
-    const sendPing = async () => {
-      const message = {
-        msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`,
-        payload: [],
-      };
-      await this._post(message);
-    };
-
-    this.heartbeatIntervalTimer = setInterval(async () => {
-      // If no pong has ever been received.
-      if (!this.lastPongTime) {
-        if (!firstPing) {
-          // On subsequent ping with no previous pong response, reload the iframe.
-          this.reloadIframe();
-          firstPing = true;
-          return;
-        }
-      } else {
-        // If we have a pong, check how long ago it was received.
-        const timeSinceLastPong = Date.now() - this.lastPongTime;
-        if (timeSinceLastPong > PING_INTERVAL * 2) {
-          // If the pong is too stale, reload the iframe.
-          this.reloadIframe();
-          firstPing = true;
-          return;
-        }
-      }
-
-      // Send a new ping message and update the counter.
-      await sendPing();
-      firstPing = false;
-    }, PING_INTERVAL);
+  checkRelayerExistsInDOM() {
+    // Check if the iframe is already in the DOM
+    const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
+    return !!iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters)));
   }
 
-  // Debounce revival mechanism
-  // Kill any existing PingPong interval
-  private stopHeartBeat() {
-    this.heartbeatDebounce();
-    this.lastPongTime = null;
-
-    if (this.heartbeatIntervalTimer) {
-      clearInterval(this.heartbeatIntervalTimer);
-      this.heartbeatIntervalTimer = null;
-    }
-  }
-
-  private async reloadIframe() {
+  async reloadRelayer() {
     const iframe = await this.iframe;
 
     // Reset HeartBeat
@@ -227,30 +155,10 @@ export class IframeController extends ViewController {
 
     if (iframe) {
       // reload the iframe source
-      iframe.src = this.getIframeSrc();
+      iframe.src = this.getRelayerSrc();
     } else {
       this.init();
       console.warn('Magic SDK: Modal lost, re-initiating');
     }
   }
-
-  async checkIframeExistsInDOM() {
-    // Check if the iframe is already in the DOM
-    const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
-    return iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters)));
-  }
-}
-
-function debounce<T extends (...args: unknown[]) => void>(func: T, delay: number) {
-  let timeoutId: ReturnType<typeof setTimeout> | null = null;
-
-  return function (...args: Parameters<T>): void {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-
-    timeoutId = setTimeout(() => {
-      func(...args);
-    }, delay);
-  };
 }

@@ -1,7 +1,7 @@
 import { JsonRpcError, RPCErrorCode, SDKErrorCode, SDKWarningCode } from '@magic-sdk/types';
 import { isJsonRpcErrorCode } from '../util/type-guards';
 import { SDKEnvironment } from './sdk-environment';
-import { Extension } from '../modules/base-extension';
+import { BaseExtension } from '../modules/base-extension';
 
 // --- Error/warning classes
 
@@ -78,7 +78,7 @@ export class MagicExtensionError<TData = any> extends Error {
   __proto__ = Error;
 
   constructor(
-    ext: Extension<string>,
+    ext: BaseExtension<string>,
     public code: string | number,
     public rawMessage: string,
     public data: TData,
@@ -97,7 +97,7 @@ export class MagicExtensionWarning {
   public message: string;
 
   constructor(
-    ext: Extension<string>,
+    ext: BaseExtension<string>,
     public code: string | number,
     public rawMessage: string,
   ) {
@@ -140,7 +140,7 @@ export function createExtensionNotInitializedError(member: string) {
   );
 }
 
-export function createIncompatibleExtensionsError(extensions: Extension<string>[]) {
+export function createIncompatibleExtensionsError(extensions: BaseExtension<string>[]) {
   let msg = `Some extensions are incompatible with \`${SDKEnvironment.sdkName}@${SDKEnvironment.version}\`:`;
 
   extensions

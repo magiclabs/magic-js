@@ -73,7 +73,7 @@
     "ts-node": "^10.2.0",
     "tsc-watch": "^4.2.9",
     "tslib": "^2.3.1",
-    "typescript": "~5.4.5",
+    "typescript": "~5.8.2",
     "wsrun": "^5.2.1",
     "zombi": "^3.3.0"
   },
