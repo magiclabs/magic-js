@@ -11,7 +11,12 @@ import { createPromise } from '../util/promise-tools';
 import { MagicSDKWarning, createModalNotReadyError } from './sdk-exceptions';
 import { clearDeviceShares, encryptAndPersistDeviceShare } from '../util/device-share-web-crypto';
 import { createURL } from '../util/url';
-import { createMagicRequest, persistMagicEventRefreshToken, standardizeResponse } from '../util/view-controller-utils';
+import {
+  createMagicRequest,
+  persistMagicEventRefreshToken,
+  standardizeResponse,
+  debounce,
+} from '../util/view-controller-utils';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -244,18 +249,4 @@ export abstract class ViewController {
       this.heartbeatIntervalTimer = null;
     }
   }
-}
-
-function debounce<T extends (...args: unknown[]) => void>(func: T, delay: number) {
-  let timeoutId: ReturnType<typeof setTimeout> | null = null;
-
-  return function (...args: Parameters<T>): void {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-
-    timeoutId = setTimeout(() => {
-      func(...args);
-    }, delay);
-  };
 }

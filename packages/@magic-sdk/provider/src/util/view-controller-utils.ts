@@ -95,3 +95,17 @@ export async function persistMagicEventRefreshToken(event: MagicMessageEvent) {
 
   await setItem('rt', event.data.rt);
 }
+
+export function debounce<T extends (...args: unknown[]) => void>(func: T, delay: number) {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  return function (...args: Parameters<T>): void {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+}
