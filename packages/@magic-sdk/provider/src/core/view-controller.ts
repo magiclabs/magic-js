@@ -164,6 +164,7 @@ export abstract class ViewController {
     const isRelayerExisted = this.checkRelayerExistsInDOM();
 
     if (!isRelayerExisted) {
+      this.isReadyForRequest = false;
       this.init();
     }
 
