@@ -49,6 +49,7 @@ function checkForSameSrcInstances(parameters: string) {
 export class IframeController extends ViewController {
   private activeElement: any = null;
   private iframe!: Promise<HTMLIFrameElement>;
+  private relayerSrc = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
 
   /**
    * Initializes the underlying `<iframe>` element.
@@ -63,7 +64,7 @@ export class IframeController extends ViewController {
           iframe.classList.add('magic-iframe');
           iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
           iframe.title = 'Secure Modal';
-          iframe.src = this.getRelayerSrc();
+          iframe.src = this.relayerSrc;
           iframe.allow = 'clipboard-read; clipboard-write';
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
@@ -155,7 +156,7 @@ export class IframeController extends ViewController {
 
     if (iframe) {
       // reload the iframe source
-      iframe.src = this.getRelayerSrc();
+      iframe.src = this.relayerSrc;
     } else {
       this.init();
       console.warn('Magic SDK: Modal lost, re-initiating');

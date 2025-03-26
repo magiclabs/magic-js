@@ -10,7 +10,6 @@ import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
 import { MagicSDKWarning, createModalNotReadyError } from './sdk-exceptions';
 import { clearDeviceShares, encryptAndPersistDeviceShare } from '../util/device-share-web-crypto';
-import { createURL } from '../util/url';
 import {
   createMagicRequest,
   persistMagicEventRefreshToken,
@@ -33,7 +32,12 @@ export abstract class ViewController {
   protected isConnectedToInternet = true;
   protected lastPongTime: null | number = null;
   protected heartbeatIntervalTimer: ReturnType<typeof setInterval> | null = null;
-  protected heartbeatDebounce = debounce(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
+  protected heartbeatDebounce = debounce(() => {
+    // Only do this for web now
+    if (this.endpoint === 'https://auth.magic.link/') {
+      this.heartBeatCheck();
+    }
+  }, INITIAL_HEARTBEAT_DELAY);
 
   /**
    * Create an instance of `ViewController`
@@ -59,10 +63,6 @@ export abstract class ViewController {
   protected abstract showOverlay(): void;
   protected abstract checkRelayerExistsInDOM(): boolean;
   protected abstract reloadRelayer(): Promise<void>;
-
-  protected getRelayerSrc() {
-    return createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
-  }
 
   /**
    * Send a payload to the Magic `<iframe>` for processing and automatically
