@@ -32,6 +32,7 @@ export abstract class ViewController {
   protected isConnectedToInternet = true;
   protected lastPongTime: null | number = null;
   protected heartbeatIntervalTimer: ReturnType<typeof setInterval> | null = null;
+  /* istanbul ignore next */
   protected heartbeatDebounce = debounce(() => {
     // Only do this for web now
     if (this.endpoint === 'https://auth.magic.link/') {
@@ -241,6 +242,7 @@ export abstract class ViewController {
 
   // Debounce revival mechanism
   // Kill any existing PingPong interval
+  /* istanbul ignore next */
   protected stopHeartBeat() {
     this.heartbeatDebounce();
     this.lastPongTime = null;

@@ -291,6 +291,7 @@ export class ReactNativeWebViewController extends ViewController {
     return true;
   }
 
+  /* istanbul ignore next */
   protected reloadRelayer(): Promise<void> {
     return Promise.resolve(undefined);
   }

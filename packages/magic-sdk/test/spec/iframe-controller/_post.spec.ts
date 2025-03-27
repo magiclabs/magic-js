@@ -1,5 +1,5 @@
 import browserEnv from '@ikscodes/browser-env';
-import { createModalLostError, createModalNotReadyError } from '@magic-sdk/provider';
+import { createModalNotReadyError } from '@magic-sdk/provider';
 import { createIframeController } from '../../factories';
 
 beforeEach(() => {

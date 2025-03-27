@@ -125,10 +125,6 @@ export function createModalNotReadyError() {
   return new MagicSDKError(SDKErrorCode.ModalNotReady, 'Modal is not ready');
 }
 
-export function createModalLostError() {
-  return new MagicSDKError(SDKErrorCode.ConnectionLost, 'Modal is not ready');
-}
-
 export function createMalformedResponseError() {
   return new MagicSDKError(SDKErrorCode.MalformedResponse, 'Response from the Magic iframe is malformed.');
 }
