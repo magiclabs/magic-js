@@ -29,7 +29,7 @@ test('Creates a `MISSING_API_KEY` error', async () => {
 test('Creates a `MODAL_NOT_READY` error', async () => {
   const { createModalNotReadyError } = require('../../../../src/core/sdk-exceptions');
   const error = createModalNotReadyError();
-  errorAssertions(error, 'MODAL_NOT_READY', 'Modal is not ready.');
+  errorAssertions(error, 'MODAL_NOT_READY', 'Modal is not ready');
 });
 
 test('Creates a `MALFORMED_RESPONSE` error', async () => {

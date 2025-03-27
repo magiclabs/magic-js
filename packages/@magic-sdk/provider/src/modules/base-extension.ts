@@ -4,19 +4,6 @@ import { SDKBase, MagicSDKAdditionalConfiguration, MagicSDKExtensionsOption } fr
 import { createExtensionNotInitializedError, MagicExtensionError, MagicExtensionWarning } from '../core/sdk-exceptions';
 import { createPromiEvent, encodeJSON, decodeJSON, storage, isPromiEvent } from '../util';
 
-export interface BaseExtension<TName extends string> extends BaseModule {
-  /**
-   * A structure describing the platform and version compatiblity of this
-   * extension.
-   */
-  compat?: {
-    'magic-sdk': boolean | string;
-    '@magic-sdk/react-native': boolean | string;
-    '@magic-sdk/react-native-bare': boolean | string;
-    '@magic-sdk/react-native-expo': boolean | string;
-  };
-}
-
 const sdkAccessFields = ['request', 'overlay', 'sdk'];
 
 /**
@@ -36,6 +23,17 @@ function getPrototypeChain<T extends BaseExtension<string>>(instance: T) {
 }
 
 export abstract class BaseExtension<TName extends string> extends BaseModule {
+  /**
+   * A structure describing the platform and version compatiblity of this
+   * extension.
+   */
+  compat?: {
+    'magic-sdk': boolean | string;
+    '@magic-sdk/react-native': boolean | string;
+    '@magic-sdk/react-native-bare': boolean | string;
+    '@magic-sdk/react-native-expo': boolean | string;
+  };
+
   public abstract readonly name: TName;
 
   private __sdk_access_field_descriptors__ = new Map<
@@ -63,7 +61,7 @@ export abstract class BaseExtension<TName extends string> extends BaseModule {
 
     sdkAccessFields.forEach(prop => {
       const allDescriptors = allSources.map(source => Object.getOwnPropertyDescriptor(source, prop));
-      const sourceIndex = allDescriptors.findIndex(x => !!x);
+      const sourceIndex = allDescriptors.findIndex(x => Boolean(x));
       const isPrototypeField = sourceIndex > 0;
       const descriptor = allDescriptors[sourceIndex];
 

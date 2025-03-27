@@ -122,11 +122,11 @@ export function createMissingApiKeyError() {
 }
 
 export function createModalNotReadyError() {
-  return new MagicSDKError(SDKErrorCode.ModalNotReady, 'Modal is not ready.');
+  return new MagicSDKError(SDKErrorCode.ModalNotReady, 'Modal is not ready');
 }
 
 export function createModalLostError() {
-  return new MagicSDKError(SDKErrorCode.ConnectionLost, 'Modal Disconnected, Reinitializing. please try again.');
+  return new MagicSDKError(SDKErrorCode.ConnectionLost, 'Modal is not ready');
 }
 
 export function createMalformedResponseError() {

@@ -16,11 +16,13 @@ const config: Config.InitialOptions = {
     },
   },
   setupFilesAfterEnv: ['./test/setup.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: './test/tsconfig.json',
-      isolatedModules: true,
-    },
+  transform: {
+    '^.+\\.[tj]sx?$': [
+      'ts-jest',
+      {
+        tsconfig: './test/tsconfig.json',
+      },
+    ],
   },
 };
 

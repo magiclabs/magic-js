@@ -142,10 +142,10 @@ export class IframeController extends ViewController {
     }
   }
 
-  checkRelayerExistsInDOM() {
+  protected checkRelayerExistsInDOM() {
     // Check if the iframe is already in the DOM
     const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
-    return !!iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters)));
+    return Boolean(iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters))));
   }
 
   async reloadRelayer() {
