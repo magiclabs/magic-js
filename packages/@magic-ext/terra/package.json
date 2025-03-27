@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/terra",
-  "version": "21.0.2",
+  "version": "21.0.3",
   "description": "Magic Terra Extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^25.0.2"
+    "@magic-sdk/commons": "^25.0.3"
   }
 }
