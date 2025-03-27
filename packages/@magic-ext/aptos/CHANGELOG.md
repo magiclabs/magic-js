@@ -1,3 +1,16 @@
+# v12.0.3 (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+- Fix Extension typing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v11.20.0 (Wed Jan 08 2025)
 
 #### 🐛 Bug Fix

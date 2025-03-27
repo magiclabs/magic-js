@@ -1,3 +1,22 @@
+# v29.0.3 (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+- add more tests ([@Ethella](https://github.com/Ethella))
+- fix tests coverage ([@Ethella](https://github.com/Ethella))
+- fix tests ([@Ethella](https://github.com/Ethella))
+- only apply heartbeat check to web ([@Ethella](https://github.com/Ethella))
+- fix ([@Ethella](https://github.com/Ethella))
+- extract util function ([@Ethella](https://github.com/Ethella))
+- Fix Extension typing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v29.0.2 (Sat Mar 22 2025)
 
 #### 🐛 Bug Fix
