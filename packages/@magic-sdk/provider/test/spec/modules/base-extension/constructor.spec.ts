@@ -1,8 +1,8 @@
 import browserEnv from '@ikscodes/browser-env';
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../../../../src/core/json-rpc';
 import { createExtensionNotInitializedError } from '../../../../src/core/sdk-exceptions';
-import { createMagicSDK } from '../../../factories';
-import { Extension } from '../../../../src/modules/base-extension';
+import { ConcreteExtension, createMagicSDK } from '../../../factories';
+import { BaseExtension, Extension } from '../../../../src/modules/base-extension';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { createPromiEvent, encodeJSON, decodeJSON, isPromiEvent } from '../../../../src/util';
 
@@ -12,9 +12,9 @@ beforeEach(() => {
 });
 
 test('Initialize `Extension`', () => {
-  const baseExtension = new (Extension as any)();
+  // @ts-ignore TS2511
+  const baseExtension = new BaseExtension();
 
-  expect(baseExtension instanceof Extension).toBe(true);
   expect(baseExtension instanceof BaseModule).toBe(true);
   expect(baseExtension.utils.createJsonRpcRequestPayload).toBe(createJsonRpcRequestPayload);
   expect(baseExtension.utils.standardizeJsonRpcRequestPayload).toBe(standardizeJsonRpcRequestPayload);
@@ -26,7 +26,8 @@ test('Initialize `Extension`', () => {
 
 test('Disallows `Extension.sdk` access before extension is initialized', () => {
   const sdk = createMagicSDK();
-  const baseExtension = new (Extension as any)();
+  // @ts-ignore TS2511
+  const baseExtension = new BaseExtension();
 
   const expectedErr = createExtensionNotInitializedError('sdk');
   expect(() => baseExtension.sdk).toThrow(expectedErr);
@@ -37,7 +38,8 @@ test('Disallows `Extension.sdk` access before extension is initialized', () => {
 
 test('Disallows `Extension.request` access before extension is initialized', () => {
   const sdk = createMagicSDK();
-  const baseExtension = new (Extension as any)();
+  // @ts-ignore TS2511
+  const baseExtension = new BaseExtension();
 
   const expectedErr = createExtensionNotInitializedError('request');
   expect(() => baseExtension.request).toThrow(expectedErr);
@@ -48,7 +50,8 @@ test('Disallows `Extension.request` access before extension is initialized', () 
 
 test('Disallows `Extension.overlay` access before extension is initialized', () => {
   const sdk = createMagicSDK();
-  const baseExtension = new (Extension as any)();
+  // @ts-ignore TS2511
+  const baseExtension = new BaseExtension();
 
   const expectedErr = createExtensionNotInitializedError('overlay');
   expect(() => baseExtension.overlay).toThrow(expectedErr);

@@ -1,16 +1,16 @@
 import browserEnv from '@ikscodes/browser-env';
 import { MagicExtensionWarning } from '../../../../src/core/sdk-exceptions';
-import { Extension } from '../../../../src/modules/base-extension';
+import { ConcreteExtension } from '../../../factories';
 
 beforeEach(() => {
   browserEnv.restore();
 });
 
 test('Creates a `MagicExtensionWarning`', () => {
-  const baseExtension = new (Extension as any)();
+  const concreteExtension = new ConcreteExtension();
 
-  const expectedWarning = new MagicExtensionWarning(baseExtension, 'TEST', 'hello world');
-  const error: MagicExtensionWarning = baseExtension.createWarning('TEST', 'hello world');
+  const expectedWarning = new MagicExtensionWarning(concreteExtension, 'TEST', 'hello world');
+  const error: MagicExtensionWarning = concreteExtension.testCreateWarning('TEST', 'hello world');
 
   expect(expectedWarning.code).toBe(error.code);
   expect(expectedWarning.message).toBe(error.message);

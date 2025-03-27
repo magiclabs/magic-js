@@ -76,3 +76,22 @@ test('Generate JSON RPC request payload with method `magic_auth_update_email` wh
   const intermediaryEventSecondMethod = magic.auth.createIntermediaryEvent.mock.calls[1][0];
   expect(intermediaryEventSecondMethod).toBe(UpdateEmailEventEmit.Cancel);
 });
+
+test('Generate JSON RPC request payload with method `magic_auth_update_email` whitelabel and VerifyMFACode', async () => {
+  const magic = createMagicSDK();
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  const createIntermediaryEventFn = jest.fn();
+  magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
+
+  const handle = magic.auth.updateEmailWithUI({ email: 'test', showUI: false });
+
+  const mfa = '123456';
+  handle.emit(RecencyCheckEventEmit.VerifyMFACode, mfa);
+  handle.emit(UpdateEmailEventEmit.Cancel);
+
+  const verifyEvent = magic.auth.createIntermediaryEvent.mock.calls[0];
+  expect(verifyEvent[0]).toBe(RecencyCheckEventEmit.VerifyMFACode);
+  expect(createIntermediaryEventFn.mock.calls[0][0]).toBe(mfa);
+  const intermediaryEventSecondMethod = magic.auth.createIntermediaryEvent.mock.calls[1][0];
+  expect(intermediaryEventSecondMethod).toBe(UpdateEmailEventEmit.Cancel);
+});

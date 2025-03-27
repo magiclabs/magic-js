@@ -85,3 +85,22 @@ test('Generates JSON RPC pending for verify-recovery-code', () => {
   const intermediaryEventSecondMethod = magic.auth.createIntermediaryEvent.mock.calls[1][0];
   expect(intermediaryEventSecondMethod).toBe('cancel');
 });
+
+test('Generates JSON RPC pending for verify-recovery-code', () => {
+  const magic = createMagicSDK();
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  const createIntermediaryEventFn = jest.fn();
+  magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
+
+  const handle = magic.auth.loginWithEmailOTP({ email: expectedEmail, showUI: false, deviceCheckUI: false });
+
+  const recovery_code = '10epf6fk';
+  handle.emit('device-retry');
+  handle.emit('cancel');
+
+  const verifyEvent = magic.auth.createIntermediaryEvent.mock.calls[0];
+  expect(verifyEvent[0]).toBe('device-retry');
+
+  const intermediaryEventSecondMethod = magic.auth.createIntermediaryEvent.mock.calls[1][0];
+  expect(intermediaryEventSecondMethod).toBe('cancel');
+});

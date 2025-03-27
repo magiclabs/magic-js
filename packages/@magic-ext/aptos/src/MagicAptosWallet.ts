@@ -8,7 +8,6 @@ import {
   WalletReadyState,
 } from '@aptos-labs/wallet-adapter-core';
 import { TxnBuilderTypes, Types } from 'aptos';
-import { Extension } from '@magic-sdk/commons';
 import { InstanceWithExtensions, SDKBase } from '@magic-sdk/provider';
 import { AptosExtension } from '.';
 import { APTOS_NETWORKS, APTOS_NODE_URLS, APTOS_WALLET_NAME, ICON_BASE64 } from './constants';
@@ -21,7 +20,7 @@ export class MagicAptosWallet implements AdapterPlugin {
 
   readonly providerName = 'magicWalletMA';
 
-  provider: InstanceWithExtensions<SDKBase, [AptosExtension, Extension]> | undefined;
+  provider: InstanceWithExtensions<SDKBase, [AptosExtension]> | undefined;
   config?: MagicAptosWalletConfig;
 
   readyState?: WalletReadyState = WalletReadyState.Loadable;
@@ -29,7 +28,7 @@ export class MagicAptosWallet implements AdapterPlugin {
   private accountInfo: AccountInfo | null;
 
   constructor(
-    magic: InstanceWithExtensions<SDKBase, [AptosExtension, Extension]> | undefined,
+    magic: InstanceWithExtensions<SDKBase, [AptosExtension]> | undefined,
     magicAptosWalletConfig?: MagicAptosWalletConfig,
   ) {
     this.provider = magic;

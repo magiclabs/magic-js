@@ -14,7 +14,7 @@ import { ThirdPartyWalletsModule } from '../modules/third-party-wallets';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
-import { Extension } from '../modules/base-extension';
+import { BaseExtension, Extension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
 import { NFTModule } from '../modules/nft';
@@ -23,7 +23,7 @@ import { NFTModule } from '../modules/nft';
  * Checks if the given `ext` is compatible with the platform & version of Magic
  * SDK currently in use.
  */
-function checkExtensionCompat(ext: Extension<string>) {
+function checkExtensionCompat(ext: BaseExtension<string>) {
   if (ext.compat && ext.compat[SDKEnvironment.sdkName] != null) {
     return typeof ext.compat[SDKEnvironment.sdkName] === 'string'
       ? satisfies(coerce(SDKEnvironment.version), ext.compat[SDKEnvironment.sdkName] as string)
@@ -61,15 +61,15 @@ function getNetworkHash(apiKey: string, network?: EthNetworkConfiguration, extCo
  * then consolidates any global configurations provided by those extensions.
  */
 function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfiguration): Record<string, any> {
-  const extensions: Extension<string>[] | { [key: string]: Extension<string> } = options?.extensions ?? [];
+  const extensions: BaseExtension<string>[] | { [key: string]: BaseExtension<string> } = options?.extensions ?? [];
   const extConfig: any = {};
-  const incompatibleExtensions: Extension<string>[] = [];
+  const incompatibleExtensions: BaseExtension<string>[] = [];
 
   if (Array.isArray(extensions)) {
     extensions.forEach(ext => {
       if (checkExtensionCompat(ext)) {
         ext.init(this);
-        if (ext.name || ext.name !== Extension.Anonymous) {
+        if (ext.name) {
           // Only apply extensions with a known, defined `name` parameter.
           (this as any)[ext.name] = ext;
         }
@@ -103,8 +103,8 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
 }
 
 export type MagicSDKExtensionsOption<TCustomExtName extends string = string> =
-  | Extension<string>[]
-  | { [P in TCustomExtName]: Extension<string> };
+  | BaseExtension<string>[]
+  | { [P in TCustomExtName]: BaseExtension<string> };
 
 export interface MagicSDKAdditionalConfiguration<
   TCustomExtName extends string = string,
@@ -231,6 +231,6 @@ export class SDKBase {
    * has completed loading and is ready for requests.
    */
   public async preload() {
-    await this.overlay.checkIsReadyForRequest;
+    await this.overlay.waitForReady();
   }
 }
