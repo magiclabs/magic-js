@@ -265,6 +265,8 @@ export class ReactNativeWebViewController extends ViewController {
       EventRegister.emit(MSG_POSTED_AFTER_INACTIVITY_EVENT, data);
       return;
     }
+    console.log('here');
+    console.log(this.webView);
     if (this.webView && (this.webView as any).postMessage) {
       (this.webView as any).postMessage(
         JSON.stringify(data, (key, value) => {
