@@ -287,8 +287,8 @@ export class ReactNativeWebViewController extends ViewController {
   }
 
   // Todo - implement these methods
-  protected checkRelayerExistsInDOM(): boolean {
-    return true;
+  protected checkRelayerExistsInDOM(): Promise<boolean> {
+    return Promise.resolve(true);
   }
 
   /* istanbul ignore next */

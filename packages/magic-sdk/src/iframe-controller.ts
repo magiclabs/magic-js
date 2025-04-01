@@ -142,7 +142,14 @@ export class IframeController extends ViewController {
     }
   }
 
-  protected checkRelayerExistsInDOM() {
+  protected async checkRelayerExistsInDOM() {
+    const iframe = await this.iframe;
+
+    // Check iframe reference
+    if (!iframe || !iframe.contentWindow) {
+      return false;
+    }
+
     // Check if the iframe is already in the DOM
     const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
     return Boolean(iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters))));
@@ -154,12 +161,21 @@ export class IframeController extends ViewController {
     // Reset HeartBeat
     this.stopHeartBeat();
 
-    if (iframe) {
-      // reload the iframe source
-      iframe.src = this.relayerSrc;
-    } else {
+    if (!iframe) {
       this.init();
       console.warn('Magic SDK: Modal lost, re-initiating');
+      return;
+    }
+
+    if (!iframe.contentWindow) {
+      document.body.appendChild(iframe);
+      console.warn('Magic SDK: Modal did not append in the iframe, re-initiating');
+      return;
+    }
+
+    if (iframe) {
+      // if iframe exists reload the iframe source
+      iframe.src = this.relayerSrc;
     }
   }
 }
