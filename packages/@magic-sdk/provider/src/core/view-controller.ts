@@ -27,7 +27,7 @@ const PING_INTERVAL = 5 * MINUTE; // 5 minutes
 const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
 
 export abstract class ViewController {
-  public isReadyForRequest: boolean;
+  public isReadyForRequest = false;
   protected readonly messageHandlers = new Set<(event: MagicMessageEvent) => any>();
   protected isConnectedToInternet = true;
   protected lastPongTime: null | number = null;
@@ -54,7 +54,6 @@ export abstract class ViewController {
     protected readonly parameters: string,
     protected readonly networkHash: string,
   ) {
-    this.isReadyForRequest = false;
     this.listen();
   }
 
@@ -62,7 +61,7 @@ export abstract class ViewController {
   protected abstract _post(data: MagicMessageRequest): Promise<void>;
   protected abstract hideOverlay(): void;
   protected abstract showOverlay(): void;
-  protected abstract checkRelayerExistsInDOM(): boolean;
+  protected abstract checkRelayerExistsInDOM(): Promise<boolean>;
   protected abstract reloadRelayer(): Promise<void>;
 
   /**
@@ -90,6 +89,11 @@ export abstract class ViewController {
       if (!this.isConnectedToInternet) {
         const error = createModalNotReadyError();
         reject(error);
+      }
+
+      if (!(await this.checkRelayerExistsInDOM())) {
+        this.isReadyForRequest = false;
+        await this.reloadRelayer();
       }
 
       if (!this.isReadyForRequest) {
@@ -162,13 +166,6 @@ export abstract class ViewController {
   }
 
   waitForReady() {
-    const isRelayerExisted = this.checkRelayerExistsInDOM();
-
-    if (!isRelayerExisted) {
-      this.isReadyForRequest = false;
-      this.init();
-    }
-
     return new Promise<void>(resolve => {
       const unsubscribe = this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
         this.isReadyForRequest = true;

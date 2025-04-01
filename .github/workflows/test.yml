@@ -12,17 +12,17 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     name: Run linter and package audit
     container:
-      image: node:20-slim
+      image: node:22-slim
     steps:
       - uses: actions/checkout@v3
 
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
           cache: 'yarn'
       - run: |
           yarn -v
@@ -37,17 +37,17 @@ jobs:
         run: yarn audit --groups dependencies || true
 
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     name: Run tests
     container:
-      image: node:20-slim
+      image: node:22-slim
     steps:
       - uses: actions/checkout@v3
 
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
           cache: 'yarn'
       - run: |
           yarn -v
