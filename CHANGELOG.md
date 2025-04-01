@@ -1,3 +1,16 @@
+# (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/aptos@12.0.3`, `@magic-sdk/provider@29.0.3`, `@magic-sdk/react-native-bare@30.0.3`, `@magic-sdk/react-native-expo@30.0.3`, `magic-sdk@29.0.3`
+  - Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Mon Mar 24 2025)
 
 #### 🐛 Bug Fix
