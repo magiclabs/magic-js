@@ -1,3 +1,15 @@
+# v23.0.5 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v23.0.3 (Mon Mar 24 2025)
 
 #### 🐛 Bug Fix
