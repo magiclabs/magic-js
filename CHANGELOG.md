@@ -2,6 +2,19 @@
 
 #### 🐛 Bug Fix
 
+- `@magic-sdk/provider@29.0.5`
+  - remove web3 dependencies [#871](https://github.com/magiclabs/magic-js/pull/871) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
 - `@magic-sdk/provider@29.0.4`, `@magic-sdk/react-native-bare@30.0.4`, `@magic-sdk/react-native-expo@30.0.4`, `magic-sdk@29.0.4`
   - add iframe.contentWindow check [#870](https://github.com/magiclabs/magic-js/pull/870) ([@Ethella](https://github.com/Ethella))
 
