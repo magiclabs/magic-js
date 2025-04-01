@@ -23,7 +23,6 @@
   },
   "externals": {
     "exclude": [
-      "web3-core",
       "eventemitter3"
     ]
   },
@@ -36,8 +35,7 @@
   },
   "dependencies": {
     "@magic-sdk/types": "^24.18.1",
-    "eventemitter3": "^4.0.4",
-    "web3-core": "1.5.2"
+    "eventemitter3": "^4.0.4"
   },
   "peerDependencies": {
     "localforage": "^1.7.4"
