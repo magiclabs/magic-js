@@ -7,7 +7,7 @@ import { runAsyncProcess } from '../../utils/run-async-process';
 async function main() {
   const args = process.argv.slice(2);
 
-  if (await existsAsync(`${process.cwd()}/test`)) {
+  if ((await existsAsync(`${process.cwd()}/test`)) && !process.cwd().includes('react-native-bare')) {
     await execa('jest', args, {
       stdio: 'inherit',
       env: {

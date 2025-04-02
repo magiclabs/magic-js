@@ -201,12 +201,15 @@ export class ReactNativeWebViewController extends ViewController {
    * Route incoming messages from a React Native `<WebView>`.
    */
   private handleReactNativeWebViewMessage(event: any) {
+    const url = new URL(`${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}`);
+
     if (
       event.nativeEvent &&
       typeof event.nativeEvent.data === 'string' &&
       /* Backward comaptible */
       (event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` ||
-        event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}`)
+        event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}` ||
+        event.nativeEvent.title === `${url.hostname}/send/${url.search}`)
     ) {
       // Special parsing logic when dealing with TypedArray in the payload
       // Such change is required as JSON.stringify will manipulate the object and cause exceptions during parsing
@@ -218,11 +221,11 @@ export class ReactNativeWebViewController extends ViewController {
           }
 
           // silently handles exception and return the original copy
-          // eslint-disable-next-line no-empty
-        } catch (e) {}
+        } catch (e) {
+          console.log('Error parsing data', e);
+        }
         return value;
       });
-
       if (data && data.msgType && this.messageHandlers.size) {
         // If the response object is undefined, we ensure it's at least an
         // empty object before passing to the event listener.
