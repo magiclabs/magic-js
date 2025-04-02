@@ -1,5 +1,4 @@
 import { EthNetworkConfiguration, QueryParameters, SupportedLocale } from '@magic-sdk/types';
-import type { AbstractProvider } from 'web3-core';
 import { coerce, satisfies } from '../util/semver';
 import { encodeJSON } from '../util/base64-json';
 import {
@@ -160,7 +159,7 @@ export class SDKBase {
    * Contains a Web3-compliant provider. Pass this module to your Web3/Ethers
    * instance for automatic compatibility with Ethereum methods.
    */
-  public readonly rpcProvider: RPCProviderModule & AbstractProvider;
+  public readonly rpcProvider: RPCProviderModule;
 
   /**
    * Creates an instance of Magic SDK.
