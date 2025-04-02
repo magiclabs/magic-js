@@ -86,15 +86,19 @@ export abstract class ViewController {
     payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
   ): Promise<JsonRpcResponse<ResultType> | JsonRpcResponse<ResultType>[]> {
     return createPromise(async (resolve, reject) => {
+      console.log('isConnectedToInternet', this.isConnectedToInternet);
       if (!this.isConnectedToInternet) {
         const error = createModalNotReadyError();
         reject(error);
       }
+      console.log('checkRelayerExistsInDOM', this.checkRelayerExistsInDOM());
 
       if (!(await this.checkRelayerExistsInDOM())) {
         this.isReadyForRequest = false;
         await this.reloadRelayer();
       }
+
+      console.log('isReadyForRequest', this.isReadyForRequest);
 
       if (!this.isReadyForRequest) {
         await this.waitForReady();
@@ -151,6 +155,7 @@ export abstract class ViewController {
     msgType: MagicIncomingWindowMessage,
     handler: (this: Window, event: MagicMessageEvent) => any,
   ): RemoveEventListenerFunction {
+    console.log(window, 'window');
     const boundHandler = handler.bind(window);
 
     // We cannot effectively cover this function because it never gets reference
@@ -168,6 +173,7 @@ export abstract class ViewController {
   waitForReady() {
     return new Promise<void>(resolve => {
       const unsubscribe = this.on(MagicIncomingWindowMessage.MAGIC_OVERLAY_READY, () => {
+        console.log('OVERLAY_READY');
         this.isReadyForRequest = true;
         resolve();
         unsubscribe();
