@@ -1964,12 +1964,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:~7.10.4":
-  version: 7.10.5
-  resolution: "@babel/runtime@npm:7.10.5"
+"@babel/runtime@npm:~7.26.10":
+  version: 7.26.10
+  resolution: "@babel/runtime@npm:7.26.10"
   dependencies:
-    regenerator-runtime: ^0.13.4
-  checksum: 498696462c4ee69529ea550783ba4ebdb86d8d7211544ef8598f66d894e054468bafd2118d26488bb800ed5b9f84f0f776ea9e17eb8ad5c1c527058a873ad3a4
+    regenerator-runtime: ^0.14.0
+  checksum: 22d2e0abb86e90de489ab16bb578db6fe2b63a88696db431198b24963749820c723f1982298cdbbea187f7b2b80fb4d98a514faf114ddb2fdc14a4b96277b955
   languageName: node
   linkType: hard
 
@@ -3514,7 +3514,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-bare-oauth@workspace:packages/@magic-ext/react-native-bare-oauth"
   dependencies:
-    "@magic-sdk/react-native-bare": ^30.0.5
+    "@magic-sdk/react-native-bare": ^30.0.6
     "@magic-sdk/types": ^24.18.1
     "@types/crypto-js": ~4.2.0
     crypto-js: ^4.2.0
@@ -3661,7 +3661,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-bare@^30.0.5, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
+"@magic-sdk/react-native-bare@^30.0.6, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
   dependencies:
@@ -3709,7 +3709,7 @@ __metadata:
     "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
     "@babel/core": ^7.15.0
     "@babel/plugin-transform-flow-strip-types": ^7.14.5
-    "@babel/runtime": ~7.10.4
+    "@babel/runtime": ~7.26.10
     "@magic-sdk/commons": ^25.0.5
     "@magic-sdk/provider": ^29.0.5
     "@magic-sdk/types": ^24.18.1
@@ -20592,7 +20592,7 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.13.11, regenerator-runtime@npm:^0.13.2, regenerator-runtime@npm:^0.13.4":
+"regenerator-runtime@npm:^0.13.11, regenerator-runtime@npm:^0.13.2":
   version: 0.13.11
   resolution: "regenerator-runtime@npm:0.13.11"
   checksum: 27481628d22a1c4e3ff551096a683b424242a216fee44685467307f14d58020af1e19660bf2e26064de946bad7eff28950eae9f8209d55723e2d9351e632bbb4
