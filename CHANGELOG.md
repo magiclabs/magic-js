@@ -1,3 +1,16 @@
+# (Thu Apr 03 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@30.0.6`
+  - Rn bare [#872](https://github.com/magiclabs/magic-js/pull/872) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Tue Apr 01 2025)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,18 @@
+# v30.0.6 (Thu Apr 03 2025)
+
+#### 🐛 Bug Fix
+
+- Rn bare [#872](https://github.com/magiclabs/magic-js/pull/872) ([@Ethella](https://github.com/Ethella))
+- skip RN test ([@Ethella](https://github.com/Ethella))
+- fix React-native SDK ([@Ethella](https://github.com/Ethella))
+- bump rn ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v30.0.4 (Tue Apr 01 2025)
 
 #### 🐛 Bug Fix
