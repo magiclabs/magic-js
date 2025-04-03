@@ -25,6 +25,10 @@ const config: Config.InitialOptions = {
     "|native-base-*)"
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  testEnvironment: 'node',
+  testEnvironmentOptions: {
+    url: 'http://localhost',
+  },
 };
 
 export default config;
