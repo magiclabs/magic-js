@@ -5,7 +5,7 @@ const config: Config.InitialOptions = {
   ...baseJestConfig,
   preset: '@testing-library/react-native',
   transform: {
-    '^.+\\.(js|jsx)$': 'babel-jest',
+    '^.+\\.(js|jsx)$': ['babel-jest', { configFile: './babel.config.js' }],
     '\\.(ts|tsx)$': 'ts-jest',
   },
   transformIgnorePatterns: [
