@@ -14,7 +14,10 @@
     "postinstall": "husky install"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/plugin-transform-flow-strip-types": "^7.26.5",
     "@babel/plugin-transform-modules-commonjs": "^7.26.3",
+    "@babel/preset-flow": "^7.25.9",
     "@eslint/compat": "^1.2.2",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.14.0",

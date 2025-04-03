@@ -222,7 +222,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.11.6, @babel/core@npm:^7.23.9, @babel/core@npm:^7.24.7, @babel/core@npm:^7.25.2":
+"@babel/core@npm:^7.11.6, @babel/core@npm:^7.23.9, @babel/core@npm:^7.24.7, @babel/core@npm:^7.25.2, @babel/core@npm:^7.26.10":
   version: 7.26.10
   resolution: "@babel/core@npm:7.26.10"
   dependencies:
@@ -1299,7 +1299,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-flow-strip-types@npm:^7.25.2, @babel/plugin-transform-flow-strip-types@npm:^7.25.9":
+"@babel/plugin-transform-flow-strip-types@npm:^7.25.2, @babel/plugin-transform-flow-strip-types@npm:^7.25.9, @babel/plugin-transform-flow-strip-types@npm:^7.26.5":
   version: 7.26.5
   resolution: "@babel/plugin-transform-flow-strip-types@npm:7.26.5"
   dependencies:
@@ -1863,7 +1863,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-flow@npm:^7.24.7":
+"@babel/preset-flow@npm:^7.24.7, @babel/preset-flow@npm:^7.25.9":
   version: 7.25.9
   resolution: "@babel/preset-flow@npm:7.25.9"
   dependencies:
@@ -15918,7 +15918,10 @@ fsevents@^2.3.2:
   version: 0.0.0-use.local
   resolution: "magic-sdk-monorepo@workspace:."
   dependencies:
+    "@babel/core": ^7.26.10
+    "@babel/plugin-transform-flow-strip-types": ^7.26.5
     "@babel/plugin-transform-modules-commonjs": ^7.26.3
+    "@babel/preset-flow": ^7.25.9
     "@eslint/compat": ^1.2.2
     "@eslint/eslintrc": ^3.1.0
     "@eslint/js": ^9.14.0
