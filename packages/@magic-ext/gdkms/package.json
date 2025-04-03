@@ -30,7 +30,6 @@
   },
   "devDependencies": {
     "@magic-sdk/commons": "^25.0.5",
-    "@magic-sdk/types": "^24.18.1",
-    "@peculiar/webcrypto": "^1.4.3"
+    "@magic-sdk/types": "^24.18.1"
   }
 }

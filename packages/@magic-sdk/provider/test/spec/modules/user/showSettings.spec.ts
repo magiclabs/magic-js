@@ -1,5 +1,5 @@
 import browserEnv from '@ikscodes/browser-env';
-import { DeepLinkPage } from '@magic-sdk/types/src/core/deep-link-pages';
+import { DeepLinkPage } from '@magic-sdk/types';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { isPromiEvent } from '../../../../src/util';
 

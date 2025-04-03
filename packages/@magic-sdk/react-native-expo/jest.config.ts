@@ -5,14 +5,16 @@ const config: Config.InitialOptions = {
   ...baseJestConfig,
   preset: '@testing-library/react-native',
   transform: {
-    '^.+\\.(js|jsx)$': 'babel-jest',
+    '^.+\\.(js|jsx)$': ['babel-jest', { configFile: './babel.config.js' }],
     '\\.(ts|tsx)$': 'ts-jest',
   },
   transformIgnorePatterns: [
-    "node_modules/(" +
-    "?!(jest-)?react-native" +
+    "node_modules/(?!(" +
+    "(jest-)?react-native" +
     "|react-clone-referenced-element" +
     "|@react-native-community" +
+    "|@react-native" +
+    "|@react-native/.*" +
     "|expo(nent)?" +
     "|@expo(nent)?/.*" +
     "|react-navigation" +
@@ -22,9 +24,13 @@ const config: Config.InitialOptions = {
     "|sentry-expo" +
     "|native-base" +
     "|@sentry/.*" +
-    "|native-base-*)"
+    "|native-base-*))"
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  testEnvironment: 'node',
+  testEnvironmentOptions: {
+    url: 'http://localhost',
+  },
 };
 
 export default config;
