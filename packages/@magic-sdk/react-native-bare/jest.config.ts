@@ -9,11 +9,11 @@ const config: Config.InitialOptions = {
     '\\.(ts|tsx)$': 'ts-jest',
   },
   transformIgnorePatterns: [
-    "node_modules/(" +
-    "?!(jest-)?react-native" +
+    "node_modules/(?!(" +
+    "(jest-)?react-native" +
     "|react-clone-referenced-element" +
     "|@react-native-community" +
-    "|@react-native/.*" +
+    "|@react-native" +
     "|expo(nent)?" +
     "|@expo(nent)?/.*" +
     "|react-navigation" +
@@ -23,7 +23,7 @@ const config: Config.InitialOptions = {
     "|sentry-expo" +
     "|native-base" +
     "|@sentry/.*" +
-    "|native-base-*)"
+    "|native-base-*))"
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testEnvironment: 'node',
