@@ -14,6 +14,7 @@ const config: Config.InitialOptions = {
     "|react-clone-referenced-element" +
     "|@react-native-community" +
     "|@react-native" +
+    "|@react-native/.*" +
     "|expo(nent)?" +
     "|@expo(nent)?/.*" +
     "|react-navigation" +
