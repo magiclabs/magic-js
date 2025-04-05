@@ -1,4 +1,4 @@
-import { build as esbuild, BuildFailure, BuildResult, Platform, Plugin, Format } from 'esbuild';
+import * as esbuild from 'esbuild';
 import path from 'path';
 import fse from 'fs-extra';
 import gzipSize from 'gzip-size';
@@ -11,8 +11,8 @@ import { existsAsync } from './exists-async';
 
 interface ESBuildOptions {
   watch?: boolean;
-  target?: Platform;
-  format?: Format;
+  target?: esbuild.Platform;
+  format?: esbuild.Format;
   output?: string;
   sourcemap?: boolean;
   name?: string;
@@ -23,10 +23,11 @@ interface ESBuildOptions {
 export async function build(options: ESBuildOptions) {
   if (options.output) {
     try {
-      await esbuild({
+      const buildOptions: esbuild.BuildOptions = {
         bundle: true,
         minify: true,
-        watch: options.watch ? { onRebuild: onRebuildFactory(options) } : undefined,
+        treeShaking: true,
+        drop: ['debugger', 'console'],
         legalComments: 'none',
         platform: options.target ?? 'browser',
         format: options.format ?? 'cjs',
@@ -41,6 +42,10 @@ export async function build(options: ESBuildOptions) {
           Object.entries(environment).map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)]),
         ),
         plugins: [...globalsPlugin(options.globals || {})],
+        
+        mangleProps: /^_/,
+        ignoreAnnotations: false,
+        metafile: true, // Generate metafile for size analysis
 
         // We need this footer because: https://github.com/evanw/esbuild/issues/1182
         footer:
@@ -52,9 +57,16 @@ export async function build(options: ESBuildOptions) {
                 js: `if (${options.name} && ${options.name}.default != null) { ${options.name} = Object.assign(${options.name}.default, ${options.name}); delete ${options.name}.default; }`,
               }
             : undefined,
-      });
-
-      await printOutputSizeInfo(options);
+      };
+      
+      if (options.watch) {
+        const ctx = await esbuild.context(buildOptions);
+        await ctx.watch();
+        console.log('Watching for changes...');
+      } else {
+        const result = await esbuild.build(buildOptions);
+        await printOutputSizeInfo(options);
+      }
     } catch (e) {
       console.error(e);
       throw e;
@@ -79,7 +91,7 @@ async function printOutputSizeInfo(options: ESBuildOptions) {
  * Returns a function that can be used to handle rebuild events from ESBuild.
  */
 function onRebuildFactory(options: ESBuildOptions) {
-  return async (error: BuildFailure | null, result: BuildResult | null) => {
+  return async (error: esbuild.BuildFailure | null, result: esbuild.BuildResult | null) => {
     if (error) {
       console.error(error.message);
     } else {
@@ -108,7 +120,7 @@ export async function emitTypes(watch?: boolean) {
  * Resolves the entrypoint file for ESBuild,
  * based on the format and target platform.
  */
-async function getEntrypoint(format?: Format) {
+async function getEntrypoint(format?: esbuild.Format) {
   const findEntrypoint = async (indexTarget?: string) => {
     if (format && (await existsAsync(path.resolve(process.cwd(), `./src/index.${indexTarget}.ts`)))) {
       return `src/index.${indexTarget}.ts`;
@@ -172,7 +184,7 @@ export async function createTemporaryTSConfigFile() {
  * Creates a list of plugins to replace
  * externalized packages with a global variable.
  */
-function globalsPlugin(globals: Record<string, string>): Plugin[] {
+function globalsPlugin(globals: Record<string, string>): esbuild.Plugin[] {
   return Object.entries(globals).map(([packageName, globalVar]) => {
     const namespace = `globals-plugin:${packageName}`;
     return {

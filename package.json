@@ -38,7 +38,7 @@
     "brotli-size": "^4.0.0",
     "chalk": "~4.1.2",
     "enquirer": "^2.3.6",
-    "esbuild": "^0.14.13",
+    "esbuild": "0.25.2",
     "eslint": "9.14.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.3",
@@ -97,5 +97,8 @@
       "released"
     ]
   },
-  "packageManager": "yarn@3.6.0"
+  "packageManager": "yarn@3.6.0",
+  "dependencies": {
+    "magic-sdk": "^29.0.5"
+  }
 }
