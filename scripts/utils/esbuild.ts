@@ -4,7 +4,6 @@ import fse from 'fs-extra';
 import gzipSize from 'gzip-size';
 import brotliSize from 'brotli-size';
 import prettyBytes from 'pretty-bytes';
-import chalk from 'chalk';
 import execa from 'execa';
 import { environment } from './environment';
 import { existsAsync } from './exists-async';
@@ -79,17 +78,6 @@ async function printOutputSizeInfo(options: ESBuildOptions) {
   }
 }
 
-/**
- * Returns a function that can be used to handle rebuild events from ESBuild.
- */
-function onRebuildFactory(options: ESBuildOptions) {
-  return async (error: esbuild.BuildFailure | null, _result: esbuild.BuildResult | null) => {
-    if (error) {
-    } else {
-      await printOutputSizeInfo(options);
-    }
-  };
-}
 
 /**
  * Emits TypeScript typings for the current package.
