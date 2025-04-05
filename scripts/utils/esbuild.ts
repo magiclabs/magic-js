@@ -62,13 +62,11 @@ export async function build(options: ESBuildOptions) {
       if (options.watch) {
         const ctx = await esbuild.context(buildOptions);
         await ctx.watch();
-        console.log('Watching for changes...');
       } else {
-        const result = await esbuild.build(buildOptions);
+        await esbuild.build(buildOptions);
         await printOutputSizeInfo(options);
       }
     } catch (e) {
-      console.error(e);
       throw e;
     }
   }
@@ -82,8 +80,6 @@ async function printOutputSizeInfo(options: ESBuildOptions) {
     // Log the type and size of the output(s)...
     const outputPath = path.resolve(process.cwd(), options.output);
     const sizeInfo = await getSizeInfo((await fse.readFile(outputPath)).toString(), outputPath);
-    console.log(chalk`Built {rgb(0,255,255) ${options.format}} to {gray ${path.dirname(options.output)}}`);
-    console.log(sizeInfo);
   }
 }
 
@@ -91,9 +87,8 @@ async function printOutputSizeInfo(options: ESBuildOptions) {
  * Returns a function that can be used to handle rebuild events from ESBuild.
  */
 function onRebuildFactory(options: ESBuildOptions) {
-  return async (error: esbuild.BuildFailure | null, result: esbuild.BuildResult | null) => {
+  return async (error: esbuild.BuildFailure | null, _result: esbuild.BuildResult | null) => {
     if (error) {
-      console.error(error.message);
     } else {
       await printOutputSizeInfo(options);
     }
@@ -111,7 +106,6 @@ export async function emitTypes(watch?: boolean) {
       await execa('tsc', ['-p', 'node_modules/.temp/tsconfig.build.json']);
     }
   } catch (e) {
-    console.error(e);
     throw e;
   }
 }
@@ -212,9 +206,7 @@ export async function getSizeInfo(code: string, filename: string) {
 
   const formatSize = (size: number, type: 'gz' | 'br') => {
     const pretty = raw ? `${size} B` : prettyBytes(size);
-    // eslint-disable-next-line no-nested-ternary
-    const color = size < 5000 ? chalk.green : size > 40000 ? chalk.red : chalk.yellow;
-    return `${color(pretty)}: ${chalk.white(path.basename(filename))}.${type}`;
+    return `${pretty}: ${path.basename(filename)}.${type}`;
   };
 
   const [gzip, brotli] = await Promise.all([gzipSize(code).catch(() => null), brotliSize(code).catch(() => null)]);
