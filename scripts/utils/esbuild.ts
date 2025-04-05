@@ -25,7 +25,7 @@ export async function build(options: ESBuildOptions) {
       bundle: true,
       minify: true,
       treeShaking: true,
-      drop: ['debugger', 'console'],
+      drop: process.env.NODE_ENV === 'production' ? ['debugger', 'console'] : ['debugger'],
       legalComments: 'none',
       platform: options.target ?? 'browser',
       format: options.format ?? 'cjs',
