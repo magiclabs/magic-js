@@ -97,8 +97,5 @@
       "released"
     ]
   },
-  "packageManager": "yarn@3.6.0",
-  "dependencies": {
-    "magic-sdk": "^29.0.5"
-  }
+  "packageManager": "yarn@3.6.0"
 }

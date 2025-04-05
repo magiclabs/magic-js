@@ -5,6 +5,7 @@ import gzipSize from 'gzip-size';
 import brotliSize from 'brotli-size';
 import prettyBytes from 'pretty-bytes';
 import execa from 'execa';
+import chalk from 'chalk';
 import { environment } from './environment';
 import { existsAsync } from './exists-async';
 
@@ -40,7 +41,7 @@ export async function build(options: ESBuildOptions) {
         Object.entries(environment).map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)]),
       ),
       plugins: [...globalsPlugin(options.globals || {})],
-      
+
       mangleProps: /^_/,
       ignoreAnnotations: false,
       metafile: true, // Generate metafile for size analysis
@@ -56,7 +57,7 @@ export async function build(options: ESBuildOptions) {
             }
           : undefined,
     };
-    
+
     if (options.watch) {
       const ctx = await esbuild.context(buildOptions);
       await ctx.watch();
@@ -74,10 +75,11 @@ async function printOutputSizeInfo(options: ESBuildOptions) {
   if (options.output) {
     // Log the type and size of the output(s)...
     const outputPath = path.resolve(process.cwd(), options.output);
-    await getSizeInfo((await fse.readFile(outputPath)).toString(), outputPath);
+    const sizeInfo = await getSizeInfo((await fse.readFile(outputPath)).toString(), outputPath);
+    console.log(chalk`Built {rgb(0,255,255) ${options.format}} to {gray ${path.dirname(options.output)}}`);
+    console.log(sizeInfo);
   }
 }
-
 
 /**
  * Emits TypeScript typings for the current package.
@@ -164,7 +166,7 @@ function globalsPlugin(globals: Record<string, string>): esbuild.Plugin[] {
     return {
       name: namespace,
       setup(builder) {
-        builder.onResolve({ filter: new RegExp(`^${packageName}$`) }, (args) => ({
+        builder.onResolve({ filter: new RegExp(`^${packageName}$`) }, args => ({
           path: args.path,
           namespace,
         }));
@@ -186,7 +188,8 @@ export async function getSizeInfo(code: string, filename: string) {
 
   const formatSize = (size: number, type: 'gz' | 'br') => {
     const pretty = raw ? `${size} B` : prettyBytes(size);
-    return `${pretty}: ${path.basename(filename)}.${type}`;
+    const color = size < 5000 ? chalk.green : size > 40000 ? chalk.red : chalk.yellow;
+    return `${color(pretty)}: ${chalk.white(path.basename(filename))}.${type}`;
   };
 
   const [gzip, brotli] = await Promise.all([gzipSize(code).catch(() => null), brotliSize(code).catch(() => null)]);
