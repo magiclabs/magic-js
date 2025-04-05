@@ -22,52 +22,48 @@ interface ESBuildOptions {
 
 export async function build(options: ESBuildOptions) {
   if (options.output) {
-    try {
-      const buildOptions: esbuild.BuildOptions = {
-        bundle: true,
-        minify: true,
-        treeShaking: true,
-        drop: ['debugger', 'console'],
-        legalComments: 'none',
-        platform: options.target ?? 'browser',
-        format: options.format ?? 'cjs',
-        globalName: options.format === 'iife' ? options.name : undefined,
-        entryPoints: [await getEntrypoint(options.format)],
-        sourcemap: options.sourcemap,
-        outfile: options.output,
-        tsconfig: 'node_modules/.temp/tsconfig.build.json',
-        external: options.externals,
-        loader: { '.ts': 'ts', '.tsx': 'tsx' },
-        define: Object.fromEntries(
-          Object.entries(environment).map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)]),
-        ),
-        plugins: [...globalsPlugin(options.globals || {})],
-        
-        mangleProps: /^_/,
-        ignoreAnnotations: false,
-        metafile: true, // Generate metafile for size analysis
-
-        // We need this footer because: https://github.com/evanw/esbuild/issues/1182
-        footer:
-          options.format === 'iife'
-            ? {
-                // This snippet replaces `window.{name}` with
-                // `window.{name}.default`, with any additional named exports
-                // assigned. Finally, it removes `window.{name}.default`.
-                js: `if (${options.name} && ${options.name}.default != null) { ${options.name} = Object.assign(${options.name}.default, ${options.name}); delete ${options.name}.default; }`,
-              }
-            : undefined,
-      };
+    const buildOptions: esbuild.BuildOptions = {
+      bundle: true,
+      minify: true,
+      treeShaking: true,
+      drop: ['debugger', 'console'],
+      legalComments: 'none',
+      platform: options.target ?? 'browser',
+      format: options.format ?? 'cjs',
+      globalName: options.format === 'iife' ? options.name : undefined,
+      entryPoints: [await getEntrypoint(options.format)],
+      sourcemap: options.sourcemap,
+      outfile: options.output,
+      tsconfig: 'node_modules/.temp/tsconfig.build.json',
+      external: options.externals,
+      loader: { '.ts': 'ts', '.tsx': 'tsx' },
+      define: Object.fromEntries(
+        Object.entries(environment).map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)]),
+      ),
+      plugins: [...globalsPlugin(options.globals || {})],
       
-      if (options.watch) {
-        const ctx = await esbuild.context(buildOptions);
-        await ctx.watch();
-      } else {
-        await esbuild.build(buildOptions);
-        await printOutputSizeInfo(options);
-      }
-    } catch (e) {
-      throw e;
+      mangleProps: /^_/,
+      ignoreAnnotations: false,
+      metafile: true, // Generate metafile for size analysis
+
+      // We need this footer because: https://github.com/evanw/esbuild/issues/1182
+      footer:
+        options.format === 'iife'
+          ? {
+              // This snippet replaces `window.{name}` with
+              // `window.{name}.default`, with any additional named exports
+              // assigned. Finally, it removes `window.{name}.default`.
+              js: `if (${options.name} && ${options.name}.default != null) { ${options.name} = Object.assign(${options.name}.default, ${options.name}); delete ${options.name}.default; }`,
+            }
+          : undefined,
+    };
+    
+    if (options.watch) {
+      const ctx = await esbuild.context(buildOptions);
+      await ctx.watch();
+    } else {
+      await esbuild.build(buildOptions);
+      await printOutputSizeInfo(options);
     }
   }
 }
@@ -79,7 +75,7 @@ async function printOutputSizeInfo(options: ESBuildOptions) {
   if (options.output) {
     // Log the type and size of the output(s)...
     const outputPath = path.resolve(process.cwd(), options.output);
-    const sizeInfo = await getSizeInfo((await fse.readFile(outputPath)).toString(), outputPath);
+    await getSizeInfo((await fse.readFile(outputPath)).toString(), outputPath);
   }
 }
 
@@ -99,14 +95,10 @@ function onRebuildFactory(options: ESBuildOptions) {
  * Emits TypeScript typings for the current package.
  */
 export async function emitTypes(watch?: boolean) {
-  try {
-    if (watch) {
-      await execa('tsc', ['-w', '-p', 'node_modules/.temp/tsconfig.build.json']);
-    } else {
-      await execa('tsc', ['-p', 'node_modules/.temp/tsconfig.build.json']);
-    }
-  } catch (e) {
-    throw e;
+  if (watch) {
+    await execa('tsc', ['-w', '-p', 'node_modules/.temp/tsconfig.build.json']);
+  } else {
+    await execa('tsc', ['-p', 'node_modules/.temp/tsconfig.build.json']);
   }
 }
 
