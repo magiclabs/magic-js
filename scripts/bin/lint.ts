@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node-script
+#!/usr/bin/env ts-node
 
 import execa from 'execa';
 import { printSeparator } from '../utils/print-separator';
@@ -9,7 +9,7 @@ async function main() {
   const PKG = await promptForPackage();
 
   printSeparator('Linting TypeScripts');
-  await execa('pnpm', ['--filter', PKG, 'exec', 'eslint', '--fix', './**/*.ts', '.'], {
+  await execa('pnpm', ['--filter', PKG, 'exec', 'npx', 'eslint', '--fix', './**/*.ts', '.'], {
     stdio: 'inherit',
     env: { PKG },
   });
