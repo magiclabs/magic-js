@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node-script
+#!/usr/bin/env ts-node
 
 import execa from 'execa';
 import { printSeparator } from '../utils/print-separator';

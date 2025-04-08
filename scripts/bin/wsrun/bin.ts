@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node-script
+#!/usr/bin/env ts-node
 
 /* eslint-disable global-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
