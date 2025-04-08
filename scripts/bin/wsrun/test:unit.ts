@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node-script
+#!/usr/bin/env ts-node
 
 import execa from 'execa';
 import { existsAsync } from '../../utils/exists-async';
