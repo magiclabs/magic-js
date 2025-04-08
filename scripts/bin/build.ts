@@ -16,9 +16,9 @@ async function buildPkgs(PKG: string) {
 
   try {
     console.log(`Running build for package: ${PKG}`);
-    console.log(`Command: pnpm --filter ${PKG} --recursive ${wsrunConcurrency} exec ${process.cwd()}/scripts/bin/wsrun/build-package.ts`);
+    console.log(`Command: pnpm --filter ${PKG} exec npx ts-node ${process.cwd()}/scripts/bin/wsrun/build-package.ts`);
     
-    const result = await execa('pnpm', ['--filter', PKG, '--recursive', wsrunConcurrency, 'exec', `${process.cwd()}/scripts/bin/wsrun/build-package.ts`], {
+    const result = await execa('pnpm', ['--filter', PKG, 'exec', 'npx', 'ts-node', `${process.cwd()}/scripts/bin/wsrun/build-package.ts`], {
       stdio: 'inherit',
       env: { PKG, DEBUG: 'true' },
     });
