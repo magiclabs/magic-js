@@ -24,6 +24,14 @@ const config: Config.InitialOptions = {
       },
     ],
   },
+  moduleNameMapper: {
+    '../../../../../../scripts/utils/browser-env': '<rootDir>/scripts/utils/browser-env.ts',
+    '../../../../../../../scripts/utils/browser-env': '<rootDir>/scripts/utils/browser-env.ts',
+    '../../../../scripts/utils/browser-env': '<rootDir>/scripts/utils/browser-env.ts',
+    '../../../../../scripts/utils/browser-env': '<rootDir>/scripts/utils/browser-env.ts',
+    '../../../../../../../../scripts/utils/browser-env': '<rootDir>/scripts/utils/browser-env.ts',
+    '@ikscodes/browser-env': '<rootDir>/scripts/utils/browser-env.ts',
+  },
 };
 
 export default config;

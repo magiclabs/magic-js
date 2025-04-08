@@ -1,13 +1,16 @@
-// NOTE: This module is automatically included at the top of each test file.
+"use strict";
 
-import 'regenerator-runtime/runtime';
-import { JSDOM } from 'jsdom';
-import { mockConsole } from '../../../scripts/utils/mock-console';
+const { JSDOM } = require('jsdom');
 
-function setupBrowserEnv() {
+/**
+ * Creates a browser environment using JSDOM for testing.
+ * This is a direct replacement for @ikscodes/browser-env.
+ */
+function createBrowserEnv(options = {}) {
   const jsdom = new JSDOM('', {
     url: 'http://localhost',
     pretendToBeVisual: true,
+    ...options,
   });
   
   const win = jsdom.window;
@@ -35,23 +38,17 @@ function setupBrowserEnv() {
   return win;
 }
 
-setupBrowserEnv();
-
-global.browserEnv = {
-  stub: (path, value) => {
-    const lastInPath = Array.isArray(path) ? path[path.length - 1] : path;
-    if (typeof window !== 'undefined' && lastInPath) {
-      try {
-        window[lastInPath] = value;
-      } catch (error) {
-        /* Silently ignore errors */
-      }
+createBrowserEnv.stub = (path, value) => {
+  const lastInPath = Array.isArray(path) ? path[path.length - 1] : path;
+  if (typeof window !== 'undefined' && lastInPath) {
+    try {
+      window[lastInPath] = value;
+    } catch (error) {
     }
-    return () => {}; // Restore function (no-op for simplicity)
-  },
-  restore: () => window,
+  }
+  return () => {}; // Restore function (no-op for simplicity)
 };
 
-beforeEach(() => {
-  mockConsole();
-});
+createBrowserEnv.restore = () => window;
+
+module.exports = createBrowserEnv;

@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../scripts/utils/browser-env';
 import { createModalNotReadyError } from '@magic-sdk/provider';
 import { createIframeController } from '../../factories';
 

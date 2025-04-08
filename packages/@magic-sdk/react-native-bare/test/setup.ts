@@ -2,7 +2,7 @@
 
 import 'regenerator-runtime/runtime';
 
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../scripts/utils/browser-env';
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 import { removeReactDependencies } from './mocks';
 import { mockConsole } from '../../../../scripts/utils/mock-console';

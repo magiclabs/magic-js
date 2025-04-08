@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../scripts/utils/browser-env';
 import { createIframeController } from '../../factories';
 import { IframeController } from '../../../src/iframe-controller';
 

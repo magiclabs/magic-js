@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../scripts/utils/browser-env';
 import { IframeController } from '../../../src/iframe-controller';
 import { ENCODED_QUERY_PARAMS, MAGIC_RELAYER_FULL_URL } from '../../constants';
 import { createIframeController } from '../../factories';
