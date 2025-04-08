@@ -43,13 +43,13 @@ To ensure ESLint is able to properly lint source files in your VS Code developme
 
 | NPM Script | Usage | Description |
 | ---------- | ----- | ----------- |
-| `wsrun` | `PKG=$PACKAGE_TARGET yarn wsrun` | Execute arbitrary scripts via `wsrun` for the specified package, or interactively select a package if `$PKG` is omitted. |
-| `wsrun:all` | `yarn wsrun` | Execute arbitrary scripts via `wsrun` for all packages in the monorepo (same as `PKG=* yarn wsrun ...`). |
-| `dev` | `PKG=$PACKAGE_TARGET yarn dev` | Build the specified package with a hot-reloading dev server, or interactively select a package if `$PKG` is omitted. |
-| `build` | `PKG=$PACKAGE_TARGET yarn build` | Build the specified package for production, or interactively select a package if `$PKG` is omitted. |
-| `clean` | `PKG=$PACKAGE_TARGET yarn clean` | Run cleaning scripts for the specified package, or interactively select a package if `$PKG` is omitted. Available flags: (`--cache`, `--test-artifacts`, `--deps`) |
-| `lint` | `PKG=$PACKAGE_TARGET yarn lint` | Run the linter for the specified package, or interactively select a package if `$PKG` is omitted. |
-| `test` | `PKG=$PACKAGE_TARGET yarn test` | Run tests for the specified package, or interactively select a package if `$PKG` is omitted. |
+| `wsrun` | `PKG=$PACKAGE_TARGET pnpm wsrun` | Execute arbitrary scripts via `wsrun` for the specified package, or interactively select a package if `$PKG` is omitted. |
+| `wsrun:all` | `pnpm wsrun:all` | Execute arbitrary scripts via `wsrun` for all packages in the monorepo (same as `PKG=* pnpm wsrun ...`). |
+| `dev` | `PKG=$PACKAGE_TARGET pnpm dev` | Build the specified package with a hot-reloading dev server, or interactively select a package if `$PKG` is omitted. |
+| `build` | `PKG=$PACKAGE_TARGET pnpm build` | Build the specified package for production, or interactively select a package if `$PKG` is omitted. |
+| `clean` | `PKG=$PACKAGE_TARGET pnpm clean` | Run cleaning scripts for the specified package, or interactively select a package if `$PKG` is omitted. Available flags: (`--cache`, `--test-artifacts`, `--deps`) |
+| `lint` | `PKG=$PACKAGE_TARGET pnpm lint` | Run the linter for the specified package, or interactively select a package if `$PKG` is omitted. |
+| `test` | `PKG=$PACKAGE_TARGET pnpm test` | Run tests for the specified package, or interactively select a package if `$PKG` is omitted. |
 
 ## Opening a Pull Request
 
