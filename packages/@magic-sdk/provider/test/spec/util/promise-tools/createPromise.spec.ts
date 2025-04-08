@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../../scripts/utils/browser-env';
 import { createPromise } from '../../../../src/util/promise-tools';
 
 beforeEach(() => {

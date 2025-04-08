@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../../scripts/utils/browser-env';
 import { ConnectWithUiEvents, ThirdPartyWalletEvents } from '@magic-sdk/types';
 import { createPromiEvent } from '../../../../src/util';
 import { createMagicSDK } from '../../../factories';

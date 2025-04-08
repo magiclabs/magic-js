@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../scripts/utils/browser-env';
 import { mockSDKEnvironmentConstant, restoreSDKEnvironmentConstants } from '../../../mocks';
 
 function warningAssertions(warning: any, expectedCode: string, expectedMessage: string) {

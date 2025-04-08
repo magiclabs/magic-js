@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../scripts/utils/browser-env';
 import { createMagicSDK } from '../../../factories';
 import { createPromiEvent } from '../../../../src/util';
 import { NftCheckoutIntermediaryEvents, NftCheckoutEventHandler } from '../../../../../types/src/modules/nft-types';

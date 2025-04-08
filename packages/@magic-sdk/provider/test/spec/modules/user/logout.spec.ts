@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../../scripts/utils/browser-env';
 import { isPromiEvent, storage } from '../../../../src/util';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { mockLocalForage } from '../../../mocks';

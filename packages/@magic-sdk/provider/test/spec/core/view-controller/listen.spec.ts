@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../../scripts/utils/browser-env';
 import { createViewController } from '../../../factories';
 import { MSG_TYPES } from '../../../constants';
 import { MagicSDKWarning } from '../../../../src/core/sdk-exceptions';

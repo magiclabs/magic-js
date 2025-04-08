@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../../scripts/utils/browser-env';
 import { MagicSDKWarning } from '../../../../../src/core/sdk-exceptions';
 
 test('`MagicSDKWarning.log` logs message to `console.warn`', async () => {

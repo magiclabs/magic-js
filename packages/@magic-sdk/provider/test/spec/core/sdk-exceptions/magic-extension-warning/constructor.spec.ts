@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../../scripts/utils/browser-env';
 import { MagicExtensionWarning } from '../../../../../src/core/sdk-exceptions';
 import { Extension } from '../../../../../src/modules/base-extension';
 

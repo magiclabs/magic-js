@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../../scripts/utils/browser-env';
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../../../../src/core/json-rpc';
 import { createExtensionNotInitializedError } from '../../../../src/core/sdk-exceptions';
 import { ConcreteExtension, createMagicSDK } from '../../../factories';

@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../scripts/utils/browser-env';
 import { RecencyCheckEventEmit, UpdateEmailEventEmit } from '@magic-sdk/types';
 import { createMagicSDK } from '../../../factories';
 

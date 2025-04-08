@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../../scripts/utils/browser-env';
 import EventEmitter from 'eventemitter3';
 import { TypedEmitter } from '../../../../../src/util/events';
 

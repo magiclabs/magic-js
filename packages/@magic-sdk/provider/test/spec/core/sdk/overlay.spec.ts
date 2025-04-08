@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../../scripts/utils/browser-env';
 import { TEST_API_KEY } from '../../../constants';
 import { ViewController } from '../../../../src/core/view-controller';
 import { createMagicSDKCtor } from '../../../factories';

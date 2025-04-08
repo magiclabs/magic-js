@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../scripts/utils/browser-env';
 import { MagicPayloadMethod, SDKWarningCode } from '@magic-sdk/types';
 
 import { SDKEnvironment } from '../../../../src/core/sdk-environment';

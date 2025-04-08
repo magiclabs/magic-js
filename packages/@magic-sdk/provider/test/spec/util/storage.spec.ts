@@ -1,6 +1,6 @@
 /* global LocalForageDbMethods */
 
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../../scripts/utils/browser-env';
 import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
 import { mockSDKEnvironmentConstant } from '../../mocks';
