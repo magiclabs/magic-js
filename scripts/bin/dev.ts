@@ -11,7 +11,7 @@ import { printEnvironment } from '../utils/environment';
 async function buildDeps(PKG: string) {
   printSeparator('Building Dependencies');
 
-  await execa('pnpm', ['--filter', PKG, '--recursive', '--stages', 'exec', `${process.cwd()}/scripts/bin/wsrun/build-package.ts`], {
+  await execa('pnpm', ['--filter', PKG, '--recursive', '--stages', 'exec', 'npx', 'ts-node', `${process.cwd()}/scripts/bin/wsrun/build-package.ts`], {
     stdio: 'inherit',
     env: { PKG },
   }).catch(handleError('Failed to build dependencies.'));
@@ -20,7 +20,7 @@ async function buildDeps(PKG: string) {
 async function startDevServer(PKG: string) {
   printSeparator(chalk`Starting Dev Server for {rgb(0,255,255) ${PKG}}`);
 
-  await execa('pnpm', ['--filter', PKG, 'exec', `${process.cwd()}/scripts/bin/wsrun/build-package.ts`], {
+  await execa('pnpm', ['--filter', PKG, 'exec', 'npx', 'ts-node', `${process.cwd()}/scripts/bin/wsrun/build-package.ts`], {
     stdio: 'inherit',
     env: { PKG, DEV_SERVER: 'true' },
   })
