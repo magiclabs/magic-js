@@ -33,16 +33,23 @@ async function buildPkgs(PKG: string) {
 }
 
 async function main() {
-  const PKG = await promptForPackage();
-  const { packages } = await getPackages(PKG);
+  const PKG = process.env.PKG || await promptForPackage();
+  console.log(`Using package: ${PKG}`);
+  
+  try {
+    const { packages } = await getPackages(PKG);
 
-  console.log(`\nFound ${packages.length} packages to build:`);
-  printPackages(packages);
+    console.log(`\nFound ${packages.length} packages to build:`);
+    printPackages(packages);
 
-  console.log(`\nBuilding with the following environment:`);
-  printEnvironment();
+    console.log(`\nBuilding with the following environment:`);
+    printEnvironment();
 
-  await buildPkgs(PKG);
+    await buildPkgs(PKG);
+  } catch (error) {
+    console.error('Error in main build process:', error);
+    throw error;
+  }
 }
 
 runAsyncProcess(main);
