@@ -3,14 +3,14 @@
   "name": "magic-sdk-monorepo",
   "version": "0.0.0",
   "scripts": {
-    "wsrun": "$INIT_CWD/scripts/bin/wsrun-wrapper.ts",
-    "wsrun:all": "$INIT_CWD/scripts/bin/wsrun-wrapper.ts --all",
-    "dev": "$INIT_CWD/scripts/bin/clean.ts && $INIT_CWD/scripts/bin/dev.ts",
-    "build": "$INIT_CWD/scripts/bin/clean.ts && $INIT_CWD/scripts/bin/build.ts",
-    "clean": "$INIT_CWD/scripts/bin/clean.ts",
-    "lint": "$INIT_CWD/scripts/bin/lint.ts",
-    "test": "$INIT_CWD/scripts/bin/test.ts",
-    "scaffold": "$INIT_CWD/scripts/bin/scaffold/run.tsx",
+    "wsrun": "./scripts/bin/wsrun-wrapper.ts",
+    "wsrun:all": "./scripts/bin/wsrun-wrapper.ts --all",
+    "dev": "./scripts/bin/clean.ts && ./scripts/bin/dev.ts",
+    "build": "./scripts/bin/clean.ts && ./scripts/bin/build.ts",
+    "clean": "./scripts/bin/clean.ts",
+    "lint": "./scripts/bin/lint.ts",
+    "test": "./scripts/bin/test.ts",
+    "scaffold": "./scripts/bin/scaffold/run.tsx",
     "postinstall": "husky install"
   },
   "devDependencies": {
