@@ -19,7 +19,10 @@ export async function getAllWorkspaces(): Promise<YarnWorkspace[]> {
     .map((pkg: any) => ({
       location: pkg.path,
       name: pkg.name,
-      workspaceDependencies: pkg.dependencies ? Object.keys(pkg.dependencies).filter((dep: string) => pkg.dependencies[dep].startsWith('workspace:')) : [],
+      workspaceDependencies: pkg.dependencies ? Object.keys(pkg.dependencies).filter((dep: string) => {
+        const depValue = pkg.dependencies[dep];
+        return typeof depValue === 'string' && depValue.startsWith('workspace:');
+      }) : [],
     }));
 
   return workspaces;
