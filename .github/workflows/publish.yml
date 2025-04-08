@@ -95,4 +95,4 @@ jobs:
           path: packages
 
       - name: Create Release
-        run: yarn auto shipit -vv
+        run: pnpm exec auto shipit -vv
