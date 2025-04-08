@@ -23,18 +23,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22
-          cache: 'yarn'
+          cache: 'pnpm'
       - run: |
-          yarn -v
-          yarn
+          pnpm --version
+          pnpm install
 
       - name: Lint
         run: |
-          yarn run build
-          yarn run lint
+          pnpm run build
+          pnpm run lint
 
       - name: Audit Production Dependencies
-        run: yarn audit --groups dependencies || true
+        run: pnpm audit --prod || true
 
   test:
     runs-on: ubuntu-22.04
@@ -48,12 +48,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22
-          cache: 'yarn'
+          cache: 'pnpm'
       - run: |
-          yarn -v
-          yarn
+          pnpm --version
+          pnpm install
 
       - name: Test
         run: |
-          yarn build
-          yarn run test
+          pnpm build
+          pnpm run test

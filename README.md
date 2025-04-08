@@ -34,10 +34,10 @@ npm install --save magic-sdk # If you're targeting web browsers
 npm install --save @magic-sdk/react-native-bare # If you're targeting Bare React Native
 npm install --save @magic-sdk/react-native-expo # If you're targeting Expo React Native
 
-# Via Yarn:
-yarn add magic-sdk # If you're targeting web browsers
-yarn add @magic-sdk/react-native-bare # If you're targeting Bare React Native
-yarn add @magic-sdk/react-native-expo # If you're targeting Expo React Native
+# Via pnpm:
+pnpm add magic-sdk # If you're targeting web browsers
+pnpm add @magic-sdk/react-native-bare # If you're targeting Bare React Native
+pnpm add @magic-sdk/react-native-expo # If you're targeting Expo React Native
 ```
 
 Alternatively, you can load via CDN by adding a script tag to your app’s `<head>`:
@@ -97,19 +97,19 @@ These are packages Magic JS SDK uses internally to work seamlessly across platfo
 Run tests for all packages
 
 ```bash
-yarn test
+pnpm test
 ```
 
 Test an individual package
 
 ```bash
-PKG=magic-sdk yarn test
-PKG=@magic-sdk/react-native-bare yarn test
-PKG=@magic-sdk/react-native-expo yarn test
+PKG=magic-sdk pnpm test
+PKG=@magic-sdk/react-native-bare pnpm test
+PKG=@magic-sdk/react-native-expo pnpm test
 ```
 
 Test specific files
 
 ```bash
-yarn test /test/**/constructor.spec.ts
+pnpm test /test/**/constructor.spec.ts
 ```

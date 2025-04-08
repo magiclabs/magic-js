@@ -25,15 +25,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22
-          cache: 'yarn'
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: |
-          yarn -v
-          yarn install --immutable
+          pnpm --version
+          pnpm install --frozen-lockfile
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Upload Build Results
         uses: actions/upload-artifact@v4
@@ -61,12 +61,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22
-          cache: 'yarn'
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: |
-          yarn -v
-          yarn install --immutable
+          pnpm --version
+          pnpm install --frozen-lockfile
 
       - name: Download Build Results
         uses: actions/download-artifact@v4

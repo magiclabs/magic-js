@@ -23,13 +23,14 @@ async function main() {
   }
 
   const args = flatten([
-    '--bin',
+    '--filter',
+    ...PKG.filter((p) => p !== '*').map((p) => p),
+    'exec',
     `${process.env.INIT_CWD}/scripts/bin/wsrun/bin.ts`,
-    ...PKG.filter((p) => p !== '*').map((p) => p && ['-p', p]),
     ...input,
   ]).filter(Boolean);
 
-  await execa('wsrun', args as any, {
+  await execa('pnpm', args as any, {
     stdio: 'inherit',
     env: {
       PKG: PKG.join(','),

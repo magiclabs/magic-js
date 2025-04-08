@@ -14,9 +14,9 @@ Please note we have a **code of conduct**, please follow it in all your interact
 - For features: `feature/[package_name]/[issue_number]/[descriptive_feature_name]`
 - For chores/the rest: `chore/[package_name]/[descriptive_chore_name]`
 
-4. Install & hoist dependencies with Yarn + Lerna: `yarn install`
+4. Install dependencies with pnpm: `pnpm install`
 5. Add `./node_modules/.bin` to your system's [`PATH`](https://en.wikipedia.org/wiki/PATH_(variable)), if it's not already listed.
-6. Start building for development: `yarn build`
+6. Start building for development: `pnpm build`
 
 > Note: There is no hot-reloading development script for now (which sucks, I know). Recently, the build system in Magic JS SDK changed to use a bundler as opposed to delivering TSC-transpiled files. This has complicated the matter of serving a development-specific flow. We will revisit this problem in the future.
 
