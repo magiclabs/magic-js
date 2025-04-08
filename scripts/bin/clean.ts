@@ -11,7 +11,7 @@ const spinner = ora();
 async function abstractCleanFn(patterns: string[]) {
   await Promise.all(
     patterns.map(async (pattern) => {
-      await execa('yarn', ['wsrun:all', '--parallel', '-r', 'rimraf', pattern]);
+      await execa('pnpm', ['wsrun:all', '--parallel', '-r', 'rimraf', pattern]);
     }),
   );
 }
@@ -33,7 +33,7 @@ async function cleanNodeModules() {
 }
 
 const helpText = `
-  Usage: yarn clean [OPTIONS]
+  Usage: pnpm clean [OPTIONS]
 
   Options:
     --cache                   Remove cache files.
