@@ -26,7 +26,7 @@ async function main() {
     '--filter',
     ...PKG.filter((p) => p !== '*').map((p) => p),
     'exec',
-    `${process.env.INIT_CWD}/scripts/bin/wsrun/bin.ts`,
+    `${process.cwd()}/scripts/bin/wsrun/bin.ts`,
     ...input,
   ]).filter(Boolean);
 
