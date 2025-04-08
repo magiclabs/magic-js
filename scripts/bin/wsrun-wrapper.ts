@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node-script
+#!/usr/bin/env ts-node
 
 import execa from 'execa';
 import { flatten } from 'lodash';
@@ -23,13 +23,14 @@ async function main() {
   }
 
   const args = flatten([
-    '--bin',
-    `${process.env.INIT_CWD}/scripts/bin/wsrun/bin.ts`,
-    ...PKG.filter((p) => p !== '*').map((p) => p && ['-p', p]),
+    '--filter',
+    ...PKG.filter((p) => p !== '*').map((p) => p),
+    'exec',
+    `${process.cwd()}/scripts/bin/wsrun/bin.ts`,
     ...input,
   ]).filter(Boolean);
 
-  await execa('wsrun', args as any, {
+  await execa('pnpm', args as any, {
     stdio: 'inherit',
     env: {
       PKG: PKG.join(','),

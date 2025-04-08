@@ -1,0 +1,4 @@
+packages:
+  - 'packages/@magic-ext/*'
+  - 'packages/@magic-sdk/*'
+  - 'packages/magic-sdk'

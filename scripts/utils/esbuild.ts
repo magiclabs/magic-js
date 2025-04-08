@@ -156,6 +156,7 @@ export async function createTemporaryTSConfigFile() {
       // Discard what's configured for "paths" inside the root
       // "tsconfig.settings.json" file.
       paths: {},
+      noImplicitAny: false,
     },
     include: [
       path.join(relativeBaseUrl, 'src/**/*.ts'),
@@ -164,8 +165,14 @@ export async function createTemporaryTSConfigFile() {
     ],
   };
 
-  await fse.ensureDir(path.dirname(tempTSConfigPath));
-  await fse.writeJSON(tempTSConfigPath, configuration, { encoding: 'utf8' });
+  try {
+    await fse.ensureDir(path.dirname(tempTSConfigPath));
+    await fse.writeJSON(tempTSConfigPath, configuration, { encoding: 'utf8' });
+    console.log('Created temporary tsconfig file successfully');
+  } catch (error) {
+    console.error('Error creating temporary tsconfig file:', error);
+    throw error;
+  }
 }
 
 /**

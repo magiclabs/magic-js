@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node-script
+#!/usr/bin/env ts-node
 
 import execa from 'execa';
 import isCI from 'is-ci';
@@ -14,25 +14,42 @@ async function buildPkgs(PKG: string) {
   // We need to limit concurrency in CI to avoid ENOMEM errors.
   const wsrunConcurrency = isCI ? '--serial' : '--stages';
 
-  await execa('yarn', ['wsrun', '-r', wsrunConcurrency, `${process.env.INIT_CWD}/scripts/bin/wsrun/build-package.ts`], {
-    stdio: 'inherit',
-    env: { PKG },
-  })
-    .then(() => console.log())
-    .catch(handleError('Failed to build libraries.'));
+  try {
+    console.log(`Running build for package: ${PKG}`);
+    console.log(`Command: pnpm --filter ${PKG} exec npx ts-node ${process.cwd()}/scripts/bin/wsrun/build-package.ts`);
+    
+    const result = await execa('pnpm', ['--filter', PKG, 'exec', 'npx', 'ts-node', `${process.cwd()}/scripts/bin/wsrun/build-package.ts`], {
+      stdio: 'inherit',
+      env: { PKG, DEBUG: 'true' },
+    });
+    
+    console.log('Build completed successfully');
+    return result;
+  } catch (error) {
+    console.error('Build failed with error:', error);
+    handleError('Failed to build libraries.')(error);
+    throw error;
+  }
 }
 
 async function main() {
-  const PKG = await promptForPackage();
-  const { packages } = await getPackages(PKG);
+  const PKG = process.env.PKG || await promptForPackage();
+  console.log(`Using package: ${PKG}`);
+  
+  try {
+    const { packages } = await getPackages(PKG);
 
-  console.log(`\nFound ${packages.length} packages to build:`);
-  printPackages(packages);
+    console.log(`\nFound ${packages.length} packages to build:`);
+    printPackages(packages);
 
-  console.log(`\nBuilding with the following environment:`);
-  printEnvironment();
+    console.log(`\nBuilding with the following environment:`);
+    printEnvironment();
 
-  await buildPkgs(PKG);
+    await buildPkgs(PKG);
+  } catch (error) {
+    console.error('Error in main build process:', error);
+    throw error;
+  }
 }
 
 runAsyncProcess(main);

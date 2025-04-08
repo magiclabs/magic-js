@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node-script
+#!/usr/bin/env ts-node
 
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable import/no-unresolved */

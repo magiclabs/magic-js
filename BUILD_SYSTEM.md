@@ -2,8 +2,8 @@
 
 This monorepo implements a custom build system using a combination of tools:
 
-- [Yarn](https://yarnpkg.com) (for dependency management)
-- [`wsrun`](https://github.com/hfour/wsrun) (for running workspace scripts)
+- [pnpm](https://pnpm.io) (for dependency management)
+- [pnpm workspaces](https://pnpm.io/workspaces) (for running workspace scripts)
 - [ESBuild](https://esbuild.github.io) (for transpilation, minification, and bundling of source codes)
 - [TypeScript](https://www.typescriptlang.org) (for static typing)
 - [ESLint](https://eslint.org) (for TypeScript/JavaScript linting)
@@ -135,5 +135,5 @@ Monorepos tend to require lots of same-y boilerplate. The most common boilerplat
 Simply run the following command, then answer a few interactive prompts:
 
 ```zsh
-yarn scaffold
+pnpm scaffold
 ```
