@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../../scripts/utils/browser-env';
 import { BCS, TxnBuilderTypes } from 'aptos';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { AptosExtension, MagicAptosWallet } from '../../src';

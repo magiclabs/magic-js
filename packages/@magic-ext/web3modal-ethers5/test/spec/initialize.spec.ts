@@ -1,4 +1,4 @@
-import browserEnv from '@ikscodes/browser-env';
+import browserEnv from '../../../../scripts/utils/browser-env';
 import { Web3ModalExtension } from '../../src/index';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { mockLocalStorage } from '../../../../@magic-sdk/provider/test/mocks';

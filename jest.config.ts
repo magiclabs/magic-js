@@ -31,6 +31,7 @@ const config: Config.InitialOptions = {
     '../../../../../scripts/utils/browser-env': '<rootDir>/scripts/utils/browser-env.ts',
     '../../../../../../../../scripts/utils/browser-env': '<rootDir>/scripts/utils/browser-env.ts',
     '@ikscodes/browser-env': '<rootDir>/scripts/utils/browser-env.ts',
+    '@magic-sdk/types': '<rootDir>/packages/@magic-sdk/types/src',
   },
 };
 
