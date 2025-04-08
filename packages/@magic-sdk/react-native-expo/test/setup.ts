@@ -10,9 +10,6 @@ import { Crypto } from '@peculiar/webcrypto';
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 
-global.requestAnimationFrame = (callback) => setTimeout(callback, 0);
-global.cancelAnimationFrame = (id) => clearTimeout(id);
-
 (global as any).crypto = new Crypto();
 
 browserEnv([
