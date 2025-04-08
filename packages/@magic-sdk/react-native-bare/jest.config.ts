@@ -3,34 +3,14 @@ import type { Config } from '@jest/types';
 
 const config: Config.InitialOptions = {
   ...baseJestConfig,
-  preset: '@testing-library/react-native',
+  preset: 'react-native',
   transform: {
-    '^.+\\.(js|jsx)$': ['babel-jest', { configFile: './babel.config.js' }],
-    '\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    "node_modules/(?!(" +
-    "(jest-)?react-native" +
-    "|react-clone-referenced-element" +
-    "|@react-native-community" +
-    "|@react-native" +
-    "|@react-native/.*" +
-    "|expo(nent)?" +
-    "|@expo(nent)?/.*" +
-    "|react-navigation" +
-    "|@react-navigation/.*" +
-    "|@unimodules/.*" +
-    "|unimodules" +
-    "|sentry-expo" +
-    "|native-base" +
-    "|@sentry/.*" +
-    "|native-base-*))"
+    'node_modules/(?!((react-native|@magic-sdk/provider|@magic-sdk/react-native.*|react-navigation|@react-native|react-native-gesture-handler|react-native-event-listeners)/).*)',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  testEnvironment: 'node',
-  testEnvironmentOptions: {
-    url: 'http://localhost',
-  },
 };
 
 export default config;

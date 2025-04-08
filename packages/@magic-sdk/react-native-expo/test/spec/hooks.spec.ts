@@ -4,7 +4,7 @@ import { useInternetConnection } from '../../src/hooks';
 
 beforeAll(() => {
   // @ts-ignore mock resolved value
-  NetInfo.getCurrentState.mockResolvedValue({
+  NetInfo.fetch.mockResolvedValue({
     type: NetInfoStateType.cellular,
     isConnected: true,
     isInternetReachable: true,

@@ -10,10 +10,6 @@ const config: Config.InitialOptions = {
   },
   transformIgnorePatterns: ['node_modules/(?!(jest-)?react-native|@react-native|expo|@expo|expo-.*)'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  // testEnvironment: 'node',
-  // testEnvironmentOptions: {
-  //   url: 'http://localhost',
-  // },
 };
 
 export default config;
