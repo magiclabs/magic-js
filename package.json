@@ -3,14 +3,14 @@
   "name": "magic-sdk-monorepo",
   "version": "0.0.0",
   "scripts": {
-    "wsrun": "./scripts/bin/wsrun-wrapper.ts",
-    "wsrun:all": "./scripts/bin/wsrun-wrapper.ts --all",
-    "dev": "./scripts/bin/clean.ts && ./scripts/bin/dev.ts",
-    "build": "./scripts/bin/clean.ts && ./scripts/bin/build.ts",
-    "clean": "./scripts/bin/clean.ts",
-    "lint": "./scripts/bin/lint.ts",
-    "test": "./scripts/bin/test.ts",
-    "scaffold": "./scripts/bin/scaffold/run.tsx",
+    "wsrun": "npx ts-node ./scripts/bin/wsrun-wrapper.ts",
+    "wsrun:all": "npx ts-node ./scripts/bin/wsrun-wrapper.ts --all",
+    "dev": "npx ts-node ./scripts/bin/clean.ts && npx ts-node ./scripts/bin/dev.ts",
+    "build": "npx ts-node ./scripts/bin/clean.ts && npx ts-node ./scripts/bin/build.ts",
+    "clean": "npx ts-node ./scripts/bin/clean.ts",
+    "lint": "npx ts-node ./scripts/bin/lint.ts",
+    "test": "npx ts-node ./scripts/bin/test.ts",
+    "scaffold": "npx ts-node ./scripts/bin/scaffold/run.tsx",
     "postinstall": "husky install"
   },
   "devDependencies": {
