@@ -299,6 +299,7 @@ test('Sends payload and standardizes malformed response', async () => {
 
   viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
 
+  //Todo fix this
   expect(true).toBe(true);
 });
 
