@@ -17,7 +17,7 @@ async function main() {
     [cmd, ...args] = args;
   }
 
-  cmd = require(`${process.env.INIT_CWD}/package.json`).scripts[cmd] ?? cmd;
+  cmd = require(`${process.cwd()}/package.json`).scripts[cmd] ?? cmd;
 
   await execa(cmd, args, { stdio: 'inherit' });
 }
