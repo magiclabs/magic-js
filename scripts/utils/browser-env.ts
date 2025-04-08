@@ -1,6 +1,4 @@
-"use strict";
-
-const { JSDOM } = require('jsdom');
+import { JSDOM } from 'jsdom';
 
 /**
  * Creates a browser environment using JSDOM for testing.
@@ -13,36 +11,38 @@ function createBrowserEnv(options = {}) {
     ...options,
   });
   
-  const win = jsdom.window;
+  const win = jsdom.window as unknown as Window & typeof globalThis;
   
-  global.window = win;
-  global.document = win.document;
-  global.navigator = win.navigator;
-  global.location = win.location;
-  global.history = win.history;
-  global.localStorage = win.localStorage;
-  global.sessionStorage = win.sessionStorage;
-  
-  global.HTMLElement = win.HTMLElement;
-  global.Element = win.Element;
-  global.Node = win.Node;
-  global.Event = win.Event;
-  
-  global.atob = win.atob;
-  global.btoa = win.btoa;
-  global.fetch = win.fetch;
-  
-  global.addEventListener = win.addEventListener;
-  global.removeEventListener = win.removeEventListener;
+  Object.assign(global, {
+    window: win,
+    document: win.document,
+    navigator: win.navigator,
+    location: win.location,
+    history: win.history,
+    localStorage: win.localStorage,
+    sessionStorage: win.sessionStorage,
+    
+    HTMLElement: win.HTMLElement,
+    Element: win.Element,
+    Node: win.Node,
+    Event: win.Event,
+    
+    atob: win.atob,
+    btoa: win.btoa,
+    fetch: win.fetch,
+    
+    addEventListener: win.addEventListener,
+    removeEventListener: win.removeEventListener,
+  });
   
   return win;
 }
 
-createBrowserEnv.stub = (path, value) => {
+createBrowserEnv.stub = (path: string | string[], value: any) => {
   const lastInPath = Array.isArray(path) ? path[path.length - 1] : path;
   if (typeof window !== 'undefined' && lastInPath) {
     try {
-      window[lastInPath] = value;
+      (window as any)[lastInPath] = value;
     } catch (error) {
     }
   }
@@ -51,4 +51,4 @@ createBrowserEnv.stub = (path, value) => {
 
 createBrowserEnv.restore = () => window;
 
-module.exports = createBrowserEnv;
+export default createBrowserEnv;
