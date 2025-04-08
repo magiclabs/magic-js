@@ -220,7 +220,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.0.0, @babel/core@npm:^7.12.3, @babel/core@npm:^7.14.0, @babel/core@npm:^7.15.0, @babel/core@npm:^7.9.6":
+"@babel/core@npm:^7.0.0, @babel/core@npm:^7.12.3, @babel/core@npm:^7.14.0, @babel/core@npm:^7.9.6":
   version: 7.21.0
   resolution: "@babel/core@npm:7.21.0"
   dependencies:
@@ -2519,15 +2519,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:~7.10.4":
-  version: 7.10.5
-  resolution: "@babel/runtime@npm:7.10.5"
-  dependencies:
-    regenerator-runtime: ^0.13.4
-  checksum: 498696462c4ee69529ea550783ba4ebdb86d8d7211544ef8598f66d894e054468bafd2118d26488bb800ed5b9f84f0f776ea9e17eb8ad5c1c527058a873ad3a4
-  languageName: node
-  linkType: hard
-
 "@babel/template@npm:^7.0.0, @babel/template@npm:^7.18.10, @babel/template@npm:^7.20.7, @babel/template@npm:^7.3.3, @babel/template@npm:^7.4.0":
   version: 7.20.7
   resolution: "@babel/template@npm:7.20.7"
@@ -4678,11 +4669,8 @@ __metadata:
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
     "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
-    "@babel/core": ^7.15.0
     "@babel/plugin-transform-class-static-block": ^7.26.0
-    "@babel/plugin-transform-flow-strip-types": ^7.14.5
     "@babel/preset-env": ^7.26.9
-    "@babel/runtime": ~7.10.4
     "@magic-sdk/commons": ^25.0.5
     "@magic-sdk/provider": ^29.0.5
     "@magic-sdk/types": ^24.18.1
@@ -4700,13 +4688,12 @@ __metadata:
     localforage: ^1.7.4
     localforage-driver-memory: ^1.0.5
     lodash: ^4.17.19
-    metro-react-native-babel-preset: ^0.66.2
     process: ~0.11.10
     react: ^19.1.0
     react-native: ^0.78.2
     react-native-event-listeners: ^1.0.7
     react-native-safe-area-context: ^4.4.1
-    react-native-webview: ">=12.4.0"
+    react-native-webview: ^13.13.5
     react-test-renderer: ^19.1.0
     tslib: ^2.0.3
     whatwg-url: ~8.1.0
@@ -12271,17 +12258,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"escape-string-regexp@npm:2.0.0, escape-string-regexp@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "escape-string-regexp@npm:2.0.0"
-  checksum: 9f8a2d5743677c16e85c810e3024d54f0c8dea6424fad3c79ef6666e81dd0846f7437f5e729dfcdac8981bc9e5294c39b4580814d114076b8d36318f46ae4395
-  languageName: node
-  linkType: hard
-
 "escape-string-regexp@npm:^1.0.5":
   version: 1.0.5
   resolution: "escape-string-regexp@npm:1.0.5"
   checksum: 6092fda75c63b110c706b6a9bfde8a612ad595b628f0bd2147eea1d3406723020810e591effc7db1da91d80a71a737a313567c5abb3813e8d9c71f4aa595b410
+  languageName: node
+  linkType: hard
+
+"escape-string-regexp@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "escape-string-regexp@npm:2.0.0"
+  checksum: 9f8a2d5743677c16e85c810e3024d54f0c8dea6424fad3c79ef6666e81dd0846f7437f5e729dfcdac8981bc9e5294c39b4580814d114076b8d36318f46ae4395
   languageName: node
   linkType: hard
 
@@ -22076,20 +22063,7 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"react-native-webview@npm:>=12.4.0":
-  version: 13.2.3
-  resolution: "react-native-webview@npm:13.2.3"
-  dependencies:
-    escape-string-regexp: 2.0.0
-    invariant: 2.2.4
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 4b3d14503aa622fc8bbf8b069437af06509bcfa9f2a84654d4904fce4e164132e738a73fc918694d45c14b9f460a05a2ce8389bd7fad21df95bb3b3911046ea7
-  languageName: node
-  linkType: hard
-
-"react-native-webview@npm:^13.3.0":
+"react-native-webview@npm:^13.13.5, react-native-webview@npm:^13.3.0":
   version: 13.13.5
   resolution: "react-native-webview@npm:13.13.5"
   dependencies:
@@ -22563,7 +22537,7 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.13.11, regenerator-runtime@npm:^0.13.2, regenerator-runtime@npm:^0.13.4":
+"regenerator-runtime@npm:^0.13.11, regenerator-runtime@npm:^0.13.2":
   version: 0.13.11
   resolution: "regenerator-runtime@npm:0.13.11"
   checksum: 27481628d22a1c4e3ff551096a683b424242a216fee44685467307f14d58020af1e19660bf2e26064de946bad7eff28950eae9f8209d55723e2d9351e632bbb4
