@@ -14,12 +14,22 @@ async function buildPkgs(PKG: string) {
   // We need to limit concurrency in CI to avoid ENOMEM errors.
   const wsrunConcurrency = isCI ? '--serial' : '--stages';
 
-  await execa('pnpm', ['--filter', PKG, '--recursive', wsrunConcurrency, 'exec', `${process.cwd()}/scripts/bin/wsrun/build-package.ts`], {
-    stdio: 'inherit',
-    env: { PKG },
-  })
-    .then(() => console.log())
-    .catch(handleError('Failed to build libraries.'));
+  try {
+    console.log(`Running build for package: ${PKG}`);
+    console.log(`Command: pnpm --filter ${PKG} --recursive ${wsrunConcurrency} exec ${process.cwd()}/scripts/bin/wsrun/build-package.ts`);
+    
+    const result = await execa('pnpm', ['--filter', PKG, '--recursive', wsrunConcurrency, 'exec', `${process.cwd()}/scripts/bin/wsrun/build-package.ts`], {
+      stdio: 'inherit',
+      env: { PKG, DEBUG: 'true' },
+    });
+    
+    console.log('Build completed successfully');
+    return result;
+  } catch (error) {
+    console.error('Build failed with error:', error);
+    handleError('Failed to build libraries.')(error);
+    throw error;
+  }
 }
 
 async function main() {
