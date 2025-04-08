@@ -11,7 +11,7 @@ async function main() {
   printSeparator('Running tests');
   const args = process.argv.slice(2);
 
-  await execa('pnpm', ['--filter', PKG, 'exec', `${process.env.INIT_CWD}/scripts/bin/wsrun/test:unit.ts`, ...args], {
+  await execa('pnpm', ['--filter', PKG, 'exec', `${process.cwd()}/scripts/bin/wsrun/test:unit.ts`, ...args], {
     stdio: 'inherit',
     env: { PKG },
   });
