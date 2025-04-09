@@ -33,7 +33,6 @@ const web3modalParams = {
 };
 
 test('connectToWeb3modal returns promiEvent', () => {
-  console.log('here');
   const magic = createMagicSDKWithExtension({}, [new Web3ModalExtension(web3modalParams)]);
   expect(isPromiEvent(magic.web3modal.connectToWeb3modal())).toBeTruthy();
 });
