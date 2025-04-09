@@ -17,7 +17,6 @@
   "jsdelivr": "./dist/magic-pnp.js",
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
-    "@babel/runtime": "^7.9.6",
     "@magic-ext/oauth": "^23.0.6",
     "magic-sdk": "^29.0.5"
   },
