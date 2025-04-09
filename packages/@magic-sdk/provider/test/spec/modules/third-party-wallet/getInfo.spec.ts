@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 import { mockLocalStorage } from '../../../mocks';
 import { BaseModule } from '../../../../src/modules/base-module';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   jest.useFakeTimers();
   mockLocalStorage();
 });

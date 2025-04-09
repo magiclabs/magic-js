@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node-script
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable global-require */
+ 
+ 
 
 import React from 'react';
 import { Zombi, Template, Directory, scaffold } from 'zombi';

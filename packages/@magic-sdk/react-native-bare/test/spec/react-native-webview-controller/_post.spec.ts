@@ -1,20 +1,24 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createModalNotReadyError } from '@magic-sdk/provider';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
 import { EventRegister } from 'react-native-event-listeners';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 describe('ReactNativeWebViewController', () => {
   beforeEach(() => {
-    browserEnv.restore();
     reactNativeStyleSheetStub();
     jest.clearAllMocks();
     EventRegister.emit = jest.fn();
     EventRegister.addEventListener = jest.fn();
   });
 
-  test('Calls webView._post with the expected arguments', async () => {
-    const overlay = createReactNativeWebViewController('http://example.com');
+  jest.mock('@react-native-async-storage/async-storage', () => ({
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+}));
+
+test('Calls webView._post with the expected arguments', async () => {
+  const overlay = createReactNativeWebViewController('http://example.com');
 
     const postStub = jest.fn();
     overlay.webView = { postMessage: postStub };
@@ -63,7 +67,17 @@ describe('ReactNativeWebViewController', () => {
     overlay.msgPostedAfterInactivity = () => true;
     await overlay._post({ thisIsData: 'hello world' });
 
-    expect(EventRegister.emit).toBeCalledTimes(1);
+    expect(EventRegister.emit).toHaveBeenCalledTimes(1);
     expect(EventRegister.emit).toHaveBeenCalledWith('msg_posted_after_inactivity_event', { thisIsData: 'hello world' });
   });
 });
+
+test('returns true when more than 5 minutes have passed since the last post', async () => {
+  const controller = createReactNativeWebViewController('http://example.com');
+
+  const sixMinutesAgo = new Date(Date.now() - 6 * 60 * 1000).toISOString();
+  (AsyncStorage.getItem as jest.Mock).mockResolvedValue(sixMinutesAgo);
+  const result = await controller.msgPostedAfterInactivity();
+  expect(result).toBe(true);
+  expect(AsyncStorage.getItem).toHaveBeenCalledWith('lastMessageTime');
+})

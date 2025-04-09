@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { BaseExtension } from '../../../../src/modules/base-extension';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('`baseExtension.init` is no-op if already initialized', () => {

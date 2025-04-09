@@ -1,11 +1,10 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createIframeController } from '../../factories';
 import { IframeController } from '../../../src/iframe-controller';
 
 beforeEach(() => {
-  browserEnv.restore();
-  browserEnv.stub('addEventListener', jest.fn());
-  browserEnv.stub('console.log', jest.fn());
+  jest.restoreAllMocks();
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
+  jest.spyOn(console, 'log').mockImplementation(jest.fn());
 });
 
 test('Change visibility style to `hidden` and opacity to 0', async () => {

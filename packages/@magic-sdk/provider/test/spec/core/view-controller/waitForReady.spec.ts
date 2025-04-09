@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createViewController } from '../../../factories';
 import { MSG_TYPES } from '../../../constants';
 
 beforeEach(() => {
-  browserEnv();
+  jest.resetAllMocks();
 });
 
 test('Receive MAGIC_OVERLAY_READY, resolve `waitForReady` promise', done => {

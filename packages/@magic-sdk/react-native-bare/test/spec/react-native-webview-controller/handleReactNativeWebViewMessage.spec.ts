@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { ENCODED_QUERY_PARAMS } from '../../constants';
 import { createReactNativeWebViewController } from '../../factories';
 
 beforeEach(() => {
-  browserEnv();
+  jest.resetAllMocks();
 });
 
 const TROLL_GOAT = 'https://troll-goat.magic.link';

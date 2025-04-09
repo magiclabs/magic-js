@@ -1,11 +1,10 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicPayloadMethod } from '@magic-sdk/types';
 
 import { isPromiEvent } from '../../../../src/util';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   jest.restoreAllMocks();
 });
 

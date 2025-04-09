@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage, JsonRpcRequestPayload } from '@magic-sdk/types';
 import { createViewController, TestViewController } from '../../../factories';
 import { JsonRpcResponse } from '../../../../src/core/json-rpc';
@@ -42,7 +41,8 @@ function responseEvent(values: { result?: any; error?: any; id?: number; deviceS
  * `ViewController.post` logic).
  */
 function stubViewController(viewController: any, events: [MagicIncomingWindowMessage, any][]) {
-  const timeouts = [];
+   
+  const timeouts: NodeJS.Timeout[] = [];
   const handlerSpy = jest.fn(() => timeouts.forEach(t => t && clearTimeout(t)));
   const onSpy = jest.fn((msgType, handler) => {
     events.forEach((event, i) => {
@@ -61,26 +61,34 @@ function stubViewController(viewController: any, events: [MagicIncomingWindowMes
   return { handlerSpy, onSpy, postSpy };
 }
 
-let createJwtStub;
-let getDecryptedDeviceShareStub;
-let clearDeviceSharesStub;
+let createJwtStub: jest.SpyInstance<Promise<string | undefined>>;
+let getDecryptedDeviceShareStub: jest.SpyInstance<Promise<string | undefined>>;;
+let clearDeviceSharesStub: jest.SpyInstance<Promise<void>>;
 const FAKE_JWT_TOKEN = 'hot tokens';
 const FAKE_DEVICE_SHARE = 'fake device share';
 const FAKE_RT = 'will freshen';
 const FAKE_INJECTED_JWT = 'fake injected jwt';
-let FAKE_STORE: any = {};
+let FAKE_STORE: Record<string, string> = {};
 
 let viewController: TestViewController;
 
 beforeEach(() => {
+  jest.resetAllMocks();
   jest.restoreAllMocks();
   createJwtStub = jest.spyOn(webCryptoUtils, 'createJwt');
   getDecryptedDeviceShareStub = jest.spyOn(deviceShareWebCryptoUtils, 'getDecryptedDeviceShare');
   clearDeviceSharesStub = jest.spyOn(deviceShareWebCryptoUtils, 'clearDeviceShares');
-  jest.spyOn(global.console, 'info').mockImplementation(() => {});
-  browserEnv();
-  browserEnv.stub('addEventListener', jest.fn());
-  jest.spyOn(storage, 'getItem').mockImplementation((key: string) => FAKE_STORE[key]);
+  jest.spyOn(global.console, 'info').mockImplementation(() => { /* noop */ });
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
+  jest.spyOn(storage, 'getItem').mockImplementation((key: string, callback?: (err: unknown, value: unknown) => void) => {
+    const value = FAKE_STORE[key];
+
+    if (callback) {
+      callback(null, value);
+    }
+
+    return Promise.resolve(value);
+  });
   jest.spyOn(storage, 'setItem').mockImplementation(async (key: string, value: any) => {
     FAKE_STORE[key] = value;
   });
@@ -206,7 +214,7 @@ test('Sends payload without rt if no jwt can be made', async () => {
 });
 
 test('Sends payload when web crypto jwt fails', async () => {
-  const consoleErrorStub = jest.spyOn(global.console, 'error').mockImplementationOnce(() => {});
+  const consoleErrorStub = jest.spyOn(global.console, 'error').mockImplementationOnce(() => { /* noop */ });
   createJwtStub.mockRejectedValueOnce('danger');
   FAKE_STORE.rt = FAKE_RT;
 

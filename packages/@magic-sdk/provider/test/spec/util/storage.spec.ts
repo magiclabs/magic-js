@@ -1,13 +1,12 @@
 /* global LocalForageDbMethods */
 
-import browserEnv from '@ikscodes/browser-env';
 import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
 import { mockSDKEnvironmentConstant } from '../../mocks';
 
 beforeEach(() => {
-  browserEnv.restore();
-  browserEnv.stub('console.info', jest.fn()); // Silence LocalForage info logs
+  jest.restoreAllMocks();
+  jest.spyOn(console, 'info').mockImplementation(jest.fn());
   jest.resetModules();
 
   mockSDKEnvironmentConstant({
