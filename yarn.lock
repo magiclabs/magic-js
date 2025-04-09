@@ -204,7 +204,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.13.16, @babel/core@npm:^7.20.0, @babel/core@npm:^7.23.9, @babel/core@npm:^7.24.7, @babel/core@npm:^7.25.2, @babel/core@npm:^7.26.10, @babel/core@npm:^7.9.6":
+"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.13.16, @babel/core@npm:^7.20.0, @babel/core@npm:^7.23.9, @babel/core@npm:^7.24.7, @babel/core@npm:^7.25.2, @babel/core@npm:^7.26.10":
   version: 7.26.10
   resolution: "@babel/core@npm:7.26.10"
   dependencies:
@@ -3622,7 +3622,6 @@ __metadata:
     "@magic-sdk/types": ^24.18.1
     eventemitter3: ^4.0.4
     localforage: ^1.7.4
-    localforage-driver-memory: ^1.0.5
     tslib: ^2.3.1
   peerDependencies:
     localforage: ^1.7.4
@@ -3634,7 +3633,6 @@ __metadata:
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
   dependencies:
     "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
-    "@babel/core": ^7.26.10
     "@babel/plugin-transform-class-static-block": ^7.26.0
     "@magic-sdk/commons": ^25.0.5
     "@magic-sdk/provider": ^29.0.5
@@ -3646,7 +3644,6 @@ __metadata:
     "@types/lodash": ^4.14.158
     buffer: ~5.6.0
     localforage: ^1.7.4
-    localforage-driver-memory: ^1.0.5
     lodash: ^4.17.19
     process: ~0.11.10
     react: ~19.1.0
@@ -3675,7 +3672,6 @@ __metadata:
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
     "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
-    "@babel/core": ^7.26.10
     "@babel/plugin-transform-class-static-block": ^7.26.0
     "@babel/preset-env": ^7.26.9
     "@magic-sdk/commons": ^25.0.5
@@ -3693,7 +3689,6 @@ __metadata:
     expo-modules-core: ^2.2.3
     jest-expo: ~52.0.6
     localforage: ^1.7.4
-    localforage-driver-memory: ^1.0.5
     lodash: ^4.17.19
     process: ~0.11.10
     react: ^19.1.0
@@ -14799,6 +14794,7 @@ __metadata:
     jest-environment-jsdom: ^29.7.0
     lerna: 8.0.2
     lint-staged: ^10.0.7
+    localforage-driver-memory: ^1.0.5
     lodash: ^4.17.21
     meow: 9.0.0
     npm-run-all: ^4.1.5
@@ -14824,13 +14820,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
-    "@babel/core": ^7.9.6
-    "@babel/plugin-proposal-optional-chaining": ^7.9.0
     "@magic-sdk/commons": ^25.0.5
     "@magic-sdk/provider": ^29.0.5
     "@magic-sdk/types": ^24.18.1
     localforage: ^1.7.4
-    localforage-driver-memory: ^1.0.5
   languageName: unknown
   linkType: soft
 

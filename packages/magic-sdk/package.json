@@ -34,10 +34,5 @@
     "@magic-sdk/types": "^24.18.1",
     "localforage": "^1.7.4"
   },
-  "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/plugin-proposal-optional-chaining": "^7.9.0",
-    "localforage-driver-memory": "^1.0.5"
-  },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
 }
