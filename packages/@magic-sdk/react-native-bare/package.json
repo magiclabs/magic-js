@@ -30,6 +30,7 @@
     "process": "~0.11.10",
     "react-native-device-info": "^10.3.0",
     "react-native-event-listeners": "^1.0.7",
+    "regenerator-runtime": "0.13.9",
     "tslib": "^2.0.3",
     "whatwg-url": "~8.1.0"
   },
