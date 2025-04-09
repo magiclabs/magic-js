@@ -26,7 +26,6 @@
     "buffer": "~5.6.0",
     "expo-application": "^5.0.1",
     "localforage": "^1.7.4",
-    "localforage-driver-memory": "^1.0.5",
     "lodash": "^4.17.19",
     "process": "~0.11.10",
     "react-native-event-listeners": "^1.0.7",
@@ -34,7 +33,6 @@
     "whatwg-url": "~8.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.10",
     "@babel/plugin-transform-class-static-block": "^7.26.0",
     "@babel/preset-env": "^7.26.9",
     "@react-native-community/netinfo": ">11.0.0",
@@ -48,7 +46,8 @@
     "react-native": "^0.78.2",
     "react-native-safe-area-context": "^5.3.0",
     "react-native-webview": "^13.13.5",
-    "react-test-renderer": "^19.1.0"
+    "react-test-renderer": "^19.1.0",
+    "regenerator-runtime": "0.13.9"
   },
   "peerDependencies": {
     "@react-native-community/netinfo": ">=9.0.0",

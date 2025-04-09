@@ -17,6 +17,7 @@ export default [
       'scripts/bin/scaffold/template/**/*',
       '**/.prettierrc.js',
       '**/README.md',
+      '**/babel.config.js',
     ],
   },
   {
