@@ -28,7 +28,6 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.9.6",
-    "@peculiar/webcrypto": "^1.1.7",
     "localforage": "^1.7.4",
     "localforage-driver-memory": "^1.0.5",
     "tslib": "^2.3.1"

@@ -3,27 +3,12 @@ import type { Config } from '@jest/types';
 
 const config: Config.InitialOptions = {
   ...baseJestConfig,
-  preset: '@testing-library/react-native',
+  preset: 'jest-expo',
   transform: {
     '^.+\\.(js|jsx)$': 'babel-jest',
     '\\.(ts|tsx)$': 'ts-jest',
   },
-  transformIgnorePatterns: [
-    "node_modules/(" +
-    "?!(jest-)?react-native" +
-    "|react-clone-referenced-element" +
-    "|@react-native-community" +
-    "|expo(nent)?" +
-    "|@expo(nent)?/.*" +
-    "|react-navigation" +
-    "|@react-navigation/.*" +
-    "|@unimodules/.*" +
-    "|unimodules" +
-    "|sentry-expo" +
-    "|native-base" +
-    "|@sentry/.*" +
-    "|native-base-*)"
-  ],
+  transformIgnorePatterns: ['node_modules/(?!(jest-)?react-native|@react-native|expo|@expo|expo-.*)'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
 

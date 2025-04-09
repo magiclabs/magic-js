@@ -1,6 +1,5 @@
 // import { DeepLinkPage } from '@magic-sdk/types/src/core/deep-link-pages';
-import { DeepLinkPage } from '../../../../../types/src/core/deep-link-pages';
-
+import { DeepLinkPage } from '../../../../../types';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { isPromiEvent } from '../../../../src/util';
 
