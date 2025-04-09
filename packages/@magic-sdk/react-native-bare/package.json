@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native-bare",
-  "version": "29.19.1",
+  "version": "30.0.6",
   "description": "Passwordless authentication for React Native (Bare).",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -18,10 +18,10 @@
   "types": "./dist/types/index.d.ts",
   "dependencies": {
     "@aveq-research/localforage-asyncstorage-driver": "^3.0.1",
-    "@magic-sdk/commons": "^24.18.1",
-    "@magic-sdk/provider": "^28.18.1",
-    "@magic-sdk/types": "^24.16.1",
-    "@react-native-async-storage/async-storage": "^1.15.5",
+    "@magic-sdk/commons": "^25.0.5",
+    "@magic-sdk/provider": "^29.0.5",
+    "@magic-sdk/types": "^24.18.1",
+    "@react-native-async-storage/async-storage": "^2.1.2",
     "@types/lodash": "^4.14.158",
     "buffer": "~5.6.0",
     "localforage": "^1.7.4",
@@ -34,18 +34,17 @@
     "whatwg-url": "~8.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
+    "@babel/core": "^7.25.2",
     "@babel/plugin-transform-flow-strip-types": "^7.14.5",
-    "@babel/runtime": "~7.10.4",
-    "@react-native-async-storage/async-storage": "^1.15.5",
+    "@babel/runtime": "^7.25.0",
     "@react-native-community/netinfo": ">11.0.0",
     "@testing-library/react-native": "^12.4.0",
     "metro-react-native-babel-preset": "^0.66.2",
-    "react": "^16.13.1",
-    "react-native": "^0.62.2",
+    "react": "~19.0.0",
+    "react-native": "~0.78.1",
     "react-native-device-info": "^10.3.0",
-    "react-native-safe-area-context": "^4.4.1",
-    "react-native-webview": "^12.4.0",
+    "react-native-safe-area-context": "5.3.0",
+    "react-native-webview": "^13.3.0",
     "react-test-renderer": "^16.13.1"
   },
   "peerDependencies": {

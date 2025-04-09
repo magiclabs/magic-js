@@ -9,5 +9,10 @@ beforeEach(() => {
 test('`MagicSDK.preload` awaits `MagicSDK.overlay.ready`', async () => {
   const magic = createMagicSDK();
   magic.preload();
+  expect(magic.overlay.waitForReady).toBeCalledTimes(2);
+});
+
+test('`MagicSDK.preload` awaits `MagicSDK.overlay.ready`', async () => {
+  const magic = createMagicSDK();
   expect(magic.overlay.waitForReady).toBeCalledTimes(1);
 });

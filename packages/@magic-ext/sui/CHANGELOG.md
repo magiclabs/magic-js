@@ -1,3 +1,41 @@
+# v1.0.4 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v0.21.0 (Wed Jan 08 2025)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-web3modal ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v0.20.0 (Wed Dec 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-530-wallet-connect-login-with-redirect ([@Ethella](https://github.com/Ethella))
+- resolve conflict ([@Ethella](https://github.com/Ethella))
+- * resolve conflict ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v0.19.1 (Thu Dec 05 2024)
 
 #### 🐛 Bug Fix

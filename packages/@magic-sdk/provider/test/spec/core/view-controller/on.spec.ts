@@ -4,7 +4,7 @@ import { createViewController } from '../../../factories';
 /**
  * We start with 3 listeners whenever a `ViewController` is created.
  */
-const baselineListeners = 4;
+const baselineListeners = 3;
 
 test('Adds the event listener callback to the internal state', () => {
   const viewController = createViewController();

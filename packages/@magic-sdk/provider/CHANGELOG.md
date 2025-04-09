@@ -1,3 +1,164 @@
+# v29.0.5 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- remove web3 dependencies [#871](https://github.com/magiclabs/magic-js/pull/871) ([@Ethella](https://github.com/Ethella))
+- remove web3 dependencies ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.4 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- add iframe.contentWindow check [#870](https://github.com/magiclabs/magic-js/pull/870) ([@Ethella](https://github.com/Ethella))
+- fix tests ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+- add iframe.contentWindow check ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.3 (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+- add more tests ([@Ethella](https://github.com/Ethella))
+- fix tests coverage ([@Ethella](https://github.com/Ethella))
+- fix tests ([@Ethella](https://github.com/Ethella))
+- only apply heartbeat check to web ([@Ethella](https://github.com/Ethella))
+- fix ([@Ethella](https://github.com/Ethella))
+- extract util function ([@Ethella](https://github.com/Ethella))
+- Fix Extension typing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.2 (Sat Mar 22 2025)
+
+#### 🐛 Bug Fix
+
+- implement checkIframeExists [#863](https://github.com/magiclabs/magic-js/pull/863) ([@Ethella](https://github.com/Ethella))
+- update Error message ([@Ethella](https://github.com/Ethella))
+- update comments ([@Ethella](https://github.com/Ethella))
+- Add new errors to catch modal being missing ([@Ethella](https://github.com/Ethella))
+- add console.log ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.1 (Thu Mar 06 2025)
+
+#### 🐛 Bug Fix
+
+- remove 15s auto success [#861](https://github.com/magiclabs/magic-js/pull/861) ([@Ethella](https://github.com/Ethella))
+- remove test ([@Ethella](https://github.com/Ethella))
+- remove 15s auto success ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.0 (Mon Mar 03 2025)
+
+#### 💥 Breaking Change
+
+- Remove deprecated methods [#857](https://github.com/magiclabs/magic-js/pull/857) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- chore: fix deepsource ([@joshuascan](https://github.com/joshuascan))
+- chore: removes deprecated wallet methods ([@joshuascan](https://github.com/joshuascan))
+- chore: remove user.getMetadata ([@joshuascan](https://github.com/joshuascan))
+- revert manual bump ([@joshuascan](https://github.com/joshuascan))
+- chore: bump provider version number ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v28.20.0 (Wed Jan 08 2025)
+
+#### 🚀 Enhancement
+
+- add web3modal extension [#742](https://github.com/magiclabs/magic-js/pull/742) ([@hcote](https://github.com/hcote) [@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- fix: issuer ([@hcote](https://github.com/hcote))
+- address comment ([@hcote](https://github.com/hcote))
+- fix: test coverage ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into hcote-web3modal ([@hcote](https://github.com/hcote))
+- re-add localstragekeys enum ([@hcote](https://github.com/hcote))
+- fix: types does not have export yet ([@hcote](https://github.com/hcote))
+- update localstoragekeys to enum ([@hcote](https://github.com/hcote))
+- remove polyfills ([@hcote](https://github.com/hcote))
+- update web3modal package ([@hcote](https://github.com/hcote))
+- add intermediary events for nft.checkout ([@hcote](https://github.com/hcote))
+- nft checkout update ([@hcote](https://github.com/hcote))
+- Jayhwang nft checkout [#744](https://github.com/magiclabs/magic-js/pull/744) ([@octave08](https://github.com/octave08) jay.hwang@magic.link)
+- fix tests ([@hcote](https://github.com/hcote))
+- pluralize thirdpartywallets & update to web3modal canary version for status ([@hcote](https://github.com/hcote))
+- update import ([@hcote](https://github.com/hcote))
+- temp: remove reference to ThirdPartyWallets ([@hcote](https://github.com/hcote))
+- update ls key names ([@hcote](https://github.com/hcote))
+- fix deepsource lint errors ([@hcote](https://github.com/hcote))
+- update tests ([@hcote](https://github.com/hcote))
+- remove old tests ([@hcote](https://github.com/hcote))
+- update isConnected initialization ([@hcote](https://github.com/hcote))
+- make param optional ([@hcote](https://github.com/hcote))
+- add connectWIthUI options param ([@hcote](https://github.com/hcote))
+- dont route nftCheckout to 3pw ([@hcote](https://github.com/hcote))
+- move all logic to thirdpartywallet module ([@hcote](https://github.com/hcote))
+- add returns to fns routing to tpw methods ([@hcote](https://github.com/hcote))
+- fix logout on disconnect ([@hcote](https://github.com/hcote))
+- typing updates ([@hcote](https://github.com/hcote))
+- move override methods to thirdpartywallet module ([@hcote](https://github.com/hcote))
+- remove unused vars ([@hcote](https://github.com/hcote))
+- add web3modal extension ([@hcote](https://github.com/hcote))
+
+#### Authors: 3
+
+- Gyujeong Hwang ([@octave08](https://github.com/octave08))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jay Hwang (jay.hwang@magic.link)
+
+---
+
+# v28.19.0 (Wed Dec 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-530-wallet-connect-login-with-redirect ([@Ethella](https://github.com/Ethella))
+- resolve conflict ([@Ethella](https://github.com/Ethella))
+- * resolve conflict ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-530-wallet-connect-login-with-redirect ([@mattupham](https://github.com/mattupham))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # v28.18.1 (Thu Dec 05 2024)
 
 #### 🐛 Bug Fix

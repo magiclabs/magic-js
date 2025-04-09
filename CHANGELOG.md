@@ -1,3 +1,173 @@
+# (Thu Apr 03 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@30.0.6`
+  - Rn bare [#872](https://github.com/magiclabs/magic-js/pull/872) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.0.5`
+  - remove web3 dependencies [#871](https://github.com/magiclabs/magic-js/pull/871) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.0.4`, `@magic-sdk/react-native-bare@30.0.4`, `@magic-sdk/react-native-expo@30.0.4`, `magic-sdk@29.0.4`
+  - add iframe.contentWindow check [#870](https://github.com/magiclabs/magic-js/pull/870) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/aptos@12.0.3`, `@magic-sdk/provider@29.0.3`, `@magic-sdk/react-native-bare@30.0.3`, `@magic-sdk/react-native-expo@30.0.3`, `magic-sdk@29.0.3`
+  - Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Mon Mar 24 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@23.0.3`, `@magic-ext/oauth2@11.0.2`, `@magic-ext/react-native-bare-oauth@26.0.3`, `@magic-ext/react-native-expo-oauth@26.0.3`
+  - bump crypto-js [#864](https://github.com/magiclabs/magic-js/pull/864) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Sat Mar 22 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.0.2`, `@magic-sdk/types@24.18.1`, `magic-sdk@29.0.2`
+  - implement checkIframeExists [#863](https://github.com/magiclabs/magic-js/pull/863) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Tue Mar 11 2025)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@11.0.0`
+  - add skipDIDToken to magic.oauth.getRedirectResult [#862](https://github.com/magiclabs/magic-js/pull/862) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Mar 06 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.0.1`
+  - remove 15s auto success [#861](https://github.com/magiclabs/magic-js/pull/861) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Mon Mar 03 2025)
+
+#### 💥 Breaking Change
+
+- Increase major version [#856](https://github.com/magiclabs/magic-js/pull/856) ([@joshuascan](https://github.com/joshuascan))
+- Major version bump [#854](https://github.com/magiclabs/magic-js/pull/854) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-sdk/pnp@23.0.0`, `@magic-sdk/provider@29.0.0`
+  - Remove deprecated methods [#857](https://github.com/magiclabs/magic-js/pull/857) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Mon Feb 03 2025)
+
+#### 🐛 Bug Fix
+
+- chore: migrate upload-artifact to v4 [#852](https://github.com/magiclabs/magic-js/pull/852) ([@joshuascan](https://github.com/joshuascan))
+- `magic-sdk@28.21.1`
+  - fix: unable to scroll on ios safari [#851](https://github.com/magiclabs/magic-js/pull/851) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Wed Jan 08 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/web3modal-ethers5@0.2.0`, `@magic-sdk/provider@28.20.0`, `@magic-sdk/types@24.18.0`
+  - add web3modal extension [#742](https://github.com/magiclabs/magic-js/pull/742) ([@hcote](https://github.com/hcote) [@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@28.20.0`, `@magic-sdk/types@24.18.0`
+  - Jayhwang nft checkout [#744](https://github.com/magiclabs/magic-js/pull/744) ([@octave08](https://github.com/octave08) jay.hwang@magic.link)
+
+#### Authors: 3
+
+- Gyujeong Hwang ([@octave08](https://github.com/octave08))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jay Hwang (jay.hwang@magic.link)
+
+---
+
+# (Wed Dec 25 2024)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/farcaster@0.19.0`, `@magic-sdk/types@24.17.0`
+  - add cancel event to farcaster [#846](https://github.com/magiclabs/magic-js/pull/846) ([@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- `@magic-ext/oauth2@9.20.0`
+  - add shouldReturnURI to configuration [#723](https://github.com/magiclabs/magic-js/pull/723) ([@mattupham](https://github.com/mattupham) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # (Wed Dec 11 2024)
 
 #### 🚀 Enhancement

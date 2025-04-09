@@ -1,10 +1,4 @@
 #!/usr/bin/env ts-node-script
-
-/* eslint-disable import/no-dynamic-require */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable global-require */
-
 import pLimit from 'p-limit';
 import isCI from 'is-ci';
 import { build, createTemporaryTSConfigFile, emitTypes } from '../../utils/esbuild';
@@ -18,7 +12,7 @@ function getExternalsFromPkgJson(pkgJson: any): string[] {
 
   const defaultExternals = [...dependencies, ...peerDependencies, ...includes];
 
-  return defaultExternals.filter((dep) => !excludes.includes(dep));
+  return defaultExternals.filter(dep => !excludes.includes(dep));
 }
 
 async function cjs(watch?: boolean) {
@@ -109,12 +103,26 @@ async function main() {
   await createTemporaryTSConfigFile();
 
   if (process.env.DEV_SERVER) {
-    const builders = [cjs(true), esm(true), cdn(true), reactNativeBareHybridExtension(true), reactNativeExpoHybridExtension(true), emitTypes(true)];
+    const builders = [
+      cjs(true),
+      esm(true),
+      cdn(true),
+      reactNativeBareHybridExtension(true),
+      reactNativeExpoHybridExtension(true),
+      emitTypes(true),
+    ];
     await Promise.all(builders);
   } else {
     // We need to limit concurrency in CI to avoid ENOMEM errors.
     const limit = pLimit(isCI ? 2 : 4);
-    const builders = [limit(cjs), limit(esm), limit(cdn), limit(reactNativeBareHybridExtension), limit(reactNativeExpoHybridExtension), limit(emitTypes)];
+    const builders = [
+      limit(cjs),
+      limit(esm),
+      limit(cdn),
+      limit(reactNativeBareHybridExtension),
+      limit(reactNativeExpoHybridExtension),
+      limit(emitTypes),
+    ];
     await Promise.all(builders);
   }
 }

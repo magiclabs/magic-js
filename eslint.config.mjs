@@ -15,7 +15,8 @@ export default [
       '**/dist',
       '**/jest.config.ts',
       'scripts/bin/scaffold/template/**/*',
-      '.prettierrc.js',
+      '**/.prettierrc.js',
+      '**/README.md',
     ],
   },
   {
@@ -41,6 +42,7 @@ export default [
     files: ['**/*.ts', '**/*.tsx'],
 
     rules: {
+      'no-undef': 0,
       'no-alert': 'off',
       'no-dupe-class-members': 'off',
       'no-underscore-dangle': 'off',

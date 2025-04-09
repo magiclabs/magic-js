@@ -4,6 +4,7 @@ import {
   MagicIncomingWindowMessage,
   MagicPayloadMethod,
   IntermediaryEvents,
+  routeToMagicMethods,
 } from '@magic-sdk/types';
 import { createMalformedResponseError, MagicRPCError } from '../core/sdk-exceptions';
 import type { SDKBase } from '../core/sdk';
@@ -26,6 +27,13 @@ export class BaseModule {
    * Emits promisified requests to the Magic `<iframe>` context.
    */
   protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
+    if (this.sdk.thirdPartyWallets.isConnected && !routeToMagicMethods.includes(payload.method as MagicPayloadMethod)) {
+      const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
+        this.sdk.thirdPartyWallets.requestOverride(payload).then(resolve).catch(reject);
+      });
+      return promiEvent;
+    }
+
     const responsePromise = this.overlay.post<ResultType>(
       MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
       standardizeJsonRpcRequestPayload(payload),
@@ -34,13 +42,13 @@ export class BaseModule {
     // PromiEvent-ify the response.
     const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
       responsePromise
-        .then((res) => {
+        .then(res => {
           cleanupEvents();
           if (res.hasError) reject(new MagicRPCError(res.payload.error));
           else if (res.hasResult) resolve(res.payload.result as ResultType);
           else throw createMalformedResponseError();
         })
-        .catch((err) => {
+        .catch(err => {
           cleanupEvents();
           reject(err);
         });
@@ -48,7 +56,7 @@ export class BaseModule {
 
     // Listen for events from the `<iframe>` associated with the current payload
     // and emit those to `PromiEvent` subscribers.
-    const cleanupEvents = this.overlay.on(MagicIncomingWindowMessage.MAGIC_HANDLE_EVENT, (evt) => {
+    const cleanupEvents = this.overlay.on(MagicIncomingWindowMessage.MAGIC_HANDLE_EVENT, evt => {
       const { response } = evt.data;
 
       if (response.id === payload.id && response.result?.event) {

@@ -41,7 +41,7 @@ function responseEvent(values: { result?: any; error?: any; id?: number; deviceS
  * `ViewController.post` logic).
  */
 function stubViewController(viewController: any, events: [MagicIncomingWindowMessage, any][]) {
-  // eslint-disable-next-line no-undef
+   
   const timeouts: NodeJS.Timeout[] = [];
   const handlerSpy = jest.fn(() => timeouts.forEach(t => t && clearTimeout(t)));
   const onSpy = jest.fn((msgType, handler) => {
@@ -95,6 +95,7 @@ beforeEach(() => {
   SDKEnvironment.platform = 'web';
   viewController = createViewController('asdf');
   viewController.isReadyForRequest = true;
+  viewController.checkRelayerExistsInDOM = jest.fn(() => Promise.resolve(true));
 });
 
 afterEach(() => {
@@ -337,4 +338,25 @@ test('Sends a batch payload and resolves with multiple responses', async () => {
     new JsonRpcResponse(response2.data.response),
     new JsonRpcResponse(response3.data.response),
   ]);
+});
+
+test('When iframe is lost, re-init iframe and keep posting messages', async () => {
+  createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
+  viewController.checkRelayerExistsInDOM = jest.fn(() => Promise.resolve(false));
+  viewController.reloadRelayer = jest.fn(() => Promise.resolve(undefined));
+  viewController.waitForReady = jest.fn(() => Promise.resolve(undefined));
+
+  const { handlerSpy, onSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
+  const payload = requestPayload();
+
+  const response = await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, payload);
+
+  expect(onSpy.mock.calls[0][0]).toBe(MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE);
+  expect(viewController.isReadyForRequest).toBe(false);
+  expect(viewController.reloadRelayer).toBeCalledTimes(1);
+  expect(viewController.waitForReady).toBeCalledTimes(1);
+  expect(handlerSpy).toBeCalledTimes(1);
+  expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
 });

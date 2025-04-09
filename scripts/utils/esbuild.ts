@@ -200,7 +200,7 @@ export async function getSizeInfo(code: string, filename: string) {
 
   const formatSize = (size: number, type: 'gz' | 'br') => {
     const pretty = raw ? `${size} B` : prettyBytes(size);
-    // eslint-disable-next-line no-nested-ternary
+     
     const color = size < 5000 ? chalk.green : size > 40000 ? chalk.red : chalk.yellow;
     return `${color(pretty)}: ${chalk.white(path.basename(filename))}.${type}`;
   };

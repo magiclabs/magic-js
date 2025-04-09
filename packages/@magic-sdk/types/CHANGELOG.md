@@ -1,3 +1,72 @@
+# v24.18.1 (Sat Mar 22 2025)
+
+#### 🐛 Bug Fix
+
+- implement checkIframeExists [#863](https://github.com/magiclabs/magic-js/pull/863) ([@Ethella](https://github.com/Ethella))
+- update Error message ([@Ethella](https://github.com/Ethella))
+- Add new errors to catch modal being missing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v24.18.0 (Wed Jan 08 2025)
+
+#### 🚀 Enhancement
+
+- add web3modal extension [#742](https://github.com/magiclabs/magic-js/pull/742) ([@hcote](https://github.com/hcote) [@octave08](https://github.com/octave08))
+
+#### 🐛 Bug Fix
+
+- address comment ([@hcote](https://github.com/hcote))
+- fix: deepsource ([@hcote](https://github.com/hcote))
+- type duplication fix ([@hcote](https://github.com/hcote))
+- Merge branch 'master' into hcote-web3modal ([@hcote](https://github.com/hcote))
+- update localstoragekeys to enum ([@hcote](https://github.com/hcote))
+- update web3modal package ([@hcote](https://github.com/hcote))
+- yarn.lock ([@hcote](https://github.com/hcote))
+- add intermediary events for nft.checkout ([@hcote](https://github.com/hcote))
+- Jayhwang nft checkout [#744](https://github.com/magiclabs/magic-js/pull/744) ([@octave08](https://github.com/octave08) jay.hwang@magic.link)
+- pluralize thirdpartywallets & update to web3modal canary version for status ([@hcote](https://github.com/hcote))
+- fix deepsource lint errors ([@hcote](https://github.com/hcote))
+- remove old tests ([@hcote](https://github.com/hcote))
+- add connectWIthUI options param ([@hcote](https://github.com/hcote))
+- dont route nftCheckout to 3pw ([@hcote](https://github.com/hcote))
+- typing updates ([@hcote](https://github.com/hcote))
+- add web3modal extension ([@hcote](https://github.com/hcote))
+
+#### Authors: 3
+
+- Gyujeong Hwang ([@octave08](https://github.com/octave08))
+- Hunter Cote ([@hcote](https://github.com/hcote))
+- Jay Hwang (jay.hwang@magic.link)
+
+---
+
+# v24.17.0 (Wed Dec 25 2024)
+
+#### 🚀 Enhancement
+
+- add cancel event to farcaster [#846](https://github.com/magiclabs/magic-js/pull/846) ([@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- add cancel event to farcaster ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into PDEEXP-530-wallet-connect-login-with-redirect ([@Ethella](https://github.com/Ethella))
+- resolve conflict ([@Ethella](https://github.com/Ethella))
+- * resolve conflict ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-530-wallet-connect-login-with-redirect ([@mattupham](https://github.com/mattupham))
+
+#### Authors: 3
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # v24.16.1 (Thu Dec 05 2024)
 
 #### 🐛 Bug Fix

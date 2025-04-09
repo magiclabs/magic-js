@@ -1,3 +1,86 @@
+# v11.0.4 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v11.0.2 (Mon Mar 24 2025)
+
+#### 🐛 Bug Fix
+
+- bump crypto-js [#864](https://github.com/magiclabs/magic-js/pull/864) ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into bump-cryptojs ([@Ethella](https://github.com/Ethella))
+- bump crypto-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v11.0.0 (Tue Mar 11 2025)
+
+#### 💥 Breaking Change
+
+- add skipDIDToken to magic.oauth.getRedirectResult [#862](https://github.com/magiclabs/magic-js/pull/862) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- change the name returnPublicAddress to skipDIDToken ([@Ethella](https://github.com/Ethella))
+- make returnPublicAddress optional ([@Ethella](https://github.com/Ethella))
+- add return public address ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v9.21.0 (Wed Jan 08 2025)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-web3modal ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v9.20.0 (Wed Dec 25 2024)
+
+#### 🚀 Enhancement
+
+- add shouldReturnURI to configuration [#723](https://github.com/magiclabs/magic-js/pull/723) ([@mattupham](https://github.com/mattupham) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- improve code ([@Ethella](https://github.com/Ethella))
+- revert change ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into PDEEXP-530-wallet-connect-login-with-redirect ([@Ethella](https://github.com/Ethella))
+- revert changes ([@Ethella](https://github.com/Ethella))
+- resolve conflict ([@Ethella](https://github.com/Ethella))
+- * fix deepsource ([@Ethella](https://github.com/Ethella))
+- * add optional query ([@Ethella](https://github.com/Ethella))
+- * resolve conflict ([@Ethella](https://github.com/Ethella))
+- Add optional str to OAuth 2 ([@mattupham](https://github.com/mattupham))
+- Merge branch 'master' into PDEEXP-530-wallet-connect-login-with-redirect ([@mattupham](https://github.com/mattupham))
+- add redirect to OAuth v2 ([@mattupham](https://github.com/mattupham))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # v9.19.0 (Wed Dec 11 2024)
 
 #### 🚀 Enhancement

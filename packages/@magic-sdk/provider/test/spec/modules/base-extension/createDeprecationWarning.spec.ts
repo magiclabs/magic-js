@@ -1,12 +1,13 @@
 import { MagicExtensionWarning } from '../../../../src/core/sdk-exceptions';
-import { Extension } from '../../../../src/modules/base-extension';
+import { BaseExtension, Extension } from '../../../../src/modules/base-extension';
 
 beforeEach(() => {
   jest.resetAllMocks();
 });
 
 test('Creates a `DEPRECATION_NOTICE` warning without `useInstead` suffix', async () => {
-  const baseExtension = new (Extension as any)();
+  // @ts-ignore
+  const baseExtension = new BaseExtension();
 
   const expectedWarning = new MagicExtensionWarning(
     baseExtension,
@@ -24,7 +25,8 @@ test('Creates a `DEPRECATION_NOTICE` warning without `useInstead` suffix', async
 });
 
 test('Creates a `DEPRECATION_NOTICE` warning with `useInstead` suffix', async () => {
-  const baseExtension = new (Extension as any)();
+  // @ts-ignore
+  const baseExtension = new BaseExtension();
 
   const expectedWarning = new MagicExtensionWarning(
     baseExtension,

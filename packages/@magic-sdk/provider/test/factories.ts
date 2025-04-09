@@ -1,8 +1,9 @@
 import * as memoryDriver from 'localforage-driver-memory';
 import localForage from 'localforage';
 import { MAGIC_RELAYER_FULL_URL, ENCODED_QUERY_PARAMS, TEST_API_KEY, TEST_NETWORK_HASH } from './constants';
-import { ViewController } from '../src';
+import { MagicExtensionWarning, ViewController } from '../src';
 import type { SDKEnvironment } from '../src/core/sdk-environment';
+import { BaseExtension } from '../src/modules/base-extension';
 
 export class TestViewController extends ViewController {
   public init() {
@@ -24,6 +25,8 @@ export class TestViewController extends ViewController {
   public showOverlay = jest.fn();
   public hideOverlay = jest.fn();
   public _post = jest.fn();
+  public checkRelayerExistsInDOM = jest.fn();
+  public reloadRelayer = jest.fn();
 }
 
 export function createViewController(endpoint = MAGIC_RELAYER_FULL_URL) {
@@ -70,4 +73,13 @@ export function createMagicSDKTestMode(environment: { [P in keyof SDKEnvironment
 export function createMagicSDKWithExtension(environment: { [P in keyof SDKEnvironment]?: any } = {}, extensions:unknown[] = []) {
   const Ctor = createMagicSDKCtor(environment);
   return new Ctor(TEST_API_KEY, { extensions });
+}
+
+export class ConcreteExtension extends BaseExtension<'concrete'> {
+  public readonly name = 'concrete';
+
+  // Expose the protected method for testing purposes.
+  public testCreateWarning(code: string | number, message: string): MagicExtensionWarning {
+    return this.createWarning(code, message);
+  }
 }

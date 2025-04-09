@@ -1,4 +1,4 @@
-import { Extension } from '../../../../src/modules/base-extension';
+import { BaseExtension } from '../../../../src/modules/base-extension';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
@@ -7,7 +7,8 @@ beforeEach(() => {
 
 test('`baseExtension.init` is no-op if already initialized', () => {
   const sdk = createMagicSDK();
-  const baseExtension = new (Extension as any)();
+  // @ts-ignore
+  const baseExtension = new BaseExtension();
 
   baseExtension.init(sdk);
   expect(baseExtension.sdk).toBe(sdk);

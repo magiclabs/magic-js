@@ -1,7 +1,7 @@
 import { JsonRpcError, RPCErrorCode, SDKErrorCode, SDKWarningCode } from '@magic-sdk/types';
 import { isJsonRpcErrorCode } from '../util/type-guards';
 import { SDKEnvironment } from './sdk-environment';
-import { Extension } from '../modules/base-extension';
+import { BaseExtension } from '../modules/base-extension';
 
 // --- Error/warning classes
 
@@ -13,7 +13,10 @@ import { Extension } from '../modules/base-extension';
 export class MagicSDKError extends Error {
   __proto__ = Error;
 
-  constructor(public code: SDKErrorCode, public rawMessage: string) {
+  constructor(
+    public code: SDKErrorCode,
+    public rawMessage: string,
+  ) {
     super(`Magic SDK Error: [${code}] ${rawMessage}`);
     Object.setPrototypeOf(this, MagicSDKError.prototype);
   }
@@ -51,7 +54,10 @@ export class MagicRPCError extends Error {
 export class MagicSDKWarning {
   public message: string;
 
-  constructor(public code: SDKWarningCode, public rawMessage: string) {
+  constructor(
+    public code: SDKWarningCode,
+    public rawMessage: string,
+  ) {
     this.message = `Magic SDK Warning: [${code}] ${rawMessage}`;
   }
 
@@ -71,7 +77,12 @@ export class MagicSDKWarning {
 export class MagicExtensionError<TData = any> extends Error {
   __proto__ = Error;
 
-  constructor(ext: Extension<string>, public code: string | number, public rawMessage: string, public data: TData) {
+  constructor(
+    ext: BaseExtension<string>,
+    public code: string | number,
+    public rawMessage: string,
+    public data: TData,
+  ) {
     super(`Magic Extension Error (${ext.name}): [${code}] ${rawMessage}`);
     Object.setPrototypeOf(this, MagicExtensionError.prototype);
   }
@@ -85,7 +96,11 @@ export class MagicExtensionError<TData = any> extends Error {
 export class MagicExtensionWarning {
   public message: string;
 
-  constructor(ext: Extension<string>, public code: string | number, public rawMessage: string) {
+  constructor(
+    ext: BaseExtension<string>,
+    public code: string | number,
+    public rawMessage: string,
+  ) {
     this.message = `Magic Extension Warning (${ext.name}): [${code}] ${rawMessage}`;
   }
 
@@ -107,7 +122,7 @@ export function createMissingApiKeyError() {
 }
 
 export function createModalNotReadyError() {
-  return new MagicSDKError(SDKErrorCode.ModalNotReady, 'Modal is not ready.');
+  return new MagicSDKError(SDKErrorCode.ModalNotReady, 'Modal is not ready');
 }
 
 export function createMalformedResponseError() {
@@ -121,12 +136,12 @@ export function createExtensionNotInitializedError(member: string) {
   );
 }
 
-export function createIncompatibleExtensionsError(extensions: Extension<string>[]) {
+export function createIncompatibleExtensionsError(extensions: BaseExtension<string>[]) {
   let msg = `Some extensions are incompatible with \`${SDKEnvironment.sdkName}@${SDKEnvironment.version}\`:`;
 
   extensions
-    .filter((ext) => typeof ext.compat !== 'undefined' && ext.compat !== null)
-    .forEach((ext) => {
+    .filter(ext => typeof ext.compat !== 'undefined' && ext.compat !== null)
+    .forEach(ext => {
       const compat = ext.compat![SDKEnvironment.sdkName];
 
       /* istanbul ignore else */

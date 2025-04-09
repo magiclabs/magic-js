@@ -1,3 +1,63 @@
+# v23.0.5 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v23.0.3 (Mon Mar 24 2025)
+
+#### 🐛 Bug Fix
+
+- bump crypto-js [#864](https://github.com/magiclabs/magic-js/pull/864) ([@Ethella](https://github.com/Ethella))
+- address deepsource suggestion ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into bump-cryptojs ([@Ethella](https://github.com/Ethella))
+- bump crypto-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.20.0 (Wed Jan 08 2025)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-web3modal ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v22.19.0 (Wed Dec 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-530-wallet-connect-login-with-redirect ([@Ethella](https://github.com/Ethella))
+- revert change ([@Ethella](https://github.com/Ethella))
+- revert changes ([@Ethella](https://github.com/Ethella))
+- resolve conflict ([@Ethella](https://github.com/Ethella))
+- * fix deepsource ([@Ethella](https://github.com/Ethella))
+- * resolve conflict ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-530-wallet-connect-login-with-redirect ([@mattupham](https://github.com/mattupham))
+- add optional queryString ([@mattupham](https://github.com/mattupham))
+- add redirect to OAuth v2 ([@mattupham](https://github.com/mattupham))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # v22.18.1 (Thu Dec 05 2024)
 
 #### 🐛 Bug Fix

@@ -285,4 +285,15 @@ export class ReactNativeWebViewController extends ViewController {
       throw createModalNotReadyError();
     }
   }
+
+  // Todo - implement these methods
+  /* istanbul ignore next */
+  protected checkRelayerExistsInDOM(): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+
+  /* istanbul ignore next */
+  protected reloadRelayer(): Promise<void> {
+    return Promise.resolve(undefined);
+  }
 }

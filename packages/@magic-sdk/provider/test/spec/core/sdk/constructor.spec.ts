@@ -106,11 +106,6 @@ test('Initialize `MagicSDK` with test mode', () => {
   expect(magic.rpcProvider instanceof RPCProviderModule).toBe(true);
 });
 
-class NoopExtNoConfig extends Extension<'noop'> {
-  name = 'noop' as const;
-  helloWorld() {}
-}
-
 class NoopExtWithConfig extends Extension.Internal<'noop'> {
   name = 'noop' as const;
   config = { hello: 'world' };
@@ -123,7 +118,7 @@ class NoopExtWithEmptyConfig extends Extension.Internal<'noop'> {
   helloWorld() {}
 }
 
-class NoopExtSupportingWeb extends Extension<'noop'> {
+class NoopExtSupportingWeb extends Extension.Internal<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': '>1.0.0',
@@ -131,10 +126,11 @@ class NoopExtSupportingWeb extends Extension<'noop'> {
     '@magic-sdk/react-native-bare': false,
     '@magic-sdk/react-native-expo': false,
   };
+  config = {};
   helloWorld() {}
 }
 
-class NoopExtSupportingBareReactNative extends Extension<'noop'> {
+class NoopExtSupportingBareReactNative extends Extension.Internal<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
@@ -142,10 +138,11 @@ class NoopExtSupportingBareReactNative extends Extension<'noop'> {
     '@magic-sdk/react-native-bare': '>1.0.0',
     '@magic-sdk/react-native-expo': false,
   };
+  config = {};
   helloWorld() {}
 }
 
-class NoopExtSupportingExpoReactNative extends Extension<'noop'> {
+class NoopExtSupportingExpoReactNative extends Extension.Internal<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
@@ -153,16 +150,9 @@ class NoopExtSupportingExpoReactNative extends Extension<'noop'> {
     '@magic-sdk/react-native-bare': false,
     '@magic-sdk/react-native-expo': '>1.0.0',
   };
+  config = {};
   helloWorld() {}
 }
-
-test('Initialize `MagicSDK` with config-less extensions via array', () => {
-  const Ctor = createMagicSDKCtor();
-  const magic = new Ctor(TEST_API_KEY, { extensions: [new NoopExtNoConfig()] });
-
-  assertEncodedQueryParams(magic.parameters);
-  expect(magic.noop instanceof NoopExtNoConfig).toBe(true);
-});
 
 test('Initialize `MagicSDK` with config-ful extensions via array (non-empty config)', () => {
   const Ctor = createMagicSDKCtor();
@@ -182,15 +172,6 @@ test('Initialize `MagicSDK` with config-ful extensions via array (empty config)'
   assertEncodedQueryParams(magic.parameters);
 
   expect(magic.noop instanceof NoopExtWithEmptyConfig).toBe(true);
-});
-
-test('Initialize `MagicSDK` with config-less extensions via dictionary', () => {
-  const Ctor = createMagicSDKCtor();
-  const magic = new Ctor(TEST_API_KEY, { extensions: { foobar: new NoopExtNoConfig() } });
-
-  assertEncodedQueryParams(magic.parameters);
-
-  expect(magic.foobar instanceof NoopExtNoConfig).toBe(true);
 });
 
 test('Initialize `MagicSDK` with config-ful extensions via dictionary (non-empty config)', () => {

@@ -1,3 +1,76 @@
+# v30.0.6 (Thu Apr 03 2025)
+
+#### 🐛 Bug Fix
+
+- Rn bare [#872](https://github.com/magiclabs/magic-js/pull/872) ([@Ethella](https://github.com/Ethella))
+- skip RN test ([@Ethella](https://github.com/Ethella))
+- fix React-native SDK ([@Ethella](https://github.com/Ethella))
+- bump rn ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v30.0.4 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- add iframe.contentWindow check [#870](https://github.com/magiclabs/magic-js/pull/870) ([@Ethella](https://github.com/Ethella))
+- fix tests ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+- add iframe.contentWindow check ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v30.0.3 (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+- fix tests coverage ([@Ethella](https://github.com/Ethella))
+- fix ([@Ethella](https://github.com/Ethella))
+- Fix Extension typing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.21.0 (Wed Jan 08 2025)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-web3modal ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v29.20.0 (Wed Dec 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-530-wallet-connect-login-with-redirect ([@Ethella](https://github.com/Ethella))
+- resolve conflict ([@Ethella](https://github.com/Ethella))
+- * resolve conflict ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-530-wallet-connect-login-with-redirect ([@mattupham](https://github.com/mattupham))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
 # v29.19.1 (Thu Dec 05 2024)
 
 #### 🐛 Bug Fix

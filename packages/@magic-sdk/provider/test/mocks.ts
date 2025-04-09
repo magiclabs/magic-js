@@ -42,3 +42,26 @@ export function mockLocalForage(FAKE_STORE: Record<string, unknown> = {}) {
     FAKE_STORE[key] = null;
   });
 }
+
+export function mockLocalStorage() {
+  const ls = {};
+  const localStorageMock = {
+    getItem: jest.fn((key) => ls[key]),
+    setItem: jest.fn((key, value) => {
+      ls[key] = value.toString();
+    }),
+    removeItem: jest.fn((key) => {
+      ls[key] = undefined;
+    }),
+    clear: jest.fn(() => {
+      Object.keys(ls).forEach((key) => {
+        ls[key] = undefined;
+      });
+    }),
+  };
+
+  Object.defineProperty(window, 'localStorage', {
+    value: localStorageMock,
+    writable: true,
+  });
+}
