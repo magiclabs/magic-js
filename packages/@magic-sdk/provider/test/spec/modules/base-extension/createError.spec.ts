@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicExtensionError } from '../../../../src/core/sdk-exceptions';
 import { BaseExtension, Extension } from '../../../../src/modules/base-extension';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Creates a `MagicExtensionError`', () => {

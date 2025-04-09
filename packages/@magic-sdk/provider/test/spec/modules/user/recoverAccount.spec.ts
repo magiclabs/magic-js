@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { isPromiEvent } from '../../../../src';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Generate JSON RPC request payload with method `magic_auth_recover_account`', async () => {
@@ -37,7 +36,7 @@ test('method should return a PromiEvent', () => {
 
 test('method should create intermediary event on cancel', () => {
   const magic = createMagicSDK();
-  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.user.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -51,7 +50,7 @@ test('method should create intermediary event on cancel', () => {
 
 test('method should create intermediary event on ResendSms', () => {
   const magic = createMagicSDK();
-  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.user.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -65,7 +64,7 @@ test('method should create intermediary event on ResendSms', () => {
 
 test('method should create intermediary event on VerifyOtp', () => {
   const magic = createMagicSDK();
-  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.user.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -79,7 +78,7 @@ test('method should create intermediary event on VerifyOtp', () => {
 
 test('method should create intermediary event on UpdateEmail', () => {
   const magic = createMagicSDK();
-  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.user.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -93,7 +92,7 @@ test('method should create intermediary event on UpdateEmail', () => {
 
 test('method should create intermediary event on UpdateEmailEventEmit.Cancel', () => {
   const magic = createMagicSDK();
-  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.user.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -107,7 +106,7 @@ test('method should create intermediary event on UpdateEmailEventEmit.Cancel', (
 
 test('method should create intermediary event on RetryWithNewEmail', () => {
   const magic = createMagicSDK();
-  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.user.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -121,7 +120,7 @@ test('method should create intermediary event on RetryWithNewEmail', () => {
 
 test('method should create intermediary event on VerifyEmailOtp', () => {
   const magic = createMagicSDK();
-  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.user.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.user.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 

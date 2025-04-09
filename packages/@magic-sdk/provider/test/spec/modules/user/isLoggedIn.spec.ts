@@ -1,11 +1,10 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { isPromiEvent, storage } from '../../../../src/util';
 import { mockLocalForage } from '../../../mocks';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Resolves immediately when cached magic_auth_is_logged_in is true', async () => {

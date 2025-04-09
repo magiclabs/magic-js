@@ -1,11 +1,10 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicPayloadMethod } from '@magic-sdk/types';
 
 import { isPromiEvent } from '../../../../src/util';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   jest.restoreAllMocks();
 });
 
@@ -14,6 +13,7 @@ const expectedPhoneNumber = 'hey hey I am a number but jk';
 test('Generates JSON RPC request payload with `phone` parameter', async () => {
   const magic = createMagicSDK();
   magic.auth.request = jest.fn();
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
 
   await magic.auth.loginWithSMS({ phoneNumber: expectedPhoneNumber, showUI: false });
 
@@ -25,6 +25,7 @@ test('Generates JSON RPC request payload with `phone` parameter', async () => {
 
 test('If `testMode` is enabled, testing-specific RPC method is used', async () => {
   const magic = createMagicSDKTestMode();
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   magic.auth.request = jest.fn();
 
   await magic.auth.loginWithSMS({ phoneNumber: expectedPhoneNumber, showUI: false });
@@ -38,7 +39,7 @@ test('If `testMode` is enabled, testing-specific RPC method is used', async () =
 
 test('Generates JSON RPC pending for otp-input-sent', () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -58,5 +59,7 @@ test('Generates JSON RPC pending for otp-input-sent', () => {
 
 test('method should return a PromiEvent', () => {
   const magic = createMagicSDK();
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
+
   expect(isPromiEvent(magic.auth.loginWithSMS({ email: 'blag' }))).toBeTruthy();
 });

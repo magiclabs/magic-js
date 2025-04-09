@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 import { createPromiEvent } from '../../../../src/util';
 import { NftCheckoutIntermediaryEvents, NftCheckoutEventHandler } from '../../../../../types/src/modules/nft-types';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('checkout method should return a PromiEvent', async () => {

@@ -10,7 +10,7 @@ import {
   getDecryptedDeviceShare,
 } from '../../../src/util/device-share-web-crypto';
 
-let FAKE_STORE = {};
+let FAKE_STORE: Record<string, unknown> = {};
 const FAKE_NETWORK_HASH = 'network_hash';
 
 const FAKE_PLAINTEXT_SHARE = `AQICAHg1y7j1UY7sfTib6h9cN2Kh7v0WhCRwQxEPhGAQ2m5OgQGrJvUP6MKiuj9yD96y6B4eAAABPzCCATsGCSqGSIb3DQEHBqCCASwwggEoAgEAMIIBIQYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAy6tbGg/6//2IJs9xUCARCAgfOY3knm1i2kGjLXQFoqEjOeLr/UGwHQ+AW1y20UoCX3ght68egu06Hg54JF/mCGgSDt7R7dFSOuGvapE9OEyFYz4f1+tpWb5PPaLReBRTTTfw/8Xgsfzl6iXACsLKqyXEeWci+/vOWDLqu73E0uy5StyN5InZLwHCJe4l+KMEr5C7JZvobQh4NVBT5SqgQXmLGXGGH/2ydkq8zkgVGDT9jQlqqpUH83UMFQwHSwbJRRyYLxBwQKTO0AODfqk5OnWRA+BoDC8HMFyQUb4nS+BgDlgTgL7Kg/H/Echr+SlQKJdWJnvf3BjSBwO8z5kVpxRo5xwG4=`;
@@ -53,23 +53,23 @@ test('encryptAndPersistDeviceShare should return undefined if webcrypto is unsup
 });
 
 test('encryptAndPersistDeviceShare should return undefined if no device share found', async () => {
-  await encryptAndPersistDeviceShare(undefined, FAKE_NETWORK_HASH);
+  await encryptAndPersistDeviceShare(undefined as unknown as string, FAKE_NETWORK_HASH);
   expect(FAKE_STORE).toEqual({});
 });
 
 test('encryptAndPersistDeviceShare should persist encrypted device share when store doesnt have existing iv and encryption key', async () => {
   (window as any).crypto.subtle = {
-    generateKey: (input, extractable, scope) => Promise.resolve(FAKE_ENCRYPTION_KEY),
-    encrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
+    generateKey: () => Promise.resolve(FAKE_ENCRYPTION_KEY),
+    encrypt: () => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
 
   await encryptAndPersistDeviceShare(FAKE_PLAINTEXT_SHARE, FAKE_NETWORK_HASH);
-  expect((FAKE_STORE as any).ds_network_hash).toEqual(FAKE_ENCRYPTED_DEVICE_SHARE);
+  expect(FAKE_STORE.ds_network_hash).toEqual(FAKE_ENCRYPTED_DEVICE_SHARE);
 });
 
 test('encryptAndPersistDeviceShare should persist encrypted device share when store has existing iv and encryption key', async () => {
   (window as any).crypto.subtle = {
-    encrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
+    encrypt: () => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
 
   FAKE_STORE[INITIALIZATION_VECTOR_KEY] = FAKE_IV;
@@ -83,7 +83,7 @@ test('encryptAndPersistDeviceShare should persist encrypted device share when st
 
 test('getDecryptedDeviceShare should return undefined if no existing iv string found in storage', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
+    decrypt: () => Promise.resolve(base64ToArrayBuffer(FAKE_ENCRYPTED_DEVICE_SHARE)),
   };
 
   FAKE_STORE[INITIALIZATION_VECTOR_KEY] = null;
@@ -93,7 +93,7 @@ test('getDecryptedDeviceShare should return undefined if no existing iv string f
 
 test('getDecryptedDeviceShare should return undefined if store has existing iv and ek but no device share', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
+    decrypt: () => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
 
   FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = null;
@@ -107,7 +107,7 @@ test('getDecryptedDeviceShare should return undefined if store has existing iv a
 
 test('getDecryptedDeviceShare returns decrypted device share if iv encryption key and device share are in storage', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
+    decrypt: () => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
 
   FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = FAKE_ENCRYPTED_DEVICE_SHARE;
@@ -122,7 +122,7 @@ test('getDecryptedDeviceShare returns decrypted device share if iv encryption ke
 
 test('clearDeviceShares should successfully clear device shares', async () => {
   (window as any).crypto.subtle = {
-    decrypt: (input) => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
+    decrypt: () => Promise.resolve(base64ToArrayBuffer(FAKE_DECRYPTED_DEVICE_SHARE)),
   };
 
   FAKE_STORE[`${DEVICE_SHARE_KEY}_${FAKE_NETWORK_HASH}`] = FAKE_ENCRYPTED_DEVICE_SHARE;

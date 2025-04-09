@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicExtensionWarning } from '../../../../src/core/sdk-exceptions';
 import { ConcreteExtension } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Creates a `MagicExtensionWarning`', () => {

@@ -1,9 +1,8 @@
-import browserEnv from '@ikscodes/browser-env';
 import { ViewController } from '../../../../src/core/view-controller';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   (ViewController as any).prototype.waitForReady = jest.fn().mockImplementation(() => Promise.resolve());
 });
 

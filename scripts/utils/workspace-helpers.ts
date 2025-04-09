@@ -81,7 +81,7 @@ export async function getPackages(pkgQuery: string) {
 
     const nextDependencies = workspace.workspaceDependencies
       .map((location) => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+         
         return workspaces.find((ws) => ws.location === location);
       })
       .filter(Boolean) as YarnWorkspace[];
