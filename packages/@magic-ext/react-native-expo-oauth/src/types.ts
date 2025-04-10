@@ -3,6 +3,7 @@ import { MagicUserMetadata } from '@magic-sdk/types';
 export enum OAuthPayloadMethods {
   ParseRedirectResult = 'magic_oauth_parse_redirect_result',
   Start = 'magic_oauth_login_with_redirect_start',
+  Verify = 'magic_oauth_login_with_redirect_verify',
 }
 
 export type OAuthProvider =

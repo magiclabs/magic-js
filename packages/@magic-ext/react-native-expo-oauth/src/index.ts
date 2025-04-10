@@ -8,6 +8,7 @@ import {
   OAuthRedirectConfiguration,
   OAuthRedirectError,
   OAuthRedirectResult,
+  OAuthRedirectStartResult,
 } from './types';
 
 export class OAuthExtension extends Extension.Internal<'oauth'> {
@@ -155,10 +156,12 @@ export function getResult(this: OAuthExtension, queryString: string) {
     // Remove the save OAuth state from storage, it stays in memory now...
     this.utils.storage.removeItem(OAUTH_REDIRECT_METADATA_KEY);
 
-    const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.ParseRedirectResult, [
-      queryString,
-      verifier,
-      state,
+    const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
+      {
+        authorizationResponseParams: queryString,
+        magicApiKey: this.sdk.apiKey,
+        platform: 'rn',
+      },
     ]);
 
     // Parse the result, which may contain an OAuth-formatted error.
