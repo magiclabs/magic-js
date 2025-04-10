@@ -34,7 +34,6 @@
     "whatwg-url": "~8.1.0"
   },
   "devDependencies": {
-    "@babel/plugin-transform-class-static-block": "^7.26.0",
     "@react-native-community/netinfo": ">11.0.0",
     "@react-native/babel-preset": "^0.79.0",
     "@testing-library/react-native": "^13.2.0",
