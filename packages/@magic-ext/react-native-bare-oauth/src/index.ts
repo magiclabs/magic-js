@@ -48,6 +48,55 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
       }
     });
   }
+
+  public loginWithPopupV2(configuration: OAuthRedirectConfiguration) {
+    return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
+      try {
+        const startPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
+          {
+            ...configuration,
+            apiKey: this.sdk.apiKey,
+            platform: 'rn',
+          },
+        ]);
+
+        const result = await this.request<OAuthRedirectStartResult | OAuthRedirectError>(startPayload);
+        const successResult = result as OAuthRedirectStartResult;
+        const errorResult = result as OAuthRedirectError;
+
+        if (errorResult.error) {
+          reject(
+            this.createError<OAuthErrorData>(errorResult.error, errorResult.error_description ?? 'An error occurred.', {
+              errorURI: errorResult.error_uri,
+              provider: errorResult.provider,
+            }),
+          );
+          return;
+        }
+
+        if (!successResult?.oauthAuthoriationURI) {
+          reject(this.createError<object>('NO_AUTH_URI', 'No authorization URI was returned', {}));
+          return;
+        }
+
+        const url = successResult.oauthAuthoriationURI;
+        const res = await InAppBrowser.openAuth(url, configuration.redirectURI, {});
+
+        if (res.type === 'success') {
+          const queryString = new URL(res.url).search;
+          resolve(getResult.call(this, queryString.toString()));
+        } else {
+          reject(this.createError<object>(res.type, 'User has cancelled the authentication', {}));
+        }
+      } catch (err: any) {
+        reject(
+          this.createError<object>(err.message, 'An error has occurred', {
+            err,
+          }),
+        );
+      }
+    });
+  }
 }
 
 const OAUTH_REDIRECT_METADATA_KEY = 'oauth_redirect_metadata';
