@@ -1,10 +1,7 @@
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
-
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   jest.restoreAllMocks();
 });
 

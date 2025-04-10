@@ -15,7 +15,9 @@ export default [
       '**/dist',
       '**/jest.config.ts',
       'scripts/bin/scaffold/template/**/*',
-      '.prettierrc.js',
+      '**/.prettierrc.js',
+      '**/README.md',
+      '**/babel.config.js',
     ],
   },
   {
@@ -41,6 +43,7 @@ export default [
     files: ['**/*.ts', '**/*.tsx'],
 
     rules: {
+      'no-undef': 0,
       'no-alert': 'off',
       'no-dupe-class-members': 'off',
       'no-underscore-dangle': 'off',
@@ -70,6 +73,15 @@ export default [
           directory: ['**/tsconfig.json'],
         },
       },
+    },
+  },
+  {
+    files: ['**/*.spec.*'],
+
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/naming-convention': 'off',
+      '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off',
     },
   },
 ];

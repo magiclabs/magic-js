@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { ConnectWithUiEvents, ThirdPartyWalletEvents } from '@magic-sdk/types';
 import { createPromiEvent } from '../../../../src/util';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Generate JSON RPC request payload with method `mc_login`', async () => {

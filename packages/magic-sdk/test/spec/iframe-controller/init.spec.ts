@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { IframeController } from '../../../src/iframe-controller';
 import { ENCODED_QUERY_PARAMS, MAGIC_RELAYER_FULL_URL } from '../../constants';
 import { createIframeController } from '../../factories';
@@ -34,19 +33,19 @@ function createOverlayElementsStub() {
 }
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.restoreAllMocks();
   (IframeController.prototype as any).listen = jest.fn();
 });
 
 test('Appends header with style, appends body with iframe, and resolves iframe', async () => {
   const { appendChildStub, classListAddStub, createElementStub } = createOverlayElementsStub();
 
-  browserEnv.stub('addEventListener', jest.fn());
-  browserEnv.stub('removeEventListener', jest.fn());
-  browserEnv.stub('document.querySelectorAll', () => ({ length: 0 }));
-  browserEnv.stub('document.createElement', createElementStub);
-  browserEnv.stub('document.readyState', 'loaded');
-  browserEnv.stub('document.body.appendChild', appendChildStub);
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
+  jest.spyOn(global, 'removeEventListener').mockImplementation(jest.fn());
+  jest.spyOn(document, 'querySelectorAll').mockReturnValue({ length: 0 } as unknown as NodeListOf<Element>);
+  jest.spyOn(document, 'createElement').mockImplementation(createElementStub);
+  jest.spyOn(document, 'readyState', 'get').mockReturnValue('complete');
+  jest.spyOn(document.body, 'appendChild').mockImplementation(appendChildStub);
 
   const overlay = createIframeController();
   const iframe = await (overlay as any).iframe;
@@ -63,12 +62,12 @@ test('Appends header with style, appends body with iframe, and resolves iframe',
 test('Displays warning in console upon duplicate iframes', async () => {
   const { appendChildStub, createElementStub } = createOverlayElementsStub();
 
-  browserEnv.stub('addEventListener', jest.fn());
-  browserEnv.stub('removeEventListener', jest.fn());
-  browserEnv.stub('document.querySelectorAll', () => [{ src: ENCODED_QUERY_PARAMS }]);
-  browserEnv.stub('document.createElement', createElementStub);
-  browserEnv.stub('document.readyState', 'loaded');
-  browserEnv.stub('document.body.appendChild', appendChildStub);
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
+  jest.spyOn(global, 'removeEventListener').mockImplementation(jest.fn());
+  jest.spyOn(document, 'querySelectorAll').mockReturnValue([{ src: ENCODED_QUERY_PARAMS }] as unknown as NodeListOf<Element>);
+  jest.spyOn(document, 'createElement').mockImplementation(createElementStub);
+  jest.spyOn(document, 'readyState', 'get').mockReturnValue('complete');
+  jest.spyOn(document.body, 'appendChild').mockImplementation(appendChildStub);
 
   const consoleWarnStub = jest.spyOn(console, 'warn').mockImplementation();
 
@@ -80,12 +79,12 @@ test('Displays warning in console upon duplicate iframes', async () => {
 test('Waits until `document` is loaded/ready', async () => {
   const { appendChildStub, createElementStub } = createOverlayElementsStub();
 
-  browserEnv.stub('addEventListener', jest.fn());
-  browserEnv.stub('removeEventListener', jest.fn());
-  browserEnv.stub('document.querySelectorAll', () => ({ length: 0 }));
-  browserEnv.stub('document.createElement', createElementStub);
-  browserEnv.stub('document.readyState', 'initializing');
-  browserEnv.stub('document.body.appendChild', appendChildStub);
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
+  jest.spyOn(global, 'removeEventListener').mockImplementation(jest.fn());
+  jest.spyOn(document, 'querySelectorAll').mockReturnValue({ length: 0 } as unknown as NodeListOf<Element>);
+  jest.spyOn(document, 'createElement').mockImplementation(createElementStub);
+  jest.spyOn(document, 'readyState', 'get').mockReturnValue('loading');
+  jest.spyOn(document.body, 'appendChild').mockImplementation(appendChildStub);
 
   createIframeController();
 
@@ -96,12 +95,12 @@ test('Assumes the iframe is not yet initialized if `src` is `undefined`', async 
   const { classListAddStub, createElementStub } = createOverlayElementsStub();
   const appendChildStub = jest.fn();
 
-  browserEnv.stub('addEventListener', jest.fn());
-  browserEnv.stub('removeEventListener', jest.fn());
-  browserEnv.stub('document.querySelectorAll', () => ({ length: 0 }));
-  browserEnv.stub('document.createElement', createElementStub);
-  browserEnv.stub('document.readyState', 'loaded');
-  browserEnv.stub('document.body.appendChild', appendChildStub);
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
+  jest.spyOn(global, 'removeEventListener').mockImplementation(jest.fn());
+  jest.spyOn(document, 'querySelectorAll').mockReturnValue({ length: 0 } as unknown as NodeListOf<Element>);
+  jest.spyOn(document, 'createElement').mockImplementation(createElementStub);
+  jest.spyOn(document, 'readyState', 'get').mockReturnValue('complete');
+  jest.spyOn(document.body, 'appendChild').mockImplementation(appendChildStub);
 
   const overlay = createIframeController();
   const iframe = await (overlay as any).iframe;
@@ -116,8 +115,8 @@ test('Assumes the iframe is not yet initialized if `src` is `undefined`', async 
 
 test('Adds `message` event listener', () => {
   const addEventListenerStub = jest.fn();
-  browserEnv.stub('addEventListener', addEventListenerStub);
-  browserEnv.stub('removeEventListener', jest.fn());
+  jest.spyOn(global, 'addEventListener').mockImplementation(addEventListenerStub);
+  jest.spyOn(global, 'removeEventListener').mockImplementation(jest.fn());
 
   createIframeController();
 
@@ -125,8 +124,8 @@ test('Adds `message` event listener', () => {
 });
 
 test('Ignores events with different origin than expected', done => {
-  browserEnv.stub('addEventListener', jest.fn());
-  browserEnv.stub('removeEventListener', jest.fn());
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
+  jest.spyOn(global, 'removeEventListener').mockImplementation(jest.fn());
 
   const viewController = createIframeController('http://asdf');
   const onHandlerStub = jest.fn();
@@ -141,8 +140,8 @@ test('Ignores events with different origin than expected', done => {
 });
 
 test('Ignores events with undefined `data` attribute', done => {
-  browserEnv.stub('addEventListener', jest.fn());
-  browserEnv.stub('removeEventListener', jest.fn());
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
+  jest.spyOn(global, 'removeEventListener').mockImplementation(jest.fn());
 
   const viewController = createIframeController();
   const onHandlerStub = jest.fn();
@@ -157,8 +156,8 @@ test('Ignores events with undefined `data` attribute', done => {
 });
 
 test('Ignores events with undefined `data.msgType`', done => {
-  browserEnv.stub('addEventListener', jest.fn());
-  browserEnv.stub('removeEventListener', jest.fn());
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
+  jest.spyOn(global, 'removeEventListener').mockImplementation(jest.fn());
 
   const viewController = createIframeController();
   const onHandlerStub = jest.fn();
@@ -188,7 +187,7 @@ test('Executes events where `messageHandlers` size is > 0', done => {
 });
 
 test('Ignores events where `messageHandlers` size is === 0', done => {
-  browserEnv.stub('location', new URL(MAGIC_RELAYER_FULL_URL));
+  jest.spyOn(global, 'location', 'get').mockImplementation(() => new URL(MAGIC_RELAYER_FULL_URL) as unknown as Location);
 
   const viewController = createIframeController();
   (viewController as any).endpoint = ''; // Force `event.origin` and `this.endpoint` to be equivalent
@@ -202,7 +201,7 @@ test('Ignores events where `messageHandlers` size is === 0', done => {
 });
 
 test('Ignores events where `event.origin` and `this.endpoint` are not equivalent', done => {
-  browserEnv.stub('location', new URL(MAGIC_RELAYER_FULL_URL));
+  jest.spyOn(global, 'location', 'get').mockImplementation(() => new URL(MAGIC_RELAYER_FULL_URL) as unknown as Location);
 
   const viewController = createIframeController();
   (viewController as any).messageHandlers = { size: 0 };

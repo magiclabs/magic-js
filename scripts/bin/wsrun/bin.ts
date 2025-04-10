@@ -1,9 +1,5 @@
 #!/usr/bin/env ts-node-script
 
-/* eslint-disable global-require */
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable import/no-dynamic-require */
-
 import execa from 'execa';
 import { runAsyncProcess } from '../../utils/run-async-process';
 

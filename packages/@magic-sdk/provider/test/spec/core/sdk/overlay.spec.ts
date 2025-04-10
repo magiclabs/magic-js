@@ -1,11 +1,10 @@
-import browserEnv from '@ikscodes/browser-env';
 import { TEST_API_KEY } from '../../../constants';
 import { ViewController } from '../../../../src/core/view-controller';
 import { createMagicSDKCtor } from '../../../factories';
 import { SDKBase } from '../../../../src/core/sdk';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('`MagicSDK.overlay` is lazy loaded', async () => {

@@ -7,6 +7,7 @@ const config: Config.InitialOptions = {
   collectCoverageFrom: ['./src/**/*.{ts,tsx,}'],
   collectCoverage: true,
   testTimeout: 30000, // 30s
+  testEnvironment: 'jsdom',
   coverageThreshold: {
     global: {
       lines: 99,

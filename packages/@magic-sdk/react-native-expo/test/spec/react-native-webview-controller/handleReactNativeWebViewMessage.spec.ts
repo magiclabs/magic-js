@@ -1,12 +1,11 @@
-import browserEnv from '@ikscodes/browser-env';
 import { ENCODED_QUERY_PARAMS } from '../../constants';
 import { createReactNativeWebViewController } from '../../factories';
 
 beforeEach(() => {
-  browserEnv();
+  jest.resetAllMocks();
 });
 
-test('Ignores events with different origin than expected', (done) => {
+test('Ignores events with different origin than expected', done => {
   const viewController = createReactNativeWebViewController('asdf');
   const onHandlerStub = jest.fn();
   viewController.messageHandlers.add(onHandlerStub);
@@ -24,7 +23,7 @@ test('Ignores events with different origin than expected', (done) => {
   }, 100);
 });
 
-test('Ignores events with non-string data', (done) => {
+test('Ignores events with non-string data', done => {
   const viewController = createReactNativeWebViewController('asdf');
   const onHandlerStub = jest.fn();
   viewController.messageHandlers.add(onHandlerStub);
@@ -42,7 +41,7 @@ test('Ignores events with non-string data', (done) => {
   }, 100);
 });
 
-test('Replaces `undefined` or `null` response with an empty object', (done) => {
+test('Replaces `undefined` or `null` response with an empty object', done => {
   const viewController = createReactNativeWebViewController('asdf');
   const onHandlerStub = jest.fn();
   viewController.messageHandlers.add(onHandlerStub);
@@ -61,7 +60,7 @@ test('Replaces `undefined` or `null` response with an empty object', (done) => {
   }, 100);
 });
 
-test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
+test('Executes event handlers where `messageHandlers` size is > 0', done => {
   const viewController = createReactNativeWebViewController('asdf');
   const onHandlerStub = jest.fn();
   viewController.messageHandlers.add(onHandlerStub);
@@ -80,7 +79,7 @@ test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
   }, 100);
 });
 
-test('Ignores event handlers where `messageHandlers` size is === 0', (done) => {
+test('Ignores event handlers where `messageHandlers` size is === 0', done => {
   const viewController = createReactNativeWebViewController('asdf');
   viewController.messageHandlers = { size: 0 };
 
@@ -96,7 +95,7 @@ test('Ignores event handlers where `messageHandlers` size is === 0', (done) => {
   }, 100);
 });
 
-test('Process Typed Array in Solana Payload', (done) => {
+test('Process Typed Array in Solana Payload', done => {
   const viewController = createReactNativeWebViewController('asdf');
   const onHandlerStub = jest.fn();
 
@@ -130,7 +129,7 @@ test('Process Typed Array in Solana Payload', (done) => {
   }, 100);
 });
 
-test('Process Typed Array in Solana Payload', (done) => {
+test('Process Typed Array in Solana Payload', done => {
   const viewController = createReactNativeWebViewController('asdf');
   const onHandlerStub = jest.fn();
 
