@@ -25,6 +25,7 @@ export async function build(options: ESBuildOptions) {
     const buildOptions: esbuild.BuildOptions = {
       bundle: true,
       minify: true,
+      target: 'es2022',
       treeShaking: true,
       drop: process.env.NODE_ENV === 'production' ? ['debugger', 'console'] : ['debugger'],
       legalComments: 'none',
@@ -34,7 +35,7 @@ export async function build(options: ESBuildOptions) {
       entryPoints: [await getEntrypoint(options.format)],
       sourcemap: options.sourcemap,
       outfile: options.output,
-      tsconfig: 'node_modules/.temp/tsconfig.build.json',
+      tsconfig: 'tsconfig.json',
       external: options.externals,
       loader: { '.ts': 'ts', '.tsx': 'tsx' },
       define: Object.fromEntries(
