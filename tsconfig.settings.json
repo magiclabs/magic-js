@@ -3,7 +3,7 @@
     "lib": ["es2022", "dom"],
     "module": "es2022",
     "moduleResolution": "node",
-    "target": "es6",
+    "target": "es2022",
     "strict": true,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
