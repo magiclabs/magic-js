@@ -4,14 +4,14 @@ import 'regenerator-runtime/runtime';
 
 import { createSDK, InstanceWithExtensions, MagicSDKExtensionsOption } from '@magic-sdk/provider';
 import * as processPolyfill from 'process';
-import localForage from 'localforage';
 import { URL as URLPolyfill, URLSearchParams as URLSearchParamsPolyfill } from 'whatwg-url';
 import { Buffer } from 'buffer';
 import * as _ from 'lodash';
 import { getBundleId } from 'react-native-device-info';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { SDKBaseReactNative } from './react-native-sdk-base';
-import { driverWithoutSerialization } from '@aveq-research/localforage-asyncstorage-driver';
+import type localForage from 'localforage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Web3 assumes a browser context, so we need
 // to provide `btoa` and `atob` shims.
@@ -44,15 +44,17 @@ export const Magic = createSDK(SDKBaseReactNative, {
   defaultEndpoint: 'https://box.magic.link/',
   ViewController: ReactNativeWebViewController,
   configureStorage: /* istanbul ignore next */ async () => {
-    const lf = localForage.createInstance({
-      name: 'MagicAuthLocalStorageDB',
-      storeName: 'MagicAuthLocalStorage',
-    });
-
-    const driver = driverWithoutSerialization();
-    await Promise.all([lf.defineDriver(driver)]);
-    await lf.setDriver([driver._driver]);
-    return lf;
+    return {
+      ready: async () => Promise.resolve(true),
+      getItem: AsyncStorage.getItem,
+      setItem: AsyncStorage.setItem,
+      removeItem: AsyncStorage.removeItem,
+      clear: AsyncStorage.clear,
+      length: () => {},
+      key: () => {},
+      keys: AsyncStorage.getAllKeys,
+      iterate: () => {},
+    } as unknown as typeof localForage;
   },
 });
 
