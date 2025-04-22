@@ -25,7 +25,6 @@ export async function build(options: ESBuildOptions) {
     const buildOptions: esbuild.BuildOptions = {
       bundle: true,
       minify: true,
-      target: 'es2022',
       treeShaking: true,
       drop: process.env.NODE_ENV === 'production' ? ['debugger', 'console'] : ['debugger'],
       legalComments: 'none',
