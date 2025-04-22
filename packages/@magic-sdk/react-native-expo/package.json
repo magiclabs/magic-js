@@ -17,6 +17,7 @@
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "dependencies": {
+    "@aveq-research/localforage-asyncstorage-driver": "^3.0.1",
     "@magic-sdk/commons": "^25.0.5",
     "@magic-sdk/provider": "^29.0.5",
     "@magic-sdk/types": "^24.18.1",

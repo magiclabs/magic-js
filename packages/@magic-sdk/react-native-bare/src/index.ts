@@ -9,9 +9,9 @@ import { URL as URLPolyfill, URLSearchParams as URLSearchParamsPolyfill } from '
 import { Buffer } from 'buffer';
 import * as _ from 'lodash';
 import { getBundleId } from 'react-native-device-info';
-import * as memoryDriver from 'localforage-driver-memory';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { SDKBaseReactNative } from './react-native-sdk-base';
+import { driverWithoutSerialization } from '@aveq-research/localforage-asyncstorage-driver';
 
 // Web3 assumes a browser context, so we need
 // to provide `btoa` and `atob` shims.
@@ -49,9 +49,9 @@ export const Magic = createSDK(SDKBaseReactNative, {
       storeName: 'MagicAuthLocalStorage',
     });
 
-    await Promise.all([lf.defineDriver(memoryDriver)]);
-    await lf.setDriver([memoryDriver._driver]);
-
+    const driver = driverWithoutSerialization();
+    await Promise.all([lf.defineDriver(driver)]);
+    await lf.setDriver([driver._driver]);
     return lf;
   },
 });
