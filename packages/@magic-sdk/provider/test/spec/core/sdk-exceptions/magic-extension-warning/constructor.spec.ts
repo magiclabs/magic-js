@@ -1,11 +1,11 @@
 import { MagicExtensionWarning } from '../../../../../src/core/sdk-exceptions';
-import { Extension } from '../../../../../src/modules/base-extension';
+import { BaseExtension } from '../../../../../src/modules/base-extension';
 
 beforeEach(() => {
   jest.resetAllMocks();
 });
 
-class TestExtension extends Extension<'test'> {
+class TestExtension extends BaseExtension<'test'> {
   name = 'test' as const;
 }
 

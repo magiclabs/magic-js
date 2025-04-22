@@ -1,7 +1,7 @@
-import { Extension } from '@magic-sdk/commons';
+import { MagicExtension } from '@magic-sdk/commons';
 import { AlgorandConfig, AlgorandPayloadMethod } from './types';
 
-export class AlgorandExtension extends Extension.Internal<'algod', any> {
+export class AlgorandExtension extends MagicExtension<'algod', any> {
   name = 'algod' as const;
   config: any = {};
 

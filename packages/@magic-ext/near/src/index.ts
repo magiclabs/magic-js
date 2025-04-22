@@ -1,7 +1,7 @@
-import { Extension } from '@magic-sdk/commons';
+import { MagicExtension } from '@magic-sdk/commons';
 import { NearPayloadMethod, NearConfig } from './types';
 
-export class NearExtension extends Extension.Internal<'near', any> {
+export class NearExtension extends MagicExtension<'near', any> {
   name = 'near' as const;
   config: any = {};
 

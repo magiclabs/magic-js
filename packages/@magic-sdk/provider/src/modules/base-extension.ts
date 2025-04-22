@@ -145,25 +145,13 @@ export abstract class BaseExtension<TName extends string> extends BaseModule {
   }
 }
 
-abstract class InternalExtension<TName extends string, TConfig extends any = any> extends BaseExtension<TName> {
-  public abstract readonly config: TConfig;
-}
-
 /**
- * A base class representing "extensions" to the core Magic JS APIs. Extensions
- * enable new functionality by composing Magic endpoints methods together.
+ * A base class representing "official" extensions. These
+ * extensions are designed for special interaction with the Magic iframe using
+ * custom JSON RPC methods, business logic, and global configurations.
  */
-export class Extension {
-  /**
-   * This is a special constructor used to mark "official" extensions. These
-   * extensions are designed for special interaction with the Magic iframe using
-   * custom JSON RPC methods, business logic, and global configurations. This is
-   * intended for internal-use only (and provides no useful advantage to
-   * open-source extension developers over the regular `Extension` class).
-   *
-   * @internal
-   */
-  public static Internal = InternalExtension;
+export abstract class MagicExtension<TName extends string, TConfig extends any = any> extends BaseExtension<TName> {
+  public abstract readonly config: TConfig;
 }
 
 /**
