@@ -17,11 +17,10 @@
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "dependencies": {
-    "@aveq-research/localforage-asyncstorage-driver": "^3.0.1",
     "@magic-sdk/commons": "^25.0.5",
     "@magic-sdk/provider": "^29.0.5",
     "@magic-sdk/types": "^24.18.1",
-    "@react-native-async-storage/async-storage": "^1.15.5",
+    "@react-native-async-storage/async-storage": "^2.1.2",
     "@types/lodash": "^4.14.158",
     "buffer": "~5.6.0",
     "expo-application": "^5.0.1",

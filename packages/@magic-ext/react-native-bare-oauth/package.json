@@ -32,12 +32,14 @@
   "devDependencies": {
     "@magic-sdk/react-native-bare": "^30.0.6",
     "@magic-sdk/types": "^24.18.1",
+    "@react-native-async-storage/async-storage": "^2.1.2",
     "@react-native/babel-preset": "^0.79.0",
     "@types/crypto-js": "~4.2.0",
     "react-native-inappbrowser-reborn": "^3.7.0"
   },
   "peerDependencies": {
     "@magic-sdk/react-native-bare": ">=13.0.0",
+    "@react-native-async-storage/async-storage": "^2.1.2",
     "react-native-inappbrowser-reborn": ">=3.7.0"
   }
 }

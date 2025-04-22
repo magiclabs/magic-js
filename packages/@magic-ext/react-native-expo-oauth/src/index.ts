@@ -1,6 +1,7 @@
 import * as WebBrowser from 'expo-web-browser';
 import { Extension } from '@magic-sdk/react-native-expo';
 import * as Application from 'expo-application';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createCryptoChallenge } from './crypto';
 import {
   OAuthErrorData,
@@ -117,7 +118,7 @@ export async function createURI(this: OAuthExtension, configuration: OAuthRedire
     state,
   });
 
-  await this.utils.storage.setItem(OAUTH_REDIRECT_METADATA_KEY, storedData);
+  await AsyncStorage.setItem(OAUTH_REDIRECT_METADATA_KEY, storedData);
 
   // Formulate the initial redirect query to Magic's OAuth hub.
   // Required fields:

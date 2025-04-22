@@ -2,6 +2,7 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import { Extension } from '@magic-sdk/react-native-bare';
 import { getBundleId } from 'react-native-device-info';
 import { createCryptoChallenge } from './crypto';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   OAuthErrorData,
   OAuthPayloadMethods,
@@ -117,7 +118,7 @@ export async function createURI(this: OAuthExtension, configuration: OAuthRedire
     state,
   });
 
-  await this.utils.storage.setItem(OAUTH_REDIRECT_METADATA_KEY, storedData);
+  await AsyncStorage.setItem(OAUTH_REDIRECT_METADATA_KEY, storedData);
 
   // Formulate the initial redirect query to Magic's OAuth hub.
   // Required fields:

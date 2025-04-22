@@ -9,7 +9,6 @@ import { URL as URLPolyfill, URLSearchParams as URLSearchParamsPolyfill } from '
 import { Buffer } from 'buffer';
 import * as _ from 'lodash';
 import * as Application from 'expo-application';
-import { driverWithoutSerialization } from '@aveq-research/localforage-asyncstorage-driver';
 import * as memoryDriver from 'localforage-driver-memory';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { SDKBaseReactNative } from './react-native-sdk-base';
@@ -50,9 +49,8 @@ export const Magic = createSDK(SDKBaseReactNative, {
       storeName: 'MagicAuthLocalStorage',
     });
 
-    const driver = driverWithoutSerialization();
-    await Promise.all([lf.defineDriver(driver), lf.defineDriver(memoryDriver)]);
-    await lf.setDriver([driver._driver, memoryDriver._driver]);
+    await Promise.all([lf.defineDriver(memoryDriver)]);
+    await lf.setDriver([memoryDriver._driver]);
 
     return lf;
   },

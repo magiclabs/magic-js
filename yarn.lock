@@ -3219,6 +3219,7 @@ __metadata:
   dependencies:
     "@magic-sdk/react-native-bare": ^30.0.6
     "@magic-sdk/types": ^24.18.1
+    "@react-native-async-storage/async-storage": ^2.1.2
     "@react-native/babel-preset": ^0.79.0
     "@types/crypto-js": ~4.2.0
     crypto-js: ^4.2.0
@@ -3226,6 +3227,7 @@ __metadata:
     react-native-inappbrowser-reborn: ^3.7.0
   peerDependencies:
     "@magic-sdk/react-native-bare": ">=13.0.0"
+    "@react-native-async-storage/async-storage": ^2.1.2
     react-native-inappbrowser-reborn: ">=3.7.0"
   languageName: unknown
   linkType: soft
@@ -3236,6 +3238,7 @@ __metadata:
   dependencies:
     "@magic-sdk/react-native-expo": ^30.0.5
     "@magic-sdk/types": ^10.0.0
+    "@react-native-async-storage/async-storage": ^2.1.2
     "@types/crypto-js": ~4.2.0
     babel-preset-expo: ^12.0.11
     crypto-js: ^4.2.0
@@ -3243,6 +3246,7 @@ __metadata:
     expo-web-browser: ">=12.0.0"
   peerDependencies:
     "@magic-sdk/react-native-expo": ">=13.0.0"
+    "@react-native-async-storage/async-storage": ^2.1.2
   languageName: unknown
   linkType: soft
 
@@ -3404,11 +3408,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
-    "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
     "@magic-sdk/commons": ^25.0.5
     "@magic-sdk/provider": ^29.0.5
     "@magic-sdk/types": ^24.18.1
-    "@react-native-async-storage/async-storage": ^1.15.5
+    "@react-native-async-storage/async-storage": ^2.1.2
     "@react-native-community/netinfo": ">11.0.0"
     "@react-native/assets-registry": ^0.78.2
     "@testing-library/react-native": ^13.2.0
@@ -4483,17 +4486,6 @@ __metadata:
   version: 0.2.1
   resolution: "@pkgr/core@npm:0.2.1"
   checksum: f644417c46b31fef0eb67353562d844e38ddb381c8b8b00053c0410e43cbc4999a038c742599b0cf957ed753978a058ebd60694e38a9e5bc8242639fd57cfe2a
-  languageName: node
-  linkType: hard
-
-"@react-native-async-storage/async-storage@npm:^1.15.5":
-  version: 1.17.11
-  resolution: "@react-native-async-storage/async-storage@npm:1.17.11"
-  dependencies:
-    merge-options: ^3.0.4
-  peerDependencies:
-    react-native: ^0.0.0-0 || 0.60 - 0.71 || 1000.0.0
-  checksum: 691f2b74498160d0b532f673402d8affeecb28b005b1c6d6fa2e7c87f89ab3068177e8e2d2686738306e7592a39c6d7148aa4c426b7e8e149c43a336ad446648
   languageName: node
   linkType: hard
 
