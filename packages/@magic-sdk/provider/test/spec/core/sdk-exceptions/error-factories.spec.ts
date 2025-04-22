@@ -1,5 +1,5 @@
 import browserEnv from '@ikscodes/browser-env';
-import { Extension } from '../../../../src/modules/base-extension';
+import { BaseExtension } from '../../../../src/modules/base-extension';
 import { mockSDKEnvironmentConstant, restoreSDKEnvironmentConstants } from '../../../mocks';
 
 function errorAssertions(error: any, expectedCode: string, expectedMessage: string) {
@@ -113,7 +113,7 @@ test('Creates an `EXTENSION_NOT_INITIALIZED` error', async () => {
   );
 });
 
-class NoopExtSupportingWeb extends Extension<'noop'> {
+class NoopExtSupportingWeb extends BaseExtension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': '>1.0.0',
@@ -123,7 +123,7 @@ class NoopExtSupportingWeb extends Extension<'noop'> {
   helloWorld() {}
 }
 
-class NoopExtSupportingBareReactNative extends Extension<'noop'> {
+class NoopExtSupportingBareReactNative extends BaseExtension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
@@ -133,7 +133,7 @@ class NoopExtSupportingBareReactNative extends Extension<'noop'> {
   helloWorld() {}
 }
 
-class NoopExtSupportingExpoReactNative extends Extension<'noop'> {
+class NoopExtSupportingExpoReactNative extends BaseExtension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,

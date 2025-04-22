@@ -1,12 +1,12 @@
 import browserEnv from '@ikscodes/browser-env';
 import { MagicExtensionWarning } from '../../../../../src/core/sdk-exceptions';
-import { Extension } from '../../../../../src/modules/base-extension';
+import { BaseExtension } from '../../../../../src/modules/base-extension';
 
 beforeEach(() => {
   browserEnv();
 });
 
-class TestExtension extends Extension<'test'> {
+class TestExtension extends BaseExtension<'test'> {
   name = 'test' as const;
 }
 

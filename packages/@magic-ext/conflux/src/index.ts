@@ -1,7 +1,7 @@
-import { Extension } from '@magic-sdk/commons';
+import { MagicExtension } from '@magic-sdk/commons';
 import { ConfluxPayloadMethod, ConfluxConfig } from './types';
 
-export class ConfluxExtension extends Extension.Internal<'conflux', any> {
+export class ConfluxExtension extends MagicExtension<'conflux', any> {
   name = 'conflux' as const;
   config: any = {};
 

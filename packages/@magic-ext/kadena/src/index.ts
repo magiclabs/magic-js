@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/commons';
+import { MagicExtension } from '@magic-sdk/commons';
 import {
   UnsignedCommand,
   KadenaConfig,
@@ -10,7 +10,7 @@ import {
   OptimalTransactionsAccount,
 } from './types';
 
-export class KadenaExtension extends Extension.Internal<'kadena'> {
+export class KadenaExtension extends MagicExtension<'kadena'> {
   name = 'kadena' as const;
   config = {};
 

@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import { Extension } from '@magic-sdk/react-native-expo';
+import { MagicExtension } from '@magic-sdk/react-native-expo';
 import * as Application from 'expo-application';
 import { createCryptoChallenge } from './crypto';
 import {
@@ -10,7 +10,7 @@ import {
   OAuthRedirectResult,
 } from './types';
 
-export class OAuthExtension extends Extension.Internal<'oauth'> {
+export class OAuthExtension extends MagicExtension<'oauth'> {
   name = 'oauth' as const;
   config = {};
   compat = {

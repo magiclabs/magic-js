@@ -4,7 +4,7 @@ import { createMagicSDKCtor } from '../../../factories';
 import { AuthModule } from '../../../../src/modules/auth';
 import { UserModule } from '../../../../src/modules/user';
 import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
-import { Extension } from '../../../../src/modules/base-extension';
+import { MagicExtension } from '../../../../src/modules/base-extension';
 
 beforeEach(() => {
   browserEnv.restore();
@@ -107,19 +107,19 @@ test('Initialize `MagicSDK` with test mode', () => {
   expect(magic.rpcProvider instanceof RPCProviderModule).toBe(true);
 });
 
-class NoopExtWithConfig extends Extension.Internal<'noop'> {
+class NoopExtWithConfig extends MagicExtension<'noop'> {
   name = 'noop' as const;
   config = { hello: 'world' };
   helloWorld() {}
 }
 
-class NoopExtWithEmptyConfig extends Extension.Internal<'noop'> {
+class NoopExtWithEmptyConfig extends MagicExtension<'noop'> {
   name = 'noop' as const;
   config = {};
   helloWorld() {}
 }
 
-class NoopExtSupportingWeb extends Extension.Internal<'noop'> {
+class NoopExtSupportingWeb extends MagicExtension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': '>1.0.0',
@@ -131,7 +131,7 @@ class NoopExtSupportingWeb extends Extension.Internal<'noop'> {
   helloWorld() {}
 }
 
-class NoopExtSupportingBareReactNative extends Extension.Internal<'noop'> {
+class NoopExtSupportingBareReactNative extends MagicExtension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
@@ -143,7 +143,7 @@ class NoopExtSupportingBareReactNative extends Extension.Internal<'noop'> {
   helloWorld() {}
 }
 
-class NoopExtSupportingExpoReactNative extends Extension.Internal<'noop'> {
+class NoopExtSupportingExpoReactNative extends MagicExtension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,

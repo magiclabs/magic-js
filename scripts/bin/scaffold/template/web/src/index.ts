@@ -1,6 +1,6 @@
-import { Extension } from 'magic-sdk';
+import { MagicExtension } from 'magic-sdk';
 
-export class <%= className %> extends Extension.Internal<'<%= extNameCamelCase %>', any> {
+export class <%= className %> extends MagicExtension<'<%= extNameCamelCase %>', any> {
   name = '<%= extNameCamelCase %>' as const;
   config: any = {};
 }

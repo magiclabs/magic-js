@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/commons';
+import { MagicExtension } from '@magic-sdk/commons';
 
 // @ts-ignore
 import { AptosClient, BCS, TxnBuilderTypes, Types, getAddressFromAccountOrAddress } from 'aptos';
@@ -7,7 +7,7 @@ import { AptosConfig, AptosPayloadMethod } from './type';
 import { APTOS_PAYLOAD_TYPE } from './constants';
 
 export { MagicAptosWallet } from './MagicAptosWallet';
-export class AptosExtension extends Extension.Internal<'aptos', any> {
+export class AptosExtension extends MagicExtension<'aptos', any> {
   name = 'aptos' as const;
   config: any = {};
 
