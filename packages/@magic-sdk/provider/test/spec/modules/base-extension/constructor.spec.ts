@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '../../../../src/core/json-rpc';
 import { createExtensionNotInitializedError } from '../../../../src/core/sdk-exceptions';
 import { ConcreteExtension, createMagicSDK } from '../../../factories';
@@ -7,7 +6,7 @@ import { BaseModule } from '../../../../src/modules/base-module';
 import { createPromiEvent, encodeJSON, decodeJSON, isPromiEvent } from '../../../../src/util';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   jest.restoreAllMocks();
 });
 

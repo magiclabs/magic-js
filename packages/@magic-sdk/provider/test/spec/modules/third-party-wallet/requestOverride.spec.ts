@@ -1,11 +1,10 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicPayloadMethod } from '@magic-sdk/types';
 import { createMagicSDK } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { mockLocalStorage } from '../../../mocks';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   mockLocalStorage();
   // @ts-expect-error 'request' is protected
   BaseModule.prototype.request = jest.fn();

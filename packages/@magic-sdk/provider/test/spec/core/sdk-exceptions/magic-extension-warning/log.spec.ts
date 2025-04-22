@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MagicExtensionWarning } from '../../../../../src/core/sdk-exceptions';
 import { BaseExtension } from '../../../../../src/modules/base-extension';
 
@@ -10,7 +9,7 @@ test('`MagicSDKWarning.log` logs message to `console.warn`', async () => {
   const ext = new TestExtension();
   const warning = new MagicExtensionWarning(ext, 'TEST_CODE' as any, 'test message');
   const consoleWarningStub = jest.fn();
-  browserEnv.stub('console.warn', consoleWarningStub);
+  jest.spyOn(console, 'warn').mockImplementation(consoleWarningStub);
   warning.log();
 
   expect(consoleWarningStub.mock.calls[0][0]).toBe('Magic Extension Warning (test): [TEST_CODE] test message');

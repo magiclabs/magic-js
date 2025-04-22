@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { BCS, TxnBuilderTypes } from 'aptos';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { AptosExtension, MagicAptosWallet } from '../../src';
@@ -33,7 +32,7 @@ const MOCK_ACCOUTN_INFO = {
 };
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Call connect()', async () => {

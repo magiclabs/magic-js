@@ -1,13 +1,12 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createViewController } from '../../../factories';
 import { MSG_TYPES } from '../../../constants';
 import { MagicSDKWarning } from '../../../../src/core/sdk-exceptions';
 
 beforeEach(() => {
-  browserEnv();
+  jest.resetAllMocks();
 });
 
-test('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', (done) => {
+test('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', done => {
   const overlay = createViewController('');
   const hideOverlayStub = jest.fn();
   overlay.hideOverlay = hideOverlayStub;
@@ -20,7 +19,7 @@ test('Receive MAGIC_HIDE_OVERLAY, call `hideOverlay`', (done) => {
   }, 0);
 });
 
-test('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', (done) => {
+test('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', done => {
   const overlay = createViewController('');
   const showOverlayStub = jest.fn();
   overlay.showOverlay = showOverlayStub;
@@ -33,7 +32,7 @@ test('Receive MAGIC_SHOW_OVERLAY, call `showOverlay`', (done) => {
   }, 0);
 });
 
-test('Receive MAGIC_SEND_PRODUCT_ANNOUNCEMENT, log product announcement', (done) => {
+test('Receive MAGIC_SEND_PRODUCT_ANNOUNCEMENT, log product announcement', done => {
   const overlay = createViewController('');
   const productAnnouncement = 'New feature available!';
   const logSpy = jest.spyOn(MagicSDKWarning.prototype, 'log');

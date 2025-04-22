@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { MAGIC_RELAYER_FULL_URL, TEST_API_KEY } from '../../../constants';
 import { createMagicSDKCtor } from '../../../factories';
 import { AuthModule } from '../../../../src/modules/auth';
@@ -7,14 +6,14 @@ import { RPCProviderModule } from '../../../../src/modules/rpc-provider';
 import { MagicExtension } from '../../../../src/modules/base-extension';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.restoreAllMocks();
   jest.resetAllMocks();
 });
 
 function assertEncodedQueryParams(parameters: string, expectedParams: any = {}) {
   const defaultExpectedParams = {
     API_KEY: TEST_API_KEY,
-    DOMAIN_ORIGIN: 'null',
+    DOMAIN_ORIGIN: window.location ? window.location.origin : '',
     host: 'auth.magic.link',
     sdk: 'magic-sdk',
     version: '1.0.0-test',
@@ -48,7 +47,7 @@ test('Fail to initialize `MagicSDK`', () => {
     const Ctor = createMagicSDKCtor();
     new Ctor(undefined as any);
   } catch (err) {
-    expect(err.message).toBe(
+    expect((err as Error).message).toBe(
       'Magic SDK Error: [MISSING_API_KEY] Please provide an API key that you acquired from the Magic developer dashboard.',
     );
   }
@@ -65,7 +64,7 @@ test('Initialize `MagicSDK` with custom endpoint', () => {
 });
 
 test('Initialize `MagicSDK` when `window.location` is missing', () => {
-  browserEnv.stub('location', undefined);
+  jest.spyOn(window, 'location', 'get').mockReturnValue(undefined as unknown as Location);
 
   const Ctor = createMagicSDKCtor();
   const magic = new Ctor(TEST_API_KEY);
@@ -123,9 +122,9 @@ class NoopExtSupportingWeb extends MagicExtension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': '>1.0.0',
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': false,
     '@magic-sdk/react-native-expo': false,
-    '@magic-sdk/react-native': false,
   };
   config = {};
   helloWorld() {}
@@ -135,9 +134,9 @@ class NoopExtSupportingBareReactNative extends MagicExtension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': '>1.0.0',
     '@magic-sdk/react-native-expo': false,
-    '@magic-sdk/react-native': false,
   };
   config = {};
   helloWorld() {}
@@ -147,9 +146,9 @@ class NoopExtSupportingExpoReactNative extends MagicExtension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': false,
     '@magic-sdk/react-native-expo': '>1.0.0',
-    '@magic-sdk/react-native': false,
   };
   config = {};
   helloWorld() {}
@@ -308,7 +307,7 @@ test('Initialize `MagicSDK` with incompatible Expo React Native extension (versi
 test('Warns upon construction of `MagicSDK` instance if `endpoint` parameter is provided with `react-native` target.', () => {
   const Ctor = createMagicSDKCtor({ platform: 'react-native' });
   const consoleWarnStub = jest.fn();
-  browserEnv.stub('console.warn', consoleWarnStub);
+  jest.spyOn(console, 'warn').mockImplementation(consoleWarnStub);
   const { createReactNativeEndpointConfigurationWarning } = require('../../../../src/core/sdk-exceptions');
   const expectedWarning = createReactNativeEndpointConfigurationWarning();
   new Ctor(TEST_API_KEY, { endpoint: 'https://example.com' } as any);
@@ -318,7 +317,7 @@ test('Warns upon construction of `MagicSDK` instance if `endpoint` parameter is 
 test('Does not warn upon construction of `MagicSDK` instance if `endpoint` parameter is omitted with `react-native` target.', () => {
   const Ctor = createMagicSDKCtor({ platform: 'react-native' });
   const consoleWarnStub = jest.fn();
-  browserEnv.stub('console.warn', consoleWarnStub);
+  jest.spyOn(console, 'warn').mockImplementation(consoleWarnStub);
   new Ctor(TEST_API_KEY);
   expect(consoleWarnStub).not.toBeCalled();
 });

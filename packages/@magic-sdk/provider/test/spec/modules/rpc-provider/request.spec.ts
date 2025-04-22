@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
@@ -11,7 +10,7 @@ const requestPayload: JsonRpcRequestPayload = {
 };
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   (BaseModule as any).prototype.request = jest.fn();
 });
 

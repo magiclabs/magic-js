@@ -29,7 +29,7 @@ export class KadenaExtension extends MagicExtension<'kadena'> {
   }
 
   public signTransaction(hash: string): Promise<SignatureWithPublicKey> {
-    return this.request(this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransaction, [{ hash }]));
+    return this.request<SignatureWithPublicKey>(this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransaction, [{ hash }]));
   }
 
   public async signTransactionWithSpireKey(

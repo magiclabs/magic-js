@@ -4,7 +4,7 @@ import { useInternetConnection } from '../../src/hooks';
 
 beforeAll(() => {
   // @ts-ignore mock resolved value
-  NetInfo.getCurrentState.mockResolvedValue({
+  NetInfo.fetch.mockResolvedValue({
     type: NetInfoStateType.cellular,
     isConnected: true,
     isInternetReachable: true,
@@ -45,7 +45,7 @@ describe('useInternetConnection', () => {
 
     // Wait for the next tick of the event loop to allow state update
     await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 0)); // or setImmediate
+      await new Promise(resolve => setTimeout(resolve, 0)); // or setImmediate
     });
 
     // Check if the hook state has been updated

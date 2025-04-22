@@ -43,7 +43,7 @@ export class Web3ModalExtension extends MagicExtension<'web3modal'> {
     this.sdk.thirdPartyWallets.isConnected = Boolean(localStorage.getItem(LocalStorageKeys.ADDRESS));
     this.sdk.thirdPartyWallets.eventListeners.push({
       event: ThirdPartyWalletEvents.Web3ModalSelected,
-      callback: async (payloadId) => {
+      callback: async payloadId => {
         await this.connectToWeb3modal(payloadId);
       },
     });
@@ -105,7 +105,7 @@ export class Web3ModalExtension extends MagicExtension<'web3modal'> {
       });
 
       // Listen for modal close before user connects wallet
-      const unsubscribeFromModalEvents = modal.subscribeEvents((event) => {
+      const unsubscribeFromModalEvents = modal.subscribeEvents(event => {
         if (event.data.event === 'MODAL_CLOSE') {
           unsubscribeFromModalEvents();
           unsubscribeFromProviderEvents();

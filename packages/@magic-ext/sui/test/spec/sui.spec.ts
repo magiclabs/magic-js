@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { SuiExtension } from '../../src/index';
 import { SuiPayloadMethod } from '../../src/types';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Sends params as payload', async () => {

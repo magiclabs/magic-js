@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { JsonRpcRequestPayload } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
 
@@ -12,7 +11,7 @@ function createSourcePayload(): JsonRpcRequestPayload {
 }
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Applies a result to the response.', () => {

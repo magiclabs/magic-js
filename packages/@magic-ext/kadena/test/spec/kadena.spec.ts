@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { KadenaPayloadMethod } from '../../src/types';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { KadenaExtension } from '../../src';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('signTransaction - Sends params as payload', () => {
@@ -13,7 +12,6 @@ test('signTransaction - Sends params as payload', () => {
       rpcUrl: '',
       chainId: '1',
       networkId: 'testnet04',
-      network: 'testnet',
       createAccountsOnChain: true,
     }),
   ]);
@@ -34,7 +32,6 @@ test('signTransactionWithSpireKey - Sends params as payload', () => {
       rpcUrl: '',
       chainId: '1',
       networkId: 'testnet04',
-      network: 'testnet',
       createAccountsOnChain: true,
     }),
   ]);
@@ -59,7 +56,6 @@ test('Generate JSON RPC request payload with method `kda_loginWithSpireKey`', ()
       rpcUrl: '',
       chainId: '1',
       networkId: 'testnet04',
-      network: 'testnet',
       createAccountsOnChain: true,
     }),
   ]);
@@ -77,7 +73,6 @@ test('Generate JSON RPC request payload with method `kda_getUserInfo`', () => {
       rpcUrl: '',
       chainId: '1',
       networkId: 'testnet04',
-      network: 'testnet',
       createAccountsOnChain: true,
     }),
   ]);
