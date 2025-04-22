@@ -78,7 +78,7 @@ export class MagicExtensionError<TData = any> extends Error {
   __proto__ = Error;
 
   constructor(
-    ext: BaseExtension<string>,
+    ext: BaseExtension,
     public code: string | number,
     public rawMessage: string,
     public data: TData,
@@ -97,7 +97,7 @@ export class MagicExtensionWarning {
   public message: string;
 
   constructor(
-    ext: BaseExtension<string>,
+    ext: BaseExtension,
     public code: string | number,
     public rawMessage: string,
   ) {
@@ -136,7 +136,7 @@ export function createExtensionNotInitializedError(member: string) {
   );
 }
 
-export function createIncompatibleExtensionsError(extensions: BaseExtension<string>[]) {
+export function createIncompatibleExtensionsError(extensions: BaseExtension[]) {
   let msg = `Some extensions are incompatible with \`${SDKEnvironment.sdkName}@${SDKEnvironment.version}\`:`;
 
   extensions

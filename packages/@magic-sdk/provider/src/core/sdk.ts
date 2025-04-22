@@ -60,9 +60,9 @@ function getNetworkHash(apiKey: string, network?: EthNetworkConfiguration, extCo
  * then consolidates any global configurations provided by those extensions.
  */
 function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfiguration): Record<string, any> {
-  const extensions: BaseExtension<string>[] | { [key: string]: BaseExtension<string> } = options?.extensions ?? [];
+  const extensions: BaseExtension[] | { [key: string]: BaseExtension } = options?.extensions ?? [];
   const extConfig: any = {};
-  const incompatibleExtensions: BaseExtension<string>[] = [];
+  const incompatibleExtensions: BaseExtension[] = [];
 
   if (Array.isArray(extensions)) {
     extensions.forEach(ext => {
