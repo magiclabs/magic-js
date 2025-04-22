@@ -106,19 +106,19 @@ test('Initialize `MagicSDK` with test mode', () => {
   expect(magic.rpcProvider instanceof RPCProviderModule).toBe(true);
 });
 
-class NoopExtWithConfig extends Extension.Internal<'noop'> {
+class NoopExtWithConfig extends Extension.Internal {
   name = 'noop' as const;
   config = { hello: 'world' };
   helloWorld() {}
 }
 
-class NoopExtWithEmptyConfig extends Extension.Internal<'noop'> {
+class NoopExtWithEmptyConfig extends Extension.Internal {
   name = 'noop' as const;
   config = {};
   helloWorld() {}
 }
 
-class NoopExtSupportingWeb extends Extension.Internal<'noop'> {
+class NoopExtSupportingWeb extends Extension.Internal {
   name = 'noop' as const;
   compat = {
     'magic-sdk': '>1.0.0',
@@ -130,7 +130,7 @@ class NoopExtSupportingWeb extends Extension.Internal<'noop'> {
   helloWorld() {}
 }
 
-class NoopExtSupportingBareReactNative extends Extension.Internal<'noop'> {
+class NoopExtSupportingBareReactNative extends Extension.Internal {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
@@ -142,7 +142,7 @@ class NoopExtSupportingBareReactNative extends Extension.Internal<'noop'> {
   helloWorld() {}
 }
 
-class NoopExtSupportingExpoReactNative extends Extension.Internal<'noop'> {
+class NoopExtSupportingExpoReactNative extends Extension.Internal {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,

@@ -1,6 +1,6 @@
 import type { MagicUserMetadata } from '@magic-sdk/types';
 
-export class PlugNPlayExtension extends window.Magic.Extension.Internal<'pnp', { isPnP: boolean }> {
+export class PlugNPlayExtension extends window.Magic.Extension.Internal {
   config = { isPnP: true };
   name = 'pnp' as const;
 
