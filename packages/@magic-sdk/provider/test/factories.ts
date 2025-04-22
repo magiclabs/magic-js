@@ -75,7 +75,7 @@ export function createMagicSDKWithExtension(environment: { [P in keyof SDKEnviro
   return new Ctor(TEST_API_KEY, { extensions });
 }
 
-export class ConcreteExtension extends BaseExtension<'concrete'> {
+export class ConcreteExtension extends BaseExtension {
   public readonly name = 'concrete';
 
   // Expose the protected method for testing purposes.

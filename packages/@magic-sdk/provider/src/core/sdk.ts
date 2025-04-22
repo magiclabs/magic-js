@@ -22,7 +22,7 @@ import { NFTModule } from '../modules/nft';
  * Checks if the given `ext` is compatible with the platform & version of Magic
  * SDK currently in use.
  */
-function checkExtensionCompat(ext: BaseExtension<string>) {
+function checkExtensionCompat(ext: BaseExtension) {
   if (ext.compat && ext.compat[SDKEnvironment.sdkName] != null) {
     return typeof ext.compat[SDKEnvironment.sdkName] === 'string'
       ? satisfies(coerce(SDKEnvironment.version), ext.compat[SDKEnvironment.sdkName] as string)
@@ -102,8 +102,8 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
 }
 
 export type MagicSDKExtensionsOption<TCustomExtName extends string = string> =
-  | BaseExtension<string>[]
-  | { [P in TCustomExtName]: BaseExtension<string> };
+  | BaseExtension[]
+  | { [P in TCustomExtName]: BaseExtension };
 
 export interface MagicSDKAdditionalConfiguration<
   TCustomExtName extends string = string,

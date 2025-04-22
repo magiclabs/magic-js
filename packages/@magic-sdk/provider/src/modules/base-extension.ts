@@ -10,7 +10,7 @@ const sdkAccessFields = ['request', 'overlay', 'sdk'];
  * From the `BaseExtension`-derived instance, get the prototype
  * chain up to and including the `BaseModule` class.
  */
-function getPrototypeChain<T extends BaseExtension<string>>(instance: T) {
+function getPrototypeChain(instance: BaseExtension) {
   let currentProto = Object.getPrototypeOf(instance);
   const protos = [currentProto];
 
@@ -22,7 +22,7 @@ function getPrototypeChain<T extends BaseExtension<string>>(instance: T) {
   return protos;
 }
 
-export abstract class BaseExtension<TName extends string> extends BaseModule {
+export abstract class BaseExtension extends BaseModule {
   /**
    * A structure describing the platform and version compatiblity of this
    * extension.
@@ -34,7 +34,7 @@ export abstract class BaseExtension<TName extends string> extends BaseModule {
     '@magic-sdk/react-native-expo': boolean | string;
   };
 
-  public abstract readonly name: TName;
+  public abstract readonly name: string;
 
   private __sdk_access_field_descriptors__ = new Map<
     string,
@@ -145,8 +145,8 @@ export abstract class BaseExtension<TName extends string> extends BaseModule {
   }
 }
 
-abstract class InternalExtension<TName extends string, TConfig extends any = any> extends BaseExtension<TName> {
-  public abstract readonly config: TConfig;
+abstract class InternalExtension extends BaseExtension {
+  public abstract readonly config: any;
 }
 
 /**
@@ -181,15 +181,15 @@ type UnwrapArray<T extends any[]> = T extends Array<infer P> ? P : never;
  * Create a union type of Extension names from an
  * array of Extension types given by `TExt`.
  */
-type ExtensionNames<TExt extends BaseExtension<string>[]> =
-  UnwrapArray<TExt> extends BaseExtension<infer R> ? R : never;
+type ExtensionNames<TExt extends BaseExtension[]> =
+  UnwrapArray<TExt> extends BaseExtension ? UnwrapArray<TExt>['name'] : never;
 
 /**
  * From the literal Extension name type given by `TExtName`,
  * extract a dictionary of Extension types.
  */
-type GetExtensionFromName<TExt extends BaseExtension<string>[], TExtName extends string> = {
-  [P in TExtName]: Extract<UnwrapArray<TExt>, BaseExtension<TExtName>>;
+type GetExtensionFromName<TExt extends BaseExtension[], TExtName extends string> = {
+  [P in TExtName]: Extract<UnwrapArray<TExt>, BaseExtension & { name: TExtName }>;
 }[TExtName];
 
 /**
@@ -205,15 +205,15 @@ export type WithExtensions<SDK extends SDKBase> = {
 
 export type InstanceWithExtensions<SDK extends SDKBase, TExt extends MagicSDKExtensionsOption> = SDK & {
   [P in Exclude<
-    TExt extends BaseExtension<string>[] ? ExtensionNames<TExt> : keyof TExt,
+    TExt extends BaseExtension[] ? ExtensionNames<TExt> : keyof TExt,
     number
-  >]: TExt extends BaseExtension<string>[]
+  >]: TExt extends BaseExtension[]
     ? Omit<GetExtensionFromName<TExt, P>, HiddenExtensionFields>
     : TExt extends {
           [P in Exclude<
-            TExt extends BaseExtension<string>[] ? ExtensionNames<TExt> : keyof TExt,
+            TExt extends BaseExtension[] ? ExtensionNames<TExt> : keyof TExt,
             number
-          >]: BaseExtension<string>;
+          >]: BaseExtension;
         }
       ? Omit<TExt[P], HiddenExtensionFields>
       : never;
