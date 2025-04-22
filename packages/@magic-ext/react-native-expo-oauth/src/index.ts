@@ -10,7 +10,7 @@ import {
   OAuthRedirectResult,
 } from './types';
 
-export class OAuthExtension extends Extension.Internal<'oauth'> {
+export class OAuthExtension extends Extension.Internal {
   name = 'oauth' as const;
   config = {};
   compat = {
