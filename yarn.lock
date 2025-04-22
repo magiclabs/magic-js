@@ -165,18 +165,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aveq-research/localforage-asyncstorage-driver@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@aveq-research/localforage-asyncstorage-driver@npm:3.0.1"
-  peerDependencies:
-    "@react-native-async-storage/async-storage": "*"
-    localforage: "*"
-    react: "*"
-    react-native: "*"
-  checksum: a548ffd458f202fca7dfda14e78a54f07049f799564f38481aef81b8deb377f24957a1a6180cae15e96239be34b3fd07eff21a5e2fbbac8f4a7c37320a86af0b
-  languageName: node
-  linkType: hard
-
 "@babel/code-frame@npm:7.10.4, @babel/code-frame@npm:~7.10.4":
   version: 7.10.4
   resolution: "@babel/code-frame@npm:7.10.4"
@@ -3370,7 +3358,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
   dependencies:
-    "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
     "@magic-sdk/commons": ^25.0.5
     "@magic-sdk/provider": ^29.0.5
     "@magic-sdk/types": ^24.18.1
