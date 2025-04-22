@@ -1,7 +1,7 @@
 import { Extension } from '@magic-sdk/commons';
 import { SuiConfig, SuiPayloadMethod } from './types';
 
-export class SuiExtension extends Extension.Internal<'sui', any> {
+export class SuiExtension extends Extension.Internal {
   name = 'sui' as const;
   config: any = {};
 

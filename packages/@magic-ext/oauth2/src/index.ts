@@ -20,7 +20,7 @@ declare global {
   }
 }
 
-export class OAuthExtension extends Extension.Internal<'oauth2'> {
+export class OAuthExtension extends Extension.Internal {
   name = 'oauth2' as const;
   config = {};
   compat = {

@@ -8,7 +8,7 @@ import {
 } from './types';
 import { transformAssertionForServer, transformNewAssertionForServer } from './utils/webauthn.js';
 
-export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
+export class WebAuthnExtension extends Extension.Internal {
   name = 'webauthn' as const;
   config: any = {};
 

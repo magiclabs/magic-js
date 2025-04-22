@@ -7,7 +7,7 @@ import { AptosConfig, AptosPayloadMethod } from './type';
 import { APTOS_PAYLOAD_TYPE } from './constants';
 
 export { MagicAptosWallet } from './MagicAptosWallet';
-export class AptosExtension extends Extension.Internal<'aptos', any> {
+export class AptosExtension extends Extension.Internal {
   name = 'aptos' as const;
   config: any = {};
 

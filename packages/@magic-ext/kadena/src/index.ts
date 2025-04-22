@@ -10,7 +10,7 @@ import {
   OptimalTransactionsAccount,
 } from './types';
 
-export class KadenaExtension extends Extension.Internal<'kadena'> {
+export class KadenaExtension extends Extension.Internal {
   name = 'kadena' as const;
   config = {};
 

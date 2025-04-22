@@ -1,7 +1,7 @@
 import { Extension } from '@magic-sdk/commons';
 import { IconConfig, ConfigType } from './type';
 
-export class IconExtension extends Extension.Internal<'icon', IconConfig> {
+export class IconExtension extends Extension.Internal {
   name = 'icon' as const;
 
   config: ConfigType;

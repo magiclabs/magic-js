@@ -1,7 +1,7 @@
 import { Extension } from '@magic-sdk/commons';
 import { PolkadotConfig, ConfigType } from './type';
 
-export class PolkadotExtension extends Extension.Internal<'polkadot', PolkadotConfig> {
+export class PolkadotExtension extends Extension.Internal {
   name = 'polkadot' as const;
 
   config: ConfigType;

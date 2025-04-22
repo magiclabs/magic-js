@@ -71,7 +71,7 @@ type FarcasterLoginEventHandlers = {
   [FarcasterLoginEventEmit.Cancel]: () => void;
 };
 
-export class FarcasterExtension extends Extension.Internal<'farcaster'> {
+export class FarcasterExtension extends Extension.Internal {
   name = 'farcaster' as const;
   config = {};
 

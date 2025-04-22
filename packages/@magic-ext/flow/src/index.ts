@@ -4,7 +4,7 @@ import { Extension } from '@magic-sdk/commons';
 import * as fcl from '@onflow/fcl';
 import { FlowConfig, FlowPayloadMethod } from './type';
 
-export class FlowExtension extends Extension.Internal<'flow', any> {
+export class FlowExtension extends Extension.Internal {
   name = 'flow' as const;
   config: any = {};
 

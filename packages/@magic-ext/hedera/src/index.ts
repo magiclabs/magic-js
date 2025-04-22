@@ -3,7 +3,7 @@ import { HederaConfig, HederaPayloadMethod } from './types';
 
 export * from './utils';
 
-export class HederaExtension extends Extension.Internal<'hedera', any> {
+export class HederaExtension extends Extension.Internal {
   name = 'hedera' as const;
   config: any = {};
   network: string;

@@ -1,7 +1,7 @@
 import { Extension } from '@magic-sdk/commons';
 import { Ed25519PayloadMethod } from './types';
 
-export class Ed25519Extension extends Extension.Internal<'ed', any> {
+export class Ed25519Extension extends Extension.Internal {
   name = 'ed' as const;
   config: any = {};
 

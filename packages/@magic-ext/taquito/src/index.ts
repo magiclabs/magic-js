@@ -2,7 +2,7 @@ import { Extension } from '@magic-sdk/commons';
 import { TaquitoConfig, TaquitoPayloadMethod } from './type';
 import { MagicSigner } from './MagicSinger';
 
-export class TaquitoExtension extends Extension.Internal<'taquito', any> {
+export class TaquitoExtension extends Extension.Internal {
   name = 'taquito' as const;
   config: any = {};
 

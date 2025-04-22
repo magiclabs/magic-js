@@ -8,7 +8,7 @@ import {
 } from './types';
 import { createCryptoChallenge } from './crypto';
 
-export class OAuthExtension extends Extension.Internal<'oauth'> {
+export class OAuthExtension extends Extension.Internal {
   name = 'oauth' as const;
   config = {};
   compat = {
