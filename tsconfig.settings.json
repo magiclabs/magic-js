@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "lib": ["es2018", "dom"],
-    "module": "es2015",
+    "lib": ["es2022", "dom"],
+    "module": "esnext",
     "moduleResolution": "node",
-    "target": "es6",
+    "target": "ES2022",
     "strict": true,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
