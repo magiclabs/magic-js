@@ -1,6 +1,6 @@
-import { Extension, MagicPayloadMethod } from '@magic-sdk/commons';
+import { MagicExtension, MagicPayloadMethod } from '@magic-sdk/commons';
 
-export class GDKMSExtension extends Extension.Internal<'gdkms', any> {
+export class GDKMSExtension extends MagicExtension<'gdkms', any> {
   name = 'gdkms' as const;
   config: any = {};
 

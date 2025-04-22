@@ -1,9 +1,9 @@
-import { Extension } from '@magic-sdk/commons';
+import { MagicExtension } from '@magic-sdk/commons';
 import { HederaConfig, HederaPayloadMethod } from './types';
 
 export * from './utils';
 
-export class HederaExtension extends Extension.Internal<'hedera', any> {
+export class HederaExtension extends MagicExtension<'hedera', any> {
   name = 'hedera' as const;
   config: any = {};
   network: string;

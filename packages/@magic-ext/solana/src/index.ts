@@ -1,10 +1,10 @@
-import { Extension } from '@magic-sdk/commons';
+import { MagicExtension } from '@magic-sdk/commons';
 
 import { SerializeConfig, Transaction, VersionedTransaction } from '@solana/web3.js';
 import { SolanaConfig } from './type';
 import { SOLANA_PAYLOAD_METHODS } from './constants';
 
-export class SolanaExtension extends Extension.Internal<'solana', any> {
+export class SolanaExtension extends MagicExtension<'solana', any> {
   name = 'solana' as const;
   config: any = {};
 

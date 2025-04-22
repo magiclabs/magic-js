@@ -1,5 +1,5 @@
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
-import { Extension } from '@magic-sdk/react-native-bare';
+import { MagicExtension } from '@magic-sdk/react-native-bare';
 import { getBundleId } from 'react-native-device-info';
 import { createCryptoChallenge } from './crypto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,7 +12,7 @@ import {
   OAuthRedirectStartResult,
 } from './types';
 
-export class OAuthExtension extends Extension.Internal<'oauth'> {
+export class OAuthExtension extends MagicExtension<'oauth'> {
   name = 'oauth' as const;
   config = {};
   compat = {

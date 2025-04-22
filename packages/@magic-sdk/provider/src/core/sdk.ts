@@ -13,7 +13,7 @@ import { ThirdPartyWalletsModule } from '../modules/third-party-wallets';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
-import { BaseExtension, Extension } from '../modules/base-extension';
+import { BaseExtension, MagicExtension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
 import { NFTModule } from '../modules/nft';
@@ -72,7 +72,7 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
           // Only apply extensions with a known, defined `name` parameter.
           (this as any)[ext.name] = ext;
         }
-        if (ext instanceof Extension.Internal) {
+        if (ext instanceof MagicExtension) {
           if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
         }
       } else {
@@ -85,7 +85,7 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
         extensions[name].init(this);
         const ext = extensions[name];
         (this as any)[name] = ext;
-        if (ext instanceof Extension.Internal) {
+        if (ext instanceof MagicExtension) {
           if (!isEmpty(ext.config)) extConfig[extensions[name].name] = ext.config;
         }
       } else {
