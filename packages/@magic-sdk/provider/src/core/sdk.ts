@@ -119,9 +119,9 @@ export interface MagicSDKAdditionalConfiguration<
   meta?: any; // Generic field for clients to add metadata
 }
 
-export class SDKBase {
-  private readonly __overlays__: Map<string, ViewController> = new Map();
+export const __overlays__: Map<string, ViewController> = new Map();
 
+export class SDKBase {
   protected readonly endpoint: string;
   protected readonly parameters: string;
   protected readonly networkHash: string;
@@ -211,17 +211,17 @@ export class SDKBase {
    * Represents the view controller associated with this `MagicSDK` instance.
    */
   protected get overlay(): ViewController {
-    if (!this.__overlays__.has(this.parameters)) {
+    if (!__overlays__.has(this.parameters)) {
       const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters, this.networkHash);
 
       // @ts-ignore - We don't want to expose this method to the user, but we
       // need to invoke in here so that the `ViewController` is ready for use.
       controller.init();
 
-      this.__overlays__.set(this.parameters, controller);
+      __overlays__.set(this.parameters, controller);
     }
 
-    return this.__overlays__.get(this.parameters)!;
+    return __overlays__.get(this.parameters)!;
   }
 
   /**
