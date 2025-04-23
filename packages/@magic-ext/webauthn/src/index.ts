@@ -1,4 +1,4 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import {
   RegisterNewUserConfiguration,
   LoginWithWebAuthnConfiguration,
@@ -8,7 +8,7 @@ import {
 } from './types';
 import { transformAssertionForServer, transformNewAssertionForServer } from './utils/webauthn.js';
 
-export class WebAuthnExtension extends MagicExtension<'webauthn', any> {
+export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
   name = 'webauthn' as const;
   config: any = {};
 

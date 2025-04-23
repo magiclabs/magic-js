@@ -1,9 +1,9 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import { Web3Modal, createWeb3Modal, defaultConfig } from '@web3modal/ethers5';
 import { LocalStorageKeys, ThirdPartyWalletEvents } from '@magic-sdk/types';
 import { Web3ModalExtensionOptions } from './types';
 
-export class Web3ModalExtension extends MagicExtension<'web3modal'> {
+export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
   name = 'web3modal' as const;
   config = {};
   modal: Web3Modal;

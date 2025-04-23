@@ -1,7 +1,7 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import { TezosConfig, ConfigType } from './type';
 
-export class TezosExtension extends MagicExtension<'tezos', TezosConfig> {
+export class TezosExtension extends Extension.Internal<'tezos', TezosConfig> {
   name = 'tezos' as const;
 
   config: ConfigType;

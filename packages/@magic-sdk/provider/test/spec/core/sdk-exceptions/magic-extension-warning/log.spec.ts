@@ -1,7 +1,7 @@
 import { MagicExtensionWarning } from '../../../../../src/core/sdk-exceptions';
-import { BaseExtension } from '../../../../../src/modules/base-extension';
+import { Extension } from '../../../../../src/modules/base-extension';
 
-class TestExtension extends BaseExtension<'test'> {
+class TestExtension extends Extension<'test'> {
   name = 'test' as const;
 }
 

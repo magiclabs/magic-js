@@ -1,7 +1,7 @@
 import { TEST_API_KEY } from '../../../constants';
 import { ViewController } from '../../../../src/core/view-controller';
 import { createMagicSDKCtor } from '../../../factories';
-import { __overlays__ } from '../../../../src/core/sdk';
+import { SDKBase } from '../../../../src/core/sdk';
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -11,12 +11,12 @@ test('`MagicSDK.overlay` is lazy loaded', async () => {
   const Ctor = createMagicSDKCtor();
   const magic = new Ctor(TEST_API_KEY, { deferPreload: true });
 
-  expect(__overlays__.size).toBe(0);
+  expect((SDKBase as any).__overlays__.size).toBe(0);
 
   const { overlay: A } = magic;
-  const B = __overlays__.values().next().value;
+  const B = (SDKBase as any).__overlays__.values().next().value;
 
-  expect(__overlays__.size).toBe(1);
+  expect((SDKBase as any).__overlays__.size).toBe(1);
   expect(A instanceof ViewController).toBe(true);
   expect(A).toBe(B);
 });

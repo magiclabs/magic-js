@@ -1,7 +1,7 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import { AvaxConfig } from './types';
 
-export class AvalancheExtension extends MagicExtension<'avax', any> {
+export class AvalancheExtension extends Extension.Internal<'avax', any> {
   name = 'avax' as const;
   config: any = {};
 

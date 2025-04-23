@@ -5,6 +5,6 @@ export type { MagicSDKAdditionalConfiguration, MagicSDKExtensionsOption } from '
 export { createSDK } from './core/sdk-environment';
 export { ViewController } from './core/view-controller';
 export * from './core/sdk-exceptions';
-export { MagicExtension } from './modules/base-extension';
+export { Extension } from './modules/base-extension';
 export type { WithExtensions, InstanceWithExtensions } from './modules/base-extension';
 export * from './util';
