@@ -1,4 +1,4 @@
-import { BaseExtension } from '../../../../src/modules/base-extension';
+import { Extension } from '../../../../src/modules/base-extension';
 import { mockSDKEnvironmentConstant, restoreSDKEnvironmentConstants } from '../../../mocks';
 
 function errorAssertions(error: any, expectedCode: string, expectedMessage: string) {
@@ -112,7 +112,7 @@ test('Creates an `EXTENSION_NOT_INITIALIZED` error', async () => {
   );
 });
 
-class NoopExtSupportingWeb extends BaseExtension<'noop'> {
+class NoopExtSupportingWeb extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': '>1.0.0',
@@ -123,7 +123,7 @@ class NoopExtSupportingWeb extends BaseExtension<'noop'> {
   helloWorld() {}
 }
 
-class NoopExtSupportingBareReactNative extends BaseExtension<'noop'> {
+class NoopExtSupportingBareReactNative extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
@@ -134,7 +134,7 @@ class NoopExtSupportingBareReactNative extends BaseExtension<'noop'> {
   helloWorld() {}
 }
 
-class NoopExtSupportingExpoReactNative extends BaseExtension<'noop'> {
+class NoopExtSupportingExpoReactNative extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,

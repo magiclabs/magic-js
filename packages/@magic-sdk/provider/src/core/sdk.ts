@@ -13,7 +13,7 @@ import { ThirdPartyWalletsModule } from '../modules/third-party-wallets';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
-import { BaseExtension, MagicExtension } from '../modules/base-extension';
+import { BaseExtension, Extension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
 import { NFTModule } from '../modules/nft';
@@ -72,7 +72,7 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
           // Only apply extensions with a known, defined `name` parameter.
           (this as any)[ext.name] = ext;
         }
-        if (ext instanceof MagicExtension) {
+        if (ext instanceof Extension.Internal) {
           if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
         }
       } else {
@@ -85,7 +85,7 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
         extensions[name].init(this);
         const ext = extensions[name];
         (this as any)[name] = ext;
-        if (ext instanceof MagicExtension) {
+        if (ext instanceof Extension.Internal) {
           if (!isEmpty(ext.config)) extConfig[extensions[name].name] = ext.config;
         }
       } else {
@@ -119,9 +119,9 @@ export interface MagicSDKAdditionalConfiguration<
   meta?: any; // Generic field for clients to add metadata
 }
 
-export const __overlays__: Map<string, ViewController> = new Map();
-
 export class SDKBase {
+  private static readonly __overlays__: Map<string, ViewController> = new Map();
+
   protected readonly endpoint: string;
   protected readonly parameters: string;
   protected readonly networkHash: string;
@@ -211,17 +211,17 @@ export class SDKBase {
    * Represents the view controller associated with this `MagicSDK` instance.
    */
   protected get overlay(): ViewController {
-    if (!__overlays__.has(this.parameters)) {
+    if (!SDKBase.__overlays__.has(this.parameters)) {
       const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters, this.networkHash);
 
       // @ts-ignore - We don't want to expose this method to the user, but we
       // need to invoke in here so that the `ViewController` is ready for use.
       controller.init();
 
-      __overlays__.set(this.parameters, controller);
+      SDKBase.__overlays__.set(this.parameters, controller);
     }
 
-    return __overlays__.get(this.parameters)!;
+    return SDKBase.__overlays__.get(this.parameters)!;
   }
 
   /**

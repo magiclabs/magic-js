@@ -1,7 +1,7 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import { ZilliqaConfig, ConfigType } from './type';
 
-export class ZilliqaExtension extends MagicExtension<'zilliqa', ZilliqaConfig> {
+export class ZilliqaExtension extends Extension.Internal<'zilliqa', ZilliqaConfig> {
   name = 'zilliqa' as const;
 
   config: ConfigType;
