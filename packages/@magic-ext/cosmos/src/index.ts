@@ -1,7 +1,7 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import { CosmosConfig, CosmosPayloadMethod } from './type';
 
-export class CosmosExtension extends MagicExtension<'cosmos', any> {
+export class CosmosExtension extends Extension.Internal<'cosmos', any> {
   name = 'cosmos' as const;
   config: any = {};
 

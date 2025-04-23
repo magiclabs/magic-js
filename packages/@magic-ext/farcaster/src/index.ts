@@ -1,4 +1,4 @@
-import {MagicExtension, FarcasterLoginEventEmit} from '@magic-sdk/commons';
+import {Extension, FarcasterLoginEventEmit} from '@magic-sdk/commons';
 import { FarcasterPayloadMethod } from './types';
 import { isMainFrame, isMobile } from './utils';
 
@@ -71,7 +71,7 @@ type FarcasterLoginEventHandlers = {
   [FarcasterLoginEventEmit.Cancel]: () => void;
 };
 
-export class FarcasterExtension extends MagicExtension<'farcaster'> {
+export class FarcasterExtension extends Extension.Internal<'farcaster'> {
   name = 'farcaster' as const;
   config = {};
 

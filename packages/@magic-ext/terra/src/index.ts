@@ -1,7 +1,7 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import { TerraPayloadMethod, TerraConfig } from './types';
 
-export class TerraExtension extends MagicExtension<'terra', any> {
+export class TerraExtension extends Extension.Internal<'terra', any> {
   name = 'terra' as const;
   config: any = {};
 
