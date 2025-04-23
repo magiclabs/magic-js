@@ -1,4 +1,4 @@
-import * as esbuild from 'esbuild';
+import { build as esbuild, Platform, Plugin, Format } from 'esbuild';
 import path from 'path';
 import fse from 'fs-extra';
 import gzipSize from 'gzip-size';
@@ -11,8 +11,8 @@ import { existsAsync } from './exists-async';
 
 interface ESBuildOptions {
   watch?: boolean;
-  target?: esbuild.Platform;
-  format?: esbuild.Format;
+  target?: Platform;
+  format?: Format;
   output?: string;
   sourcemap?: boolean;
   name?: string;
@@ -22,48 +22,40 @@ interface ESBuildOptions {
 
 export async function build(options: ESBuildOptions) {
   if (options.output) {
-    const buildOptions: esbuild.BuildOptions = {
-      bundle: true,
-      minify: true,
-      treeShaking: true,
-      drop: process.env.NODE_ENV === 'production' ? ['debugger', 'console'] : ['debugger'],
-      legalComments: 'none',
-      platform: options.target ?? 'browser',
-      format: options.format ?? 'cjs',
-      globalName: options.format === 'iife' ? options.name : undefined,
-      entryPoints: [await getEntrypoint(options.format)],
-      sourcemap: options.sourcemap,
-      outfile: options.output,
-      tsconfig: 'node_modules/.temp/tsconfig.build.json',
-      external: options.externals,
-      loader: { '.ts': 'ts', '.tsx': 'tsx' },
-      define: Object.fromEntries(
-        Object.entries(environment).map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)]),
-      ),
-      plugins: [...globalsPlugin(options.globals || {})],
+    try {
+      await esbuild({
+        bundle: true,
+        minify: true,
+        legalComments: 'none',
+        platform: options.target ?? 'browser',
+        format: options.format ?? 'cjs',
+        globalName: options.format === 'iife' ? options.name : undefined,
+        entryPoints: [await getEntrypoint(options.format)],
+        sourcemap: options.sourcemap,
+        outfile: options.output,
+        tsconfig: 'node_modules/.temp/tsconfig.build.json',
+        external: options.externals,
+        loader: { '.ts': 'ts', '.tsx': 'tsx' },
+        define: Object.fromEntries(
+          Object.entries(environment).map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)]),
+        ),
+        plugins: [...globalsPlugin(options.globals || {})],
 
-      mangleProps: /^_/,
-      ignoreAnnotations: false,
-      metafile: true, // Generate metafile for size analysis
-
-      // We need this footer because: https://github.com/evanw/esbuild/issues/1182
-      footer:
-        options.format === 'iife'
-          ? {
-              // This snippet replaces `window.{name}` with
-              // `window.{name}.default`, with any additional named exports
-              // assigned. Finally, it removes `window.{name}.default`.
-              js: `if (${options.name} && ${options.name}.default != null) { ${options.name} = Object.assign(${options.name}.default, ${options.name}); delete ${options.name}.default; }`,
-            }
-          : undefined,
-    };
-
-    if (options.watch) {
-      const ctx = await esbuild.context(buildOptions);
-      await ctx.watch();
-    } else {
-      await esbuild.build(buildOptions);
+        // We need this footer because: https://github.com/evanw/esbuild/issues/1182
+        footer:
+          options.format === 'iife'
+            ? {
+                // This snippet replaces `window.{name}` with
+                // `window.{name}.default`, with any additional named exports
+                // assigned. Finally, it removes `window.{name}.default`.
+                js: `if (${options.name} && ${options.name}.default != null) { ${options.name} = Object.assign(${options.name}.default, ${options.name}); delete ${options.name}.default; }`,
+              }
+            : undefined,
+      });
       await printOutputSizeInfo(options);
+    } catch (e) {
+      console.error(e);
+      throw e;
     }
   }
 }
@@ -96,7 +88,7 @@ export async function emitTypes(watch?: boolean) {
  * Resolves the entrypoint file for ESBuild,
  * based on the format and target platform.
  */
-async function getEntrypoint(format?: esbuild.Format) {
+async function getEntrypoint(format?: Format) {
   const findEntrypoint = async (indexTarget?: string) => {
     if (format && (await existsAsync(path.resolve(process.cwd(), `./src/index.${indexTarget}.ts`)))) {
       return `src/index.${indexTarget}.ts`;
@@ -160,7 +152,7 @@ export async function createTemporaryTSConfigFile() {
  * Creates a list of plugins to replace
  * externalized packages with a global variable.
  */
-function globalsPlugin(globals: Record<string, string>): esbuild.Plugin[] {
+function globalsPlugin(globals: Record<string, string>): Plugin[] {
   return Object.entries(globals).map(([packageName, globalVar]) => {
     const namespace = `globals-plugin:${packageName}`;
     return {
