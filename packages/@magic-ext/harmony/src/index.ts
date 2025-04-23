@@ -1,7 +1,7 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import { HarmonyPayloadMethod, HarmonyConfig } from './types';
 
-export class HarmonyExtension extends MagicExtension<'harmony', any> {
+export class HarmonyExtension extends Extension.Internal<'harmony', any> {
   name = 'harmony' as const;
   config: any = {};
 

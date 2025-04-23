@@ -1,7 +1,6 @@
 import type { MagicUserMetadata } from '@magic-sdk/types';
-import { MagicExtension } from '@magic-sdk/commons';
 
-export class PlugNPlayExtension extends MagicExtension<'pnp', { isPnP: boolean }> {
+export class PlugNPlayExtension extends window.Magic.Extension.Internal<'pnp', { isPnP: boolean }> {
   config = { isPnP: true };
   name = 'pnp' as const;
 
@@ -10,7 +9,7 @@ export class PlugNPlayExtension extends MagicExtension<'pnp', { isPnP: boolean }
   };
 
   public getLoginMethod(options: { debug?: boolean; termsOfServiceURI?: string; privacyPolicyURI?: string }) {
-    return this.utils.createPromiEvent<[string, string | undefined]>(async resolve => {
+    return this.utils.createPromiEvent<[string, string | undefined]>(async (resolve) => {
       const lastUsedProvider = await this.utils.storage.getItem<string | undefined>(
         PlugNPlayExtension.storageKeys.lastUsedProvider,
       );

@@ -1,7 +1,7 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import { BitcoinConfig, BitcoinPayloadMethod } from './types';
 
-export class BitcoinExtension extends MagicExtension<'bitcoin', any> {
+export class BitcoinExtension extends Extension.Internal<'bitcoin', any> {
   name = 'bitcoin' as const;
   config: any = {};
 
