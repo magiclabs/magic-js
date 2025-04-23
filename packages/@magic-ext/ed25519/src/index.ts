@@ -1,7 +1,7 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import { Ed25519PayloadMethod } from './types';
 
-export class Ed25519Extension extends MagicExtension<'ed', any> {
+export class Ed25519Extension extends Extension.Internal<'ed', any> {
   name = 'ed' as const;
   config: any = {};
 

@@ -1,4 +1,4 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import {
   OAuthErrorData,
   OAuthPayloadMethods,
@@ -8,7 +8,7 @@ import {
 } from './types';
 import { createCryptoChallenge } from './crypto';
 
-export class OAuthExtension extends MagicExtension<'oauth'> {
+export class OAuthExtension extends Extension.Internal<'oauth'> {
   name = 'oauth' as const;
   config = {};
   compat = {

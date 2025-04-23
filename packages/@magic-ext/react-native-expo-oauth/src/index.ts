@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import { MagicExtension } from '@magic-sdk/react-native-expo';
+import { Extension } from '@magic-sdk/react-native-expo';
 import * as Application from 'expo-application';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createCryptoChallenge } from './crypto';
@@ -12,7 +12,7 @@ import {
   OAuthRedirectStartResult,
 } from './types';
 
-export class OAuthExtension extends MagicExtension<'oauth'> {
+export class OAuthExtension extends Extension.Internal<'oauth'> {
   name = 'oauth' as const;
   config = {};
   compat = {

@@ -2,7 +2,7 @@
 // for the public API from this file.
 
 export {
-  MagicExtension,
+  Extension,
   MagicSDKError as SDKError,
   MagicExtensionError as ExtensionError,
   MagicExtensionWarning as ExtensionWarning,

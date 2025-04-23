@@ -1,4 +1,4 @@
-import { MagicExtension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/commons';
 import {
   OAuthErrorData,
   OAuthRedirectError,
@@ -20,7 +20,7 @@ declare global {
   }
 }
 
-export class OAuthExtension extends MagicExtension<'oauth2'> {
+export class OAuthExtension extends Extension.Internal<'oauth2'> {
   name = 'oauth2' as const;
   config = {};
   compat = {
