@@ -34,7 +34,7 @@ export async function build(options: ESBuildOptions) {
       entryPoints: [await getEntrypoint(options.format)],
       sourcemap: options.sourcemap,
       outfile: options.output,
-      tsconfig: 'tsconfig.json',
+      tsconfig: 'node_modules/.temp/tsconfig.build.json',
       external: options.externals,
       loader: { '.ts': 'ts', '.tsx': 'tsx' },
       define: Object.fromEntries(

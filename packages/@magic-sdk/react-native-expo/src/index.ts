@@ -6,7 +6,7 @@ import { createSDK, InstanceWithExtensions, MagicSDKExtensionsOption } from '@ma
 import * as processPolyfill from 'process';
 import { URL as URLPolyfill, URLSearchParams as URLSearchParamsPolyfill } from 'whatwg-url';
 import { Buffer } from 'buffer';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import * as Application from 'expo-application';
 import { ReactNativeWebViewController } from './react-native-webview-controller';
 import { SDKBaseReactNative } from './react-native-sdk-base';
