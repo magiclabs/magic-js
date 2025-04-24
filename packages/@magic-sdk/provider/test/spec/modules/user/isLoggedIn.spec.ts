@@ -95,3 +95,16 @@ test('Emits user logged out event when logout resolves', async () => {
 
   expect(spyEmitUserLoggedOut).toHaveBeenCalledWith(true);
 });
+
+test('Emits user logged out event when isLoggedIn', async () => {
+  mockLocalForage({ magic_auth_is_logged_in: 'true' });
+  const magic = createMagicSDK();
+  magic.useStorageCache = true;
+  magic.user.request = jest.fn().mockResolvedValue(false);
+
+  const spyEmitUserLoggedOut = jest.spyOn(magic.user, 'emitUserLoggedOut');
+
+  await magic.user.isLoggedIn();
+
+  expect(spyEmitUserLoggedOut).toHaveBeenCalledWith(true);
+});
