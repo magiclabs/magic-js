@@ -20,6 +20,7 @@ import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
 import { isMajorVersionAtLeast } from '../util/version-check';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
+import { clearKeys } from '../util';
 
 export const ProductConsolidationMethodRemovalVersions = {
   'magic-sdk': 'v18.0.0',
@@ -126,6 +127,17 @@ export class AuthModule extends BaseModule {
       handle.on(LoginWithEmailOTPEventEmit.Cancel, () => {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.Cancel, requestPayload.id as any)();
       });
+    }
+
+    // Handle DPOP error
+    if (handle) {
+      handle.catch(error => {
+        console.log({error});
+        if (error?.message === 'DPOP signature validation error') {
+          clearKeys();
+        }
+        throw error
+      })
     }
     return handle;
   }
