@@ -131,12 +131,10 @@ export class AuthModule extends BaseModule {
 
     // Handle DPOP error
     if (handle) {
-      handle.catch(error => {
-        console.log({error});
-        if (error?.message === 'DPOP signature validation error') {
+      handle.on('error', error => {
+        if (error?.code === -32603 && error?.message === 'DPOP signature validation error') {
           clearKeys();
         }
-        throw error
       })
     }
     return handle;
