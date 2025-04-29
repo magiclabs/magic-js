@@ -115,7 +115,7 @@ function utf8ToBinaryString(str: string) {
 
 function uint8ToUrlBase64(uint8: Uint8Array) {
   let bin = '';
-  uint8.forEach((code) => {
+  uint8.forEach(code => {
     bin += String.fromCharCode(code);
   });
   return binToUrlBase64(bin);

@@ -1,6 +1,7 @@
-import { JsonRpcRequestPayload, JsonRpcResponsePayload, JsonRpcError } from '@magic-sdk/types';
+import { JsonRpcRequestPayload, JsonRpcResponsePayload, JsonRpcError, RPCErrorCode } from '@magic-sdk/types';
 import { isJsonRpcResponsePayload } from '../util/type-guards';
 import { getPayloadId } from '../util/get-payload-id';
+import { clearKeys } from '../util/web-crypto';
 
 const payloadPreprocessedSymbol = Symbol('Payload pre-processed by Magic SDK');
 
@@ -102,6 +103,10 @@ export class JsonRpcResponse<ResultType = any> {
   }
 
   public get hasError() {
+    // Handle DPOP error and rotate new keys
+    if (this._error?.code === RPCErrorCode.DpopInvalidated) {
+      clearKeys();
+    }
     return typeof this._error !== 'undefined' && this._error !== null;
   }
 
