@@ -5,6 +5,7 @@ import {
   MagicPayloadMethod,
   IntermediaryEvents,
   routeToMagicMethods,
+  RPCErrorCode,
 } from '@magic-sdk/types';
 import { createMalformedResponseError, MagicRPCError } from '../core/sdk-exceptions';
 import type { SDKBase } from '../core/sdk';
@@ -12,6 +13,7 @@ import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '.
 import { createPromiEvent } from '../util/promise-tools';
 import type { ViewController } from '../core/view-controller';
 import type { EventsDefinition } from '../util/events';
+import { clearKeys } from '@magic-sdk/provider';
 
 export class BaseModule {
   constructor(protected sdk: SDKBase) {}
@@ -49,6 +51,10 @@ export class BaseModule {
           else throw createMalformedResponseError();
         })
         .catch(err => {
+          // Handle DPOP error and rotate new keys
+          if (err?.code === RPCErrorCode.DpopInvalidated) {
+            clearKeys();
+          }
           cleanupEvents();
           reject(err);
         });

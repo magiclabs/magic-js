@@ -19,6 +19,7 @@ export function isWebCryptoSupported() {
 }
 
 export function clearKeys() {
+  console.log('clearing keys');
   removeItem(STORE_KEY_PUBLIC_JWK);
   removeItem(STORE_KEY_PRIVATE_KEY);
 }
