@@ -51,11 +51,6 @@ export class BaseModule {
           else throw createMalformedResponseError();
         })
         .catch(err => {
-          // Handle DPOP error and rotate new keys
-          console.log('err', err);
-          if (err?.code === RPCErrorCode.DpopInvalidated) {
-            clearKeys();
-          }
           cleanupEvents();
           reject(err);
         });
