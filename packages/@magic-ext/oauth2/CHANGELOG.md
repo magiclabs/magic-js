@@ -1,3 +1,17 @@
+# v11.0.6 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Revert "Remove Extension class and rename InternalExtension to MagicExtension" [#882](https://github.com/magiclabs/magic-js/pull/882) ([@Ethella](https://github.com/Ethella))
+- Remove Extension class and rename InternalExtension to MagicExtension [#881](https://github.com/magiclabs/magic-js/pull/881) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v11.0.4 (Tue Apr 01 2025)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,16 @@
+# v24.18.2 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- feat: handle dpop error [#886](https://github.com/magiclabs/magic-js/pull/886) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v24.18.1 (Sat Mar 22 2025)
 
 #### 🐛 Bug Fix
