@@ -13,7 +13,7 @@ import { createJsonRpcRequestPayload, standardizeJsonRpcRequestPayload } from '.
 import { createPromiEvent } from '../util/promise-tools';
 import type { ViewController } from '../core/view-controller';
 import type { EventsDefinition } from '../util/events';
-import { clearKeys } from '@magic-sdk/provider';
+import { clearKeys } from '../util/web-crypto';
 
 export class BaseModule {
   constructor(protected sdk: SDKBase) {}
