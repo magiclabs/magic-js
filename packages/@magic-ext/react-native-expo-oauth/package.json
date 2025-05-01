@@ -26,18 +26,17 @@
     ]
   },
   "dependencies": {
-    "@magic-sdk/types": "^10.0.0",
-    "crypto-js": "^4.2.0",
-    "expo-application": "^5.0.1",
     "expo-web-browser": "14.0.2"
   },
   "devDependencies": {
     "@magic-sdk/react-native-expo": "^30.0.6",
+    "@magic-sdk/types": "^24.18.2",
     "@react-native-async-storage/async-storage": "^2.1.2",
     "@types/crypto-js": "~4.2.0"
   },
   "peerDependencies": {
     "@magic-sdk/react-native-expo": ">=13.0.0",
+    "@magic-sdk/types": "^24.18.2",
     "@react-native-async-storage/async-storage": "^2.1.2"
   }
 }

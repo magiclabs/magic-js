@@ -26,19 +26,14 @@
     ]
   },
   "dependencies": {
-    "crypto-js": "^4.2.0",
-    "react-native-device-info": "^10.3.0"
+    "react-native-inappbrowser-reborn": "^3.7.0"
   },
   "devDependencies": {
     "@magic-sdk/react-native-bare": "^30.0.7",
-    "@magic-sdk/types": "^24.18.2",
-    "@react-native-async-storage/async-storage": "^2.1.2",
-    "@types/crypto-js": "~4.2.0",
-    "react-native-inappbrowser-reborn": "^3.7.0"
+    "@magic-sdk/types": "^24.18.2"
   },
   "peerDependencies": {
     "@magic-sdk/react-native-bare": ">=13.0.0",
-    "@react-native-async-storage/async-storage": "^2.1.2",
     "react-native-inappbrowser-reborn": ">=3.7.0"
   }
 }

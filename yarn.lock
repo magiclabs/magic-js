@@ -3207,14 +3207,9 @@ __metadata:
   dependencies:
     "@magic-sdk/react-native-bare": ^30.0.7
     "@magic-sdk/types": ^24.18.2
-    "@react-native-async-storage/async-storage": ^2.1.2
-    "@types/crypto-js": ~4.2.0
-    crypto-js: ^4.2.0
-    react-native-device-info: ^10.3.0
     react-native-inappbrowser-reborn: ^3.7.0
   peerDependencies:
     "@magic-sdk/react-native-bare": ">=13.0.0"
-    "@react-native-async-storage/async-storage": ^2.1.2
     react-native-inappbrowser-reborn: ">=3.7.0"
   languageName: unknown
   linkType: soft
@@ -3224,14 +3219,13 @@ __metadata:
   resolution: "@magic-ext/react-native-expo-oauth@workspace:packages/@magic-ext/react-native-expo-oauth"
   dependencies:
     "@magic-sdk/react-native-expo": ^30.0.6
-    "@magic-sdk/types": ^10.0.0
+    "@magic-sdk/types": ^24.18.2
     "@react-native-async-storage/async-storage": ^2.1.2
     "@types/crypto-js": ~4.2.0
-    crypto-js: ^4.2.0
-    expo-application: ^5.0.1
     expo-web-browser: 14.0.2
   peerDependencies:
     "@magic-sdk/react-native-expo": ">=13.0.0"
+    "@magic-sdk/types": ^24.18.2
     "@react-native-async-storage/async-storage": ^2.1.2
   languageName: unknown
   linkType: soft
@@ -3440,13 +3434,6 @@ __metadata:
   version: 24.0.6-canary.742.10067162636.0
   resolution: "@magic-sdk/types@npm:24.0.6-canary.742.10067162636.0"
   checksum: e1f8fa2aaa77d60f03147ce396ddd895e01cfe24f79fd732188ef5dbc527fbfcfa0fee68fb6ac3d4a43784d096b43c76d8e2f03026aa38fce6e36f1a6611c4ce
-  languageName: node
-  linkType: hard
-
-"@magic-sdk/types@npm:^10.0.0":
-  version: 10.0.1
-  resolution: "@magic-sdk/types@npm:10.0.1"
-  checksum: 27ff466f5a04c3a7e8dd87d655aecabc151b382832db014206b4c470dd70634501d243de0f50e5014bf1a08047a71a79a8bff1fb21de2c6c9f26a5f83c93aeb5
   languageName: node
   linkType: hard
 
