@@ -127,6 +127,7 @@ export class AuthModule extends BaseModule {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.Cancel, requestPayload.id as any)();
       });
     }
+
     return handle;
   }
 

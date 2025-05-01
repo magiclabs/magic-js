@@ -1,3 +1,18 @@
+# v29.0.6 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Pdeexp 2096 replace ikscodes browser env package in magic js [#877](https://github.com/magiclabs/magic-js/pull/877) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- chore: remove @ikscodes/browser-env [#842](https://github.com/magiclabs/magic-js/pull/842) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v29.0.4 (Tue Apr 01 2025)
 
 #### 🐛 Bug Fix

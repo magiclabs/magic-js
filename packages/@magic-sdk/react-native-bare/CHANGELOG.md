@@ -1,3 +1,20 @@
+# v30.0.7 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Pdeexp 2096 replace ikscodes browser env package in magic js [#877](https://github.com/magiclabs/magic-js/pull/877) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- chore: remove @ikscodes/browser-env [#842](https://github.com/magiclabs/magic-js/pull/842) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- Bump Jest version to 29.7.0 and update related testing dependencies [#873](https://github.com/magiclabs/magic-js/pull/873) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v30.0.6 (Thu Apr 03 2025)
 
 #### 🐛 Bug Fix

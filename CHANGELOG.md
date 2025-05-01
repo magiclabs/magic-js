@@ -1,3 +1,33 @@
+# (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Update README.md [#883](https://github.com/magiclabs/magic-js/pull/883) ([@romashka-btc](https://github.com/romashka-btc) [@Ethella](https://github.com/Ethella))
+- Update esbuild to 0.25.2 and optimize SDK size [#874](https://github.com/magiclabs/magic-js/pull/874) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+- `@magic-sdk/provider@29.0.6`, `@magic-sdk/types@24.18.2`
+  - feat: handle dpop error [#886](https://github.com/magiclabs/magic-js/pull/886) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- `@magic-sdk/provider@29.0.6`
+  - bump target to es 2022 [#885](https://github.com/magiclabs/magic-js/pull/885) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/algorand@24.0.6`, `@magic-ext/aptos@12.0.6`, `@magic-ext/avalanche@24.0.6`, `@magic-ext/bitcoin@24.0.6`, `@magic-ext/conflux@22.0.6`, `@magic-ext/cosmos@24.0.6`, `@magic-ext/ed25519@20.0.6`, `@magic-ext/farcaster@1.0.6`, `@magic-ext/flow@24.0.6`, `@magic-ext/gdkms@12.0.6`, `@magic-ext/harmony@24.0.6`, `@magic-ext/hedera@1.0.5`, `@magic-ext/icon@24.0.6`, `@magic-ext/kadena@1.0.6`, `@magic-ext/near@24.0.6`, `@magic-ext/oauth@23.0.7`, `@magic-ext/oauth2@11.0.6`, `@magic-ext/oidc@12.0.6`, `@magic-ext/polkadot@24.0.6`, `@magic-ext/react-native-bare-oauth@26.0.8`, `@magic-ext/react-native-expo-oauth@26.0.7`, `@magic-ext/solana@26.0.6`, `@magic-ext/sui@1.0.6`, `@magic-ext/taquito@21.0.6`, `@magic-ext/terra@21.0.6`, `@magic-ext/tezos@24.0.6`, `@magic-ext/web3modal-ethers5@1.0.6`, `@magic-ext/webauthn@23.0.6`, `@magic-ext/zilliqa@24.0.6`, `@magic-sdk/commons@25.0.6`, `@magic-sdk/pnp@23.0.7`, `@magic-sdk/provider@29.0.6`
+  - Revert "Remove Extension class and rename InternalExtension to MagicExtension" [#882](https://github.com/magiclabs/magic-js/pull/882) ([@Ethella](https://github.com/Ethella))
+  - Remove Extension class and rename InternalExtension to MagicExtension [#881](https://github.com/magiclabs/magic-js/pull/881) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+- `@magic-sdk/pnp@23.0.7`, `@magic-sdk/provider@29.0.6`, `@magic-sdk/react-native-bare@30.0.7`, `@magic-sdk/react-native-expo@30.0.6`, `magic-sdk@29.0.6`
+  - Pdeexp 2096 replace ikscodes browser env package in magic js [#877](https://github.com/magiclabs/magic-js/pull/877) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- `@magic-ext/aptos@12.0.6`, `@magic-ext/gdkms@12.0.6`, `@magic-ext/harmony@24.0.6`, `@magic-ext/kadena@1.0.6`, `@magic-ext/sui@1.0.6`, `@magic-ext/web3modal-ethers5@1.0.6`, `@magic-sdk/provider@29.0.6`, `@magic-sdk/react-native-bare@30.0.7`, `@magic-sdk/react-native-expo@30.0.6`, `magic-sdk@29.0.6`
+  - chore: remove @ikscodes/browser-env [#842](https://github.com/magiclabs/magic-js/pull/842) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- `@magic-ext/gdkms@12.0.6`, `@magic-sdk/pnp@23.0.7`, `@magic-sdk/provider@29.0.6`, `@magic-sdk/react-native-bare@30.0.7`, `@magic-sdk/react-native-expo@30.0.6`
+  - Bump Jest version to 29.7.0 and update related testing dependencies [#873](https://github.com/magiclabs/magic-js/pull/873) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 5
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- de666En ([@romashka-btc](https://github.com/romashka-btc))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Thu Apr 03 2025)
 
 #### 🐛 Bug Fix

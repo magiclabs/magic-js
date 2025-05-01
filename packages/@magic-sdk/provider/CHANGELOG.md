@@ -1,3 +1,24 @@
+# v29.0.6 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- feat: handle dpop error [#886](https://github.com/magiclabs/magic-js/pull/886) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- bump target to es 2022 [#885](https://github.com/magiclabs/magic-js/pull/885) ([@Ethella](https://github.com/Ethella))
+- Revert "Remove Extension class and rename InternalExtension to MagicExtension" [#882](https://github.com/magiclabs/magic-js/pull/882) ([@Ethella](https://github.com/Ethella))
+- Remove Extension class and rename InternalExtension to MagicExtension [#881](https://github.com/magiclabs/magic-js/pull/881) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+- Pdeexp 2096 replace ikscodes browser env package in magic js [#877](https://github.com/magiclabs/magic-js/pull/877) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- chore: remove @ikscodes/browser-env [#842](https://github.com/magiclabs/magic-js/pull/842) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- Bump Jest version to 29.7.0 and update related testing dependencies [#873](https://github.com/magiclabs/magic-js/pull/873) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v29.0.5 (Tue Apr 01 2025)
 
 #### 🐛 Bug Fix
