@@ -11,7 +11,7 @@ async function main() {
   printSeparator('Running tests');
   const args = process.argv.slice(2);
 
-  await execa('yarn', ['wsrun', '--serial', `${process.env.INIT_CWD}/scripts/bin/wsrun/test:unit.ts`, ...args], {
+  await execa('pnpm', ['wsrun', '--serial', `${process.env.INIT_CWD}/scripts/bin/wsrun/test:unit.ts`, ...args], {
     stdio: 'inherit',
     env: { PKG },
   });

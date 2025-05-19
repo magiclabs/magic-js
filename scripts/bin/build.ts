@@ -14,7 +14,7 @@ async function buildPkgs(PKG: string) {
   // We need to limit concurrency in CI to avoid ENOMEM errors.
   const wsrunConcurrency = isCI ? '--serial' : '--stages';
 
-  await execa('yarn', ['wsrun', '-r', wsrunConcurrency, `${process.env.INIT_CWD}/scripts/bin/wsrun/build-package.ts`], {
+  await execa('pnpm', ['wsrun', '-r', wsrunConcurrency, `${process.env.INIT_CWD}/scripts/bin/wsrun/build-package.ts`], {
     stdio: 'inherit',
     env: { PKG },
   })

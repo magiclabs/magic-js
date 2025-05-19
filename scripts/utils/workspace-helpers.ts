@@ -13,11 +13,19 @@ export interface YarnWorkspace {
  * Returns metadata for the workspaces in this respository.
  */
 export async function getAllWorkspaces(): Promise<YarnWorkspace[]> {
-  const subprocess = await execa('yarn', ['workspaces', 'list', '--json', '--verbose']);
-  const workspaces = subprocess.stdout
-    .split('\n')
-    .map((json) => JSON.parse(json))
-    .filter((i) => i.name !== 'magic-sdk-monorepo');
+  const subprocess = await execa('pnpm', ['ls', '--json', '--depth', '-1']);
+  const workspacesData = JSON.parse(subprocess.stdout);
+  
+  const workspaces = workspacesData
+    .filter((pkg: any) => pkg.name !== 'magic-sdk-monorepo')
+    .map((pkg: any) => ({
+      name: pkg.name,
+      location: pkg.path.replace(`${process.cwd()}/`, ''),
+      workspaceDependencies: Object.keys(pkg.dependencies || {})
+        .filter((dep) => workspacesData.some((ws: any) => ws.name === dep))
+        .map((dep) => workspacesData.find((ws: any) => ws.name === dep)?.path.replace(`${process.cwd()}/`, ''))
+        .filter(Boolean)
+    }));
 
   return workspaces;
 }
