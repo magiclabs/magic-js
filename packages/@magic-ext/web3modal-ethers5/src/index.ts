@@ -86,14 +86,12 @@ export class Web3ModalExtension extends Extension.Internal<'web3modal'> {
           await modal.disconnect();
         }
       } catch (error) {
-        console.error(error);
+        // Silent error when disconnecting
       }
-
       // Listen for wallet connected event
       const unsubscribeFromProviderEvents = modal.subscribeProvider(({ address, error }) => {
         // User rejected connection request
         if (error) {
-          console.error('Provider event error:', error);
           unsubscribeFromProviderEvents();
           this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
         }

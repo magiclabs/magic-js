@@ -163,13 +163,11 @@ export class IframeController extends ViewController {
 
     if (!iframe) {
       this.init();
-      console.warn('Magic SDK: Modal lost, re-initiating');
       return;
     }
 
     if (!iframe.contentWindow) {
       document.body.appendChild(iframe);
-      console.warn('Magic SDK: Modal did not append in the iframe, re-initiating');
       return;
     }
 

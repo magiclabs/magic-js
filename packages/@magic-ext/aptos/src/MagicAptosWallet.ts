@@ -155,13 +155,11 @@ export class MagicAptosWallet implements AdapterPlugin {
   }
 
   async onNetworkChange(callback: any): Promise<void> {
-    console.warn('onNetworkChange is not supported');
     callback();
     return Promise.resolve();
   }
 
   async onAccountChange(callback: any): Promise<void> {
-    console.warn('onAccountChange is not supported');
     callback();
     return Promise.resolve();
   }
