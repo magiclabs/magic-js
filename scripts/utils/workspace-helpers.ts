@@ -3,7 +3,7 @@ import execa from 'execa';
 import { prompt } from 'enquirer';
 import isCI from 'is-ci';
 
-export interface YarnWorkspace {
+export interface PnpmWorkspace {
   location: string;
   name: string;
   workspaceDependencies: string[];
@@ -12,7 +12,7 @@ export interface YarnWorkspace {
 /**
  * Returns metadata for the workspaces in this respository.
  */
-export async function getAllWorkspaces(): Promise<YarnWorkspace[]> {
+export async function getAllWorkspaces(): Promise<PnpmWorkspace[]> {
   const subprocess = await execa('pnpm', ['ls', '--json', '--depth', '-1']);
   const workspacesData = JSON.parse(subprocess.stdout);
   
@@ -81,18 +81,18 @@ export async function getPackages(pkgQuery: string) {
       });
     });
 
-  const recursiveDependencyReducer = (acc: YarnWorkspace[], workspace: YarnWorkspace) => {
+  const recursiveDependencyReducer = (acc: PnpmWorkspace[], workspace: PnpmWorkspace) => {
     const result = [
       ...acc,
       ...workspace.workspaceDependencies.map((i) => workspaces.find((j) => j.location === i)).filter(Boolean),
-    ] as YarnWorkspace[];
+    ] as PnpmWorkspace[];
 
     const nextDependencies = workspace.workspaceDependencies
       .map((location) => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         return workspaces.find((ws) => ws.location === location);
       })
-      .filter(Boolean) as YarnWorkspace[];
+      .filter(Boolean) as PnpmWorkspace[];
 
     if (nextDependencies.length) {
       return nextDependencies.reduce(recursiveDependencyReducer, result);

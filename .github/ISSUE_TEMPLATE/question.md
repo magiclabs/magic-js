@@ -20,5 +20,5 @@ labels: ❓Question
 | ---------------- | ---------- |
 | `magic-sdk`      |
 | Browser          |
-| `yarn`           |
+| `pnpm`           |
 | Operating System |

@@ -39,5 +39,5 @@ labels: 🐛 Bug Report, 🔍 Needs Triage
 | ---------------- | ---------- |
 | `magic-sdk`      |
 | Browser          |
-| `yarn`           |
+| `pnpm`           |
 | Operating System |

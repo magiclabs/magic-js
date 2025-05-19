@@ -71,7 +71,7 @@ const template = (
 async function main() {
   type ScaffoldData = { 'create-magic-extension': Props };
   await scaffold<ScaffoldData>(template);
-  await execa('yarn', ['install'], { stdio: 'inherit' });
+  await execa('pnpm', ['install'], { stdio: 'inherit' });
 }
 
 runAsyncProcess(main);

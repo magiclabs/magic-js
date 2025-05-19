@@ -13,17 +13,12 @@
 /**/coverage
 /**/.nyc_output
 
-# We use Yarn
+# We use pnpm
 /package-lock.json
 /**/package-lock.json
 /**/yarn-error.log
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-.pnp.*
+.pnpm-store/
+pnpm-debug.log
 
 # Output files
 /**/dist

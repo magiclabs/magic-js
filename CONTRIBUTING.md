@@ -14,9 +14,9 @@ Please note we have a **code of conduct**, please follow it in all your interact
 - For features: `feature/[package_name]/[issue_number]/[descriptive_feature_name]`
 - For chores/the rest: `chore/[package_name]/[descriptive_chore_name]`
 
-4. Install & hoist dependencies with Yarn + Lerna: `yarn install`
+4. Install & hoist dependencies with pnpm: `pnpm install`
 5. Add `./node_modules/.bin` to your system's [`PATH`](https://en.wikipedia.org/wiki/PATH_(variable)), if it's not already listed.
-6. Start building for development: `yarn build`
+6. Start building for development: `pnpm build`
 
 > Note: There is no hot-reloading development script for now (which sucks, I know). Recently, the build system in Magic JS SDK changed to use a bundler as opposed to delivering TSC-transpiled files. This has complicated the matter of serving a development-specific flow. We will revisit this problem in the future.
 
@@ -43,13 +43,13 @@ To ensure ESLint is able to properly lint source files in your VS Code developme
 
 | NPM Script | Usage | Description |
 | ---------- | ----- | ----------- |
-| `wsrun` | `PKG=$PACKAGE_TARGET yarn wsrun` | Execute arbitrary scripts via `wsrun` for the specified package, or interactively select a package if `$PKG` is omitted. |
-| `wsrun:all` | `yarn wsrun` | Execute arbitrary scripts via `wsrun` for all packages in the monorepo (same as `PKG=* yarn wsrun ...`). |
-| `dev` | `PKG=$PACKAGE_TARGET yarn dev` | Build the specified package with a hot-reloading dev server, or interactively select a package if `$PKG` is omitted. |
-| `build` | `PKG=$PACKAGE_TARGET yarn build` | Build the specified package for production, or interactively select a package if `$PKG` is omitted. |
-| `clean` | `PKG=$PACKAGE_TARGET yarn clean` | Run cleaning scripts for the specified package, or interactively select a package if `$PKG` is omitted. Available flags: (`--cache`, `--test-artifacts`, `--deps`) |
-| `lint` | `PKG=$PACKAGE_TARGET yarn lint` | Run the linter for the specified package, or interactively select a package if `$PKG` is omitted. |
-| `test` | `PKG=$PACKAGE_TARGET yarn test` | Run tests for the specified package, or interactively select a package if `$PKG` is omitted. |
+| `wsrun` | `PKG=$PACKAGE_TARGET pnpm wsrun` | Execute arbitrary scripts via `wsrun` for the specified package, or interactively select a package if `$PKG` is omitted. |
+| `wsrun:all` | `pnpm wsrun` | Execute arbitrary scripts via `wsrun` for all packages in the monorepo (same as `PKG=* pnpm wsrun ...`). |
+| `dev` | `PKG=$PACKAGE_TARGET pnpm dev` | Build the specified package with a hot-reloading dev server, or interactively select a package if `$PKG` is omitted. |
+| `build` | `PKG=$PACKAGE_TARGET pnpm build` | Build the specified package for production, or interactively select a package if `$PKG` is omitted. |
+| `clean` | `PKG=$PACKAGE_TARGET pnpm clean` | Run cleaning scripts for the specified package, or interactively select a package if `$PKG` is omitted. Available flags: (`--cache`, `--test-artifacts`, `--deps`) |
+| `lint` | `PKG=$PACKAGE_TARGET pnpm lint` | Run the linter for the specified package, or interactively select a package if `$PKG` is omitted. |
+| `test` | `PKG=$PACKAGE_TARGET pnpm test` | Run tests for the specified package, or interactively select a package if `$PKG` is omitted. |
 
 ## Opening a Pull Request
 
