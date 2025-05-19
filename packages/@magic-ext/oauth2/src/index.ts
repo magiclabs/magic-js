@@ -115,11 +115,11 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
 
           await this.request<string | null>(requestPayload);
         } catch (verificationError) {
-          console.log('Error while verifying telegram data', verificationError);
+          // Silent error when verifying telegram data
         }
       };
     } catch (seamlessLoginError) {
-      console.log('Error while loading telegram-web-app script', seamlessLoginError);
+      // Silent error when loading telegram-web-app script
     }
   }
 }
