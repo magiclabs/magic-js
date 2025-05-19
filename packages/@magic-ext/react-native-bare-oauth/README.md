@@ -27,8 +27,8 @@ Integrating your app with OAuth will require our client-side NPM package and OAu
 # Via NPM:
 npm install --save @magic-ext/react-native-bare-oauth
 
-# Via Yarn:
-yarn add @magic-ext/react-native-bare-oauth
+# Via pnpm:
+pnpm add @magic-ext/react-native-bare-oauth
 ```
 ### ⚠️ This library can only be used on a bare react native project that uses [@magic-sdk/react-native-bare](https://github.com/magiclabs/magic-js/tree/master/packages/%40magic-sdk/react-native-bare). 
 

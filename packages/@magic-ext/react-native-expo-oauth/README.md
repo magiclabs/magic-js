@@ -27,8 +27,8 @@ Integrating your app with OAuth will require our client-side NPM package and OAu
 # Via NPM:
 npm install --save @magic-ext/react-native-expo-oauth
 
-# Via Yarn:
-yarn add @magic-ext/react-native-expo-oauth
+# Via pnpm:
+pnpm add @magic-ext/react-native-expo-oauth
 ```
 ### ⚠️ This library can only be used on an Expo project that uses [@magic-sdk/react-native-expo](https://github.com/magiclabs/magic-js/tree/master/packages/%40magic-sdk/react-native-expo).
 

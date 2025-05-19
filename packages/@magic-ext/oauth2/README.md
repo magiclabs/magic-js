@@ -22,8 +22,8 @@ Integrating your app with OAuth will require our client-side NPM package and OAu
 # Via NPM:
 npm install --save magic-sdk @magic-ext/oauth2
 
-# Via Yarn:
-yarn add magic-sdk @magic-ext/oauth2
+# Via pnpm:
+pnpm add magic-sdk @magic-ext/oauth2
 ```
 
 Alternatively, you can load via CDN with by adding a script tag to your app’s `<head>`:
