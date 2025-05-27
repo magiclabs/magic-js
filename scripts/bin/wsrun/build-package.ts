@@ -111,7 +111,10 @@ async function main() {
       reactNativeExpoHybridExtension(true),
       emitTypes(true),
     ];
-    await Promise.all(builders);
+    await Promise.all(builders).catch(e => {
+      console.log(e);
+      throw e;
+    });
   } else {
     // We need to limit concurrency in CI to avoid ENOMEM errors.
     const limit = pLimit(isCI ? 2 : 4);
@@ -123,7 +126,10 @@ async function main() {
       limit(reactNativeExpoHybridExtension),
       limit(emitTypes),
     ];
-    await Promise.all(builders);
+    await Promise.all(builders).catch(e => {
+      console.log(e);
+      throw e;
+    });
   }
 }
 

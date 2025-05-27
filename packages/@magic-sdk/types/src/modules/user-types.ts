@@ -33,7 +33,7 @@ export interface MagicUserMetadata {
   isMfaEnabled: boolean;
   recoveryFactors: [RecoveryFactor] | [];
   walletType: string;
-  firstLoginAt: string;
+  firstLoginAt: string | null;
 }
 
 export enum RecoveryFactorEventOnReceived {
