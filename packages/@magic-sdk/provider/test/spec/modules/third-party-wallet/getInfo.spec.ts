@@ -50,6 +50,7 @@ describe('format web3modal getinfo response', () => {
     expect(response).toEqual({
       publicAddress: '0x1234567890',
       email: null,
+      firstLoginAt: null,
       issuer: 'did:ethr:0x1234567890',
       phoneNumber: null,
       isMfaEnabled: false,
