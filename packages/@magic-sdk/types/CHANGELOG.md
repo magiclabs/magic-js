@@ -1,3 +1,17 @@
+# v24.19.0 (Tue May 27 2025)
+
+#### 🚀 Enhancement
+
+- add firstLoginAt [#895](https://github.com/magiclabs/magic-js/pull/895) ([@Ethella](https://github.com/Ethella))
+- feat: add login throttled event to email otp [#889](https://github.com/magiclabs/magic-js/pull/889) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v24.18.2 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix

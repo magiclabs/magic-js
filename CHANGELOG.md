@@ -1,3 +1,26 @@
+# (Tue May 27 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@29.1.0`, `@magic-sdk/types@24.19.0`
+  - add firstLoginAt [#895](https://github.com/magiclabs/magic-js/pull/895) ([@Ethella](https://github.com/Ethella))
+- `@magic-sdk/types@24.19.0`
+  - feat: add login throttled event to email otp [#889](https://github.com/magiclabs/magic-js/pull/889) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- Update .gitignore [#884](https://github.com/magiclabs/magic-js/pull/884) ([@shystrui1199](https://github.com/shystrui1199) [@Ethella](https://github.com/Ethella))
+- Bump base-x from 3.0.9 to 3.0.11 [#888](https://github.com/magiclabs/magic-js/pull/888) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- John Water ([@shystrui1199](https://github.com/shystrui1199))
+
+---
+
 # (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix

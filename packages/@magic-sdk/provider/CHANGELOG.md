@@ -1,3 +1,15 @@
+# v29.1.0 (Tue May 27 2025)
+
+#### 🚀 Enhancement
+
+- add firstLoginAt [#895](https://github.com/magiclabs/magic-js/pull/895) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v29.0.6 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix
