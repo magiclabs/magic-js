@@ -30,7 +30,7 @@ export const ICON_BASE64 =
 
 export const APTOS_PAYLOAD_TYPE = {
   ENTRY_FUNCTION_PAYLOAD: 'entry_function_payload',
-  SCRIPT_PAYLOD: 'script_payload',
+  SCRIPT_PAYLOAD: 'script_payload',
   MODULE_BUNDLE_PAYLOAD: 'module_bundle_payload',
-  MULTISIG_PAYLOD: 'multisig_payload',
+  MULTISIG_PAYLOAD: 'multisig_payload',
 } as const;
