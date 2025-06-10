@@ -176,6 +176,7 @@ export enum LoginWithEmailOTPEventOnReceived {
   RecoveryCodeSentHandle = 'recovery-code-sent-handle',
   InvalidRecoveryCode = 'invalid-recovery-code',
   RecoveryCodeSuccess = 'recovery-code-success',
+  LoginThrottled = 'login-throttled',
 }
 
 export enum DeviceVerificationEventEmit {
@@ -279,6 +280,7 @@ export type LoginWithSmsOTPEventHandlers = {
 export type LoginWithEmailOTPEventHandlers = {
   // Event Received
   [LoginWithEmailOTPEventOnReceived.EmailOTPSent]: () => void;
+  [LoginWithEmailOTPEventOnReceived.LoginThrottled]: () => void;
   [LoginWithEmailOTPEventOnReceived.InvalidEmailOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.InvalidMfaOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp]: () => void;

@@ -36,7 +36,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
   ) => {
     const client = new AptosClient(this.config.options.nodeUrl);
 
-    if (transaction.type === APTOS_PAYLOAD_TYPE.ENTRY_FUCNTION_PAYLOAD) {
+    if (transaction.type === APTOS_PAYLOAD_TYPE.ENTRY_FUNCTION_PAYLOAD) {
       const rawTransaction = await client.generateTransaction(
         address,
         transaction as Types.EntryFunctionPayload,
