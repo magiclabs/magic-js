@@ -117,6 +117,7 @@ export interface MagicSDKAdditionalConfiguration<
   deferPreload?: boolean;
   useStorageCache?: boolean;
   meta?: any; // Generic field for clients to add metadata
+  skipDIDToken?: boolean; // Skip DID Token generation
 }
 
 export class SDKBase {
