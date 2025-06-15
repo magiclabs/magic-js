@@ -206,7 +206,7 @@ export class ReactNativeWebViewController extends ViewController {
     if (
       event.nativeEvent &&
       typeof event.nativeEvent.data === 'string' &&
-      /* Backward comaptible */
+      /* Backward compatible */
       (event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` ||
         event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}` ||
         event.nativeEvent.title === `${url.hostname}/send/${url.search}`)

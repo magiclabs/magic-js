@@ -47,7 +47,7 @@ export async function callback(): Promise<void> {
    * - SMS login
    * - Magic link login w/o `redirectURI`
    * - WebAuthn login
-   * - Cases where the user has landed direclty
+   * - Cases where the user has landed directly
    *   on the callback page without a redirect
    */
   async function handleGenericCallback() {
