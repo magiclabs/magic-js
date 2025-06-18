@@ -56,7 +56,7 @@ function getNetworkHash(apiKey: string, network?: EthNetworkConfiguration, extCo
 }
 
 /**
- * Initializes SDK extensions, checks for platform/version compatiblity issues,
+ * Initializes SDK extensions, checks for platform/version compatibility issues,
  * then consolidates any global configurations provided by those extensions.
  */
 function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfiguration): Record<string, any> {
