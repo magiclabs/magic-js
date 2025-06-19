@@ -9,7 +9,3 @@ declare namespace NodeJS {
     [key: string]: any;
   }
 }
-
-declare module '@aveq-research/localforage-asyncstorage-driver' {
-  export const driverWithoutSerialization: any;
-}
