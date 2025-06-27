@@ -2,7 +2,7 @@ import { UserEventsEmit, UserEventsOnReceived } from '@magic-sdk/types';
 import { TypedEmitter, EventsDefinition, createTypedEmitter } from './events';
 
 /**
- * Extends `Promise` with a polymorphic `this` type to accomodate arbitrary
+ * Extends `Promise` with a polymorphic `this` type to accommodate arbitrary
  * `Promise` API extensions.
  */
 interface ExtendedPromise<T> extends Promise<T> {
