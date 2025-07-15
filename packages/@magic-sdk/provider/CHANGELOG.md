@@ -1,3 +1,15 @@
+# v29.2.0 (Tue Jul 15 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix some typos in comment [#901](https://github.com/magiclabs/magic-js/pull/901) ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+#### Authors: 1
+
+- 曹家巧 ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+---
+
 # v29.1.0 (Tue May 27 2025)
 
 #### 🚀 Enhancement
