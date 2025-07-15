@@ -42,6 +42,8 @@ export enum RecoveryFactorEventOnReceived {
   RecoveryFactorAlreadyExists = 'recovery-factor-already-exists',
   MalformedPhoneNumber = 'malformed-phone-number',
   InvalidOtpCode = 'invalid-otp-code',
+  RecoveryFactorUpdated = 'recovery-factor-updated',
+  RecoveryFactorDeleted = 'recovery-factor-deleted',
 }
 
 export enum RecoveryFactorEventEmit {
@@ -69,6 +71,8 @@ export type RecoveryFactorEventHandlers = {
   [RecoveryFactorEventOnReceived.RecoveryFactorAlreadyExists]: () => void;
   [RecoveryFactorEventOnReceived.MalformedPhoneNumber]: () => void;
   [RecoveryFactorEventOnReceived.InvalidOtpCode]: () => void;
+  [RecoveryFactorEventOnReceived.RecoveryFactorUpdated]: (updatedFactor: { type: string, value: string }) => void;
+  [RecoveryFactorEventOnReceived.RecoveryFactorDeleted]: () => void;
 } & RecencyCheckEventHandlers;
 
 export enum RecoveryMethodType {
