@@ -10,7 +10,7 @@ beforeEach(() => {
 test('Change display style to `block`', async () => {
   (IframeController.prototype as any).init = function () {
     this.iframe = {
-      style: { display: 'block' },
+      style: { display: 'none' },
       focus: () => {},
     };
 
