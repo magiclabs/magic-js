@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/provider",
-  "version": "29.2.0",
+  "version": "29.2.1",
   "description": "Core business logic for Magic SDK packages.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",

@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/web3modal-ethers5",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "magic web3modal ethers 5 extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,7 +28,7 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^25.2.0",
+    "@magic-sdk/commons": "^25.2.1",
     "@magic-sdk/types": "24.0.6-canary.742.10067162636.0"
   },
   "dependencies": {
