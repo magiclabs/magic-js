@@ -1,3 +1,22 @@
+# (Fri Jul 18 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.2.1`
+  - chore: fix some minor issues in the comments [#902](https://github.com/magiclabs/magic-js/pull/902) ([@gopherorg](https://github.com/gopherorg) [@Ethella](https://github.com/Ethella))
+- `@magic-sdk/provider@29.2.1`, `@magic-sdk/react-native-bare@30.2.1`, `@magic-sdk/react-native-expo@30.2.1`
+  - chore: fix minor issue in the comment [#903](https://github.com/magiclabs/magic-js/pull/903) ([@bytesingsong](https://github.com/bytesingsong))
+- `magic-sdk@29.2.1`
+  - revert overlay control to none [#907](https://github.com/magiclabs/magic-js/pull/907) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@bytesingsong](https://github.com/bytesingsong)
+- [@gopherorg](https://github.com/gopherorg)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Tue Jul 15 2025)
 
 #### 🚀 Enhancement

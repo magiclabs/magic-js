@@ -1,3 +1,15 @@
+# v29.2.1 (Fri Jul 18 2025)
+
+#### 🐛 Bug Fix
+
+- revert overlay control to none [#907](https://github.com/magiclabs/magic-js/pull/907) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v29.0.6 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix
