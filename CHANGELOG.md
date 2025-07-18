@@ -1,3 +1,33 @@
+# (Tue Jul 15 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@24.20.0`
+  - feat: implement factors updated event [#904](https://github.com/magiclabs/magic-js/pull/904) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/pnp@23.2.0`, `@magic-sdk/react-native-bare@30.2.0`
+  - Fix Typos in Documentation and Comments [#899](https://github.com/magiclabs/magic-js/pull/899) ([@zeevick10](https://github.com/zeevick10))
+- `@magic-sdk/provider@29.2.0`, `@magic-sdk/types@24.20.0`
+  - chore: fix some typos in comment [#901](https://github.com/magiclabs/magic-js/pull/901) ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+- `@magic-ext/aptos@12.2.0`
+  - fix: typos [#896](https://github.com/magiclabs/magic-js/pull/896) ([@DeVikingMark](https://github.com/DeVikingMark))
+  - fix: typos in function name [#892](https://github.com/magiclabs/magic-js/pull/892) ([@crStiv](https://github.com/crStiv))
+- `@magic-ext/taquito@21.2.0`
+  - fix: correct import path for MagicSigner [#890](https://github.com/magiclabs/magic-js/pull/890) ([@Himess](https://github.com/Himess))
+
+#### Authors: 6
+
+- [@crStiv](https://github.com/crStiv)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- FT ([@zeevick10](https://github.com/zeevick10))
+- Himess ([@Himess](https://github.com/Himess))
+- Ragnar ([@DeVikingMark](https://github.com/DeVikingMark))
+- 曹家巧 ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+---
+
 # (Tue May 27 2025)
 
 #### 🚀 Enhancement

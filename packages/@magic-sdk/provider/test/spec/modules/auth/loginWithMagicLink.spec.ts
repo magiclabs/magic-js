@@ -92,7 +92,7 @@ test('Throws error when the SDK version is 19 or higher', async () => {
   } catch (err) {
     // Check if the error message is as expected
     expect((err as Error).message).toBe(
-      'loginWithMagicLink() is deprecated for this package, please utlize a passcode method like loginWithSMS or loginWithEmailOTP instead.',
+      'loginWithMagicLink() is deprecated for this package, please utilize a passcode method like loginWithSMS or loginWithEmailOTP instead.',
     );
   }
 });
