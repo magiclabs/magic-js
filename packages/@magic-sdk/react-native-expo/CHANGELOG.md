@@ -46,7 +46,7 @@
 
 #### 🐛 Bug Fix
 
-- Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+- Auto checks if iframe exists without outputting any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
 - fix tests coverage ([@Ethella](https://github.com/Ethella))
 - fix ([@Ethella](https://github.com/Ethella))
 - Fix Extension typing ([@Ethella](https://github.com/Ethella))
