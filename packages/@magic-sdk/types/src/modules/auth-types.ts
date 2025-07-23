@@ -24,7 +24,7 @@ export interface LoginWithMagicLinkConfiguration {
   /**
    * Enterprise users with a custom SMTP can create custom email templates
    * from their dashboard. The default Magic loginWithMagicLink email will be
-   * overriden when a variation is passed here.
+   * overridden when a variation is passed here.
    */
   overrides?: {
     variation?: string;
@@ -89,7 +89,7 @@ export interface LoginWithEmailOTPConfiguration {
   /**
    * Enterprise users with a custom SMTP can create custom email templates
    * from their dashboard. The default Magic loginWithOTP email will be
-   * overriden when a variation is passed here.
+   * overridden when a variation is passed here.
    */
   overrides?: {
     variation?: string;

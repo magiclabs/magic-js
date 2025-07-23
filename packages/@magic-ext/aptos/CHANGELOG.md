@@ -1,3 +1,17 @@
+# v12.2.0 (Tue Jul 15 2025)
+
+#### 🐛 Bug Fix
+
+- fix: typos [#896](https://github.com/magiclabs/magic-js/pull/896) ([@DeVikingMark](https://github.com/DeVikingMark))
+- fix: typos in function name [#892](https://github.com/magiclabs/magic-js/pull/892) ([@crStiv](https://github.com/crStiv))
+
+#### Authors: 2
+
+- [@crStiv](https://github.com/crStiv)
+- Ragnar ([@DeVikingMark](https://github.com/DeVikingMark))
+
+---
+
 # v12.0.6 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,15 @@
+# v30.2.1 (Fri Jul 18 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix minor issue in the comment [#903](https://github.com/magiclabs/magic-js/pull/903) ([@bytesingsong](https://github.com/bytesingsong))
+
+#### Authors: 1
+
+- [@bytesingsong](https://github.com/bytesingsong)
+
+---
+
 # v30.0.6 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix

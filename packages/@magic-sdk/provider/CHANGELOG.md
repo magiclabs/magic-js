@@ -1,3 +1,30 @@
+# v29.2.1 (Fri Jul 18 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix some minor issues in the comments [#902](https://github.com/magiclabs/magic-js/pull/902) ([@gopherorg](https://github.com/gopherorg) [@Ethella](https://github.com/Ethella))
+- chore: fix minor issue in the comment [#903](https://github.com/magiclabs/magic-js/pull/903) ([@bytesingsong](https://github.com/bytesingsong))
+
+#### Authors: 3
+
+- [@bytesingsong](https://github.com/bytesingsong)
+- [@gopherorg](https://github.com/gopherorg)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.2.0 (Tue Jul 15 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix some typos in comment [#901](https://github.com/magiclabs/magic-js/pull/901) ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+#### Authors: 1
+
+- 曹家巧 ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+---
+
 # v29.1.0 (Tue May 27 2025)
 
 #### 🚀 Enhancement

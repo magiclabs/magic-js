@@ -80,7 +80,7 @@ export class ReactNativeWebViewController extends ViewController {
   // Validating this logic requires lots of React-specific boilerplate. We will
   // revisit this method for unit testing in the future. For now, manual testing
   // is sufficient (this logic is stable right now and not expected to change in
-  // the forseeable future).
+  // the foreseeable future).
   /* istanbul ignore next */
   public Relayer: React.FC<{ backgroundColor?: string }> = backgroundColor => {
     const [show, setShow] = useState(false);
@@ -206,7 +206,7 @@ export class ReactNativeWebViewController extends ViewController {
     if (
       event.nativeEvent &&
       typeof event.nativeEvent.data === 'string' &&
-      /* Backward comaptible */
+      /* Backward compatible */
       (event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` ||
         event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}` ||
         event.nativeEvent.title === `${url.hostname}/send/${url.search}`)

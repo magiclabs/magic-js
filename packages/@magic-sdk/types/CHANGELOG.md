@@ -1,3 +1,20 @@
+# v24.20.0 (Tue Jul 15 2025)
+
+#### 🚀 Enhancement
+
+- feat: implement factors updated event [#904](https://github.com/magiclabs/magic-js/pull/904) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- chore: fix some typos in comment [#901](https://github.com/magiclabs/magic-js/pull/901) ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- 曹家巧 ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+---
+
 # v24.19.0 (Tue May 27 2025)
 
 #### 🚀 Enhancement

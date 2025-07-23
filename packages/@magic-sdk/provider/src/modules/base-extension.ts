@@ -24,7 +24,7 @@ function getPrototypeChain<T extends BaseExtension<string>>(instance: T) {
 
 export abstract class BaseExtension<TName extends string> extends BaseModule {
   /**
-   * A structure describing the platform and version compatiblity of this
+   * A structure describing the platform and version compatibility of this
    * extension.
    */
   compat?: {

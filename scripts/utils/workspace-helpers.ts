@@ -10,7 +10,7 @@ export interface YarnWorkspace {
 }
 
 /**
- * Returns metadata for the workspaces in this respository.
+ * Returns metadata for the workspaces in this repository.
  */
 export async function getAllWorkspaces(): Promise<YarnWorkspace[]> {
   const subprocess = await execa('yarn', ['workspaces', 'list', '--json', '--verbose']);

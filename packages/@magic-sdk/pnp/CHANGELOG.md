@@ -1,3 +1,15 @@
+# v23.2.0 (Tue Jul 15 2025)
+
+#### 🐛 Bug Fix
+
+- Fix Typos in Documentation and Comments [#899](https://github.com/magiclabs/magic-js/pull/899) ([@zeevick10](https://github.com/zeevick10))
+
+#### Authors: 1
+
+- FT ([@zeevick10](https://github.com/zeevick10))
+
+---
+
 # v23.0.7 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix
