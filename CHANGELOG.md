@@ -2,6 +2,19 @@
 
 #### 🚀 Enhancement
 
+- `@magic-sdk/provider@29.4.0`, `@magic-sdk/types@24.21.0`
+  - adds skip did token to query params [#909](https://github.com/magiclabs/magic-js/pull/909) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
 - `@magic-ext/algorand@24.3.0`, `@magic-sdk/provider@29.3.0`
   - add skipDIDToken [#898](https://github.com/magiclabs/magic-js/pull/898) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
 
