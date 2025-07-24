@@ -201,6 +201,7 @@ export class SDKBase {
       version,
       ext: isEmpty(extConfig) ? undefined : extConfig,
       locale: options?.locale || 'en_US',
+      skipDIDToken: options?.authConfig?.skipDIDToken || false,
       authConfig: options?.authConfig ? { skipDIDToken: options.authConfig.skipDIDToken } : undefined,
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
       meta: options?.meta,
