@@ -42,7 +42,7 @@
 
 - Merge remote-tracking branch 'origin/master' into PDEEXP-530-wallet-connect-login-with-redirect ([@Ethella](https://github.com/Ethella))
 - resolve conflict ([@Ethella](https://github.com/Ethella))
-- * resolve conflict ([@Ethella](https://github.com/Ethella))
+- - resolve conflict ([@Ethella](https://github.com/Ethella))
 - Merge branch 'master' into PDEEXP-530-wallet-connect-login-with-redirect ([@mattupham](https://github.com/mattupham))
 
 #### Authors: 2
@@ -325,7 +325,7 @@
 
 #### 🐛 Bug Fix
 
-- Fix TypeScript resolution for @magic-ext/* packages when using modern module resolution (node16 etc) [#670](https://github.com/magiclabs/magic-js/pull/670) ([@rjwebb](https://github.com/rjwebb) [@joshuascan](https://github.com/joshuascan))
+- Fix TypeScript resolution for @magic-ext/\* packages when using modern module resolution (node16 etc) [#670](https://github.com/magiclabs/magic-js/pull/670) ([@rjwebb](https://github.com/rjwebb) [@joshuascan](https://github.com/joshuascan))
 - Merge branch 'master' into rjwebb/669-fix-node16-magic-ext-imports ([@joshuascan](https://github.com/joshuascan))
 - Update package.json exports to expose types when using node16 typescript, for algorand, auth, avalanche, bitcoin, conflux, cosmos, ed25519, flow, gdkms, harmony, hedera, icon, near, oauth, oidc, polkadot, react-native-bare-oauth, react-native-expo-oauth, taquito, terra, tezos, webauthn and zilliqa ([@rjwebb](https://github.com/rjwebb))
 
@@ -459,7 +459,7 @@
 - Match NPM Version ([@Ariflo](https://github.com/Ariflo))
 - Update CHANGELOG.md \[skip ci\] ([@Ethella](https://github.com/Ethella))
 - Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
-- Updates License to Apache 2.0 ([@Ariflo](https://github.com/Ariflo)) 
+- Updates License to Apache 2.0 ([@Ariflo](https://github.com/Ariflo))
 
 #### Authors: 2
 
@@ -602,8 +602,8 @@
 
 #### 🐛 Bug Fix
 
-- Permit React Native SDK to Utlize Bitcoin extension [#451](https://github.com/magiclabs/magic-js/pull/451) ([@Ariflo](https://github.com/Ariflo))
-- Permit React Native SDK to Utlize Bitcoin extension ([@Ariflo](https://github.com/Ariflo))
+- Permit React Native SDK to utilize Bitcoin extension [#451](https://github.com/magiclabs/magic-js/pull/451) ([@Ariflo](https://github.com/Ariflo))
+- Permit React Native SDK to utilize Bitcoin extension ([@Ariflo](https://github.com/Ariflo))
 
 #### Authors: 1
 
@@ -654,4 +654,3 @@
 - Hunter Cote ([@hcote](https://github.com/hcote))
 
 ---
-
