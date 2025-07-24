@@ -387,3 +387,13 @@ test('Initialize `Magic Expo RN SDK without bundleId`', () => {
   assertEncodedQueryParams(magic.parameters, { sdk: 'magic-sdk-rn-expo' });
   assertModuleInstanceTypes(magic);
 });
+
+test('Initialize `MagicSDK` with skipDIDToken', () => {
+  const Ctor = createMagicSDKCtor();
+  const authConfig = { skipDIDToken: true };
+
+  const magic = new Ctor(TEST_API_KEY, { authConfig });
+
+  assertEncodedQueryParams(magic.parameters, { authConfig });
+  assertModuleInstanceTypes(magic);
+});
