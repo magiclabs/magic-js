@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/farcaster",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "magic farcaster extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^25.2.1"
+    "@magic-sdk/commons": "^25.3.0"
   }
 }
