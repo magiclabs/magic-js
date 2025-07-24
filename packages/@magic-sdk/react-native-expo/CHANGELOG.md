@@ -1,3 +1,15 @@
+# v30.3.0 (Thu Jul 24 2025)
+
+#### 🐛 Bug Fix
+
+- minor text cleanup [#908](https://github.com/magiclabs/magic-js/pull/908) ([@eeemmmmmm](https://github.com/eeemmmmmm))
+
+#### Authors: 1
+
+- emmmm ([@eeemmmmmm](https://github.com/eeemmmmmm))
+
+---
+
 # v30.2.1 (Fri Jul 18 2025)
 
 #### 🐛 Bug Fix

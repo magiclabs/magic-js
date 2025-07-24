@@ -1,3 +1,23 @@
+# (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/algorand@24.3.0`, `@magic-sdk/provider@29.3.0`
+  - add skipDIDToken [#898](https://github.com/magiclabs/magic-js/pull/898) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.3.0`, `@magic-sdk/react-native-expo@30.3.0`
+  - minor text cleanup [#908](https://github.com/magiclabs/magic-js/pull/908) ([@eeemmmmmm](https://github.com/eeemmmmmm))
+
+#### Authors: 3
+
+- emmmm ([@eeemmmmmm](https://github.com/eeemmmmmm))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Fri Jul 18 2025)
 
 #### 🐛 Bug Fix
