@@ -1411,7 +1411,7 @@
 #### 🐛 Bug Fix
 
 - `@magic-ext/algorand@16.3.1`, `@magic-ext/auth@4.3.1`, `@magic-ext/avalanche@16.3.1`, `@magic-ext/bitcoin@16.3.1`, `@magic-ext/conflux@14.3.1`, `@magic-ext/cosmos@16.3.1`, `@magic-ext/ed25519@12.3.1`, `@magic-ext/flow@16.3.1`, `@magic-ext/gdkms@4.3.1`, `@magic-ext/harmony@16.3.1`, `@magic-ext/hedera@1.0.3`, `@magic-ext/icon@16.3.1`, `@magic-ext/near@16.3.1`, `@magic-ext/oauth@15.3.1`, `@magic-ext/oidc@4.3.1`, `@magic-ext/polkadot@16.3.1`, `@magic-ext/react-native-bare-oauth@18.0.1`, `@magic-ext/react-native-expo-oauth@18.0.1`, `@magic-ext/taquito@13.3.1`, `@magic-ext/terra@13.3.1`, `@magic-ext/tezos@16.3.1`, `@magic-ext/webauthn@15.3.1`, `@magic-ext/zilliqa@16.3.1`
-  - Fix TypeScript resolution for @magic-ext/\* packages when using modern module resolution (node16 etc) [#670](https://github.com/magiclabs/magic-js/pull/670) ([@rjwebb](https://github.com/rjwebb) [@joshuascan](https://github.com/joshuascan))
+  - Fix TypeScript resolution for @magic-ext/* packages when using modern module resolution (node16 etc) [#670](https://github.com/magiclabs/magic-js/pull/670) ([@rjwebb](https://github.com/rjwebb) [@joshuascan](https://github.com/joshuascan))
 
 #### Authors: 2
 
@@ -1833,8 +1833,8 @@
 
 #### 💥 Breaking Change
 
-- `@magic-ext/algorand@14.0.0, @magic-ext/aptos@2.0.0, @magic-ext/auth@2.0.0, @magic-ext/avalanche@14.0.0, @magic-ext/bitcoin@14.0.0, @magic-ext/conflux@12.0.0, @magic-ext/cosmos@14.0.0, @magic-ext/ed25519@10.0.0, @magic-ext/flow@14.0.0, @magic-ext/gdkms@2.0.0, @magic-ext/harmony@14.0.0, @magic-ext/icon@14.0.0, @magic-ext/near@14.0.0, @magic-ext/oauth@13.0.0, @magic-ext/oidc@2.0.0, @magic-ext/polkadot@14.0.0, @magic-ext/react-native-bare-oauth@14.0.0, @magic-ext/react-native-expo-oauth@14.0.0, @magic-ext/solana@15.0.0, @magic-ext/taquito@11.0.0, @magic-ext/terra@11.0.0, @magic-ext/tezos@14.0.0, @magic-ext/webauthn@13.0.0, @magic-ext/zilliqa@14.0.0, @magic-sdk/commons@15.0.0, @magic-sdk/pnp@13.0.0, @magic-sdk/provider@19.0.0, @magic-sdk/react-native-bare@20.0.0, @magic-sdk/react-native-expo@20.0.0, @magic-sdk/types@16.0.0, magic-sdk@19.0.0`
-- Magic SDK Node version bump [#538](https://github.com/magiclabs/magic-js/pull/538) ([@makrandgupta](https://github.com/makrandgupta))
+-  `@magic-ext/algorand@14.0.0, @magic-ext/aptos@2.0.0, @magic-ext/auth@2.0.0, @magic-ext/avalanche@14.0.0, @magic-ext/bitcoin@14.0.0, @magic-ext/conflux@12.0.0, @magic-ext/cosmos@14.0.0, @magic-ext/ed25519@10.0.0, @magic-ext/flow@14.0.0, @magic-ext/gdkms@2.0.0, @magic-ext/harmony@14.0.0, @magic-ext/icon@14.0.0, @magic-ext/near@14.0.0, @magic-ext/oauth@13.0.0, @magic-ext/oidc@2.0.0, @magic-ext/polkadot@14.0.0, @magic-ext/react-native-bare-oauth@14.0.0, @magic-ext/react-native-expo-oauth@14.0.0, @magic-ext/solana@15.0.0, @magic-ext/taquito@11.0.0, @magic-ext/terra@11.0.0, @magic-ext/tezos@14.0.0, @magic-ext/webauthn@13.0.0, @magic-ext/zilliqa@14.0.0, @magic-sdk/commons@15.0.0, @magic-sdk/pnp@13.0.0, @magic-sdk/provider@19.0.0, @magic-sdk/react-native-bare@20.0.0, @magic-sdk/react-native-expo@20.0.0, @magic-sdk/types@16.0.0, magic-sdk@19.0.0`
+  - Magic SDK Node version bump [#538](https://github.com/magiclabs/magic-js/pull/538) ([@makrandgupta](https://github.com/makrandgupta))
 
 #### Authors: 1
 
@@ -2578,9 +2578,9 @@
 
 #### 🚀 Enhancement
 
-- - Update yarn.lock [#461](https://github.com/magiclabs/magic-js/pull/461) ([@Ethella](https://github.com/Ethella))
+- * Update yarn.lock [#461](https://github.com/magiclabs/magic-js/pull/461) ([@Ethella](https://github.com/Ethella))
 - `@magic-sdk/provider@13.4.0`, `@magic-sdk/types@11.4.0`
-  - - Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+  - * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
 
 #### 🐛 Bug Fix
 
@@ -2643,7 +2643,7 @@
 #### 🐛 Bug Fix
 
 - `@magic-ext/bitcoin@8.2.1`
-  - Permit React Native SDK to utilize Bitcoin extension [#451](https://github.com/magiclabs/magic-js/pull/451) ([@Ariflo](https://github.com/Ariflo))
+  - Permit React Native SDK to Utlize Bitcoin extension [#451](https://github.com/magiclabs/magic-js/pull/451) ([@Ariflo](https://github.com/Ariflo))
 
 #### Authors: 1
 
@@ -2768,7 +2768,7 @@
 
 - [CHORE ]add install step in publish stage. [#425](https://github.com/magiclabs/magic-js/pull/425) ([@kgrubb](https://github.com/kgrubb))
 - [CHORE] Resolve shipit release issue [#424](https://github.com/magiclabs/magic-js/pull/424) ([@Ariflo](https://github.com/Ariflo) [@kgrubb](https://github.com/kgrubb))
-- feat: [sc-68022] Fix github action publishing process in magic-js [#420](https://github.com/magiclabs/magic-js/pull/420) ([@Ethella](https://github.com/Ethella))
+- feat: [sc-68022] Fix github action  publishing process in magic-js [#420](https://github.com/magiclabs/magic-js/pull/420) ([@Ethella](https://github.com/Ethella))
 - Update Yarn.lock file [#418](https://github.com/magiclabs/magic-js/pull/418) ([@Ariflo](https://github.com/Ariflo))
 - [CHORE] Add gh_token env var to auto version step [#416](https://github.com/magiclabs/magic-js/pull/416) ([@kgrubb](https://github.com/kgrubb))
 - `@magic-ext/oauth@6.0.0`, `@magic-ext/react-native-oauth@6.0.0`, `@magic-sdk/react-native@13.0.0`
@@ -2794,7 +2794,7 @@
 #### ⚠️ Pushed to `master`
 
 - make error output explicit in version publishing ([@kgrubb](https://github.com/kgrubb))
-- - Add GH_TOKEN env ([@Ethella](https://github.com/Ethella))
+- * Add GH_TOKEN env ([@Ethella](https://github.com/Ethella))
 
 #### Authors: 3
 
@@ -2855,7 +2855,7 @@
 #### ➕ Version Bump
 
 - `@magic-sdk@10.1.0`
-  - Added Bidirectional RPC Event Support
+	- Added Bidirectional RPC Event Support
 
 #### Authors: 1
 
@@ -2868,7 +2868,7 @@
 #### ➕ Version Bump
 
 - `@magic-sdk@10.0.0`
-  - Version bump, no major updates
+	- Version bump, no major updates
 
 #### Authors: 1
 
@@ -3649,3 +3649,4 @@
 - Ian K Smith ([@smithki](https://github.com/smithki))
 
 ---
+
