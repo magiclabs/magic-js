@@ -201,11 +201,12 @@ export class SDKBase {
       version,
       ext: isEmpty(extConfig) ? undefined : extConfig,
       locale: options?.locale || 'en_US',
-      skipDIDToken: options?.authConfig?.skipDIDToken || false,
-      authConfig: options?.authConfig ? { skipDIDToken: options.authConfig.skipDIDToken } : undefined,
+      ...(options?.authConfig ?? {}),
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
       meta: options?.meta,
     });
+    console.log('auth config', options?.authConfig);
+    console.log('sdk params', this.parameters);
     this.networkHash = getNetworkHash(this.apiKey, options?.network, isEmpty(extConfig) ? undefined : extConfig);
     if (!options?.deferPreload) this.preload();
   }
