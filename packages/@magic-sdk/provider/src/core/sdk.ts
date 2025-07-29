@@ -50,7 +50,9 @@ function getNetworkHash(apiKey: string, network?: EthNetworkConfiguration, extCo
       return `${apiKey}_eth_${network}`;
     }
     // Custom network, not necessarily eth.
-    return `${apiKey}_${network.rpcUrl}_${network.chainId}_${network.chainType}`;
+    if (typeof network === 'object' && 'rpcUrl' in network) {
+      return `${apiKey}_${network.rpcUrl}_${network.chainId}_${network.chainType}`;
+    }
   }
   return `${apiKey}_unknown`;
 }
