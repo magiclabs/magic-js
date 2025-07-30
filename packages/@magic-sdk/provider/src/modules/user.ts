@@ -20,6 +20,7 @@ import {
   RecoverAccountEventEmit,
   UpdateEmailEventHandlers,
   UpdateEmailEventEmit,
+  NetworkConfigurationItem,
 } from '@magic-sdk/types';
 import { getItem, setItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
@@ -227,6 +228,11 @@ export class UserModule extends BaseModule {
       });
     }
     return handle;
+  }
+
+  public switchNetwork(network: NetworkConfigurationItem) {
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.SwitchNetwork, [network]);
+    return this.request<boolean>(requestPayload);
   }
 
   // Private members

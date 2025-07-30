@@ -10,9 +10,9 @@ export interface CustomNodeConfiguration {
   chainType?: EthChainType;
 }
 
-type EthNetworkConfigurationItem = EthNetworkName | CustomNodeConfiguration;
+export type NetworkConfigurationItem = EthNetworkName | CustomNodeConfiguration;
 
-export type EthNetworkConfiguration = EthNetworkConfigurationItem | EthNetworkConfigurationItem[];
+export type EthNetworkConfiguration = NetworkConfigurationItem | NetworkConfigurationItem[];
 
 export type ProviderEnableEvents = {
   'id-token-created': (params: { idToken: string }) => void;

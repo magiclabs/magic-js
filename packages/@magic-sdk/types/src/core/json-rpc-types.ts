@@ -129,6 +129,7 @@ export enum MagicPayloadMethod {
   RevealPK = 'magic_reveal_key',
   EnableMFA = 'magic_auth_enable_mfa_flow',
   DisableMFA = 'magic_auth_disable_mfa_flow',
+  SwitchNetwork = 'magic_switch_network',
 }
 
 // Methods to not route if connected to third party wallet
