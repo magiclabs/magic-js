@@ -205,6 +205,7 @@ export class SDKBase {
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
       meta: options?.meta,
     });
+
     this.networkHash = getNetworkHash(this.apiKey, options?.network, isEmpty(extConfig) ? undefined : extConfig);
     if (!options?.deferPreload) this.preload();
   }
