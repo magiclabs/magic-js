@@ -10,7 +10,7 @@ export class AlgorandExtension extends Extension.Internal<'algod', any> {
 
     this.config = {
       rpcUrl: algorandConfig.rpcUrl,
-      chainType: 'ALOGD',
+      chainType: 'ALGOD',
     };
   }
 

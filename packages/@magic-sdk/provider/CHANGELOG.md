@@ -1,3 +1,33 @@
+# v29.4.0 (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- adds skip did token to query params [#909](https://github.com/magiclabs/magic-js/pull/909) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v29.3.0 (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- add skipDIDToken [#898](https://github.com/magiclabs/magic-js/pull/898) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- minor text cleanup [#908](https://github.com/magiclabs/magic-js/pull/908) ([@eeemmmmmm](https://github.com/eeemmmmmm))
+
+#### Authors: 3
+
+- emmmm ([@eeemmmmmm](https://github.com/eeemmmmmm))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v29.2.1 (Fri Jul 18 2025)
 
 #### 🐛 Bug Fix
