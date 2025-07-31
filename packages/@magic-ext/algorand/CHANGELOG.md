@@ -1,3 +1,16 @@
+# v24.3.0 (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- add skipDIDToken [#898](https://github.com/magiclabs/magic-js/pull/898) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v24.0.6 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix

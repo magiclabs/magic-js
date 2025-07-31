@@ -14,4 +14,6 @@ export interface QueryParameters {
   locale?: string;
   bundleId?: string;
   meta?: any;
+  skipDIDToken?: boolean;
+  authConfig?: { skipDIDToken: boolean };
 }
