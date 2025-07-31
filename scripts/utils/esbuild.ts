@@ -25,7 +25,7 @@ export async function build(options: ESBuildOptions) {
     try {
       await esbuild({
         bundle: true,
-        minify: true,
+        minify: false,
         legalComments: 'none',
         platform: options.target ?? 'browser',
         format: options.format ?? 'cjs',
