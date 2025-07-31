@@ -78,7 +78,7 @@ These are packages _you_ can install to enable Magic JS SDK functionality for yo
 
 ## Extensions
 
-Extend Magic JS SDK functionality for your use-case through [`@magic-ext/*` packages](./packages/@magic-ext).
+Extend Magic JS SDK functionality for your use-case through [`@magic-ext/*` packages](../@magic-ext).
 
 ### Internals
 
