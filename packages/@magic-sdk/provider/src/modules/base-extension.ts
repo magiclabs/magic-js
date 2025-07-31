@@ -22,7 +22,7 @@ function getPrototypeChain<T extends BaseExtension<string>>(instance: T) {
   return protos;
 }
 
-export abstract class BaseExtension<TName extends string> extends BaseModule {
+export abstract class BaseExtension<TName extends string, TConfig extends any = any> extends BaseModule {
   /**
    * A structure describing the platform and version compatibility of this
    * extension.
@@ -35,6 +35,7 @@ export abstract class BaseExtension<TName extends string> extends BaseModule {
   };
 
   public abstract readonly name: TName;
+  public abstract readonly config: TConfig;
 
   private __sdk_access_field_descriptors__ = new Map<
     string,
