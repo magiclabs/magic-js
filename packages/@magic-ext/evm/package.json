@@ -1,7 +1,7 @@
 {
-  "name": "@magic-ext/avalanche",
+  "name": "@magic-ext/evm",
   "version": "24.4.1",
-  "description": "magic avalanche extension",
+  "description": "magic evm extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
@@ -12,7 +12,7 @@
     "dist"
   ],
   "target": "neutral",
-  "cdnGlobalName": "MagicAvalancheExtension",
+  "cdnGlobalName": "MagicEVMExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
