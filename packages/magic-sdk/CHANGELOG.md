@@ -1,3 +1,15 @@
+# v29.4.1 (Fri Aug 01 2025)
+
+#### 🐛 Bug Fix
+
+- fix: correct @magic-ext packages link in magic-sdk README [#911](https://github.com/magiclabs/magic-js/pull/911) ([@MozirDmitriy](https://github.com/MozirDmitriy))
+
+#### Authors: 1
+
+- [@MozirDmitriy](https://github.com/MozirDmitriy)
+
+---
+
 # v29.2.1 (Fri Jul 18 2025)
 
 #### 🐛 Bug Fix

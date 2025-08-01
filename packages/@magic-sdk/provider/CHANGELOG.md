@@ -1,3 +1,15 @@
+# v29.4.1 (Fri Aug 01 2025)
+
+#### 🐛 Bug Fix
+
+- remove instance of Extension check [#914](https://github.com/magiclabs/magic-js/pull/914) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v29.4.0 (Thu Jul 24 2025)
 
 #### 🚀 Enhancement
