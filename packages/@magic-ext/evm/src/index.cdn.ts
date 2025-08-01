@@ -1,3 +1,3 @@
-import { AvalancheExtension } from './index';
+import { EVMExtension } from './index';
 
-export default AvalancheExtension;
+export default EVMExtension;
