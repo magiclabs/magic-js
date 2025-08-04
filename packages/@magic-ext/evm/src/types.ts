@@ -1,4 +1,4 @@
-import { CustomNodeConfiguration } from 'magic-sdk';
+import { CustomNodeConfiguration } from '@magic-sdk/types';
 
 export enum EVMPayloadMethod {
   SwitchEVMChain = 'evm_switchChain',
