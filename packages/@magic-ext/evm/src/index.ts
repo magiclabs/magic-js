@@ -1,11 +1,11 @@
 import { CustomNodeConfiguration, Extension } from '@magic-sdk/commons';
-import { EVMPayloadMethod } from './types';
+import { EVMNetworkConfig, EVMPayloadMethod } from './types';
 
 export class EVMExtension extends Extension.Internal<'evm', any> {
   name = 'evm' as const;
   config: any = {};
 
-  constructor(public evmConfig: CustomNodeConfiguration[]) {
+  constructor(public evmConfig: EVMNetworkConfig[]) {
     super();
 
     this.config = {
