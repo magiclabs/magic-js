@@ -24,10 +24,12 @@
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons"
+      "@magic-sdk/commons",
+      "@magic-sdk/types"
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^25.4.1"
+    "@magic-sdk/commons": "^25.4.1",
+    "@magic-sdk/types": "^24.21.0"
   }
 }
