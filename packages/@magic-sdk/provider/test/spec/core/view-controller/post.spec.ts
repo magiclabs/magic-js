@@ -102,7 +102,7 @@ afterEach(() => {
   FAKE_STORE = {};
 });
 
-test('Sends payload; recieves MAGIC_HANDLE_REQUEST event; resolves response', async () => {
+test('Sends payload; receives MAGIC_HANDLE_REQUEST event; resolves response', async () => {
   createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
   const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
@@ -284,7 +284,7 @@ test('does not call web crypto api if platform is not web', async () => {
   expect(response).toEqual(new JsonRpcResponse(responseEvent().data.response));
 });
 
-test('Sends payload recieves MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response', async () => {
+test('Sends payload receives MAGIC_HANDLE_REQUEST event; skips payloads with non-matching ID; resolves response', async () => {
   const { handlerSpy, onSpy } = stubViewController(viewController, [
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent({ id: 1234 })], // Should be skipped
     [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
