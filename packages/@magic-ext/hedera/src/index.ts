@@ -27,4 +27,10 @@ export class HederaExtension extends Extension.Internal<'hedera', any> {
   public async sign(message: Uint8Array) {
     return this.request(this.utils.createJsonRpcRequestPayload(HederaPayloadMethod.HederaSign, [{ message }]));
   }
+
+  public async getPublicAddress() {
+    return this.request(
+      this.utils.createJsonRpcRequestPayload(HederaPayloadMethod.HederaGetPublicKey, [{ chain: 'HEDERA' }]),
+    );
+  }
 }
