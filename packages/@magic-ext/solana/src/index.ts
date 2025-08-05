@@ -56,4 +56,15 @@ export class SolanaExtension extends Extension.Internal<'solana', any> {
       },
     });
   };
+
+  public getPublicAddress = () => {
+    return this.request<Uint8Array>({
+      id: 42,
+      jsonrpc: '2.0',
+      method: SOLANA_PAYLOAD_METHODS.GET_PUBLIC_ADDRESS,
+      params: {
+        chain: 'SOLANA',
+      },
+    });
+  };
 }
