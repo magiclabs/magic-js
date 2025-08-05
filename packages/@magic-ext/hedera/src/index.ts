@@ -30,7 +30,7 @@ export class HederaExtension extends Extension.Internal<'hedera', any> {
 
   public async getPublicAddress() {
     return this.request(
-      this.utils.createJsonRpcRequestPayload(HederaPayloadMethod.HederaGetPublicKey, [{ chain: 'HEDERA' }]),
+      this.utils.createJsonRpcRequestPayload(HederaPayloadMethod.HederaGetPublicAddress, [{ chain: 'HEDERA' }]),
     );
   }
 }
