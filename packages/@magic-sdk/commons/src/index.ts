@@ -3,6 +3,7 @@
 
 export {
   Extension,
+  MultichainExtension,
   MagicSDKError as SDKError,
   MagicExtensionError as ExtensionError,
   MagicExtensionWarning as ExtensionWarning,

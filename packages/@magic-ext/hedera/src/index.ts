@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/provider';
+import { MultichainExtension } from '@magic-sdk/commons';
 import { HederaConfig, HederaPayloadMethod } from './types';
 
 export * from './utils';
