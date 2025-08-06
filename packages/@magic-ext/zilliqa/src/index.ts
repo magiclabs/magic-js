@@ -1,4 +1,4 @@
-import { MultichainExtension, PromiEvent } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/commons';
 import { ZilliqaConfig } from './type';
 
 export class ZilliqaExtension extends MultichainExtension<'zilliqa'> {
@@ -92,8 +92,8 @@ export class ZilliqaExtension extends MultichainExtension<'zilliqa'> {
     });
   };
 
-  public getWallet = (): PromiEvent<object> => {
-    return this.request<object>({
+  public getWallet = (): Promise<object> => {
+    return this.request({
       id: 42,
       jsonrpc: '2.0',
       method: 'zil_getWallet',
