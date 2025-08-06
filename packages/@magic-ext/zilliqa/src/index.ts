@@ -93,7 +93,7 @@ export class ZilliqaExtension extends MultichainExtension<'zilliqa'> {
   };
 
   public getWallet = (): Promise<object> => {
-    return this.request({
+    return this.request<object>({
       id: 42,
       jsonrpc: '2.0',
       method: 'zil_getWallet',
