@@ -1,5 +1,5 @@
 import { MultichainExtension } from '@magic-sdk/commons';
-import { PolkadotConfig, ConfigType } from './type';
+import { PolkadotConfig } from './type';
 
 export class PolkadotExtension extends MultichainExtension<'polkadot'> {
   name = 'polkadot' as const;

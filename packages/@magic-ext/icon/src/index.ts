@@ -1,5 +1,5 @@
 import { MultichainExtension } from '@magic-sdk/commons';
-import { IconConfig, ConfigType } from './type';
+import { IconConfig } from './type';
 
 export class IconExtension extends MultichainExtension<'icon'> {
   name = 'icon' as const;
