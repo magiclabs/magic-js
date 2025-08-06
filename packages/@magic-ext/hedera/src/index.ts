@@ -1,23 +1,22 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { HederaConfig, HederaPayloadMethod } from './types';
 
 export * from './utils';
 
-export class HederaExtension extends Extension.Internal<'hedera', any> {
+export class HederaExtension extends MultichainExtension<'hedera'> {
   name = 'hedera' as const;
-  config: any = {};
   network: string;
 
   constructor(public hederaConfig: HederaConfig) {
-    super();
+    super(
+      {
+        chainType: 'HEDERA',
+        options: { network: hederaConfig.network },
+      },
+      'HEDERA',
+    );
 
     this.network = hederaConfig.network;
-    this.config = {
-      chainType: 'HEDERA',
-      options: {
-        network: hederaConfig.network,
-      },
-    };
   }
 
   public async getPublicKey() {
@@ -26,11 +25,5 @@ export class HederaExtension extends Extension.Internal<'hedera', any> {
 
   public async sign(message: Uint8Array) {
     return this.request(this.utils.createJsonRpcRequestPayload(HederaPayloadMethod.HederaSign, [{ message }]));
-  }
-
-  public async getPublicAddress() {
-    return this.request(
-      this.utils.createJsonRpcRequestPayload(HederaPayloadMethod.HederaGetPublicAddress, [{ chain: 'HEDERA' }]),
-    );
   }
 }

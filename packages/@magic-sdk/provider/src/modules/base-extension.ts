@@ -168,6 +168,28 @@ export class Extension {
 }
 
 /**
+ * Base class for multi-chain extensions, extracting getPublicAddress logic.
+ */
+export abstract class MultichainExtension<TName extends string, TConfig extends any = any> extends InternalExtension<
+  TName,
+  TConfig
+> {
+  constructor(
+    public readonly config: TConfig,
+    public readonly chain: string,
+  ) {
+    super();
+    // derived classes can access config and chain directly
+  }
+
+  public async getPublicAddress<ResultType = any>(): Promise<ResultType> {
+    return this.request(
+      this.utils.createJsonRpcRequestPayload('get_multichain_public_address', [{ chain: this.chain }]),
+    );
+  }
+}
+
+/**
  * These fields are exposed on the `Extension` type,
  * but should be hidden from the public interface.
  */
