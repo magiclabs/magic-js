@@ -1,21 +1,21 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/commons';
 import { AvaxConfig } from './types';
 
-export class AvalancheExtension extends Extension.Internal<'avax', any> {
+export class AvalancheExtension extends MultichainExtension<'avax'> {
   name = 'avax' as const;
-  config: any = {};
 
   constructor(public avalancheConfig: AvaxConfig) {
-    super();
-
-    this.config = {
-      rpcUrl: avalancheConfig.rpcUrl,
-      chainType: 'AVAX',
-      options: {
-        chainId: avalancheConfig.chainId,
-        networkId: avalancheConfig.networkId,
+    super(
+      {
+        rpcUrl: avalancheConfig.rpcUrl,
+        chainType: 'AVAX',
+        options: {
+          chainId: avalancheConfig.chainId,
+          networkId: avalancheConfig.networkId,
+        },
       },
-    };
+      'AVAX',
+    );
   }
 
   public signTransaction = (

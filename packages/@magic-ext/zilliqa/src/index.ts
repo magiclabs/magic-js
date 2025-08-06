@@ -1,18 +1,17 @@
-import { Extension } from '@magic-sdk/commons';
-import { ZilliqaConfig, ConfigType } from './type';
+import { MultichainExtension, PromiEvent } from '@magic-sdk/commons';
+import { ZilliqaConfig } from './type';
 
-export class ZilliqaExtension extends Extension.Internal<'zilliqa', ZilliqaConfig> {
+export class ZilliqaExtension extends MultichainExtension<'zilliqa'> {
   name = 'zilliqa' as const;
 
-  config: ConfigType;
-
   constructor(public zilliqaConfig: ZilliqaConfig) {
-    super();
-
-    this.config = {
-      rpcUrl: zilliqaConfig.rpcUrl,
-      chainType: 'ZILLIQA',
-    };
+    super(
+      {
+        rpcUrl: zilliqaConfig.rpcUrl,
+        chainType: 'ZILLIQA',
+      },
+      'ZILLIQA',
+    );
   }
 
   public sendTransaction = (params: any, toDs: boolean): Promise<any> => {
@@ -93,8 +92,8 @@ export class ZilliqaExtension extends Extension.Internal<'zilliqa', ZilliqaConfi
     });
   };
 
-  public getWallet = (): Promise<object> => {
-    return this.request({
+  public getWallet = (): PromiEvent<object> => {
+    return this.request<object>({
       id: 42,
       jsonrpc: '2.0',
       method: 'zil_getWallet',

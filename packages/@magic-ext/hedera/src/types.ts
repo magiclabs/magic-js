@@ -5,5 +5,4 @@ export interface HederaConfig {
 export enum HederaPayloadMethod {
   HederaSign = 'hedera_sign',
   HederaGetPublicKey = 'hedera_getPublicKey',
-  HederaGetPublicAddress = 'get_multichain_public_address',
 }

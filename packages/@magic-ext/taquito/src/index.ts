@@ -1,17 +1,18 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/commons';
 import { TaquitoConfig, TaquitoPayloadMethod } from './type';
 import { MagicSigner } from './MagicSigner';
 
-export class TaquitoExtension extends Extension.Internal<'taquito', any> {
+export class TaquitoExtension extends MultichainExtension<'taquito'> {
   name = 'taquito' as const;
-  config: any = {};
 
   constructor(public taquitoConfig: TaquitoConfig) {
-    super();
-
-    this.config = {
-      rpcUrl: taquitoConfig.rpcUrl,
-    };
+    super(
+      {
+        rpcUrl: taquitoConfig.rpcUrl,
+        chainType: 'TAQUITO',
+      },
+      'TAQUITO',
+    );
   }
 
   public async getPublicKey() {

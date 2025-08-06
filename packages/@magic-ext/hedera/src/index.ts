@@ -15,7 +15,6 @@ export class HederaExtension extends MultichainExtension<'hedera'> {
       },
       'HEDERA',
     );
-
     this.network = hederaConfig.network;
   }
 

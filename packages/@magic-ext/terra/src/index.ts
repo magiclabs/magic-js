@@ -1,16 +1,17 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/commons';
 import { TerraPayloadMethod, TerraConfig } from './types';
 
-export class TerraExtension extends Extension.Internal<'terra', any> {
+export class TerraExtension extends MultichainExtension<'terra'> {
   name = 'terra' as const;
-  config: any = {};
 
   constructor(public terraConfig: TerraConfig) {
-    super();
-
-    this.config = {
-      rpcUrl: terraConfig.rpcUrl,
-    };
+    super(
+      {
+        rpcUrl: terraConfig.rpcUrl,
+        chainType: 'TERRA',
+      },
+      'TERRA',
+    );
   }
 
   public async getPublicKey() {

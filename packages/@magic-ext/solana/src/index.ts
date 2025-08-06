@@ -1,20 +1,19 @@
-import { Extension } from '@magic-sdk/commons';
-
+import { MultichainExtension } from '@magic-sdk/commons';
 import { SerializeConfig, Transaction, VersionedTransaction } from '@solana/web3.js';
 import { SolanaConfig } from './type';
 import { SOLANA_PAYLOAD_METHODS } from './constants';
 
-export class SolanaExtension extends Extension.Internal<'solana', any> {
+export class SolanaExtension extends MultichainExtension<'solana'> {
   name = 'solana' as const;
-  config: any = {};
 
   constructor(public solanaConfig: SolanaConfig) {
-    super();
-
-    this.config = {
-      rpcUrl: solanaConfig.rpcUrl,
-      chainType: 'SOLANA',
-    };
+    super(
+      {
+        rpcUrl: solanaConfig.rpcUrl,
+        chainType: 'SOLANA',
+      },
+      'SOLANA',
+    );
   }
 
   public signTransaction = (transaction: Transaction | VersionedTransaction, serializeConfig?: SerializeConfig) => {
@@ -53,17 +52,6 @@ export class SolanaExtension extends Extension.Internal<'solana', any> {
         type: transaction instanceof Transaction ? 'legacy' : 0,
         serialized: transaction.serialize(serializeConfig),
         serializeConfig,
-      },
-    });
-  };
-
-  public getPublicAddress = () => {
-    return this.request<Uint8Array>({
-      id: 42,
-      jsonrpc: '2.0',
-      method: SOLANA_PAYLOAD_METHODS.GET_PUBLIC_ADDRESS,
-      params: {
-        chain: 'SOLANA',
       },
     });
   };
