@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/commons';
 
 // @ts-ignore
 import { AptosClient, BCS, TxnBuilderTypes, Types, getAddressFromAccountOrAddress } from 'aptos';
@@ -7,20 +7,20 @@ import { AptosConfig, AptosPayloadMethod } from './type';
 import { APTOS_PAYLOAD_TYPE } from './constants';
 
 export { MagicAptosWallet } from './MagicAptosWallet';
-export class AptosExtension extends Extension.Internal<'aptos', any> {
+export class AptosExtension extends MultichainExtension<'aptos'> {
   name = 'aptos' as const;
-  config: any = {};
 
   constructor(public aptosConfig: AptosConfig) {
-    super();
-
-    this.config = {
-      rpcUrl: '',
-      chainType: 'APTOS',
-      options: {
-        nodeUrl: aptosConfig.nodeUrl,
+    super(
+      {
+        rpcUrl: aptosConfig.nodeUrl,
+        chainType: 'APTOS',
+        options: {
+          nodeUrl: aptosConfig.nodeUrl,
+        },
       },
-    };
+      'APTOS',
+    );
   }
 
   private serializeRawTransaction = (rawTransaction: TxnBuilderTypes.RawTransaction) => {

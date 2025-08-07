@@ -1,16 +1,17 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/commons';
 import { SuiConfig, SuiPayloadMethod } from './types';
 
-export class SuiExtension extends Extension.Internal<'sui', any> {
+export class SuiExtension extends MultichainExtension<'sui'> {
   name = 'sui' as const;
-  config: any = {};
 
   constructor(public suiConfig: SuiConfig) {
-    super();
-    this.config = {
-      rpcUrl: suiConfig.rpcUrl,
-      chainType: 'SUI',
-    };
+    super(
+      {
+        rpcUrl: suiConfig.rpcUrl,
+        chainType: 'SUI',
+      },
+      'SUI',
+    );
   }
 
   public signAndSendTransaction(params: any) {

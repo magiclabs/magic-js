@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/commons';
 import {
   UnsignedCommand,
   KadenaConfig,
@@ -10,36 +10,38 @@ import {
   OptimalTransactionsAccount,
 } from './types';
 
-export class KadenaExtension extends Extension.Internal<'kadena'> {
+export class KadenaExtension extends MultichainExtension<'kadena'> {
   name = 'kadena' as const;
-  config = {};
 
   constructor(public kadenaConfig: KadenaConfig) {
-    super();
-
-    this.config = {
-      chainType: 'KADENA',
-      rpcUrl: kadenaConfig.rpcUrl,
-      chainId: kadenaConfig.chainId,
-      options: {
-        networkId: kadenaConfig.networkId,
-        createAccountsOnChain: Boolean(kadenaConfig.createAccountsOnChain),
+    super(
+      {
+        rpcUrl: kadenaConfig.rpcUrl,
+        chainType: 'KADENA',
+        chainId: kadenaConfig.chainId,
+        options: {
+          networkId: kadenaConfig.networkId,
+          createAccountsOnChain: Boolean(kadenaConfig.createAccountsOnChain),
+        },
       },
-    };
+      'KADENA',
+    );
   }
 
   public signTransaction(hash: string): Promise<SignatureWithPublicKey> {
-    return this.request<SignatureWithPublicKey>(this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransaction, [{ hash }]));
+    return this.request<SignatureWithPublicKey>(
+      this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransaction, [{ hash }]),
+    );
   }
 
   public async signTransactionWithSpireKey(
     transaction: UnsignedCommand,
-    accounts?: OptimalTransactionsAccount[]
+    accounts?: OptimalTransactionsAccount[],
   ): Promise<SignedTransactions> {
     const signedTransaction = await this.request(
       this.utils.createJsonRpcRequestPayload(KadenaPayloadMethod.KadenaSignTransactionWithSpireKey, [
         { transaction, accounts: accounts || undefined },
-      ])
+      ]),
     );
     return signedTransaction;
   }
