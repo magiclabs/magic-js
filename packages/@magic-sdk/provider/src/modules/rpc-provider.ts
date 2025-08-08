@@ -15,7 +15,11 @@ import { createTypedEmitter, EventsDefinition, TypedEmitter } from '../util/even
 
 const { createBoundEmitterMethod, createChainingEmitterMethod } = createTypedEmitter();
 
-/** */
+/**
+ * RPC Provider Module that handles Ethereum JSON-RPC requests and responses.
+ * Implements EIP-1193 provider interface for Ethereum wallet connectivity.
+ * Provides methods for sending RPC requests, handling callbacks, and managing events.
+ */
 export class RPCProviderModule extends BaseModule implements TypedEmitter {
   // Implements EIP 1193:
   // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md
