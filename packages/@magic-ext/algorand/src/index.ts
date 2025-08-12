@@ -5,13 +5,10 @@ export class AlgorandExtension extends MultichainExtension<'algod'> {
   name = 'algod' as const;
 
   constructor(public algorandConfig: AlgorandConfig) {
-    super(
-      {
-        rpcUrl: algorandConfig.rpcUrl,
-        chainType: 'ALGOD',
-      },
-      'ALGOD',
-    );
+    super({
+      rpcUrl: algorandConfig.rpcUrl,
+      chainType: 'ALGOD',
+    });
   }
 
   public async signTransaction(txn: any) {

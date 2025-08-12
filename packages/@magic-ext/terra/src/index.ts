@@ -5,13 +5,10 @@ export class TerraExtension extends MultichainExtension<'terra'> {
   name = 'terra' as const;
 
   constructor(public terraConfig: TerraConfig) {
-    super(
-      {
-        rpcUrl: terraConfig.rpcUrl,
-        chainType: 'TERRA',
-      },
-      'TERRA',
-    );
+    super({
+      rpcUrl: terraConfig.rpcUrl,
+      chainType: 'TERRA',
+    });
   }
 
   public async getPublicKey() {

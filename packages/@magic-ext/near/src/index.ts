@@ -5,13 +5,10 @@ export class NearExtension extends MultichainExtension<'near'> {
   name = 'near' as const;
 
   constructor(public nearConfig: NearConfig) {
-    super(
-      {
-        rpcUrl: nearConfig.rpcUrl,
-        chainType: 'NEAR',
-      },
-      'NEAR',
-    );
+    super({
+      rpcUrl: nearConfig.rpcUrl,
+      chainType: 'NEAR',
+    });
   }
 
   public async signTransaction(params: any) {

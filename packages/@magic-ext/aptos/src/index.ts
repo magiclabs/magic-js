@@ -11,16 +11,11 @@ export class AptosExtension extends MultichainExtension<'aptos'> {
   name = 'aptos' as const;
 
   constructor(public aptosConfig: AptosConfig) {
-    super(
-      {
-        rpcUrl: aptosConfig.nodeUrl,
-        chainType: 'APTOS',
-        options: {
-          nodeUrl: aptosConfig.nodeUrl,
-        },
-      },
-      'APTOS',
-    );
+    super({
+      rpcUrl: aptosConfig.nodeUrl,
+      chainType: 'APTOS',
+      options: { nodeUrl: aptosConfig.nodeUrl },
+    });
   }
 
   private serializeRawTransaction = (rawTransaction: TxnBuilderTypes.RawTransaction) => {

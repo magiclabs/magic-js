@@ -5,13 +5,10 @@ export class SuiExtension extends MultichainExtension<'sui'> {
   name = 'sui' as const;
 
   constructor(public suiConfig: SuiConfig) {
-    super(
-      {
-        rpcUrl: suiConfig.rpcUrl,
-        chainType: 'SUI',
-      },
-      'SUI',
-    );
+    super({
+      rpcUrl: suiConfig.rpcUrl,
+      chainType: 'SUI',
+    });
   }
 
   public signAndSendTransaction(params: any) {

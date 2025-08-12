@@ -8,14 +8,11 @@ export class FlowExtension extends MultichainExtension<'flow'> {
   name = 'flow' as const;
 
   constructor(public flowConfig: FlowConfig) {
-    super(
-      {
-        rpcUrl: flowConfig.rpcUrl,
-        chainType: 'FLOW',
-        network: flowConfig.network,
-      },
-      'FLOW',
-    );
+    super({
+      rpcUrl: flowConfig.rpcUrl,
+      chainType: 'FLOW',
+      network: flowConfig.network,
+    });
   }
 
   getAccount = () => {

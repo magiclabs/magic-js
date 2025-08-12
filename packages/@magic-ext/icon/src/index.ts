@@ -5,13 +5,10 @@ export class IconExtension extends MultichainExtension<'icon'> {
   name = 'icon' as const;
 
   constructor(public iconConfig: IconConfig) {
-    super(
-      {
-        rpcUrl: iconConfig.rpcUrl,
-        chainType: 'ICON',
-      },
-      'ICON',
-    );
+    super({
+      rpcUrl: iconConfig.rpcUrl,
+      chainType: 'ICON',
+    });
   }
 
   public sendTransaction = (txObj: any): Promise<string> => {

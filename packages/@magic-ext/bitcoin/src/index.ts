@@ -5,16 +5,13 @@ export class BitcoinExtension extends MultichainExtension<'bitcoin'> {
   name = 'bitcoin' as const;
 
   constructor(public bitcoinConfig: BitcoinConfig) {
-    super(
-      {
-        rpcUrl: bitcoinConfig.rpcUrl,
-        chainType: 'BITCOIN',
-        options: {
-          network: bitcoinConfig.network,
-        },
+    super({
+      rpcUrl: bitcoinConfig.rpcUrl,
+      chainType: 'BITCOIN',
+      options: {
+        network: bitcoinConfig.network,
       },
-      'BITCOIN',
-    );
+    });
   }
 
   public async signTransaction(txn: string, inputIndex: number) {

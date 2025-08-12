@@ -5,16 +5,13 @@ export class CosmosExtension extends MultichainExtension<'cosmos'> {
   name = 'cosmos' as const;
 
   constructor(public cosmosConfig: CosmosConfig) {
-    super(
-      {
-        rpcUrl: cosmosConfig.rpcUrl,
-        chainType: 'COSMOS',
-        options: {
-          chain: cosmosConfig.chain,
-        },
+    super({
+      rpcUrl: cosmosConfig.rpcUrl,
+      chainType: 'COSMOS',
+      options: {
+        chain: cosmosConfig.chain,
       },
-      'COSMOS',
-    );
+    });
   }
 
   public signAndBroadcast = async (message: any, fee: any) => {

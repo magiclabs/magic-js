@@ -8,13 +8,10 @@ export class HederaExtension extends MultichainExtension<'hedera'> {
   network: string;
 
   constructor(public hederaConfig: HederaConfig) {
-    super(
-      {
-        chainType: 'HEDERA',
-        options: { network: hederaConfig.network },
-      },
-      'HEDERA',
-    );
+    super({
+      chainType: 'HEDERA',
+      options: { network: hederaConfig.network },
+    });
     this.network = hederaConfig.network;
   }
 

@@ -5,17 +5,14 @@ export class AvalancheExtension extends MultichainExtension<'avax'> {
   name = 'avax' as const;
 
   constructor(public avalancheConfig: AvaxConfig) {
-    super(
-      {
-        rpcUrl: avalancheConfig.rpcUrl,
-        chainType: 'AVAX',
-        options: {
-          chainId: avalancheConfig.chainId,
-          networkId: avalancheConfig.networkId,
-        },
+    super({
+      rpcUrl: avalancheConfig.rpcUrl,
+      chainType: 'AVAX',
+      options: {
+        chainId: avalancheConfig.chainId,
+        networkId: avalancheConfig.networkId,
       },
-      'AVAX',
-    );
+    });
   }
 
   public signTransaction = (

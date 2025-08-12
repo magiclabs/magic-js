@@ -5,13 +5,10 @@ export class PolkadotExtension extends MultichainExtension<'polkadot'> {
   name = 'polkadot' as const;
 
   constructor(public polkadotConfig: PolkadotConfig) {
-    super(
-      {
-        rpcUrl: polkadotConfig.rpcUrl,
-        chainType: 'POLKADOT',
-      },
-      'POLKADOT',
-    );
+    super({
+      rpcUrl: polkadotConfig.rpcUrl,
+      chainType: 'POLKADOT',
+    });
   }
 
   public sendTransaction = (to: string, value: number): Promise<string> => {

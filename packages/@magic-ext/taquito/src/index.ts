@@ -6,13 +6,10 @@ export class TaquitoExtension extends MultichainExtension<'taquito'> {
   name = 'taquito' as const;
 
   constructor(public taquitoConfig: TaquitoConfig) {
-    super(
-      {
-        rpcUrl: taquitoConfig.rpcUrl,
-        chainType: 'TAQUITO',
-      },
-      'TAQUITO',
-    );
+    super({
+      rpcUrl: taquitoConfig.rpcUrl,
+      chainType: 'TAQUITO',
+    });
   }
 
   public async getPublicKey() {

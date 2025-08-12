@@ -5,13 +5,10 @@ export class TezosExtension extends MultichainExtension<'tezos'> {
   name = 'tezos' as const;
 
   constructor(public tezosConfig: TezosConfig) {
-    super(
-      {
-        rpcUrl: tezosConfig.rpcUrl,
-        chainType: 'TEZOS',
-      },
-      'TEZOS',
-    );
+    super({
+      rpcUrl: tezosConfig.rpcUrl,
+      chainType: 'TEZOS',
+    });
   }
 
   public sendTransactionOperation = (

@@ -7,13 +7,10 @@ export class SolanaExtension extends MultichainExtension<'solana'> {
   name = 'solana' as const;
 
   constructor(public solanaConfig: SolanaConfig) {
-    super(
-      {
-        rpcUrl: solanaConfig.rpcUrl,
-        chainType: 'SOLANA',
-      },
-      'SOLANA',
-    );
+    super({
+      rpcUrl: solanaConfig.rpcUrl,
+      chainType: 'SOLANA',
+    });
   }
 
   public signTransaction = (transaction: Transaction | VersionedTransaction, serializeConfig?: SerializeConfig) => {

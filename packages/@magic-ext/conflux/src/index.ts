@@ -5,16 +5,13 @@ export class ConfluxExtension extends MultichainExtension<'conflux'> {
   name = 'conflux' as const;
 
   constructor(public confluxConfig: ConfluxConfig) {
-    super(
-      {
-        chainType: 'CONFLUX',
-        options: {
-          rpcUrl: confluxConfig.rpcUrl,
-          networkId: confluxConfig.networkId,
-        },
+    super({
+      chainType: 'CONFLUX',
+      options: {
+        rpcUrl: confluxConfig.rpcUrl,
+        networkId: confluxConfig.networkId,
       },
-      'CONFLUX',
-    );
+    });
   }
 
   public async sendTransaction(txObject: any) {

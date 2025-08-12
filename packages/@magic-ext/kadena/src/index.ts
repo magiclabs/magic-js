@@ -14,18 +14,15 @@ export class KadenaExtension extends MultichainExtension<'kadena'> {
   name = 'kadena' as const;
 
   constructor(public kadenaConfig: KadenaConfig) {
-    super(
-      {
-        rpcUrl: kadenaConfig.rpcUrl,
-        chainType: 'KADENA',
-        chainId: kadenaConfig.chainId,
-        options: {
-          networkId: kadenaConfig.networkId,
-          createAccountsOnChain: Boolean(kadenaConfig.createAccountsOnChain),
-        },
+    super({
+      rpcUrl: kadenaConfig.rpcUrl,
+      chainType: 'KADENA',
+      chainId: kadenaConfig.chainId,
+      options: {
+        networkId: kadenaConfig.networkId,
+        createAccountsOnChain: Boolean(kadenaConfig.createAccountsOnChain),
       },
-      'KADENA',
-    );
+    });
   }
 
   public signTransaction(hash: string): Promise<SignatureWithPublicKey> {

@@ -5,13 +5,10 @@ export class ZilliqaExtension extends MultichainExtension<'zilliqa'> {
   name = 'zilliqa' as const;
 
   constructor(public zilliqaConfig: ZilliqaConfig) {
-    super(
-      {
-        rpcUrl: zilliqaConfig.rpcUrl,
-        chainType: 'ZILLIQA',
-      },
-      'ZILLIQA',
-    );
+    super({
+      rpcUrl: zilliqaConfig.rpcUrl,
+      chainType: 'ZILLIQA',
+    });
   }
 
   public sendTransaction = (params: any, toDs: boolean): Promise<any> => {

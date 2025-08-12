@@ -175,12 +175,10 @@ export abstract class MultichainExtension<TName extends string, TConfig extends 
   TName,
   TConfig
 > {
-  constructor(
-    public readonly config: TConfig,
-    public readonly chain: string,
-  ) {
+  public readonly chain: string;
+  constructor(public readonly config: TConfig) {
     super();
-    // derived classes can access config and chain directly
+    this.chain = (config as any).chainType;
   }
 
   public async getPublicAddress<ResultType = any>(): Promise<ResultType> {
