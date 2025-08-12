@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/oauth2",
-  "version": "11.4.0",
+  "version": "11.4.1",
   "description": "Magic SDK OAuth Extension for Web environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -32,7 +32,7 @@
     "crypto-js": "^4.2.0"
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^25.4.0",
+    "@magic-sdk/commons": "^25.4.1",
     "@types/crypto-js": "4.2.0"
   }
 }
