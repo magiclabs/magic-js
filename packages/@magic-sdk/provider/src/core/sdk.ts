@@ -194,7 +194,7 @@ export class SDKBase {
     // Encode parameters as base64-JSON
     this.parameters = encodeJSON<QueryParameters>({
       API_KEY: this.apiKey,
-      DOMAIN_ORIGIN: window.location ? window.location.origin : '',
+      DOMAIN_ORIGIN: window && window.location ? window.location.origin : '',
       ETH_NETWORK: options?.network,
       host: createURL(this.endpoint).host,
       sdk: sdkNameToEnvName[SDKEnvironment.sdkName],
