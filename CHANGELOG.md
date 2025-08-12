@@ -1,3 +1,22 @@
+# (Fri Aug 01 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.4.1`
+  - remove instance of Extension check [#914](https://github.com/magiclabs/magic-js/pull/914) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/aptos@12.4.1`
+  - chore: fix typos in function name [#910](https://github.com/magiclabs/magic-js/pull/910) ([@VolodymyrBg](https://github.com/VolodymyrBg))
+- `magic-sdk@29.4.1`
+  - fix: correct @magic-ext packages link in magic-sdk README [#911](https://github.com/magiclabs/magic-js/pull/911) ([@MozirDmitriy](https://github.com/MozirDmitriy))
+
+#### Authors: 3
+
+- [@MozirDmitriy](https://github.com/MozirDmitriy)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- VolodymyrBg ([@VolodymyrBg](https://github.com/VolodymyrBg))
+
+---
+
 # (Thu Jul 24 2025)
 
 #### 🚀 Enhancement

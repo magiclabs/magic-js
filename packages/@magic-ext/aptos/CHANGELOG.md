@@ -1,3 +1,15 @@
+# v12.4.1 (Fri Aug 01 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix typos in function name [#910](https://github.com/magiclabs/magic-js/pull/910) ([@VolodymyrBg](https://github.com/VolodymyrBg))
+
+#### Authors: 1
+
+- VolodymyrBg ([@VolodymyrBg](https://github.com/VolodymyrBg))
+
+---
+
 # v12.2.0 (Tue Jul 15 2025)
 
 #### 🐛 Bug Fix
