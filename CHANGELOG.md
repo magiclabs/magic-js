@@ -1,3 +1,16 @@
+# (Thu Aug 14 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/harmony@24.4.3`
+  - removes chainType from harmony config [#927](https://github.com/magiclabs/magic-js/pull/927) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Aug 12 2025)
 
 #### 🐛 Bug Fix
