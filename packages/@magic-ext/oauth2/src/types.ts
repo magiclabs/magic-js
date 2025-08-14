@@ -101,6 +101,7 @@ export interface OAuthRedirectConfiguration {
   redirectURI: string;
   scope?: string[];
   customData?: string;
+  providerParams?: Record<string, string | number | boolean>;
   loginHint?: string;
 }
 
@@ -114,6 +115,7 @@ export interface OAuthPopupConfiguration {
   provider: OAuthPopupProvider;
   scope?: string[];
   loginHint?: string;
+  providerParams?: Record<string, string | number | boolean>;
 }
 
 export enum OAuthErrorCode {
