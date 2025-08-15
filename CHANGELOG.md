@@ -1,3 +1,16 @@
+# (Fri Aug 15 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@11.5.0`
+  - feat: add provider config to oauth types [#925](https://github.com/magiclabs/magic-js/pull/925) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Thu Aug 14 2025)
 
 #### 🐛 Bug Fix
