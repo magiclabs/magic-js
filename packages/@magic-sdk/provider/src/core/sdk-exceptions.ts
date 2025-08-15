@@ -151,7 +151,7 @@ export function createIncompatibleExtensionsError(extensions: BaseExtension<stri
         msg += `\n  - Extension \`${ext.name}\` does not support ${SDKEnvironment.platform} environments.`;
       }
 
-      // Else case is irrelevant here here
+      // Else case is irrelevant here
       // (we filter out extensions with missing `compat` field)
     });
 

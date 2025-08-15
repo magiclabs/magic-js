@@ -5,5 +5,4 @@ export enum HarmonyPayloadMethod {
 export interface HarmonyConfig {
   rpcUrl: string;
   chainId: string;
-  chainType: string;
 }
