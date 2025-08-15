@@ -1,3 +1,42 @@
+# (Fri Aug 15 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@11.5.0`
+  - feat: add provider config to oauth types [#925](https://github.com/magiclabs/magic-js/pull/925) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Aug 14 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/harmony@24.4.3`
+  - removes chainType from harmony config [#927](https://github.com/magiclabs/magic-js/pull/927) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Tue Aug 12 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.4.2`
+  - add window check [#924](https://github.com/magiclabs/magic-js/pull/924) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri Aug 01 2025)
 
 #### 🐛 Bug Fix

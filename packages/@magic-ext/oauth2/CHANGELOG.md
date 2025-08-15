@@ -1,3 +1,15 @@
+# v11.5.0 (Fri Aug 15 2025)
+
+#### 🚀 Enhancement
+
+- feat: add provider config to oauth types [#925](https://github.com/magiclabs/magic-js/pull/925) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v11.0.6 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix

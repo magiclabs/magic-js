@@ -1,3 +1,15 @@
+# v24.4.3 (Thu Aug 14 2025)
+
+#### 🐛 Bug Fix
+
+- removes chainType from harmony config [#927](https://github.com/magiclabs/magic-js/pull/927) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v24.0.6 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix

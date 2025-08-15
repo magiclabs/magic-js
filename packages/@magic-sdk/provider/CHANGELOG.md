@@ -1,3 +1,15 @@
+# v29.4.2 (Tue Aug 12 2025)
+
+#### 🐛 Bug Fix
+
+- add window check [#924](https://github.com/magiclabs/magic-js/pull/924) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v29.4.1 (Fri Aug 01 2025)
 
 #### 🐛 Bug Fix
