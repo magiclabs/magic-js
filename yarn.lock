@@ -3545,7 +3545,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/evm@workspace:packages/@magic-ext/evm"
   dependencies:
-    "@magic-sdk/commons": ^25.4.1
+    "@magic-sdk/commons": ^25.4.2
     "@magic-sdk/types": ^24.21.0
   languageName: unknown
   linkType: soft
