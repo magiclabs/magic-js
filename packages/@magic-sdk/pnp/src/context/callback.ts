@@ -42,7 +42,7 @@ export async function callback(): Promise<void> {
 
   /**
    * Generically handles auth callback for methods where
-   * a redirect in not applicable. Examples include:
+   * a redirect is not applicable. Examples include:
    *
    * - SMS login
    * - Magic link login w/o `redirectURI`
