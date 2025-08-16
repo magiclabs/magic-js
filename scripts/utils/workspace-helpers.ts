@@ -38,7 +38,11 @@ export async function promptForPackage(options: { allowAll?: boolean } = {}) {
   const sdkPkgs = packages
     .filter((i) => i.includes('@magic-sdk') || i === 'magic-sdk')
     // sort `magic-sdk` first
-    .sort((i) => (i.startsWith('@') ? 0 : -1));
+    .sort((a, b) => {
+      if (a === 'magic-sdk') return -1;
+      if (b === 'magic-sdk') return 1;
+      return 0;
+    });
 
   const sep = { role: 'separator' };
 
