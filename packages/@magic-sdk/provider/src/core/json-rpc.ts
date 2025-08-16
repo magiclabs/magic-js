@@ -8,7 +8,7 @@ const payloadPreprocessedSymbol = Symbol('Payload pre-processed by Magic SDK');
 /**
  * To avoid "pre-processing" a payload more than once (and needlessly
  * incrementing our payload ID generator), we attach a symbol to detect a
- * payloads we've already visited.
+ * payload we've already visited.
  */
 function markPayloadAsPreprocessed<T extends Partial<JsonRpcRequestPayload>>(payload: T): T {
   Object.defineProperty(payload, payloadPreprocessedSymbol, {
