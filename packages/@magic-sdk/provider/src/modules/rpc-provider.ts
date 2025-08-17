@@ -120,7 +120,7 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
    * Here, we wrap `BaseModule.request` with an additional check
    * to determine if the RPC method requires a test-mode prefix.
    */
-  protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
+  public request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
     this.prefixPayloadMethodForTestMode(payload);
     return super.request<ResultType, Events>(payload);
   }
