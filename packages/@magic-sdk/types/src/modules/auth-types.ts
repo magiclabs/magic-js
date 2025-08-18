@@ -31,7 +31,7 @@ export interface LoginWithMagicLinkConfiguration {
   };
 
   /**
-   * The number of seconds until the generated Decenteralized ID token will expire.
+   * The number of seconds until the generated Decentralized ID token will expire.
    */
   lifespan?: number;
 }
@@ -53,7 +53,7 @@ export interface LoginWithSmsConfiguration {
   showUI?: boolean;
 
   /*
-   * The number of seconds until the generated Decenteralized ID token will expire.
+   * The number of seconds until the generated Decentralized ID token will expire.
    */
   lifespan?: number;
 }
@@ -80,7 +80,7 @@ export interface LoginWithEmailOTPConfiguration {
    * prompting them to verify their login by checking their email for device approval. This feature
    * enhances authentication security.
    *
-   * This param will only be affect if showUI is false. When set to false,
+   * This param will only be affected if showUI is false. When set to false,
    * developers have the flexibility to implement their own customized UI to
    * handle device check events, providing a more tailored user experience.
    */
@@ -96,7 +96,7 @@ export interface LoginWithEmailOTPConfiguration {
   };
 
   /**
-   * The number of seconds until the generated Decenteralized ID token will expire.
+   * The number of seconds until the generated Decentralized ID token will expire.
    */
   lifespan?: number;
 }
@@ -108,7 +108,7 @@ export interface LoginWithCredentialConfiguration {
   credentialOrQueryString?: string;
 
   /**
-   * The number of seconds until the generated Decenteralized ID token will expire.
+   * The number of seconds until the generated Decentralized ID token will expire.
    */
   lifespan?: number;
 }
