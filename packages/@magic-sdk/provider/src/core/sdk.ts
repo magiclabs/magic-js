@@ -184,6 +184,7 @@ export class SDKBase {
     this.thirdPartyWallets = new ThirdPartyWalletsModule(this);
     this.rpcProvider = new RPCProviderModule(this) as any;
 
+    console.log('VERSION!!!!!: ', version);
     // Prepare extensions
     const extConfig: any = prepareExtensions.call(this, options);
 
