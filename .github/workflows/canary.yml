@@ -91,11 +91,16 @@ jobs:
       - name: Rebuild with canary versions
         run: yarn build
 
-      - name: Create Canary Release
+      - name: Publish canary packages
         run: |
-          # Get the updated version from package.json after lerna update
-          UPDATED_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
-          echo "Publishing canary with version: $UPDATED_VERSION"
+          # Get the updated version
+          CANARY_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
+          echo "Publishing canary version: $CANARY_VERSION"
 
-          # Use shipit with the specific version to publish the canary
-          yarn auto shipit --use-version "$UPDATED_VERSION" -v
+          # Publish all packages with the canary tag
+          yarn lerna publish from-package --dist-tag canary --yes --no-verify-access
+
+          # Add canary version info to PR (similar to what auto-it does)
+          if [ -n "${{ github.event.pull_request.number }}" ]; then
+            echo "📦 Published canary version: \`$CANARY_VERSION\`" >> $GITHUB_STEP_SUMMARY
+          fi
