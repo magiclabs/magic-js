@@ -75,37 +75,4 @@ jobs:
           path: packages
 
       - name: Create Canary Release
-        run: |
-          # Save the current version to detect if canary was published
-          BEFORE_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
-          echo "Version before auto canary: $BEFORE_VERSION"
-
-          # Run auto canary normally
-          yarn auto canary -v
-
-          # Check if a canary version was published
-          AFTER_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
-          echo "Version after auto canary: $AFTER_VERSION"
-
-          # If canary was published, rebuild and republish to fix the version issue
-          if [[ $AFTER_VERSION == *"canary"* ]] && [[ $BEFORE_VERSION != $AFTER_VERSION ]]; then
-            echo "🔄 Canary version detected! Rebuilding with correct version..."
-            
-            # Rebuild with the updated canary version
-            yarn build
-            
-            echo "📦 Republishing main packages with corrected build..."
-            
-            # Republish the main packages with the corrected build
-            cd packages/magic-sdk
-            npm publish --tag canary
-            cd ../..
-            
-            cd packages/@magic-sdk/provider  
-            npm publish --tag canary
-            cd ../../..
-            
-            echo "✅ Canary packages republished with correct version embedded!"
-          else
-            echo "ℹ️  No canary version published or version unchanged"
-          fi
+        run: yarn auto canary -v

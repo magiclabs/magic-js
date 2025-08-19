@@ -58,7 +58,7 @@ const template = (
           data={{
             extNameCamelCase: camelCase(props.extName),
             cdnGlobalName: `Magic${props.className}`,
-            magicSdkVersion: `^${environment.WEB_VERSION}`,
+            magicSdkVersion: `^${require('../../../packages/magic-sdk/package.json').version}`,
             magicSdkReactVersion: `^${environment.REACT_NATIVE_VERSION}`,
             magicSdkCommonsVersion: `^${require('../../../packages/@magic-sdk/commons/package.json').version}`,
           }}
