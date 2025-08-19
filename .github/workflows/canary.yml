@@ -76,26 +76,57 @@ jobs:
 
       - name: Create Canary Release
         run: |
-          # Run auto canary which will update package.json versions
-          # But we need to rebuild after the version update to get the correct version in the JS
+          # Create a wrapper script to rebuild after auto-it updates versions but before it publishes
+          cat > auto-canary-wrapper.js << 'EOF'
+          const { spawn } = require('child_process');
+          const fs = require('fs');
 
-          # First, run auto canary dry-run to see what version would be generated
-          echo "Running auto canary to update versions..."
-          yarn auto canary --dry-run -v
+          // Start auto canary process
+          const autoProcess = spawn('yarn', ['auto', 'canary', '-v'], {
+            stdio: ['inherit', 'pipe', 'pipe'],
+            env: process.env
+          });
 
-          # Check if versions were updated (they should contain "canary")
-          UPDATED_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
-          echo "Version after auto canary: $UPDATED_VERSION"
+          let hasRebuilt = false;
+          let versionUpdated = false;
 
-          # If version was updated to canary, rebuild to get correct version in JS
-          if [[ $UPDATED_VERSION == *"canary"* ]]; then
-            echo "Canary version detected, rebuilding to embed correct version..."
-            yarn build
+          // Monitor stdout for version updates
+          autoProcess.stdout.on('data', (data) => {
+            const output = data.toString();
+            process.stdout.write(data);
             
-            # Now run the actual publish (not dry-run)
-            echo "Publishing canary packages..."
-            yarn auto canary -v
-          else
-            echo "No canary version generated, running normal auto canary..."
-            yarn auto canary -v
-          fi
+            // Look for signs that auto-it has updated package.json versions
+            if ((output.includes('Calculated canary version') || 
+                 output.includes('Publishing') || 
+                 output.includes('Published canary version')) && !hasRebuilt) {
+              
+              // Check if version actually got updated
+              try {
+                const pkg = require('./packages/magic-sdk/package.json');
+                if (pkg.version.includes('canary') && !versionUpdated) {
+                  versionUpdated = true;
+                  console.log('\n🔄 Version updated to canary, rebuilding...');
+                  
+                  // Rebuild synchronously
+                  const { execSync } = require('child_process');
+                  execSync('yarn build', { stdio: 'inherit' });
+                  hasRebuilt = true;
+                  console.log('✅ Rebuild complete, continuing with publish...\n');
+                }
+              } catch (e) {
+                // Package.json might not be updated yet, continue monitoring
+              }
+            }
+          });
+
+          autoProcess.stderr.on('data', (data) => {
+            process.stderr.write(data);
+          });
+
+          autoProcess.on('close', (code) => {
+            process.exit(code);
+          });
+          EOF
+
+          # Run the wrapper script
+          node auto-canary-wrapper.js
