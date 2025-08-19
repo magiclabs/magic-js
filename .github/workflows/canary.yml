@@ -88,10 +88,8 @@ jobs:
             # Set up npm authentication
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
             
-            # Publish main packages that typically get published in canary
-            cd packages/magic-sdk && npm publish --tag canary --access public && cd ../..
-            cd packages/@magic-sdk/provider && npm publish --tag canary --access public && cd ../../..
-            cd packages/@magic-sdk/commons && npm publish --tag canary --access public && cd ../../..
+            # Use lerna to publish all packages that have been updated
+            yarn lerna publish from-package --dist-tag canary --yes --registry https://registry.npmjs.org
             
             echo "✅ Published canary version: $UPDATED_VERSION"
           else
