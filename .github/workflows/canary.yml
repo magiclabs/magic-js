@@ -69,30 +69,4 @@ jobs:
           yarn install --immutable
 
       - name: Create Canary Release
-        run: |
-          # Simple approach: run auto canary, which will fail, but update versions
-          # Then rebuild and run npm publish directly
-
-          echo "Step 1: Run auto canary (will fail but update versions)"
-          yarn auto canary --dry-run -v || true
-
-          echo "Step 2: Check if versions were updated"
-          UPDATED_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
-          if [[ $UPDATED_VERSION == *"canary"* ]]; then
-            echo "Versions updated to: $UPDATED_VERSION"
-            
-            echo "Step 3: Rebuild with new versions"
-            yarn build
-            
-            echo "Step 4: Publish packages"
-            # Set up npm authentication
-            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-            
-            # Use lerna to publish all packages that have been updated
-            yarn lerna publish from-package --dist-tag canary --yes --registry https://registry.npmjs.org
-            
-            echo "✅ Published canary version: $UPDATED_VERSION"
-          else
-            echo "❌ Versions were not updated, running regular auto canary"
-            yarn auto canary -v
-          fi
+        run: yarn auto canary -v
