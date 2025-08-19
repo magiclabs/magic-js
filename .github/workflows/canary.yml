@@ -76,15 +76,20 @@ jobs:
 
       - name: Create Canary Release
         run: |
-          # Create a wrapper script to rebuild after auto-it updates versions but before it publishes
-          cat > auto-canary-wrapper.js << 'EOF'
+          # Create a wrapper script in /tmp to avoid auto-it's clean directory check
+          cat > /tmp/auto-canary-wrapper.js << 'EOF'
           const { spawn } = require('child_process');
           const fs = require('fs');
+          const path = require('path');
+
+          // Change to the project directory
+          process.chdir(process.env.GITHUB_WORKSPACE || '/home/runner/work/magic-js/magic-js');
 
           // Start auto canary process
           const autoProcess = spawn('yarn', ['auto', 'canary', '-v'], {
             stdio: ['inherit', 'pipe', 'pipe'],
-            env: process.env
+            env: process.env,
+            cwd: process.cwd()
           });
 
           let hasRebuilt = false;
@@ -102,7 +107,11 @@ jobs:
               
               // Check if version actually got updated
               try {
-                const pkg = require('./packages/magic-sdk/package.json');
+                // Clear require cache to get fresh version
+                const pkgPath = path.resolve('./packages/magic-sdk/package.json');
+                delete require.cache[pkgPath];
+                const pkg = require(pkgPath);
+                
                 if (pkg.version.includes('canary') && !versionUpdated) {
                   versionUpdated = true;
                   console.log('\n🔄 Version updated to canary, rebuilding...');
@@ -124,9 +133,15 @@ jobs:
           });
 
           autoProcess.on('close', (code) => {
+            // Cleanup the temp file
+            try {
+              fs.unlinkSync('/tmp/auto-canary-wrapper.js');
+            } catch (e) {
+              // Ignore cleanup errors
+            }
             process.exit(code);
           });
           EOF
 
-          # Run the wrapper script
-          node auto-canary-wrapper.js
+          # Run the wrapper script from /tmp
+          node /tmp/auto-canary-wrapper.js
