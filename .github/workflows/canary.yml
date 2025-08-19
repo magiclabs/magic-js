@@ -68,5 +68,11 @@ jobs:
           yarn -v
           yarn install --immutable
 
+      - name: Download Build Results
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: packages
+
       - name: Create Canary Release
         run: yarn auto canary -v
