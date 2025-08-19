@@ -12,7 +12,7 @@ const Magic = Object.assign(
   createSDK(SDKBase, {
     platform: 'web',
     sdkName: 'magic-sdk',
-    version: '29.4.2',
+    version: process.env.WEB_VERSION!,
     defaultEndpoint: 'https://auth.magic.link/',
     ViewController: IframeController,
     configureStorage: /* istanbul ignore next */ async () => {

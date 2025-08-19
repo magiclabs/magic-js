@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import path from 'path';
 
 export const environment = {
-  // WEB_VERSION removed - now read dynamically at runtime from package.json
+  WEB_VERSION: require(path.resolve(__dirname, '../../packages/magic-sdk/package.json')).version,
   BARE_REACT_NATIVE_VERSION: require(
     path.resolve(__dirname, '../../packages/@magic-sdk/react-native-bare/package.json'),
   ).version,
