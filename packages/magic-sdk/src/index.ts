@@ -11,17 +11,7 @@ export * from '@magic-sdk/commons';
 export const Magic = createSDK(SDKBase, {
   platform: 'web',
   sdkName: 'magic-sdk',
-  version: (() => {
-    try {
-      // Use a dynamic require that bundlers can't resolve at build time
-      // Path from dist/cjs/ to package.json
-      const pkgPath = '../../package.json';
-      return eval('require')(pkgPath).version;
-    } catch {
-      // Fallback if require fails (shouldn't happen in normal usage)
-      return '0.0.0';
-    }
-  })(),
+  version: '29.4.2',
   defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
   configureStorage: async () => {
