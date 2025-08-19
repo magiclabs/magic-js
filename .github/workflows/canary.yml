@@ -68,49 +68,33 @@ jobs:
           yarn -v
           yarn install --immutable
 
-      - name: Update versions for canary
+      - name: Create Canary Release
         run: |
-          # Create a canary version based on current version and PR info
-          CURRENT_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
-          PR_NUM="${{ github.event.pull_request.number }}"
-          RUN_NUMBER="${{ github.run_number }}"
-          COMMIT_SHA=$(git rev-parse HEAD | cut -c1-10)
+          # Simple approach: run auto canary, which will fail, but update versions
+          # Then rebuild and run npm publish directly
 
-          # Generate canary version in the format: version-canary.PR.RUN.COMMIT
-          if [ -n "$PR_NUM" ] && [ "$PR_NUM" != "" ]; then
-            CANARY_VERSION="${CURRENT_VERSION}-canary.${PR_NUM}.${RUN_NUMBER}.${COMMIT_SHA}"
+          echo "Step 1: Run auto canary (will fail but update versions)"
+          yarn auto canary --dry-run -v || true
+
+          echo "Step 2: Check if versions were updated"
+          UPDATED_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
+          if [[ $UPDATED_VERSION == *"canary"* ]]; then
+            echo "Versions updated to: $UPDATED_VERSION"
+            
+            echo "Step 3: Rebuild with new versions"
+            yarn build
+            
+            echo "Step 4: Publish packages"
+            # Set up npm authentication
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+            
+            # Publish main packages that typically get published in canary
+            cd packages/magic-sdk && npm publish --tag canary --access public && cd ../..
+            cd packages/@magic-sdk/provider && npm publish --tag canary --access public && cd ../../..
+            cd packages/@magic-sdk/commons && npm publish --tag canary --access public && cd ../../..
+            
+            echo "✅ Published canary version: $UPDATED_VERSION"
           else
-            CANARY_VERSION="${CURRENT_VERSION}-canary.${RUN_NUMBER}.${COMMIT_SHA}"
-          fi
-
-          echo "Generated canary version: $CANARY_VERSION"
-
-          # Update all package.json files with the canary version using lerna
-          yarn lerna version "$CANARY_VERSION" --no-git-tag-version --no-push --yes --exact
-
-      - name: Rebuild with canary versions
-        run: yarn build
-
-      - name: Commit version changes
-        run: |
-          # Configure git
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Commit all the version changes and built files
-          git add .
-          git commit -m "Update versions and rebuild for canary release [skip ci]"
-
-      - name: Publish canary packages
-        run: |
-          # Get the updated version
-          CANARY_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
-          echo "Publishing canary version: $CANARY_VERSION"
-
-          # Publish all packages with the canary tag
-          yarn lerna publish from-package --dist-tag canary --yes
-
-          # Add canary version info to PR (similar to what auto-it does)
-          if [ -n "${{ github.event.pull_request.number }}" ]; then
-            echo "📦 Published canary version: \`$CANARY_VERSION\`" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Versions were not updated, running regular auto canary"
+            yarn auto canary -v
           fi
