@@ -76,72 +76,36 @@ jobs:
 
       - name: Create Canary Release
         run: |
-          # Create a wrapper script in /tmp to avoid auto-it's clean directory check
-          cat > /tmp/auto-canary-wrapper.js << 'EOF'
-          const { spawn } = require('child_process');
-          const fs = require('fs');
-          const path = require('path');
+          # Save the current version to detect if canary was published
+          BEFORE_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
+          echo "Version before auto canary: $BEFORE_VERSION"
 
-          // Change to the project directory
-          process.chdir(process.env.GITHUB_WORKSPACE || '/home/runner/work/magic-js/magic-js');
+          # Run auto canary normally
+          yarn auto canary -v
 
-          // Start auto canary process
-          const autoProcess = spawn('yarn', ['auto', 'canary', '-v'], {
-            stdio: ['inherit', 'pipe', 'pipe'],
-            env: process.env,
-            cwd: process.cwd()
-          });
+          # Check if a canary version was published
+          AFTER_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
+          echo "Version after auto canary: $AFTER_VERSION"
 
-          let hasRebuilt = false;
-          let versionUpdated = false;
-
-          // Monitor stdout for version updates
-          autoProcess.stdout.on('data', (data) => {
-            const output = data.toString();
-            process.stdout.write(data);
+          # If canary was published, rebuild and republish to fix the version issue
+          if [[ $AFTER_VERSION == *"canary"* ]] && [[ $BEFORE_VERSION != $AFTER_VERSION ]]; then
+            echo "🔄 Canary version detected! Rebuilding with correct version..."
             
-            // Look for signs that auto-it has updated package.json versions
-            if ((output.includes('Calculated canary version') || 
-                 output.includes('Publishing') || 
-                 output.includes('Published canary version')) && !hasRebuilt) {
-              
-              // Check if version actually got updated
-              try {
-                // Clear require cache to get fresh version
-                const pkgPath = path.resolve('./packages/magic-sdk/package.json');
-                delete require.cache[pkgPath];
-                const pkg = require(pkgPath);
-                
-                if (pkg.version.includes('canary') && !versionUpdated) {
-                  versionUpdated = true;
-                  console.log('\n🔄 Version updated to canary, rebuilding...');
-                  
-                  // Rebuild synchronously
-                  const { execSync } = require('child_process');
-                  execSync('yarn build', { stdio: 'inherit' });
-                  hasRebuilt = true;
-                  console.log('✅ Rebuild complete, continuing with publish...\n');
-                }
-              } catch (e) {
-                // Package.json might not be updated yet, continue monitoring
-              }
-            }
-          });
-
-          autoProcess.stderr.on('data', (data) => {
-            process.stderr.write(data);
-          });
-
-          autoProcess.on('close', (code) => {
-            // Cleanup the temp file
-            try {
-              fs.unlinkSync('/tmp/auto-canary-wrapper.js');
-            } catch (e) {
-              // Ignore cleanup errors
-            }
-            process.exit(code);
-          });
-          EOF
-
-          # Run the wrapper script from /tmp
-          node /tmp/auto-canary-wrapper.js
+            # Rebuild with the updated canary version
+            yarn build
+            
+            echo "📦 Republishing main packages with corrected build..."
+            
+            # Republish the main packages with the corrected build
+            cd packages/magic-sdk
+            npm publish --tag canary
+            cd ../..
+            
+            cd packages/@magic-sdk/provider  
+            npm publish --tag canary
+            cd ../../..
+            
+            echo "✅ Canary packages republished with correct version embedded!"
+          else
+            echo "ℹ️  No canary version published or version unchanged"
+          fi
