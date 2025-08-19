@@ -14,7 +14,8 @@ export const Magic = createSDK(SDKBase, {
   version: (() => {
     try {
       // Use a dynamic require that bundlers can't resolve at build time
-      const pkgPath = './package.json';
+      // Path from dist/cjs/ to package.json
+      const pkgPath = '../../package.json';
       return eval('require')(pkgPath).version;
     } catch {
       // Fallback if require fails (shouldn't happen in normal usage)
