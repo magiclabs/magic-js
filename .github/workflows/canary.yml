@@ -91,6 +91,16 @@ jobs:
       - name: Rebuild with canary versions
         run: yarn build
 
+      - name: Commit version changes
+        run: |
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Commit all the version changes and built files
+          git add .
+          git commit -m "Update versions and rebuild for canary release [skip ci]"
+
       - name: Publish canary packages
         run: |
           # Get the updated version
@@ -98,7 +108,7 @@ jobs:
           echo "Publishing canary version: $CANARY_VERSION"
 
           # Publish all packages with the canary tag
-          yarn lerna publish from-package --dist-tag canary --yes --no-verify-access
+          yarn lerna publish from-package --dist-tag canary --yes
 
           # Add canary version info to PR (similar to what auto-it does)
           if [ -n "${{ github.event.pull_request.number }}" ]; then
