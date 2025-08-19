@@ -11,7 +11,7 @@ export * from '@magic-sdk/commons';
 export const Magic = createSDK(SDKBase, {
   platform: 'web',
   sdkName: 'magic-sdk',
-  version: '29.4.3-canary.934.17056583985.0',
+  version: require('../package.json').version,
   defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
   configureStorage: async () => {

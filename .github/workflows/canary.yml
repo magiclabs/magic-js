@@ -75,4 +75,27 @@ jobs:
           path: packages
 
       - name: Create Canary Release
-        run: yarn auto canary -v
+        run: |
+          # Run auto canary which will update package.json versions
+          # But we need to rebuild after the version update to get the correct version in the JS
+
+          # First, run auto canary dry-run to see what version would be generated
+          echo "Running auto canary to update versions..."
+          yarn auto canary --dry-run -v
+
+          # Check if versions were updated (they should contain "canary")
+          UPDATED_VERSION=$(node -p "require('./packages/magic-sdk/package.json').version")
+          echo "Version after auto canary: $UPDATED_VERSION"
+
+          # If version was updated to canary, rebuild to get correct version in JS
+          if [[ $UPDATED_VERSION == *"canary"* ]]; then
+            echo "Canary version detected, rebuilding to embed correct version..."
+            yarn build
+            
+            # Now run the actual publish (not dry-run)
+            echo "Publishing canary packages..."
+            yarn auto canary -v
+          else
+            echo "No canary version generated, running normal auto canary..."
+            yarn auto canary -v
+          fi
