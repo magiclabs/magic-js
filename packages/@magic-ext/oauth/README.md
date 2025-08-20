@@ -14,7 +14,7 @@
 
 ## 📖 Documentation
 
-See the [developer documentation](https://magic.link/docs/social-login) to learn how to get started with OAuth in Magic SDK.
+See the [developer documentation](https://magic.link/docs/authentication/login/social-logins/oauth-implementation) to learn how to get started with OAuth in Magic SDK.
 
 ## 🔗 Installation
 
