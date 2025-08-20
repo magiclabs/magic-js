@@ -3805,7 +3805,38 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-bare@^30.4.2, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
+"@magic-sdk/react-native-bare@npm:^30.4.2":
+  version: 30.4.2
+  resolution: "@magic-sdk/react-native-bare@npm:30.4.2"
+  dependencies:
+    "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
+    "@magic-sdk/commons": ^25.4.2
+    "@magic-sdk/provider": ^29.4.2
+    "@magic-sdk/types": ^24.21.0
+    "@react-native-async-storage/async-storage": ^2.1.2
+    "@types/lodash": ^4.14.158
+    buffer: ~5.6.0
+    localforage: ^1.7.4
+    lodash: ^4.17.19
+    process: ~0.11.10
+    react-native-device-info: ^10.3.0
+    react-native-event-listeners: ^1.0.7
+    regenerator-runtime: 0.13.9
+    tslib: ^2.0.3
+    whatwg-url: ~8.1.0
+  peerDependencies:
+    "@react-native-async-storage/async-storage": ">=1.15.5"
+    "@react-native-community/netinfo": ">=9.0.0"
+    react: ">=16"
+    react-native: ">=0.60"
+    react-native-device-info: ">=10.3.0"
+    react-native-safe-area-context: ">=4.4.1"
+    react-native-webview: ">=12.4.0"
+  checksum: df4ead951f865cb8b2404a0b9c931c86a3940d58d1b78f7d0c720c84ca78f94c74069592ef7c28853eb56649067fda87112723aaaacf729dedf3c910593df665
+  languageName: node
+  linkType: hard
+
+"@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
   dependencies:
@@ -3844,7 +3875,36 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-expo@^30.4.2, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
+"@magic-sdk/react-native-expo@npm:^30.4.2":
+  version: 30.4.2
+  resolution: "@magic-sdk/react-native-expo@npm:30.4.2"
+  dependencies:
+    "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
+    "@magic-sdk/commons": ^25.4.2
+    "@magic-sdk/provider": ^29.4.2
+    "@magic-sdk/types": ^24.21.0
+    "@react-native-async-storage/async-storage": ^1.15.5
+    "@types/lodash": ^4.14.158
+    buffer: ~5.6.0
+    expo-application: ^5.0.1
+    localforage: ^1.7.4
+    lodash: ^4.17.19
+    process: ~0.11.10
+    react-native-event-listeners: ^1.0.7
+    tslib: ^2.0.3
+    whatwg-url: ~8.1.0
+  peerDependencies:
+    "@react-native-community/netinfo": ">=9.0.0"
+    expo: "*"
+    react: ">=16"
+    react-native: ">=0.60"
+    react-native-safe-area-context: ">=4.4.1"
+    react-native-webview: ">=12.4.0"
+  checksum: 85c4f95b0abd99bd80fadbf594a0126d49c13f9632ccae9e7c78a65ad626c6e8e31c8906daa8d607664345876c02ab2406cdb6514cd0fb581cdadb231e460e61
+  languageName: node
+  linkType: hard
+
+"@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
