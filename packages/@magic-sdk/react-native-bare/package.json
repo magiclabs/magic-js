@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native-bare",
-  "version": "30.4.2",
+  "version": "31.0.0",
   "description": "Passwordless authentication for React Native (Bare).",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
