@@ -29,7 +29,7 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "latest",
-    "@magic-sdk/types": "latest"
+    "@magic-sdk/commons": "^25.4.2",
+    "@magic-sdk/types": "^24.21.0"
   }
 }
