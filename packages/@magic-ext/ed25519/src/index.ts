@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/provider';
 import { Ed25519PayloadMethod } from './types';
 
 export class Ed25519Extension extends Extension.Internal<'ed', any> {

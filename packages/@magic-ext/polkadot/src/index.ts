@@ -1,18 +1,14 @@
-import { Extension } from '@magic-sdk/commons';
-import { PolkadotConfig, ConfigType } from './type';
+import { MultichainExtension } from '@magic-sdk/provider';
+import { PolkadotConfig } from './type';
 
-export class PolkadotExtension extends Extension.Internal<'polkadot', PolkadotConfig> {
+export class PolkadotExtension extends MultichainExtension<'polkadot'> {
   name = 'polkadot' as const;
 
-  config: ConfigType;
-
   constructor(public polkadotConfig: PolkadotConfig) {
-    super();
-
-    this.config = {
+    super({
       rpcUrl: polkadotConfig.rpcUrl,
       chainType: 'POLKADOT',
-    };
+    });
   }
 
   public sendTransaction = (to: string, value: number): Promise<string> => {

@@ -6,12 +6,13 @@ import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
 
-export * from '@magic-sdk/commons';
+export * from '@magic-sdk/provider';
+export * from '@magic-sdk/types';
 
 export const Magic = createSDK(SDKBase, {
   platform: 'web',
   sdkName: 'magic-sdk',
-  version: process.env.WEB_VERSION!,
+  version: '31.0.0',
   defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
   configureStorage: async () => {

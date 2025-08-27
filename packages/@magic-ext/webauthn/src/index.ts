@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/provider';
 import {
   RegisterNewUserConfiguration,
   LoginWithWebAuthnConfiguration,

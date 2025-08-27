@@ -1,7 +1,7 @@
 import { Web3ModalExtension } from '../../src/index';
 import { createMagicSDKWithExtension } from '../../../../@magic-sdk/provider/test/factories';
 import { mockLocalStorage } from '../../../../@magic-sdk/provider/test/mocks';
-import { isPromiEvent } from '../../../../@magic-sdk/commons';
+import { isPromiEvent } from '@magic-sdk/provider';
 
 jest.mock('@web3modal/ethers5', () => ({
   Web3Modal: jest.fn(),

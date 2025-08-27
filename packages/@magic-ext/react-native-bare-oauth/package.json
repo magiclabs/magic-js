@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@magic-sdk/react-native-bare": "^30.4.2",
-    "@magic-sdk/types": "^24.21.0",
+    "@magic-sdk/types": "^24.22.0",
     "@types/crypto-js": "~4.2.0",
     "react-native-inappbrowser-reborn": "^3.7.0"
   },

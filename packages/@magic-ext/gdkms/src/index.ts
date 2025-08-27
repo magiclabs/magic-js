@@ -1,4 +1,5 @@
-import { Extension, MagicPayloadMethod } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/provider';
+import { MagicPayloadMethod } from '@magic-sdk/types';
 
 export class GDKMSExtension extends Extension.Internal<'gdkms', any> {
   name = 'gdkms' as const;

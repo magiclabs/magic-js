@@ -1,20 +1,17 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { ConfluxPayloadMethod, ConfluxConfig } from './types';
 
-export class ConfluxExtension extends Extension.Internal<'conflux', any> {
+export class ConfluxExtension extends MultichainExtension<'conflux'> {
   name = 'conflux' as const;
-  config: any = {};
 
   constructor(public confluxConfig: ConfluxConfig) {
-    super();
-
-    this.config = {
+    super({
       chainType: 'CONFLUX',
       options: {
         rpcUrl: confluxConfig.rpcUrl,
         networkId: confluxConfig.networkId,
       },
-    };
+    });
   }
 
   public async sendTransaction(txObject: any) {

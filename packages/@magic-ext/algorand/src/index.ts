@@ -1,17 +1,14 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { AlgorandConfig, AlgorandPayloadMethod } from './types';
 
-export class AlgorandExtension extends Extension.Internal<'algod', any> {
+export class AlgorandExtension extends MultichainExtension<'algod'> {
   name = 'algod' as const;
-  config: any = {};
 
   constructor(public algorandConfig: AlgorandConfig) {
-    super();
-
-    this.config = {
+    super({
       rpcUrl: algorandConfig.rpcUrl,
       chainType: 'ALGOD',
-    };
+    });
   }
 
   public async signTransaction(txn: any) {

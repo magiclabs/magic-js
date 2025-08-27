@@ -1,20 +1,16 @@
-import { Extension } from '@magic-sdk/commons';
-
+import { MultichainExtension } from '@magic-sdk/provider';
 import { SerializeConfig, Transaction, VersionedTransaction } from '@solana/web3.js';
 import { SolanaConfig } from './type';
 import { SOLANA_PAYLOAD_METHODS } from './constants';
 
-export class SolanaExtension extends Extension.Internal<'solana', any> {
+export class SolanaExtension extends MultichainExtension<'solana'> {
   name = 'solana' as const;
-  config: any = {};
 
   constructor(public solanaConfig: SolanaConfig) {
-    super();
-
-    this.config = {
+    super({
       rpcUrl: solanaConfig.rpcUrl,
       chainType: 'SOLANA',
-    };
+    });
   }
 
   public signTransaction = (transaction: Transaction | VersionedTransaction, serializeConfig?: SerializeConfig) => {

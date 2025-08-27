@@ -1,20 +1,17 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { BitcoinConfig, BitcoinPayloadMethod } from './types';
 
-export class BitcoinExtension extends Extension.Internal<'bitcoin', any> {
+export class BitcoinExtension extends MultichainExtension<'bitcoin'> {
   name = 'bitcoin' as const;
-  config: any = {};
 
   constructor(public bitcoinConfig: BitcoinConfig) {
-    super();
-
-    this.config = {
+    super({
       rpcUrl: bitcoinConfig.rpcUrl,
       chainType: 'BITCOIN',
       options: {
         network: bitcoinConfig.network,
       },
-    };
+    });
   }
 
   public async signTransaction(txn: string, inputIndex: number) {

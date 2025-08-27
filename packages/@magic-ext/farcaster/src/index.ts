@@ -1,4 +1,5 @@
-import {Extension, FarcasterLoginEventEmit} from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/provider';
+import { FarcasterLoginEventEmit } from '@magic-sdk/types';
 import { FarcasterPayloadMethod } from './types';
 import { isMainFrame, isMobile } from './utils';
 

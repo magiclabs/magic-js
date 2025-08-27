@@ -1,20 +1,17 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { CosmosConfig, CosmosPayloadMethod } from './type';
 
-export class CosmosExtension extends Extension.Internal<'cosmos', any> {
+export class CosmosExtension extends MultichainExtension<'cosmos'> {
   name = 'cosmos' as const;
-  config: any = {};
 
   constructor(public cosmosConfig: CosmosConfig) {
-    super();
-
-    this.config = {
+    super({
       rpcUrl: cosmosConfig.rpcUrl,
       chainType: 'COSMOS',
       options: {
         chain: cosmosConfig.chain,
       },
-    };
+    });
   }
 
   public signAndBroadcast = async (message: any, fee: any) => {
