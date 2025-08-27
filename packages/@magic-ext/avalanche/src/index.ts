@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { AvaxConfig } from './types';
 
 export class AvalancheExtension extends MultichainExtension<'avax'> {

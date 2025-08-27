@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { SuiConfig, SuiPayloadMethod } from './types';
 
 export class SuiExtension extends MultichainExtension<'sui'> {

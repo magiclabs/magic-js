@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { AlgorandConfig, AlgorandPayloadMethod } from './types';
 
 export class AlgorandExtension extends MultichainExtension<'algod'> {

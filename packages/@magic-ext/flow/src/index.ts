@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 
 // @ts-ignore
 import * as fcl from '@onflow/fcl';

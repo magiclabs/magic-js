@@ -6,7 +6,8 @@ import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';
 
-export * from '@magic-sdk/commons';
+export * from '@magic-sdk/provider';
+export * from '@magic-sdk/types';
 
 export const Magic = createSDK(SDKBase, {
   platform: 'web',

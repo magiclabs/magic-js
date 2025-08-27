@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/provider';
 import { EVMNetworkConfig, EVMPayloadMethod } from './types';
 
 export class EVMExtension extends Extension.Internal<'evm', any> {

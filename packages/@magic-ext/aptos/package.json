@@ -23,14 +23,12 @@
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons",
       "@magic-sdk/provider"
     ]
   },
   "devDependencies": {
     "@aptos-labs/wallet-adapter-core": "^2.2.0",
-    "@magic-sdk/commons": "^25.4.2",
-    "@magic-sdk/provider": "^29.4.2",
+    "@magic-sdk/provider": "^29.5.0",
     "aptos": "^1.8.5"
   },
   "peerDependencies": {

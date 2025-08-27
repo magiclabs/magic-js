@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { CosmosConfig, CosmosPayloadMethod } from './type';
 
 export class CosmosExtension extends MultichainExtension<'cosmos'> {

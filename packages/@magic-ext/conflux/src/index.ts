@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { ConfluxPayloadMethod, ConfluxConfig } from './types';
 
 export class ConfluxExtension extends MultichainExtension<'conflux'> {

@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { NearPayloadMethod, NearConfig } from './types';
 
 export class NearExtension extends MultichainExtension<'near'> {

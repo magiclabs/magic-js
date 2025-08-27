@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { SerializeConfig, Transaction, VersionedTransaction } from '@solana/web3.js';
 import { SolanaConfig } from './type';
 import { SOLANA_PAYLOAD_METHODS } from './constants';

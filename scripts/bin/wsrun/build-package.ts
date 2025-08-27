@@ -55,10 +55,10 @@ async function cdn(watch?: boolean) {
 
   if (pkgJson.cdnGlobalName) {
     // For CDN targets outside of `magic-sdk` itself,
-    // we assume `magic-sdk` & `@magic-sdk/commons` are external/global.
+    // we assume `magic-sdk` & `@magic-sdk/provider` are external/global.
     const isMagicSDK = process.cwd().endsWith('packages/magic-sdk');
-    const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/commons'];
-    const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/commons': 'Magic' };
+    const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/provider'];
+    const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/provider': 'Magic' };
 
     await build({
       watch,

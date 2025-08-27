@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { BitcoinConfig, BitcoinPayloadMethod } from './types';
 
 export class BitcoinExtension extends MultichainExtension<'bitcoin'> {

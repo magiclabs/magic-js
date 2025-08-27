@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { HarmonyPayloadMethod, HarmonyConfig } from './types';
 
 export class HarmonyExtension extends MultichainExtension<'harmony'> {

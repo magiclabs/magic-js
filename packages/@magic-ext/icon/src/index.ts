@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { IconConfig } from './type';
 
 export class IconExtension extends MultichainExtension<'icon'> {

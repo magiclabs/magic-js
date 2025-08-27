@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { TaquitoConfig, TaquitoPayloadMethod } from './type';
 import { MagicSigner } from './MagicSigner';
 

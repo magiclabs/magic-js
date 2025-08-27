@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { ZilliqaConfig } from './type';
 
 export class ZilliqaExtension extends MultichainExtension<'zilliqa'> {

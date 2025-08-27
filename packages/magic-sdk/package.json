@@ -29,9 +29,8 @@
     ]
   },
   "dependencies": {
-    "@magic-sdk/commons": "^25.4.2",
-    "@magic-sdk/provider": "^29.4.2",
-    "@magic-sdk/types": "^24.21.0",
+    "@magic-sdk/provider": "^29.5.0",
+    "@magic-sdk/types": "^24.22.0",
     "localforage": "^1.7.4"
   },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"

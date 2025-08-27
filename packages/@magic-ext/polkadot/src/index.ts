@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { PolkadotConfig } from './type';
 
 export class PolkadotExtension extends MultichainExtension<'polkadot'> {

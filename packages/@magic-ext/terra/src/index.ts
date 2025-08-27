@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { TerraPayloadMethod, TerraConfig } from './types';
 
 export class TerraExtension extends MultichainExtension<'terra'> {

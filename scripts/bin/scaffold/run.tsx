@@ -1,8 +1,5 @@
 #!/usr/bin/env ts-node-script
 
- 
- 
-
 import React from 'react';
 import { Zombi, Template, Directory, scaffold } from 'zombi';
 import execa from 'execa';
@@ -50,7 +47,7 @@ const template = (
       },
     ]}
   >
-    {(props) => (
+    {props => (
       <Directory name="@magic-ext">
         <Template
           name={props.extName}
@@ -60,7 +57,7 @@ const template = (
             cdnGlobalName: `Magic${props.className}`,
             magicSdkVersion: `^${environment.WEB_VERSION}`,
             magicSdkReactVersion: `^${environment.REACT_NATIVE_VERSION}`,
-            magicSdkCommonsVersion: `^${require('../../../packages/@magic-sdk/commons/package.json').version}`,
+            magicSdkProviderVersion: `^${require('../../../packages/@magic-sdk/provider/package.json').version}`,
           }}
         />
       </Directory>

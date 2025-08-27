@@ -1,4 +1,4 @@
-import { MultichainExtension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { TezosConfig } from './type';
 
 export class TezosExtension extends MultichainExtension<'tezos'> {
