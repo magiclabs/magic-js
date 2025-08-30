@@ -24,7 +24,7 @@ export interface UpdateWebAuthnInfoConfiguration {
   id: string;
 
   /**
-   *  nickname that user attempts to update to the webauth device associate to the id.
+   *  nickname that user attempts to update to the webauthn device associate to the id.
    */
   nickname: string;
 }

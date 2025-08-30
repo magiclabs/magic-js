@@ -173,7 +173,7 @@ export class IframeController extends ViewController {
     }
 
     if (iframe) {
-      // if iframe exists reload the iframe source
+      // if iframe exists, reload the iframe source
       iframe.src = this.relayerSrc;
     }
   }
