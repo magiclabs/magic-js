@@ -1,7 +1,9 @@
 import { MagicUserMetadata } from '@magic-sdk/types';
 
 export enum OAuthPayloadMethods {
-  ParseRedirectResult = 'magic_oauth_parse_redirect_result',
+  Start = 'magic_oauth_login_with_redirect_start',
+  Verify = 'magic_oauth_login_with_redirect_verify',
+  Popup = 'magic_oauth_login_with_popup',
 }
 
 export type OAuthProvider =
@@ -106,4 +108,10 @@ export enum OAuthErrorCode {
   AccessDenied = 'access_denied',
   ServerError = 'server_error',
   TemporarilyUnavailable = 'temporarily_unavailable',
+}
+
+export interface OAuthRedirectStartResult {
+  oauthAuthoriationURI?: string;
+  useMagicServerCallback?: boolean;
+  shouldReturnURI?: boolean;
 }
