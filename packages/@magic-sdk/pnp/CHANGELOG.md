@@ -1,3 +1,17 @@
+# v24.0.0 (Wed Sep 03 2025)
+
+#### 🐛 Bug Fix
+
+- docs: fix typos in comments [#929](https://github.com/magiclabs/magic-js/pull/929) ([@Snezhkko](https://github.com/Snezhkko))
+- docs: update Magic Login Form documentation link [#923](https://github.com/magiclabs/magic-js/pull/923) ([@Fibonacci747](https://github.com/Fibonacci747))
+
+#### Authors: 2
+
+- [@Fibonacci747](https://github.com/Fibonacci747)
+- [@Snezhkko](https://github.com/Snezhkko)
+
+---
+
 # v23.2.0 (Tue Jul 15 2025)
 
 #### 🐛 Bug Fix

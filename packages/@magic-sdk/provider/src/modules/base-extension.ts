@@ -3,6 +3,7 @@ import { BaseModule } from './base-module';
 import { SDKBase, MagicSDKAdditionalConfiguration, MagicSDKExtensionsOption } from '../core/sdk';
 import { createExtensionNotInitializedError, MagicExtensionError, MagicExtensionWarning } from '../core/sdk-exceptions';
 import { createPromiEvent, encodeJSON, decodeJSON, storage, isPromiEvent } from '../util';
+import { MagicPayloadMethod } from '@magic-sdk/types';
 
 const sdkAccessFields = ['request', 'overlay', 'sdk'];
 
@@ -165,6 +166,26 @@ export class Extension {
    * @internal
    */
   public static Internal = InternalExtension;
+}
+
+/**
+ * Base class for multi-chain extensions, extracting getPublicAddress logic.
+ */
+export abstract class MultichainExtension<TName extends string, TConfig extends any = any> extends InternalExtension<
+  TName,
+  TConfig
+> {
+  public readonly chain: string;
+  constructor(public readonly config: TConfig) {
+    super();
+    this.chain = (config as any).chainType;
+  }
+
+  public async getPublicAddress<ResultType = any>(): Promise<ResultType> {
+    return this.request(
+      this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.GetMultichainPublicAddress, [{ chain: this.chain }]),
+    );
+  }
 }
 
 /**
