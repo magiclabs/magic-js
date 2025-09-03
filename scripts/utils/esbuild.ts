@@ -111,7 +111,7 @@ async function getEntrypoint(format?: Format) {
 }
 
 /**
- * During the build step, we create an ephermeral "tsconfig.build.json" file
+ * During the build step, we create an ephemeral "tsconfig.build.json" file
  * containing config overrides to resolve "packages/.../src" as the "rootDir".
  *
  * Why? This is our workaround to avoid tsconfig project references, which make

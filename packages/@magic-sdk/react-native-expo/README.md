@@ -10,7 +10,7 @@
  </p>
 
  ## ⚠️ Removal of `loginWithMagicLink()`  ⚠️
-As of `v19.0.0`, passcodes (ie. `loginWithSMS()`, `loginWithEmailOTP()`) are replacing Magic Links (ie. `loginWithMagicLink()`) for all of our Mobile SDKs⁠. [Learn more](https://magic.link/docs/auth/login-methods/email/email-link-update-march-2023)
+As of `v19.0.0`, passcodes (ie. `loginWithSMS()`, `loginWithEmailOTP()`) are replacing Magic Links (ie. `loginWithMagicLink()`) for all of our Mobile SDKs⁠. [Learn more](https://magic.link/docs/authentication/login/magic-links)
 
  ## 📖 Documentation
 
