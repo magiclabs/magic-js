@@ -1,3 +1,15 @@
+# v24.0.0 (Wed Sep 03 2025)
+
+#### 🐛 Bug Fix
+
+- fix(docs): update broken OAuth documentation link [#935](https://github.com/magiclabs/magic-js/pull/935) ([@radik878](https://github.com/radik878))
+
+#### Authors: 1
+
+- [@radik878](https://github.com/radik878)
+
+---
+
 # v23.0.7 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix

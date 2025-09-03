@@ -1,3 +1,21 @@
+# v30.0.0 (Wed Sep 03 2025)
+
+#### 🐛 Bug Fix
+
+- docs: fix typos in comments [#929](https://github.com/magiclabs/magic-js/pull/929) ([@Snezhkko](https://github.com/Snezhkko))
+- Core package revisions [#938](https://github.com/magiclabs/magic-js/pull/938) ([@joshuascan](https://github.com/joshuascan))
+- fix typo in test descriptions [#918](https://github.com/magiclabs/magic-js/pull/918) ([@anim001k](https://github.com/anim001k))
+- chore: remove redundant word in comment [#919](https://github.com/magiclabs/magic-js/pull/919) ([@queryfast](https://github.com/queryfast))
+
+#### Authors: 4
+
+- [@anim001k](https://github.com/anim001k)
+- [@queryfast](https://github.com/queryfast)
+- [@Snezhkko](https://github.com/Snezhkko)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v29.4.2 (Tue Aug 12 2025)
 
 #### 🐛 Bug Fix

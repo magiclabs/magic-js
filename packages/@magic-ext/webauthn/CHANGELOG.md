@@ -1,3 +1,15 @@
+# v24.0.0 (Wed Sep 03 2025)
+
+#### 🐛 Bug Fix
+
+- docs: fix typos and improve comments across packages [#937](https://github.com/magiclabs/magic-js/pull/937) ([@Forostovec](https://github.com/Forostovec))
+
+#### Authors: 1
+
+- [@Forostovec](https://github.com/Forostovec)
+
+---
+
 # v23.0.6 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix
