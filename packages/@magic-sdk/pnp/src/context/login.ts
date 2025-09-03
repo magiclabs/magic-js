@@ -16,7 +16,7 @@ export async function login(): Promise<void> {
 
   async function handleOAuthLogin(provider: any) {
     await magic.pnp.saveLastUsedProvider(provider);
-    await magic.oauth.loginWithRedirect({ provider, redirectURI });
+    await magic.oauth2.loginWithRedirect({ provider, redirectURI });
   }
 
   async function handleEmailLinkLogin(email: any) {

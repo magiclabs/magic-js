@@ -1,5 +1,5 @@
 import type { Magic } from 'magic-sdk/dist/types/index';
-import type OAuthExtension from '@magic-ext/oauth/dist/types/index.cdn';
+import type OAuthExtension from '@magic-ext/oauth/dist/types/index';
 import type CDNMagic from 'magic-sdk/dist/types/index.cdn';
 
 declare global {
