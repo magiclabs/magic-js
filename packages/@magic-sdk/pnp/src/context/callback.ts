@@ -17,7 +17,7 @@ export async function callback(): Promise<void> {
   }
 
   async function handleOAuthCallback() {
-    const res = await magic.oauth.getRedirectResult();
+    const res = await magic.oauth2.getRedirectResult();
     dispatchReadyEvent(magic, {
       idToken: res.magic.idToken,
       userMetadata: res.magic.userMetadata,
