@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/oidc",
-  "version": "12.1.0",
+  "version": "12.4.2",
   "description": "Magic OIDC SDK Extension for Web environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^25.1.0"
+    "@magic-sdk/commons": "^25.4.2"
   }
 }

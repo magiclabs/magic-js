@@ -1,3 +1,15 @@
+# v21.2.0 (Tue Jul 15 2025)
+
+#### 🐛 Bug Fix
+
+- fix: correct import path for MagicSigner [#890](https://github.com/magiclabs/magic-js/pull/890) ([@Himess](https://github.com/Himess))
+
+#### Authors: 1
+
+- Himess ([@Himess](https://github.com/Himess))
+
+---
+
 # v21.0.6 (Tue Apr 29 2025)
 
 #### 🐛 Bug Fix

@@ -29,7 +29,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     return s.getBytes();
   };
 
-  private generateRawTransactionWihtTypedPayload = async (
+  private generateRawTransactionWithTypedPayload = async (
     address: string,
     transaction: Types.TransactionPayload,
     options?: any,
@@ -53,7 +53,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
   };
 
   signTransaction = async (address: string, transaction: Types.TransactionPayload) => {
-    const rawTransaction = await this.generateRawTransactionWihtTypedPayload(address, transaction);
+    const rawTransaction = await this.generateRawTransactionWithTypedPayload(address, transaction);
     const transactionBytes = this.serializeRawTransaction(rawTransaction);
 
     return this.request<Uint8Array>(
@@ -81,7 +81,7 @@ export class AptosExtension extends Extension.Internal<'aptos', any> {
     transaction: Types.TransactionPayload,
     options?: any,
   ): Promise<{ hash: Types.HexEncodedBytes }> => {
-    const rawTransaction = await this.generateRawTransactionWihtTypedPayload(address, transaction, options);
+    const rawTransaction = await this.generateRawTransactionWithTypedPayload(address, transaction, options);
     const transactionBytes = this.serializeRawTransaction(rawTransaction);
 
     return this.request<{ hash: Types.HexEncodedBytes }>(

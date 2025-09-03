@@ -1,3 +1,143 @@
+# (Fri Aug 15 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@11.5.0`
+  - feat: add provider config to oauth types [#925](https://github.com/magiclabs/magic-js/pull/925) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Aug 14 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/harmony@24.4.3`
+  - removes chainType from harmony config [#927](https://github.com/magiclabs/magic-js/pull/927) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Tue Aug 12 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.4.2`
+  - add window check [#924](https://github.com/magiclabs/magic-js/pull/924) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Aug 01 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.4.1`
+  - remove instance of Extension check [#914](https://github.com/magiclabs/magic-js/pull/914) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/aptos@12.4.1`
+  - chore: fix typos in function name [#910](https://github.com/magiclabs/magic-js/pull/910) ([@VolodymyrBg](https://github.com/VolodymyrBg))
+- `magic-sdk@29.4.1`
+  - fix: correct @magic-ext packages link in magic-sdk README [#911](https://github.com/magiclabs/magic-js/pull/911) ([@MozirDmitriy](https://github.com/MozirDmitriy))
+
+#### Authors: 3
+
+- [@MozirDmitriy](https://github.com/MozirDmitriy)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- VolodymyrBg ([@VolodymyrBg](https://github.com/VolodymyrBg))
+
+---
+
+# (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@29.4.0`, `@magic-sdk/types@24.21.0`
+  - adds skip did token to query params [#909](https://github.com/magiclabs/magic-js/pull/909) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/algorand@24.3.0`, `@magic-sdk/provider@29.3.0`
+  - add skipDIDToken [#898](https://github.com/magiclabs/magic-js/pull/898) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.3.0`, `@magic-sdk/react-native-expo@30.3.0`
+  - minor text cleanup [#908](https://github.com/magiclabs/magic-js/pull/908) ([@eeemmmmmm](https://github.com/eeemmmmmm))
+
+#### Authors: 3
+
+- emmmm ([@eeemmmmmm](https://github.com/eeemmmmmm))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Jul 18 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.2.1`
+  - chore: fix some minor issues in the comments [#902](https://github.com/magiclabs/magic-js/pull/902) ([@gopherorg](https://github.com/gopherorg) [@Ethella](https://github.com/Ethella))
+- `@magic-sdk/provider@29.2.1`, `@magic-sdk/react-native-bare@30.2.1`, `@magic-sdk/react-native-expo@30.2.1`
+  - chore: fix minor issue in the comment [#903](https://github.com/magiclabs/magic-js/pull/903) ([@bytesingsong](https://github.com/bytesingsong))
+- `magic-sdk@29.2.1`
+  - revert overlay control to none [#907](https://github.com/magiclabs/magic-js/pull/907) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@bytesingsong](https://github.com/bytesingsong)
+- [@gopherorg](https://github.com/gopherorg)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Tue Jul 15 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@24.20.0`
+  - feat: implement factors updated event [#904](https://github.com/magiclabs/magic-js/pull/904) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/pnp@23.2.0`, `@magic-sdk/react-native-bare@30.2.0`
+  - Fix Typos in Documentation and Comments [#899](https://github.com/magiclabs/magic-js/pull/899) ([@zeevick10](https://github.com/zeevick10))
+- `@magic-sdk/provider@29.2.0`, `@magic-sdk/types@24.20.0`
+  - chore: fix some typos in comment [#901](https://github.com/magiclabs/magic-js/pull/901) ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+- `@magic-ext/aptos@12.2.0`
+  - fix: typos [#896](https://github.com/magiclabs/magic-js/pull/896) ([@DeVikingMark](https://github.com/DeVikingMark))
+  - fix: typos in function name [#892](https://github.com/magiclabs/magic-js/pull/892) ([@crStiv](https://github.com/crStiv))
+- `@magic-ext/taquito@21.2.0`
+  - fix: correct import path for MagicSigner [#890](https://github.com/magiclabs/magic-js/pull/890) ([@Himess](https://github.com/Himess))
+
+#### Authors: 6
+
+- [@crStiv](https://github.com/crStiv)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- FT ([@zeevick10](https://github.com/zeevick10))
+- Himess ([@Himess](https://github.com/Himess))
+- Ragnar ([@DeVikingMark](https://github.com/DeVikingMark))
+- 曹家巧 ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+---
+
 # (Tue May 27 2025)
 
 #### 🚀 Enhancement

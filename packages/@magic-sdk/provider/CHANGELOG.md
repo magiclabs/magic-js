@@ -1,3 +1,84 @@
+# v29.4.2 (Tue Aug 12 2025)
+
+#### 🐛 Bug Fix
+
+- add window check [#924](https://github.com/magiclabs/magic-js/pull/924) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.4.1 (Fri Aug 01 2025)
+
+#### 🐛 Bug Fix
+
+- remove instance of Extension check [#914](https://github.com/magiclabs/magic-js/pull/914) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.4.0 (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- adds skip did token to query params [#909](https://github.com/magiclabs/magic-js/pull/909) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v29.3.0 (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- add skipDIDToken [#898](https://github.com/magiclabs/magic-js/pull/898) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- minor text cleanup [#908](https://github.com/magiclabs/magic-js/pull/908) ([@eeemmmmmm](https://github.com/eeemmmmmm))
+
+#### Authors: 3
+
+- emmmm ([@eeemmmmmm](https://github.com/eeemmmmmm))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v29.2.1 (Fri Jul 18 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix some minor issues in the comments [#902](https://github.com/magiclabs/magic-js/pull/902) ([@gopherorg](https://github.com/gopherorg) [@Ethella](https://github.com/Ethella))
+- chore: fix minor issue in the comment [#903](https://github.com/magiclabs/magic-js/pull/903) ([@bytesingsong](https://github.com/bytesingsong))
+
+#### Authors: 3
+
+- [@bytesingsong](https://github.com/bytesingsong)
+- [@gopherorg](https://github.com/gopherorg)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.2.0 (Tue Jul 15 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix some typos in comment [#901](https://github.com/magiclabs/magic-js/pull/901) ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+#### Authors: 1
+
+- 曹家巧 ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+---
+
 # v29.1.0 (Tue May 27 2025)
 
 #### 🚀 Enhancement

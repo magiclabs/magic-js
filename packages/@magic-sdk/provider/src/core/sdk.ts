@@ -13,7 +13,7 @@ import { ThirdPartyWalletsModule } from '../modules/third-party-wallets';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
-import { BaseExtension, Extension } from '../modules/base-extension';
+import { BaseExtension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
 import { NFTModule } from '../modules/nft';
@@ -72,9 +72,7 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
           // Only apply extensions with a known, defined `name` parameter.
           (this as any)[ext.name] = ext;
         }
-        if (ext instanceof Extension.Internal) {
-          if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
-        }
+        if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
       } else {
         incompatibleExtensions.push(ext);
       }
@@ -85,9 +83,7 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
         extensions[name].init(this);
         const ext = extensions[name];
         (this as any)[name] = ext;
-        if (ext instanceof Extension.Internal) {
-          if (!isEmpty(ext.config)) extConfig[extensions[name].name] = ext.config;
-        }
+        if (!isEmpty(ext.config)) extConfig[extensions[name].name] = ext.config;
       } else {
         incompatibleExtensions.push(extensions[name]);
       }
@@ -117,6 +113,7 @@ export interface MagicSDKAdditionalConfiguration<
   deferPreload?: boolean;
   useStorageCache?: boolean;
   meta?: any; // Generic field for clients to add metadata
+  authConfig?: { skipDIDToken: boolean }; // Skip DID Token generation
 }
 
 export class SDKBase {
@@ -193,13 +190,14 @@ export class SDKBase {
     // Encode parameters as base64-JSON
     this.parameters = encodeJSON<QueryParameters>({
       API_KEY: this.apiKey,
-      DOMAIN_ORIGIN: window.location ? window.location.origin : '',
+      DOMAIN_ORIGIN: typeof window !== 'undefined' && window?.location ? window?.location.origin : '',
       ETH_NETWORK: options?.network,
       host: createURL(this.endpoint).host,
       sdk: sdkNameToEnvName[SDKEnvironment.sdkName],
       version,
       ext: isEmpty(extConfig) ? undefined : extConfig,
       locale: options?.locale || 'en_US',
+      authConfig: options?.authConfig ? { ...options.authConfig } : undefined,
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
       meta: options?.meta,
     });

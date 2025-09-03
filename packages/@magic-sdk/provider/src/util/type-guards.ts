@@ -2,7 +2,7 @@
  * This file contains our type guards.
  *
  * Type guards are a feature of TypeScript which narrow the type signature of
- * intesection types (types that can be one thing or another).
+ * intersection types (types that can be one thing or another).
  *
  * @see
  * https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types

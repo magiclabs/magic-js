@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/taquito",
-  "version": "21.1.0",
+  "version": "21.4.2",
   "description": "Tezos taquito extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^25.1.0"
+    "@magic-sdk/commons": "^25.4.2"
   }
 }
