@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/react-native-expo",
-  "version": "30.4.2",
+  "version": "31.0.0",
   "description": "Passwordless authentication for React Native (Expo).",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -17,9 +17,9 @@
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "dependencies": {
-    "@magic-sdk/commons": "^25.4.2",
-    "@magic-sdk/provider": "^29.4.2",
-    "@magic-sdk/types": "^24.21.0",
+    "@magic-sdk/commons": "^26.0.0",
+    "@magic-sdk/provider": "^30.0.0",
+    "@magic-sdk/types": "^25.0.0",
     "@react-native-async-storage/async-storage": "^2.1.2",
     "buffer": "~5.6.0",
     "expo-application": "^5.0.1",

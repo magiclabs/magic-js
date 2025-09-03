@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/gdkms",
-  "version": "12.4.2",
+  "version": "13.0.0",
   "description": "G-DKMS extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -29,7 +29,7 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^25.4.2",
-    "@magic-sdk/types": "^24.21.0"
+    "@magic-sdk/commons": "^26.0.0",
+    "@magic-sdk/types": "^25.0.0"
   }
 }
