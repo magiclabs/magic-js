@@ -51,7 +51,7 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
           return;
         }
 
-        const url = successResult.oauthAuthoriationURI;
+        const url = new URL(successResult.oauthAuthoriationURI, 'https://auth.magic.link/').href;
         const res = await WebBrowser.openAuthSessionAsync(url, configuration.redirectURI, {});
 
         if (res.type === 'success') {
