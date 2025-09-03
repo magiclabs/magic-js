@@ -34,8 +34,6 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
         const successResult = result as OAuthRedirectStartResult;
         const errorResult = result as OAuthRedirectError;
 
-        console.log('result: ', result);
-
         if (errorResult.error) {
           reject(
             this.createError<OAuthErrorData>(errorResult.error, errorResult.error_description ?? 'An error occurred.', {
