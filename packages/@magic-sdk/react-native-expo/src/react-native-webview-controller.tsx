@@ -201,12 +201,16 @@ export class ReactNativeWebViewController extends ViewController {
    * Route incoming messages from a React Native `<WebView>`.
    */
   private handleReactNativeWebViewMessage(event: any) {
+    const url = new URL(`${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}`);
+
     if (
-      event.nativeEvent &&
-      typeof event.nativeEvent.data === 'string' &&
-      /* Backward compatible */
-      (event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` ||
-        event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}`)
+      (event.nativeEvent &&
+        typeof event.nativeEvent.data === 'string' &&
+        /* Backward compatible */
+        (event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` ||
+          event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}`)) ||
+      event.nativeEvent.url === this.endpoint ||
+      event.nativeEvent.title === `${url.hostname}/send/${url.search}`
     ) {
       // Special parsing logic when dealing with TypedArray in the payload
       // Such change is required as JSON.stringify will manipulate the object and cause exceptions during parsing
