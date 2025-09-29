@@ -186,6 +186,10 @@ export abstract class MultichainExtension<TName extends string, TConfig extends 
       this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.GetMultichainPublicAddress, [{ chain: this.chain }]),
     );
   }
+
+  public async revealPrivateKey<ResultType = any>(): Promise<ResultType> {
+    return this.request(this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.RevealPK, [{ chain: this.chain }]));
+  }
 }
 
 /**
