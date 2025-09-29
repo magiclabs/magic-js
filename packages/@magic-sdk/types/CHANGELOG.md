@@ -1,3 +1,17 @@
+# v25.0.0 (Wed Sep 03 2025)
+
+#### 🐛 Bug Fix
+
+- docs(types): fix typos in auth-types comments [#932](https://github.com/magiclabs/magic-js/pull/932) ([@phrwlk](https://github.com/phrwlk))
+- Core package revisions [#938](https://github.com/magiclabs/magic-js/pull/938) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@phrwlk](https://github.com/phrwlk)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v24.21.0 (Thu Jul 24 2025)
 
 #### 🚀 Enhancement

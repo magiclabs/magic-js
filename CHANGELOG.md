@@ -1,3 +1,65 @@
+# (Fri Sep 19 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@31.0.1`, `@magic-sdk/react-native-expo@31.0.1`
+  - Fix postMessage function signature [#943](https://github.com/magiclabs/magic-js/pull/943) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Wed Sep 03 2025)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/react-native-bare-oauth@27.0.0`, `@magic-ext/react-native-expo-oauth@27.0.0`, `@magic-sdk/react-native-bare@31.0.0`, `@magic-sdk/react-native-expo@31.0.0`
+  - Devin/1744245477 implement login with popup v2 [#879](https://github.com/magiclabs/magic-js/pull/879) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- Bump sha.js from 2.4.11 to 2.4.12 [#939](https://github.com/magiclabs/magic-js/pull/939) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@magic-sdk/react-native-bare@31.0.0`, `@magic-sdk/react-native-expo@31.0.0`
+  - docs: fix broken link [#936](https://github.com/magiclabs/magic-js/pull/936) ([@SADfronov](https://github.com/SADfronov))
+- `@magic-sdk/pnp@24.0.0`, `@magic-sdk/provider@30.0.0`
+  - docs: fix typos in comments [#929](https://github.com/magiclabs/magic-js/pull/929) ([@Snezhkko](https://github.com/Snezhkko))
+- `@magic-sdk/types@25.0.0`
+  - docs(types): fix typos in auth-types comments [#932](https://github.com/magiclabs/magic-js/pull/932) ([@phrwlk](https://github.com/phrwlk))
+- `@magic-ext/oauth@24.0.0`
+  - fix(docs): update broken OAuth documentation link [#935](https://github.com/magiclabs/magic-js/pull/935) ([@radik878](https://github.com/radik878))
+- `@magic-ext/webauthn@24.0.0`, `magic-sdk@30.0.0`
+  - docs: fix typos and improve comments across packages [#937](https://github.com/magiclabs/magic-js/pull/937) ([@Forostovec](https://github.com/Forostovec))
+- `@magic-sdk/provider@30.0.0`, `@magic-sdk/types@25.0.0`
+  - Core package revisions [#938](https://github.com/magiclabs/magic-js/pull/938) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-sdk/pnp@24.0.0`
+  - docs: update Magic Login Form documentation link [#923](https://github.com/magiclabs/magic-js/pull/923) ([@Fibonacci747](https://github.com/Fibonacci747))
+- `@magic-sdk/provider@30.0.0`
+  - fix typo in test descriptions [#918](https://github.com/magiclabs/magic-js/pull/918) ([@anim001k](https://github.com/anim001k))
+  - chore: remove redundant word in comment [#919](https://github.com/magiclabs/magic-js/pull/919) ([@queryfast](https://github.com/queryfast))
+- `@magic-sdk/react-native-bare@31.0.0`
+  - fix: broken link in README.md [#916](https://github.com/magiclabs/magic-js/pull/916) ([@GarmashAlex](https://github.com/GarmashAlex))
+
+#### Authors: 14
+
+- [@anim001k](https://github.com/anim001k)
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@Fibonacci747](https://github.com/Fibonacci747)
+- [@Forostovec](https://github.com/Forostovec)
+- [@GarmashAlex](https://github.com/GarmashAlex)
+- [@phrwlk](https://github.com/phrwlk)
+- [@queryfast](https://github.com/queryfast)
+- [@radik878](https://github.com/radik878)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- [@Snezhkko](https://github.com/Snezhkko)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- SERHII BUHAI ([@SADfronov](https://github.com/SADfronov))
+
+---
+
 # (Fri Aug 15 2025)
 
 #### 🚀 Enhancement

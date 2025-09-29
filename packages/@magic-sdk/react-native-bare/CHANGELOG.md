@@ -1,3 +1,36 @@
+# v31.0.1 (Fri Sep 19 2025)
+
+#### 🐛 Bug Fix
+
+- Fix postMessage function signature [#943](https://github.com/magiclabs/magic-js/pull/943) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v31.0.0 (Wed Sep 03 2025)
+
+#### 💥 Breaking Change
+
+- Devin/1744245477 implement login with popup v2 [#879](https://github.com/magiclabs/magic-js/pull/879) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- docs: fix broken link [#936](https://github.com/magiclabs/magic-js/pull/936) ([@SADfronov](https://github.com/SADfronov))
+- fix: broken link in README.md [#916](https://github.com/magiclabs/magic-js/pull/916) ([@GarmashAlex](https://github.com/GarmashAlex))
+
+#### Authors: 5
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@GarmashAlex](https://github.com/GarmashAlex)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- SERHII BUHAI ([@SADfronov](https://github.com/SADfronov))
+
+---
+
 # v30.2.1 (Fri Jul 18 2025)
 
 #### 🐛 Bug Fix

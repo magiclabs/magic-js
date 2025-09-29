@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/webauthn",
-  "version": "23.4.2",
+  "version": "24.0.0",
   "description": "Magic SDK WabAuthn Extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^29.5.0"
+    "@magic-sdk/provider": "^30.0.0"
   }
 }
