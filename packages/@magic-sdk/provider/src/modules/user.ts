@@ -182,7 +182,7 @@ export class UserModule extends BaseModule {
   }
 
   public revealPrivateKey() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPK);
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPK, [{ chain: 'ETH' }]);
     return this.request<boolean>(requestPayload);
   }
 
