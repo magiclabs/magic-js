@@ -16,7 +16,7 @@
 #### 💥 Breaking Change
 
 - `@magic-ext/react-native-bare-oauth@27.0.0`, `@magic-ext/react-native-expo-oauth@27.0.0`, `@magic-sdk/react-native-bare@31.0.0`, `@magic-sdk/react-native-expo@31.0.0`
-  - Devin/1744245477 implement login with popup v2 [#879](https://github.com/magiclabs/magic-js/pull/879) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+  - Devin/1744245477 implement login with popup v2 [#879](https://github.com/magiclabs/magic-js/pull/879) ([@devin-ai-integration[bot]](https://github.com/apps/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
 
 #### 🐛 Bug Fix
 
@@ -45,7 +45,7 @@
 
 - [@anim001k](https://github.com/anim001k)
 - [@dependabot[bot]](https://github.com/dependabot[bot])
-- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@devin-ai-integration[bot]](https://github.com/apps/devin-ai-integration[bot])
 - [@Fibonacci747](https://github.com/Fibonacci747)
 - [@Forostovec](https://github.com/Forostovec)
 - [@GarmashAlex](https://github.com/GarmashAlex)
