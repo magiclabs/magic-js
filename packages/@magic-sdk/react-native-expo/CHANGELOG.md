@@ -1,3 +1,15 @@
+# v31.0.1 (Fri Sep 19 2025)
+
+#### 🐛 Bug Fix
+
+- Fix postMessage function signature [#943](https://github.com/magiclabs/magic-js/pull/943) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v31.0.0 (Wed Sep 03 2025)
 
 #### 💥 Breaking Change

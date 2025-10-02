@@ -3175,15 +3175,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-ext/oauth@^24.0.0, @magic-ext/oauth@workspace:packages/@magic-ext/oauth":
-  version: 0.0.0-use.local
-  resolution: "@magic-ext/oauth@workspace:packages/@magic-ext/oauth"
+"@magic-ext/oauth@npm:^24.0.0":
+  version: 24.0.0
+  resolution: "@magic-ext/oauth@npm:24.0.0"
   dependencies:
-    "@magic-sdk/commons": ^26.0.0
-    "@types/crypto-js": ~4.2.0
     crypto-js: ^4.2.0
-  languageName: unknown
-  linkType: soft
+  checksum: e7092f1f2e7142820d12e76dd7b1117ef391ca33741c8983766492b8ccda7d3c46acb318adde55ae92872639e9f396f79a4af1dbc9fba47486f87c9cd9def4b8
+  languageName: node
+  linkType: hard
 
 "@magic-ext/oidc@workspace:packages/@magic-ext/oidc":
   version: 0.0.0-use.local
