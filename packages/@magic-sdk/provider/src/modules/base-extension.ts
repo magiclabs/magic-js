@@ -169,7 +169,7 @@ export class Extension {
 }
 
 /**
- * Base class for multi-chain extensions, extracting getPublicAddress logic.
+ * Base class for multi-chain extensions, extracting getPublicAddress and revealPrivateKey logic.
  */
 export abstract class MultichainExtension<TName extends string, TConfig extends any = any> extends InternalExtension<
   TName,
