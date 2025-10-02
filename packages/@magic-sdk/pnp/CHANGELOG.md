@@ -1,0 +1,1226 @@
+# v24.0.0 (Wed Sep 03 2025)
+
+#### 🐛 Bug Fix
+
+- docs: fix typos in comments [#929](https://github.com/magiclabs/magic-js/pull/929) ([@Snezhkko](https://github.com/Snezhkko))
+- docs: update Magic Login Form documentation link [#923](https://github.com/magiclabs/magic-js/pull/923) ([@Fibonacci747](https://github.com/Fibonacci747))
+
+#### Authors: 2
+
+- [@Fibonacci747](https://github.com/Fibonacci747)
+- [@Snezhkko](https://github.com/Snezhkko)
+
+---
+
+# v23.2.0 (Tue Jul 15 2025)
+
+#### 🐛 Bug Fix
+
+- Fix Typos in Documentation and Comments [#899](https://github.com/magiclabs/magic-js/pull/899) ([@zeevick10](https://github.com/zeevick10))
+
+#### Authors: 1
+
+- FT ([@zeevick10](https://github.com/zeevick10))
+
+---
+
+# v23.0.7 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Revert "Remove Extension class and rename InternalExtension to MagicExtension" [#882](https://github.com/magiclabs/magic-js/pull/882) ([@Ethella](https://github.com/Ethella))
+- Remove Extension class and rename InternalExtension to MagicExtension [#881](https://github.com/magiclabs/magic-js/pull/881) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+- Pdeexp 2096 replace ikscodes browser env package in magic js [#877](https://github.com/magiclabs/magic-js/pull/877) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- Bump Jest version to 29.7.0 and update related testing dependencies [#873](https://github.com/magiclabs/magic-js/pull/873) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v23.0.5 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v23.0.3 (Mon Mar 24 2025)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into bump-cryptojs ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v23.0.0 (Mon Mar 03 2025)
+
+#### 💥 Breaking Change
+
+- Remove deprecated methods [#857](https://github.com/magiclabs/magic-js/pull/857) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- chore: remove user.getMetadata ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v22.21.0 (Wed Jan 08 2025)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-web3modal ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v22.20.0 (Wed Dec 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-530-wallet-connect-login-with-redirect ([@Ethella](https://github.com/Ethella))
+- resolve conflict ([@Ethella](https://github.com/Ethella))
+- * resolve conflict ([@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-530-wallet-connect-login-with-redirect ([@mattupham](https://github.com/mattupham))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Matt Upham ([@mattupham](https://github.com/mattupham))
+
+---
+
+# v22.19.1 (Thu Dec 05 2024)
+
+#### 🐛 Bug Fix
+
+- fix: typos [#830](https://github.com/magiclabs/magic-js/pull/830) ([@omahs](https://github.com/omahs) [@Ethella](https://github.com/Ethella))
+- chore: bump eslint version [#834](https://github.com/magiclabs/magic-js/pull/834) ([@otabek-magic](https://github.com/otabek-magic) [@Ethella](https://github.com/Ethella))
+- Merge branch 'master' into PDEEXP-1985-bump-magic-sdk-eslint-version-to-9 ([@otabek-magic](https://github.com/otabek-magic))
+- chore: update eslint config ([@otabek-magic](https://github.com/otabek-magic))
+- chore: update to eslint 9 in magic-sdk magic-ext ([@otabek-magic](https://github.com/otabek-magic))
+- Merge branch 'master' into patch-1 ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@otabek-magic](https://github.com/otabek-magic)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- omahs ([@omahs](https://github.com/omahs))
+
+---
+
+# v22.19.0 (Mon Nov 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1954-OAuth-popup-flow-consolidation ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v22.17.0 (Fri Oct 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-1951-Lost-Device-Event-Does-Not-Emit-Whitelabel-MFA-provider ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.16.0 (Fri Oct 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into cancel-event-for-recovery-flow ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v22.15.0 (Tue Oct 22 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-1908-Iframe-heartbeat ([@khamdam-magic](https://github.com/khamdam-magic))
+- Merge branch 'master' into khamdam-sc-PDEEXP-1908-Iframe-heartbeat ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
+# v22.14.0 (Fri Oct 18 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into missed_type_for_recovery_factor ([@sukhrobbekodilov](https://github.com/sukhrobbekodilov))
+
+#### Authors: 1
+
+- [@sukhrobbekodilov](https://github.com/sukhrobbekodilov)
+
+---
+
+# v22.13.0 (Fri Oct 18 2024)
+
+#### 🐛 Bug Fix
+
+- Update .deepsource.toml [#804](https://github.com/magiclabs/magic-js/pull/804) ([@Magic-Brandan](https://github.com/Magic-Brandan))
+
+#### Authors: 1
+
+- [@Magic-Brandan](https://github.com/Magic-Brandan)
+
+---
+
+# v22.11.0 (Wed Sep 25 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v22.9.0 (Wed Sep 11 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into sherzod-PDEEXP-1711-Support-MFA-setup-whitelabel-support ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- Merge branch 'master' into hcote-cosmos-options ([@hcote](https://github.com/hcote))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v22.6.0 (Tue Sep 03 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of https://github.com/magiclabs/magic-js into khamdam-sc-PDEEXP-54-whitelabel-sms-login ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix: update branch ([@khamdam-magic](https://github.com/khamdam-magic))
+- fix(): resolve conflicts ([@khamdam-magic](https://github.com/khamdam-magic))
+
+#### Authors: 1
+
+- [@khamdam-magic](https://github.com/khamdam-magic)
+
+---
+
+# v22.4.0 (Tue Aug 13 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'refs/remotes/origin/master' into Add-two-more-mfa-flags ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.3.1 (Fri Aug 09 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-visibility-update ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v22.0.6 (Thu Jun 06 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'refs/remotes/origin/master' into PDEEXP-1279-done-event-not-firing-in-whitelabel-email-login-flow ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v22.0.4 (Thu Apr 11 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into dh-allow-clipboard ([@bcleary06](https://github.com/bcleary06))
+- Merge branch 'master' into deepsource-config-f9a2fc0d ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 1
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
+# v22.0.0 (Fri Mar 22 2024)
+
+#### 🚀 Enhancement
+
+- Add private key reveal method [#699](https://github.com/magiclabs/magic-js/pull/699) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- Merge branch 'master' into joshscanlan-pk-reveal-method ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 3
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- Magic Labs (team@magic.link)
+
+---
+
+# v21.0.0 (Fri Mar 15 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
+# v20.0.0 (Sat Mar 09 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
+# v19.0.0 (Thu Feb 29 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into patjacobs-oauth-v2-apple ([@patjacobs-magic](https://github.com/patjacobs-magic))
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+- Update CHANGELOG.md \[skip ci\] (team@magic.link)
+
+#### Authors: 2
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+- Magic Labs (team@magic.link)
+
+---
+
+# v18.0.0 (Tue Feb 27 2024)
+
+#### 🐛 Bug Fix
+
+- "Bump independent versions \[skip ci\]" (team@magic.link)
+
+#### Authors: 1
+
+- Magic Labs (team@magic.link)
+
+---
+
+# v16.1.1 (Sat Feb 10 2024)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into PDEEXP-253-whitelabel-update-email-with-ui-missing-event-when-email-address-already-in-use ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v16.0.1 (Fri Feb 02 2024)
+
+#### 🐛 Bug Fix
+
+- Add npm provenance [#703](https://github.com/magiclabs/magic-js/pull/703) ([@Ethella](https://github.com/Ethella))
+- force update readme to bump all versions ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v15.6.0 (Tue Jan 02 2024)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into rominhalltari-sc-91336-look-into-faster-calls-to-isloggedin-and ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v15.5.0 (Fri Dec 22 2023)
+
+#### 🚀 Enhancement
+
+- Fix type mismatch for signMessage in solana-ext [#691](https://github.com/magiclabs/magic-js/pull/691) ([@octave08](https://github.com/octave08))
+
+#### Authors: 1
+
+- Jay Hwang ([@octave08](https://github.com/octave08))
+
+---
+
+# v15.4.1 (Fri Dec 15 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into rominhalltari-sc-91530-investigate-and-provide-solution-for-issue ([@romin-halltari](https://github.com/romin-halltari))
+
+#### Authors: 1
+
+- [@romin-halltari](https://github.com/romin-halltari)
+
+---
+
+# v15.4.0 (Thu Dec 14 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into split-key-device-share ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# v15.3.2 (Tue Nov 28 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into josh-sc-90794-add-types-export-to-scaffolding ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v15.2.1 (Tue Nov 14 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into injectable-webcrypto-jwt-for-session-persistence ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# v15.2.0 (Tue Oct 24 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into hcote-support-sepolia-natively ([@hcote](https://github.com/hcote))
+
+#### Authors: 1
+
+- Hunter Cote ([@hcote](https://github.com/hcote))
+
+---
+
+# v15.0.0 (Fri Oct 13 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into force-ctor-preload-iframe ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# v14.1.1 (Mon Oct 02 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into patjacobs-sc-83016-ux-optimization-expired-email-otps ([@patjacobs-magic](https://github.com/patjacobs-magic))
+
+#### Authors: 1
+
+- [@patjacobs-magic](https://github.com/patjacobs-magic)
+
+---
+
+# v14.1.0 (Fri Sep 29 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-87830-optimize-webcrypto-implementation-to-generate ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v13.3.0 (Wed Aug 16 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into josh-sc-75022-standalone-update-email-v2 ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v13.1.0 (Tue Aug 08 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-81984-update-loginwithemailotp-interface-with-new ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v13.0.0 (Thu Jul 27 2023)
+
+#### 💥 Breaking Change
+
+- Magic SDK Node version bump [#538](https://github.com/magiclabs/magic-js/pull/538) ([@makrandgupta](https://github.com/makrandgupta))
+
+#### 🐛 Bug Fix
+
+- force canary build for all packages. ([@makrandgupta](https://github.com/makrandgupta))
+
+#### Authors: 1
+
+- Makrand Gupta ([@makrandgupta](https://github.com/makrandgupta))
+
+---
+
+# v12.3.0 (Fri Jul 07 2023)
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/master' ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v12.2.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Auto version bumping [#557](https://github.com/magiclabs/magic-js/pull/557) ([@Ethella](https://github.com/Ethella) [@Ariflo](https://github.com/Ariflo))
+- Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Match NPM Version ([@Ariflo](https://github.com/Ariflo))
+- Update CHANGELOG.md \[skip ci\] ([@Ethella](https://github.com/Ethella))
+- Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- White space bump ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 2
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v12.1.0 (Fri Jun 23 2023)
+
+#### 🚀 Enhancement
+
+- Updates License to Apache 2.0 [#551](https://github.com/magiclabs/magic-js/pull/551) ([@Ariflo](https://github.com/Ariflo))
+
+#### 🐛 Bug Fix
+
+- Replace `magic-sdk` w/ `@magic-sdk/commons` for `@magic-ext/oidc` Package [#550](https://github.com/magiclabs/magic-js/pull/550) ([@Ariflo](https://github.com/Ariflo))
+- White space bump ([@Ariflo](https://github.com/Ariflo))
+
+#### Authors: 1
+
+- Arian Flores ([@Ariflo](https://github.com/Ariflo))
+
+---
+
+# v11.3.0 (Fri May 26 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu_hotfix_gdkms ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v11.1.6 (Fri May 19 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-77755-kresus-hotfix ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v11.1.2 (Tue Apr 25 2023)
+
+#### 🐛 Bug Fix
+
+- update MIT license to apache [#500](https://github.com/magiclabs/magic-js/pull/500) ([@Dizigen](https://github.com/Dizigen))
+
+#### Authors: 1
+
+- David He ([@Dizigen](https://github.com/Dizigen))
+
+---
+
+# v11.1.1 (Fri Apr 21 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-75641-lazer-request-showsettings-page-mfa ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v11.1.0 (Thu Apr 20 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into jerryliu-sc-75641-lazer-request-showsettings-page-mfa ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v10.1.0 (Tue Apr 04 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into briancleary7114-sc-73967-auto-publish-canary-version-for-magic-sdk ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 1
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
+# v10.0.0 (Fri Mar 31 2023)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into jerryliu-sc-74424-email-otp-login-invalid-email-otp-event ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v7.6.2 (Tue Mar 21 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into briancleary7114-sc-71135-add-checkout-sdk-method ([@bcleary06](https://github.com/bcleary06))
+
+#### Authors: 1
+
+- Brian Cleary ([@bcleary06](https://github.com/bcleary06))
+
+---
+
+# v7.5.0 (Tue Feb 28 2023)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' of github.com:magiclabs/magic-js into mushfichowdhury-login-with-email-otp-whitelabel ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+#### Authors: 1
+
+- Mushfi Chowdhury ([@mushfichowdhury-magic](https://github.com/mushfichowdhury-magic))
+
+---
+
+# v7.4.0 (Tue Feb 21 2023)
+
+#### 🚀 Enhancement
+
+- * Add recoverAccount api [#458](https://github.com/magiclabs/magic-js/pull/458) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Update LICENSE [#459](https://github.com/magiclabs/magic-js/pull/459) ([@srinjoyc](https://github.com/srinjoyc))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Srinjoy ([@srinjoyc](https://github.com/srinjoyc))
+
+---
+
+# v2.1.0 (Mon Mar 07 2022)
+
+#### 🐛 Bug Fix
+
+- Update READMEs with outdated context/hyperlinks ([@smithki](https://github.com/smithki))
+
+#### 🏠 Internal
+
+- Internal documentation updates (`BUILD_SYSTEM.md`) [#283](https://github.com/magiclabs/magic-js/pull/283) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v2.0.0 (Tue Jan 25 2022)
+
+#### 💥 Breaking Change
+
+- Switch from `microbundle` to `esbuild` [#220](https://github.com/magiclabs/magic-js/pull/220) ([@smithki](https://github.com/smithki))
+
+#### 🐛 Bug Fix
+
+- Merge with master ([@smithki](https://github.com/smithki))
+- Merge branch 'master' into feat/faster-builds ([@smithki](https://github.com/smithki))
+- Remove comments from README files ([@smithki](https://github.com/smithki))
+- Fix build errors related to isolatedModules ([@smithki](https://github.com/smithki))
+- Replace microbundle with ESBuild ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v0.6.0 (Mon Nov 08 2021)
+
+#### 🚀 Enhancement
+
+- Add parameters for ToS and privacy links to `@magic-sdk/pnp` [#240](https://github.com/magiclabs/magic-js/pull/240) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v0.5.0 (Fri Oct 29 2021)
+
+#### 🚀 Enhancement
+
+- Add support for `data-locale` parameter in `@magic-sdk/pnp` [#234](https://github.com/magiclabs/magic-js/pull/234) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v0.4.0 (Fri Oct 22 2021)
+
+#### 🚀 Enhancement
+
+- Add `UserModule#settings` endpoint [#231](https://github.com/magiclabs/magic-js/pull/231) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v0.3.2 (Wed Oct 20 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@smithki](https://github.com/smithki))
+- Force re-publish ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v0.3.0 (Wed Oct 20 2021)
+
+#### 🚀 Enhancement
+
+- [HOLD MERGE] Enable opinionated "Plug & Play" implementation approach for web [#221](https://github.com/magiclabs/magic-js/pull/221) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v6.0.5 (Fri Sep 17 2021)
+
+#### 🐛 Bug Fix
+
+- Fix `regeneratorRuntime` is not defined in `@magic-sdk/provider` [#215](https://github.com/magiclabs/magic-js/pull/215) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v6.0.4 (Fri Sep 17 2021)
+
+#### 🐛 Bug Fix
+
+- Fix CJS-dependent entry-points using the 'exports' field in package.json [#214](https://github.com/magiclabs/magic-js/pull/214) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v6.0.3 (Thu Sep 16 2021)
+
+#### 🐛 Bug Fix
+
+- Enable `skipLibCheck: false` to work with Magic SDK + TypeScript projects [#212](https://github.com/magiclabs/magic-js/pull/212) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v6.0.2 (Tue Sep 14 2021)
+
+#### 🐛 Bug Fix
+
+- Import regeneratorRuntime in Magic JS (non-CDN version) [#210](https://github.com/magiclabs/magic-js/pull/210) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v6.0.1 (Tue Sep 14 2021)
+
+#### 🐛 Bug Fix
+
+- Fix SemVer cyclic dependency issues with some hacks [#209](https://github.com/magiclabs/magic-js/pull/209) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v6.0.0 (Tue Sep 14 2021)
+
+#### 💥 Breaking Change
+
+- v6.0.0 [#208](https://github.com/magiclabs/magic-js/pull/208) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v4.4.2 (Mon Aug 16 2021)
+
+#### 🐛 Bug Fix
+
+- Migrate unit tests to Jest [#194](https://github.com/magiclabs/magic-js/pull/194) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v4.4.0 (Wed Jul 28 2021)
+
+#### 🚀 Enhancement
+
+- Add explicit JSDelivr entry-point for `magic-sdk` [#191](https://github.com/magiclabs/magic-js/pull/191) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v4.1.0 (Sat Jan 23 2021)
+
+#### 🚀 Enhancement
+
+- Iframe accessibility improvements: Add `title` attribute and auto-focus when UI is showing [#158](https://github.com/magiclabs/magic-js/pull/158) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v4.0.1 (Tue Dec 01 2020)
+
+#### 🐛 Bug Fix
+
+- Add 'importHelpers: true' to base tsconfig.json [#152](https://github.com/magiclabs/magic-js/pull/152) ([@smithki](https://github.com/smithki))
+
+#### 📝 Documentation
+
+- Fix incorrect TypeScript project references and update READMEs with changelog links [#151](https://github.com/magiclabs/magic-js/pull/151) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+# v4.0.0 (Tue Nov 17 2020)
+
+#### 💥 Breaking Change
+
+- [All packages] Internal API changes & Cleanups [#149](https://github.com/magiclabs/magic-js/pull/149) ([@smithki](https://github.com/smithki))
+
+#### 🐛 Bug Fix
+
+- Update CHANGELOGs and CONTRIBUTING guide [#146](https://github.com/magiclabs/magic-js/pull/146) ([@smithki](https://github.com/smithki))
+
+#### 🏠 Internal
+
+- Simplify scripts [#147](https://github.com/magiclabs/magic-js/pull/147) ([@smithki](https://github.com/smithki))
+
+#### Authors: 1
+
+- Ian K Smith ([@smithki](https://github.com/smithki))
+
+---
+
+## `3.0.1` - 10/21/2020
+
+#### Changed
+
+- Removed the following public methods and functions
+    - `BaseExtension.utils.encodeQueryParameters`
+    - `BaseExtension.utils.decodeQueryParameters`
+
+## `2.7.0` - 09/24/2020
+
+#### Added
+
+- Adds a Magic SDK extensions runtime compatibility check, ensuring you're version of Magic SDK is designed for the extensions you have in use.
+
+## `2.6.0` - 09/15/2020
+
+#### Added
+
+- New, optional `redirectURI` parameter for the `loginWithMagicLink` method
+- New `loginWithCredential` method for completing a magic link login with redirect: `await magic.auth.loginWithCredential()`
+
+## `2.5.0` - 08/24/2020
+
+#### Added
+
+- New optional `locale` parameter to SDK constructor
+
+## `2.4.8` - 08/20/2020
+
+#### Added
+
+- New RPC error code for the `loginWithMagicLink` method: `-10005`
+
+## `2.4.6` - 07/22/2020
+
+#### Added
+
+- Export `PromiEvent` type and `isPromiEvent` utility from SDK entry-points (`magic-sdk` and `@magic-sdk/react-native`).
+
+## `2.4.1` through `2.4.5` - 07/13/2020
+
+#### Fixed
+
+- Bug preventing NPM tarball from containing `/dist` files.
+
+## `2.4.0` - 07/13/2020
+
+#### Changed
+
+- Updated build system to use TypeScript project references instead of Microbundle.
+- Pass `targetOrigin` parameter to `postMessage` calls.
+
+## `2.3.1` - 07/08/2020
+
+#### Fixed
+
+- Bug affecting `localforage` type imports causing compilation failure in TypeScript.
+
+## `2.3.0` - 07/08/2020
+
+#### Added
+
+- WebAuthn support.
+- `localforage` APIs for Magic SDK Extensions.
+
+## `2.1.0` - 06/25/2020
+
+#### Changed
+
+- Update dependencies.
+
+#### Addded
+
+- Add `ExtensionWarning` class.
+
+## `2.0.7` - 06/23/2020
+
+#### Changed
+
+- Update dependencies.
+
+## `2.0.6` - 06/23/2020
+
+#### Changed
+
+- Update dependencies.
+
+## `2.0.5` - 06/23/2020
+
+#### Changed
+
+- Update dependencies.
+
+## `2.0.4` - 06/22/2020
+
+#### Changed
+
+- Update dependencies.
+
+## `2.0.3` - 06/16/2020
+
+#### Added
+
+- Introduce the `ExtensionError` type to ease handling of errors rising from Magic SDK Extensions.
+
+## `2.0.2` - 06/12/2020
+
+#### Changed
+
+- Update dependencies.
+- Circle CI tag in readme is broken after namechange from MagicHQ to MagicLabs
+
+## `2.0.1` - 06/11/2020
+
+#### Changed
+
+- Update dependencies.
+
+## `2.0.0` - 06/02/2020
+
+#### Fixed
+
+- Circle CI tag in readme is broken after namechange from MagicHQ to MagicLabs
+
+#### Changed
+
+- Removed the `magic-sdk/react-native` entry-point. To use React Native with Magic SDK, install `@magic-sdk/react-native` instead. There are no breaking API changes related to public SDK methods.
+
+## `1.4.0` - 05/14/2020
+
+#### Added
+
+- `PromiEvent` interface for increasing the flexibility developers have when building 100% whitelabeled authentication flows using Magic SDK. This is a completely optional feature. Documentation is coming soon!
+
+## `1.3.5` - 05/14/2020
+
+#### Fixed
+
+- Fixed a bug where React Native typings would pollute web environments not using Webpack.
+
+## `1.3.4` - 05/14/2020
+
+#### Fixed
+
+- Alias the `Magic` constructor import to the SDK instance type. We have pretty complex extension typings which wrap the base SDK class, which was making typing a variable as `Magic` unnecessarily difficult! Now, you can use the constructor as the instance type as expected.
+
+- Fixed a bug that would prevent typings from being available in a React Native environment.
+
+## `1.3.3` - 05/14/2020
+
+#### Fixed
+
+- Fix a bug affecting Ethers JS V5 beta that would fail to attach the required ID parameter to JSON RPC 2.0 request payloads.
+
+## `1.3.2` - 05/07/2020
+
+#### Fixed
+
+- The React Native entry point encountered an issue where `Buffer` is `undefined`. This is now resolved!
+
+## `1.3.1` - 05/06/2020
+
+#### Changed
+
+- The React Native entry point now issues a warning if the `endpoint` parameter is used. This parameter should only be customized for web/browser targets. Existing implementations will continue to work with the warning.
+
+- The default `endpoint` URL for React Native integrations is `https://box.magic.link`.
+
+## `1.3.0` - 05/05/2020
+
+#### Added
+
+- Support for configuring [Harmony](https://www.harmony.one/) network as the Etherum chain type. Further documentation is coming soon.
+
+## `1.2.1` - 04/30/2020
+
+#### Fixed
+
+- Removed the `pako` dependency as it was negatively impacting SDK bundle size.
+
+## `1.2.0` - 04/29/2020
+
+#### Added
+
+- The new `Extension` interface will soon enable Magic SDK to support official
+  and third-party plugins!
+
+## `1.1.4` - 04/28/2020
+
+#### Changed
+
+- Allow JSON RPC responses from the Magic `<iframe>` to be explicitly `null`.
+
+## `1.1.3` - 04/28/2020
+
+#### Fixed
+
+- A bug on Safari that would lead to persistent `TypeError`s when using the CDN build of the library.
+
+## `1.1.2` - 04/22/2020
+
+#### Fixed
+
+- Certain NodeJS globals/polyfills were not available in React Native environments. These polyfills are now bootstrapped automatically.
+
+## `1.1.1` - 04/22/2020
+
+#### Added
+
+- Support for React Native:
+
+```tsx
+// Import the React Native bundle
+// (Don't worry, the API is exactly the same!)
+import { Magic } from 'magic-sdk/react-native';
+
+const magic = new Magic('API_KEY');
+
+function App() {
+  return (<div>
+    {/* Just render the `Modal` component to connect Magic SDK! 🚀 */}
+    <magic.Relayer />
+  </div>);
+}
+```
+
+## `1.0.3` - 04/21/2020
+
+#### Added
+
+- `UpdateEmailFailed` RPCErrorCode for when update email fails.
+
+## `1.0.2` - 04/15/2020
+
+#### Added
+
+- `preload` method for downloading the assets required to render the Magic `<iframe>`.
+
+## `1.0.1` - 04/09/2020
+
+This is the first release our changelog records. Future updates will be logged in the following format:
+
+#### Fixed
+
+- Bug fixes and patches will be described here.
+
+#### Changed
+
+- Changes (breaking or otherwise) to current APIs will be described here.
+
+#### Added
+
+- New features or APIs will be described here.
