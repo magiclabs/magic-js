@@ -1,3 +1,16 @@
+# (Fri Sep 19 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@31.0.1`, `@magic-sdk/react-native-expo@31.0.1`
+  - Fix postMessage function signature [#943](https://github.com/magiclabs/magic-js/pull/943) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Wed Sep 03 2025)
 
 #### 💥 Breaking Change

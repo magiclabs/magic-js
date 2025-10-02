@@ -209,6 +209,7 @@ export class ReactNativeWebViewController extends ViewController {
       /* Backward compatible */
       (event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` ||
         event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}` ||
+        event.nativeEvent.url === this.endpoint ||
         event.nativeEvent.title === `${url.hostname}/send/${url.search}`)
     ) {
       // Special parsing logic when dealing with TypedArray in the payload
@@ -268,8 +269,8 @@ export class ReactNativeWebViewController extends ViewController {
       EventRegister.emit(MSG_POSTED_AFTER_INACTIVITY_EVENT, data);
       return;
     }
-    if (this.webView && (this.webView as any).postMessage) {
-      (this.webView as any).postMessage(
+    if (this.webView && this.webView.postMessage) {
+      this.webView.postMessage(
         JSON.stringify(data, (key, value) => {
           // parse Typed Array to Stringify object
           if (isTypedArray(value)) {
@@ -281,7 +282,6 @@ export class ReactNativeWebViewController extends ViewController {
           }
           return value;
         }),
-        this.endpoint,
       );
       AsyncStorage.setItem(LAST_MESSAGE_TIME, new Date().toISOString());
     } else {

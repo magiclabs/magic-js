@@ -13,19 +13,19 @@ describe('ReactNativeWebViewController', () => {
   });
 
   jest.mock('@react-native-async-storage/async-storage', () => ({
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-}));
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+  }));
 
-test('Calls webView._post with the expected arguments', async () => {
-  const overlay = createReactNativeWebViewController('http://example.com');
+  test('Calls webView._post with the expected arguments', async () => {
+    const overlay = createReactNativeWebViewController('http://example.com');
 
     const postStub = jest.fn();
     overlay.webView = { postMessage: postStub };
 
     await overlay._post({ thisIsData: 'hello world' });
 
-    expect(postStub.mock.calls[0]).toEqual([JSON.stringify({ thisIsData: 'hello world' }), 'http://example.com']);
+    expect(postStub.mock.calls[0]).toEqual([JSON.stringify({ thisIsData: 'hello world' })]);
   });
 
   test('Throws MODAL_NOT_READY error if webView is nil', async () => {
@@ -57,7 +57,6 @@ test('Calls webView._post with the expected arguments', async () => {
 
     expect(postStub.mock.calls[0]).toEqual([
       '{"msgType":"MAGIC_HANDLE_REQUEST-troll","payload":{"id":3,"jsonrpc":"2.0","method":"sol_signMessage","params":{"message":{"constructor":"Uint8Array","data":"72,101,108,108,111","flag":"MAGIC_PAYLOAD_FLAG_TYPED_ARRAY"}}}}',
-      'http://example.com',
     ]);
   });
 
@@ -80,4 +79,4 @@ test('returns true when more than 5 minutes have passed since the last post', as
   const result = await controller.msgPostedAfterInactivity();
   expect(result).toBe(true);
   expect(AsyncStorage.getItem).toHaveBeenCalledWith('lastMessageTime');
-})
+});
