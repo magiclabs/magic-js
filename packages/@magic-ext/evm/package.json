@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/evm",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "magic evm extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
