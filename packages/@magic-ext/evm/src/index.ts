@@ -1,5 +1,5 @@
 import { Extension } from '@magic-sdk/provider';
-import { EVMNetworkConfig, EVMPayloadMethod, SwitchEVMChainResult } from './types';
+import { EVMNetworkConfig, EVMPayloadMethod } from './types';
 
 export class EVMExtension extends Extension.Internal<'evm', any> {
   name = 'evm' as const;
@@ -14,8 +14,15 @@ export class EVMExtension extends Extension.Internal<'evm', any> {
   }
 
   public switchEVMChain = (chainId: number) => {
-    return this.request<string | SwitchEVMChainResult>(
-      this.utils.createJsonRpcRequestPayload(EVMPayloadMethod.SwitchEVMChain, [chainId]),
-    );
+    return this.request<{
+      network:
+        | string
+        | {
+            rpcUrl: string;
+            chainId?: number;
+            chainType?: string;
+          }
+        | undefined;
+    }>(this.utils.createJsonRpcRequestPayload(EVMPayloadMethod.SwitchEVMChain, [{ chainId }]));
   };
 }

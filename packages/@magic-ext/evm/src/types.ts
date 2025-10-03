@@ -7,9 +7,3 @@ export enum EVMPayloadMethod {
 export interface EVMNetworkConfig extends CustomNodeConfiguration {
   default?: boolean;
 }
-
-export interface SwitchEVMChainResult {
-  rpcUrl: string;
-  chainId?: number;
-  chainType?: string;
-}
