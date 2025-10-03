@@ -13,7 +13,7 @@ export class EVMExtension extends Extension.Internal<'evm', any> {
     };
   }
 
-  public switchEVMChain = (chainId: number) => {
+  public switchChain = (chainId: number) => {
     return this.request<{
       network:
         | string
@@ -23,6 +23,6 @@ export class EVMExtension extends Extension.Internal<'evm', any> {
             chainType?: string;
           }
         | undefined;
-    }>(this.utils.createJsonRpcRequestPayload(EVMPayloadMethod.SwitchEVMChain, [{ chainId }]));
+    }>(this.utils.createJsonRpcRequestPayload(EVMPayloadMethod.switchChain, [{ chainId }]));
   };
 }

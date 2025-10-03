@@ -97,7 +97,7 @@ const provider = new ethers.BrowserProvider(magic.rpcProvider);
 const network = await provider.getNetwork();
 console.log(network.chainId); // => 137
 
-magic.evm.switchEVMChain(10);
+magic.evm.switchChain(10);
 
 const network = await provider.getNetwork();
 console.log(network.chainId); // => 10
