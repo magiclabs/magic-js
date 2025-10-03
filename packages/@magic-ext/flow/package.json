@@ -24,11 +24,11 @@
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons"
+      "@magic-sdk/provider"
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^26.0.0",
+    "@magic-sdk/provider": "^30.0.0",
     "@onflow/fcl": "^1.4.1",
     "@onflow/types": "^1.1.0"
   },

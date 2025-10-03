@@ -1,7 +1,7 @@
 {
-  "name": "@magic-ext/solana",
-  "version": "27.0.0",
-  "description": "magic solana extension",
+  "name": "@magic-ext/evm",
+  "version": "0.0.0",
+  "description": "magic evm extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
@@ -12,28 +12,24 @@
     "dist"
   ],
   "target": "neutral",
-  "cdnGlobalName": "MagicSolanaExtension",
+  "cdnGlobalName": "MagicEVMExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "jsdelivr": "./dist/extension.js",
   "exports": {
-    "types": "./dist/types/index.d.ts",
     "import": "./dist/es/index.mjs",
+    "types": "./dist/types/index.d.ts",
     "require": "./dist/cjs/index.js"
   },
   "externals": {
     "include": [
-      "@magic-sdk/provider"
+      "@magic-sdk/provider",
+      "@magic-sdk/types"
     ]
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^30.0.0"
-  },
-  "dependencies": {
-    "@solana/web3.js": "^1.87.2"
-  },
-  "peerDependencies": {
-    "@solana/web3.js": "^1.87.2"
+    "@magic-sdk/provider": "^29.5.0",
+    "@magic-sdk/types": "^24.22.0"
   }
 }

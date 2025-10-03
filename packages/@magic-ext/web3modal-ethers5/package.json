@@ -24,12 +24,12 @@
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons"
+      "@magic-sdk/provider"
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^26.0.0",
-    "@magic-sdk/types": "24.0.6-canary.742.10067162636.0"
+    "@magic-sdk/provider": "^30.0.0",
+    "@magic-sdk/types": "^25.0.0"
   },
   "dependencies": {
     "@web3modal/ethers5": "5.0.3",

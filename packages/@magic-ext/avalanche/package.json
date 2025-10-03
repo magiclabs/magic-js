@@ -12,7 +12,7 @@
     "dist"
   ],
   "target": "neutral",
-  "cdnGlobalName": "MagicSolanaExtension",
+  "cdnGlobalName": "MagicAvalancheExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
@@ -24,10 +24,10 @@
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons"
+      "@magic-sdk/provider"
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^26.0.0"
+    "@magic-sdk/provider": "^30.0.0"
   }
 }

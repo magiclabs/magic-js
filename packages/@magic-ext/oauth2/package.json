@@ -24,7 +24,6 @@
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons",
       "@magic-sdk/provider"
     ]
   },
@@ -32,7 +31,7 @@
     "crypto-js": "^4.2.0"
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^26.0.0",
+    "@magic-sdk/provider": "^30.0.0",
     "@types/crypto-js": "4.2.0"
   }
 }
