@@ -1,12 +1,8 @@
-import type { Magic } from 'magic-sdk/dist/types/index';
-import type OAuthExtension from '@magic-ext/oauth/dist/types/index.cdn';
-import type CDNMagic from 'magic-sdk/dist/types/index.cdn';
+import type { SDKBase, InstanceWithExtensions, MagicSDKExtensionsOption } from '@magic-sdk/provider';
+import type { OAuthExtension } from '@magic-ext/oauth2';
 
-declare global {
-  interface Window {
-    Magic: typeof CDNMagic;
-    MagicOAuthExtension?: typeof OAuthExtension;
-  }
-}
-
-export type { Magic, OAuthExtension };
+export type Magic<TExtensions extends MagicSDKExtensionsOption = MagicSDKExtensionsOption> = InstanceWithExtensions<
+  SDKBase,
+  TExtensions
+>;
+export type { OAuthExtension };

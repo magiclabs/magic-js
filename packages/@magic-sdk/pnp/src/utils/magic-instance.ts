@@ -1,15 +1,20 @@
 import { PlugNPlayExtension } from '../pnp-extension';
 import type { Magic, OAuthExtension } from '../types';
+import { OAuthExtension as OAuth2Extension } from '@magic-ext/oauth2';
+
+declare global {
+  interface Window {
+    Magic: any; // Magic constructor from magic-sdk
+    MagicOAuthExtension?: typeof OAuthExtension;
+  }
+}
 
 export function createMagicInstance(
   apiKey?: string,
   endpoint?: string,
   locale?: string,
 ): Magic<[PlugNPlayExtension, OAuthExtension]> {
-  const extensions = removeFalsey([
-    new PlugNPlayExtension(),
-    window.MagicOAuthExtension && new window.MagicOAuthExtension(),
-  ]);
+  const extensions = removeFalsey([new PlugNPlayExtension(), new OAuth2Extension()]);
 
   return new window.Magic(apiKey!, {
     endpoint,
