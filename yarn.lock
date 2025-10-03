@@ -505,7 +505,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-proposal-optional-chaining@npm:^7.13.12, @babel/plugin-proposal-optional-chaining@npm:^7.9.0":
+"@babel/plugin-proposal-optional-chaining@npm:^7.13.12":
   version: 7.21.0
   resolution: "@babel/plugin-proposal-optional-chaining@npm:7.21.0"
   dependencies:
@@ -3184,15 +3184,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-ext/oauth@npm:^24.0.0":
-  version: 24.0.0
-  resolution: "@magic-ext/oauth@npm:24.0.0"
-  dependencies:
-    crypto-js: ^4.2.0
-  checksum: e7092f1f2e7142820d12e76dd7b1117ef391ca33741c8983766492b8ccda7d3c46acb318adde55ae92872639e9f396f79a4af1dbc9fba47486f87c9cd9def4b8
-  languageName: node
-  linkType: hard
-
 "@magic-ext/oidc@workspace:packages/@magic-ext/oidc":
   version: 0.0.0-use.local
   resolution: "@magic-ext/oidc@workspace:packages/@magic-ext/oidc"
@@ -3305,16 +3296,6 @@ __metadata:
   resolution: "@magic-ext/zilliqa@workspace:packages/@magic-ext/zilliqa"
   dependencies:
     "@magic-sdk/provider": ^30.0.0
-  languageName: unknown
-  linkType: soft
-
-"@magic-sdk/pnp@workspace:packages/@magic-sdk/pnp":
-  version: 0.0.0-use.local
-  resolution: "@magic-sdk/pnp@workspace:packages/@magic-sdk/pnp"
-  dependencies:
-    "@babel/plugin-proposal-optional-chaining": ^7.9.0
-    "@magic-ext/oauth": ^24.0.0
-    magic-sdk: ^30.0.0
   languageName: unknown
   linkType: soft
 
@@ -14382,7 +14363,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"magic-sdk@^30.0.0, magic-sdk@workspace:packages/magic-sdk":
+"magic-sdk@workspace:packages/magic-sdk":
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
