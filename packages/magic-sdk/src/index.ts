@@ -12,7 +12,7 @@ export * from '@magic-sdk/types';
 export const Magic = createSDK(SDKBase, {
   platform: 'web',
   sdkName: 'magic-sdk',
-  version: '31.0.0',
+  version: process.env.WEB_VERSION!,
   defaultEndpoint: 'https://auth.magic.link/',
   ViewController: IframeController,
   configureStorage: async () => {
