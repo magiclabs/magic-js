@@ -10,7 +10,7 @@ export class SiweExtension extends Extension.Internal<'siwe'> {
     super();
   }
 
-  public async generateNonce(params: SiweGenerateNonceParams): Promise<string> {
+  public async generateNonce(params?: SiweGenerateNonceParams): Promise<string> {
     const requestPayload = this.utils.createJsonRpcRequestPayload(SiwePayloadMethod.GenerateNonce, [params]);
     return this.request<string>(requestPayload);
   }
