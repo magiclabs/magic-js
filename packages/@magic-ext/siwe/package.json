@@ -1,0 +1,36 @@
+{
+  "name": "@magic-ext/siwe",
+  "version": "1.0.0",
+  "description": "Magic SDK SIWE Extension for Web environments.",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "files": [
+    "dist"
+  ],
+  "target": "browser",
+  "cdnGlobalName": "MagicSiweExtension",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "jsdelivr": "./dist/extension.js",
+  "exports": {
+    "import": "./dist/es/index.mjs",
+    "types": "./dist/types/index.d.ts",
+    "require": "./dist/cjs/index.js"
+  },
+  "externals": {
+    "include": [
+      "@magic-sdk/provider"
+    ]
+  },
+  "dependencies": {
+    "siwe": "^3.0.0"
+  },
+  "devDependencies": {
+    "@magic-sdk/provider": "^31.0.0"
+  }
+}
