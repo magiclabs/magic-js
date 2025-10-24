@@ -8,6 +8,9 @@ import {
   OAuthRedirectStartResult,
   OAuthPopupConfiguration,
   OAuthVerificationConfiguration,
+  OAuthPopupEventOnReceived,
+  OAuthPopupEventEmit,
+  OAuthPopupEventHandlers,
 } from './types';
 
 declare global {
@@ -89,12 +92,21 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
       {
         ...configuration,
+        returnTo: window.location.href,
         apiKey: this.sdk.apiKey,
         platform: 'web',
       },
     ]);
 
-    return this.request<OAuthRedirectResult | OAuthRedirectError>(requestPayload);
+    const handle = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthPopupEventHandlers>(requestPayload);
+
+    handle.on(OAuthPopupEventOnReceived.PopupUrl, () => {
+      window.addEventListener('message', event => {
+        handle.emit(OAuthPopupEventEmit.PopupEvent, event.data);
+      });
+    });
+
+    return handle;
   }
 
   protected seamlessTelegramLogin() {
