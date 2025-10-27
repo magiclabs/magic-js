@@ -102,17 +102,20 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           requestPayload,
         );
 
-        oauthPopupRequest.on(OAuthPopupEventOnReceived.PopupUrl, popupUrl => {
-          console.log('SETTING UP MESSAGE LISTENER');
-          window.addEventListener('message', event => {
-            console.log('MESSAGE RECEIVED', event.data);
-            this.createIntermediaryEvent(OAuthPopupEventEmit.PopupEvent, requestPayload.id as string)(event.data);
-          });
+        const redirectEvent = (event: MessageEvent) => {
+          this.createIntermediaryEvent(OAuthPopupEventEmit.PopupEvent, requestPayload.id as string)(event.data);
+        };
 
-          promiEvent.emit(OAuthPopupEventOnReceived.PopupUrl, popupUrl);
-        });
+        if (configuration.shouldReturnURI) {
+          oauthPopupRequest.on(OAuthPopupEventOnReceived.PopupUrl, popupUrl => {
+            window.addEventListener('message', redirectEvent);
+            promiEvent.emit(OAuthPopupEventOnReceived.PopupUrl, popupUrl);
+          });
+        }
 
         const result = await oauthPopupRequest;
+        window.removeEventListener('message', redirectEvent);
+
         if ((result as OAuthRedirectError).error) {
           reject(result);
         } else {
