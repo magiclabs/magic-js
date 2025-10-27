@@ -111,6 +111,10 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
             window.addEventListener('message', redirectEvent);
             promiEvent.emit(OAuthPopupEventOnReceived.PopupUrl, popupUrl);
           });
+
+          promiEvent.on(OAuthPopupEventEmit.Cancel, () => {
+            this.createIntermediaryEvent(OAuthPopupEventEmit.Cancel, requestPayload.id as string);
+          });
         }
 
         const result = await oauthPopupRequest;
