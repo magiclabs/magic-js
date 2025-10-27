@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/provider';
+import { createPromiEvent, Extension } from '@magic-sdk/provider';
 import {
   OAuthErrorData,
   OAuthRedirectError,
@@ -89,24 +89,35 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   }
 
   public loginWithPopup(configuration: OAuthPopupConfiguration) {
-    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
-      {
-        ...configuration,
-        returnTo: window.location.href,
-        apiKey: this.sdk.apiKey,
-        platform: 'web',
-      },
-    ]);
+    const promiEvent = createPromiEvent(async (resolve, reject) => {
+      try {
+        const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
+          {
+            ...configuration,
+            returnTo: window.location.href,
+            apiKey: this.sdk.apiKey,
+            platform: 'web',
+          },
+        ]);
 
-    const handle = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthPopupEventHandlers>(requestPayload);
+        const oauthPopupRequest = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthPopupEventHandlers>(
+          requestPayload,
+        );
 
-    handle.on(OAuthPopupEventOnReceived.PopupUrl, () => {
-      window.addEventListener('message', event => {
-        handle.emit(OAuthPopupEventEmit.PopupEvent, event.data);
-      });
+        oauthPopupRequest.on(OAuthPopupEventOnReceived.PopupUrl, () => {
+          window.addEventListener('message', event => {
+            oauthPopupRequest.emit(OAuthPopupEventEmit.PopupEvent, event.data);
+          });
+        });
+
+        const result = await oauthPopupRequest;
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
     });
 
-    return handle;
+    return promiEvent;
   }
 
   protected seamlessTelegramLogin() {
