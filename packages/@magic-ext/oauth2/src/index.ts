@@ -87,17 +87,17 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   }
 
   public loginWithPopup(configuration: OAuthPopupConfiguration) {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
+      {
+        ...configuration,
+        returnTo: window.location.href,
+        apiKey: this.sdk.apiKey,
+        platform: 'web',
+      },
+    ]);
+
     const promiEvent = createPromiEvent<OAuthRedirectResult, OAuthPopupEventHandlers>(async (resolve, reject) => {
       try {
-        const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
-          {
-            ...configuration,
-            returnTo: window.location.href,
-            apiKey: this.sdk.apiKey,
-            platform: 'web',
-          },
-        ]);
-
         const oauthPopupRequest = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthPopupEventHandlers>(
           requestPayload,
         );
@@ -110,10 +110,6 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           oauthPopupRequest.on(OAuthPopupEventOnReceived.PopupUrl, popupUrl => {
             window.addEventListener('message', redirectEvent);
             promiEvent.emit(OAuthPopupEventOnReceived.PopupUrl, popupUrl);
-          });
-
-          promiEvent.on(OAuthPopupEventEmit.Cancel, () => {
-            this.createIntermediaryEvent(OAuthPopupEventEmit.Cancel, requestPayload.id as string);
           });
         }
 
@@ -128,6 +124,10 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       } catch (error) {
         reject(error);
       }
+    });
+
+    promiEvent.on(OAuthPopupEventEmit.Cancel, () => {
+      this.createIntermediaryEvent(OAuthPopupEventEmit.Cancel, requestPayload.id as string);
     });
 
     return promiEvent;
