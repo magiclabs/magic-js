@@ -29,7 +29,7 @@ import {
   RecoveryFactorEventEmit,
   RecoveryFactorEventOnReceived,
 } from './user-types';
-import { OAuthPopupEventEmit, OAuthPopupEventOnReceived } from '@magic-ext/oauth2';
+import { OAuthPopupEventEmit, OAuthPopupEventOnReceived } from './oauth-types';
 
 export type IntermediaryEvents =
   // EmailOTP

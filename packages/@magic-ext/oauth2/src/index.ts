@@ -8,10 +8,8 @@ import {
   OAuthRedirectStartResult,
   OAuthPopupConfiguration,
   OAuthVerificationConfiguration,
-  OAuthPopupEventOnReceived,
-  OAuthPopupEventEmit,
-  OAuthPopupEventHandlers,
 } from './types';
+import { OAuthPopupEventEmit, OAuthPopupEventHandlers, OAuthPopupEventOnReceived } from '@magic-sdk/types';
 
 declare global {
   interface Window {
