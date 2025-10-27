@@ -89,7 +89,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   }
 
   public loginWithPopup(configuration: OAuthPopupConfiguration) {
-    const promiEvent = createPromiEvent(async (resolve, reject) => {
+    const promiEvent = createPromiEvent<OAuthRedirectResult, OAuthPopupEventHandlers>(async (resolve, reject) => {
       try {
         const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
           {
@@ -104,14 +104,20 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           requestPayload,
         );
 
-        oauthPopupRequest.on(OAuthPopupEventOnReceived.PopupUrl, () => {
+        oauthPopupRequest.on(OAuthPopupEventOnReceived.PopupUrl, popupUrl => {
           window.addEventListener('message', event => {
             oauthPopupRequest.emit(OAuthPopupEventEmit.PopupEvent, event.data);
           });
+
+          promiEvent.emit(OAuthPopupEventOnReceived.PopupUrl, popupUrl);
         });
 
         const result = await oauthPopupRequest;
-        resolve(result);
+        if ((result as OAuthRedirectError).error) {
+          reject(result);
+        } else {
+          resolve(result as OAuthRedirectResult);
+        }
       } catch (error) {
         reject(error);
       }
