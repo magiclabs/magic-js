@@ -127,8 +127,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     });
 
     promiEvent.on(OAuthPopupEventEmit.Cancel, () => {
-      console.log('CANCELED');
-      this.createIntermediaryEvent(OAuthPopupEventEmit.Cancel, requestPayload.id as string);
+      this.createIntermediaryEvent(OAuthPopupEventEmit.Cancel, requestPayload.id as string)();
     });
 
     return promiEvent;
