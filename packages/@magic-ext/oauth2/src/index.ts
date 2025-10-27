@@ -108,7 +108,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           console.log('SETTING UP MESSAGE LISTENER');
           window.addEventListener('message', event => {
             console.log('MESSAGE RECEIVED', event.data);
-            oauthPopupRequest.emit(OAuthPopupEventEmit.PopupEvent, event.data);
+            this.createIntermediaryEvent(OAuthPopupEventEmit.PopupEvent, requestPayload.id as string)(event.data);
           });
 
           promiEvent.emit(OAuthPopupEventOnReceived.PopupUrl, popupUrl);
