@@ -1,3 +1,26 @@
+# (Thu Oct 30 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@13.1.0`, `@magic-sdk/types@25.1.0`
+  - feat: implement event listener for oauth popup [#952](https://github.com/magiclabs/magic-js/pull/952) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@25.1.0`
+  - chore: fix typos [#945](https://github.com/magiclabs/magic-js/pull/945) ([@Galoretka](https://github.com/Galoretka))
+- `@magic-sdk/provider@31.1.0`
+  - chore: fix some comments [#948](https://github.com/magiclabs/magic-js/pull/948) ([@letreturn](https://github.com/letreturn))
+
+#### Authors: 4
+
+- [@Galoretka](https://github.com/Galoretka)
+- [@letreturn](https://github.com/letreturn)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri Oct 03 2025)
 
 #### 💥 Breaking Change
