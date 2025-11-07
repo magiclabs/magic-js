@@ -93,6 +93,8 @@ export interface LoginWithEmailOTPConfiguration {
    */
   overrides?: {
     variation?: string;
+    appName?: string;
+    assetUrl?: string;
   };
 
   /**
