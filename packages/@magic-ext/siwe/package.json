@@ -28,13 +28,13 @@
     ]
   },
   "dependencies": {
-    "ethers": "^6.0.0",
     "siwe": "^3.0.0"
   },
   "peerDependencies": {
     "ethers": "^6.0.0"
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^31.0.0"
+    "@magic-sdk/provider": "^31.0.0",
+    "ethers": "^6.0.0"
   }
 }
