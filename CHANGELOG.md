@@ -1,3 +1,16 @@
+# (Mon Nov 10 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@25.2.0`
+  - feat: add custom logo types to loginWithEmailOtp [#955](https://github.com/magiclabs/magic-js/pull/955) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Thu Oct 30 2025)
 
 #### 🚀 Enhancement
