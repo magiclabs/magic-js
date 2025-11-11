@@ -1,3 +1,134 @@
+# v32.0.0 (Fri Oct 03 2025)
+
+#### 💥 Breaking Change
+
+- EVM Extension and new extension methods [#915](https://github.com/magiclabs/magic-js/pull/915) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v31.0.1 (Fri Sep 19 2025)
+
+#### 🐛 Bug Fix
+
+- Fix postMessage function signature [#943](https://github.com/magiclabs/magic-js/pull/943) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v31.0.0 (Wed Sep 03 2025)
+
+#### 💥 Breaking Change
+
+- Devin/1744245477 implement login with popup v2 [#879](https://github.com/magiclabs/magic-js/pull/879) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- docs: fix broken link [#936](https://github.com/magiclabs/magic-js/pull/936) ([@SADfronov](https://github.com/SADfronov))
+- fix: broken link in README.md [#916](https://github.com/magiclabs/magic-js/pull/916) ([@GarmashAlex](https://github.com/GarmashAlex))
+
+#### Authors: 5
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@GarmashAlex](https://github.com/GarmashAlex)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- SERHII BUHAI ([@SADfronov](https://github.com/SADfronov))
+
+---
+
+# v30.2.1 (Fri Jul 18 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix minor issue in the comment [#903](https://github.com/magiclabs/magic-js/pull/903) ([@bytesingsong](https://github.com/bytesingsong))
+
+#### Authors: 1
+
+- [@bytesingsong](https://github.com/bytesingsong)
+
+---
+
+# v30.2.0 (Tue Jul 15 2025)
+
+#### 🐛 Bug Fix
+
+- Fix Typos in Documentation and Comments [#899](https://github.com/magiclabs/magic-js/pull/899) ([@zeevick10](https://github.com/zeevick10))
+
+#### Authors: 1
+
+- FT ([@zeevick10](https://github.com/zeevick10))
+
+---
+
+# v30.0.7 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Pdeexp 2096 replace ikscodes browser env package in magic js [#877](https://github.com/magiclabs/magic-js/pull/877) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- chore: remove @ikscodes/browser-env [#842](https://github.com/magiclabs/magic-js/pull/842) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- Bump Jest version to 29.7.0 and update related testing dependencies [#873](https://github.com/magiclabs/magic-js/pull/873) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v30.0.6 (Thu Apr 03 2025)
+
+#### 🐛 Bug Fix
+
+- Rn bare [#872](https://github.com/magiclabs/magic-js/pull/872) ([@Ethella](https://github.com/Ethella))
+- skip RN test ([@Ethella](https://github.com/Ethella))
+- fix React-native SDK ([@Ethella](https://github.com/Ethella))
+- bump rn ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v30.0.4 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- add iframe.contentWindow check [#870](https://github.com/magiclabs/magic-js/pull/870) ([@Ethella](https://github.com/Ethella))
+- fix tests ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+- add iframe.contentWindow check ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v30.0.3 (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+- fix tests coverage ([@Ethella](https://github.com/Ethella))
+- fix ([@Ethella](https://github.com/Ethella))
+- Fix Extension typing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v29.21.0 (Wed Jan 08 2025)
 
 #### 🐛 Bug Fix

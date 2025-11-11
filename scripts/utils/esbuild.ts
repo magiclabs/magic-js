@@ -1,11 +1,11 @@
-import { build as esbuild, BuildFailure, BuildResult, Platform, Plugin, Format } from 'esbuild';
+import { build as esbuild, Platform, Plugin, Format } from 'esbuild';
 import path from 'path';
 import fse from 'fs-extra';
 import gzipSize from 'gzip-size';
 import brotliSize from 'brotli-size';
 import prettyBytes from 'pretty-bytes';
-import chalk from 'chalk';
 import execa from 'execa';
+import chalk from 'chalk';
 import { environment } from './environment';
 import { existsAsync } from './exists-async';
 
@@ -26,7 +26,6 @@ export async function build(options: ESBuildOptions) {
       await esbuild({
         bundle: true,
         minify: true,
-        watch: options.watch ? { onRebuild: onRebuildFactory(options) } : undefined,
         legalComments: 'none',
         platform: options.target ?? 'browser',
         format: options.format ?? 'cjs',
@@ -53,7 +52,6 @@ export async function build(options: ESBuildOptions) {
               }
             : undefined,
       });
-
       await printOutputSizeInfo(options);
     } catch (e) {
       console.error(e);
@@ -76,31 +74,13 @@ async function printOutputSizeInfo(options: ESBuildOptions) {
 }
 
 /**
- * Returns a function that can be used to handle rebuild events from ESBuild.
- */
-function onRebuildFactory(options: ESBuildOptions) {
-  return async (error: BuildFailure | null, result: BuildResult | null) => {
-    if (error) {
-      console.error(error.message);
-    } else {
-      await printOutputSizeInfo(options);
-    }
-  };
-}
-
-/**
  * Emits TypeScript typings for the current package.
  */
 export async function emitTypes(watch?: boolean) {
-  try {
-    if (watch) {
-      await execa('tsc', ['-w', '-p', 'node_modules/.temp/tsconfig.build.json']);
-    } else {
-      await execa('tsc', ['-p', 'node_modules/.temp/tsconfig.build.json']);
-    }
-  } catch (e) {
-    console.error(e);
-    throw e;
+  if (watch) {
+    await execa('tsc', ['-w', '-p', 'node_modules/.temp/tsconfig.build.json']);
+  } else {
+    await execa('tsc', ['-p', 'node_modules/.temp/tsconfig.build.json']);
   }
 }
 
@@ -131,7 +111,7 @@ async function getEntrypoint(format?: Format) {
 }
 
 /**
- * During the build step, we create an ephermeral "tsconfig.build.json" file
+ * During the build step, we create an ephemeral "tsconfig.build.json" file
  * containing config overrides to resolve "packages/.../src" as the "rootDir".
  *
  * Why? This is our workaround to avoid tsconfig project references, which make
@@ -178,7 +158,7 @@ function globalsPlugin(globals: Record<string, string>): Plugin[] {
     return {
       name: namespace,
       setup(builder) {
-        builder.onResolve({ filter: new RegExp(`^${packageName}$`) }, (args) => ({
+        builder.onResolve({ filter: new RegExp(`^${packageName}$`) }, args => ({
           path: args.path,
           namespace,
         }));
@@ -200,7 +180,6 @@ export async function getSizeInfo(code: string, filename: string) {
 
   const formatSize = (size: number, type: 'gz' | 'br') => {
     const pretty = raw ? `${size} B` : prettyBytes(size);
-    // eslint-disable-next-line no-nested-ternary
     const color = size < 5000 ? chalk.green : size > 40000 ? chalk.red : chalk.yellow;
     return `${color(pretty)}: ${chalk.white(path.basename(filename))}.${type}`;
   };

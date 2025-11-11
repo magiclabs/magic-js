@@ -43,7 +43,7 @@ export class AuthModule extends BaseModule {
     // RN SDK major version is greater than or equal to v19
     if (isRNMobilePackage && isMajorVersionAtLeast(SDKEnvironment.version, 19)) {
       throw new Error(
-        'loginWithMagicLink() is deprecated for this package, please utlize a passcode method like loginWithSMS or loginWithEmailOTP instead.',
+        'loginWithMagicLink() is deprecated for this package, please utilize a passcode method like loginWithSMS or loginWithEmailOTP instead.',
       );
     } else if (isRNMobilePackage) {
       // RN SDK major version is less than v19
@@ -127,6 +127,7 @@ export class AuthModule extends BaseModule {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.Cancel, requestPayload.id as any)();
       });
     }
+
     return handle;
   }
 

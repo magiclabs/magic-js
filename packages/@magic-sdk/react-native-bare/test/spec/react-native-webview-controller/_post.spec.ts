@@ -1,73 +1,82 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createModalNotReadyError } from '@magic-sdk/provider';
 import { createReactNativeWebViewController } from '../../factories';
 import { reactNativeStyleSheetStub } from '../../mocks';
+import { EventRegister } from 'react-native-event-listeners';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-beforeEach(() => {
-  browserEnv.restore();
-  reactNativeStyleSheetStub();
-});
-
-const emitStub = jest.fn();
-
-jest.mock('react-native-event-listeners', () => {
-  return {
-    EventRegister: {
-      emit: emitStub,
-      addEventListener: jest.fn(),
-    },
-  };
-});
-
-test('Calls webView._post with the expected arguments', async () => {
-  const overlay = createReactNativeWebViewController('http://example.com');
-
-  const postStub = jest.fn();
-  overlay.webView = { postMessage: postStub };
-
-  await overlay._post({ thisIsData: 'hello world' });
-
-  expect(postStub.mock.calls[0]).toEqual([JSON.stringify({ thisIsData: 'hello world' }), 'http://example.com']);
-});
-
-test('Throws MODAL_NOT_READY error if webView is nil', async () => {
-  const overlay = createReactNativeWebViewController();
-
-  overlay.webView = undefined;
-
-  const expectedError = createModalNotReadyError();
-
-  expect(() => overlay._post({ thisIsData: 'hello world' })).rejects.toThrow(expectedError);
-});
-
-test('Process Typed Array in a Solana Request', async () => {
-  const overlay = createReactNativeWebViewController('http://example.com');
-
-  const postStub = jest.fn();
-  overlay.webView = { postMessage: postStub };
-
-  await overlay._post({
-    msgType: 'MAGIC_HANDLE_REQUEST-troll',
-    payload: {
-      id: 3,
-      jsonrpc: '2.0',
-      method: 'sol_signMessage',
-      params: { message: new Uint8Array([72, 101, 108, 108, 111]) },
-    },
+describe('ReactNativeWebViewController', () => {
+  beforeEach(() => {
+    reactNativeStyleSheetStub();
+    jest.clearAllMocks();
+    EventRegister.emit = jest.fn();
+    EventRegister.addEventListener = jest.fn();
   });
 
-  expect(postStub.mock.calls[0]).toEqual([
-    '{"msgType":"MAGIC_HANDLE_REQUEST-troll","payload":{"id":3,"jsonrpc":"2.0","method":"sol_signMessage","params":{"message":{"constructor":"Uint8Array","data":"72,101,108,108,111","flag":"MAGIC_PAYLOAD_FLAG_TYPED_ARRAY"}}}}',
-    'http://example.com',
-  ]);
+  jest.mock('@react-native-async-storage/async-storage', () => ({
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+  }));
+
+  test('Calls webView._post with the expected arguments', async () => {
+    const overlay = createReactNativeWebViewController('http://example.com');
+
+    const postStub = jest.fn();
+    overlay.webView = { postMessage: postStub };
+
+    await overlay._post({ thisIsData: 'hello world' });
+
+    expect(postStub.mock.calls[0]).toEqual([JSON.stringify({ thisIsData: 'hello world' })]);
+  });
+
+  test('Throws MODAL_NOT_READY error if webView is nil', async () => {
+    const overlay = createReactNativeWebViewController();
+
+    overlay.webView = undefined;
+
+    const expectedError = createModalNotReadyError();
+
+    // Using async/await form with rejects; note that _post returns a Promise
+    await expect(overlay._post({ thisIsData: 'hello world' })).rejects.toThrow(expectedError);
+  });
+
+  test('Process Typed Array in a Solana Request', async () => {
+    const overlay = createReactNativeWebViewController('http://example.com');
+
+    const postStub = jest.fn();
+    overlay.webView = { postMessage: postStub };
+
+    await overlay._post({
+      msgType: 'MAGIC_HANDLE_REQUEST-troll',
+      payload: {
+        id: 3,
+        jsonrpc: '2.0',
+        method: 'sol_signMessage',
+        params: { message: new Uint8Array([72, 101, 108, 108, 111]) },
+      },
+    });
+
+    expect(postStub.mock.calls[0]).toEqual([
+      '{"msgType":"MAGIC_HANDLE_REQUEST-troll","payload":{"id":3,"jsonrpc":"2.0","method":"sol_signMessage","params":{"message":{"constructor":"Uint8Array","data":"72,101,108,108,111","flag":"MAGIC_PAYLOAD_FLAG_TYPED_ARRAY"}}}}',
+    ]);
+  });
+
+  test('Emits msg_posted_after_inactivity_event when msgPostedAfterInactivity returns true', async () => {
+    const overlay = createReactNativeWebViewController('http://example.com');
+
+    overlay.msgPostedAfterInactivity = () => true;
+    await overlay._post({ thisIsData: 'hello world' });
+
+    expect(EventRegister.emit).toHaveBeenCalledTimes(1);
+    expect(EventRegister.emit).toHaveBeenCalledWith('msg_posted_after_inactivity_event', { thisIsData: 'hello world' });
+  });
 });
 
-test('Emits msg_posted_after_inactivity_event when msgPostedAfterInactivity returns true', async () => {
-  const overlay = createReactNativeWebViewController('http://example.com');
+test('returns true when more than 5 minutes have passed since the last post', async () => {
+  const controller = createReactNativeWebViewController('http://example.com');
 
-  overlay.msgPostedAfterInactivity = () => true;
-  await overlay._post({ thisIsData: 'hello world' });
-
-  expect(emitStub).toBeCalledTimes(1);
-  expect(emitStub).toHaveBeenCalledWith('msg_posted_after_inactivity_event', { thisIsData: 'hello world' });
+  const sixMinutesAgo = new Date(Date.now() - 6 * 60 * 1000).toISOString();
+  (AsyncStorage.getItem as jest.Mock).mockResolvedValue(sixMinutesAgo);
+  const result = await controller.msgPostedAfterInactivity();
+  expect(result).toBe(true);
+  expect(AsyncStorage.getItem).toHaveBeenCalledWith('lastMessageTime');
 });

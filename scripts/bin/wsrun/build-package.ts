@@ -1,10 +1,4 @@
 #!/usr/bin/env ts-node-script
-
-/* eslint-disable import/no-dynamic-require */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable global-require */
-
 import pLimit from 'p-limit';
 import isCI from 'is-ci';
 import { build, createTemporaryTSConfigFile, emitTypes } from '../../utils/esbuild';
@@ -18,7 +12,7 @@ function getExternalsFromPkgJson(pkgJson: any): string[] {
 
   const defaultExternals = [...dependencies, ...peerDependencies, ...includes];
 
-  return defaultExternals.filter((dep) => !excludes.includes(dep));
+  return defaultExternals.filter(dep => !excludes.includes(dep));
 }
 
 async function cjs(watch?: boolean) {
@@ -61,10 +55,10 @@ async function cdn(watch?: boolean) {
 
   if (pkgJson.cdnGlobalName) {
     // For CDN targets outside of `magic-sdk` itself,
-    // we assume `magic-sdk` & `@magic-sdk/commons` are external/global.
+    // we assume `magic-sdk` & `@magic-sdk/provider` are external/global.
     const isMagicSDK = process.cwd().endsWith('packages/magic-sdk');
-    const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/commons'];
-    const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/commons': 'Magic' };
+    const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/provider'];
+    const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/provider': 'Magic' };
 
     await build({
       watch,
@@ -109,13 +103,33 @@ async function main() {
   await createTemporaryTSConfigFile();
 
   if (process.env.DEV_SERVER) {
-    const builders = [cjs(true), esm(true), cdn(true), reactNativeBareHybridExtension(true), reactNativeExpoHybridExtension(true), emitTypes(true)];
-    await Promise.all(builders);
+    const builders = [
+      cjs(true),
+      esm(true),
+      cdn(true),
+      reactNativeBareHybridExtension(true),
+      reactNativeExpoHybridExtension(true),
+      emitTypes(true),
+    ];
+    await Promise.all(builders).catch(e => {
+      console.log(e);
+      throw e;
+    });
   } else {
     // We need to limit concurrency in CI to avoid ENOMEM errors.
     const limit = pLimit(isCI ? 2 : 4);
-    const builders = [limit(cjs), limit(esm), limit(cdn), limit(reactNativeBareHybridExtension), limit(reactNativeExpoHybridExtension), limit(emitTypes)];
-    await Promise.all(builders);
+    const builders = [
+      limit(cjs),
+      limit(esm),
+      limit(cdn),
+      limit(reactNativeBareHybridExtension),
+      limit(reactNativeExpoHybridExtension),
+      limit(emitTypes),
+    ];
+    await Promise.all(builders).catch(e => {
+      console.log(e);
+      throw e;
+    });
   }
 }
 

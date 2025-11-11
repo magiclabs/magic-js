@@ -1,13 +1,12 @@
-import { ViewController, createDuplicateIframeWarning, createURL, createModalNotReadyError } from '@magic-sdk/provider';
-import { MagicIncomingWindowMessage, MagicOutgoingWindowMessage } from '@magic-sdk/types';
+import { createDuplicateIframeWarning, createModalNotReadyError, createURL, ViewController } from '@magic-sdk/provider';
+import { MagicIncomingWindowMessage } from '@magic-sdk/types';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
  * to render above all other DOM content.
  */
 const overlayStyles: Partial<CSSStyleDeclaration> = {
-  display: 'block',
-  visibility: 'hidden',
+  display: 'none',
   position: 'fixed',
   top: '0',
   right: '0',
@@ -15,9 +14,10 @@ const overlayStyles: Partial<CSSStyleDeclaration> = {
   height: '100%',
   borderRadius: '0',
   border: 'none',
-  zIndex: '2147483647',
   // necessary for iOS Safari
   opacity: '0',
+  // necessary for iOS 17 and earlier
+  zIndex: '-1',
 };
 
 /**
@@ -42,25 +42,14 @@ function checkForSameSrcInstances(parameters: string) {
   return Boolean(iframes.find(iframe => iframe.src.includes(parameters)));
 }
 
-const SECOND = 1000;
-const MINUTE = 60 * SECOND;
-const RESPONSE_DELAY = 15 * SECOND; // 15 seconds
-const PING_INTERVAL = 2 * MINUTE; // 2 minutes
-const INITIAL_HEARTBEAT_DELAY = 60 * MINUTE; // 1 hour
-
 /**
  * View controller for the Magic `<iframe>` overlay.
  */
 export class IframeController extends ViewController {
-  private iframe!: Promise<HTMLIFrameElement>;
   private activeElement: any = null;
-  private lastPingTime = Date.now();
-  private intervalTimer: ReturnType<typeof setInterval> | null = null;
-  private timeoutTimer: ReturnType<typeof setTimeout> | null = null;
+  private iframe!: Promise<HTMLIFrameElement>;
+  private relayerSrc = createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
 
-  private getIframeSrc() {
-    return createURL(`/send?params=${encodeURIComponent(this.parameters)}`, this.endpoint).href;
-  }
   /**
    * Initializes the underlying `<iframe>` element.
    * Initializes the underlying `Window.onmessage` event listener.
@@ -74,7 +63,7 @@ export class IframeController extends ViewController {
           iframe.classList.add('magic-iframe');
           iframe.dataset.magicIframeLabel = createURL(this.endpoint).host;
           iframe.title = 'Secure Modal';
-          iframe.src = this.getIframeSrc();
+          iframe.src = this.relayerSrc;
           iframe.allow = 'clipboard-read; clipboard-write';
           applyOverlayStyles(iframe);
           document.body.appendChild(iframe);
@@ -96,23 +85,23 @@ export class IframeController extends ViewController {
     this.iframe.then(iframe => {
       if (iframe instanceof HTMLIFrameElement) {
         iframe.addEventListener('load', async () => {
-          await this.startHeartBeat();
+          this.heartbeatDebounce();
         });
       }
     });
 
     window.addEventListener('message', (event: MessageEvent) => {
-      if (event.origin === this.endpoint) {
-        if (event.data && event.data.msgType && this.messageHandlers.size) {
-          const isPongMessage = event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG);
+      if (event.origin === this.endpoint && event.data.msgType) {
+        if (event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG)) {
+          // Mark the Pong time
+          this.lastPongTime = Date.now();
+        }
 
-          if (isPongMessage) {
-            this.lastPingTime = Date.now();
-          }
+        if (event.data && this.messageHandlers.size) {
           // If the response object is undefined, we ensure it's at least an
           // empty object before passing to the event listener.
-          /* istanbul ignore next */
           event.data.response = event.data.response ?? {};
+          this.stopHeartBeat();
           for (const handler of this.messageHandlers.values()) {
             handler(event);
           }
@@ -127,7 +116,8 @@ export class IframeController extends ViewController {
 
   protected async showOverlay() {
     const iframe = await this.iframe;
-    iframe.style.visibility = 'visible';
+    iframe.style.display = 'block';
+    iframe.style.zIndex = '2147483647';
     iframe.style.opacity = '1';
     this.activeElement = document.activeElement;
     iframe.focus();
@@ -135,7 +125,8 @@ export class IframeController extends ViewController {
 
   protected async hideOverlay() {
     const iframe = await this.iframe;
-    iframe.style.visibility = 'hidden';
+    iframe.style.display = 'none';
+    iframe.style.zIndex = '-1';
     iframe.style.opacity = '0';
     if (this.activeElement?.focus) this.activeElement.focus();
     this.activeElement = null;
@@ -150,48 +141,40 @@ export class IframeController extends ViewController {
     }
   }
 
-  private heartBeatCheck() {
-    this.intervalTimer = setInterval(async () => {
-      const message = { msgType: `${MagicOutgoingWindowMessage.MAGIC_PING}-${this.parameters}`, payload: [] };
-
-      await this._post(message);
-
-      const timeSinceLastPing = Date.now() - this.lastPingTime;
-
-      if (timeSinceLastPing > RESPONSE_DELAY) {
-        await this.reloadIframe();
-        this.lastPingTime = Date.now();
-      }
-    }, PING_INTERVAL);
-  }
-
-  private async startHeartBeat() {
+  protected async checkRelayerExistsInDOM() {
     const iframe = await this.iframe;
 
-    if (iframe) {
-      this.timeoutTimer = setTimeout(() => this.heartBeatCheck(), INITIAL_HEARTBEAT_DELAY);
+    // Check iframe reference
+    if (!iframe || !iframe.contentWindow) {
+      return false;
     }
+
+    // Check if the iframe is already in the DOM
+    const iframes: HTMLIFrameElement[] = [].slice.call(document.querySelectorAll('.magic-iframe'));
+    return Boolean(iframes.find(iframe => iframe.src.includes(encodeURIComponent(this.parameters))));
   }
 
-  private stopHeartBeat() {
-    if (this.timeoutTimer) {
-      clearTimeout(this.timeoutTimer);
-      this.timeoutTimer = null;
-    }
-
-    if (this.intervalTimer) {
-      clearInterval(this.intervalTimer);
-      this.intervalTimer = null;
-    }
-  }
-
-  private async reloadIframe() {
+  async reloadRelayer() {
     const iframe = await this.iframe;
 
+    // Reset HeartBeat
+    this.stopHeartBeat();
+
+    if (!iframe) {
+      this.init();
+      console.warn('Magic SDK: Modal lost, re-initiating');
+      return;
+    }
+
+    if (!iframe.contentWindow) {
+      document.body.appendChild(iframe);
+      console.warn('Magic SDK: Modal did not append in the iframe, re-initiating');
+      return;
+    }
+
     if (iframe) {
-      iframe.src = this.getIframeSrc();
-    } else {
-      throw createModalNotReadyError();
+      // if iframe exists, reload the iframe source
+      iframe.src = this.relayerSrc;
     }
   }
 }

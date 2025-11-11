@@ -1,3 +1,140 @@
+# v31.0.0 (Fri Oct 03 2025)
+
+#### 💥 Breaking Change
+
+- EVM Extension and new extension methods [#915](https://github.com/magiclabs/magic-js/pull/915) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v30.0.0 (Wed Sep 03 2025)
+
+#### 🐛 Bug Fix
+
+- docs: fix typos and improve comments across packages [#937](https://github.com/magiclabs/magic-js/pull/937) ([@Forostovec](https://github.com/Forostovec))
+
+#### Authors: 1
+
+- [@Forostovec](https://github.com/Forostovec)
+
+---
+
+# v29.4.1 (Fri Aug 01 2025)
+
+#### 🐛 Bug Fix
+
+- fix: correct @magic-ext packages link in magic-sdk README [#911](https://github.com/magiclabs/magic-js/pull/911) ([@MozirDmitriy](https://github.com/MozirDmitriy))
+
+#### Authors: 1
+
+- [@MozirDmitriy](https://github.com/MozirDmitriy)
+
+---
+
+# v29.2.1 (Fri Jul 18 2025)
+
+#### 🐛 Bug Fix
+
+- revert overlay control to none [#907](https://github.com/magiclabs/magic-js/pull/907) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.6 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Pdeexp 2096 replace ikscodes browser env package in magic js [#877](https://github.com/magiclabs/magic-js/pull/877) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- chore: remove @ikscodes/browser-env [#842](https://github.com/magiclabs/magic-js/pull/842) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.4 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- add iframe.contentWindow check [#870](https://github.com/magiclabs/magic-js/pull/870) ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+- add iframe.contentWindow check ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.3 (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+- fix tests coverage ([@Ethella](https://github.com/Ethella))
+- fix tests ([@Ethella](https://github.com/Ethella))
+- only apply heartbeat check to web ([@Ethella](https://github.com/Ethella))
+- Fix Extension typing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.2 (Sat Mar 22 2025)
+
+#### 🐛 Bug Fix
+
+- implement checkIframeExists [#863](https://github.com/magiclabs/magic-js/pull/863) ([@Ethella](https://github.com/Ethella))
+- ignore ([@Ethella](https://github.com/Ethella))
+- update comment ([@Ethella](https://github.com/Ethella))
+- fix test ([@Ethella](https://github.com/Ethella))
+- improve debounce logic ([@Ethella](https://github.com/Ethella))
+- rewrite revival logic and use debounce instead ([@Ethella](https://github.com/Ethella))
+- update comments ([@Ethella](https://github.com/Ethella))
+- fix interval not working properly ([@Ethella](https://github.com/Ethella))
+- Add new errors to catch modal being missing ([@Ethella](https://github.com/Ethella))
+- add more console.log ([@Ethella](https://github.com/Ethella))
+- add try catch around postMessage ([@Ethella](https://github.com/Ethella))
+- add console.log ([@Ethella](https://github.com/Ethella))
+- implement checkIframeExists ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v28.21.1 (Mon Feb 03 2025)
+
+#### 🐛 Bug Fix
+
+- fix: unable to scroll on ios safari [#851](https://github.com/magiclabs/magic-js/pull/851) ([@joshuascan](https://github.com/joshuascan))
+- chore: remove scale ([@joshuascan](https://github.com/joshuascan))
+- chore: adds scale prop ([@joshuascan](https://github.com/joshuascan))
+- chore: adjust zindex ([@joshuascan](https://github.com/joshuascan))
+- Merge remote-tracking branch 'refs/remotes/origin/PDEEXP-2252-unable-to-scroll-on-i-os-safari' into PDEEXP-2252-unable-to-scroll-on-i-os-safari ([@joshuascan](https://github.com/joshuascan))
+- chore: fix test ([@joshuascan](https://github.com/joshuascan))
+- Merge branch 'master' into PDEEXP-2252-unable-to-scroll-on-i-os-safari ([@joshuascan](https://github.com/joshuascan))
+- chore: switch to point events ([@joshuascan](https://github.com/joshuascan))
+- chore: readd display values ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v28.21.0 (Wed Jan 08 2025)
 
 #### 🐛 Bug Fix

@@ -1,11 +1,10 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK, createMagicSDKTestMode } from '../../../factories';
 import { BaseModule } from '../../../../src/modules/base-module';
 import { isPromiEvent, storage } from '../../../../src/util';
 import { mockLocalForage } from '../../../mocks';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Resolves immediately when cached magic_auth_is_logged_in is true', async () => {
@@ -93,6 +92,19 @@ test('Emits user logged out event when logout resolves', async () => {
   const spyEmitUserLoggedOut = jest.spyOn(magic.user, 'emitUserLoggedOut');
 
   await magic.user.logout();
+
+  expect(spyEmitUserLoggedOut).toHaveBeenCalledWith(true);
+});
+
+test('Emits user logged out event when isLoggedIn', async () => {
+  mockLocalForage({ magic_auth_is_logged_in: 'true' });
+  const magic = createMagicSDK();
+  magic.useStorageCache = true;
+  magic.user.request = jest.fn().mockResolvedValue(false);
+
+  const spyEmitUserLoggedOut = jest.spyOn(magic.user, 'emitUserLoggedOut');
+
+  await magic.user.isLoggedIn();
 
   expect(spyEmitUserLoggedOut).toHaveBeenCalledWith(true);
 });

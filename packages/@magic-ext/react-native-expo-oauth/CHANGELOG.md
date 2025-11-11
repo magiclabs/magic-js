@@ -1,3 +1,58 @@
+# v27.0.0 (Wed Sep 03 2025)
+
+#### 💥 Breaking Change
+
+- Devin/1744245477 implement login with popup v2 [#879](https://github.com/magiclabs/magic-js/pull/879) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 3
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v26.0.7 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Revert "Remove Extension class and rename InternalExtension to MagicExtension" [#882](https://github.com/magiclabs/magic-js/pull/882) ([@Ethella](https://github.com/Ethella))
+- Remove Extension class and rename InternalExtension to MagicExtension [#881](https://github.com/magiclabs/magic-js/pull/881) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v26.0.5 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v26.0.3 (Mon Mar 24 2025)
+
+#### 🐛 Bug Fix
+
+- bump crypto-js [#864](https://github.com/magiclabs/magic-js/pull/864) ([@Ethella](https://github.com/Ethella))
+- address deepsource suggestion ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into bump-cryptojs ([@Ethella](https://github.com/Ethella))
+- bump crypto-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v25.21.0 (Wed Jan 08 2025)
 
 #### 🐛 Bug Fix

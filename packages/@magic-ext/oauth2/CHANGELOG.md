@@ -1,3 +1,103 @@
+# v13.1.0 (Thu Oct 30 2025)
+
+#### 🚀 Enhancement
+
+- feat: implement event listener for oauth popup [#952](https://github.com/magiclabs/magic-js/pull/952) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v13.0.0 (Fri Oct 03 2025)
+
+#### 💥 Breaking Change
+
+- EVM Extension and new extension methods [#915](https://github.com/magiclabs/magic-js/pull/915) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- remove oauth package from mono-repo [#940](https://github.com/magiclabs/magic-js/pull/940) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v11.5.0 (Fri Aug 15 2025)
+
+#### 🚀 Enhancement
+
+- feat: add provider config to oauth types [#925](https://github.com/magiclabs/magic-js/pull/925) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v11.0.6 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Revert "Remove Extension class and rename InternalExtension to MagicExtension" [#882](https://github.com/magiclabs/magic-js/pull/882) ([@Ethella](https://github.com/Ethella))
+- Remove Extension class and rename InternalExtension to MagicExtension [#881](https://github.com/magiclabs/magic-js/pull/881) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v11.0.4 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v11.0.2 (Mon Mar 24 2025)
+
+#### 🐛 Bug Fix
+
+- bump crypto-js [#864](https://github.com/magiclabs/magic-js/pull/864) ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into bump-cryptojs ([@Ethella](https://github.com/Ethella))
+- bump crypto-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v11.0.0 (Tue Mar 11 2025)
+
+#### 💥 Breaking Change
+
+- add skipDIDToken to magic.oauth.getRedirectResult [#862](https://github.com/magiclabs/magic-js/pull/862) ([@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- change the name returnPublicAddress to skipDIDToken ([@Ethella](https://github.com/Ethella))
+- make returnPublicAddress optional ([@Ethella](https://github.com/Ethella))
+- add return public address ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v9.21.0 (Wed Jan 08 2025)
 
 #### 🐛 Bug Fix

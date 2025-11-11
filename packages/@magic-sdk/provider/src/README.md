@@ -14,7 +14,7 @@ There are numerous code paths that [`./modules`](./modules) can follow to intera
 
 ```ts
 // `magic.auth` and `magic.user` methods follow this pattern.
-magic.user.getMetadata();
+magic.user.getInfo();
 
 BaseModule.request -> ViewController.post -> Window.postMessage -> iframe
 ```

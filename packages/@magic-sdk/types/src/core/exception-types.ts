@@ -1,6 +1,7 @@
 export enum SDKErrorCode {
   MissingApiKey = 'MISSING_API_KEY',
   ModalNotReady = 'MODAL_NOT_READY',
+  ConnectionLost = 'CONNECTION_WAS_LOST',
   MalformedResponse = 'MALFORMED_RESPONSE',
   InvalidArgument = 'INVALID_ARGUMENT',
   ExtensionNotInitialized = 'EXTENSION_NOT_INITIALIZED',
@@ -34,6 +35,7 @@ export enum RPCErrorCode {
   InactiveRecipient = -10010,
   AccessDeniedToUser = -10011,
   RedirectLoginComplete = -10015,
+  DpopInvalidated = -10019,
 }
 
 export type ErrorCode = SDKErrorCode | RPCErrorCode;

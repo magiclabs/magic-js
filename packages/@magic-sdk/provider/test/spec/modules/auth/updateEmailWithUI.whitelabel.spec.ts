@@ -1,14 +1,13 @@
-import browserEnv from '@ikscodes/browser-env';
 import { RecencyCheckEventEmit, UpdateEmailEventEmit } from '@magic-sdk/types';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
 });
 
 test('Generate JSON RPC request payload with method `magic_auth_update_email` whitelabel and start recency check', async () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -28,7 +27,7 @@ test('Generate JSON RPC request payload with method `magic_auth_update_email` wh
 
 test('Whitelabel `magic_auth_update_email`, recency check Retry event', async () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -42,7 +41,7 @@ test('Whitelabel `magic_auth_update_email`, recency check Retry event', async ()
 
 test('Whitelabel `magic_auth_update_email`, Update Email, fire retry with Email event', async () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -59,7 +58,7 @@ test('Whitelabel `magic_auth_update_email`, Update Email, fire retry with Email 
 
 test('Generate JSON RPC request payload with method `magic_auth_update_email` whitelabel and start verify Email otp ', async () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -73,6 +72,25 @@ test('Generate JSON RPC request payload with method `magic_auth_update_email` wh
   expect(verifyEvent[0]).toBe(UpdateEmailEventEmit.VerifyEmailOtp);
   expect(createIntermediaryEventFn.mock.calls[0][0]).toBe(troll_otp);
 
+  const intermediaryEventSecondMethod = magic.auth.createIntermediaryEvent.mock.calls[1][0];
+  expect(intermediaryEventSecondMethod).toBe(UpdateEmailEventEmit.Cancel);
+});
+
+test('Generate JSON RPC request payload with method `magic_auth_update_email` whitelabel and VerifyMFACode', async () => {
+  const magic = createMagicSDK();
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  const createIntermediaryEventFn = jest.fn();
+  magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
+
+  const handle = magic.auth.updateEmailWithUI({ email: 'test', showUI: false });
+
+  const mfa = '123456';
+  handle.emit(RecencyCheckEventEmit.VerifyMFACode, mfa);
+  handle.emit(UpdateEmailEventEmit.Cancel);
+
+  const verifyEvent = magic.auth.createIntermediaryEvent.mock.calls[0];
+  expect(verifyEvent[0]).toBe(RecencyCheckEventEmit.VerifyMFACode);
+  expect(createIntermediaryEventFn.mock.calls[0][0]).toBe(mfa);
   const intermediaryEventSecondMethod = magic.auth.createIntermediaryEvent.mock.calls[1][0];
   expect(intermediaryEventSecondMethod).toBe(UpdateEmailEventEmit.Cancel);
 });

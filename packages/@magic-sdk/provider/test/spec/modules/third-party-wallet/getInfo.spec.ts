@@ -1,10 +1,9 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 import { mockLocalStorage } from '../../../mocks';
 import { BaseModule } from '../../../../src/modules/base-module';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   jest.useFakeTimers();
   mockLocalStorage();
 });
@@ -51,6 +50,7 @@ describe('format web3modal getinfo response', () => {
     expect(response).toEqual({
       publicAddress: '0x1234567890',
       email: null,
+      firstLoginAt: null,
       issuer: 'did:ethr:0x1234567890',
       phoneNumber: null,
       isMfaEnabled: false,

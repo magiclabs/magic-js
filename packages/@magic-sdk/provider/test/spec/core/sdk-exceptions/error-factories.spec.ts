@@ -1,4 +1,3 @@
-import browserEnv from '@ikscodes/browser-env';
 import { Extension } from '../../../../src/modules/base-extension';
 import { mockSDKEnvironmentConstant, restoreSDKEnvironmentConstants } from '../../../mocks';
 
@@ -12,7 +11,7 @@ function errorAssertions(error: any, expectedCode: string, expectedMessage: stri
 
 beforeEach(() => {
   jest.resetModules();
-  browserEnv.restore();
+  jest.resetAllMocks();
   restoreSDKEnvironmentConstants();
 });
 
@@ -29,7 +28,7 @@ test('Creates a `MISSING_API_KEY` error', async () => {
 test('Creates a `MODAL_NOT_READY` error', async () => {
   const { createModalNotReadyError } = require('../../../../src/core/sdk-exceptions');
   const error = createModalNotReadyError();
-  errorAssertions(error, 'MODAL_NOT_READY', 'Modal is not ready.');
+  errorAssertions(error, 'MODAL_NOT_READY', 'Modal is not ready');
 });
 
 test('Creates a `MALFORMED_RESPONSE` error', async () => {
@@ -117,6 +116,7 @@ class NoopExtSupportingWeb extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': '>1.0.0',
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': false,
     '@magic-sdk/react-native-expo': false,
   };
@@ -127,6 +127,7 @@ class NoopExtSupportingBareReactNative extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': '>1.0.0',
     '@magic-sdk/react-native-expo': false,
   };
@@ -137,6 +138,7 @@ class NoopExtSupportingExpoReactNative extends Extension<'noop'> {
   name = 'noop' as const;
   compat = {
     'magic-sdk': false,
+    '@magic-sdk/react-native': false,
     '@magic-sdk/react-native-bare': false,
     '@magic-sdk/react-native-expo': '>1.0.0',
   };

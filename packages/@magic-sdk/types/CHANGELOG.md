@@ -1,3 +1,117 @@
+# v25.2.0 (Mon Nov 10 2025)
+
+#### 🚀 Enhancement
+
+- feat: add custom logo types to loginWithEmailOtp [#955](https://github.com/magiclabs/magic-js/pull/955) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v25.1.0 (Thu Oct 30 2025)
+
+#### 🚀 Enhancement
+
+- feat: implement event listener for oauth popup [#952](https://github.com/magiclabs/magic-js/pull/952) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- chore: fix typos [#945](https://github.com/magiclabs/magic-js/pull/945) ([@Galoretka](https://github.com/Galoretka))
+
+#### Authors: 3
+
+- [@Galoretka](https://github.com/Galoretka)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v25.0.0 (Wed Sep 03 2025)
+
+#### 🐛 Bug Fix
+
+- docs(types): fix typos in auth-types comments [#932](https://github.com/magiclabs/magic-js/pull/932) ([@phrwlk](https://github.com/phrwlk))
+- Core package revisions [#938](https://github.com/magiclabs/magic-js/pull/938) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@phrwlk](https://github.com/phrwlk)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v24.21.0 (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- adds skip did token to query params [#909](https://github.com/magiclabs/magic-js/pull/909) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v24.20.0 (Tue Jul 15 2025)
+
+#### 🚀 Enhancement
+
+- feat: implement factors updated event [#904](https://github.com/magiclabs/magic-js/pull/904) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- chore: fix some typos in comment [#901](https://github.com/magiclabs/magic-js/pull/901) ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- 曹家巧 ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+---
+
+# v24.19.0 (Tue May 27 2025)
+
+#### 🚀 Enhancement
+
+- add firstLoginAt [#895](https://github.com/magiclabs/magic-js/pull/895) ([@Ethella](https://github.com/Ethella))
+- feat: add login throttled event to email otp [#889](https://github.com/magiclabs/magic-js/pull/889) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v24.18.2 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- feat: handle dpop error [#886](https://github.com/magiclabs/magic-js/pull/886) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v24.18.1 (Sat Mar 22 2025)
+
+#### 🐛 Bug Fix
+
+- implement checkIframeExists [#863](https://github.com/magiclabs/magic-js/pull/863) ([@Ethella](https://github.com/Ethella))
+- update Error message ([@Ethella](https://github.com/Ethella))
+- Add new errors to catch modal being missing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v24.18.0 (Wed Jan 08 2025)
 
 #### 🚀 Enhancement

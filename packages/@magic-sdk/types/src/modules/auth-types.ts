@@ -24,14 +24,14 @@ export interface LoginWithMagicLinkConfiguration {
   /**
    * Enterprise users with a custom SMTP can create custom email templates
    * from their dashboard. The default Magic loginWithMagicLink email will be
-   * overriden when a variation is passed here.
+   * overridden when a variation is passed here.
    */
   overrides?: {
     variation?: string;
   };
 
   /**
-   * The number of seconds until the generated Decenteralized ID token will expire.
+   * The number of seconds until the generated Decentralized ID token will expire.
    */
   lifespan?: number;
 }
@@ -53,7 +53,7 @@ export interface LoginWithSmsConfiguration {
   showUI?: boolean;
 
   /*
-   * The number of seconds until the generated Decenteralized ID token will expire.
+   * The number of seconds until the generated Decentralized ID token will expire.
    */
   lifespan?: number;
 }
@@ -80,7 +80,7 @@ export interface LoginWithEmailOTPConfiguration {
    * prompting them to verify their login by checking their email for device approval. This feature
    * enhances authentication security.
    *
-   * This param will only be affect if showUI is false. When set to false,
+   * This param will only be affected if showUI is false. When set to false,
    * developers have the flexibility to implement their own customized UI to
    * handle device check events, providing a more tailored user experience.
    */
@@ -89,14 +89,16 @@ export interface LoginWithEmailOTPConfiguration {
   /**
    * Enterprise users with a custom SMTP can create custom email templates
    * from their dashboard. The default Magic loginWithOTP email will be
-   * overriden when a variation is passed here.
+   * overridden when a variation is passed here.
    */
   overrides?: {
     variation?: string;
+    appName?: string;
+    assetUrl?: string;
   };
 
   /**
-   * The number of seconds until the generated Decenteralized ID token will expire.
+   * The number of seconds until the generated Decentralized ID token will expire.
    */
   lifespan?: number;
 }
@@ -108,7 +110,7 @@ export interface LoginWithCredentialConfiguration {
   credentialOrQueryString?: string;
 
   /**
-   * The number of seconds until the generated Decenteralized ID token will expire.
+   * The number of seconds until the generated Decentralized ID token will expire.
    */
   lifespan?: number;
 }
@@ -116,7 +118,7 @@ export interface LoginWithCredentialConfiguration {
 export interface EnableMFAConfiguration {
   /**
    * When `true`, a pre-built modal interface will show to the user, directing
-   * them to enable MFA usign Google Authenticator app.
+   * them to enable MFA using Google Authenticator app.
    *
    * When `false`, developers will be able to implement their own custom UI to
    * continue the enable MFA flow.
@@ -176,6 +178,7 @@ export enum LoginWithEmailOTPEventOnReceived {
   RecoveryCodeSentHandle = 'recovery-code-sent-handle',
   InvalidRecoveryCode = 'invalid-recovery-code',
   RecoveryCodeSuccess = 'recovery-code-success',
+  LoginThrottled = 'login-throttled',
 }
 
 export enum DeviceVerificationEventEmit {
@@ -279,6 +282,7 @@ export type LoginWithSmsOTPEventHandlers = {
 export type LoginWithEmailOTPEventHandlers = {
   // Event Received
   [LoginWithEmailOTPEventOnReceived.EmailOTPSent]: () => void;
+  [LoginWithEmailOTPEventOnReceived.LoginThrottled]: () => void;
   [LoginWithEmailOTPEventOnReceived.InvalidEmailOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.InvalidMfaOtp]: () => void;
   [LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp]: () => void;

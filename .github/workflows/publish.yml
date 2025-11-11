@@ -2,7 +2,7 @@ name: Publish
 on:
   push:
     branches:
-      - "master"
+      - 'master'
 
 env:
   GITHUB_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
@@ -12,7 +12,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     name: Build
     if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
     steps:
@@ -26,7 +26,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
           cache: 'yarn'
 
       - name: Install dependencies
@@ -52,16 +52,17 @@ jobs:
         run: yarn build
 
       - name: Upload Build Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-output
           path: |
             packages/@magic-ext/*/dist
             packages/@magic-sdk/*/dist
             packages/*/dist
+          overwrite: true
 
   publish:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     name: Publish
     permissions:
       contents: read
@@ -79,7 +80,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
           cache: 'yarn'
 
       - name: Install dependencies
@@ -88,7 +89,7 @@ jobs:
           yarn install --immutable
 
       - name: Download Build Results
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-output
           path: packages

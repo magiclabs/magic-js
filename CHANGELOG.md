@@ -1,3 +1,452 @@
+# (Mon Nov 10 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@25.2.0`
+  - feat: add custom logo types to loginWithEmailOtp [#955](https://github.com/magiclabs/magic-js/pull/955) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Oct 30 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@13.1.0`, `@magic-sdk/types@25.1.0`
+  - feat: implement event listener for oauth popup [#952](https://github.com/magiclabs/magic-js/pull/952) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@25.1.0`
+  - chore: fix typos [#945](https://github.com/magiclabs/magic-js/pull/945) ([@Galoretka](https://github.com/Galoretka))
+- `@magic-sdk/provider@31.1.0`
+  - chore: fix some comments [#948](https://github.com/magiclabs/magic-js/pull/948) ([@letreturn](https://github.com/letreturn))
+
+#### Authors: 4
+
+- [@Galoretka](https://github.com/Galoretka)
+- [@letreturn](https://github.com/letreturn)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Oct 03 2025)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/algorand@26.0.0`, `@magic-ext/aptos@14.0.0`, `@magic-ext/avalanche@26.0.0`, `@magic-ext/bitcoin@26.0.0`, `@magic-ext/conflux@24.0.0`, `@magic-ext/cosmos@26.0.0`, `@magic-ext/ed25519@22.0.0`, `@magic-ext/evm@1.0.0`, `@magic-ext/farcaster@3.0.0`, `@magic-ext/flow@26.0.0`, `@magic-ext/gdkms@14.0.0`, `@magic-ext/harmony@26.0.0`, `@magic-ext/hedera@2.0.0`, `@magic-ext/icon@26.0.0`, `@magic-ext/kadena@3.0.0`, `@magic-ext/near@26.0.0`, `@magic-ext/oauth2@13.0.0`, `@magic-ext/oidc@14.0.0`, `@magic-ext/polkadot@26.0.0`, `@magic-ext/solana@28.0.0`, `@magic-ext/sui@3.0.0`, `@magic-ext/taquito@23.0.0`, `@magic-ext/terra@23.0.0`, `@magic-ext/tezos@26.0.0`, `@magic-ext/web3modal-ethers5@3.0.0`, `@magic-ext/webauthn@25.0.0`, `@magic-ext/zilliqa@26.0.0`, `@magic-sdk/provider@31.0.0`, `@magic-sdk/react-native-bare@32.0.0`, `@magic-sdk/react-native-expo@32.0.0`, `magic-sdk@31.0.0`
+  - EVM Extension and new extension methods [#915](https://github.com/magiclabs/magic-js/pull/915) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@13.0.0`
+  - remove oauth package from mono-repo [#940](https://github.com/magiclabs/magic-js/pull/940) ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- update yarn.lock ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/react-native-bare-oauth@28.0.0`, `@magic-ext/react-native-expo-oauth@28.0.0`, `@magic-sdk/react-native-bare@32.0.0`, `@magic-sdk/react-native-expo@32.0.0`
+  - Merge remote-tracking branch 'origin/master' ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Sep 19 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@31.0.1`, `@magic-sdk/react-native-expo@31.0.1`
+  - Fix postMessage function signature [#943](https://github.com/magiclabs/magic-js/pull/943) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Wed Sep 03 2025)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/react-native-bare-oauth@27.0.0`, `@magic-ext/react-native-expo-oauth@27.0.0`, `@magic-sdk/react-native-bare@31.0.0`, `@magic-sdk/react-native-expo@31.0.0`
+  - Devin/1744245477 implement login with popup v2 [#879](https://github.com/magiclabs/magic-js/pull/879) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- Bump sha.js from 2.4.11 to 2.4.12 [#939](https://github.com/magiclabs/magic-js/pull/939) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@magic-sdk/react-native-bare@31.0.0`, `@magic-sdk/react-native-expo@31.0.0`
+  - docs: fix broken link [#936](https://github.com/magiclabs/magic-js/pull/936) ([@SADfronov](https://github.com/SADfronov))
+- `@magic-sdk/pnp@24.0.0`, `@magic-sdk/provider@30.0.0`
+  - docs: fix typos in comments [#929](https://github.com/magiclabs/magic-js/pull/929) ([@Snezhkko](https://github.com/Snezhkko))
+- `@magic-sdk/types@25.0.0`
+  - docs(types): fix typos in auth-types comments [#932](https://github.com/magiclabs/magic-js/pull/932) ([@phrwlk](https://github.com/phrwlk))
+- `@magic-ext/oauth@24.0.0`
+  - fix(docs): update broken OAuth documentation link [#935](https://github.com/magiclabs/magic-js/pull/935) ([@radik878](https://github.com/radik878))
+- `@magic-ext/webauthn@24.0.0`, `magic-sdk@30.0.0`
+  - docs: fix typos and improve comments across packages [#937](https://github.com/magiclabs/magic-js/pull/937) ([@Forostovec](https://github.com/Forostovec))
+- `@magic-sdk/provider@30.0.0`, `@magic-sdk/types@25.0.0`
+  - Core package revisions [#938](https://github.com/magiclabs/magic-js/pull/938) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-sdk/pnp@24.0.0`
+  - docs: update Magic Login Form documentation link [#923](https://github.com/magiclabs/magic-js/pull/923) ([@Fibonacci747](https://github.com/Fibonacci747))
+- `@magic-sdk/provider@30.0.0`
+  - fix typo in test descriptions [#918](https://github.com/magiclabs/magic-js/pull/918) ([@anim001k](https://github.com/anim001k))
+  - chore: remove redundant word in comment [#919](https://github.com/magiclabs/magic-js/pull/919) ([@queryfast](https://github.com/queryfast))
+- `@magic-sdk/react-native-bare@31.0.0`
+  - fix: broken link in README.md [#916](https://github.com/magiclabs/magic-js/pull/916) ([@GarmashAlex](https://github.com/GarmashAlex))
+
+#### Authors: 14
+
+- [@anim001k](https://github.com/anim001k)
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@Fibonacci747](https://github.com/Fibonacci747)
+- [@Forostovec](https://github.com/Forostovec)
+- [@GarmashAlex](https://github.com/GarmashAlex)
+- [@phrwlk](https://github.com/phrwlk)
+- [@queryfast](https://github.com/queryfast)
+- [@radik878](https://github.com/radik878)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- [@Snezhkko](https://github.com/Snezhkko)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+- SERHII BUHAI ([@SADfronov](https://github.com/SADfronov))
+
+---
+
+# (Fri Aug 15 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@11.5.0`
+  - feat: add provider config to oauth types [#925](https://github.com/magiclabs/magic-js/pull/925) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Aug 14 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/harmony@24.4.3`
+  - removes chainType from harmony config [#927](https://github.com/magiclabs/magic-js/pull/927) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Tue Aug 12 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.4.2`
+  - add window check [#924](https://github.com/magiclabs/magic-js/pull/924) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Aug 01 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.4.1`
+  - remove instance of Extension check [#914](https://github.com/magiclabs/magic-js/pull/914) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/aptos@12.4.1`
+  - chore: fix typos in function name [#910](https://github.com/magiclabs/magic-js/pull/910) ([@VolodymyrBg](https://github.com/VolodymyrBg))
+- `magic-sdk@29.4.1`
+  - fix: correct @magic-ext packages link in magic-sdk README [#911](https://github.com/magiclabs/magic-js/pull/911) ([@MozirDmitriy](https://github.com/MozirDmitriy))
+
+#### Authors: 3
+
+- [@MozirDmitriy](https://github.com/MozirDmitriy)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- VolodymyrBg ([@VolodymyrBg](https://github.com/VolodymyrBg))
+
+---
+
+# (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@29.4.0`, `@magic-sdk/types@24.21.0`
+  - adds skip did token to query params [#909](https://github.com/magiclabs/magic-js/pull/909) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/algorand@24.3.0`, `@magic-sdk/provider@29.3.0`
+  - add skipDIDToken [#898](https://github.com/magiclabs/magic-js/pull/898) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.3.0`, `@magic-sdk/react-native-expo@30.3.0`
+  - minor text cleanup [#908](https://github.com/magiclabs/magic-js/pull/908) ([@eeemmmmmm](https://github.com/eeemmmmmm))
+
+#### Authors: 3
+
+- emmmm ([@eeemmmmmm](https://github.com/eeemmmmmm))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Jul 18 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.2.1`
+  - chore: fix some minor issues in the comments [#902](https://github.com/magiclabs/magic-js/pull/902) ([@gopherorg](https://github.com/gopherorg) [@Ethella](https://github.com/Ethella))
+- `@magic-sdk/provider@29.2.1`, `@magic-sdk/react-native-bare@30.2.1`, `@magic-sdk/react-native-expo@30.2.1`
+  - chore: fix minor issue in the comment [#903](https://github.com/magiclabs/magic-js/pull/903) ([@bytesingsong](https://github.com/bytesingsong))
+- `magic-sdk@29.2.1`
+  - revert overlay control to none [#907](https://github.com/magiclabs/magic-js/pull/907) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 3
+
+- [@bytesingsong](https://github.com/bytesingsong)
+- [@gopherorg](https://github.com/gopherorg)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Tue Jul 15 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@24.20.0`
+  - feat: implement factors updated event [#904](https://github.com/magiclabs/magic-js/pull/904) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/pnp@23.2.0`, `@magic-sdk/react-native-bare@30.2.0`
+  - Fix Typos in Documentation and Comments [#899](https://github.com/magiclabs/magic-js/pull/899) ([@zeevick10](https://github.com/zeevick10))
+- `@magic-sdk/provider@29.2.0`, `@magic-sdk/types@24.20.0`
+  - chore: fix some typos in comment [#901](https://github.com/magiclabs/magic-js/pull/901) ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+- `@magic-ext/aptos@12.2.0`
+  - fix: typos [#896](https://github.com/magiclabs/magic-js/pull/896) ([@DeVikingMark](https://github.com/DeVikingMark))
+  - fix: typos in function name [#892](https://github.com/magiclabs/magic-js/pull/892) ([@crStiv](https://github.com/crStiv))
+- `@magic-ext/taquito@21.2.0`
+  - fix: correct import path for MagicSigner [#890](https://github.com/magiclabs/magic-js/pull/890) ([@Himess](https://github.com/Himess))
+
+#### Authors: 6
+
+- [@crStiv](https://github.com/crStiv)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- FT ([@zeevick10](https://github.com/zeevick10))
+- Himess ([@Himess](https://github.com/Himess))
+- Ragnar ([@DeVikingMark](https://github.com/DeVikingMark))
+- 曹家巧 ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+---
+
+# (Tue May 27 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@29.1.0`, `@magic-sdk/types@24.19.0`
+  - add firstLoginAt [#895](https://github.com/magiclabs/magic-js/pull/895) ([@Ethella](https://github.com/Ethella))
+- `@magic-sdk/types@24.19.0`
+  - feat: add login throttled event to email otp [#889](https://github.com/magiclabs/magic-js/pull/889) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- Update .gitignore [#884](https://github.com/magiclabs/magic-js/pull/884) ([@shystrui1199](https://github.com/shystrui1199) [@Ethella](https://github.com/Ethella))
+- Bump base-x from 3.0.9 to 3.0.11 [#888](https://github.com/magiclabs/magic-js/pull/888) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- John Water ([@shystrui1199](https://github.com/shystrui1199))
+
+---
+
+# (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Update README.md [#883](https://github.com/magiclabs/magic-js/pull/883) ([@romashka-btc](https://github.com/romashka-btc) [@Ethella](https://github.com/Ethella))
+- Update esbuild to 0.25.2 and optimize SDK size [#874](https://github.com/magiclabs/magic-js/pull/874) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+- `@magic-sdk/provider@29.0.6`, `@magic-sdk/types@24.18.2`
+  - feat: handle dpop error [#886](https://github.com/magiclabs/magic-js/pull/886) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- `@magic-sdk/provider@29.0.6`
+  - bump target to es 2022 [#885](https://github.com/magiclabs/magic-js/pull/885) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/algorand@24.0.6`, `@magic-ext/aptos@12.0.6`, `@magic-ext/avalanche@24.0.6`, `@magic-ext/bitcoin@24.0.6`, `@magic-ext/conflux@22.0.6`, `@magic-ext/cosmos@24.0.6`, `@magic-ext/ed25519@20.0.6`, `@magic-ext/farcaster@1.0.6`, `@magic-ext/flow@24.0.6`, `@magic-ext/gdkms@12.0.6`, `@magic-ext/harmony@24.0.6`, `@magic-ext/hedera@1.0.5`, `@magic-ext/icon@24.0.6`, `@magic-ext/kadena@1.0.6`, `@magic-ext/near@24.0.6`, `@magic-ext/oauth@23.0.7`, `@magic-ext/oauth2@11.0.6`, `@magic-ext/oidc@12.0.6`, `@magic-ext/polkadot@24.0.6`, `@magic-ext/react-native-bare-oauth@26.0.8`, `@magic-ext/react-native-expo-oauth@26.0.7`, `@magic-ext/solana@26.0.6`, `@magic-ext/sui@1.0.6`, `@magic-ext/taquito@21.0.6`, `@magic-ext/terra@21.0.6`, `@magic-ext/tezos@24.0.6`, `@magic-ext/web3modal-ethers5@1.0.6`, `@magic-ext/webauthn@23.0.6`, `@magic-ext/zilliqa@24.0.6`, `@magic-sdk/commons@25.0.6`, `@magic-sdk/pnp@23.0.7`, `@magic-sdk/provider@29.0.6`
+  - Revert "Remove Extension class and rename InternalExtension to MagicExtension" [#882](https://github.com/magiclabs/magic-js/pull/882) ([@Ethella](https://github.com/Ethella))
+  - Remove Extension class and rename InternalExtension to MagicExtension [#881](https://github.com/magiclabs/magic-js/pull/881) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+- `@magic-sdk/pnp@23.0.7`, `@magic-sdk/provider@29.0.6`, `@magic-sdk/react-native-bare@30.0.7`, `@magic-sdk/react-native-expo@30.0.6`, `magic-sdk@29.0.6`
+  - Pdeexp 2096 replace ikscodes browser env package in magic js [#877](https://github.com/magiclabs/magic-js/pull/877) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- `@magic-ext/aptos@12.0.6`, `@magic-ext/gdkms@12.0.6`, `@magic-ext/harmony@24.0.6`, `@magic-ext/kadena@1.0.6`, `@magic-ext/sui@1.0.6`, `@magic-ext/web3modal-ethers5@1.0.6`, `@magic-sdk/provider@29.0.6`, `@magic-sdk/react-native-bare@30.0.7`, `@magic-sdk/react-native-expo@30.0.6`, `magic-sdk@29.0.6`
+  - chore: remove @ikscodes/browser-env [#842](https://github.com/magiclabs/magic-js/pull/842) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- `@magic-ext/gdkms@12.0.6`, `@magic-sdk/pnp@23.0.7`, `@magic-sdk/provider@29.0.6`, `@magic-sdk/react-native-bare@30.0.7`, `@magic-sdk/react-native-expo@30.0.6`
+  - Bump Jest version to 29.7.0 and update related testing dependencies [#873](https://github.com/magiclabs/magic-js/pull/873) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 5
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- de666En ([@romashka-btc](https://github.com/romashka-btc))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Apr 03 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@30.0.6`
+  - Rn bare [#872](https://github.com/magiclabs/magic-js/pull/872) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.0.5`
+  - remove web3 dependencies [#871](https://github.com/magiclabs/magic-js/pull/871) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.0.4`, `@magic-sdk/react-native-bare@30.0.4`, `@magic-sdk/react-native-expo@30.0.4`, `magic-sdk@29.0.4`
+  - add iframe.contentWindow check [#870](https://github.com/magiclabs/magic-js/pull/870) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/aptos@12.0.3`, `@magic-sdk/provider@29.0.3`, `@magic-sdk/react-native-bare@30.0.3`, `@magic-sdk/react-native-expo@30.0.3`, `magic-sdk@29.0.3`
+  - Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Mon Mar 24 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth@23.0.3`, `@magic-ext/oauth2@11.0.2`, `@magic-ext/react-native-bare-oauth@26.0.3`, `@magic-ext/react-native-expo-oauth@26.0.3`
+  - bump crypto-js [#864](https://github.com/magiclabs/magic-js/pull/864) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Sat Mar 22 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.0.2`, `@magic-sdk/types@24.18.1`, `magic-sdk@29.0.2`
+  - implement checkIframeExists [#863](https://github.com/magiclabs/magic-js/pull/863) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Tue Mar 11 2025)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/oauth2@11.0.0`
+  - add skipDIDToken to magic.oauth.getRedirectResult [#862](https://github.com/magiclabs/magic-js/pull/862) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Mar 06 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@29.0.1`
+  - remove 15s auto success [#861](https://github.com/magiclabs/magic-js/pull/861) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Mon Mar 03 2025)
+
+#### 💥 Breaking Change
+
+- Increase major version [#856](https://github.com/magiclabs/magic-js/pull/856) ([@joshuascan](https://github.com/joshuascan))
+- Major version bump [#854](https://github.com/magiclabs/magic-js/pull/854) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-sdk/pnp@23.0.0`, `@magic-sdk/provider@29.0.0`
+  - Remove deprecated methods [#857](https://github.com/magiclabs/magic-js/pull/857) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Mon Feb 03 2025)
+
+#### 🐛 Bug Fix
+
+- chore: migrate upload-artifact to v4 [#852](https://github.com/magiclabs/magic-js/pull/852) ([@joshuascan](https://github.com/joshuascan))
+- `magic-sdk@28.21.1`
+  - fix: unable to scroll on ios safari [#851](https://github.com/magiclabs/magic-js/pull/851) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Wed Jan 08 2025)
 
 #### 🚀 Enhancement

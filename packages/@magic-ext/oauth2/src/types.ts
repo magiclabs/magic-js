@@ -101,13 +101,22 @@ export interface OAuthRedirectConfiguration {
   redirectURI: string;
   scope?: string[];
   customData?: string;
+  providerParams?: Record<string, string | number | boolean>;
   loginHint?: string;
+}
+
+export interface OAuthVerificationConfiguration {
+  lifespan?: number;
+  optionalQueryString?: string;
+  skipDIDToken?: boolean;
 }
 
 export interface OAuthPopupConfiguration {
   provider: OAuthPopupProvider;
   scope?: string[];
   loginHint?: string;
+  providerParams?: Record<string, string | number | boolean>;
+  shouldReturnURI?: boolean;
 }
 
 export enum OAuthErrorCode {

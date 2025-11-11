@@ -10,7 +10,7 @@ export interface YarnWorkspace {
 }
 
 /**
- * Returns metadata for the workspaces in this respository.
+ * Returns metadata for the workspaces in this repository.
  */
 export async function getAllWorkspaces(): Promise<YarnWorkspace[]> {
   const subprocess = await execa('yarn', ['workspaces', 'list', '--json', '--verbose']);
@@ -81,7 +81,7 @@ export async function getPackages(pkgQuery: string) {
 
     const nextDependencies = workspace.workspaceDependencies
       .map((location) => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+         
         return workspaces.find((ws) => ws.location === location);
       })
       .filter(Boolean) as YarnWorkspace[];

@@ -1,5 +1,4 @@
 import { EthNetworkConfiguration, QueryParameters, SupportedLocale } from '@magic-sdk/types';
-import type { AbstractProvider } from 'web3-core';
 import { coerce, satisfies } from '../util/semver';
 import { encodeJSON } from '../util/base64-json';
 import {
@@ -14,7 +13,7 @@ import { ThirdPartyWalletsModule } from '../modules/third-party-wallets';
 import { RPCProviderModule } from '../modules/rpc-provider';
 import { ViewController } from './view-controller';
 import { createURL } from '../util/url';
-import { Extension } from '../modules/base-extension';
+import { BaseExtension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
 import { NFTModule } from '../modules/nft';
@@ -23,7 +22,7 @@ import { NFTModule } from '../modules/nft';
  * Checks if the given `ext` is compatible with the platform & version of Magic
  * SDK currently in use.
  */
-function checkExtensionCompat(ext: Extension<string>) {
+function checkExtensionCompat(ext: BaseExtension<string>) {
   if (ext.compat && ext.compat[SDKEnvironment.sdkName] != null) {
     return typeof ext.compat[SDKEnvironment.sdkName] === 'string'
       ? satisfies(coerce(SDKEnvironment.version), ext.compat[SDKEnvironment.sdkName] as string)
@@ -57,14 +56,15 @@ function getNetworkHash(apiKey: string, network?: EthNetworkConfiguration, extCo
 }
 
 /**
- * Initializes SDK extensions, checks for platform/version compatiblity issues,
+ * Initializes SDK extensions, checks for platform/version compatibility issues,
  * then consolidates any global configurations provided by those extensions.
  */
 function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfiguration): Record<string, any> {
   console.log('PREPARING EXTENSIONS');
   const extensions: Extension<string>[] | { [key: string]: Extension<string> } = options?.extensions ?? [];
+
   const extConfig: any = {};
-  const incompatibleExtensions: Extension<string>[] = [];
+  const incompatibleExtensions: BaseExtension<string>[] = [];
 
   if (Array.isArray(extensions)) {
     extensions.forEach(ext => {
@@ -72,13 +72,11 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
       if (checkExtensionCompat(ext)) {
         console.log('EXTENSION COMPATIBLE: ', ext.name);
         ext.init(this);
-        if (ext.name || ext.name !== Extension.Anonymous) {
+        if (ext.name) {
           // Only apply extensions with a known, defined `name` parameter.
           (this as any)[ext.name] = ext;
         }
-        if (ext instanceof Extension.Internal) {
-          if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
-        }
+        if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
       } else {
         console.log('EXTENSION INCOMPATIBLE: ', ext.name);
         incompatibleExtensions.push(ext);
@@ -90,9 +88,7 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
         extensions[name].init(this);
         const ext = extensions[name];
         (this as any)[name] = ext;
-        if (ext instanceof Extension.Internal) {
-          if (!isEmpty(ext.config)) extConfig[extensions[name].name] = ext.config;
-        }
+        if (!isEmpty(ext.config)) extConfig[extensions[name].name] = ext.config;
       } else {
         incompatibleExtensions.push(extensions[name]);
       }
@@ -109,8 +105,8 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
 }
 
 export type MagicSDKExtensionsOption<TCustomExtName extends string = string> =
-  | Extension<string>[]
-  | { [P in TCustomExtName]: Extension<string> };
+  | BaseExtension<string>[]
+  | { [P in TCustomExtName]: BaseExtension<string> };
 
 export interface MagicSDKAdditionalConfiguration<
   TCustomExtName extends string = string,
@@ -124,6 +120,7 @@ export interface MagicSDKAdditionalConfiguration<
   deferPreload?: boolean;
   useStorageCache?: boolean;
   meta?: any; // Generic field for clients to add metadata
+  authConfig?: { skipDIDToken: boolean }; // Skip DID Token generation
 }
 
 export class SDKBase {
@@ -166,7 +163,7 @@ export class SDKBase {
    * Contains a Web3-compliant provider. Pass this module to your Web3/Ethers
    * instance for automatic compatibility with Ethereum methods.
    */
-  public readonly rpcProvider: RPCProviderModule & AbstractProvider;
+  public readonly rpcProvider: RPCProviderModule;
 
   /**
    * Creates an instance of Magic SDK.
@@ -203,13 +200,14 @@ export class SDKBase {
     // Encode parameters as base64-JSON
     this.parameters = encodeJSON<QueryParameters>({
       API_KEY: this.apiKey,
-      DOMAIN_ORIGIN: window.location ? window.location.origin : '',
+      DOMAIN_ORIGIN: typeof window !== 'undefined' && window?.location ? window?.location.origin : '',
       ETH_NETWORK: options?.network,
       host: createURL(this.endpoint).host,
       sdk: sdkNameToEnvName[SDKEnvironment.sdkName],
       version,
       ext: isEmpty(extConfig) ? undefined : extConfig,
       locale: options?.locale || 'en_US',
+      authConfig: options?.authConfig ? { ...options.authConfig } : undefined,
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
       meta: options?.meta,
     });
@@ -240,6 +238,6 @@ export class SDKBase {
    * has completed loading and is ready for requests.
    */
   public async preload() {
-    await this.overlay.checkIsReadyForRequest;
+    await this.overlay.waitForReady();
   }
 }

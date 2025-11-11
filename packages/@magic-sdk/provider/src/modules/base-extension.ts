@@ -3,21 +3,7 @@ import { BaseModule } from './base-module';
 import { SDKBase, MagicSDKAdditionalConfiguration, MagicSDKExtensionsOption } from '../core/sdk';
 import { createExtensionNotInitializedError, MagicExtensionError, MagicExtensionWarning } from '../core/sdk-exceptions';
 import { createPromiEvent, encodeJSON, decodeJSON, storage, isPromiEvent } from '../util';
-
-type AnonymousExtension = 'anonymous extension';
-
-interface BaseExtension<TName extends string = AnonymousExtension> extends BaseModule {
-  /**
-   * A structure describing the platform and version compatiblity of this
-   * extension.
-   */
-  compat?: {
-    'magic-sdk': boolean | string;
-    '@magic-sdk/react-native': boolean | string;
-    '@magic-sdk/react-native-bare': boolean | string;
-    '@magic-sdk/react-native-expo': boolean | string;
-  };
-}
+import { MagicPayloadMethod } from '@magic-sdk/types';
 
 const sdkAccessFields = ['request', 'overlay', 'sdk'];
 
@@ -37,8 +23,20 @@ function getPrototypeChain<T extends BaseExtension<string>>(instance: T) {
   return protos;
 }
 
-abstract class BaseExtension<TName extends string = AnonymousExtension> extends BaseModule {
+export abstract class BaseExtension<TName extends string, TConfig extends any = any> extends BaseModule {
+  /**
+   * A structure describing the platform and version compatibility of this
+   * extension.
+   */
+  compat?: {
+    'magic-sdk': boolean | string;
+    '@magic-sdk/react-native': boolean | string;
+    '@magic-sdk/react-native-bare': boolean | string;
+    '@magic-sdk/react-native-expo': boolean | string;
+  };
+
   public abstract readonly name: TName;
+  public abstract readonly config: TConfig;
 
   private __sdk_access_field_descriptors__ = new Map<
     string,
@@ -63,9 +61,9 @@ abstract class BaseExtension<TName extends string = AnonymousExtension> extends 
 
     const allSources = [this, ...getPrototypeChain(this)];
 
-    sdkAccessFields.forEach((prop) => {
-      const allDescriptors = allSources.map((source) => Object.getOwnPropertyDescriptor(source, prop));
-      const sourceIndex = allDescriptors.findIndex((x) => !!x);
+    sdkAccessFields.forEach(prop => {
+      const allDescriptors = allSources.map(source => Object.getOwnPropertyDescriptor(source, prop));
+      const sourceIndex = allDescriptors.findIndex(x => Boolean(x));
       const isPrototypeField = sourceIndex > 0;
       const descriptor = allDescriptors[sourceIndex];
 
@@ -93,7 +91,7 @@ abstract class BaseExtension<TName extends string = AnonymousExtension> extends 
 
     // Replace original property descriptors
     // for SDK access fields post-initialization.
-    sdkAccessFields.forEach((prop) => {
+    sdkAccessFields.forEach(prop => {
       /* istanbul ignore else */
       if (this.__sdk_access_field_descriptors__.has(prop)) {
         const { descriptor, isPrototypeField } = this.__sdk_access_field_descriptors__.get(prop)!;
@@ -157,7 +155,7 @@ abstract class InternalExtension<TName extends string, TConfig extends any = any
  * A base class representing "extensions" to the core Magic JS APIs. Extensions
  * enable new functionality by composing Magic endpoints methods together.
  */
-export abstract class Extension<TName extends string = AnonymousExtension> extends BaseExtension<TName> {
+export class Extension {
   /**
    * This is a special constructor used to mark "official" extensions. These
    * extensions are designed for special interaction with the Magic iframe using
@@ -168,7 +166,32 @@ export abstract class Extension<TName extends string = AnonymousExtension> exten
    * @internal
    */
   public static Internal = InternalExtension;
-  public static Anonymous: AnonymousExtension = 'anonymous extension';
+}
+
+/**
+ * Base class for multi-chain extensions, extracting getPublicAddress and revealPrivateKey logic.
+ */
+export abstract class MultichainExtension<TName extends string, TConfig extends any = any> extends InternalExtension<
+  TName,
+  TConfig
+> {
+  public readonly chain: string;
+  constructor(public readonly config: TConfig) {
+    super();
+    this.chain = (config as any).chainType;
+  }
+
+  public getPublicAddress() {
+    return this.request<string>(
+      this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.GetMultichainPublicAddress, [{ chain: this.chain }]),
+    );
+  }
+
+  public revealPrivateKey() {
+    return this.request<boolean>(
+      this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.RevealPK, [{ chain: this.chain }]),
+    );
+  }
 }
 
 /**
@@ -186,14 +209,15 @@ type UnwrapArray<T extends any[]> = T extends Array<infer P> ? P : never;
  * Create a union type of Extension names from an
  * array of Extension types given by `TExt`.
  */
-type ExtensionNames<TExt extends Extension<string>[]> = UnwrapArray<TExt> extends Extension<infer R> ? R : never;
+type ExtensionNames<TExt extends BaseExtension<string>[]> =
+  UnwrapArray<TExt> extends BaseExtension<infer R> ? R : never;
 
 /**
  * From the literal Extension name type given by `TExtName`,
  * extract a dictionary of Extension types.
  */
-type GetExtensionFromName<TExt extends Extension<string>[], TExtName extends string> = {
-  [P in TExtName]: Extract<UnwrapArray<TExt>, Extension<TExtName>>;
+type GetExtensionFromName<TExt extends BaseExtension<string>[], TExtName extends string> = {
+  [P in TExtName]: Extract<UnwrapArray<TExt>, BaseExtension<TExtName>>;
 }[TExtName];
 
 /**
@@ -207,19 +231,18 @@ export type WithExtensions<SDK extends SDKBase> = {
   ): InstanceWithExtensions<SDK, TExt>;
 };
 
-export type InstanceWithExtensions<SDK extends SDKBase, TExt extends MagicSDKExtensionsOption> = SDK &
-  {
-    [P in Exclude<
-      TExt extends Extension<string>[] ? ExtensionNames<TExt> : keyof TExt,
-      number | AnonymousExtension
-    >]: TExt extends Extension<string>[]
-      ? Omit<GetExtensionFromName<TExt, P>, HiddenExtensionFields>
-      : TExt extends {
+export type InstanceWithExtensions<SDK extends SDKBase, TExt extends MagicSDKExtensionsOption> = SDK & {
+  [P in Exclude<
+    TExt extends BaseExtension<string>[] ? ExtensionNames<TExt> : keyof TExt,
+    number
+  >]: TExt extends BaseExtension<string>[]
+    ? Omit<GetExtensionFromName<TExt, P>, HiddenExtensionFields>
+    : TExt extends {
           [P in Exclude<
-            TExt extends Extension<string>[] ? ExtensionNames<TExt> : keyof TExt,
-            number | AnonymousExtension
-          >]: Extension<string>;
+            TExt extends BaseExtension<string>[] ? ExtensionNames<TExt> : keyof TExt,
+            number
+          >]: BaseExtension<string>;
         }
       ? Omit<TExt[P], HiddenExtensionFields>
       : never;
-  };
+};

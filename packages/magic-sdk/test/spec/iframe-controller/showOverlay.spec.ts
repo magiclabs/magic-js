@@ -1,17 +1,16 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createIframeController } from '../../factories';
 import { IframeController } from '../../../src/iframe-controller';
 
 beforeEach(() => {
-  browserEnv.restore();
-  browserEnv.stub('addEventListener', jest.fn());
-  browserEnv.stub('console.warn', jest.fn());
+  jest.restoreAllMocks();
+  jest.spyOn(global, 'addEventListener').mockImplementation(jest.fn());
+  jest.spyOn(console, 'warn').mockImplementation(jest.fn());
 });
 
 test('Change display style to `block`', async () => {
   (IframeController.prototype as any).init = function () {
     this.iframe = {
-      style: { visibility: 'hidden' },
+      style: { display: 'none' },
       focus: () => {},
     };
 
@@ -22,7 +21,7 @@ test('Change display style to `block`', async () => {
 
   await (overlay as any).showOverlay();
 
-  expect((overlay as any).iframe.style.visibility).toBe('visible');
+  expect((overlay as any).iframe.style.display).toBe('block');
 });
 
 test('Calls `iframe.focus()`', async () => {
@@ -55,12 +54,13 @@ test('Saves the current `document.activeElement`', async () => {
   };
 
   const overlay = createIframeController();
+  const mockElement = document.createElement('div');
 
-  browserEnv.stub('document.activeElement', 'qwertyqwerty');
+  jest.spyOn(document, 'activeElement', 'get').mockReturnValue(mockElement);
 
   expect((overlay as any).activeElement).toBe(null);
 
   await (overlay as any).showOverlay();
 
-  expect((overlay as any).activeElement).toBe('qwertyqwerty');
+  expect((overlay as any).activeElement).toBe(mockElement);
 });

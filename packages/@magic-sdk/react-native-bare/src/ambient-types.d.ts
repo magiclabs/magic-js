@@ -10,10 +10,6 @@ declare namespace NodeJS {
   }
 }
 
-declare module '@aveq-research/localforage-asyncstorage-driver' {
-  export const driverWithoutSerialization: any;
-}
-
 declare module 'react-native-device-info' {
   export function getBundleId(): string;
 }

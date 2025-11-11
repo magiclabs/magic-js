@@ -1,3 +1,83 @@
+# v14.0.0 (Fri Oct 03 2025)
+
+#### 💥 Breaking Change
+
+- EVM Extension and new extension methods [#915](https://github.com/magiclabs/magic-js/pull/915) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v12.4.1 (Fri Aug 01 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix typos in function name [#910](https://github.com/magiclabs/magic-js/pull/910) ([@VolodymyrBg](https://github.com/VolodymyrBg))
+
+#### Authors: 1
+
+- VolodymyrBg ([@VolodymyrBg](https://github.com/VolodymyrBg))
+
+---
+
+# v12.2.0 (Tue Jul 15 2025)
+
+#### 🐛 Bug Fix
+
+- fix: typos [#896](https://github.com/magiclabs/magic-js/pull/896) ([@DeVikingMark](https://github.com/DeVikingMark))
+- fix: typos in function name [#892](https://github.com/magiclabs/magic-js/pull/892) ([@crStiv](https://github.com/crStiv))
+
+#### Authors: 2
+
+- [@crStiv](https://github.com/crStiv)
+- Ragnar ([@DeVikingMark](https://github.com/DeVikingMark))
+
+---
+
+# v12.0.6 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Revert "Remove Extension class and rename InternalExtension to MagicExtension" [#882](https://github.com/magiclabs/magic-js/pull/882) ([@Ethella](https://github.com/Ethella))
+- Remove Extension class and rename InternalExtension to MagicExtension [#881](https://github.com/magiclabs/magic-js/pull/881) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+- chore: remove @ikscodes/browser-env [#842](https://github.com/magiclabs/magic-js/pull/842) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v12.0.4 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v12.0.3 (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+- Fix Extension typing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v11.20.0 (Wed Jan 08 2025)
 
 #### 🐛 Bug Fix

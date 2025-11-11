@@ -1,19 +1,21 @@
-import browserEnv from '@ikscodes/browser-env';
 import { ENCODED_QUERY_PARAMS } from '../../constants';
 import { createReactNativeWebViewController } from '../../factories';
 
 beforeEach(() => {
-  browserEnv();
+  jest.resetAllMocks();
 });
 
-test('Ignores events with different origin than expected', (done) => {
-  const viewController = createReactNativeWebViewController('asdf');
+const TROLL_GOAT = 'https://troll-goat.magic.link';
+const NOT_TROLL_GOAT = 'https://not-troll-goat.magic.link';
+
+test('Ignores events with different origin than expected', done => {
+  const viewController = createReactNativeWebViewController(TROLL_GOAT);
   const onHandlerStub = jest.fn();
   viewController.messageHandlers.add(onHandlerStub);
 
   viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
-      url: `qwerty/send/?params=${ENCODED_QUERY_PARAMS}`,
+      url: `${NOT_TROLL_GOAT}/send/?params=${ENCODED_QUERY_PARAMS}`,
       data: '{}',
     },
   } as any);
@@ -24,14 +26,14 @@ test('Ignores events with different origin than expected', (done) => {
   }, 100);
 });
 
-test('Ignores events with non-string data', (done) => {
-  const viewController = createReactNativeWebViewController('asdf');
+test('Ignores events with non-string data', done => {
+  const viewController = createReactNativeWebViewController(TROLL_GOAT);
   const onHandlerStub = jest.fn();
   viewController.messageHandlers.add(onHandlerStub);
 
   viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
-      url: `qwerty/send/?params=${viewController.parameters}`,
+      url: `${NOT_TROLL_GOAT}/send/?params=${viewController.parameters}`,
       data: 123,
     },
   } as any);
@@ -42,14 +44,14 @@ test('Ignores events with non-string data', (done) => {
   }, 100);
 });
 
-test('Replaces `undefined` or `null` response with an empty object', (done) => {
-  const viewController = createReactNativeWebViewController('asdf');
+test('Replaces `undefined` or `null` response with an empty object', done => {
+  const viewController = createReactNativeWebViewController(TROLL_GOAT);
   const onHandlerStub = jest.fn();
   viewController.messageHandlers.add(onHandlerStub);
 
   viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
-      url: `asdf/send/?params=${ENCODED_QUERY_PARAMS}`,
+      url: `${TROLL_GOAT}/send/?params=${ENCODED_QUERY_PARAMS}`,
       data: JSON.stringify({ msgType: `asdf-${ENCODED_QUERY_PARAMS}` }),
     },
   } as any);
@@ -61,14 +63,14 @@ test('Replaces `undefined` or `null` response with an empty object', (done) => {
   }, 100);
 });
 
-test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
-  const viewController = createReactNativeWebViewController('asdf');
+test('Executes event handlers where `messageHandlers` size is > 0', done => {
+  const viewController = createReactNativeWebViewController(TROLL_GOAT);
   const onHandlerStub = jest.fn();
   viewController.messageHandlers.add(onHandlerStub);
 
   viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
-      url: `asdf/send/?params=${ENCODED_QUERY_PARAMS}`,
+      url: `${TROLL_GOAT}/send/?params=${ENCODED_QUERY_PARAMS}`,
       data: JSON.stringify({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} }),
     },
   } as any);
@@ -80,13 +82,13 @@ test('Executes event handlers where `messageHandlers` size is > 0', (done) => {
   }, 100);
 });
 
-test('Ignores event handlers where `messageHandlers` size is === 0', (done) => {
-  const viewController = createReactNativeWebViewController('asdf');
+test('Ignores event handlers where `messageHandlers` size is === 0', done => {
+  const viewController = createReactNativeWebViewController(TROLL_GOAT);
   viewController.messageHandlers = { size: 0 };
 
   viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
-      url: `asdf/send/?params=${ENCODED_QUERY_PARAMS}`,
+      url: `${TROLL_GOAT}/send/?params=${ENCODED_QUERY_PARAMS}`,
       data: JSON.stringify({ msgType: `asdf-${ENCODED_QUERY_PARAMS}`, response: {} }),
     },
   } as any);
@@ -96,15 +98,15 @@ test('Ignores event handlers where `messageHandlers` size is === 0', (done) => {
   }, 100);
 });
 
-test('Process Typed Array in Solana Payload', (done) => {
-  const viewController = createReactNativeWebViewController('asdf');
+test('Process Typed Array in Solana Payload', done => {
+  const viewController = createReactNativeWebViewController(TROLL_GOAT);
   const onHandlerStub = jest.fn();
 
   viewController.messageHandlers.add(onHandlerStub);
 
   viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
-      url: `asdf/send/?params=${ENCODED_QUERY_PARAMS}`,
+      url: `${TROLL_GOAT}/send/?params=${ENCODED_QUERY_PARAMS}`,
       data: JSON.stringify({
         msgType: `asdf-${ENCODED_QUERY_PARAMS}`,
         response: {
@@ -130,8 +132,8 @@ test('Process Typed Array in Solana Payload', (done) => {
   }, 100);
 });
 
-test('Process Typed Array in Solana Payload', (done) => {
-  const viewController = createReactNativeWebViewController('asdf');
+test('Process Typed Array in Solana Payload', done => {
+  const viewController = createReactNativeWebViewController(TROLL_GOAT);
   const onHandlerStub = jest.fn();
 
   viewController.messageHandlers.add(onHandlerStub);
@@ -144,7 +146,7 @@ test('Process Typed Array in Solana Payload', (done) => {
 
   viewController.handleReactNativeWebViewMessage({
     nativeEvent: {
-      url: `asdf/send/?params=${ENCODED_QUERY_PARAMS}`,
+      url: `${TROLL_GOAT}/send/?params=${ENCODED_QUERY_PARAMS}`,
       data: JSON.stringify({
         msgType: `asdf-${ENCODED_QUERY_PARAMS}`,
         response: {

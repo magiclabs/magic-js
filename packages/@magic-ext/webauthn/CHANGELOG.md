@@ -1,3 +1,53 @@
+# v25.0.0 (Fri Oct 03 2025)
+
+#### 💥 Breaking Change
+
+- EVM Extension and new extension methods [#915](https://github.com/magiclabs/magic-js/pull/915) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v24.0.0 (Wed Sep 03 2025)
+
+#### 🐛 Bug Fix
+
+- docs: fix typos and improve comments across packages [#937](https://github.com/magiclabs/magic-js/pull/937) ([@Forostovec](https://github.com/Forostovec))
+
+#### Authors: 1
+
+- [@Forostovec](https://github.com/Forostovec)
+
+---
+
+# v23.0.6 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- Revert "Remove Extension class and rename InternalExtension to MagicExtension" [#882](https://github.com/magiclabs/magic-js/pull/882) ([@Ethella](https://github.com/Ethella))
+- Remove Extension class and rename InternalExtension to MagicExtension [#881](https://github.com/magiclabs/magic-js/pull/881) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v23.0.4 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v22.20.0 (Wed Jan 08 2025)
 
 #### 🐛 Bug Fix

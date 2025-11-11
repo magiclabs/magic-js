@@ -1,3 +1,256 @@
+# v31.1.0 (Thu Oct 30 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix some comments [#948](https://github.com/magiclabs/magic-js/pull/948) ([@letreturn](https://github.com/letreturn))
+
+#### Authors: 1
+
+- [@letreturn](https://github.com/letreturn)
+
+---
+
+# v31.0.0 (Fri Oct 03 2025)
+
+#### 💥 Breaking Change
+
+- EVM Extension and new extension methods [#915](https://github.com/magiclabs/magic-js/pull/915) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v30.0.0 (Wed Sep 03 2025)
+
+#### 🐛 Bug Fix
+
+- docs: fix typos in comments [#929](https://github.com/magiclabs/magic-js/pull/929) ([@Snezhkko](https://github.com/Snezhkko))
+- Core package revisions [#938](https://github.com/magiclabs/magic-js/pull/938) ([@joshuascan](https://github.com/joshuascan))
+- fix typo in test descriptions [#918](https://github.com/magiclabs/magic-js/pull/918) ([@anim001k](https://github.com/anim001k))
+- chore: remove redundant word in comment [#919](https://github.com/magiclabs/magic-js/pull/919) ([@queryfast](https://github.com/queryfast))
+
+#### Authors: 4
+
+- [@anim001k](https://github.com/anim001k)
+- [@queryfast](https://github.com/queryfast)
+- [@Snezhkko](https://github.com/Snezhkko)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v29.4.2 (Tue Aug 12 2025)
+
+#### 🐛 Bug Fix
+
+- add window check [#924](https://github.com/magiclabs/magic-js/pull/924) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.4.1 (Fri Aug 01 2025)
+
+#### 🐛 Bug Fix
+
+- remove instance of Extension check [#914](https://github.com/magiclabs/magic-js/pull/914) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.4.0 (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- adds skip did token to query params [#909](https://github.com/magiclabs/magic-js/pull/909) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v29.3.0 (Thu Jul 24 2025)
+
+#### 🚀 Enhancement
+
+- add skipDIDToken [#898](https://github.com/magiclabs/magic-js/pull/898) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- minor text cleanup [#908](https://github.com/magiclabs/magic-js/pull/908) ([@eeemmmmmm](https://github.com/eeemmmmmm))
+
+#### Authors: 3
+
+- emmmm ([@eeemmmmmm](https://github.com/eeemmmmmm))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v29.2.1 (Fri Jul 18 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix some minor issues in the comments [#902](https://github.com/magiclabs/magic-js/pull/902) ([@gopherorg](https://github.com/gopherorg) [@Ethella](https://github.com/Ethella))
+- chore: fix minor issue in the comment [#903](https://github.com/magiclabs/magic-js/pull/903) ([@bytesingsong](https://github.com/bytesingsong))
+
+#### Authors: 3
+
+- [@bytesingsong](https://github.com/bytesingsong)
+- [@gopherorg](https://github.com/gopherorg)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.2.0 (Tue Jul 15 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix some typos in comment [#901](https://github.com/magiclabs/magic-js/pull/901) ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+#### Authors: 1
+
+- 曹家巧 ([@xiaoxiangirl](https://github.com/xiaoxiangirl))
+
+---
+
+# v29.1.0 (Tue May 27 2025)
+
+#### 🚀 Enhancement
+
+- add firstLoginAt [#895](https://github.com/magiclabs/magic-js/pull/895) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.6 (Tue Apr 29 2025)
+
+#### 🐛 Bug Fix
+
+- feat: handle dpop error [#886](https://github.com/magiclabs/magic-js/pull/886) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- bump target to es 2022 [#885](https://github.com/magiclabs/magic-js/pull/885) ([@Ethella](https://github.com/Ethella))
+- Revert "Remove Extension class and rename InternalExtension to MagicExtension" [#882](https://github.com/magiclabs/magic-js/pull/882) ([@Ethella](https://github.com/Ethella))
+- Remove Extension class and rename InternalExtension to MagicExtension [#881](https://github.com/magiclabs/magic-js/pull/881) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+- Pdeexp 2096 replace ikscodes browser env package in magic js [#877](https://github.com/magiclabs/magic-js/pull/877) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- chore: remove @ikscodes/browser-env [#842](https://github.com/magiclabs/magic-js/pull/842) ([@otabek-magic](https://github.com/otabek-magic) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+- Bump Jest version to 29.7.0 and update related testing dependencies [#873](https://github.com/magiclabs/magic-js/pull/873) ([@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot]) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- [@devin-ai-integration[bot]](https://github.com/devin-ai-integration[bot])
+- [@otabek-magic](https://github.com/otabek-magic)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.5 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- remove web3 dependencies [#871](https://github.com/magiclabs/magic-js/pull/871) ([@Ethella](https://github.com/Ethella))
+- remove web3 dependencies ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.4 (Tue Apr 01 2025)
+
+#### 🐛 Bug Fix
+
+- add iframe.contentWindow check [#870](https://github.com/magiclabs/magic-js/pull/870) ([@Ethella](https://github.com/Ethella))
+- fix tests ([@Ethella](https://github.com/Ethella))
+- Merge remote-tracking branch 'origin/master' into PDEEXP-2318-imx-dont-throw-error-if-the-iframe-is-failing ([@Ethella](https://github.com/Ethella))
+- add iframe.contentWindow check ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.3 (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- Auto checks if iframe exists without outputing any error [#865](https://github.com/magiclabs/magic-js/pull/865) ([@Ethella](https://github.com/Ethella))
+- add more tests ([@Ethella](https://github.com/Ethella))
+- fix tests coverage ([@Ethella](https://github.com/Ethella))
+- fix tests ([@Ethella](https://github.com/Ethella))
+- only apply heartbeat check to web ([@Ethella](https://github.com/Ethella))
+- fix ([@Ethella](https://github.com/Ethella))
+- extract util function ([@Ethella](https://github.com/Ethella))
+- Fix Extension typing ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.2 (Sat Mar 22 2025)
+
+#### 🐛 Bug Fix
+
+- implement checkIframeExists [#863](https://github.com/magiclabs/magic-js/pull/863) ([@Ethella](https://github.com/Ethella))
+- update Error message ([@Ethella](https://github.com/Ethella))
+- update comments ([@Ethella](https://github.com/Ethella))
+- Add new errors to catch modal being missing ([@Ethella](https://github.com/Ethella))
+- add console.log ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.1 (Thu Mar 06 2025)
+
+#### 🐛 Bug Fix
+
+- remove 15s auto success [#861](https://github.com/magiclabs/magic-js/pull/861) ([@Ethella](https://github.com/Ethella))
+- remove test ([@Ethella](https://github.com/Ethella))
+- remove 15s auto success ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v29.0.0 (Mon Mar 03 2025)
+
+#### 💥 Breaking Change
+
+- Remove deprecated methods [#857](https://github.com/magiclabs/magic-js/pull/857) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- chore: fix deepsource ([@joshuascan](https://github.com/joshuascan))
+- chore: removes deprecated wallet methods ([@joshuascan](https://github.com/joshuascan))
+- chore: remove user.getMetadata ([@joshuascan](https://github.com/joshuascan))
+- revert manual bump ([@joshuascan](https://github.com/joshuascan))
+- chore: bump provider version number ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v28.20.0 (Wed Jan 08 2025)
 
 #### 🚀 Enhancement

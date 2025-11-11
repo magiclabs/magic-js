@@ -1,13 +1,14 @@
-import { JsonRpcRequestPayload, JsonRpcResponsePayload, JsonRpcError } from '@magic-sdk/types';
+import { JsonRpcRequestPayload, JsonRpcResponsePayload, JsonRpcError, RPCErrorCode } from '@magic-sdk/types';
 import { isJsonRpcResponsePayload } from '../util/type-guards';
 import { getPayloadId } from '../util/get-payload-id';
+import { clearKeys } from '../util/web-crypto';
 
 const payloadPreprocessedSymbol = Symbol('Payload pre-processed by Magic SDK');
 
 /**
  * To avoid "pre-processing" a payload more than once (and needlessly
  * incrementing our payload ID generator), we attach a symbol to detect a
- * payloads we've already visited.
+ * payload we've already visited.
  */
 function markPayloadAsPreprocessed<T extends Partial<JsonRpcRequestPayload>>(payload: T): T {
   Object.defineProperty(payload, payloadPreprocessedSymbol, {
@@ -102,6 +103,10 @@ export class JsonRpcResponse<ResultType = any> {
   }
 
   public get hasError() {
+    // Handle DPOP error and rotate new keys
+    if (this._error?.code === RPCErrorCode.DpopInvalidated) {
+      clearKeys();
+    }
     return typeof this._error !== 'undefined' && this._error !== null;
   }
 

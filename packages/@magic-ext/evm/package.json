@@ -1,7 +1,7 @@
 {
-  "name": "@magic-ext/oauth",
-  "version": "22.20.0",
-  "description": "Magic SDK OAuth Extension for Web environments.",
+  "name": "@magic-ext/evm",
+  "version": "1.0.0",
+  "description": "magic evm extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {
@@ -11,8 +11,8 @@
   "files": [
     "dist"
   ],
-  "target": "browser",
-  "cdnGlobalName": "MagicOAuthExtension",
+  "target": "neutral",
+  "cdnGlobalName": "MagicEVMExtension",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
@@ -24,15 +24,12 @@
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons",
-      "@magic-sdk/provider"
+      "@magic-sdk/provider",
+      "@magic-sdk/types"
     ]
   },
-  "dependencies": {
-    "crypto-js": "^3.3.0"
-  },
   "devDependencies": {
-    "@magic-sdk/commons": "^24.20.0",
-    "@types/crypto-js": "~3.1.47"
+    "@magic-sdk/provider": "^29.5.0",
+    "@magic-sdk/types": "^24.22.0"
   }
 }

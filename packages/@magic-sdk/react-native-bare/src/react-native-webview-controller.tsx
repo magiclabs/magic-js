@@ -80,7 +80,7 @@ export class ReactNativeWebViewController extends ViewController {
   // Validating this logic requires lots of React-specific boilerplate. We will
   // revisit this method for unit testing in the future. For now, manual testing
   // is sufficient (this logic is stable right now and not expected to change in
-  // the forseeable future).
+  // the foreseeable future).
   /* istanbul ignore next */
   public Relayer: React.FC<{ backgroundColor?: string }> = backgroundColor => {
     const [show, setShow] = useState(false);
@@ -201,12 +201,16 @@ export class ReactNativeWebViewController extends ViewController {
    * Route incoming messages from a React Native `<WebView>`.
    */
   private handleReactNativeWebViewMessage(event: any) {
+    const url = new URL(`${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}`);
+
     if (
       event.nativeEvent &&
       typeof event.nativeEvent.data === 'string' &&
-      /* Backward comaptible */
+      /* Backward compatible */
       (event.nativeEvent.url === `${this.endpoint}/send/?params=${encodeURIComponent(this.parameters)}` ||
-        event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}`)
+        event.nativeEvent.url === `${this.endpoint}/send/?params=${this.parameters}` ||
+        event.nativeEvent.url === this.endpoint ||
+        event.nativeEvent.title === `${url.hostname}/send/${url.search}`)
     ) {
       // Special parsing logic when dealing with TypedArray in the payload
       // Such change is required as JSON.stringify will manipulate the object and cause exceptions during parsing
@@ -218,11 +222,11 @@ export class ReactNativeWebViewController extends ViewController {
           }
 
           // silently handles exception and return the original copy
-          // eslint-disable-next-line no-empty
-        } catch (e) {}
+        } catch (e) {
+          console.log('Error parsing data', e);
+        }
         return value;
       });
-
       if (data && data.msgType && this.messageHandlers.size) {
         // If the response object is undefined, we ensure it's at least an
         // empty object before passing to the event listener.
@@ -265,8 +269,8 @@ export class ReactNativeWebViewController extends ViewController {
       EventRegister.emit(MSG_POSTED_AFTER_INACTIVITY_EVENT, data);
       return;
     }
-    if (this.webView && (this.webView as any).postMessage) {
-      (this.webView as any).postMessage(
+    if (this.webView && this.webView.postMessage) {
+      this.webView.postMessage(
         JSON.stringify(data, (key, value) => {
           // parse Typed Array to Stringify object
           if (isTypedArray(value)) {
@@ -278,11 +282,21 @@ export class ReactNativeWebViewController extends ViewController {
           }
           return value;
         }),
-        this.endpoint,
       );
       AsyncStorage.setItem(LAST_MESSAGE_TIME, new Date().toISOString());
     } else {
       throw createModalNotReadyError();
     }
+  }
+
+  // Todo - implement these methods
+  /* istanbul ignore next */
+  protected checkRelayerExistsInDOM(): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+
+  /* istanbul ignore next */
+  protected reloadRelayer(): Promise<void> {
+    return Promise.resolve(undefined);
   }
 }

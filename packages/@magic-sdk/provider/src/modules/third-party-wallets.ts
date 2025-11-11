@@ -130,6 +130,7 @@ export class ThirdPartyWalletsModule extends BaseModule {
       isMfaEnabled: false,
       recoveryFactors: [] as [],
       walletType: walletType || 'web3modal',
+      firstLoginAt: null,
     };
   }
 

@@ -1,8 +1,7 @@
-import browserEnv from '@ikscodes/browser-env';
 import { createMagicSDK } from '../../../factories';
 
 beforeEach(() => {
-  browserEnv.restore();
+  jest.resetAllMocks();
   jest.restoreAllMocks();
 });
 
@@ -10,7 +9,7 @@ const expectedEmail = 'john.doe@mail.com';
 
 test('Generates JSON RPC pending for otp-input-sent', async () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -30,7 +29,7 @@ test('Generates JSON RPC pending for otp-input-sent', async () => {
 
 test('Generates JSON RPC pending for verify-mfa-code', () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -50,7 +49,7 @@ test('Generates JSON RPC pending for verify-mfa-code', () => {
 
 test('Generates JSON RPC pending for lost-device', () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -68,7 +67,7 @@ test('Generates JSON RPC pending for lost-device', () => {
 
 test('Generates JSON RPC pending for verify-recovery-code', () => {
   const magic = createMagicSDK();
-  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => { /* noop */ }));
   const createIntermediaryEventFn = jest.fn();
   magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
 
@@ -81,6 +80,25 @@ test('Generates JSON RPC pending for verify-recovery-code', () => {
   const verifyEvent = magic.auth.createIntermediaryEvent.mock.calls[0];
   expect(verifyEvent[0]).toBe('verify-recovery-code');
   expect(createIntermediaryEventFn.mock.calls[0][0]).toBe(recovery_code);
+
+  const intermediaryEventSecondMethod = magic.auth.createIntermediaryEvent.mock.calls[1][0];
+  expect(intermediaryEventSecondMethod).toBe('cancel');
+});
+
+test('Generates JSON RPC pending for verify-recovery-code', () => {
+  const magic = createMagicSDK();
+  magic.auth.overlay.post = jest.fn().mockImplementation(() => new Promise(() => {}));
+  const createIntermediaryEventFn = jest.fn();
+  magic.auth.createIntermediaryEvent = jest.fn().mockImplementation(() => createIntermediaryEventFn);
+
+  const handle = magic.auth.loginWithEmailOTP({ email: expectedEmail, showUI: false, deviceCheckUI: false });
+
+  const recovery_code = '10epf6fk';
+  handle.emit('device-retry');
+  handle.emit('cancel');
+
+  const verifyEvent = magic.auth.createIntermediaryEvent.mock.calls[0];
+  expect(verifyEvent[0]).toBe('device-retry');
 
   const intermediaryEventSecondMethod = magic.auth.createIntermediaryEvent.mock.calls[1][0];
   expect(intermediaryEventSecondMethod).toBe('cancel');
