@@ -130,7 +130,6 @@ These are packages Magic JS SDK uses internally to work seamlessly across platfo
 | -------------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------ |
 | [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types)       | [CHANGELOG](./packages/@magic-sdk/types/CHANGELOG.md)    | Core typings shared between JavaScript entry-points of Magic SDK.        |
 | [`@magic-sdk/provider`](https://www.npmjs.com/package/@magic-sdk/provider) | [CHANGELOG](./packages/@magic-sdk/provider/CHANGELOG.md) | Core business logic shared between JavaScript entry-points of Magic SDK. |
-| [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types)       | [CHANGELOG](./packages/@magic-sdk/types/CHANGELOG.md)    | Core typings for Magic SDK packages.                                     |
 
 ## 🚦 Testing
 
