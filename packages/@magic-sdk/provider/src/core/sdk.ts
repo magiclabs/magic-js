@@ -61,13 +61,16 @@ function getNetworkHash(apiKey: string, network?: EthNetworkConfiguration, extCo
  * then consolidates any global configurations provided by those extensions.
  */
 function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfiguration): Record<string, any> {
+  console.log('PREPARING EXTENSIONS');
   const extensions: Extension<string>[] | { [key: string]: Extension<string> } = options?.extensions ?? [];
   const extConfig: any = {};
   const incompatibleExtensions: Extension<string>[] = [];
 
   if (Array.isArray(extensions)) {
     extensions.forEach(ext => {
+      console.log('CHECKING EXTENSION COMPATIBILITY: ', ext.name);
       if (checkExtensionCompat(ext)) {
+        console.log('EXTENSION COMPATIBLE: ', ext.name);
         ext.init(this);
         if (ext.name || ext.name !== Extension.Anonymous) {
           // Only apply extensions with a known, defined `name` parameter.
@@ -77,6 +80,7 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
           if (!isEmpty(ext.config)) extConfig[ext.name] = ext.config;
         }
       } else {
+        console.log('EXTENSION INCOMPATIBLE: ', ext.name);
         incompatibleExtensions.push(ext);
       }
     });
@@ -98,6 +102,8 @@ function prepareExtensions(this: SDKBase, options?: MagicSDKAdditionalConfigurat
   if (incompatibleExtensions.length) {
     throw createIncompatibleExtensionsError(incompatibleExtensions);
   }
+
+  console.log('EXT CONFIG: ', extConfig);
 
   return extConfig;
 }
@@ -169,6 +175,9 @@ export class SDKBase {
     public readonly apiKey: string,
     options?: MagicSDKAdditionalConfiguration,
   ) {
+    console.log('STARTING SDK WITH API KEY: ', apiKey);
+    console.log('OPTIONS: ', options);
+
     if (!apiKey) throw createMissingApiKeyError();
 
     if (SDKEnvironment.platform === 'react-native' && options?.endpoint) {
