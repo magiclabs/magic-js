@@ -30,7 +30,7 @@ const message = await magic.siwe.generateMessage({
 });
 
 // Login with message and signature
-const didToken = await magic.siwe.login({
+const publicAddress = await magic.siwe.login({
   message,
   signature: '0x7d5f8c9e...',
 });
@@ -38,7 +38,7 @@ const didToken = await magic.siwe.login({
 
 ## Methods
 
-### `generateNonce(params?)`
+### `generateNonce()`
 
 Generate a nonce for SIWE message construction..
 
