@@ -74,7 +74,7 @@ These are packages _you_ can install to enable Magic JS SDK functionality for yo
 | ------------ | --------- | ----------- |
 | [`magic-sdk`](https://www.npmjs.com/package/magic-sdk) | [CHANGELOG](./CHANGELOG.md) | Web/browser entry-point for Magic SDK. |
 | [`@magic-sdk/react-native-bare`](https://www.npmjs.com/package/@magic-sdk/react-native-bare) | [CHANGELOG](../@magic-sdk/react-native-bare/CHANGELOG.md) | Bare React Native entry-point for Magic SDK. |
-| [`@magic-sdk/react-native-expo`](https://www.npmjs.com/package/@magic-sdk/react-native-expo) | [CHANGELOG](./packages/@magic-sdk/react-native-expo/CHANGELOG.md) | Expo React Native entry-point for Magic SDK. |
+| [`@magic-sdk/react-native-expo`](https://www.npmjs.com/package/@magic-sdk/react-native-expo) | [CHANGELOG](../@magic-sdk/react-native-expo/CHANGELOG.md) | Expo React Native entry-point for Magic SDK. |
 
 ## Extensions
 
