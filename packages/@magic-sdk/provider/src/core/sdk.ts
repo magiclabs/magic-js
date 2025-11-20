@@ -213,7 +213,7 @@ export class SDKBase {
       const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters, this.networkHash);
 
       // @ts-ignore - We don't want to expose this method to the user, but we
-      // need to invoke in here so that the `ViewController` is ready for use.
+      // need to invoke it here so that the `ViewController` is ready for use.
       controller.init();
 
       SDKBase.__overlays__.set(this.parameters, controller);
