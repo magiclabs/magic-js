@@ -3364,6 +3364,7 @@ __metadata:
     react-native: ~0.78.1
     react-native-device-info: ^10.3.0
     react-native-event-listeners: ^1.0.7
+    react-native-keychain: ^10.0.0
     react-native-safe-area-context: 5.3.0
     react-native-webview: ^13.3.0
     react-test-renderer: ^19.1.0
@@ -17297,6 +17298,13 @@ __metadata:
   peerDependencies:
     react-native: ">=0.56"
   checksum: b2177addf05cc02a20c5b9b8397c410ccf2fffba6baf1a49fbeb199ceaf4b9d4e959549915c5221f4345f35ec96620ecf25f650a5e268793103d95ffa7e44127
+  languageName: node
+  linkType: hard
+
+"react-native-keychain@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "react-native-keychain@npm:10.0.0"
+  checksum: 1055cc192df58cb110bd49df1264a401007a354ad28b93adefd740aeac0f746cdab86d7428887694a1b0949ef8d0dc85db8984e77db684d7b967180167b64d42
   languageName: node
   linkType: hard
 

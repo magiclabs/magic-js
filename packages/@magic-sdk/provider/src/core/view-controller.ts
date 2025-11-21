@@ -12,10 +12,10 @@ import { MagicSDKWarning, createModalNotReadyError } from './sdk-exceptions';
 import { clearDeviceShares, encryptAndPersistDeviceShare } from '../util/device-share-web-crypto';
 import {
   createMagicRequest,
-  persistMagicEventRefreshToken,
   standardizeResponse,
   debounce,
 } from '../util/view-controller-utils';
+import { setItem } from '../util/storage';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -111,7 +111,7 @@ export abstract class ViewController {
        */
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
         const { id, response } = standardizeResponse(payload, event);
-        persistMagicEventRefreshToken(event);
+        this.persistMagicEventRefreshToken(event);
         if (response?.payload.error?.message === 'User denied account access.') {
           clearDeviceShares();
         } else if (event.data.deviceShare) {
@@ -248,5 +248,17 @@ export abstract class ViewController {
       clearInterval(this.heartbeatIntervalTimer);
       this.heartbeatIntervalTimer = null;
     }
+  }
+
+  async persistMagicEventRefreshToken(event: MagicMessageEvent) {
+    if (!event.data.rt) {
+      return;
+    }
+  
+    await this.persistRefreshToken(event.data.rt)
+  }
+
+  persistRefreshToken(rt: string) {
+    return setItem('rt', rt);
   }
 }

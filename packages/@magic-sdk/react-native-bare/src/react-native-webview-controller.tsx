@@ -10,6 +10,7 @@ import { EventRegister } from 'react-native-event-listeners';
 /* global NodeJS */
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
+import { getRefreshTokenInKeychain, setRefreshTokenInKeychain } from './keychain';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -22,10 +23,7 @@ const LAST_MESSAGE_TIME = 'lastMessageTime';
  */
 function createWebViewStyles() {
   return StyleSheet.create({
-    'magic-webview': {
-      flex: 1,
-      backgroundColor: 'transparent',
-    },
+    'magic-webview': { flex: 1, backgroundColor: 'transparent' },
 
     'webview-container': {
       flex: 1,
@@ -38,15 +36,9 @@ function createWebViewStyles() {
       bottom: 0,
     },
 
-    show: {
-      zIndex: 10000,
-      elevation: 10000,
-    },
+    show: { zIndex: 10000, elevation: 10000 },
 
-    hide: {
-      zIndex: -10000,
-      elevation: 0,
-    },
+    hide: { zIndex: -10000, elevation: 0 },
   });
 }
 
@@ -100,6 +92,14 @@ export class ReactNativeWebViewController extends ViewController {
     }, []);
 
     useEffect(() => {
+      // try to retrieve the refresh token from secure storage and set it to the localforage
+      getRefreshTokenInKeychain().then(rt => {
+        if (!rt) return;
+        super.persistRefreshToken(rt);
+      });
+    }, []);
+
+    useEffect(() => {
       EventRegister.addEventListener(MSG_POSTED_AFTER_INACTIVITY_EVENT, async message => {
         // If inactivity has been determined, the message is posted only after a brief
         // unmount and re-mount of the webview. This is to ensure the webview is accepting messages.
@@ -132,11 +132,7 @@ export class ReactNativeWebViewController extends ViewController {
      * display styles.
      */
     const containerRef = useCallback((view: any): void => {
-      this.container = {
-        ...view,
-        showOverlay,
-        hideOverlay,
-      };
+      this.container = { ...view, showOverlay, hideOverlay };
     }, []);
 
     /**
@@ -156,12 +152,7 @@ export class ReactNativeWebViewController extends ViewController {
     const containerStyles = useMemo(() => {
       return [
         this.styles['webview-container'],
-        show
-          ? {
-              ...this.styles.show,
-              backgroundColor: backgroundColor ?? DEFAULT_BACKGROUND_COLOR,
-            }
-          : this.styles.hide,
+        show ? { ...this.styles.show, backgroundColor: backgroundColor ?? DEFAULT_BACKGROUND_COLOR } : this.styles.hide,
       ];
     }, [show]);
 
@@ -287,6 +278,15 @@ export class ReactNativeWebViewController extends ViewController {
     } else {
       throw createModalNotReadyError();
     }
+  }
+
+  async persistMagicEventRefreshToken(event: MagicMessageEvent) {
+    if (!event.data.rt) {
+      return;
+    }
+
+    super.persistMagicEventRefreshToken(event);
+    setRefreshTokenInKeychain(event.data.rt);
   }
 
   // Todo - implement these methods
