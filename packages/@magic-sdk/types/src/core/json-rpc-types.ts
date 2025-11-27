@@ -62,6 +62,10 @@ export enum ThirdPartyWalletEvents {
   WalletConnected = 'wallet_connected',
   WalletRejected = 'wallet_rejected',
   Web3ModalSelected = 'web3modal_selected',
+  MetaMaskSelected = 'metamask_selected',
+  CoinbaseSelected = 'coinbase_selected',
+  PhantomSelected = 'phantom_selected',
+  RabbySelected = 'rabby_selected',
 }
 
 export interface ConnectWithUIOptions {

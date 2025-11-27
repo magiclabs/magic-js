@@ -1,0 +1,41 @@
+{
+  "name": "@magic-ext/third-party-wallets",
+  "version": "0.0.1",
+  "description": "Magic third-party wallets extension",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "files": [
+    "dist"
+  ],
+  "target": "neutral",
+  "cdnGlobalName": "MagicThirdPartyWalletsExtension",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "jsdelivr": "./dist/extension.js",
+  "exports": {
+    "import": "./dist/es/index.mjs",
+    "types": "./dist/types/index.d.ts",
+    "require": "./dist/cjs/index.js"
+  },
+  "externals": {
+    "include": [
+      "@magic-sdk/provider"
+    ]
+  },
+  "dependencies": {
+    "@reown/appkit": "1.8.13",
+    "@reown/appkit-adapter-wagmi": "1.8.13",
+    "@wagmi/core": "^2.21.2",
+    "viem": "^2.37.9",
+    "wagmi": "^2.17.2"
+  },
+  "devDependencies": {
+    "@magic-sdk/provider": "^31.2.0",
+    "@magic-sdk/types": "^25.2.0"
+  }
+}

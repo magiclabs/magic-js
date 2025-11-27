@@ -8,16 +8,37 @@ import {
 import { BaseModule } from './base-module';
 import { PromiEvent, createPromiEvent } from '../util';
 
+type ExternalProvider = {
+  request: (args: { method: string; params?: unknown }) => Promise<unknown>;
+  on?: (event: string, handler: (...args: any[]) => void) => void;
+  removeListener?: (event: string, handler: (...args: any[]) => void) => void;
+};
+
 export class ThirdPartyWalletsModule extends BaseModule {
   public eventListeners: { event: ThirdPartyWalletEvents; callback: (payloadId: string) => Promise<void> }[] = [];
   public enabledWallets: Record<string, boolean> = {};
   public isConnected = false;
+  public activeProvider: ExternalProvider | null = null;
+  private externalDisconnect: (() => Promise<void>) | null = null;
+  public activeWalletKey: string | null = null;
 
   public resetThirdPartyWalletState() {
     localStorage.removeItem(LocalStorageKeys.PROVIDER);
     localStorage.removeItem(LocalStorageKeys.ADDRESS);
     localStorage.removeItem(LocalStorageKeys.CHAIN_ID);
     this.isConnected = false;
+    this.activeProvider = null;
+    this.externalDisconnect = null;
+    this.activeWalletKey = null;
+  }
+
+  public setExternalProvider(
+    provider: ExternalProvider | null | undefined,
+    options?: { disconnect?: () => Promise<void>; walletKey?: string | null },
+  ) {
+    this.activeProvider = (provider ?? null) as ExternalProvider | null;
+    this.externalDisconnect = options?.disconnect ?? null;
+    this.activeWalletKey = options?.walletKey ?? null;
   }
 
   public requestOverride(payload: Partial<JsonRpcRequestPayload>) {
@@ -36,10 +57,15 @@ export class ThirdPartyWalletsModule extends BaseModule {
       return this.logout(payload);
     }
     // Route all other requests to 3pw provider
-    switch (localStorage.getItem(LocalStorageKeys.PROVIDER)) {
+    const provider = localStorage.getItem(LocalStorageKeys.PROVIDER);
+    switch (provider) {
       case 'web3modal':
         return this.web3modalRequest(payload);
-      // Fallback to default request
+      case 'metamask':
+      case 'coinbase':
+      case 'phantom':
+      case 'rabby':
+        return this.externalProviderRequest(payload);
       default:
         this.resetThirdPartyWalletState();
         return super.request(payload);
@@ -49,9 +75,15 @@ export class ThirdPartyWalletsModule extends BaseModule {
   /* Core Method Overrides */
 
   private isLoggedIn(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean> {
-    switch (localStorage.getItem(LocalStorageKeys.PROVIDER)) {
+    const provider = localStorage.getItem(LocalStorageKeys.PROVIDER);
+    switch (provider) {
       case 'web3modal':
         return this.web3modalIsLoggedIn();
+      case 'metamask':
+      case 'coinbase':
+      case 'phantom':
+      case 'rabby':
+        return this.externalIsLoggedIn();
       default:
         this.resetThirdPartyWalletState();
         return super.request(payload);
@@ -59,9 +91,15 @@ export class ThirdPartyWalletsModule extends BaseModule {
   }
 
   private getInfo(payload: Partial<JsonRpcRequestPayload>): PromiEvent<MagicUserMetadata> {
-    switch (localStorage.getItem(LocalStorageKeys.PROVIDER)) {
+    const provider = localStorage.getItem(LocalStorageKeys.PROVIDER);
+    switch (provider) {
       case 'web3modal':
         return this.web3modalGetInfo();
+      case 'metamask':
+      case 'coinbase':
+      case 'phantom':
+      case 'rabby':
+        return this.externalGetInfo(provider ?? '');
       default:
         this.resetThirdPartyWalletState();
         return super.request(payload);
@@ -74,6 +112,12 @@ export class ThirdPartyWalletsModule extends BaseModule {
     switch (provider) {
       case 'web3modal': {
         return this.web3modalLogout();
+      }
+      case 'metamask':
+      case 'coinbase':
+      case 'phantom':
+      case 'rabby': {
+        return this.externalLogout();
       }
       default:
         return super.request(payload);
@@ -169,6 +213,80 @@ export class ThirdPartyWalletsModule extends BaseModule {
       try {
         // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
         await this.sdk.web3modal.modal.disconnect();
+      } catch (error) {
+        console.error(error);
+      }
+      resolve(true);
+    });
+  }
+
+  private externalProviderRequest(payload: Partial<JsonRpcRequestPayload>) {
+    return createPromiEvent<unknown>((resolve, reject) => {
+      if (!this.activeProvider) {
+        this.resetThirdPartyWalletState();
+        super.request(payload).then(resolve).catch(reject);
+        return;
+      }
+
+      const { method, params } = payload;
+
+      if (!method) {
+        reject(new Error('Invalid JSON-RPC payload: missing method.'));
+        return;
+      }
+
+      this.activeProvider
+        .request({ method, params })
+        .then(resolve)
+        .catch(error => {
+          this.resetThirdPartyWalletState();
+          reject(error);
+        });
+    });
+  }
+
+  private externalIsLoggedIn() {
+    return createPromiEvent<boolean>(resolve => {
+      const address = localStorage.getItem(LocalStorageKeys.ADDRESS);
+      resolve(Boolean(address && this.activeProvider));
+    });
+  }
+
+  private externalGetInfo(walletType: string) {
+    return createPromiEvent<MagicUserMetadata>((resolve, reject) => {
+      if (!this.activeProvider) {
+        this.resetThirdPartyWalletState();
+        reject('Magic RPC Error: [-32603] Internal error: No active provider.');
+        return;
+      }
+
+      const address = localStorage.getItem(LocalStorageKeys.ADDRESS);
+      if (!address) {
+        this.resetThirdPartyWalletState();
+        reject('Magic RPC Error: [-32603] Internal error: User denied account access.');
+        return;
+      }
+
+      resolve({
+        publicAddress: address,
+        email: null,
+        issuer: `did:ethr:${address}`,
+        phoneNumber: null,
+        isMfaEnabled: false,
+        recoveryFactors: [] as [],
+        walletType,
+        firstLoginAt: null,
+      });
+    });
+  }
+
+  private externalLogout(): PromiEvent<boolean> {
+    return createPromiEvent<boolean>(async resolve => {
+      try {
+        if (this.externalDisconnect) {
+          await this.externalDisconnect();
+        }
+        this.setExternalProvider(null);
       } catch (error) {
         console.error(error);
       }
