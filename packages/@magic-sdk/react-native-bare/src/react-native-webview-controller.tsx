@@ -92,14 +92,6 @@ export class ReactNativeWebViewController extends ViewController {
     }, []);
 
     useEffect(() => {
-      // try to retrieve the refresh token from secure storage and set it to the localforage
-      getRefreshTokenInKeychain().then(rt => {
-        if (!rt) return;
-        super.persistRefreshToken(rt);
-      });
-    }, []);
-
-    useEffect(() => {
       EventRegister.addEventListener(MSG_POSTED_AFTER_INACTIVITY_EVENT, async message => {
         // If inactivity has been determined, the message is posted only after a brief
         // unmount and re-mount of the webview. This is to ensure the webview is accepting messages.
@@ -280,13 +272,18 @@ export class ReactNativeWebViewController extends ViewController {
     }
   }
 
+  // Overrides parent method to keep refresh token in keychain
   async persistMagicEventRefreshToken(event: MagicMessageEvent) {
     if (!event.data.rt) {
       return;
     }
 
-    super.persistMagicEventRefreshToken(event);
     setRefreshTokenInKeychain(event.data.rt);
+  }
+
+  // Overrides parent method to retrieve refresh token from keychain while creating a request
+  async getRT() {
+    return getRefreshTokenInKeychain()
   }
 
   // Todo - implement these methods
