@@ -1,5 +1,3 @@
-/// <reference path="./ambient.d.ts" />
-
 import { Extension } from '@magic-sdk/provider';
 import { LocalStorageKeys, ThirdPartyWalletEvents } from '@magic-sdk/types';
 import type { EIP1193Provider } from 'viem';
@@ -29,7 +27,9 @@ type WalletConfig = {
   connect: (params: Omit<ConnectUsingConnectorParams, 'matchers' | 'label'>) => Promise<ConnectorResult>;
 };
 
-type ProviderEventHandler = { event: string; handler: (...args: any[]) => void };
+type ProviderEvent = 'accountsChanged' | 'chainChanged' | 'disconnect';
+
+type ProviderEventHandler = { event: ProviderEvent; handler: (...args: any[]) => void };
 
 const walletConfigs: WalletConfig[] = [
   {

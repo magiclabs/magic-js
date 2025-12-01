@@ -1,14 +1,19 @@
-/// <reference path="./ambient.d.ts" />
-
 import { arbitrum, mainnet, optimism, polygon, sepolia } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { ConnectorAlreadyConnectedError, connect, getConnectors, type Connector } from '@wagmi/core';
 import type { EIP1193Provider } from 'viem';
 
+// TODO: This needs to be configurable
 const PROJECT_ID = 'b56e18d47c72ab683b10814fe9495694';
 
-export const networks = [arbitrum, mainnet, optimism, polygon, sepolia];
+export const networks = [arbitrum, mainnet, optimism, polygon, sepolia] as [
+  typeof arbitrum,
+  typeof mainnet,
+  typeof optimism,
+  typeof polygon,
+  typeof sepolia,
+];
 
 export const wagmiAdapter = new WagmiAdapter({
   projectId: PROJECT_ID,
