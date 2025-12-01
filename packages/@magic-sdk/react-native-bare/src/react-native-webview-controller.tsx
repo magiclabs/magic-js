@@ -11,6 +11,7 @@ import { EventRegister } from 'react-native-event-listeners';
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 import { getRefreshTokenInKeychain, setRefreshTokenInKeychain } from './keychain';
+import { getDpop } from './dpop/dpop';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -283,7 +284,18 @@ export class ReactNativeWebViewController extends ViewController {
 
   // Overrides parent method to retrieve refresh token from keychain while creating a request
   async getRT() {
-    return getRefreshTokenInKeychain()
+    return getRefreshTokenInKeychain();
+  }
+
+  async getJWT(): Promise<string | null | undefined> {
+    try {
+      console.log('CREATING DPOP');
+      const dpop = await getDpop();
+      console.log({ dpop });
+      return dpop;
+    } catch (e) {
+      return null;
+    }
   }
 
   // Todo - implement these methods

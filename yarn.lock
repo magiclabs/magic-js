@@ -3354,6 +3354,7 @@ __metadata:
     "@react-native-async-storage/async-storage": ^2.1.2
     "@react-native-community/netinfo": ">11.0.0"
     "@react-native/babel-preset": ^0.79.0
+    "@sbaiahmed1/react-native-biometrics": ^0.9.1
     "@testing-library/react-native": ^13.2.0
     "@types/lodash": ^4.14.158
     buffer: ~5.6.0
@@ -3366,6 +3367,7 @@ __metadata:
     react-native-event-listeners: ^1.0.7
     react-native-keychain: ^10.0.0
     react-native-safe-area-context: 5.3.0
+    react-native-uuid: ^2.0.3
     react-native-webview: ^13.3.0
     react-test-renderer: ^19.1.0
     regenerator-runtime: 0.13.9
@@ -4889,6 +4891,16 @@ __metadata:
   version: 1.1.0
   resolution: "@rtsao/scc@npm:1.1.0"
   checksum: 17d04adf404e04c1e61391ed97bca5117d4c2767a76ae3e879390d6dec7b317fcae68afbf9e98badee075d0b64fa60f287729c4942021b4d19cd01db77385c01
+  languageName: node
+  linkType: hard
+
+"@sbaiahmed1/react-native-biometrics@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@sbaiahmed1/react-native-biometrics@npm:0.9.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 81a20b4101f3e48701f93983a894b3bf13d4f48270058671db20556b3d313f62b075d60d809f8e8b25ae0a8cde193dfff21bcd2bb2067c0cef7310a47db54962
   languageName: node
   linkType: hard
 
@@ -17315,6 +17327,13 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 21f18b1286fc7bc6f38f864b7468848c16c58106ae429633e8f655dabb80571beba19ac8aa8bc5e1b2e926d75afddd7ded919a56450aa00c36d56f7fb421f782
+  languageName: node
+  linkType: hard
+
+"react-native-uuid@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "react-native-uuid@npm:2.0.3"
+  checksum: e47774481feaed5d38f75fb4b03f5189c03e7452038f1b0fa56677add8a8bdef64ec7ad5e83f9fa761d8788cac5c8e554ade07e82a2818145337df7c883e2124
   languageName: node
   linkType: hard
 

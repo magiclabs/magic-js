@@ -9,15 +9,15 @@ import {
 import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
 import { MagicSDKWarning, createModalNotReadyError } from './sdk-exceptions';
-import { clearDeviceShares, encryptAndPersistDeviceShare, getDecryptedDeviceShare } from '../util/device-share-web-crypto';
 import {
-  standardizeResponse,
-  debounce,
-  StandardizedMagicRequest,
-} from '../util/view-controller-utils';
+  clearDeviceShares,
+  encryptAndPersistDeviceShare,
+  getDecryptedDeviceShare,
+} from '../util/device-share-web-crypto';
+import { standardizeResponse, debounce, StandardizedMagicRequest } from '../util/view-controller-utils';
 import { setItem, getItem } from '../util/storage';
 import { SDKEnvironment } from './sdk-environment';
-import { createJwt } from 'magic-sdk';
+import { createJwt } from '../util/web-crypto';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -256,7 +256,7 @@ export abstract class ViewController {
     if (!event.data.rt) {
       return;
     }
-  
+
     await setItem('rt', event.data.rt);
   }
 
@@ -268,10 +268,9 @@ export abstract class ViewController {
     const request: StandardizedMagicRequest = { msgType, payload };
 
     const rt = await this.getRT();
-    const jwt = await this.getJWT()
-    const decryptedDeviceShare = await this.getDecryptedDeviceShare(networkHash)
-  
-  
+    const jwt = await this.getJWT();
+    const decryptedDeviceShare = await this.getDecryptedDeviceShare(networkHash);
+
     if (jwt) {
       request.jwt = jwt;
     }
@@ -279,23 +278,23 @@ export abstract class ViewController {
     if (jwt && rt) {
       request.rt = rt;
     }
-  
+
     // Grab the device share if it exists for the network
     if (decryptedDeviceShare) {
       request.deviceShare = decryptedDeviceShare;
     }
-  
+
     return request;
   }
 
-  async getJWT():Promise<string | null | undefined> {
+  async getJWT(): Promise<string | null | undefined> {
     // only for webcrypto platforms
     if (SDKEnvironment.platform === 'web') {
       try {
         const jwtFromStorage = await getItem<string>('jwt');
         if (jwtFromStorage) return jwtFromStorage;
 
-        const newJwt = await createJwt()
+        const newJwt = await createJwt();
         return newJwt;
       } catch (e) {
         console.error('webcrypto error', e);
@@ -306,11 +305,11 @@ export abstract class ViewController {
     }
   }
 
-  async getRT():Promise<string | null> {
-    return await getItem<string>('rt') 
+  async getRT(): Promise<string | null> {
+    return await getItem<string>('rt');
   }
 
-  async getDecryptedDeviceShare(networkHash: string){
-    return await getDecryptedDeviceShare(networkHash)
+  async getDecryptedDeviceShare(networkHash: string) {
+    return await getDecryptedDeviceShare(networkHash);
   }
 }
