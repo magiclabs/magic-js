@@ -3363,6 +3363,7 @@ __metadata:
     process: ~0.11.10
     react: ~19.1.0
     react-native: ~0.78.1
+    react-native-device-crypto: ^0.1.7
     react-native-device-info: ^10.3.0
     react-native-event-listeners: ^1.0.7
     react-native-keychain: ^10.0.0
@@ -17280,6 +17281,16 @@ __metadata:
   version: 19.1.0
   resolution: "react-is@npm:19.1.0"
   checksum: 3eb4eac7f09bf178bdc6fa98d384f5f243b85de7c99679a88b0154ead4d818ad94386ccb00ea31ec52409ffd13299057f5ec6ca2eaec06f9f7eddc1ad4832332
+  languageName: node
+  linkType: hard
+
+"react-native-device-crypto@npm:^0.1.7":
+  version: 0.1.7
+  resolution: "react-native-device-crypto@npm:0.1.7"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: dc1fae91223074b8a4ddc4206f9b00490696389d3f40c1e2c071e7592119890951cd13bf7a9b4c302e8caa72a0a5fcbb0efdedf752ba87d35a24cfc09b507522
   languageName: node
   linkType: hard
 
