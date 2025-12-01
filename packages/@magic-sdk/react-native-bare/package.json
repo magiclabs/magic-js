@@ -27,6 +27,7 @@
     "localforage": "^1.7.4",
     "lodash": "^4.17.19",
     "process": "~0.11.10",
+    "react-native-device-crypto": "^0.1.7",
     "react-native-device-info": "^10.3.0",
     "react-native-event-listeners": "^1.0.7",
     "react-native-keychain": "^10.0.0",
