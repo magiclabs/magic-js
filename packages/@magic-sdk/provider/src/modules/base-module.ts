@@ -31,6 +31,7 @@ export class BaseModule {
       const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
         this.sdk.thirdPartyWallets.requestOverride(payload).then(resolve).catch(reject);
       });
+      console.log('promiEvent early', promiEvent);
       return promiEvent;
     }
 
@@ -65,6 +66,7 @@ export class BaseModule {
       }
     });
 
+    console.log('promiEvent', promiEvent);
     return promiEvent;
   }
 
