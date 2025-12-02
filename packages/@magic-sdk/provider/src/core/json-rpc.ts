@@ -52,6 +52,7 @@ export function standardizeJsonRpcRequestPayload(payload: Partial<JsonRpcRequest
  * Build a valid JSON RPC payload for emitting to the Magic SDK iframe relayer.
  */
 export function createJsonRpcRequestPayload(method: string, params: any[] = []): JsonRpcRequestPayload {
+  console.log('createJsonRpcRequestPayload', method, params);
   return markPayloadAsPreprocessed({
     params,
     method,
