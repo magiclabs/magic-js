@@ -14,7 +14,7 @@ export class EVMExtension extends Extension.Internal<'evm', any> {
   }
 
   public switchChain = (chainId: number) => {
-    const result = this.request<{
+    return this.request<{
       network:
         | string
         | {
@@ -24,7 +24,5 @@ export class EVMExtension extends Extension.Internal<'evm', any> {
           }
         | undefined;
     }>(this.utils.createJsonRpcRequestPayload(EVMPayloadMethod.switchChain, [{ chainId }]));
-    console.log('result', result);
-    return result;
   };
 }
