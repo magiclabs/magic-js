@@ -10,8 +10,9 @@ import { EventRegister } from 'react-native-event-listeners';
 /* global NodeJS */
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
-import { getRefreshTokenInKeychain, setRefreshTokenInKeychain } from './keychain';
-import { getDpop } from './dpop/dpop';
+import { getRefreshTokenInKeychain, setRefreshTokenInKeychain } from './native-crypto/keychain';
+import { getDpop } from './native-crypto/dpop';
+import { getKeyAlias } from './native-crypto/utils/key-alias';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -290,6 +291,7 @@ export class ReactNativeWebViewController extends ViewController {
   async getJWT(): Promise<string | null | undefined> {
     try {
       console.log('CREATING DPOP');
+      console.log({ keyAlias: getKeyAlias('dpop') });
       const dpop = await getDpop();
       console.log({ dpop });
       return dpop;

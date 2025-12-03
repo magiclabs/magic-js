@@ -1,10 +1,8 @@
-import * as Biometrics from '@sbaiahmed1/react-native-biometrics';
 import uuid from 'react-native-uuid'; // Ensure you have installed: npm install react-native-uuid
 import { toBase64Url } from './utils/uint8';
 import { spkiToJwk } from './utils/jwk';
 import { ALG, TYP } from './constants';
 import { derToRawSignature } from './utils/der';
-import { getDpopAlias } from './utils/dpop-alias';
 import { DpopClaims, DpopHeader } from './types';
 import DeviceCrypto, { AccessLevel } from 'react-native-device-crypto';
 
@@ -15,7 +13,7 @@ const KEY_ALIAS = 'dpop';
  * Generates the DPoP proof compatible with the Python backend.
  * Handles key creation (if missing), JWK construction, and signing.
  */
-export const getDpop = async (): Promise<string> => {
+export const getDpop = async (): Promise<string | null> => {
   try {
     // 1. Get or Create Key in Secure Enclave
     // We strictly disable authentication to avoid biometric prompts
@@ -61,18 +59,18 @@ export const getDpop = async (): Promise<string> => {
     return `${signingInput}.${signatureB64}`;
   } catch (error) {
     console.error('DPoP Generation Error:', error);
-    throw error;
+    return null;
   }
 };
 
 /**
- * Removes existing keys and invalidates the DPoP
+ * Removes the keys from the Secure Enclave
+ * Returns true if the key was deleted successfully, false otherwise.
+ * @returns {Promise<boolean>} True if the key was deleted successfully, false otherwise.
  */
 export const deleteDpop = async (): Promise<boolean> => {
   try {
-    const DPOP_KEY_ALIAS = await getDpopAlias();
-    const result = await Biometrics.deleteKeys(DPOP_KEY_ALIAS);
-    return result.success;
+    return await DeviceCrypto.deleteKey(KEY_ALIAS);
   } catch (error) {
     console.error('DPoP Deletion Error:', error);
     return false;
