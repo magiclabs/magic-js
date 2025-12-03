@@ -12,7 +12,6 @@ import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 import { getRefreshTokenInKeychain, setRefreshTokenInKeychain } from './native-crypto/keychain';
 import { getDpop } from './native-crypto/dpop';
-import { getKeyAlias } from './native-crypto/utils/key-alias';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';

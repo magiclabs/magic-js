@@ -18,12 +18,12 @@ export const getDpop = async (): Promise<string | null> => {
     // 1. Get or Create Key in Secure Enclave
     // We strictly disable authentication to avoid biometric prompts
     const publicKey = await DeviceCrypto.getOrCreateAsymmetricKey(KEY_ALIAS, {
-      accessLevel: AccessLevel.ALWAYS, // Key never leaves device
+      accessLevel: AccessLevel.ALWAYS, // Key is always accessible in this device
       invalidateOnNewBiometry: false,
     });
 
     // 2. Prepare Public Key as JWK
-    // Backend expects JWK in the header [cite: 27, 43]
+    // Toaster backend expects JWK in the header
     const publicJwk = spkiToJwk(publicKey);
 
     // 3. Construct Payload
@@ -46,8 +46,8 @@ export const getDpop = async (): Promise<string | null> => {
 
     // 5. Sign Data
     // DeviceCrypto returns a Base64 signature.
-    // Note: Android often returns ASN.1 DER, iOS might return Raw.
     const signatureBase64 = await DeviceCrypto.sign(KEY_ALIAS, signingInput, {
+      // Biometry prompts should not be fired since the key is always accessible in this device
       biometryTitle: 'Sign DPoP',
       biometrySubTitle: 'Sign DPoP',
       biometryDescription: 'Sign DPoP',

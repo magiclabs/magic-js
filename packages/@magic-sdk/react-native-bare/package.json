@@ -21,7 +21,6 @@
     "@magic-sdk/provider": "^31.2.0",
     "@magic-sdk/types": "^25.2.0",
     "@react-native-async-storage/async-storage": "^2.1.2",
-    "@sbaiahmed1/react-native-biometrics": "^0.9.1",
     "@types/lodash": "^4.14.158",
     "buffer": "~5.6.0",
     "localforage": "^1.7.4",

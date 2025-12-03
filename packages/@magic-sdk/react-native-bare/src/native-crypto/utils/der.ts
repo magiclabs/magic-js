@@ -2,7 +2,7 @@ import { base64ToUint8Array, toBase64Url } from './uint8';
 
 /**
  * Converts a DER encoded signature (ASN.1) to a Raw R|S signature (64 bytes).
- * React Native Biometrics returns DER; Python Backend expects Raw P1363.
+ * Device Crypto returns DER; Toaster backend expects Raw P1363.
  */
 export const derToRawSignature = (derBase64: string): string => {
   const der = base64ToUint8Array(derBase64);
