@@ -290,11 +290,7 @@ export class ReactNativeWebViewController extends ViewController {
 
   async getJWT(): Promise<string | null | undefined> {
     try {
-      console.log('CREATING DPOP');
-      console.log({ keyAlias: getKeyAlias('dpop') });
-      const dpop = await getDpop();
-      console.log({ dpop });
-      return dpop;
+      return await getDpop();
     } catch (e) {
       return null;
     }

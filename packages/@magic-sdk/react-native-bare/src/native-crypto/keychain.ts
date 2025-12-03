@@ -1,7 +1,8 @@
 import * as Keychain from 'react-native-keychain';
+import { getKeyAlias } from './utils/key-alias';
 
-const SERVICE = 'magic_sdk_rt';
-const KEY = 'magic_rt';
+const SERVICE = getKeyAlias('refreshTokenService');
+const KEY = getKeyAlias('refreshToken');
 
 export const setRefreshTokenInKeychain = async (rt: string) => {
   try {

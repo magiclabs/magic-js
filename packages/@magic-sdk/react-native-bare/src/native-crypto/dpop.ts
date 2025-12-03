@@ -5,9 +5,9 @@ import { ALG, TYP } from './constants';
 import { derToRawSignature } from './utils/der';
 import { DpopClaims, DpopHeader } from './types';
 import DeviceCrypto, { AccessLevel } from 'react-native-device-crypto';
+import { getKeyAlias } from './utils/key-alias';
 
-// TODO: Make this dynamic based on the bundle id or package name
-const KEY_ALIAS = 'dpop';
+const KEY_ALIAS = getKeyAlias('dpop');
 
 /**
  * Generates the DPoP proof compatible with the Python backend.
