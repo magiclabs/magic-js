@@ -1,3 +1,33 @@
+# v13.1.0 (Thu Oct 30 2025)
+
+#### 🚀 Enhancement
+
+- feat: implement event listener for oauth popup [#952](https://github.com/magiclabs/magic-js/pull/952) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v13.0.0 (Fri Oct 03 2025)
+
+#### 💥 Breaking Change
+
+- EVM Extension and new extension methods [#915](https://github.com/magiclabs/magic-js/pull/915) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- remove oauth package from mono-repo [#940](https://github.com/magiclabs/magic-js/pull/940) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v11.5.0 (Fri Aug 15 2025)
 
 #### 🚀 Enhancement

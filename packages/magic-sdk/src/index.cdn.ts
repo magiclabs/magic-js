@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import { SDKBase, createSDK } from '@magic-sdk/provider';
-import * as publicAPI from '@magic-sdk/commons';
+import * as publicAPI from '@magic-sdk/provider';
 import localForage from 'localforage';
 import * as memoryDriver from 'localforage-driver-memory';
 import { IframeController } from './iframe-controller';

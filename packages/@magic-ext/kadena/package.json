@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/kadena",
-  "version": "2.0.0",
+  "version": "3.2.0",
   "description": "Magic Kadena Extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -24,10 +24,10 @@
   },
   "externals": {
     "include": [
-      "@magic-sdk/commons"
+      "@magic-sdk/provider"
     ]
   },
   "devDependencies": {
-    "@magic-sdk/commons": "^26.0.0"
+    "@magic-sdk/provider": "^31.2.0"
   }
 }

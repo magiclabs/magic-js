@@ -15,7 +15,6 @@ import { createTypedEmitter, EventsDefinition, TypedEmitter } from '../util/even
 
 const { createBoundEmitterMethod, createChainingEmitterMethod } = createTypedEmitter();
 
-/** */
 export class RPCProviderModule extends BaseModule implements TypedEmitter {
   // Implements EIP 1193:
   // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md

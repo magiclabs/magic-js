@@ -1,0 +1,35 @@
+{
+  "name": "@magic-ext/evm",
+  "version": "1.0.0",
+  "description": "magic evm extension",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "files": [
+    "dist"
+  ],
+  "target": "neutral",
+  "cdnGlobalName": "MagicEVMExtension",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "jsdelivr": "./dist/extension.js",
+  "exports": {
+    "import": "./dist/es/index.mjs",
+    "types": "./dist/types/index.d.ts",
+    "require": "./dist/cjs/index.js"
+  },
+  "externals": {
+    "include": [
+      "@magic-sdk/provider",
+      "@magic-sdk/types"
+    ]
+  },
+  "devDependencies": {
+    "@magic-sdk/provider": "^29.5.0",
+    "@magic-sdk/types": "^24.22.0"
+  }
+}

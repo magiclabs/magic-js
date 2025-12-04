@@ -1,18 +1,14 @@
-import { Extension } from '@magic-sdk/commons';
-import { TezosConfig, ConfigType } from './type';
+import { MultichainExtension } from '@magic-sdk/provider';
+import { TezosConfig } from './type';
 
-export class TezosExtension extends Extension.Internal<'tezos', TezosConfig> {
+export class TezosExtension extends MultichainExtension<'tezos'> {
   name = 'tezos' as const;
 
-  config: ConfigType;
-
   constructor(public tezosConfig: TezosConfig) {
-    super();
-
-    this.config = {
+    super({
       rpcUrl: tezosConfig.rpcUrl,
       chainType: 'TEZOS',
-    };
+    });
   }
 
   public sendTransactionOperation = (

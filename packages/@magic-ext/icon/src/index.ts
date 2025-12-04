@@ -1,18 +1,14 @@
-import { Extension } from '@magic-sdk/commons';
-import { IconConfig, ConfigType } from './type';
+import { MultichainExtension } from '@magic-sdk/provider';
+import { IconConfig } from './type';
 
-export class IconExtension extends Extension.Internal<'icon', IconConfig> {
+export class IconExtension extends MultichainExtension<'icon'> {
   name = 'icon' as const;
 
-  config: ConfigType;
-
   constructor(public iconConfig: IconConfig) {
-    super();
-
-    this.config = {
+    super({
       rpcUrl: iconConfig.rpcUrl,
       chainType: 'ICON',
-    };
+    });
   }
 
   public sendTransaction = (txObj: any): Promise<string> => {

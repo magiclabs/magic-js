@@ -93,6 +93,8 @@ export interface LoginWithEmailOTPConfiguration {
    */
   overrides?: {
     variation?: string;
+    appName?: string;
+    assetUrl?: string;
   };
 
   /**
@@ -116,7 +118,7 @@ export interface LoginWithCredentialConfiguration {
 export interface EnableMFAConfiguration {
   /**
    * When `true`, a pre-built modal interface will show to the user, directing
-   * them to enable MFA usign Google Authenticator app.
+   * them to enable MFA using Google Authenticator app.
    *
    * When `false`, developers will be able to implement their own custom UI to
    * continue the enable MFA flow.

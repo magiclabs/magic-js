@@ -1,12 +1,10 @@
   <p align="left">
-    <a href="https://magic.link/docs/home/welcome">
+    <a href="https://docs.magic.link/home/welcome">
       <img src="https://media.graphassets.com/T9TXZhcNRVm211eyMh3u" alt="Logo" width="270" height="auto">
     </a>
   </p>
 
 # Magic JavaScript SDK
-
-[![<MagicLabs>](https://app.circleci.com/pipelines/github/magiclabs/magic-js.svg?style=shield)](https://app.circleci.com/pipelines/github/magiclabs/magic-js)
 
 > The Magic JavaScript SDK empowers developers to provide frictionless web3 onboarding to their end-users while preserving their security and privacy using non-custodial wallets.
 
@@ -54,14 +52,58 @@ Then, you can start authenticating users with _just one method!_ Magic works acr
 
 ```ts
 import { Magic } from 'magic-sdk';
-import Web3 from 'web3';
+import { ethers } from 'ethers';
 
 const magic = new Magic('YOUR_API_KEY', {
-  network: 'goerli',
+  network: 'sepolia',
 });
 
-const web3 = new Web3(magic.rpcProvider);
+const provider = new ethers.BrowserProvider(magic.rpcProvider);
 const accounts = await magic.wallet.connectWithUI();
+```
+
+With network switching:
+
+> Network switching is available on web SDK version 31.0.0+ and React Native SDKs version 32.0.0+
+
+```ts
+import { Magic } from 'magic-sdk';
+import { SolanaExtension } from '@magic-ext/solana';
+import { EVMExtension } from '@magic-ext/evm';
+import { ethers } from 'ethers';
+
+const customPolygonOptions = {
+  rpcUrl: 'https://polygon-rpc.com/', // Polygon RPC URL
+  chainId: 137, // Polygon chain id
+  default: true, // Set as default network
+};
+
+const customOptimismOptions = {
+  rpcUrl: 'https://mainnet.optimism.io',
+  chainId: 10,
+};
+
+const magic = new Magic(API_KEY, {
+  extensions: [
+    new EVMExtension([customPolygonOptions, customOptimismOptions]),
+    new SolanaExtension({
+      rpcUrl: 'https://api.devnet.solana.com',
+    }),
+  ],
+});
+
+const provider = new ethers.BrowserProvider(magic.rpcProvider);
+
+const network = await provider.getNetwork();
+console.log(network.chainId); // => 137
+
+magic.evm.switchChain(10);
+
+const network = await provider.getNetwork();
+console.log(network.chainId); // => 10
+
+const solanaPublicAddress = await magic.solana.getPublicAddress();
+console.log(solanaPublicAddress); // => "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
 ```
 
 ## 📦 Package Ecosystem
@@ -84,13 +126,11 @@ Extend Magic JS SDK functionality for your use-case through [`@magic-ext/*` pack
 
 These are packages Magic JS SDK uses internally to work seamlessly across platforms.
 
-| Package Name                                                               | Changelog                                                | Description                                                                                                                      |
-| -------------------------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types)       | [CHANGELOG](./packages/@magic-sdk/types/CHANGELOG.md)    | Core typings shared between JavaScript entry-points of Magic SDK.                                                                |
-| [`@magic-sdk/pnp`](https://www.npmjs.com/package/@magic-sdk/pnp)           | [CHANGELOG](./packages/@magic-sdk/pnp/CHANGELOG.md)      | A lightweight connector that wraps Magic JS authentication with a beautiful, functional out-of-the-box login form.               |
-| [`@magic-sdk/provider`](https://www.npmjs.com/package/@magic-sdk/provider) | [CHANGELOG](./packages/@magic-sdk/provider/CHANGELOG.md) | Core business logic shared between JavaScript entry-points of Magic SDK.                                                         |
-| [`@magic-sdk/commons`](https://www.npmjs.com/package/@magic-sdk/commons)   | [CHANGELOG](./packages/@magic-sdk/commons/CHANGELOG.md)  | Exposes a listing of common public APIs from `@magic-sdk/provider` and `@magic-sdk/types` to the platform-specific entry points. |
-| [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types)       | [CHANGELOG](./packages/@magic-sdk/types/CHANGELOG.md)    | Core typings for Magic SDK packages.                                                                                             |
+| Package Name                                                               | Changelog                                                | Description                                                              |
+| -------------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types)       | [CHANGELOG](./packages/@magic-sdk/types/CHANGELOG.md)    | Core typings shared between JavaScript entry-points of Magic SDK.        |
+| [`@magic-sdk/provider`](https://www.npmjs.com/package/@magic-sdk/provider) | [CHANGELOG](./packages/@magic-sdk/provider/CHANGELOG.md) | Core business logic shared between JavaScript entry-points of Magic SDK. |
+| [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types)       | [CHANGELOG](./packages/@magic-sdk/types/CHANGELOG.md)    | Core typings for Magic SDK packages.                                     |
 
 ## 🚦 Testing
 
