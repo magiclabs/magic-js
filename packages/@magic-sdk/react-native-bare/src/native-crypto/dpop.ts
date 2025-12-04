@@ -1,4 +1,4 @@
-import uuid from 'react-native-uuid'; // Ensure you have installed: npm install react-native-uuid
+import uuid from 'react-native-uuid';
 import { toBase64Url } from './utils/uint8';
 import { spkiToJwk } from './utils/jwk';
 import { ALG, TYP } from './constants';
