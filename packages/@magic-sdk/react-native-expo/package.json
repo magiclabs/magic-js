@@ -24,10 +24,13 @@
     "@types/lodash": "^4.14.158",
     "buffer": "~5.6.0",
     "expo-application": "^5.0.1",
+    "expo-secure-store": "~14.0.1",
     "localforage": "^1.7.4",
     "lodash": "^4.17.19",
     "process": "~0.11.10",
+    "react-native-device-crypto": "^0.1.7",
     "react-native-event-listeners": "^1.0.7",
+    "react-native-uuid": "^2.0.3",
     "tslib": "^2.0.3",
     "whatwg-url": "~8.1.0"
   },

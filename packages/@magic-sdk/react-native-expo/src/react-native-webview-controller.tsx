@@ -10,6 +10,8 @@ import { EventRegister } from 'react-native-event-listeners';
 /* global NodeJS */
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
+import { getRefreshTokenInSecureStore, setRefreshTokenInSecureStore } from './native-crypto/keychain';
+import { getDpop } from './native-crypto/dpop';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -286,6 +288,27 @@ export class ReactNativeWebViewController extends ViewController {
       AsyncStorage.setItem(LAST_MESSAGE_TIME, new Date().toISOString());
     } else {
       throw createModalNotReadyError();
+    }
+  }
+
+  async persistMagicEventRefreshToken(event: MagicMessageEvent) {
+    if (!event.data.rt) {
+      return;
+    }
+
+    setRefreshTokenInSecureStore(event.data.rt);
+  }
+
+  // Overrides parent method to retrieve refresh token from keychain while creating a request
+  async getRT() {
+    return getRefreshTokenInSecureStore();
+  }
+
+  async getJWT(): Promise<string | null | undefined> {
+    try {
+      return await getDpop();
+    } catch (e) {
+      return null;
     }
   }
 

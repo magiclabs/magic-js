@@ -3401,14 +3401,17 @@ __metadata:
     expo: ^52.0.44
     expo-application: ^5.0.1
     expo-modules-core: ^2.2.3
+    expo-secure-store: ~14.0.1
     jest-expo: ~52.0.6
     localforage: ^1.7.4
     lodash: ^4.17.19
     process: ~0.11.10
     react: ^19.1.0
     react-native: ^0.78.2
+    react-native-device-crypto: ^0.1.7
     react-native-event-listeners: ^1.0.7
     react-native-safe-area-context: ^5.3.0
+    react-native-uuid: ^2.0.3
     react-native-webview: ^13.13.5
     react-test-renderer: ^19.1.0
     regenerator-runtime: 0.13.9
@@ -10368,6 +10371,15 @@ __metadata:
   dependencies:
     invariant: ^2.2.4
   checksum: 7a23deea37d9ffca7e9a00b9ea124e7378d5cd458df39f0d7c09b37d510fc4d9dff84b11edc75e666abe282a784fc5f784377368a92cb4509cb12b95ee5f61f8
+  languageName: node
+  linkType: hard
+
+"expo-secure-store@npm:~14.0.1":
+  version: 14.0.1
+  resolution: "expo-secure-store@npm:14.0.1"
+  peerDependencies:
+    expo: "*"
+  checksum: a38f4fc06ba1ff334c930a433fbc12c49e3af63e32687bd4bcfa0130da2aefa55ab721a5ce248387962399f2d7a13b6979ae3c81363d076376dbfa6bc4584dad
   languageName: node
   linkType: hard
 
