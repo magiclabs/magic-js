@@ -10,7 +10,8 @@
   },
   "homepage": "https://magic.link",
   "files": [
-    "dist"
+    "dist",
+    "*.podspec"
   ],
   "target": "node",
   "main": "./dist/cjs/index.js",
