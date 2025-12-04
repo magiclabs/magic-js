@@ -1,5 +1,5 @@
-import { Extension } from '@magic-sdk/provider';
-import { LocalStorageKeys, ThirdPartyWalletEvents } from '@magic-sdk/types';
+import { Extension, type SDKBase } from '@magic-sdk/provider';
+import { LocalStorageKeys, ThirdPartyWalletEvents, type JsonRpcRequestPayload } from '@magic-sdk/types';
 import type { EIP1193Provider } from 'viem';
 import {
   appKit,
@@ -62,21 +62,115 @@ export class ThirdPartyWalletsExtension extends Extension.Internal<'thirdPartyWa
   private activeWalletKey: WalletKey | null = null;
   private activeConnectorDisconnect: (() => Promise<void>) | null = null;
   private providerEventHandlers: ProviderEventHandler[] = [];
+  private thirdPartyWalletsModule: any;
+  private setExternalProviderFn:
+    | ((provider: unknown, options?: { disconnect?: () => Promise<void>; walletKey?: string | null }) => void)
+    | null = null;
+  private resetThirdPartyWalletStateFn: (() => void) | null = null;
+  private requestOverrideFn: ((payload: Partial<JsonRpcRequestPayload>) => unknown) | null = null;
+  private initialized = false;
 
   constructor() {
     super();
   }
 
+  public init(sdk: SDKBase) {
+    const thirdPartyWalletsModule = (sdk as any).thirdPartyWallets;
+    this.thirdPartyWalletsModule = thirdPartyWalletsModule;
+
+    if (thirdPartyWalletsModule) {
+      if (typeof thirdPartyWalletsModule.setExternalProvider === 'function') {
+        this.setExternalProviderFn = thirdPartyWalletsModule.setExternalProvider.bind(thirdPartyWalletsModule);
+      }
+      if (typeof thirdPartyWalletsModule.resetThirdPartyWalletState === 'function') {
+        this.resetThirdPartyWalletStateFn =
+          thirdPartyWalletsModule.resetThirdPartyWalletState.bind(thirdPartyWalletsModule);
+      }
+      if (typeof thirdPartyWalletsModule.requestOverride === 'function') {
+        this.requestOverrideFn = thirdPartyWalletsModule.requestOverride.bind(thirdPartyWalletsModule);
+      }
+    }
+
+    super.init(sdk);
+    this.initialize();
+  }
+
+  private getThirdPartyWalletsModule() {
+    if (!this.thirdPartyWalletsModule) {
+      throw new Error('Third-party wallets module not initialized');
+    }
+    return this.thirdPartyWalletsModule;
+  }
+
+  public get eventListeners() {
+    return this.getThirdPartyWalletsModule().eventListeners;
+  }
+
+  public get enabledWallets() {
+    return this.getThirdPartyWalletsModule().enabledWallets;
+  }
+
+  public get isConnected() {
+    return this.getThirdPartyWalletsModule().isConnected;
+  }
+
+  public set isConnected(isConnected: boolean) {
+    this.getThirdPartyWalletsModule().isConnected = isConnected;
+  }
+
+  public resetThirdPartyWalletState() {
+    if (this.resetThirdPartyWalletStateFn) {
+      return this.resetThirdPartyWalletStateFn();
+    }
+    const module = this.getThirdPartyWalletsModule();
+    if (module && typeof module.resetThirdPartyWalletState === 'function') {
+      this.resetThirdPartyWalletStateFn = module.resetThirdPartyWalletState.bind(module);
+      return this.resetThirdPartyWalletStateFn?.();
+    }
+    return undefined;
+  }
+
+  public setExternalProvider(
+    provider: unknown,
+    options?: { disconnect?: () => Promise<void>; walletKey?: string | null },
+  ) {
+    if (this.setExternalProviderFn) {
+      return this.setExternalProviderFn?.(provider, options);
+    }
+    const module = this.getThirdPartyWalletsModule();
+    if (module && typeof module.setExternalProvider === 'function') {
+      this.setExternalProviderFn = module.setExternalProvider.bind(module);
+      return this.setExternalProviderFn?.(provider, options);
+    }
+    return undefined;
+  }
+
+  public requestOverride(payload: Partial<JsonRpcRequestPayload>) {
+    if (this.requestOverrideFn) {
+      return this.requestOverrideFn?.(payload);
+    }
+    const module = this.getThirdPartyWalletsModule();
+    if (module && typeof module.requestOverride === 'function') {
+      this.requestOverrideFn = module.requestOverride.bind(module);
+      return this.requestOverrideFn?.(payload);
+    }
+    return undefined;
+  }
+
   public initialize() {
+    if (this.initialized) return;
+
+    const thirdPartyWallets = this.getThirdPartyWalletsModule();
     walletConfigs.forEach(({ key, event }) => {
-      this.sdk.thirdPartyWallets.enabledWallets[key] = true;
-      this.sdk.thirdPartyWallets.eventListeners.push({
+      thirdPartyWallets.enabledWallets[key] = true;
+      thirdPartyWallets.eventListeners.push({
         event,
-        callback: payloadId => this.handleWalletSelection(key, payloadId),
+        callback: (payloadId: string) => this.handleWalletSelection(key, payloadId),
       });
     });
 
-    this.sdk.thirdPartyWallets.isConnected = Boolean(localStorage.getItem(LocalStorageKeys.ADDRESS));
+    this.isConnected = Boolean(localStorage.getItem(LocalStorageKeys.ADDRESS));
+    this.initialized = true;
   }
 
   private async handleWalletSelection(walletKey: WalletKey, payloadId: string) {
@@ -110,16 +204,19 @@ export class ThirdPartyWalletsExtension extends Extension.Internal<'thirdPartyWa
     }
     localStorage.setItem(LocalStorageKeys.CHAIN_ID, result.chainId.toString());
 
+    const thirdPartyWallets = this.getThirdPartyWalletsModule();
+
     this.provider = result.provider;
     this.activeWalletKey = walletKey;
-    this.sdk.thirdPartyWallets.isConnected = true;
+    thirdPartyWallets.activeWalletKey = walletKey;
+    this.isConnected = true;
     const externalProvider = result.provider as unknown as {
       request: (args: { method: string; params?: unknown }) => Promise<unknown>;
       on?: (event: string, handler: (...args: any[]) => void) => void;
       removeListener?: (event: string, handler: (...args: any[]) => void) => void;
     };
 
-    this.sdk.thirdPartyWallets.setExternalProvider(externalProvider, {
+    this.setExternalProvider(externalProvider, {
       walletKey,
       disconnect: async () => {
         if (typeof result.connector.disconnect === 'function') {
@@ -137,11 +234,12 @@ export class ThirdPartyWalletsExtension extends Extension.Internal<'thirdPartyWa
   }
 
   private registerProviderListeners(provider: EIP1193Provider) {
+    const thirdPartyWallets = this.getThirdPartyWalletsModule();
     this.removeProviderListeners();
 
     const handleAccountsChanged = (accounts: string[]) => {
       if (!accounts || accounts.length === 0) {
-        this.sdk.thirdPartyWallets.resetThirdPartyWalletState();
+        this.resetThirdPartyWalletState();
         this.removeProviderListeners();
         this.sdk.rpcProvider.emit('accountsChanged', []);
         return;
@@ -158,12 +256,12 @@ export class ThirdPartyWalletsExtension extends Extension.Internal<'thirdPartyWa
     };
 
     const handleDisconnect = () => {
-      this.sdk.thirdPartyWallets.resetThirdPartyWalletState();
+      this.resetThirdPartyWalletState();
       this.removeProviderListeners();
       this.provider = null;
       this.activeWalletKey = null;
       this.activeConnectorDisconnect = null;
-      this.sdk.thirdPartyWallets.setExternalProvider(null);
+      this.setExternalProvider(null);
       this.sdk.rpcProvider.emit('accountsChanged', []);
     };
 
@@ -198,13 +296,13 @@ export class ThirdPartyWalletsExtension extends Extension.Internal<'thirdPartyWa
 
   private handleConnectionError(payloadId: string, error: unknown) {
     console.error('Third-party wallet connection error:', error);
-    this.sdk.thirdPartyWallets.resetThirdPartyWalletState();
+    this.resetThirdPartyWalletState();
     this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
     this.removeProviderListeners();
     this.provider = null;
     this.activeWalletKey = null;
     this.activeConnectorDisconnect = null;
-    this.sdk.thirdPartyWallets.setExternalProvider(null);
+    this.setExternalProvider(null);
   }
 }
 

@@ -4,8 +4,7 @@ import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { ConnectorAlreadyConnectedError, connect, getConnectors, type Connector } from '@wagmi/core';
 import type { EIP1193Provider } from 'viem';
 
-// TODO: This needs to be configurable
-const PROJECT_ID = 'b56e18d47c72ab683b10814fe9495694';
+const PROJECT_ID = '63b23e8e0ce78ded56b2a894b61da998';
 
 export const networks = [mainnet, sepolia] as [typeof mainnet, typeof sepolia];
 
@@ -18,10 +17,6 @@ export const appKit = createAppKit({
   adapters: [wagmiAdapter],
   networks,
   projectId: PROJECT_ID,
-  themeMode: 'light',
-  themeVariables: {
-    '--w3m-accent': '#000000',
-  },
   features: {
     analytics: true,
   },
