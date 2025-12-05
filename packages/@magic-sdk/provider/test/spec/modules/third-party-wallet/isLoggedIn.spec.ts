@@ -20,6 +20,18 @@ describe('third party wallet isLoggedIn', () => {
     expect(spy).toHaveBeenCalled();
   });
 
+  it('should resolve based on external provider connection state', async () => {
+    localStorage.setItem('magic_3pw_provider', 'metamask');
+    localStorage.setItem('magic_3pw_address', '0xabc');
+    const payload = { method: 'isLoggedIn' };
+    const magic = createMagicSDK();
+    magic.thirdPartyWallets.setExternalProvider({
+      request: jest.fn(),
+    });
+    const result = await magic.thirdPartyWallets.isLoggedIn(payload as any);
+    expect(result).toEqual(true);
+  });
+
   it('should call super.request if provider is not set', () => {
     const payload = { method: 'isLoggedIn' };
     const magic = createMagicSDK();
