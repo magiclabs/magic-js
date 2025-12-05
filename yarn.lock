@@ -3378,7 +3378,9 @@ __metadata:
     "@react-native-community/netinfo": ">=9.0.0"
     react: ">=16"
     react-native: ">=0.60"
+    react-native-device-crypto: ^0.1.7
     react-native-device-info: ">=10.3.0"
+    react-native-keychain: ^10.0.0
     react-native-safe-area-context: ">=4.4.1"
     react-native-webview: ">=12.4.0"
   languageName: unknown
