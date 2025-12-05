@@ -25,7 +25,7 @@ export const setRefreshTokenInKeychain = async (rt: string) => {
   }
 };
 
-export const getRefreshTokenInKeychain = async () => {
+export const getRefreshTokenInKeychain = async (): Promise<string | null> => {
   // Return cached value if available
   if (cachedRefreshToken !== null) {
     return cachedRefreshToken;

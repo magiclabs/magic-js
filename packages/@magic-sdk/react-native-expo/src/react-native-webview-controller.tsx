@@ -292,16 +292,16 @@ export class ReactNativeWebViewController extends ViewController {
   }
 
   async persistMagicEventRefreshToken(event: MagicMessageEvent) {
-    if (!event.data.rt) {
+    if (!event?.data?.rt) {
       return;
     }
 
-    setRefreshTokenInSecureStore(event.data.rt);
+    await setRefreshTokenInSecureStore(event.data.rt);
   }
 
   // Overrides parent method to retrieve refresh token from keychain while creating a request
-  async getRT() {
-    return getRefreshTokenInSecureStore();
+  async getRT(): Promise<string | null> {
+    return await getRefreshTokenInSecureStore();
   }
 
   async getJWT(): Promise<string | null | undefined> {
