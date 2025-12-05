@@ -62,7 +62,6 @@ export class ReactNativeWebViewController extends ViewController {
   private styles: any;
 
   protected init() {
-    checkNativeModules();
     this.webView = null;
     this.container = null;
     this.styles = createWebViewStyles();
@@ -81,6 +80,10 @@ export class ReactNativeWebViewController extends ViewController {
     const [show, setShow] = useState(false);
     const [mountOverlay, setMountOverlay] = useState(true);
     const isConnected = useInternetConnection();
+
+    useEffect(() => {
+      checkNativeModules();
+    }, []);
 
     useEffect(() => {
       this.isConnectedToInternet = isConnected;
