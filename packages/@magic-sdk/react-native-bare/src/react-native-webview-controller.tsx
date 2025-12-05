@@ -275,7 +275,7 @@ export class ReactNativeWebViewController extends ViewController {
 
   // Overrides parent method to keep refresh token in keychain
   async persistMagicEventRefreshToken(event: MagicMessageEvent) {
-    if (!event.data.rt) {
+    if (!event?.data?.rt) {
       return;
     }
 
