@@ -279,12 +279,12 @@ export class ReactNativeWebViewController extends ViewController {
       return;
     }
 
-    setRefreshTokenInKeychain(event.data.rt);
+    await setRefreshTokenInKeychain(event.data.rt);
   }
 
   // Overrides parent method to retrieve refresh token from keychain while creating a request
-  async getRT() {
-    return getRefreshTokenInKeychain();
+  async getRT(): Promise<string | null> {
+    return await getRefreshTokenInKeychain();
   }
 
   async getJWT(): Promise<string | null | undefined> {
