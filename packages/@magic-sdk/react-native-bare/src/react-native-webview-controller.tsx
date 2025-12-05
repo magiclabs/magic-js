@@ -12,6 +12,7 @@ import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 import { getRefreshTokenInKeychain, setRefreshTokenInKeychain } from './native-crypto/keychain';
 import { getDpop } from './native-crypto/dpop';
+import { checkNativeModules } from './native-crypto/check-native-modules';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -61,6 +62,7 @@ export class ReactNativeWebViewController extends ViewController {
   private styles: any;
 
   protected init() {
+    checkNativeModules();
     this.webView = null;
     this.container = null;
     this.styles = createWebViewStyles();
