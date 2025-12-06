@@ -37,6 +37,7 @@ jobs:
 
       - name: Apply semver updates (if any)
         run: |
+          export AUTO_DEBUG=all
           AUTO_VERSION=$(yarn auto version)
 
           EXIT_CODE=$?
