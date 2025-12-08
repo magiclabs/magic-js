@@ -17,7 +17,9 @@ jobs:
     container:
       image: node:22-slim
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Setup node
         uses: actions/setup-node@v3
