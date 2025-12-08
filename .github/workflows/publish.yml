@@ -33,7 +33,6 @@ jobs:
 
       - name: Apply semver updates (if any)
         run: |
-          export AUTO_DEBUG=all
           AUTO_VERSION=$(yarn auto version)
 
           if [[ -z "$AUTO_VERSION" ]]; then
@@ -75,9 +74,6 @@ jobs:
         with:
           token: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
 
-      - name: Prepare repository
-        run: git fetch --unshallow --tags
-
       - name: Setup node
         uses: actions/setup-node@v4
         with:
@@ -96,4 +92,4 @@ jobs:
           path: packages
 
       - name: Create Release
-        run: yarn auto shipit -vv
+        run: yarn auto shipit -v
