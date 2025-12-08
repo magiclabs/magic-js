@@ -36,10 +36,8 @@ jobs:
           export AUTO_DEBUG=all
           AUTO_VERSION=$(yarn auto version)
 
-          EXIT_CODE=$?
-
-          if [[ $EXIT_CODE -ne 0 || -z "$AUTO_VERSION" ]]; then
-            echo "Unable to bump version successfully."
+          if [[ -z "$AUTO_VERSION" ]]; then
+            echo "Unable to bump version successfully." >&2
             exit 1
           fi
 
