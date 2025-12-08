@@ -12,6 +12,7 @@ import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 import { getRefreshTokenInSecureStore, setRefreshTokenInSecureStore } from './native-crypto/keychain';
 import { getDpop } from './native-crypto/dpop';
+import { checkNativeModules } from './native-crypto/check-native-modules';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -88,6 +89,10 @@ export class ReactNativeWebViewController extends ViewController {
     const [show, setShow] = useState(false);
     const [mountOverlay, setMountOverlay] = useState(true);
     const isConnected = useInternetConnection();
+
+    useEffect(() => {
+      checkNativeModules();
+    }, []);
 
     useEffect(() => {
       this.isConnectedToInternet = isConnected;
