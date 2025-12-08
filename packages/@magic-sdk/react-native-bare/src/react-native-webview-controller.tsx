@@ -10,8 +10,6 @@ import { EventRegister } from 'react-native-event-listeners';
 /* global NodeJS */
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
-import { getRefreshTokenInKeychain, setRefreshTokenInKeychain } from './native-crypto/keychain';
-import { getDpop } from './native-crypto/dpop';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -24,7 +22,10 @@ const LAST_MESSAGE_TIME = 'lastMessageTime';
  */
 function createWebViewStyles() {
   return StyleSheet.create({
-    'magic-webview': { flex: 1, backgroundColor: 'transparent' },
+    'magic-webview': {
+      flex: 1,
+      backgroundColor: 'transparent',
+    },
 
     'webview-container': {
       flex: 1,
@@ -37,9 +38,15 @@ function createWebViewStyles() {
       bottom: 0,
     },
 
-    show: { zIndex: 10000, elevation: 10000 },
+    show: {
+      zIndex: 10000,
+      elevation: 10000,
+    },
 
-    hide: { zIndex: -10000, elevation: 0 },
+    hide: {
+      zIndex: -10000,
+      elevation: 0,
+    },
   });
 }
 
@@ -125,7 +132,11 @@ export class ReactNativeWebViewController extends ViewController {
      * display styles.
      */
     const containerRef = useCallback((view: any): void => {
-      this.container = { ...view, showOverlay, hideOverlay };
+      this.container = {
+        ...view,
+        showOverlay,
+        hideOverlay,
+      };
     }, []);
 
     /**
@@ -145,7 +156,12 @@ export class ReactNativeWebViewController extends ViewController {
     const containerStyles = useMemo(() => {
       return [
         this.styles['webview-container'],
-        show ? { ...this.styles.show, backgroundColor: backgroundColor ?? DEFAULT_BACKGROUND_COLOR } : this.styles.hide,
+        show
+          ? {
+              ...this.styles.show,
+              backgroundColor: backgroundColor ?? DEFAULT_BACKGROUND_COLOR,
+            }
+          : this.styles.hide,
       ];
     }, [show]);
 
@@ -270,28 +286,6 @@ export class ReactNativeWebViewController extends ViewController {
       AsyncStorage.setItem(LAST_MESSAGE_TIME, new Date().toISOString());
     } else {
       throw createModalNotReadyError();
-    }
-  }
-
-  // Overrides parent method to keep refresh token in keychain
-  async persistMagicEventRefreshToken(event: MagicMessageEvent) {
-    if (!event?.data?.rt) {
-      return;
-    }
-
-    await setRefreshTokenInKeychain(event.data.rt);
-  }
-
-  // Overrides parent method to retrieve refresh token from keychain while creating a request
-  async getRT(): Promise<string | null> {
-    return await getRefreshTokenInKeychain();
-  }
-
-  async getJWT(): Promise<string | null | undefined> {
-    try {
-      return await getDpop();
-    } catch (e) {
-      return null;
     }
   }
 
