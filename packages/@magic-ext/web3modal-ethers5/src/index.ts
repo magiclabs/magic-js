@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/commons';
+import { Extension } from '@magic-sdk/provider';
 import { Web3Modal, createWeb3Modal, defaultConfig } from '@web3modal/ethers5';
 import { LocalStorageKeys, ThirdPartyWalletEvents } from '@magic-sdk/types';
 import { Web3ModalExtensionOptions } from './types';

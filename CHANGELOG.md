@@ -1,3 +1,95 @@
+# (Thu Nov 13 2025)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/siwe@2.0.0`
+  - Add siwe extension [#951](https://github.com/magiclabs/magic-js/pull/951) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/siwe@2.0.0`
+  - Update SIWE extension version [#960](https://github.com/magiclabs/magic-js/pull/960) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Mon Nov 10 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@25.2.0`
+  - feat: add custom logo types to loginWithEmailOtp [#955](https://github.com/magiclabs/magic-js/pull/955) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Oct 30 2025)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@13.1.0`, `@magic-sdk/types@25.1.0`
+  - feat: implement event listener for oauth popup [#952](https://github.com/magiclabs/magic-js/pull/952) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@25.1.0`
+  - chore: fix typos [#945](https://github.com/magiclabs/magic-js/pull/945) ([@Galoretka](https://github.com/Galoretka))
+- `@magic-sdk/provider@31.1.0`
+  - chore: fix some comments [#948](https://github.com/magiclabs/magic-js/pull/948) ([@letreturn](https://github.com/letreturn))
+
+#### Authors: 4
+
+- [@Galoretka](https://github.com/Galoretka)
+- [@letreturn](https://github.com/letreturn)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Oct 03 2025)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/algorand@26.0.0`, `@magic-ext/aptos@14.0.0`, `@magic-ext/avalanche@26.0.0`, `@magic-ext/bitcoin@26.0.0`, `@magic-ext/conflux@24.0.0`, `@magic-ext/cosmos@26.0.0`, `@magic-ext/ed25519@22.0.0`, `@magic-ext/evm@1.0.0`, `@magic-ext/farcaster@3.0.0`, `@magic-ext/flow@26.0.0`, `@magic-ext/gdkms@14.0.0`, `@magic-ext/harmony@26.0.0`, `@magic-ext/hedera@2.0.0`, `@magic-ext/icon@26.0.0`, `@magic-ext/kadena@3.0.0`, `@magic-ext/near@26.0.0`, `@magic-ext/oauth2@13.0.0`, `@magic-ext/oidc@14.0.0`, `@magic-ext/polkadot@26.0.0`, `@magic-ext/solana@28.0.0`, `@magic-ext/sui@3.0.0`, `@magic-ext/taquito@23.0.0`, `@magic-ext/terra@23.0.0`, `@magic-ext/tezos@26.0.0`, `@magic-ext/web3modal-ethers5@3.0.0`, `@magic-ext/webauthn@25.0.0`, `@magic-ext/zilliqa@26.0.0`, `@magic-sdk/provider@31.0.0`, `@magic-sdk/react-native-bare@32.0.0`, `@magic-sdk/react-native-expo@32.0.0`, `magic-sdk@31.0.0`
+  - EVM Extension and new extension methods [#915](https://github.com/magiclabs/magic-js/pull/915) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@13.0.0`
+  - remove oauth package from mono-repo [#940](https://github.com/magiclabs/magic-js/pull/940) ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- update yarn.lock ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/react-native-bare-oauth@28.0.0`, `@magic-ext/react-native-expo-oauth@28.0.0`, `@magic-sdk/react-native-bare@32.0.0`, `@magic-sdk/react-native-expo@32.0.0`
+  - Merge remote-tracking branch 'origin/master' ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Sep 19 2025)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@31.0.1`, `@magic-sdk/react-native-expo@31.0.1`
+  - Fix postMessage function signature [#943](https://github.com/magiclabs/magic-js/pull/943) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Wed Sep 03 2025)
 
 #### 💥 Breaking Change

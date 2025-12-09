@@ -169,7 +169,7 @@ export class Extension {
 }
 
 /**
- * Base class for multi-chain extensions, extracting getPublicAddress logic.
+ * Base class for multi-chain extensions, extracting getPublicAddress and revealPrivateKey logic.
  */
 export abstract class MultichainExtension<TName extends string, TConfig extends any = any> extends InternalExtension<
   TName,
@@ -181,9 +181,15 @@ export abstract class MultichainExtension<TName extends string, TConfig extends 
     this.chain = (config as any).chainType;
   }
 
-  public async getPublicAddress<ResultType = any>(): Promise<ResultType> {
-    return this.request(
+  public getPublicAddress() {
+    return this.request<string>(
       this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.GetMultichainPublicAddress, [{ chain: this.chain }]),
+    );
+  }
+
+  public revealPrivateKey() {
+    return this.request<boolean>(
+      this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.RevealPK, [{ chain: this.chain }]),
     );
   }
 }

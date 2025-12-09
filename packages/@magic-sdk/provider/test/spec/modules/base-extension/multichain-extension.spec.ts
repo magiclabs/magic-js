@@ -41,6 +41,28 @@ test('getPublicAddress calls request with correct payload', async () => {
   expect(result).toBe('0x123');
 });
 
+test('revealPrivateKey calls request with correct payload', async () => {
+  const config = { chainType: 'TEST', rpcUrl: 'http://test.com' };
+  const extension = new TestMultichainExtension(config);
+  const sdk = createMagicSDK();
+
+  // Initialize the extension
+  extension.init(sdk);
+
+  // Mock the request method
+  const requestSpy = jest.spyOn(extension as any, 'request').mockResolvedValue(true);
+
+  const result = await extension.revealPrivateKey();
+
+  expect(requestSpy).toHaveBeenCalledWith(
+    expect.objectContaining({
+      method: MagicPayloadMethod.RevealPK,
+      params: [{ chain: 'TEST' }],
+    }),
+  );
+  expect(result).toBe(true);
+});
+
 test('derives chain from config.chainType', () => {
   const config = { chainType: 'ETHEREUM', rpcUrl: 'http://test.com' };
   const extension = new TestMultichainExtension(config);

@@ -1,17 +1,14 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { NearPayloadMethod, NearConfig } from './types';
 
-export class NearExtension extends Extension.Internal<'near', any> {
+export class NearExtension extends MultichainExtension<'near'> {
   name = 'near' as const;
-  config: any = {};
 
   constructor(public nearConfig: NearConfig) {
-    super();
-
-    this.config = {
+    super({
       rpcUrl: nearConfig.rpcUrl,
       chainType: 'NEAR',
-    };
+    });
   }
 
   public async signTransaction(params: any) {

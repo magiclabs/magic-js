@@ -181,9 +181,15 @@ export class UserModule extends BaseModule {
     return handle;
   }
 
-  public revealPrivateKey() {
-    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPK);
+  public revealEVMPrivateKey() {
+    const requestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.RevealPK, [{ chain: 'ETH' }]);
     return this.request<boolean>(requestPayload);
+  }
+
+  public revealPrivateKey() {
+    throw new Error(
+      'revealPrivateKey() has been decommissioned. For EVM chains, use `user.revealEVMPrivateKey()` instead. For non-EVM chains, use `[extension].revealPrivateKey()` instead.',
+    );
   }
 
   public onUserLoggedOut(callback: UserLoggedOutCallback): void {

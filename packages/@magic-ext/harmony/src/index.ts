@@ -1,20 +1,17 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 import { HarmonyPayloadMethod, HarmonyConfig } from './types';
 
-export class HarmonyExtension extends Extension.Internal<'harmony', any> {
+export class HarmonyExtension extends MultichainExtension<'harmony'> {
   name = 'harmony' as const;
-  config: any = {};
 
   constructor(public harmonyConfig: HarmonyConfig) {
-    super();
-
-    this.config = {
+    super({
       rpcUrl: harmonyConfig.rpcUrl,
       chainType: 'HARMONY',
       options: {
         chainId: harmonyConfig.chainId,
       },
-    };
+    });
   }
 
   public async sendTransaction(params: any) {

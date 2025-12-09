@@ -1,21 +1,18 @@
-import { Extension } from '@magic-sdk/commons';
+import { MultichainExtension } from '@magic-sdk/provider';
 
 // @ts-ignore
 import * as fcl from '@onflow/fcl';
 import { FlowConfig, FlowPayloadMethod } from './type';
 
-export class FlowExtension extends Extension.Internal<'flow', any> {
+export class FlowExtension extends MultichainExtension<'flow'> {
   name = 'flow' as const;
-  config: any = {};
 
   constructor(public flowConfig: FlowConfig) {
-    super();
-
-    this.config = {
+    super({
       rpcUrl: flowConfig.rpcUrl,
       chainType: 'FLOW',
       network: flowConfig.network,
-    };
+    });
   }
 
   getAccount = () => {
