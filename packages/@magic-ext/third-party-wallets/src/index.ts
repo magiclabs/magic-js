@@ -1,5 +1,6 @@
 import { Extension, type SDKBase } from '@magic-sdk/provider';
 import { LocalStorageKeys, ThirdPartyWalletEvents, type JsonRpcRequestPayload } from '@magic-sdk/types';
+import { SiweExtension } from '@magic-ext/siwe';
 import type { EIP1193Provider } from 'viem';
 import {
   appKit,
@@ -54,6 +55,13 @@ const walletConfigs: WalletConfig[] = [
   },
 ];
 
+const SIGN_EVENT_MAP: Record<WalletKey, string> = {
+  metamask: 'metamask_sign',
+  coinbase: 'coinbase_sign',
+  phantom: 'phantom_sign',
+  rabby: 'rabby_sign',
+};
+
 export class ThirdPartyWalletsExtension extends Extension.Internal<'thirdPartyWallets'> {
   public readonly name = 'thirdPartyWallets' as const;
   public readonly config = {};
@@ -69,6 +77,14 @@ export class ThirdPartyWalletsExtension extends Extension.Internal<'thirdPartyWa
   private resetThirdPartyWalletStateFn: (() => void) | null = null;
   private requestOverrideFn: ((payload: Partial<JsonRpcRequestPayload>) => unknown) | null = null;
   private initialized = false;
+  private siweExtension: SiweExtension | null = null;
+  private pendingConnections = new Map<
+    string,
+    {
+      walletKey: WalletKey;
+      result: ConnectorResult;
+    }
+  >();
 
   constructor() {
     super();
@@ -89,6 +105,19 @@ export class ThirdPartyWalletsExtension extends Extension.Internal<'thirdPartyWa
       if (typeof thirdPartyWalletsModule.requestOverride === 'function') {
         this.requestOverrideFn = thirdPartyWalletsModule.requestOverride.bind(thirdPartyWalletsModule);
       }
+    }
+
+    const existingSiweExtension = (sdk as any).siwe as SiweExtension | undefined;
+    if (existingSiweExtension) {
+      if (typeof existingSiweExtension.init === 'function') {
+        existingSiweExtension.init(sdk);
+      }
+      this.siweExtension = existingSiweExtension;
+    } else {
+      const siweExtension = new SiweExtension();
+      siweExtension.init(sdk);
+      (sdk as any).siwe = siweExtension;
+      this.siweExtension = siweExtension;
     }
 
     super.init(sdk);
@@ -119,6 +148,7 @@ export class ThirdPartyWalletsExtension extends Extension.Internal<'thirdPartyWa
   }
 
   public resetThirdPartyWalletState() {
+    this.pendingConnections.clear();
     if (this.resetThirdPartyWalletStateFn) {
       return this.resetThirdPartyWalletStateFn();
     }
@@ -158,40 +188,75 @@ export class ThirdPartyWalletsExtension extends Extension.Internal<'thirdPartyWa
   }
 
   public initialize() {
-    if (this.initialized) return;
+    if (this.initialized) {
+      console.log('[ThirdPartyWalletsExtension] Already initialized');
+      return;
+    }
 
+    console.log('[ThirdPartyWalletsExtension] Initializing...');
     const thirdPartyWallets = this.getThirdPartyWalletsModule();
     walletConfigs.forEach(({ key, event }) => {
       thirdPartyWallets.enabledWallets[key] = true;
+      console.log('[ThirdPartyWalletsExtension] Registering listener for', { key, event });
       thirdPartyWallets.eventListeners.push({
         event,
         callback: (payloadId: string) => this.handleWalletSelection(key, payloadId),
       });
     });
 
+    Object.entries(SIGN_EVENT_MAP).forEach(([key, event]) => {
+      console.log('[ThirdPartyWalletsExtension] Registering sign listener for', { key, event });
+      thirdPartyWallets.eventListeners.push({
+        event,
+        callback: (payloadId: string) => this.handleSiweSign(key as WalletKey, payloadId),
+      });
+    });
+
+    console.log('[ThirdPartyWalletsExtension] Total eventListeners:', thirdPartyWallets.eventListeners.length);
     this.isConnected = Boolean(localStorage.getItem(LocalStorageKeys.ADDRESS));
     this.initialized = true;
   }
 
   private async handleWalletSelection(walletKey: WalletKey, payloadId: string) {
+    console.log('[ThirdPartyWalletsExtension] handleWalletSelection called', { walletKey, payloadId });
     const config = walletConfigs.find(({ key }) => key === walletKey);
-    if (!config) return;
+    if (!config) {
+      console.warn('[ThirdPartyWalletsExtension] No config found for walletKey', walletKey);
+      return;
+    }
 
+    console.log('[ThirdPartyWalletsExtension] Calling config.connect...', { walletKey });
     try {
       const result = await config.connect({
         wagmiAdapter,
         isConnected: () => appKit.getIsConnectedState(),
       });
 
+      console.log('[ThirdPartyWalletsExtension] Connect result:', { walletKey, result });
       this.setConnectionState(walletKey, result);
       const address = result.accounts[0];
-      if (address) {
-        this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletConnected, payloadId)(address);
-      } else {
+      if (!address) {
+        console.warn('[ThirdPartyWalletsExtension] No address in result');
         this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
+        return;
       }
+
+      console.log('[ThirdPartyWalletsExtension] Setting pending connection and emitting third_party_wallet_connected', {
+        payloadId,
+        address,
+      });
+      this.pendingConnections.set(payloadId, { walletKey, result });
+      this.createIntermediaryEvent(
+        'third_party_wallet_connected' as unknown as ThirdPartyWalletEvents,
+        payloadId,
+      )({
+        walletKey,
+        address,
+        chainId: result.chainId,
+      });
+      console.log('[ThirdPartyWalletsExtension] Emitted third_party_wallet_connected');
     } catch (error) {
-      console.error('Third-party wallet connection error:', error);
+      console.error('[ThirdPartyWalletsExtension] Connection error:', error);
       this.handleConnectionError(payloadId, error);
     }
   }
@@ -303,6 +368,103 @@ export class ThirdPartyWalletsExtension extends Extension.Internal<'thirdPartyWa
     this.activeWalletKey = null;
     this.activeConnectorDisconnect = null;
     this.setExternalProvider(null);
+    this.pendingConnections.delete(payloadId);
+  }
+
+  private async handleSiweSign(walletKey: WalletKey, payloadId: string) {
+    console.log('[ThirdPartyWalletsExtension] handleSiweSign called', { walletKey, payloadId });
+    const pending = this.pendingConnections.get(payloadId);
+    if (!pending || pending.walletKey !== walletKey) {
+      console.warn('[ThirdPartyWalletsExtension] missing pending connection for SIWE', {
+        walletKey,
+        payloadId,
+        pending: pending ? { walletKey: pending.walletKey } : null,
+      });
+      this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
+      return;
+    }
+
+    const address = pending.result.accounts[0];
+    if (!address) {
+      console.warn('[ThirdPartyWalletsExtension] No address in pending connection');
+      this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
+      this.pendingConnections.delete(payloadId);
+      return;
+    }
+
+    console.log('[ThirdPartyWalletsExtension] Generating SIWE payload...', {
+      address,
+      chainId: pending.result.chainId,
+    });
+    try {
+      const siwePayload = await this.tryGenerateSiwePayload(address, pending.result.chainId);
+      console.log('[ThirdPartyWalletsExtension] SIWE payload generated:', siwePayload ? 'success' : 'failed');
+      if (siwePayload) {
+        console.log('[ThirdPartyWalletsExtension] Emitting wallet_connected with SIWE payload');
+        this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletConnected, payloadId)(siwePayload);
+      } else {
+        console.log('[ThirdPartyWalletsExtension] Emitting wallet_connected with address only');
+        this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletConnected, payloadId)(address);
+      }
+    } catch (error) {
+      console.error('[ThirdPartyWalletsExtension] SIWE signing error:', error);
+      this.createIntermediaryEvent(ThirdPartyWalletEvents.WalletRejected, payloadId)();
+    } finally {
+      this.pendingConnections.delete(payloadId);
+    }
+  }
+
+  private async tryGenerateSiwePayload(address: string, chainId: number) {
+    const siweExtension = this.siweExtension;
+    if (!siweExtension || typeof siweExtension.generateMessage !== 'function') {
+      return null;
+    }
+
+    try {
+      const message = await siweExtension.generateMessage({ address, chainId });
+      const signature = await this.signSiweMessage(address, message);
+      if (!signature) {
+        return null;
+      }
+
+      return {
+        address,
+        message,
+        signature,
+        chainId,
+      };
+    } catch (error) {
+      console.error('Third-party wallet SIWE error:', error);
+      return null;
+    }
+  }
+
+  private async signSiweMessage(address: string, message: string) {
+    const provider = this.provider as unknown as {
+      request?: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
+    };
+    if (!provider?.request) {
+      return null;
+    }
+
+    try {
+      const signature = await provider.request({
+        method: 'personal_sign',
+        params: [message, address],
+      });
+      return signature as string;
+    } catch (error) {
+      try {
+        const signature = await provider.request({
+          method: 'eth_sign',
+          params: [address, message],
+        });
+        return signature as string;
+      } catch (fallbackError) {
+        console.error('Third-party wallet SIWE signature error:', fallbackError);
+        return null;
+      }
+    }
   }
 }
 

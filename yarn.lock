@@ -3391,7 +3391,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-ext/siwe@workspace:packages/@magic-ext/siwe":
+"@magic-ext/siwe@^1.0.1, @magic-ext/siwe@workspace:packages/@magic-ext/siwe":
   version: 0.0.0-use.local
   resolution: "@magic-ext/siwe@workspace:packages/@magic-ext/siwe"
   dependencies:
@@ -3450,6 +3450,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/third-party-wallets@workspace:packages/@magic-ext/third-party-wallets"
   dependencies:
+    "@magic-ext/siwe": ^1.0.1
     "@magic-sdk/provider": ^31.2.0
     "@magic-sdk/types": ^25.2.0
     "@reown/appkit": 1.8.13
