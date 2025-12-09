@@ -8,7 +8,7 @@ beforeEach(() => {
 
 test('Generate JSON RPC request payload with method `mc_login`', async () => {
   const magic = createMagicSDK();
-  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>((resolve) => {
+  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>(resolve => {
     resolve(['0x12345']);
   });
   magic.wallet.request = jest.fn(() => mockPromiEvent);
@@ -21,7 +21,7 @@ test('Generate JSON RPC request payload with method `mc_login`', async () => {
 
 test('Generate JSON RPC request payload with params', async () => {
   const magic = createMagicSDK();
-  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>((resolve) => {
+  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>(resolve => {
     resolve(['0x12345']);
   });
   magic.wallet.request = jest.fn(() => mockPromiEvent);
@@ -33,16 +33,33 @@ test('Generate JSON RPC request payload with params', async () => {
   expect(requestPayload.params).toEqual([{ autoPromptThirdPartyWallets: true, enabledWallets: { web3modal: true } }]);
 });
 
-test('Calls event listener callback', async () => {
+const walletKeyByEvent: Record<ThirdPartyWalletEvents, string> = {
+  [ThirdPartyWalletEvents.Web3ModalSelected]: 'web3modal',
+  [ThirdPartyWalletEvents.MetaMaskSelected]: 'metamask',
+  [ThirdPartyWalletEvents.CoinbaseSelected]: 'coinbase',
+  [ThirdPartyWalletEvents.PhantomSelected]: 'phantom',
+  [ThirdPartyWalletEvents.RabbySelected]: 'rabby',
+  [ThirdPartyWalletEvents.WalletConnected]: 'connected',
+  [ThirdPartyWalletEvents.WalletRejected]: 'rejected',
+};
+
+test.each([
+  ThirdPartyWalletEvents.Web3ModalSelected,
+  ThirdPartyWalletEvents.MetaMaskSelected,
+  ThirdPartyWalletEvents.CoinbaseSelected,
+  ThirdPartyWalletEvents.PhantomSelected,
+  ThirdPartyWalletEvents.RabbySelected,
+])('Calls event listener callback for %s', async eventName => {
   const mockCallback = jest.fn();
-  const eventListeners = [{ event: 'web3modal_selected', callback: mockCallback }];
+  const eventListeners = [{ event: eventName, callback: mockCallback }];
   const magic = createMagicSDK();
   magic.thirdPartyWallets.eventListeners = eventListeners;
-  magic.thirdPartyWallets.enabledWallets = { web3modal: true };
-  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>((resolve) => resolve(['0x12345']));
+  const walletKey = walletKeyByEvent[eventName];
+  magic.thirdPartyWallets.enabledWallets = { [walletKey]: true } as any;
+  const mockPromiEvent = createPromiEvent<string[], ConnectWithUiEvents>(resolve => resolve(['0x12345']));
   magic.wallet.request = jest.fn(() => mockPromiEvent);
   const handle = magic.wallet.connectWithUI();
-  mockPromiEvent.emit('web3modal_selected' as ThirdPartyWalletEvents);
+  mockPromiEvent.emit(eventName);
   await handle;
   expect(mockCallback).toHaveBeenCalledTimes(1);
 });

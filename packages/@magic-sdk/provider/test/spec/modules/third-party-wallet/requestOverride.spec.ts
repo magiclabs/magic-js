@@ -58,6 +58,17 @@ describe('third party wallet requestOverride', () => {
     expect(spy).toBeCalled();
   });
 
+  it('should delegate to external provider when provider is metamask', async () => {
+    localStorage.setItem('magic_3pw_provider', 'metamask');
+    const payload = { method: 'eth_requestAccounts', params: [] };
+    const magic = createMagicSDK();
+    const requestMock = jest.fn().mockResolvedValue(['0xabc']);
+    magic.thirdPartyWallets.setExternalProvider({ request: requestMock });
+    const result = await magic.thirdPartyWallets.requestOverride(payload as any);
+    expect(requestMock).toHaveBeenCalledWith({ method: 'eth_requestAccounts', params: [] });
+    expect(result).toEqual(['0xabc']);
+  });
+
   it('should call super.request if provider is not set', () => {
     const payload = { method: 'someMethod' };
     const magic = createMagicSDK();

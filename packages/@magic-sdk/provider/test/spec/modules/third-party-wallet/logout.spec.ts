@@ -17,6 +17,16 @@ describe('third party wallet logout', () => {
     expect(spy).toHaveBeenCalled();
   });
 
+  it('should call the external disconnect handler', async () => {
+    localStorage.setItem('magic_3pw_provider', 'metamask');
+    const payload = { method: 'logout' };
+    const magic = createMagicSDK();
+    const disconnectMock = jest.fn().mockResolvedValue(undefined);
+    magic.thirdPartyWallets.setExternalProvider({ request: jest.fn() }, { disconnect: disconnectMock });
+    await magic.thirdPartyWallets.logout(payload as any);
+    expect(disconnectMock).toHaveBeenCalled();
+  });
+
   it('should call super.request if provider is not set', () => {
     const payload = { method: 'logout' };
     const magic = createMagicSDK();
