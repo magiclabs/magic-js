@@ -33,7 +33,6 @@ jobs:
 
       - name: Apply semver updates (if any)
         run: |
-          export AUTO_DEBUG=all
           AUTO_VERSION=$(yarn auto version)
 
           if [[ -z "$AUTO_VERSION" ]]; then
@@ -96,4 +95,4 @@ jobs:
           path: packages
 
       - name: Create Release
-        run: yarn auto shipit -vv
+        run: yarn auto shipit -v
