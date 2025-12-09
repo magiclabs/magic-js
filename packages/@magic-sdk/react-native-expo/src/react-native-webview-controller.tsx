@@ -309,7 +309,7 @@ export class ReactNativeWebViewController extends ViewController {
     return await getRefreshTokenInSecureStore();
   }
 
-  async getJWT(): Promise<string | null | undefined> {
+  async getJWT(): Promise<string | null> {
     try {
       return await getDpop();
     } catch (e) {

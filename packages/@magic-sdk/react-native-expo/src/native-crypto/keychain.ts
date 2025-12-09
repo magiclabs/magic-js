@@ -11,10 +11,8 @@ let cachedRefreshToken: string | null = null;
  * Uses 'WHEN_UNLOCKED_THIS_DEVICE_ONLY' for security similar to the original keychain accessible level.
  */
 export const setRefreshTokenInSecureStore = async (rt: string): Promise<boolean> => {
-  console.log('Setting Refresh Token In SECURE STORAGE', { rt });
   // Skip write if token hasn't changed
   if (cachedRefreshToken === rt) {
-    console.log('Refresh Token Has NOT Changed');
     return true;
   }
 
@@ -25,7 +23,6 @@ export const setRefreshTokenInSecureStore = async (rt: string): Promise<boolean>
     });
 
     cachedRefreshToken = rt; // Update cache on successful write
-    console.log('Successfully Has Set Refresh Token');
     return true;
   } catch (error) {
     console.error('Failed to set refresh token in secure store', error);
@@ -38,10 +35,8 @@ export const setRefreshTokenInSecureStore = async (rt: string): Promise<boolean>
  * Returns the cached value if available to improve performance.
  */
 export const getRefreshTokenInSecureStore = async (): Promise<string | null> => {
-  console.log('Getting Refresh Token In SECURE STORAGE');
   // Return cached value if available
   if (cachedRefreshToken !== null) {
-    console.log('Refresh Token Has Been Cached');
     return cachedRefreshToken;
   }
 
@@ -53,7 +48,6 @@ export const getRefreshTokenInSecureStore = async (): Promise<string | null> => 
     if (!token) return null;
 
     cachedRefreshToken = token;
-    console.log('Successfully Has Got Refresh Token');
     return cachedRefreshToken;
   } catch (error) {
     console.error('Failed to get refresh token in secure store', error);

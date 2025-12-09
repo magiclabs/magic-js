@@ -1,9 +1,11 @@
 import { NativeModules, Platform } from 'react-native';
+import { requireOptionalNativeModule } from 'expo-modules-core';
 
 interface NativeModuleCheck {
   name: string;
   nativeModuleName: string;
   packageName: string;
+  isExpoModule: boolean;
 }
 
 const REQUIRED_NATIVE_MODULES: NativeModuleCheck[] = [
@@ -11,11 +13,13 @@ const REQUIRED_NATIVE_MODULES: NativeModuleCheck[] = [
     name: 'expo-secure-store',
     nativeModuleName: 'ExpoSecureStore',
     packageName: 'expo-secure-store',
+    isExpoModule: true,
   },
   {
     name: 'react-native-device-crypto',
     nativeModuleName: 'DeviceCrypto',
     packageName: 'react-native-device-crypto',
+    isExpoModule: false,
   },
 ];
 
@@ -36,8 +40,14 @@ export const checkNativeModules = (): void => {
   const missingModules: NativeModuleCheck[] = [];
 
   for (const module of REQUIRED_NATIVE_MODULES) {
-    if (!NativeModules[module.nativeModuleName]) {
-      missingModules.push(module);
+    if (module.isExpoModule) {
+      if (!requireOptionalNativeModule(module.nativeModuleName)) {
+        missingModules.push(module);
+      }
+    } else {
+      if (!NativeModules[module.nativeModuleName]) {
+        missingModules.push(module);
+      }
     }
   }
 
@@ -45,8 +55,8 @@ export const checkNativeModules = (): void => {
     hasWarned = true;
 
     const platform = Platform.OS;
-    const moduleList = missingModules.map((m) => `  - ${m.packageName}`).join('\n');
-    const installCommands = missingModules.map((m) => `npx expo install ${m.packageName}`).join('\n');
+    const moduleList = missingModules.map(m => `  - ${m.packageName}`).join('\n');
+    const installCommands = missingModules.map(m => `npx expo install ${m.packageName}`).join('\n');
 
     const iosInstructions =
       platform === 'ios'

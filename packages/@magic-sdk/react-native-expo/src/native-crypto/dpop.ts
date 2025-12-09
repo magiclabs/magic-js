@@ -14,7 +14,6 @@ const KEY_ALIAS = getKeyAlias('dpop');
  * Handles key creation (if missing), JWK construction, and signing.
  */
 export const getDpop = async (): Promise<string | null> => {
-  console.log('Getting DPoP');
   try {
     // 1. Get or Create Key in Secure Enclave
     // We strictly disable authentication to avoid biometric prompts
@@ -57,7 +56,6 @@ export const getDpop = async (): Promise<string | null> => {
     // 6. Convert Signature (Toaster expects Raw R|S)
     const signatureB64 = derToRawSignature(signatureBase64);
 
-    console.log('Successfully Has Got DPoP', { dpop: `${signingInput}.${signatureB64}` });
     return `${signingInput}.${signatureB64}`;
   } catch (error) {
     console.error('DPoP Generation Error:', error);
