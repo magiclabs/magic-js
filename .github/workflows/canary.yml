@@ -3,8 +3,6 @@ on:
   pull_request:
     branches:
       - 'master'
-  merge_group:
-    types: [checks_requested]
 
 env:
   GH_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
@@ -15,16 +13,14 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     name: Build
-    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    if: "!contains(github.event.head_commit.message, 'skip-release')"
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v6
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'yarn'
 
       - name: Install dependencies
@@ -53,14 +49,12 @@ jobs:
       id-token: write
     needs: build
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v6
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'yarn'
 
       - name: Install dependencies

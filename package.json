@@ -34,7 +34,7 @@
     "@types/whatwg-url": "^6.4.0",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",
-    "auto": "^11.1.2",
+    "auto": "^11.3.6",
     "babel-jest": "^29.7.0",
     "brotli-size": "^4.0.0",
     "chalk": "~4.1.2",
