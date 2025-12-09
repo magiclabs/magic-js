@@ -10,8 +10,8 @@
 > With the Magic JavaScript SDK OAuth extension, you can plug into your favorite social login providers with one, easy-to-use API.
 
 <p align="center">
-  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/@magic-ext/oauth/LICENSE">License</a> ·
-  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/@magic-ext/oauth/CHANGELOG.md">Changelog</a> ·
+  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/%40magic-ext/oauth2/LICENSE">License</a> ·
+  <a href="https://github.com/magiclabs/magic-js/blob/master/packages/%40magic-ext/oauth2/CHANGELOG.md">Changelog</a> ·
   <a href="https://github.com/magiclabs/magic-js/blob/master/CONTRIBUTING.md">Contributing Guide</a>
 </p>
 

@@ -65,7 +65,7 @@ export class AuthModule extends BaseModule {
 
   /**
    * Initiate an SMS login flow for a user. If successful,
-   * this method will return a Decenteralized ID token (with a default lifespan
+   * this method will return a Decentralized ID token (with a default lifespan
    * of 15 minutes)
    */
   public loginWithSMS(configuration: LoginWithSmsConfiguration) {
@@ -92,7 +92,7 @@ export class AuthModule extends BaseModule {
 
   /**
    * Initiate an Email with OTP login flow for a user. If successful,
-   * this method will return a Decenteralized ID token (with a default lifespan
+   * this method will return a Decentralized ID token (with a default lifespan
    * of 15 minutes)
    */
   public loginWithEmailOTP(configuration: LoginWithEmailOTPConfiguration) {
