@@ -1,3 +1,15 @@
+# v31.1.0 (Thu Oct 30 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix some comments [#948](https://github.com/magiclabs/magic-js/pull/948) ([@letreturn](https://github.com/letreturn))
+
+#### Authors: 1
+
+- [@letreturn](https://github.com/letreturn)
+
+---
+
 # v31.0.0 (Fri Oct 03 2025)
 
 #### 💥 Breaking Change

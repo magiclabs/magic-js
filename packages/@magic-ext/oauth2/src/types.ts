@@ -116,6 +116,7 @@ export interface OAuthPopupConfiguration {
   scope?: string[];
   loginHint?: string;
   providerParams?: Record<string, string | number | boolean>;
+  shouldReturnURI?: boolean;
 }
 
 export enum OAuthErrorCode {

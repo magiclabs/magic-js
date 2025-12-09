@@ -1,3 +1,33 @@
+# v25.2.0 (Mon Nov 10 2025)
+
+#### 🚀 Enhancement
+
+- feat: add custom logo types to loginWithEmailOtp [#955](https://github.com/magiclabs/magic-js/pull/955) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v25.1.0 (Thu Oct 30 2025)
+
+#### 🚀 Enhancement
+
+- feat: implement event listener for oauth popup [#952](https://github.com/magiclabs/magic-js/pull/952) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- chore: fix typos [#945](https://github.com/magiclabs/magic-js/pull/945) ([@Galoretka](https://github.com/Galoretka))
+
+#### Authors: 3
+
+- [@Galoretka](https://github.com/Galoretka)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v25.0.0 (Wed Sep 03 2025)
 
 #### 🐛 Bug Fix

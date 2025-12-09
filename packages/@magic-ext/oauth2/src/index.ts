@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/provider';
+import { createPromiEvent, Extension } from '@magic-sdk/provider';
 import {
   OAuthErrorData,
   OAuthRedirectError,
@@ -9,6 +9,7 @@ import {
   OAuthPopupConfiguration,
   OAuthVerificationConfiguration,
 } from './types';
+import { OAuthPopupEventEmit, OAuthPopupEventHandlers, OAuthPopupEventOnReceived } from '@magic-sdk/types';
 
 declare global {
   interface Window {
@@ -89,12 +90,47 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
       {
         ...configuration,
+        returnTo: window.location.href,
         apiKey: this.sdk.apiKey,
         platform: 'web',
       },
     ]);
 
-    return this.request<OAuthRedirectResult | OAuthRedirectError>(requestPayload);
+    const promiEvent = createPromiEvent<OAuthRedirectResult, OAuthPopupEventHandlers>(async (resolve, reject) => {
+      try {
+        const oauthPopupRequest = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthPopupEventHandlers>(
+          requestPayload,
+        );
+
+        const redirectEvent = (event: MessageEvent) => {
+          this.createIntermediaryEvent(OAuthPopupEventEmit.PopupEvent, requestPayload.id as string)(event.data);
+        };
+
+        if (configuration.shouldReturnURI) {
+          oauthPopupRequest.on(OAuthPopupEventOnReceived.PopupUrl, popupUrl => {
+            window.addEventListener('message', redirectEvent);
+            promiEvent.emit(OAuthPopupEventOnReceived.PopupUrl, popupUrl);
+          });
+        }
+
+        const result = await oauthPopupRequest;
+        window.removeEventListener('message', redirectEvent);
+
+        if ((result as OAuthRedirectError).error) {
+          reject(result);
+        } else {
+          resolve(result as OAuthRedirectResult);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    promiEvent.on(OAuthPopupEventEmit.Cancel, () => {
+      this.createIntermediaryEvent(OAuthPopupEventEmit.Cancel, requestPayload.id as string)();
+    });
+
+    return promiEvent;
   }
 
   protected seamlessTelegramLogin() {
