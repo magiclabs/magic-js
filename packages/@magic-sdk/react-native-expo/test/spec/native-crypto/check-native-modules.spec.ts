@@ -6,6 +6,10 @@ jest.mock('react-native', () => ({
   Platform: mockPlatform,
 }));
 
+jest.mock('expo-modules-core', () => ({
+  requireOptionalNativeModule: jest.fn(() => false),
+}));
+
 describe('checkNativeModules', () => {
   let consoleWarnSpy: jest.SpyInstance;
 
@@ -16,7 +20,6 @@ describe('checkNativeModules', () => {
     consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
 
     // Clear native modules
-    delete mockNativeModules['ExpoSecureStore'];
     delete mockNativeModules['DeviceCrypto'];
     mockPlatform.OS = 'ios';
   });
@@ -26,7 +29,9 @@ describe('checkNativeModules', () => {
   });
 
   it('should not log any warning when all native modules are present', () => {
-    mockNativeModules.ExpoSecureStore = {};
+    // Re-require after resetModules to get the fresh mock instance
+    const { requireOptionalNativeModule: mockRequire } = require('expo-modules-core');
+    (mockRequire as jest.Mock).mockReturnValue(true);
     mockNativeModules.DeviceCrypto = {};
 
     const { checkNativeModules } = require('../../../src/native-crypto/check-native-modules');
@@ -36,7 +41,6 @@ describe('checkNativeModules', () => {
   });
 
   it('should log a warning when expo-secure-store is missing', () => {
-    mockNativeModules.ExpoSecureStore = undefined;
     mockNativeModules.DeviceCrypto = {};
 
     const { checkNativeModules } = require('../../../src/native-crypto/check-native-modules');
@@ -47,7 +51,9 @@ describe('checkNativeModules', () => {
   });
 
   it('should log a warning when react-native-device-crypto is missing', () => {
-    mockNativeModules.ExpoSecureStore = {};
+    // Re-require after resetModules to get the fresh mock instance
+    const { requireOptionalNativeModule: mockRequire } = require('expo-modules-core');
+    (mockRequire as jest.Mock).mockReturnValue(true);
     mockNativeModules.DeviceCrypto = undefined;
 
     const { checkNativeModules } = require('../../../src/native-crypto/check-native-modules');
@@ -58,7 +64,6 @@ describe('checkNativeModules', () => {
   });
 
   it('should log a warning when both native modules are missing', () => {
-    mockNativeModules.ExpoSecureStore = undefined;
     mockNativeModules.DeviceCrypto = undefined;
 
     const { checkNativeModules } = require('../../../src/native-crypto/check-native-modules');
@@ -70,7 +75,6 @@ describe('checkNativeModules', () => {
   });
 
   it('should only log warning once even if called multiple times', () => {
-    mockNativeModules.ExpoSecureStore = undefined;
     mockNativeModules.DeviceCrypto = undefined;
 
     const { checkNativeModules } = require('../../../src/native-crypto/check-native-modules');
@@ -83,7 +87,6 @@ describe('checkNativeModules', () => {
 
   it('should include iOS instructions when platform is ios', () => {
     mockPlatform.OS = 'ios';
-    mockNativeModules.ExpoSecureStore = undefined;
     mockNativeModules.DeviceCrypto = {};
 
     const { checkNativeModules } = require('../../../src/native-crypto/check-native-modules');
@@ -95,7 +98,6 @@ describe('checkNativeModules', () => {
 
   it('should include Android instructions when platform is android', () => {
     mockPlatform.OS = 'android';
-    mockNativeModules.ExpoSecureStore = undefined;
     mockNativeModules.DeviceCrypto = {};
 
     const { checkNativeModules } = require('../../../src/native-crypto/check-native-modules');
@@ -107,7 +109,6 @@ describe('checkNativeModules', () => {
 
   it('should not include iOS instructions when platform is android', () => {
     mockPlatform.OS = 'android';
-    mockNativeModules.ExpoSecureStore = undefined;
     mockNativeModules.DeviceCrypto = {};
 
     const { checkNativeModules } = require('../../../src/native-crypto/check-native-modules');
@@ -130,7 +131,6 @@ describe('checkNativeModules', () => {
   });
 
   it('should include install commands for missing packages', () => {
-    mockNativeModules.ExpoSecureStore = undefined;
     mockNativeModules.DeviceCrypto = undefined;
 
     const { checkNativeModules } = require('../../../src/native-crypto/check-native-modules');
