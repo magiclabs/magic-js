@@ -74,6 +74,9 @@ jobs:
         with:
           token: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
 
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+
       - name: Setup node
         uses: actions/setup-node@v4
         with:
