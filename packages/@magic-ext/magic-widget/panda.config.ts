@@ -10,6 +10,8 @@ export default defineConfig({
   hash: true,
   // Clean the output directory before generating the css
   clean: true,
+  // Disable CSS @layer directives for better compatibility with Tailwind
+  layers: false,
 
   importMap: '@styled',
 

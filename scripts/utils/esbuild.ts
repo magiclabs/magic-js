@@ -28,7 +28,8 @@ export async function build(options: ESBuildOptions) {
         bundle: true,
         minify: true,
         legalComments: 'none',
-        platform: options.target ?? 'browser',
+        // Use 'neutral' for ESM to avoid CJS require shim issues
+        platform: options.format === 'esm' ? 'neutral' : (options.target ?? 'browser'),
         format: options.format ?? 'cjs',
         globalName: options.format === 'iife' ? options.name : undefined,
         entryPoints: [await getEntrypoint(options.format)],

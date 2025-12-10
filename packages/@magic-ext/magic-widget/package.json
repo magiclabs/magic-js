@@ -10,7 +10,8 @@
   },
   "scripts": {
     "prepare": "panda codegen",
-    "build:css": "panda cssgen --outfile dist/styles.css"
+    "build:css": "panda cssgen --outfile dist/styles.css",
+    "build:rollup": "rollup -c rollup.config.mjs"
   },
   "files": [
     "dist"
@@ -24,8 +25,7 @@
       "import": "./dist/es/index.mjs",
       "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.js"
-    },
-    "./styles.css": "./dist/styles.css"
+    }
   },
   "externals": {
     "include": [
@@ -53,8 +53,15 @@
   "devDependencies": {
     "@magic-sdk/provider": "^31.0.0",
     "@pandacss/dev": "^0.35.0",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "rollup": "^4.18.0",
+    "tslib": "^2.6.3"
   }
 }
