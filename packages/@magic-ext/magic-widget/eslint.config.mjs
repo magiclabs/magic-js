@@ -8,12 +8,21 @@ const __dirname = path.dirname(__filename);
 export default [
   ...rootEslintConfig,
   {
-    ignores: ['node_modules', 'coverage', 'dist', 'eslint.config.mjs', 'jest.config.ts'],
+    ignores: [
+      'node_modules',
+      'coverage',
+      'dist',
+      'eslint.config.mjs',
+      'jest.config.ts',
+      'panda.config.ts',
+      'postcss.config.cjs',
+      'styled-system',
+    ],
   },
   {
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.json', './test/tsconfig.json'],
+        project: ['./tsconfig.json'],
         tsconfigRootDir: __dirname,
       },
     },

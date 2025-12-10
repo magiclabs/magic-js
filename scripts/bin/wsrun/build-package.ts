@@ -15,6 +15,10 @@ function getExternalsFromPkgJson(pkgJson: any): string[] {
   return defaultExternals.filter(dep => !excludes.includes(dep));
 }
 
+function getAliasesFromPkgJson(pkgJson: any): Record<string, string> {
+  return pkgJson.esbuildAliases || {};
+}
+
 async function cjs(watch?: boolean) {
   const pkgJson = require(`${process.cwd()}/package.json`);
   await build({
@@ -23,6 +27,7 @@ async function cjs(watch?: boolean) {
     target: pkgJson.target,
     output: pkgJson.exports?.require ?? pkgJson.main,
     externals: getExternalsFromPkgJson(pkgJson),
+    aliases: getAliasesFromPkgJson(pkgJson),
     sourcemap: true,
   });
 }
@@ -36,6 +41,7 @@ async function esm(watch?: boolean) {
       target: pkgJson.target,
       output: pkgJson.module,
       externals: getExternalsFromPkgJson(pkgJson),
+      aliases: getAliasesFromPkgJson(pkgJson),
       sourcemap: true,
     }),
 
@@ -43,8 +49,9 @@ async function esm(watch?: boolean) {
       watch,
       format: 'esm',
       target: pkgJson.target,
-      output: pkgJson?.exports?.import,
+      output: pkgJson?.exports?.import ?? pkgJson?.exports?.['.']?.import,
       externals: getExternalsFromPkgJson(pkgJson),
+      aliases: getAliasesFromPkgJson(pkgJson),
       sourcemap: true,
     }),
   ]);
@@ -82,6 +89,7 @@ async function reactNativeBareHybridExtension(watch?: boolean) {
     target: pkgJson.target,
     output: pkgJson['react-native-bare'],
     externals: getExternalsFromPkgJson(pkgJson),
+    aliases: getAliasesFromPkgJson(pkgJson),
     sourcemap: true,
   });
 }
@@ -95,6 +103,7 @@ async function reactNativeExpoHybridExtension(watch?: boolean) {
     target: pkgJson.target,
     output: pkgJson['react-native-expo'],
     externals: getExternalsFromPkgJson(pkgJson),
+    aliases: getAliasesFromPkgJson(pkgJson),
     sourcemap: true,
   });
 }

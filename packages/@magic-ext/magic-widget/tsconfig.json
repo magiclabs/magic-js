@@ -1,4 +1,10 @@
 {
-  "extends": "../../../tsconfig.settings.json"
+  "extends": "../../../tsconfig.settings.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@styled/*": ["./styled-system/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "styled-system/**/*.ts", "styled-system/**/*.js"]
 }
-

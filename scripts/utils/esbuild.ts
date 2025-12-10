@@ -18,6 +18,7 @@ interface ESBuildOptions {
   name?: string;
   globals?: Record<string, string>;
   externals?: string[];
+  aliases?: Record<string, string>;
 }
 
 export async function build(options: ESBuildOptions) {
@@ -36,10 +37,16 @@ export async function build(options: ESBuildOptions) {
         tsconfig: 'node_modules/.temp/tsconfig.build.json',
         external: options.externals,
         loader: { '.ts': 'ts', '.tsx': 'tsx' },
+        // Prefer ESM versions of dependencies to avoid CJS require() issues
+        mainFields: ['module', 'main'],
         define: Object.fromEntries(
           Object.entries(environment).map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)]),
         ),
-        plugins: [...globalsPlugin(options.globals || {})],
+        plugins: [
+          ...globalsPlugin(options.globals || {}),
+          ...aliasPlugin(options.aliases || {}),
+          ...externalEsmPlugin(options.externals || [], options.format),
+        ],
 
         // We need this footer because: https://github.com/evanw/esbuild/issues/1182
         footer:
@@ -170,6 +177,72 @@ function globalsPlugin(globals: Record<string, string>): Plugin[] {
       },
     };
   });
+}
+
+/**
+ * Creates a plugin to resolve path aliases.
+ * This is used to resolve @styled/* imports to styled-system/* paths.
+ */
+function aliasPlugin(aliases: Record<string, string>): Plugin[] {
+  if (Object.keys(aliases).length === 0) return [];
+
+  return [
+    {
+      name: 'alias-plugin',
+      setup(builder) {
+        // Handle @styled/* imports - match any import starting with @styled/
+        builder.onResolve({ filter: /^@styled\// }, args => {
+          // Convert @styled/css -> styled-system/css
+          // Convert @styled/css/cx -> styled-system/css/cx
+          // Convert @styled/jsx/flex -> styled-system/jsx/flex
+          const importPath = args.path.replace('@styled/', 'styled-system/');
+
+          // Check if it's a directory import (like @styled/css) or a file import (like @styled/css/cx)
+          const fullPath = path.resolve(process.cwd(), importPath);
+
+          // Try to resolve as a file first (with .js extension)
+          const asFile = fullPath + '.js';
+          if (fse.existsSync(asFile)) {
+            return { path: asFile };
+          }
+
+          // Try as directory with index.js
+          const asIndex = path.join(fullPath, 'index.js');
+          if (fse.existsSync(asIndex)) {
+            return { path: asIndex };
+          }
+
+          // Fallback to the path as-is (let esbuild handle the error)
+          return { path: fullPath };
+        });
+      },
+    },
+  ];
+}
+
+/**
+ * Creates a plugin to handle external packages in ESM format.
+ * This prevents the "Dynamic require of X is not supported" error
+ * by shimming require() calls for external packages.
+ */
+function externalEsmPlugin(externals: string[], format?: Format): Plugin[] {
+  if (format !== 'esm' || externals.length === 0) return [];
+
+  return [
+    {
+      name: 'external-esm-plugin',
+      setup(builder) {
+        // Mark externals as external
+        externals.forEach(packageName => {
+          const filter = new RegExp(`^${packageName}$|^${packageName}/`);
+          builder.onResolve({ filter }, args => ({
+            path: args.path,
+            external: true,
+          }));
+        });
+      },
+    },
+  ];
 }
 
 /**

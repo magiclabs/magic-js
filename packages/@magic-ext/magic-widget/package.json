@@ -8,6 +8,10 @@
     "type": "git",
     "url": "https://github.com/magiclabs/magic-js"
   },
+  "scripts": {
+    "prepare": "panda codegen",
+    "build:css": "panda cssgen --outfile dist/styles.css"
+  },
   "files": [
     "dist"
   ],
@@ -16,16 +20,31 @@
   "module": "./dist/es/index.mjs",
   "types": "./dist/types/index.d.ts",
   "exports": {
-    "import": "./dist/es/index.mjs",
-    "types": "./dist/types/index.d.ts",
-    "require": "./dist/cjs/index.js"
+    ".": {
+      "import": "./dist/es/index.mjs",
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
   },
   "externals": {
     "include": [
       "@magic-sdk/provider",
       "react",
       "react-dom"
+    ],
+    "exclude": [
+      "@magiclabs/ui-components"
     ]
+  },
+  "esbuildAliases": {
+    "@styled/css": "./styled-system/css",
+    "@styled/jsx": "./styled-system/jsx",
+    "@styled/tokens": "./styled-system/tokens",
+    "@styled/patterns": "./styled-system/patterns"
+  },
+  "dependencies": {
+    "@magiclabs/ui-components": "^1.49.0"
   },
   "peerDependencies": {
     "react": "^18.0.0",
@@ -33,6 +52,7 @@
   },
   "devDependencies": {
     "@magic-sdk/provider": "^31.0.0",
+    "@pandacss/dev": "^0.35.0",
     "@types/react": "^18.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
