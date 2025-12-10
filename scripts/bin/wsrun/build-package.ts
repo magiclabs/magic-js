@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node-script
 import pLimit from 'p-limit';
 import isCI from 'is-ci';
+import execa from 'execa';
 import { build, createTemporaryTSConfigFile, emitTypes } from '../../utils/esbuild';
 import { runAsyncProcess } from '../../utils/run-async-process';
 
@@ -109,6 +110,15 @@ async function reactNativeExpoHybridExtension(watch?: boolean) {
 }
 
 async function main() {
+  const pkgJson = require(`${process.cwd()}/package.json`);
+
+  // If package has useCustomBuild: true, run its own build script instead
+  if (pkgJson.useCustomBuild && pkgJson.scripts?.build) {
+    console.log(`Using custom build for ${pkgJson.name}`);
+    await execa('yarn', ['build'], { stdio: 'inherit', cwd: process.cwd() });
+    return;
+  }
+
   await createTemporaryTSConfigFile();
 
   if (process.env.DEV_SERVER) {

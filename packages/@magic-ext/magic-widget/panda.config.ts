@@ -10,16 +10,12 @@ export default defineConfig({
   hash: true,
   // Clean the output directory before generating the css
   clean: true,
-  // Disable CSS @layer directives for better compatibility with Tailwind
-  layers: false,
+  // Note: @layer directives are stripped in rollup.config.mjs for Tailwind compatibility
 
   importMap: '@styled',
 
   // Where to look for your css declarations
-  include: [
-    './node_modules/@magiclabs/ui-components/dist/panda.buildinfo.json',
-    './src/**/*.{js,jsx,ts,tsx}',
-  ],
+  include: ['./node_modules/@magiclabs/ui-components/dist/panda.buildinfo.json', './src/**/*.{js,jsx,ts,tsx}'],
 
   // Files to exclude
   exclude: [],
@@ -52,4 +48,3 @@ export default defineConfig({
     },
   },
 });
-
