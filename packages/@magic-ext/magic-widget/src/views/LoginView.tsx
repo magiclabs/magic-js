@@ -1,34 +1,41 @@
 import React from 'react';
 import { Button, Text } from '@magiclabs/ui-components';
-import { HStack, VStack } from '../../styled-system/jsx';
+import { Divider, HStack, VStack } from '../../styled-system/jsx';
 import { ProviderButton } from '../components/ProviderButton';
 import { WALLET_METADATA } from '../constants';
-import { ThirdPartyWallets } from '../types';
+import { OAuthProvider, ThirdPartyWallets } from '../types';
 import { WidgetAction } from '../reducer';
+import { EmailInput } from 'src/components/EmailInput';
+import { SocialProviders } from 'src/components/SocialProviders';
 
 interface LoginViewProps {
   dispatch: React.Dispatch<WidgetAction>;
 }
 
 export const LoginView = ({ dispatch }: LoginViewProps) => {
-  const handleEmailLogin = () => {
-    // Navigate to email input view
-    dispatch({ type: 'GO_TO_EMAIL_INPUT' });
-  };
-
   const handleWalletSelect = (wallet: string) => {
     // Navigate to wallet pending view
     dispatch({ type: 'SELECT_WALLET', wallet });
   };
 
+  const handleProviderLogin = (provider: OAuthProvider) => {
+    // Navigate to provider pending view
+    // TODO: Implement
+  };
+
   return (
-    <VStack alignItems="center" width="full" gap={4} px={6} py={4}>
-      <Text size="lg">Sign in to continue</Text>
+    <VStack alignItems="center" width="full" gap={4} px={6}>
+      <EmailInput />
+      <SocialProviders providers={Object.values(OAuthProvider)} onPress={handleProviderLogin} />
 
-      {/* Email login button */}
-      <Button label="Continue with Email" onPress={handleEmailLogin} expand />
+      <HStack mb={3} w="full">
+        <Divider color="surface.quaternary" />
+        <Text aria-label="or" fontColor="text.tertiary">
+          or
+        </Text>
+        <Divider color="surface.quaternary" />
+      </HStack>
 
-      {/* Wallet options */}
       <HStack gap={2} w="full">
         {Object.values(ThirdPartyWallets).map(provider => (
           <ProviderButton

@@ -46,7 +46,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
         <Header position="relative">
           <Header.Content>
             <Text size="sm" styles={{ color: token('colors.text.tertiary') }}>
-              Header
+              Log in or sign up
             </Text>
           </Header.Content>
           <Header.RightAction>
