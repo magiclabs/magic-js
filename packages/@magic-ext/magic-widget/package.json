@@ -1,0 +1,68 @@
+{
+  "name": "@magic-ext/magic-widget",
+  "useCustomBuild": true,
+  "version": "0.0.1",
+  "description": "Magic SDK Widget Extension with React components.",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "scripts": {
+    "prepare": "panda codegen",
+    "build:css": "panda cssgen --outfile dist/styles.css",
+    "build": "rollup -c rollup.config.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "target": "browser",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/es/index.mjs",
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "externals": {
+    "include": [
+      "@magic-sdk/provider",
+      "react",
+      "react-dom"
+    ],
+    "exclude": [
+      "@magiclabs/ui-components"
+    ]
+  },
+  "esbuildAliases": {
+    "@styled/css": "./styled-system/css",
+    "@styled/jsx": "./styled-system/jsx",
+    "@styled/tokens": "./styled-system/tokens",
+    "@styled/patterns": "./styled-system/patterns"
+  },
+  "dependencies": {
+    "@magiclabs/ui-components": "^1.49.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@magic-sdk/provider": "^31.0.0",
+    "@pandacss/dev": "^0.35.0",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "rollup": "^4.18.0",
+    "tslib": "^2.6.3"
+  }
+}
