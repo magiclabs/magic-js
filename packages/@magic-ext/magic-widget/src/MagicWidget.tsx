@@ -1,7 +1,9 @@
 import { Button, Footer, Header, IcoDismiss, Modal, Text } from '@magiclabs/ui-components';
 import { VStack } from '../styled-system/jsx';
 import { token } from '../styled-system/tokens';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useReducer } from 'react';
+import { LoginView } from './views/LoginView';
+import { widgetReducer, initialState, WidgetAction, WidgetState } from './reducer';
 
 // Inject CSS into document head (only once)
 let cssInjected = false;
@@ -16,10 +18,26 @@ function injectCSS() {
 }
 
 // The actual widget content
-function WidgetContent() {
-  const handleClick = () => {
-    console.log('Button clicked!');
-    alert('Hello World!');
+function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: React.Dispatch<WidgetAction> }) {
+  // Render the current view
+  const renderView = () => {
+    switch (state.view) {
+      case 'login':
+        return <LoginView dispatch={dispatch} />;
+      // Add more views here as you implement them:
+      // case 'email_input':
+      //   return <EmailInputView dispatch={dispatch} />;
+      // case 'otp':
+      //   return <OtpView dispatch={dispatch} email={state.email} />;
+      // case 'wallet_pending':
+      //   return <WalletPendingView dispatch={dispatch} wallet={state.selectedWallet} />;
+      // case 'success':
+      //   return <SuccessView />;
+      // case 'error':
+      //   return <ErrorView error={state.error} dispatch={dispatch} />;
+      default:
+        return <LoginView dispatch={dispatch} />;
+    }
   };
 
   return (
@@ -32,15 +50,14 @@ function WidgetContent() {
             </Text>
           </Header.Content>
           <Header.RightAction>
-            <Button variant="neutral" size="sm">
+            <Button variant="neutral" size="sm" onPress={() => console.log('Close widget')}>
               <Button.LeadingIcon>
                 <IcoDismiss />
               </Button.LeadingIcon>
             </Button>
           </Header.RightAction>
         </Header>
-        <Text size="lg">This is a content message.</Text>
-        <Button label="Click me" onPress={handleClick} />
+        {renderView()}
         <Footer />
       </VStack>
     </Modal>
@@ -49,13 +66,15 @@ function WidgetContent() {
 
 // Main widget component
 export function MagicWidget() {
+  const [state, dispatch] = useReducer(widgetReducer, initialState);
+
   useEffect(() => {
     injectCSS();
   }, []);
 
   return (
     <div id="magic-widget-container">
-      <WidgetContent />
+      <WidgetContent state={state} dispatch={dispatch} />
     </div>
   );
 }
