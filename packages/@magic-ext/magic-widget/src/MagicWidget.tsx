@@ -3,7 +3,9 @@ import { VStack } from '../styled-system/jsx';
 import { token } from '../styled-system/tokens';
 import React, { useEffect, useReducer } from 'react';
 import { LoginView } from './views/LoginView';
+import { PendingView } from './views/PendingView';
 import { widgetReducer, initialState, WidgetAction, WidgetState } from './reducer';
+import { LoginProvider } from './types';
 
 // Inject CSS into document head (only once)
 let cssInjected = false;
@@ -24,13 +26,13 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
     switch (state.view) {
       case 'login':
         return <LoginView dispatch={dispatch} />;
+      case 'wallet_pending':
+        return <PendingView provider={state.selectedProvider as LoginProvider} dispatch={dispatch} />;
       // Add more views here as you implement them:
       // case 'email_input':
       //   return <EmailInputView dispatch={dispatch} />;
       // case 'otp':
       //   return <OtpView dispatch={dispatch} email={state.email} />;
-      // case 'wallet_pending':
-      //   return <WalletPendingView dispatch={dispatch} wallet={state.selectedWallet} />;
       // case 'success':
       //   return <SuccessView />;
       // case 'error':

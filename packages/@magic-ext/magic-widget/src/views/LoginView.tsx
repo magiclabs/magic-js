@@ -13,14 +13,14 @@ interface LoginViewProps {
 }
 
 export const LoginView = ({ dispatch }: LoginViewProps) => {
-  const handleWalletSelect = (wallet: string) => {
+  const handleProviderSelect = (provider: ThirdPartyWallets) => {
     // Navigate to wallet pending view
-    dispatch({ type: 'SELECT_WALLET', wallet });
+    dispatch({ type: 'SELECT_WALLET', provider });
   };
 
   const handleProviderLogin = (provider: OAuthProvider) => {
     // Navigate to provider pending view
-    // TODO: Implement
+    dispatch({ type: 'SELECT_PROVIDER', provider });
   };
 
   return (
@@ -43,7 +43,7 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
             hideLabel={Object.values(ThirdPartyWallets).length > 1}
             label={WALLET_METADATA[provider].displayName}
             Icon={WALLET_METADATA[provider].Icon}
-            onPress={() => handleWalletSelect(provider)}
+            onPress={() => handleProviderSelect(provider)}
           />
         ))}
       </HStack>

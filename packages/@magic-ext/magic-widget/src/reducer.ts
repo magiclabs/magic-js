@@ -1,12 +1,14 @@
 // Widget view state machine
 
+import { LoginProvider, OAuthProvider, ThirdPartyWallets } from './types';
+
 export type View = 'login' | 'email_input' | 'otp' | 'wallet_pending' | 'success' | 'error';
 
 export interface WidgetState {
   view: View;
   // Data passed between views
   email?: string;
-  selectedWallet?: string;
+  selectedProvider?: LoginProvider;
   error?: string;
 }
 
@@ -18,7 +20,8 @@ export type WidgetAction =
   | { type: 'SUBMIT_EMAIL'; email: string }
   | { type: 'VERIFY_OTP_SUCCESS' }
   // Wallet flow
-  | { type: 'SELECT_WALLET'; wallet: string }
+  | { type: 'SELECT_WALLET'; provider: ThirdPartyWallets }
+  | { type: 'SELECT_PROVIDER'; provider: OAuthProvider }
   | { type: 'WALLET_CONNECTED' }
   // Error handling
   | { type: 'SET_ERROR'; error: string }
@@ -46,7 +49,7 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
 
     // Wallet flow
     case 'SELECT_WALLET':
-      return { ...state, view: 'wallet_pending', selectedWallet: action.wallet, error: undefined };
+      return { ...state, view: 'wallet_pending', selectedProvider: action.provider, error: undefined };
 
     case 'WALLET_CONNECTED':
       return { ...state, view: 'success', error: undefined };

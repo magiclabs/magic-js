@@ -31,3 +31,11 @@ export enum OAuthProvider {
   DISCORD = 'discord',
   GITLAB = 'gitlab',
 }
+
+export type LoginProvider = OAuthProvider | ThirdPartyWallets;
+
+export interface ProviderConfig {
+  title: string;
+  description: string;
+  Icon: ComponentType<{ width?: number; height?: number; className?: string }>;
+}
