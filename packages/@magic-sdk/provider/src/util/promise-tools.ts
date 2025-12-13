@@ -35,7 +35,7 @@ type DefaultEvents<TResult> = {
 };
 
 /**
- * A `Promise` executor with can be optionally asynchronous.
+ * A `Promise` executor which can be optionally asynchronous.
  */
 type AsyncPromiseExecutor<TResult> = (
   resolve: (value: TResult | PromiseLike<TResult>) => void,
