@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LoginView } from './views/LoginView';
 import { PendingView } from './views/PendingView';
 import { widgetReducer, initialState, WidgetAction, WidgetState } from './reducer';
-import { LoginProvider, ThirdPartyWallets } from './types';
+import { ThirdPartyWallets } from './types';
 import { wagmiConfig } from './wagmi/config';
 
 // Create a query client for react-query
@@ -39,8 +39,6 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
       //   return <EmailInputView dispatch={dispatch} />;
       // case 'otp':
       //   return <OtpView dispatch={dispatch} email={state.email} />;
-      // case 'success':
-      //   return <SuccessView />;
       // case 'error':
       //   return <ErrorView error={state.error} dispatch={dispatch} />;
       default:
@@ -72,7 +70,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
   );
 }
 
-// Main widget component
+// Main widget component - no props needed, everything is internal
 export function MagicWidget() {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
 

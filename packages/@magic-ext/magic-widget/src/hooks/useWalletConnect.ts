@@ -21,6 +21,11 @@ export function useWalletConnect(provider: ThirdPartyWallets): UseWalletConnectR
   const connectWallet = useCallback(async () => {
     setError(null);
 
+    // If already connected, no need to connect again
+    if (isConnected && address) {
+      return;
+    }
+
     try {
       const connectorId = CONNECTOR_IDS[provider];
       const namePattern = CONNECTOR_NAME_PATTERNS[provider];
@@ -50,7 +55,7 @@ export function useWalletConnect(provider: ThirdPartyWallets): UseWalletConnectR
       setError(errorMessage);
       throw errorMessage;
     }
-  }, [connect, connectors, provider]);
+  }, [connect, connectors, provider, isConnected, address]);
 
   return {
     connectWallet,
