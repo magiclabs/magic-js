@@ -1,3 +1,5 @@
+/* eslint-env node */
+/* global process */
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
@@ -14,8 +16,8 @@ if (!existsSync('./dist')) {
 // Generate CSS first
 try {
   execSync('./node_modules/.bin/panda cssgen --outfile dist/styles.css', { stdio: 'inherit' });
-} catch (e) {
-  console.warn('CSS generation failed, using existing CSS');
+} catch {
+  // CSS generation failed, using existing CSS
 }
 
 // Read the CSS to inject
@@ -69,19 +71,33 @@ try {
 
   // Escape for JS string
   cssContent = cssContent.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
-} catch (e) {
-  console.warn('Could not read CSS file');
+} catch {
+  // Could not read CSS file
 }
 
 const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
 
-// These are external - not bundled
-const external = ['react', 'react-dom', 'react-dom/client', 'react/jsx-runtime', '@magic-sdk/provider'];
+// External dependencies - not bundled by us, resolved by consumer's bundler
+const external = [
+  'react',
+  'react-dom',
+  'react-dom/client',
+  'react/jsx-runtime',
+  '@magic-sdk/provider',
+  // Wagmi stack - too complex to bundle, consumer's bundler handles it
+  'wagmi',
+  'viem',
+  '@wagmi/core',
+  '@tanstack/react-query',
+  '@reown/appkit',
+  '@reown/appkit/networks',
+  '@reown/appkit-adapter-wagmi',
+];
 
 // Alias for @styled/* paths
 const aliasPlugin = {
   name: 'styled-alias',
-  resolveId(source, importer) {
+  resolveId(source) {
     if (source.startsWith('@styled/')) {
       // Convert @styled/css -> styled-system/css
       // Convert @styled/css/cx -> styled-system/css/cx
@@ -105,6 +121,26 @@ const aliasPlugin = {
   },
 };
 
+const plugins = [
+  aliasPlugin,
+  replace({
+    preventAssignment: true,
+    values: {
+      MAGIC_WIDGET_CSS: JSON.stringify(cssContent),
+    },
+  }),
+  resolve({
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs'],
+  }),
+  commonjs({
+    transformMixedEsModules: true,
+  }),
+  typescript({
+    tsconfig: './tsconfig.json',
+    declaration: false,
+  }),
+];
+
 export default [
   // ESM build
   {
@@ -113,28 +149,17 @@ export default [
       file: pkg.module,
       format: 'esm',
       sourcemap: true,
+      inlineDynamicImports: true,
     },
     external,
-    plugins: [
-      aliasPlugin,
-      replace({
-        preventAssignment: true,
-        values: {
-          MAGIC_WIDGET_CSS: JSON.stringify(cssContent),
-        },
-      }),
-      resolve({
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      }),
-      commonjs({
-        // Transform CJS to ESM properly
-        transformMixedEsModules: true,
-      }),
-      typescript({
-        tsconfig: './tsconfig.json',
-        declaration: false,
-      }),
-    ],
+    plugins,
+    onwarn(warning, warn) {
+      // Suppress circular dependency warnings from third-party libs
+      if (warning.code === 'CIRCULAR_DEPENDENCY') return;
+      // Suppress "this" rewrite warnings
+      if (warning.code === 'THIS_IS_UNDEFINED') return;
+      warn(warning);
+    },
   },
   // CJS build
   {
@@ -144,6 +169,7 @@ export default [
       format: 'cjs',
       sourcemap: true,
       exports: 'named',
+      inlineDynamicImports: true,
     },
     external,
     plugins: [
@@ -155,14 +181,21 @@ export default [
         },
       }),
       resolve({
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs'],
       }),
-      commonjs(),
+      commonjs({
+        transformMixedEsModules: true,
+      }),
       typescript({
         tsconfig: './tsconfig.json',
         declaration: true,
         declarationDir: './dist/types',
       }),
     ],
+    onwarn(warning, warn) {
+      if (warning.code === 'CIRCULAR_DEPENDENCY') return;
+      if (warning.code === 'THIS_IS_UNDEFINED') return;
+      warn(warning);
+    },
   },
 ];
