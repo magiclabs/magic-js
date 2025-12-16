@@ -54,6 +54,10 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
     case 'WALLET_CONNECTED':
       return { ...state, view: 'success', error: undefined };
 
+    // OAuth flow
+    case 'SELECT_PROVIDER':
+      return { ...state, view: 'oauth_pending', selectedProvider: action.provider, error: undefined };
+
     // Error handling
     case 'SET_ERROR':
       return { ...state, view: 'error', error: action.error };

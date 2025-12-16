@@ -6,6 +6,77 @@ enum SiwePayloadMethod {
   Login = 'magic_auth_login_with_siwe',
 }
 
+// OAuth payload methods (matching the Magic backend)
+enum OAuthPayloadMethod {
+  Popup = 'magic_oauth_login_with_popup',
+}
+
+// OAuth types (from oauth2 extension)
+export type OAuthProvider =
+  | 'google'
+  | 'facebook'
+  | 'apple'
+  | 'github'
+  | 'bitbucket'
+  | 'gitlab'
+  | 'linkedin'
+  | 'twitter'
+  | 'discord'
+  | 'twitch'
+  | 'microsoft';
+
+export interface OpenIDConnectUserInfo {
+  name?: string;
+  familyName?: string;
+  givenName?: string;
+  middleName?: string;
+  nickname?: string;
+  preferredUsername?: string;
+  profile?: string;
+  picture?: string;
+  website?: string;
+  email?: string;
+  emailVerified?: boolean;
+  gender?: string;
+  birthdate?: string;
+  zoneinfo?: string;
+  locale?: string;
+  phoneNumber?: string;
+  phoneNumberVerified?: boolean;
+  sub?: string;
+  sources?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
+export interface MagicUserMetadata {
+  issuer: string | null;
+  publicAddress: string | null;
+  email: string | null;
+  phoneNumber?: string | null;
+  isMfaEnabled?: boolean;
+  recoveryFactors?: Array<{ type: string; value: string }>;
+}
+
+export interface OAuthRedirectResult {
+  oauth: {
+    provider: OAuthProvider;
+    scope: string[];
+    userHandle: string;
+    userInfo: OpenIDConnectUserInfo;
+  };
+  magic: {
+    idToken: string;
+    userMetadata: MagicUserMetadata;
+  };
+}
+
+export interface OAuthRedirectError {
+  provider: OAuthProvider;
+  error: string;
+  error_description?: string;
+  error_uri?: string;
+}
+
 // SIWE types
 export interface SiweGenerateNonceParams {
   address?: string;
@@ -124,5 +195,29 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
     const requestPayload = this.utils.createJsonRpcRequestPayload(SiwePayloadMethod.Login, [params]);
     return this.request<string>(requestPayload);
   }
-}
 
+  /**
+   * Login with OAuth popup.
+   * Opens a popup for the specified OAuth provider and returns the result.
+   */
+  public async loginWithPopup(provider: OAuthProvider): Promise<OAuthRedirectResult> {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethod.Popup, [
+      {
+        provider,
+        returnTo: window.location.href,
+        apiKey: this.sdk.apiKey,
+        platform: 'web',
+      },
+    ]);
+
+    const result = await this.request<OAuthRedirectResult | OAuthRedirectError>(requestPayload);
+
+    // Check if the result is an error
+    if ((result as OAuthRedirectError).error) {
+      const errorResult = result as OAuthRedirectError;
+      throw new Error(errorResult.error_description || errorResult.error);
+    }
+
+    return result as OAuthRedirectResult;
+  }
+}
