@@ -2,7 +2,7 @@
 
 import { LoginProvider, OAuthProvider, ThirdPartyWallets } from './types';
 
-export type View = 'login' | 'email_input' | 'otp' | 'wallet_pending' | 'success' | 'error';
+export type View = 'login' | 'email_input' | 'otp' | 'wallet_pending' | 'oauth_pending' | 'success' | 'error';
 
 export interface WidgetState {
   view: View;

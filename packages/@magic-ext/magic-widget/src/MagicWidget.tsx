@@ -1,15 +1,14 @@
-import { Button, Footer, Header, IcoDismiss, Modal, Text } from '@magiclabs/ui-components';
+import { Footer, Modal } from '@magiclabs/ui-components';
 import { VStack } from '../styled-system/jsx';
-import { token } from '../styled-system/tokens';
 import React, { useEffect, useReducer } from 'react';
 import { WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LoginView } from './views/LoginView';
-import { PendingView } from './views/PendingView';
+import { WalletPendingView } from './views/WalletPendingView';
 import { widgetReducer, initialState, WidgetAction, WidgetState } from './reducer';
-import { ThirdPartyWallets } from './types';
+import { OAuthProvider, ThirdPartyWallets } from './types';
 import { wagmiConfig } from './wagmi/config';
-import WidgetHeader from './components/WidgetHeader';
+import { OAuthPendingView } from './views/OAuthPendingView';
 
 // Create a query client for react-query
 const queryClient = new QueryClient();
@@ -34,7 +33,9 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
       case 'login':
         return <LoginView dispatch={dispatch} />;
       case 'wallet_pending':
-        return <PendingView provider={state.selectedProvider as ThirdPartyWallets} dispatch={dispatch} />;
+        return <WalletPendingView provider={state.selectedProvider as ThirdPartyWallets} dispatch={dispatch} />;
+      case 'oauth_pending':
+        return <OAuthPendingView provider={state.selectedProvider as OAuthProvider} dispatch={dispatch} />;
       // Add more views here as you implement them:
       // case 'email_input':
       //   return <EmailInputView dispatch={dispatch} />;

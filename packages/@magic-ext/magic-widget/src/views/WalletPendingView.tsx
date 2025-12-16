@@ -1,28 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { VStack, Box } from '../../styled-system/jsx';
-import { IcoCheckmarkCircleFill, LoadingSpinner, Text } from '@magiclabs/ui-components';
-import { css } from '../../styled-system/css';
 import { getProviderConfig } from '../lib/provider-config';
-import { token } from '../../styled-system/tokens';
 import { WidgetAction } from '../reducer';
 import { ThirdPartyWallets } from '../types';
 import { useWalletConnect } from '../hooks/useWalletConnect';
 import { useSiweLogin } from '../hooks/useSiweLogin';
-import WidgetHeader from 'src/components/WidgetHeader';
+import { Pending } from 'src/components/Pending';
 
-const centeredIconClass = css({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-});
-
-interface PendingViewProps {
+interface WalletPendingViewProps {
   provider: ThirdPartyWallets;
   dispatch: React.Dispatch<WidgetAction>;
 }
 
-export const PendingView = ({ provider, dispatch }: PendingViewProps) => {
+export const WalletPendingView = ({ provider, dispatch }: WalletPendingViewProps) => {
   const {
     connectWallet,
     isPending: isWalletPending,
@@ -167,39 +156,16 @@ export const PendingView = ({ provider, dispatch }: PendingViewProps) => {
   }, [siweError, siweAttemptedForAddress]);
 
   // Show spinner until SIWE is complete or there's an error
-  const showSpinner =
-    !localError && (isWalletPending || isSiweLoading || (!isSiweSuccess && !walletError && !siweError));
+  const isPending = !localError && (isWalletPending || isSiweLoading || (!isSiweSuccess && !walletError && !siweError));
 
   return (
-    <>
-      <WidgetHeader onPressBack={() => dispatch({ type: 'GO_TO_LOGIN' })} showHeaderText={false} />
-      <VStack gap={6} pt={4}>
-        <Box position="relative" h={20} w={20}>
-          {showSpinner && <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />}
-          {showSpinner ? (
-            <Icon width={36} height={36} className={centeredIconClass} />
-          ) : (
-            <IcoCheckmarkCircleFill
-              width={36}
-              height={36}
-              color={localError ? token('colors.negative.base') : token('colors.brand.base')}
-              className={centeredIconClass}
-            />
-          )}
-        </Box>
-
-        <VStack gap={2}>
-          <Text.H4>{title}</Text.H4>
-          <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
-            {description}
-          </Text>
-          {localError && (
-            <Text variant="error" styles={{ textAlign: 'center' }}>
-              {localError}
-            </Text>
-          )}
-        </VStack>
-      </VStack>
-    </>
+    <Pending
+      onPressBack={() => dispatch({ type: 'GO_TO_LOGIN' })}
+      title={title}
+      description={description}
+      Icon={Icon}
+      isPending={isPending}
+      errorMessage={localError}
+    />
   );
 };
