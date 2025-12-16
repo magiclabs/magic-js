@@ -7,6 +7,7 @@ import { OAuthProvider, ThirdPartyWallets } from '../types';
 import { WidgetAction } from '../reducer';
 import { EmailInput } from 'src/components/EmailInput';
 import { SocialProviders } from 'src/components/SocialProviders';
+import WidgetHeader from 'src/components/WidgetHeader';
 
 interface LoginViewProps {
   dispatch: React.Dispatch<WidgetAction>;
@@ -24,29 +25,32 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
   };
 
   return (
-    <VStack alignItems="center" width="full" gap={4} px={6}>
-      <EmailInput />
-      <SocialProviders providers={Object.values(OAuthProvider)} onPress={handleProviderLogin} />
+    <>
+      <WidgetHeader />
+      <VStack alignItems="center" width="full" gap={4} px={6}>
+        <EmailInput />
+        <SocialProviders providers={Object.values(OAuthProvider)} onPress={handleProviderLogin} />
 
-      <HStack mb={3} w="full">
-        <Divider color="surface.quaternary" />
-        <Text aria-label="or" fontColor="text.tertiary">
-          or
-        </Text>
-        <Divider color="surface.quaternary" />
-      </HStack>
+        <HStack mb={3} w="full">
+          <Divider color="surface.quaternary" />
+          <Text aria-label="or" fontColor="text.tertiary">
+            or
+          </Text>
+          <Divider color="surface.quaternary" />
+        </HStack>
 
-      <HStack gap={2} w="full">
-        {Object.values(ThirdPartyWallets).map(provider => (
-          <ProviderButton
-            key={provider}
-            hideLabel={Object.values(ThirdPartyWallets).length > 1}
-            label={WALLET_METADATA[provider].displayName}
-            Icon={WALLET_METADATA[provider].Icon}
-            onPress={() => handleProviderSelect(provider)}
-          />
-        ))}
-      </HStack>
-    </VStack>
+        <HStack gap={2} w="full">
+          {Object.values(ThirdPartyWallets).map(provider => (
+            <ProviderButton
+              key={provider}
+              hideLabel={Object.values(ThirdPartyWallets).length > 1}
+              label={WALLET_METADATA[provider].displayName}
+              Icon={WALLET_METADATA[provider].Icon}
+              onPress={() => handleProviderSelect(provider)}
+            />
+          ))}
+        </HStack>
+      </VStack>
+    </>
   );
 };

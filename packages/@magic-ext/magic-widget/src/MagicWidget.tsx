@@ -9,6 +9,7 @@ import { PendingView } from './views/PendingView';
 import { widgetReducer, initialState, WidgetAction, WidgetState } from './reducer';
 import { ThirdPartyWallets } from './types';
 import { wagmiConfig } from './wagmi/config';
+import WidgetHeader from './components/WidgetHeader';
 
 // Create a query client for react-query
 const queryClient = new QueryClient();
@@ -49,20 +50,6 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
   return (
     <Modal>
       <VStack alignItems="center" width="full">
-        <Header position="relative">
-          <Header.Content>
-            <Text size="sm" styles={{ color: token('colors.text.tertiary') }}>
-              Log in or sign up
-            </Text>
-          </Header.Content>
-          <Header.RightAction>
-            <Button variant="neutral" size="sm" onPress={() => console.log('Close widget')}>
-              <Button.LeadingIcon>
-                <IcoDismiss />
-              </Button.LeadingIcon>
-            </Button>
-          </Header.RightAction>
-        </Header>
         {renderView()}
         <Footer />
       </VStack>

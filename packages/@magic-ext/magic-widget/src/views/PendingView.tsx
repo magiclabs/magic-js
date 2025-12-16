@@ -8,6 +8,7 @@ import { WidgetAction } from '../reducer';
 import { ThirdPartyWallets } from '../types';
 import { useWalletConnect } from '../hooks/useWalletConnect';
 import { useSiweLogin } from '../hooks/useSiweLogin';
+import WidgetHeader from 'src/components/WidgetHeader';
 
 const centeredIconClass = css({
   position: 'absolute',
@@ -28,13 +29,15 @@ export const PendingView = ({ provider, dispatch }: PendingViewProps) => {
     error: walletError,
     address,
     isConnected,
+    isConnectedToSelectedProvider,
   } = useWalletConnect(provider);
   const { performSiweLogin, isLoading: isSiweLoading, error: siweError, isSuccess: isSiweSuccess } = useSiweLogin();
   const { title, description, Icon } = getProviderConfig(provider);
 
   // Track whether we've attempted connection and SIWE
   const [connectionAttempted, setConnectionAttempted] = useState(false);
-  const [siweAttempted, setSiweAttempted] = useState(false);
+  // Track which address we've attempted SIWE for (to handle reconnections)
+  const [siweAttemptedForAddress, setSiweAttemptedForAddress] = useState<string | null>(null);
   // Local error state to display on this view instead of navigating away
   const [localError, setLocalError] = useState<string | null>(null);
 
@@ -42,10 +45,11 @@ export const PendingView = ({ provider, dispatch }: PendingViewProps) => {
   useEffect(() => {
     console.log('[PendingView] State:', {
       isConnected,
+      isConnectedToSelectedProvider,
       address,
       isWalletPending,
       connectionAttempted,
-      siweAttempted,
+      siweAttemptedForAddress,
       isSiweLoading,
       isSiweSuccess,
       walletError: walletError?.message,
@@ -53,47 +57,101 @@ export const PendingView = ({ provider, dispatch }: PendingViewProps) => {
     });
   }, [
     isConnected,
+    isConnectedToSelectedProvider,
     address,
     isWalletPending,
     connectionAttempted,
-    siweAttempted,
+    siweAttemptedForAddress,
     isSiweLoading,
     isSiweSuccess,
     walletError,
     siweError,
   ]);
 
-  // Initiate wallet connection on mount (or skip if already connected)
+  // Initiate wallet connection on mount (only if not already connected to the SELECTED provider)
   useEffect(() => {
     if (!connectionAttempted) {
       setConnectionAttempted(true);
-      console.log('[PendingView] Attempting wallet connection...');
-      // connectWallet handles the already-connected case internally
+
+      // Only skip wallet connection if already connected to the SAME wallet type
+      // If connected to a different wallet, we need to switch
+      if (isConnectedToSelectedProvider && address) {
+        console.log(
+          '[PendingView] Already connected to',
+          provider,
+          'with address:',
+          address,
+          '- skipping wallet connection',
+        );
+        return;
+      }
+
+      console.log('[PendingView] Not connected to', provider, '- attempting wallet connection...');
       connectWallet().catch(err => {
+        const errorMessage = (err?.message || '').toLowerCase();
+
+        // Ignore transient "Connector not connected" errors - these happen during disconnect/reconnect
+        if (errorMessage.includes('connector not connected') || errorMessage.includes('connectornotconnectederror')) {
+          console.log('[PendingView] Ignoring transient connector error during reconnection');
+          return;
+        }
+
+        // If user rejected/denied the connection, go back to login (not an error)
+        if (
+          errorMessage.includes('user rejected') ||
+          errorMessage.includes('user denied') ||
+          errorMessage.includes('rejected the request') ||
+          errorMessage.includes('user cancelled') ||
+          errorMessage.includes('user canceled')
+        ) {
+          console.log('[PendingView] User rejected connection, returning to login');
+          dispatch({ type: 'GO_TO_LOGIN' });
+          return;
+        }
+
         console.error('[PendingView] Wallet connection error:', err);
         setLocalError(err?.message || 'Failed to connect wallet');
       });
     }
-  }, [connectionAttempted, connectWallet]);
+  }, [connectionAttempted, connectWallet, isConnectedToSelectedProvider, address, provider]);
 
-  // Once wallet is connected, initiate SIWE login
+  // Once wallet is connected to the SELECTED provider with a stable address, initiate SIWE login
+  // Only attempt SIWE if:
+  // 1. We're connected to the selected provider with an address
+  // 2. We haven't already attempted SIWE for this specific address
+  // 3. We're not currently in a loading state (prevents double-calls during reconnection)
   useEffect(() => {
-    if (isConnected && address && !siweAttempted) {
-      setSiweAttempted(true);
-      console.log('[PendingView] Wallet connected, starting SIWE login for address:', address);
+    if (isConnectedToSelectedProvider && address && siweAttemptedForAddress !== address && !isSiweLoading) {
+      setSiweAttemptedForAddress(address);
+      setLocalError(null); // Clear any previous errors
+      console.log('[PendingView] Connected to', provider, '- starting SIWE login for address:', address);
       performSiweLogin(address).catch(err => {
+        const errorMessage = (err?.message || '').toLowerCase();
+
+        // Ignore transient "Connector not connected" errors
+        if (errorMessage.includes('connector not connected') || errorMessage.includes('connectornotconnectederror')) {
+          console.log('[PendingView] Ignoring transient connector error during SIWE');
+          return;
+        }
+
+        // If user rejected/denied the signature, go back to login (not an error)
+        if (
+          errorMessage.includes('user rejected') ||
+          errorMessage.includes('user denied') ||
+          errorMessage.includes('rejected the request') ||
+          errorMessage.includes('user cancelled') ||
+          errorMessage.includes('user canceled')
+        ) {
+          console.log('[PendingView] User rejected signature, returning to login');
+          dispatch({ type: 'GO_TO_LOGIN' });
+          return;
+        }
+
         console.error('[PendingView] SIWE login error:', err);
         setLocalError(err?.message || 'SIWE login failed');
       });
     }
-  }, [isConnected, address, siweAttempted, performSiweLogin]);
-
-  // Handle SIWE success - just log it, stay on checkmark view
-  useEffect(() => {
-    if (isSiweSuccess) {
-      console.log('[PendingView] SIWE login successful!');
-    }
-  }, [isSiweSuccess]);
+  }, [isConnectedToSelectedProvider, address, siweAttemptedForAddress, isSiweLoading, performSiweLogin, provider]);
 
   // Update local error from hook errors
   useEffect(() => {
@@ -103,44 +161,45 @@ export const PendingView = ({ provider, dispatch }: PendingViewProps) => {
   }, [walletError, connectionAttempted]);
 
   useEffect(() => {
-    if (siweError && siweAttempted) {
+    if (siweError && siweAttemptedForAddress) {
       setLocalError(siweError.message);
     }
-  }, [siweError, siweAttempted]);
+  }, [siweError, siweAttemptedForAddress]);
 
   // Show spinner until SIWE is complete or there's an error
   const showSpinner =
     !localError && (isWalletPending || isSiweLoading || (!isSiweSuccess && !walletError && !siweError));
 
-  // Determine what text to show
-  const statusText = localError
-    ? localError
-    : isSiweSuccess
-      ? 'Success!'
-      : isSiweLoading
-        ? 'Signing message...'
-        : description;
-
   return (
-    <VStack gap={6} pt={4}>
-      <Box position="relative" h={20} w={20}>
-        {showSpinner && <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />}
-        {showSpinner ? (
-          <Icon width={36} height={36} className={centeredIconClass} />
-        ) : (
-          <IcoCheckmarkCircleFill
-            width={36}
-            height={36}
-            color={localError ? token('colors.negative.base') : token('colors.brand.base')}
-            className={centeredIconClass}
-          />
-        )}
-      </Box>
+    <>
+      <WidgetHeader onPressBack={() => dispatch({ type: 'GO_TO_LOGIN' })} showHeaderText={false} />
+      <VStack gap={6} pt={4}>
+        <Box position="relative" h={20} w={20}>
+          {showSpinner && <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />}
+          {showSpinner ? (
+            <Icon width={36} height={36} className={centeredIconClass} />
+          ) : (
+            <IcoCheckmarkCircleFill
+              width={36}
+              height={36}
+              color={localError ? token('colors.negative.base') : token('colors.brand.base')}
+              className={centeredIconClass}
+            />
+          )}
+        </Box>
 
-      <VStack gap={2}>
-        <Text.H4>{title}</Text.H4>
-        <Text fontColor="text.tertiary">{statusText}</Text>
+        <VStack gap={2}>
+          <Text.H4>{title}</Text.H4>
+          <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
+            {description}
+          </Text>
+          {localError && (
+            <Text variant="error" styles={{ textAlign: 'center' }}>
+              {localError}
+            </Text>
+          )}
+        </VStack>
       </VStack>
-    </VStack>
+    </>
   );
 };

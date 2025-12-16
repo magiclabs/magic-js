@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import { useConnect, useAccount, useDisconnect } from 'wagmi';
 import { ThirdPartyWallets } from '../types';
 import { CONNECTOR_IDS, CONNECTOR_NAME_PATTERNS } from '../wagmi/connectors';
@@ -9,40 +9,89 @@ export interface UseWalletConnectResult {
   error: Error | null;
   address: `0x${string}` | undefined;
   isConnected: boolean;
+  /** Whether the currently connected wallet matches the selected provider */
+  isConnectedToSelectedProvider: boolean;
   disconnect: () => void;
 }
 
 export function useWalletConnect(provider: ThirdPartyWallets): UseWalletConnectResult {
   const { connect, connectors, isPending } = useConnect();
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, connector: activeConnector } = useAccount();
   const { disconnect } = useDisconnect();
   const [error, setError] = useState<Error | null>(null);
 
+  // Check if the currently connected wallet matches the selected provider
+  const isConnectedToSelectedProvider = useMemo(() => {
+    if (!isConnected || !activeConnector) return false;
+    
+    const connectorId = CONNECTOR_IDS[provider];
+    const namePattern = CONNECTOR_NAME_PATTERNS[provider];
+    const connectorName = activeConnector.name.toLowerCase();
+    
+    // Check if active connector matches the selected provider
+    const matchesId = activeConnector.id === connectorId;
+    const matchesName = connectorName === namePattern || connectorName.startsWith(namePattern);
+    
+    console.log('[useWalletConnect] Checking if connected to selected provider:', {
+      provider,
+      activeConnectorId: activeConnector.id,
+      activeConnectorName: activeConnector.name,
+      expectedId: connectorId,
+      expectedNamePattern: namePattern,
+      matchesId,
+      matchesName,
+    });
+    
+    return matchesId || matchesName;
+  }, [isConnected, activeConnector, provider]);
+
   const connectWallet = useCallback(async () => {
     setError(null);
-
-    // If already connected, no need to connect again
-    if (isConnected && address) {
-      return;
-    }
 
     try {
       const connectorId = CONNECTOR_IDS[provider];
       const namePattern = CONNECTOR_NAME_PATTERNS[provider];
 
-      // Find connector by ID or by name pattern
-      const connector = connectors.find(
-        c => c.id === connectorId || c.name.toLowerCase().includes(namePattern),
+      // Debug: log available connectors
+      console.log('[useWalletConnect] Looking for:', { provider, connectorId, namePattern });
+      console.log(
+        '[useWalletConnect] Available connectors:',
+        connectors.map(c => ({ id: c.id, name: c.name })),
       );
 
-      if (!connector) {
+      // Find connector - be more specific about matching
+      // First try exact ID match
+      const connectorById = connectors.find(c => c.id === connectorId);
+
+      // If no exact ID match, try name pattern (but be strict - must start with or equal the pattern)
+      const connectorByName = connectors.find(c => {
+        const nameLower = c.name.toLowerCase();
+        return nameLower === namePattern || nameLower.startsWith(namePattern);
+      });
+
+      const foundConnector = connectorById || connectorByName;
+
+      console.log(
+        '[useWalletConnect] Found connector:',
+        foundConnector ? { id: foundConnector.id, name: foundConnector.name } : 'none',
+      );
+
+      if (!foundConnector) {
         throw new Error(`${provider} connector not found. Please install the wallet extension.`);
+      }
+
+      // If already connected to a different wallet, disconnect first
+      if (isConnected) {
+        console.log('[useWalletConnect] Disconnecting from current wallet first...');
+        disconnect();
+        // Small delay to ensure disconnect completes
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
 
       // Connect to the wallet
       await new Promise<void>((resolve, reject) => {
         connect(
-          { connector },
+          { connector: foundConnector },
           {
             onSuccess: () => resolve(),
             onError: err => reject(err),
@@ -55,7 +104,7 @@ export function useWalletConnect(provider: ThirdPartyWallets): UseWalletConnectR
       setError(errorMessage);
       throw errorMessage;
     }
-  }, [connect, connectors, provider, isConnected, address]);
+  }, [connect, connectors, provider, isConnected, disconnect]);
 
   return {
     connectWallet,
@@ -63,7 +112,7 @@ export function useWalletConnect(provider: ThirdPartyWallets): UseWalletConnectR
     error,
     address,
     isConnected,
+    isConnectedToSelectedProvider,
     disconnect,
   };
 }
-
