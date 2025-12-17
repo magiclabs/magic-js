@@ -39,13 +39,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
         return <OAuthPendingView provider={state.selectedProvider as OAuthProvider} dispatch={dispatch} />;
       case 'additional_providers':
         return <AdditionalProvidersView dispatch={dispatch} />;
-      // Add more views here as you implement them:
-      // case 'email_input':
-      //   return <EmailInputView dispatch={dispatch} />;
-      // case 'otp':
-      //   return <OtpView dispatch={dispatch} email={state.email} />;
-      // case 'error':
-      //   return <ErrorView error={state.error} dispatch={dispatch} />;
+      // Add more views here as you implement them
       default:
         return <LoginView dispatch={dispatch} />;
     }

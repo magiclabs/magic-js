@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text } from '@magiclabs/ui-components';
+import { Text } from '@magiclabs/ui-components';
 import { Divider, HStack, VStack } from '../../styled-system/jsx';
 import { ProviderButton } from '../components/ProviderButton';
 import { WALLET_METADATA } from '../constants';

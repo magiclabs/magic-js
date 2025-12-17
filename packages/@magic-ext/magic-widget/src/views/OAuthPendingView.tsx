@@ -14,29 +14,13 @@ interface OAuthPendingViewProps {
 export const OAuthPendingView = ({ provider, dispatch }: OAuthPendingViewProps) => {
   const { title, description, Icon } = getProviderConfig(provider);
   const { performOAuthLogin, isLoading, error: oauthError, isSuccess } = useOAuthLogin();
-
-  // Track whether we've attempted OAuth login
   const [loginAttempted, setLoginAttempted] = useState(false);
-  // Local error state to display on this view
-  const [localError, setLocalError] = useState<string | null>(null);
-
-  // Debug logging
-  useEffect(() => {
-    console.log('[OAuthPendingView] State:', {
-      provider,
-      isLoading,
-      isSuccess,
-      loginAttempted,
-      oauthError: oauthError?.message,
-      localError,
-    });
-  }, [provider, isLoading, isSuccess, loginAttempted, oauthError, localError]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Trigger OAuth login on mount
   useEffect(() => {
     if (!loginAttempted) {
       setLoginAttempted(true);
-      console.log('[OAuthPendingView] Triggering OAuth popup for provider:', provider);
 
       performOAuthLogin(provider as ExtensionOAuthProvider).catch(err => {
         const errorMessage = (err?.message || '').toLowerCase();
@@ -51,18 +35,15 @@ export const OAuthPendingView = ({ provider, dispatch }: OAuthPendingViewProps) 
           errorMessage.includes('cancelled') ||
           errorMessage.includes('canceled')
         ) {
-          console.log('[OAuthPendingView] User cancelled OAuth, returning to login');
           dispatch({ type: 'GO_TO_LOGIN' });
           return;
         }
 
-        console.error('[OAuthPendingView] OAuth error:', err);
-        setLocalError(err?.message || 'OAuth login failed');
+        setErrorMessage(err?.message || 'OAuth login failed');
       });
     }
   }, [loginAttempted, performOAuthLogin, provider, dispatch]);
 
-  // Update local error from hook errors
   useEffect(() => {
     if (oauthError && loginAttempted) {
       const errorMessage = (oauthError.message || '').toLowerCase();
@@ -74,22 +55,22 @@ export const OAuthPendingView = ({ provider, dispatch }: OAuthPendingViewProps) 
         !errorMessage.includes('cancelled') &&
         !errorMessage.includes('canceled')
       ) {
-        setLocalError(oauthError.message);
+        setErrorMessage(oauthError.message);
       }
     }
   }, [oauthError, loginAttempted]);
 
   // Show spinner until OAuth is complete or there's an error
-  const isPending = !localError && (isLoading || (!isSuccess && !oauthError));
+  const isPending = !errorMessage && (isLoading || (!isSuccess && !oauthError));
 
   return (
     <Pending
       onPressBack={() => dispatch({ type: 'GO_TO_LOGIN' })}
       title={title}
-      description={localError ? localError : isSuccess ? 'Success!' : description}
+      description={description}
       Icon={Icon}
       isPending={isPending}
-      errorMessage={localError}
+      errorMessage={errorMessage}
     />
   );
 };

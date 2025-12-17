@@ -23,25 +23,15 @@ export function useWalletConnect(provider: ThirdPartyWallets): UseWalletConnectR
   // Check if the currently connected wallet matches the selected provider
   const isConnectedToSelectedProvider = useMemo(() => {
     if (!isConnected || !activeConnector) return false;
-    
+
     const connectorId = CONNECTOR_IDS[provider];
     const namePattern = CONNECTOR_NAME_PATTERNS[provider];
     const connectorName = activeConnector.name.toLowerCase();
-    
+
     // Check if active connector matches the selected provider
     const matchesId = activeConnector.id === connectorId;
     const matchesName = connectorName === namePattern || connectorName.startsWith(namePattern);
-    
-    console.log('[useWalletConnect] Checking if connected to selected provider:', {
-      provider,
-      activeConnectorId: activeConnector.id,
-      activeConnectorName: activeConnector.name,
-      expectedId: connectorId,
-      expectedNamePattern: namePattern,
-      matchesId,
-      matchesName,
-    });
-    
+
     return matchesId || matchesName;
   }, [isConnected, activeConnector, provider]);
 
@@ -51,13 +41,6 @@ export function useWalletConnect(provider: ThirdPartyWallets): UseWalletConnectR
     try {
       const connectorId = CONNECTOR_IDS[provider];
       const namePattern = CONNECTOR_NAME_PATTERNS[provider];
-
-      // Debug: log available connectors
-      console.log('[useWalletConnect] Looking for:', { provider, connectorId, namePattern });
-      console.log(
-        '[useWalletConnect] Available connectors:',
-        connectors.map(c => ({ id: c.id, name: c.name })),
-      );
 
       // Find connector - be more specific about matching
       // First try exact ID match
@@ -71,18 +54,12 @@ export function useWalletConnect(provider: ThirdPartyWallets): UseWalletConnectR
 
       const foundConnector = connectorById || connectorByName;
 
-      console.log(
-        '[useWalletConnect] Found connector:',
-        foundConnector ? { id: foundConnector.id, name: foundConnector.name } : 'none',
-      );
-
       if (!foundConnector) {
         throw new Error(`${provider} connector not found. Please install the wallet extension.`);
       }
 
       // If already connected to a different wallet, disconnect first
       if (isConnected) {
-        console.log('[useWalletConnect] Disconnecting from current wallet first...');
         disconnect();
         // Small delay to ensure disconnect completes
         await new Promise(resolve => setTimeout(resolve, 100));
@@ -99,7 +76,6 @@ export function useWalletConnect(provider: ThirdPartyWallets): UseWalletConnectR
         );
       });
     } catch (err) {
-      console.error(`${provider} connection error:`, err);
       const errorMessage = err instanceof Error ? err : new Error(`Failed to connect to ${provider}`);
       setError(errorMessage);
       throw errorMessage;

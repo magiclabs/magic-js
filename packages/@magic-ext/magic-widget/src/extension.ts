@@ -1,17 +1,14 @@
 import { Extension, SDKBase } from '@magic-sdk/provider';
 
-// SIWE payload methods (matching the Magic backend)
 enum SiwePayloadMethod {
   GenerateNonce = 'magic_siwe_generate_nonce',
   Login = 'magic_auth_login_with_siwe',
 }
 
-// OAuth payload methods (matching the Magic backend)
 enum OAuthPayloadMethod {
   Popup = 'magic_oauth_login_with_popup',
 }
 
-// OAuth types (from oauth2 extension)
 export type OAuthProvider =
   | 'google'
   | 'facebook'
@@ -77,7 +74,6 @@ export interface OAuthRedirectError {
   error_uri?: string;
 }
 
-// SIWE types
 export interface SiweGenerateNonceParams {
   address?: string;
 }
@@ -122,7 +118,6 @@ Nonce: ${nonce}
 Issued At: ${issuedAt}`;
 }
 
-// Module-level singleton reference for internal access by React components
 let extensionInstance: MagicWidgetExtension | null = null;
 
 /**

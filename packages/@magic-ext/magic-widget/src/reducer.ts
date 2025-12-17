@@ -24,13 +24,14 @@ export type WidgetAction =
   // Navigation actions
   | { type: 'GO_TO_EMAIL_INPUT' }
   | { type: 'GO_TO_LOGIN' }
-  | { type: 'GO_TO_ADDITIONAL_PROVIDERS' }
   // Email flow
   | { type: 'SUBMIT_EMAIL'; email: string }
   | { type: 'VERIFY_OTP_SUCCESS' }
+  // OAuth flow
+  | { type: 'SELECT_PROVIDER'; provider: OAuthProvider }
+  | { type: 'GO_TO_ADDITIONAL_PROVIDERS' }
   // Wallet flow
   | { type: 'SELECT_WALLET'; provider: ThirdPartyWallets }
-  | { type: 'SELECT_PROVIDER'; provider: OAuthProvider }
   | { type: 'WALLET_CONNECTED' }
   // Error handling
   | { type: 'SET_ERROR'; error: string }
@@ -49,9 +50,6 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
     case 'GO_TO_LOGIN':
       return { ...state, view: 'login', error: undefined };
 
-    case 'GO_TO_ADDITIONAL_PROVIDERS':
-      return { ...state, view: 'additional_providers', error: undefined };
-
     // Email flow
     case 'SUBMIT_EMAIL':
       return { ...state, view: 'otp', email: action.email, error: undefined };
@@ -69,6 +67,9 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
     // OAuth flow
     case 'SELECT_PROVIDER':
       return { ...state, view: 'oauth_pending', selectedProvider: action.provider, error: undefined };
+
+    case 'GO_TO_ADDITIONAL_PROVIDERS':
+      return { ...state, view: 'additional_providers', error: undefined };
 
     // Error handling
     case 'SET_ERROR':

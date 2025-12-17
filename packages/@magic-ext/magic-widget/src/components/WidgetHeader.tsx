@@ -8,6 +8,7 @@ type WidgetHeaderProps = {
 
 export default function WidgetHeader({ showHeaderText = true, onPressBack }: WidgetHeaderProps) {
   const handleClose = () => {
+    // TODO: Need to determine what this behavior should be/if it should exist at all
     console.log('Close widget');
   };
 
