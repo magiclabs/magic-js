@@ -2,7 +2,15 @@
 
 import { LoginProvider, OAuthProvider, ThirdPartyWallets } from './types';
 
-export type View = 'login' | 'email_input' | 'otp' | 'wallet_pending' | 'oauth_pending' | 'success' | 'error';
+export type View =
+  | 'login'
+  | 'email_input'
+  | 'otp'
+  | 'additional_providers'
+  | 'wallet_pending'
+  | 'oauth_pending'
+  | 'success'
+  | 'error';
 
 export interface WidgetState {
   view: View;
@@ -16,6 +24,7 @@ export type WidgetAction =
   // Navigation actions
   | { type: 'GO_TO_EMAIL_INPUT' }
   | { type: 'GO_TO_LOGIN' }
+  | { type: 'GO_TO_ADDITIONAL_PROVIDERS' }
   // Email flow
   | { type: 'SUBMIT_EMAIL'; email: string }
   | { type: 'VERIFY_OTP_SUCCESS' }
@@ -39,6 +48,9 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
 
     case 'GO_TO_LOGIN':
       return { ...state, view: 'login', error: undefined };
+
+    case 'GO_TO_ADDITIONAL_PROVIDERS':
+      return { ...state, view: 'additional_providers', error: undefined };
 
     // Email flow
     case 'SUBMIT_EMAIL':

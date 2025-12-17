@@ -9,6 +9,7 @@ import { widgetReducer, initialState, WidgetAction, WidgetState } from './reduce
 import { OAuthProvider, ThirdPartyWallets } from './types';
 import { wagmiConfig } from './wagmi/config';
 import { OAuthPendingView } from './views/OAuthPendingView';
+import AdditionalProvidersView from './views/AdditionalProvidersView';
 
 // Create a query client for react-query
 const queryClient = new QueryClient();
@@ -36,6 +37,8 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
         return <WalletPendingView provider={state.selectedProvider as ThirdPartyWallets} dispatch={dispatch} />;
       case 'oauth_pending':
         return <OAuthPendingView provider={state.selectedProvider as OAuthProvider} dispatch={dispatch} />;
+      case 'additional_providers':
+        return <AdditionalProvidersView dispatch={dispatch} />;
       // Add more views here as you implement them:
       // case 'email_input':
       //   return <EmailInputView dispatch={dispatch} />;

@@ -15,12 +15,10 @@ interface LoginViewProps {
 
 export const LoginView = ({ dispatch }: LoginViewProps) => {
   const handleProviderSelect = (provider: ThirdPartyWallets) => {
-    // Navigate to wallet pending view
     dispatch({ type: 'SELECT_WALLET', provider });
   };
 
   const handleProviderLogin = (provider: OAuthProvider) => {
-    // Navigate to provider pending view
     dispatch({ type: 'SELECT_PROVIDER', provider });
   };
 
@@ -29,7 +27,7 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
       <WidgetHeader />
       <VStack alignItems="center" width="full" gap={4} px={6}>
         <EmailInput />
-        <SocialProviders providers={Object.values(OAuthProvider)} onPress={handleProviderLogin} />
+        <SocialProviders providers={Object.values(OAuthProvider)} onPress={handleProviderLogin} dispatch={dispatch} />
 
         <HStack mb={3} w="full">
           <Divider color="surface.quaternary" />
