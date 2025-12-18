@@ -7,8 +7,8 @@ export const CONNECTOR_IDS: Record<ThirdPartyWallets, string> = {
   [ThirdPartyWallets.METAMASK]: 'metaMaskSDK',
   [ThirdPartyWallets.COINBASE]: 'coinbaseWalletSDK',
   [ThirdPartyWallets.WALLETCONNECT]: 'walletConnect',
-  [ThirdPartyWallets.PHANTOM]: 'phantom', // TODO: verify connector ID
-  [ThirdPartyWallets.RABBY]: 'rabby', // TODO: verify connector ID
+  [ThirdPartyWallets.PHANTOM]: 'app.phantom',
+  [ThirdPartyWallets.RABBY]: 'io.rabby',
 };
 
 /**
@@ -21,4 +21,3 @@ export const CONNECTOR_NAME_PATTERNS: Record<ThirdPartyWallets, string> = {
   [ThirdPartyWallets.PHANTOM]: 'phantom',
   [ThirdPartyWallets.RABBY]: 'rabby',
 };
-
