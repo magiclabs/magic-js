@@ -1,4 +1,5 @@
 import { Extension, SDKBase } from '@magic-sdk/provider';
+import { ClientConfig } from './types/client-config';
 
 enum SiwePayloadMethod {
   GenerateNonce = 'magic_siwe_generate_nonce',
@@ -7,6 +8,10 @@ enum SiwePayloadMethod {
 
 enum OAuthPayloadMethod {
   Popup = 'magic_oauth_login_with_popup',
+}
+
+enum ClientPayloadMethod {
+  GetConfig = 'magic_client_get_config',
 }
 
 export type OAuthProvider =
@@ -138,6 +143,9 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
   name = 'magicWidget' as const;
   config = {};
 
+  private clientConfig: ClientConfig | null = null;
+  private configPromise: Promise<ClientConfig> | null = null;
+
   constructor() {
     super();
   }
@@ -214,5 +222,30 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
     }
 
     return result as OAuthRedirectResult;
+  }
+
+  /**
+   * Fetch client configuration via RPC (proxied through embedded-wallet iframe).
+   * This avoids CORS issues by having the iframe make the request.
+   */
+  public async fetchConfig(): Promise<ClientConfig> {
+    // Return cached config if available
+    if (this.clientConfig) return this.clientConfig;
+    // Return in-flight promise if already fetching
+    if (this.configPromise) return this.configPromise;
+
+    const requestPayload = this.utils.createJsonRpcRequestPayload(ClientPayloadMethod.GetConfig, []);
+    this.configPromise = this.request<ClientConfig>(requestPayload);
+
+    this.clientConfig = await this.configPromise;
+    return this.clientConfig;
+  }
+
+  /**
+   * Get the cached client configuration (synchronous).
+   * Returns null if config hasn't been fetched yet.
+   */
+  public getConfig(): ClientConfig | null {
+    return this.clientConfig;
   }
 }

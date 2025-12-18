@@ -1,6 +1,6 @@
-import { Footer, Modal } from '@magiclabs/ui-components';
+import { Footer, LoadingSpinner, Modal } from '@magiclabs/ui-components';
 import { VStack } from '../styled-system/jsx';
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LoginView } from './views/LoginView';
@@ -10,6 +10,7 @@ import { OAuthProvider, ThirdPartyWallets } from './types';
 import { wagmiConfig } from './wagmi/config';
 import { OAuthPendingView } from './views/OAuthPendingView';
 import AdditionalProvidersView from './views/AdditionalProvidersView';
+import { getExtensionInstance } from './extension';
 
 // Create a query client for react-query
 const queryClient = new QueryClient();
@@ -58,10 +59,28 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
 // Main widget component - no props needed, everything is internal
 export function MagicWidget() {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
+  const [isConfigLoading, setIsConfigLoading] = useState(true);
 
   useEffect(() => {
     injectCSS();
+    getExtensionInstance()
+      .fetchConfig()
+      .then(() => setIsConfigLoading(false))
+      .catch(err => {
+        console.error('Failed to fetch config:', err);
+        setIsConfigLoading(false); // Still show widget on error
+      });
   }, []);
+
+  if (isConfigLoading) {
+    return (
+      <Modal>
+        <VStack alignItems="center" justifyContent="center" height="300px">
+          <LoadingSpinner />
+        </VStack>
+      </Modal>
+    );
+  }
 
   return (
     <WagmiProvider config={wagmiConfig}>
