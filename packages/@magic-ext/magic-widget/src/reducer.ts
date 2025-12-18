@@ -2,15 +2,7 @@
 
 import { LoginProvider, OAuthProvider, ThirdPartyWallets } from './types';
 
-export type View =
-  | 'login'
-  | 'email_input'
-  | 'otp'
-  | 'additional_providers'
-  | 'wallet_pending'
-  | 'oauth_pending'
-  | 'success'
-  | 'error';
+export type View = 'login' | 'otp' | 'additional_providers' | 'wallet_pending' | 'oauth_pending';
 
 export interface WidgetState {
   view: View;
@@ -22,21 +14,14 @@ export interface WidgetState {
 
 export type WidgetAction =
   // Navigation actions
-  | { type: 'GO_TO_EMAIL_INPUT' }
   | { type: 'GO_TO_LOGIN' }
   // Email flow
-  | { type: 'SUBMIT_EMAIL'; email: string }
-  | { type: 'VERIFY_OTP_SUCCESS' }
+  | { type: 'VERIFY_OTP'; email: string }
   // OAuth flow
   | { type: 'SELECT_PROVIDER'; provider: OAuthProvider }
   | { type: 'GO_TO_ADDITIONAL_PROVIDERS' }
   // Wallet flow
-  | { type: 'SELECT_WALLET'; provider: ThirdPartyWallets }
-  | { type: 'WALLET_CONNECTED' }
-  // Error handling
-  | { type: 'SET_ERROR'; error: string }
-  | { type: 'CLEAR_ERROR' };
-
+  | { type: 'SELECT_WALLET'; provider: ThirdPartyWallets };
 export const initialState: WidgetState = {
   view: 'login',
 };
@@ -44,25 +29,16 @@ export const initialState: WidgetState = {
 export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetState {
   switch (action.type) {
     // Navigation
-    case 'GO_TO_EMAIL_INPUT':
-      return { ...state, view: 'email_input', error: undefined };
-
     case 'GO_TO_LOGIN':
       return { ...state, view: 'login', error: undefined };
 
     // Email flow
-    case 'SUBMIT_EMAIL':
+    case 'VERIFY_OTP':
       return { ...state, view: 'otp', email: action.email, error: undefined };
-
-    case 'VERIFY_OTP_SUCCESS':
-      return { ...state, view: 'success', error: undefined };
 
     // Wallet flow
     case 'SELECT_WALLET':
       return { ...state, view: 'wallet_pending', selectedProvider: action.provider, error: undefined };
-
-    case 'WALLET_CONNECTED':
-      return { ...state, view: 'success', error: undefined };
 
     // OAuth flow
     case 'SELECT_PROVIDER':
@@ -70,13 +46,6 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
 
     case 'GO_TO_ADDITIONAL_PROVIDERS':
       return { ...state, view: 'additional_providers', error: undefined };
-
-    // Error handling
-    case 'SET_ERROR':
-      return { ...state, view: 'error', error: action.error };
-
-    case 'CLEAR_ERROR':
-      return { ...state, error: undefined };
 
     default:
       return state;
