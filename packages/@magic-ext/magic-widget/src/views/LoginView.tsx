@@ -16,6 +16,9 @@ interface LoginViewProps {
 
 export const LoginView = ({ dispatch }: LoginViewProps) => {
   const config = getExtensionInstance().getConfig();
+  const { primary, social } = config?.authProviders ?? {};
+  const hasEmailProvider = primary?.includes('email');
+  const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
 
   const handleProviderSelect = (provider: ThirdPartyWallets) => {
     dispatch({ type: 'SELECT_WALLET', provider });
@@ -32,8 +35,14 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
         {config?.theme.assetUri && <img src={config.theme.assetUri} alt="Logo" width={80} height={80} />}
 
         <VStack alignItems="center" width="full" gap={4} px={6}>
-          <EmailInput />
-          <SocialProviders providers={Object.values(OAuthProvider)} onPress={handleProviderLogin} dispatch={dispatch} />
+          {hasEmailProvider && <EmailInput />}
+          {socialProviders.length > 0 && (
+            <SocialProviders
+              providers={Object.values(socialProviders)}
+              onPress={handleProviderLogin}
+              dispatch={dispatch}
+            />
+          )}
 
           <HStack mb={3} w="full">
             <Divider color="surface.quaternary" />
