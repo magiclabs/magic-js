@@ -16,6 +16,7 @@ import {
   LogoMicrosoft,
   LogoGitLab,
   LogoGoogle,
+  LogoTelegram,
 } from '@magiclabs/ui-components';
 
 export const WALLET_METADATA: Record<ThirdPartyWallets, ProviderMetadata> = {
@@ -38,4 +39,5 @@ export const OAUTH_METADATA: Record<OAuthProvider, ProviderMetadata> = {
   [OAuthProvider.BITBUCLKET]: { displayName: 'Bitbucket', Icon: LogoBitBucket },
   [OAuthProvider.DISCORD]: { displayName: 'Discord', Icon: LogoDiscord },
   [OAuthProvider.GITLAB]: { displayName: 'GitLab', Icon: LogoGitLab },
+  [OAuthProvider.TELEGRAM]: { displayName: 'Telegram', Icon: LogoTelegram },
 };

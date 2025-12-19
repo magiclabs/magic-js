@@ -30,6 +30,7 @@ export enum OAuthProvider {
   BITBUCLKET = 'bitbucket',
   DISCORD = 'discord',
   GITLAB = 'gitlab',
+  TELEGRAM = 'telegram',
 }
 
 export type LoginProvider = OAuthProvider | ThirdPartyWallets;
