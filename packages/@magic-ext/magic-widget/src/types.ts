@@ -27,7 +27,7 @@ export enum OAuthProvider {
   LINKEDIN = 'linkedin',
   MICROSOFT = 'microsoft',
   TWITCH = 'twitch',
-  BITBUCLKET = 'bitbucket',
+  BITBUCKET = 'bitbucket',
   DISCORD = 'discord',
   GITLAB = 'gitlab',
   TELEGRAM = 'telegram',

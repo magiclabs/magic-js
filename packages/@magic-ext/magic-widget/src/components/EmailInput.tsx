@@ -5,8 +5,10 @@ import { Box } from '../../styled-system/jsx';
 import { vstack } from '../../styled-system/patterns';
 import { token } from '../../styled-system/tokens';
 import { RpcErrorMessage } from 'src/types';
+import { useEmailLogin } from '../context/EmailLoginContext';
 
 export const EmailInput = () => {
+  const { startEmailLogin } = useEmailLogin();
   const [email, setEmail] = useState('');
   const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -14,17 +16,19 @@ export const EmailInput = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     if (!isValidEmail(email)) {
       setError(RpcErrorMessage.MalformedEmail);
-    } else {
-      // TODO: Add logging, or handle errors on relayer side?
-      if (isSanctionedEmail(email)) {
-        setError(RpcErrorMessage.SanEmail);
-        return;
-      }
-      setDisabled(true);
-      setIsValidating(true);
+      return;
+    } else if (isSanctionedEmail(email)) {
+      setError(RpcErrorMessage.SanEmail);
+      return;
     }
+    // TODO: Add logging, or handle errors on relayer side?
+
+    setDisabled(true);
+    setIsValidating(true);
+    startEmailLogin(email);
   };
 
   const handleInput = (e: string) => {

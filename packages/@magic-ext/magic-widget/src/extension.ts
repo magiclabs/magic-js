@@ -248,4 +248,11 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
   public getConfig(): ClientConfig | null {
     return this.clientConfig;
   }
+
+  /**
+   * Login with Email OTP
+   */
+  public loginWithEmailOTP(email: string) {
+    return this.sdk.auth.loginWithEmailOTP({ email, showUI: false, deviceCheckUI: false });
+  }
 }

@@ -3632,6 +3632,7 @@ __metadata:
   resolution: "@magic-ext/magic-widget@workspace:packages/@magic-ext/magic-widget"
   dependencies:
     "@magic-sdk/provider": ^31.0.0
+    "@magic-sdk/types": ^25.2.0
     "@magiclabs/ui-components": ^1.49.0
     "@pandacss/dev": ^0.35.0
     "@reown/appkit": 1.8.14

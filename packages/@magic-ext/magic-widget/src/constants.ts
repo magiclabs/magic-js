@@ -36,7 +36,7 @@ export const OAUTH_METADATA: Record<OAuthProvider, ProviderMetadata> = {
   [OAuthProvider.LINKEDIN]: { displayName: 'LinkedIn', Icon: LogoLinkedIn },
   [OAuthProvider.MICROSOFT]: { displayName: 'Microsoft', Icon: LogoMicrosoft },
   [OAuthProvider.TWITCH]: { displayName: 'Twitch', Icon: LogoTwitch },
-  [OAuthProvider.BITBUCLKET]: { displayName: 'Bitbucket', Icon: LogoBitBucket },
+  [OAuthProvider.BITBUCKET]: { displayName: 'Bitbucket', Icon: LogoBitBucket },
   [OAuthProvider.DISCORD]: { displayName: 'Discord', Icon: LogoDiscord },
   [OAuthProvider.GITLAB]: { displayName: 'GitLab', Icon: LogoGitLab },
   [OAuthProvider.TELEGRAM]: { displayName: 'Telegram', Icon: LogoTelegram },
