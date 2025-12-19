@@ -6,12 +6,16 @@ import { WidgetAction } from 'src/reducer';
 import WidgetHeader from 'src/components/WidgetHeader';
 import { ProviderButton } from 'src/components/ProviderButton';
 import { OAUTH_METADATA } from 'src/constants';
+import { getExtensionInstance } from 'src/extension';
 
 interface AdditionalProvidersViewProps {
   dispatch: React.Dispatch<WidgetAction>;
 }
 
 export default function AdditionalProvidersView({ dispatch }: AdditionalProvidersViewProps) {
+  const config = getExtensionInstance().getConfig();
+  const socialProviders = (config?.authProviders?.social ?? []) as OAuthProvider[];
+
   const handleProviderLogin = (provider: OAuthProvider) => {
     dispatch({ type: 'SELECT_PROVIDER', provider });
   };
@@ -42,7 +46,7 @@ export default function AdditionalProvidersView({ dispatch }: AdditionalProvider
           })}
         >
           <Stack gap={2} maxH="384px" w="full" px={2}>
-            {Object.values(OAuthProvider).map(provider => (
+            {socialProviders.map(provider => (
               <ProviderButton
                 key={provider}
                 label={OAUTH_METADATA[provider].displayName}
