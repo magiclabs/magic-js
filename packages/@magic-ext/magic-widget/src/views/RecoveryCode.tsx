@@ -1,4 +1,5 @@
 import { Button, Callout, IcoLockLocked, LoadingSpinner, Text, TextInput } from '@magiclabs/ui-components';
+import { css } from '@styled/css';
 import { Box, VStack } from '@styled/jsx';
 import { token } from '@styled/tokens';
 import React from 'react';
@@ -10,6 +11,13 @@ interface RecoveryCodeViewProps {
   state: WidgetState;
   dispatch: React.Dispatch<WidgetAction>;
 }
+
+const iconContainerStyle = css({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
 
 export const RecoveryCodeView = ({ state, dispatch }: RecoveryCodeViewProps) => {
   const { cancelLogin, submitRecoveryCode } = useEmailLogin();
@@ -34,22 +42,11 @@ export const RecoveryCodeView = ({ state, dispatch }: RecoveryCodeViewProps) => 
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
 
       <VStack gap={6} pt={4} px={6} alignItems="center">
-        <Box position="relative" h={20} w={20} display="flex" alignItems="center" justifyContent="center">
-          {isVerifying ? (
-            <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />
-          ) : (
-            <Box
-              w={16}
-              h={16}
-              borderRadius="full"
-              bg="brand.lightest"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-            >
-              <IcoLockLocked width={32} height={32} color={token('colors.brand.base')} />
-            </Box>
-          )}
+        <Box position="relative" h={20} w={20}>
+          {isVerifying && <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />}
+          <Box className={iconContainerStyle}>
+            <IcoLockLocked width={32} height={32} color={token('colors.brand.base')} />
+          </Box>
         </Box>
 
         {/* Title and description */}

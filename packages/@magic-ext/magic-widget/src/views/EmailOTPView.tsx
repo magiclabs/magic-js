@@ -1,4 +1,5 @@
 import { Button, IcoEmail, LoadingSpinner, Text, VerifyPincode } from '@magiclabs/ui-components';
+import { css } from '@styled/css';
 import React, { useEffect, useState } from 'react';
 import { Box, VStack } from '../../styled-system/jsx';
 import { token } from '../../styled-system/tokens';
@@ -10,6 +11,13 @@ interface EmailOTPViewProps {
   state: WidgetState;
   dispatch: React.Dispatch<WidgetAction>;
 }
+
+const iconContainerStyle = css({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
 
 export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
   const { submitOTP, cancelLogin, resendEmailOTP } = useEmailLogin();
@@ -39,22 +47,11 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
       <VStack gap={6} pt={4} px={6} alignItems="center">
         {/* Icon */}
-        <Box position="relative" h={20} w={20} display="flex" alignItems="center" justifyContent="center">
-          {isVerifying || isResending ? (
-            <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />
-          ) : (
-            <Box
-              w={16}
-              h={16}
-              borderRadius="full"
-              bg="brand.lightest"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-            >
-              <IcoEmail width={32} height={32} color={token('colors.brand.base')} />
-            </Box>
-          )}
+        <Box position="relative" h={20} w={20}>
+          {(isVerifying || isResending) && <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />}
+          <Box className={iconContainerStyle}>
+            <IcoEmail width={32} height={32} color={token('colors.brand.base')} />
+          </Box>
         </Box>
 
         {/* Title and description */}

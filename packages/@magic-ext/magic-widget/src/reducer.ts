@@ -30,6 +30,7 @@ export type EmailLoginStatus =
   | 'recovery_code'
   | 'success'
   | 'mfa_verifying'
+  | 'mfa_invalid'
   | 'recovery_code_verifying'
   | 'lost_recovery_code'
   | 'error';
@@ -169,6 +170,7 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
     case 'MFA_INVALID':
       return {
         ...state,
+        emailLoginStatus: 'mfa_invalid',
         error: 'Invalid code. Please try again.',
       };
 
