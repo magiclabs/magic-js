@@ -131,7 +131,7 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
   private prefixPayloadMethodForTestMode(payload: Partial<JsonRpcRequestPayload>) {
     const testModePrefix = 'testMode/eth/';
 
-    // In test mode, we prefix all RPC methods with `test/` so that the
+    // In test mode, we prefix all RPC methods with `testMode/eth/` so that the
     // Magic <iframe> can handle them without requiring network calls.
     if (this.sdk.testMode) {
       payload.method = `${testModePrefix}${payload.method}`;
