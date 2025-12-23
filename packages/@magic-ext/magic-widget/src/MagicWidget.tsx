@@ -11,6 +11,13 @@ import { wagmiConfig } from './wagmi/config';
 import { OAuthPendingView } from './views/OAuthPendingView';
 import AdditionalProvidersView from './views/AdditionalProvidersView';
 import { getExtensionInstance } from './extension';
+import { EmailLoginProvider } from './context/EmailLoginContext';
+import { EmailOTPView } from './views/EmailOTPView';
+import { DeviceVerificationView } from './views/DeviceVerificationView';
+import { LoginSuccessView } from './views/LoginSuccessView';
+import { MFAView } from './views/MfaView';
+import { RecoveryCodeView } from './views/RecoveryCode';
+import { LostRecoveryCode } from './views/LostRecoveryCode';
 
 // Create a query client for react-query
 const queryClient = new QueryClient();
@@ -40,6 +47,19 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
         return <OAuthPendingView provider={state.selectedProvider as OAuthProvider} dispatch={dispatch} />;
       case 'additional_providers':
         return <AdditionalProvidersView dispatch={dispatch} />;
+      case 'email_otp_pending':
+        return <EmailOTPView state={state} dispatch={dispatch} />;
+      case 'device_verification':
+        return <DeviceVerificationView state={state} dispatch={dispatch} />;
+      case 'mfa_pending':
+        return <MFAView state={state} dispatch={dispatch} />;
+      case 'recovery_code':
+        return <RecoveryCodeView state={state} dispatch={dispatch} />;
+      case 'lost_recovery_code':
+        return <LostRecoveryCode />;
+      case 'login_success':
+        return <LoginSuccessView state={state} />;
+
       // Add more views here as you implement them
       default:
         return <LoginView dispatch={dispatch} />;
@@ -47,12 +67,14 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
   };
 
   return (
-    <Modal>
-      <VStack alignItems="center" width="full">
-        {renderView()}
-        <Footer />
-      </VStack>
-    </Modal>
+    <EmailLoginProvider dispatch={dispatch}>
+      <Modal>
+        <VStack alignItems="center" width="full">
+          {renderView()}
+          <Footer />
+        </VStack>
+      </Modal>
+    </EmailLoginProvider>
   );
 }
 

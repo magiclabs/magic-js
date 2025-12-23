@@ -59,6 +59,7 @@
   },
   "devDependencies": {
     "@magic-sdk/provider": "^31.0.0",
+    "@magic-sdk/types": "^25.2.0",
     "@pandacss/dev": "^0.35.0",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
