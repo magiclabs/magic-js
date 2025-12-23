@@ -1,19 +1,17 @@
 import {
   AccountInfo,
-  AdapterPlugin,
   NetworkInfo,
-  SignMessagePayload,
-  SignMessageResponse,
   WalletInfo,
   WalletReadyState,
 } from '@aptos-labs/wallet-adapter-core';
+import { AptosSignMessageInput, AptosSignMessageOutput, AptosWallet } from '@aptos-labs/wallet-standard';
 import { TxnBuilderTypes, Types } from 'aptos';
 import { InstanceWithExtensions, SDKBase } from '@magic-sdk/provider';
 import { AptosExtension } from '.';
 import { APTOS_NETWORKS, APTOS_NODE_URLS, APTOS_WALLET_NAME, ICON_BASE64 } from './constants';
 import { MagicAptosWalletConfig } from './type';
 
-export class MagicAptosWallet implements AdapterPlugin {
+export class MagicAptosWallet implements Partial<AptosWallet> {
   readonly name = APTOS_WALLET_NAME;
   readonly url = 'https://magic.link/';
   readonly icon = ICON_BASE64;
@@ -23,7 +21,7 @@ export class MagicAptosWallet implements AdapterPlugin {
   provider: InstanceWithExtensions<SDKBase, [AptosExtension]> | undefined;
   config?: MagicAptosWalletConfig;
 
-  readyState?: WalletReadyState = WalletReadyState.Loadable;
+  readyState?: WalletReadyState = WalletReadyState.Installed;
 
   private accountInfo: AccountInfo | null;
 
@@ -106,7 +104,7 @@ export class MagicAptosWallet implements AdapterPlugin {
     return this.provider.aptos.signAndSubmitBCSTransaction(accountInfo.address, transaction);
   }
 
-  async signMessage(message: SignMessagePayload): Promise<SignMessageResponse> {
+  async signMessage(message: AptosSignMessageInput): Promise<AptosSignMessageOutput> {
     if (!this.provider) {
       throw new Error('Provider is not defined');
     }
@@ -115,7 +113,7 @@ export class MagicAptosWallet implements AdapterPlugin {
     return this.provider.aptos.signMessage(accountInfo.address, message);
   }
 
-  async signMessageAndVerify(message: SignMessagePayload): Promise<boolean> {
+  async signMessageAndVerify(message: AptosSignMessageInput): Promise<boolean> {
     if (!this.provider) {
       throw new Error('Provider is not defined');
     }
