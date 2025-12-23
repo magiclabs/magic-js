@@ -1,6 +1,6 @@
-import { NetworkName, WalletName } from '@aptos-labs/wallet-adapter-core';
+import { NetworkName } from '@aptos-labs/wallet-adapter-core';
 
-export const APTOS_WALLET_NAME = 'Magic' as WalletName<'Magic'>;
+export const APTOS_WALLET_NAME = 'Magic' as const;
 
 export const APTOS_NODE_URLS = {
   MAINNET: 'https://fullnode.mainnet.aptoslabs.com',
@@ -11,16 +11,17 @@ export const APTOS_NODE_URLS = {
 export const APTOS_NETWORKS = {
   [APTOS_NODE_URLS.MAINNET]: {
     name: NetworkName.Mainnet,
-    chainId: '1',
+    chainId: 1,
     url: APTOS_NODE_URLS.MAINNET,
   },
   [APTOS_NODE_URLS.TESTNET]: {
     name: NetworkName.Testnet,
-    chainId: '2',
+    chainId: 2,
     url: APTOS_NODE_URLS.TESTNET,
   },
   [APTOS_NODE_URLS.DEVNET]: {
     name: NetworkName.Devnet,
+    chainId: 34,
     url: APTOS_NODE_URLS.DEVNET,
   },
 };
