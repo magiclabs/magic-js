@@ -1,5 +1,6 @@
 import { Extension, SDKBase } from '@magic-sdk/provider';
 import { ClientConfig } from './types/client-config';
+import { ThirdPartyWalletSignHandler } from '@magic-sdk/types';
 
 enum SiwePayloadMethod {
   GenerateNonce = 'magic_siwe_generate_nonce',
@@ -145,6 +146,7 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
 
   private clientConfig: ClientConfig | null = null;
   private configPromise: Promise<ClientConfig> | null = null;
+  private unsubscribeSignHandler?: () => void;
 
   constructor() {
     super();
@@ -254,5 +256,18 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
    */
   public loginWithEmailOTP(email: string) {
     return this.sdk.auth.loginWithEmailOTP({ email, showUI: false, deviceCheckUI: false });
+  }
+
+  public registerSignHandler(handler: ThirdPartyWalletSignHandler): () => void {
+    // Clean up any existing handler
+    this.unsubscribeSignHandler?.();
+
+    // Register via the overlay (ViewController)
+    this.unsubscribeSignHandler = this.overlay.registerThirdPartyWalletSignHandler(handler);
+
+    return () => {
+      this.unsubscribeSignHandler?.();
+      this.unsubscribeSignHandler = undefined;
+    };
   }
 }

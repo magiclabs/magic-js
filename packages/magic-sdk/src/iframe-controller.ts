@@ -1,5 +1,11 @@
 import { createDuplicateIframeWarning, createModalNotReadyError, createURL, ViewController } from '@magic-sdk/provider';
-import { MagicIncomingWindowMessage } from '@magic-sdk/types';
+import {
+  MagicIncomingWindowMessage,
+  MagicOutgoingWindowMessage,
+  RPCErrorCode,
+  ThirdPartyWalletSignRequest,
+  ThirdPartyWalletSignResponse,
+} from '@magic-sdk/types';
 
 /**
  * Magic `<iframe>` overlay styles. These base styles enable `<iframe>` UI
@@ -97,6 +103,12 @@ export class IframeController extends ViewController {
           this.lastPongTime = Date.now();
         }
 
+        // Handle third-party wallet signing requests from the iframe
+        if (event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_THIRD_PARTY_WALLET_SIGN_REQUEST)) {
+          this.handleThirdPartyWalletSignRequest(event);
+          return;
+        }
+
         if (event.data && this.messageHandlers.size) {
           // If the response object is undefined, we ensure it's at least an
           // empty object before passing to the event listener.
@@ -175,6 +187,97 @@ export class IframeController extends ViewController {
     if (iframe) {
       // if iframe exists, reload the iframe source
       iframe.src = this.relayerSrc;
+    }
+  }
+
+  /**
+   * Handle third-party wallet signing requests from the iframe.
+   * This forwards the request to a registered handler (e.g., magic-widget)
+   * and sends the response back to the iframe.
+   */
+  private async handleThirdPartyWalletSignRequest(event: MessageEvent) {
+    const request = event.data as ThirdPartyWalletSignRequest & { msgType: string };
+    const iframe = await this.iframe;
+
+    // Validate request structure
+    if (!request.requestId || !request.method || !request.params) {
+      const response: ThirdPartyWalletSignResponse = {
+        requestId: request.requestId,
+        error: {
+          code: RPCErrorCode.InvalidParams,
+          message: 'Invalid third-party wallet signing request: missing required params',
+        },
+      };
+
+      this.sendThirdPartyWalletSignResponse(iframe, response);
+      return;
+    }
+
+    // Validate the method is an allowed signing method
+    const ALLOWED_SIGNING_METHODS = [
+      'personal_sign',
+      'eth_sign',
+      'eth_signTypedData',
+      'eth_signTypedData_v3',
+      'eth_signTypedData_v4',
+      'eth_signTransaction',
+      'eth_sendTransaction',
+    ];
+
+    if (!ALLOWED_SIGNING_METHODS.includes(request.method)) {
+      const response: ThirdPartyWalletSignResponse = {
+        requestId: request.requestId,
+        error: {
+          code: RPCErrorCode.MethodNotFound,
+          message: `Invalid signing method: ${request.method}`,
+        },
+      };
+      this.sendThirdPartyWalletSignResponse(iframe, response);
+      return;
+    }
+
+    const thirdPartyWalletSignHandler = this.getThirdPartyWalletSignHandler();
+
+    if (!thirdPartyWalletSignHandler) {
+      // No handler registered, send error response
+      const response: ThirdPartyWalletSignResponse = {
+        requestId: request.requestId,
+        error: {
+          code: RPCErrorCode.InternalError,
+          message: 'No third-party wallet signing handler registered',
+        },
+      };
+      this.sendThirdPartyWalletSignResponse(iframe, response);
+      return;
+    }
+
+    try {
+      const response = await thirdPartyWalletSignHandler(request);
+      this.sendThirdPartyWalletSignResponse(iframe, response);
+    } catch (error) {
+      const response: ThirdPartyWalletSignResponse = {
+        requestId: request.requestId,
+        error: {
+          code: -32603,
+          message: error instanceof Error ? error.message : 'Third-party wallet signing failed',
+        },
+      };
+      this.sendThirdPartyWalletSignResponse(iframe, response);
+    }
+  }
+
+  /**
+   * Send a third-party wallet signing response back to the iframe.
+   */
+  private sendThirdPartyWalletSignResponse(iframe: HTMLIFrameElement, response: ThirdPartyWalletSignResponse) {
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(
+        {
+          msgType: `${MagicOutgoingWindowMessage.MAGIC_THIRD_PARTY_WALLET_SIGN_RESPONSE}-${this.parameters}`,
+          response,
+        },
+        this.endpoint,
+      );
     }
   }
 }

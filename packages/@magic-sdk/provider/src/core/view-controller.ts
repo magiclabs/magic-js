@@ -5,6 +5,7 @@ import {
   MagicMessageEvent,
   MagicMessageRequest,
   SDKWarningCode,
+  ThirdPartyWalletSignHandler,
 } from '@magic-sdk/types';
 import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
@@ -39,6 +40,7 @@ export abstract class ViewController {
       this.heartBeatCheck();
     }
   }, INITIAL_HEARTBEAT_DELAY);
+  protected thirdPartyWalletSignHandler: ThirdPartyWalletSignHandler | null = null;
 
   /**
    * Create an instance of `ViewController`
@@ -248,5 +250,17 @@ export abstract class ViewController {
       clearInterval(this.heartbeatIntervalTimer);
       this.heartbeatIntervalTimer = null;
     }
+  }
+
+  public registerThirdPartyWalletSignHandler(handler: ThirdPartyWalletSignHandler): () => void {
+    this.thirdPartyWalletSignHandler = handler;
+    // Return unsubscribe function
+    return () => {
+      this.thirdPartyWalletSignHandler = null;
+    };
+  }
+
+  public getThirdPartyWalletSignHandler(): ThirdPartyWalletSignHandler | null {
+    return this.thirdPartyWalletSignHandler;
   }
 }

@@ -11,11 +11,15 @@ export enum MagicIncomingWindowMessage {
   MAGIC_PONG = 'MAGIC_PONG',
   MAGIC_POPUP_RESPONSE = 'MAGIC_POPUP_RESPONSE',
   MAGIC_POPUP_OAUTH_VERIFY_RESPONSE = 'MAGIC_POPUP_OAUTH_VERIFY_RESPONSE',
+  // Third-party wallet signing
+  MAGIC_THIRD_PARTY_WALLET_SIGN_REQUEST = 'MAGIC_THIRD_PARTY_WALLET_SIGN_REQUEST',
 }
 
 export enum MagicOutgoingWindowMessage {
   MAGIC_HANDLE_REQUEST = 'MAGIC_HANDLE_REQUEST',
   MAGIC_PING = 'MAGIC_PING',
+  // Third-party wallet signing
+  MAGIC_THIRD_PARTY_WALLET_SIGN_RESPONSE = 'MAGIC_THIRD_PARTY_WALLET_SIGN_RESPONSE',
 }
 
 /** The shape of responding window message data from the Magic iframe context. */
