@@ -18,6 +18,7 @@ import { LoginSuccessView } from './views/LoginSuccessView';
 import { MFAView } from './views/MfaView';
 import { RecoveryCodeView } from './views/RecoveryCode';
 import { LostRecoveryCode } from './views/LostRecoveryCode';
+import { ThirdPartyWalletSignHandler } from './components/ThirdPartyWalletSignHandler';
 
 // Create a query client for react-query
 const queryClient = new QueryClient();
@@ -68,6 +69,8 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
 
   return (
     <EmailLoginProvider dispatch={dispatch}>
+      {/* Third-party wallet signing handler for SIWE users */}
+      <ThirdPartyWalletSignHandler />
       <Modal>
         <VStack alignItems="center" width="full">
           {renderView()}

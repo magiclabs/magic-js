@@ -16,3 +16,5 @@ export * from './modules/nft-types';
 export * from './modules/wallet-types';
 export * from './modules/common-types';
 export * from './modules/oauth-types';
+
+export * from './core/third-party-wallet-types';
