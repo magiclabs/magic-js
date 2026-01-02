@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useSignMessage } from 'wagmi';
+import { useSignMessage, useChainId } from 'wagmi';
 import { getExtensionInstance } from '../extension';
 
 export interface UseSiweLoginResult {
@@ -12,6 +12,7 @@ export interface UseSiweLoginResult {
 
 export function useSiweLogin(): UseSiweLoginResult {
   const { signMessageAsync } = useSignMessage();
+  const connectedChainId = useChainId();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -27,11 +28,12 @@ export function useSiweLogin(): UseSiweLoginResult {
 
       try {
         const extension = getExtensionInstance();
+        const effectiveChainId = chainId || connectedChainId || 1;
 
         // Step 1: Generate the SIWE message (this fetches a nonce from Magic backend)
         const message = await extension.generateMessage({
           address,
-          chainId: chainId || 1,
+          chainId: effectiveChainId,
         });
 
         // Step 2: Sign the message with the connected wallet
@@ -39,6 +41,10 @@ export function useSiweLogin(): UseSiweLoginResult {
 
         // Step 3: Send the signed message to Magic backend for verification
         const publicAddress = await extension.login({ message, signature });
+
+        // Step 4: Set up the connected state for 3rd party wallet RPC routing
+        // This enables signing requests to be routed through the connected wallet
+        extension.setConnectedState(address, effectiveChainId);
 
         setIsSuccess(true);
         setPublicAddress(publicAddress);
@@ -52,7 +58,7 @@ export function useSiweLogin(): UseSiweLoginResult {
         throw errorInstance;
       }
     },
-    [signMessageAsync],
+    [signMessageAsync, connectedChainId],
   );
 
   return {
