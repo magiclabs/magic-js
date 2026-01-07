@@ -11,10 +11,13 @@ export enum MagicIncomingWindowMessage {
   MAGIC_PONG = 'MAGIC_PONG',
   MAGIC_POPUP_RESPONSE = 'MAGIC_POPUP_RESPONSE',
   MAGIC_POPUP_OAUTH_VERIFY_RESPONSE = 'MAGIC_POPUP_OAUTH_VERIFY_RESPONSE',
+  MAGIC_THIRD_PARTY_WALLET_REQUEST = 'MAGIC_THIRD_PARTY_WALLET_REQUEST',
 }
 
 export enum MagicOutgoingWindowMessage {
   MAGIC_HANDLE_REQUEST = 'MAGIC_HANDLE_REQUEST',
+  MAGIC_THIRD_PARTY_WALLET_RESPONSE = 'MAGIC_THIRD_PARTY_WALLET_RESPONSE',
+  MAGIC_THIRD_PARTY_WALLET_UPDATE = 'MAGIC_THIRD_PARTY_WALLET_EVENT',
   MAGIC_PING = 'MAGIC_PING',
 }
 
@@ -39,3 +42,23 @@ export interface MagicMessageResponse<ResultType = any> {
 export interface MagicMessageEvent extends Partial<MessageEvent> {
   data: MagicMessageResponse;
 }
+
+export interface MagicThirdPartyWalletRequestEvent {
+  msgType: MagicIncomingWindowMessage.MAGIC_THIRD_PARTY_WALLET_REQUEST;
+  payload: JsonRpcRequestPayload;
+}
+
+export interface MagicThirdPartyWalletResponse {
+  msgType: `${MagicOutgoingWindowMessage.MAGIC_THIRD_PARTY_WALLET_RESPONSE}-${string}`;
+  response: JsonRpcResponsePayload;
+}
+
+export interface MagicThirdPartyWalletUpdate {
+  msgType: `${MagicOutgoingWindowMessage.MAGIC_THIRD_PARTY_WALLET_UPDATE}-${string}`;
+  details: {
+    account?: string;
+    chainId?: number;
+  };
+}
+
+export type MagicThirdPartyWalletEventPayload = MagicThirdPartyWalletResponse | MagicThirdPartyWalletUpdate;

@@ -2,7 +2,10 @@ import {
   JsonRpcError,
   JsonRpcRequestPayload,
   LocalStorageKeys,
+  MagicMessageEvent,
+  MagicOutgoingWindowMessage,
   MagicPayloadMethod,
+  MagicThirdPartyWalletRequestEvent,
   MagicUserMetadata,
   ThirdPartyWalletEvents,
 } from '@magic-sdk/types';
@@ -217,5 +220,29 @@ export class ThirdPartyWalletsModule extends BaseModule {
 
       return super.requestOverlay(payload);
     });
+  }
+
+  public handleIframeThirdPartyWalletRequest(event: MagicThirdPartyWalletRequestEvent) {
+    // TODO: sanitize/validate the payload
+
+    this.magicWidgetRequest(event.payload)
+      .then(response => {
+        this.overlay.postThirdPartyWalletResponse({
+          id: event.payload.id,
+          jsonrpc: '2.0',
+          result: response,
+        });
+      })
+      .catch(error => {
+        this.overlay.postThirdPartyWalletResponse({
+          id: event.payload.id,
+          jsonrpc: '2.0',
+          error: {
+            code: error.code || -32603,
+            message: error.message || 'Internal error',
+            data: error.data,
+          },
+        });
+      });
   }
 }

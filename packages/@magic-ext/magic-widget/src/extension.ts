@@ -1,6 +1,12 @@
-import { Extension, MagicRPCError, SDKBase } from '@magic-sdk/provider';
-import { JsonRpcRequestPayload, LocalStorageKeys, MagicPayloadMethod, RPCErrorCode } from '@magic-sdk/types';
-import { getAccount, getConnectorClient, reconnect, watchAccount } from '@wagmi/core';
+import { Extension, MagicRPCError, SDKBase, ViewController } from '@magic-sdk/provider';
+import {
+  JsonRpcRequestPayload,
+  LocalStorageKeys,
+  MagicOutgoingWindowMessage,
+  MagicPayloadMethod,
+  RPCErrorCode,
+} from '@magic-sdk/types';
+import { getAccount, GetAccountReturnType, getConnectorClient, reconnect, watchAccount } from '@wagmi/core';
 import { ClientConfig } from './types/client-config';
 import { wagmiConfig } from './wagmi/config';
 
@@ -303,12 +309,14 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
         if (account.address && account.address !== storedAddress) {
           localStorage.setItem(LocalStorageKeys.ADDRESS, account.address);
           this.sdk.rpcProvider.emit('accountsChanged', [account.address]);
+          this.postWalletUpdate(account);
         }
 
         // Chain changed
         if (account.chainId && account.chainId.toString() !== storedChainId) {
           localStorage.setItem(LocalStorageKeys.CHAIN_ID, account.chainId.toString());
           this.sdk.rpcProvider.emit('chainChanged', account.chainId);
+          this.postWalletUpdate(account);
         }
       },
     });
@@ -332,6 +340,17 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
       await this.request(logoutPayload);
     } catch (error) {
       console.error('Failed to invalidate Magic session after wallet disconnect:', error);
+    }
+  }
+
+  private async postWalletUpdate(account: GetAccountReturnType) {
+    try {
+      ((this.sdk as any).overlay as ViewController).postThirdPartyWalletUpdate({
+        account: account.address,
+        chainId: account.chainId,
+      });
+    } catch (error) {
+      console.error('Failed to post third party wallet event:', error);
     }
   }
 
