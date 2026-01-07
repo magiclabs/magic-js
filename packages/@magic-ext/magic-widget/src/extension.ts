@@ -1,10 +1,21 @@
-import { Extension, SDKBase } from '@magic-sdk/provider';
+import { Extension, MagicRPCError, SDKBase, ViewController } from '@magic-sdk/provider';
+import {
+  JsonRpcRequestPayload,
+  LocalStorageKeys,
+  MagicOutgoingWindowMessage,
+  MagicPayloadMethod,
+  RPCErrorCode,
+} from '@magic-sdk/types';
+import { getAccount, GetAccountReturnType, getConnectorClient, reconnect, watchAccount } from '@wagmi/core';
 import { ClientConfig } from './types/client-config';
+import { wagmiConfig } from './wagmi/config';
 
 enum SiwePayloadMethod {
   GenerateNonce = 'magic_siwe_generate_nonce',
   Login = 'magic_auth_login_with_siwe',
 }
+
+export const MAGIC_WIDGET_PROVIDER = 'magic-widget';
 
 enum OAuthPayloadMethod {
   Popup = 'magic_oauth_login_with_popup',
@@ -145,6 +156,8 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
 
   private clientConfig: ClientConfig | null = null;
   private configPromise: Promise<ClientConfig> | null = null;
+  private eventsListenerAdded = false;
+  private reconnectPromise: Promise<void> | null = null;
 
   constructor() {
     super();
@@ -158,6 +171,187 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
     super.init(sdk);
     // Store singleton reference for internal use
     extensionInstance = this;
+
+    // Check if already connected from localStorage
+    const storedProvider = localStorage.getItem(LocalStorageKeys.PROVIDER);
+
+    if (storedProvider === MAGIC_WIDGET_PROVIDER) {
+      this.sdk.thirdPartyWallets.isConnected = true;
+      this.restoreWalletConnection();
+    }
+  }
+
+  private async restoreWalletConnection(): Promise<void> {
+    if (this.reconnectPromise) {
+      return this.reconnectPromise;
+    }
+
+    const account = getAccount(wagmiConfig);
+
+    if (account.isConnected) {
+      this.setupEip1193EventListeners();
+      return;
+    }
+
+    const storedProvider = localStorage.getItem(LocalStorageKeys.PROVIDER);
+    if (storedProvider !== MAGIC_WIDGET_PROVIDER) {
+      return;
+    }
+
+    // Trigger wagmi reconnection
+    this.reconnectPromise = (async () => {
+      try {
+        await reconnect(wagmiConfig);
+
+        // After reconnect, check if we're connected
+        const newAccount = getAccount(wagmiConfig);
+        if (newAccount.isConnected) {
+          this.setupEip1193EventListeners();
+        }
+        // Don't reset state here
+        // the wallet extension might need user interaction
+      } catch (error) {
+        console.error('Failed to reconnect wagmi wallet:', error);
+        // Don't reset state on error - the wallet might still be available
+      }
+    })();
+
+    return this.reconnectPromise;
+  }
+
+  /**
+   * Set up the connected state after successful SIWE login.
+   * This enables RPC request routing through the 3rd party wallet.
+   */
+  public setConnectedState(address: string, chainId: number = 1) {
+    localStorage.setItem(LocalStorageKeys.PROVIDER, MAGIC_WIDGET_PROVIDER);
+    localStorage.setItem(LocalStorageKeys.ADDRESS, address);
+    localStorage.setItem(LocalStorageKeys.CHAIN_ID, chainId.toString());
+    this.sdk.thirdPartyWallets.isConnected = true;
+
+    this.setupEip1193EventListeners();
+  }
+
+  /**
+   * Clear the connected state (called on logout/disconnect).
+   */
+  public clearConnectedState() {
+    // Clean up the watcher
+    if ((this as any)._cleanupWatcher) {
+      (this as any)._cleanupWatcher();
+    }
+    this.sdk.thirdPartyWallets.resetThirdPartyWalletState();
+  }
+
+  /**
+   * Get the current wallet provider from wagmi.
+   * Returns null if not connected.
+   */
+  public async getWalletProvider(): Promise<any | null> {
+    try {
+      // First, ensure wagmi is reconnected (handles page refresh scenario)
+      await this.restoreWalletConnection();
+
+      const account = getAccount(wagmiConfig);
+      if (!account.isConnected || !account.connector) {
+        return null;
+      }
+
+      const client = await getConnectorClient(wagmiConfig);
+      return client;
+    } catch (error) {
+      console.error('Failed to get wallet provider:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Execute an RPC request through the connected 3rd party wallet.
+   * This is called by ThirdPartyWalletsModule for magic-widget provider.
+   */
+  public async walletRequest<T = unknown>(payload: Partial<JsonRpcRequestPayload>): Promise<T> {
+    const client = await this.getWalletProvider();
+    if (!client) {
+      throw new MagicRPCError({
+        code: RPCErrorCode.InternalError,
+        message: 'No wallet connected. Please connect a wallet first.',
+      });
+    }
+
+    return client.request({
+      method: payload.method,
+      params: payload.params,
+    } as any);
+  }
+
+  /**
+   * Set up event listeners for account and chain changes.
+   */
+  private setupEip1193EventListeners() {
+    if (this.eventsListenerAdded) return;
+    this.eventsListenerAdded = true;
+
+    // Watch for account/chain changes using wagmi's watchAccount
+    const unwatch = watchAccount(wagmiConfig, {
+      onChange: (account, prevAccount) => {
+        const storedAddress = localStorage.getItem(LocalStorageKeys.ADDRESS);
+        const storedChainId = localStorage.getItem(LocalStorageKeys.CHAIN_ID);
+
+        // If user disconnected
+        if (!account.isConnected && storedAddress) {
+          this.handleWalletDisconnect();
+          this.eventsListenerAdded = false;
+          unwatch();
+          return;
+        }
+
+        // Account changed
+        if (account.address && account.address !== storedAddress) {
+          localStorage.setItem(LocalStorageKeys.ADDRESS, account.address);
+          this.sdk.rpcProvider.emit('accountsChanged', [account.address]);
+          this.postWalletUpdate(account);
+        }
+
+        // Chain changed
+        if (account.chainId && account.chainId.toString() !== storedChainId) {
+          localStorage.setItem(LocalStorageKeys.CHAIN_ID, account.chainId.toString());
+          this.sdk.rpcProvider.emit('chainChanged', account.chainId);
+          this.postWalletUpdate(account);
+        }
+      },
+    });
+
+    // Store cleanup function (called on disconnect/logout)
+    (this as any)._cleanupWatcher = () => {
+      unwatch();
+      this.eventsListenerAdded = false;
+    };
+  }
+
+  /**
+   * Handle wallet disconnect - clear SDK state AND invalidate Magic iframe session.
+   * Called when user disconnects wallet via wallet extension UI.
+   */
+  private async handleWalletDisconnect(): Promise<void> {
+    this.sdk.thirdPartyWallets.resetThirdPartyWalletState();
+    this.sdk.rpcProvider.emit('accountsChanged', []);
+    try {
+      const logoutPayload = this.utils.createJsonRpcRequestPayload(MagicPayloadMethod.Logout, []);
+      await this.request(logoutPayload);
+    } catch (error) {
+      console.error('Failed to invalidate Magic session after wallet disconnect:', error);
+    }
+  }
+
+  private async postWalletUpdate(account: GetAccountReturnType) {
+    try {
+      ((this.sdk as any).overlay as ViewController).postThirdPartyWalletUpdate({
+        account: account.address,
+        chainId: account.chainId,
+      });
+    } catch (error) {
+      console.error('Failed to post third party wallet event:', error);
+    }
   }
 
   /**

@@ -28,12 +28,24 @@ export class BaseModule {
    */
   protected request<ResultType = any, Events extends EventsDefinition = void>(payload: Partial<JsonRpcRequestPayload>) {
     if (this.sdk.thirdPartyWallets.isConnected && !routeToMagicMethods.includes(payload.method as MagicPayloadMethod)) {
-      const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
-        this.sdk.thirdPartyWallets.requestOverride(payload).then(resolve).catch(reject);
-      });
-      return promiEvent;
+      return this.requestThirdPartyWallets<ResultType, Events>(payload);
+    } else {
+      return this.requestOverlay<ResultType, Events>(payload);
     }
+  }
 
+  protected requestThirdPartyWallets<ResultType = any, Events extends EventsDefinition = void>(
+    payload: Partial<JsonRpcRequestPayload>,
+  ) {
+    const promiEvent = createPromiEvent<ResultType, Events>((resolve, reject) => {
+      this.sdk.thirdPartyWallets.requestOverride(payload).then(resolve).catch(reject);
+    });
+    return promiEvent;
+  }
+
+  protected requestOverlay<ResultType = any, Events extends EventsDefinition = void>(
+    payload: Partial<JsonRpcRequestPayload>,
+  ) {
     const responsePromise = this.overlay.post<ResultType>(
       MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
       standardizeJsonRpcRequestPayload(payload),
