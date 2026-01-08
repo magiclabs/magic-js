@@ -5,6 +5,8 @@ import {
   ConnectWithUIOptions,
   ConnectWithUiEvents,
   ShowUIPromiEvents,
+  Sign7702AuthorizationRequest,
+  Sign7702AuthorizationResponse,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -74,6 +76,28 @@ export class WalletModule extends BaseModule {
   public sendGaslessTransaction(address: string, transaction: GaslessTransactionRequest) {
     return this.request<GasApiResponse>(
       createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [address, transaction]),
+    );
+  }
+
+  /**
+   * Sign an EIP-7702 authorization to delegate the EOA to a smart contract implementation.
+   * This enables account abstraction features for externally owned accounts.
+   *
+   * @param params - The authorization parameters including contractAddress, chainId, and optional nonce
+   * @returns Promise resolving to the signed authorization with signature components (v, r, s)
+   *
+   * @example
+   * ```typescript
+   * const authorization = await magic.wallet.sign7702Authorization({
+   *   contractAddress: '0x000000004F43C49e93C970E84001853a70923B03',
+   *   chainId: 1,
+   *   nonce: 0
+   * });
+   * ```
+   */
+  public sign7702Authorization(params: Sign7702AuthorizationRequest) {
+    return this.request<Sign7702AuthorizationResponse>(
+      createJsonRpcRequestPayload(MagicPayloadMethod.Sign7702Authorization, [params]),
     );
   }
 }

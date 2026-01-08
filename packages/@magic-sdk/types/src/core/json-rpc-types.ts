@@ -130,6 +130,7 @@ export enum MagicPayloadMethod {
   EnableMFA = 'magic_auth_enable_mfa_flow',
   DisableMFA = 'magic_auth_disable_mfa_flow',
   GetMultichainPublicAddress = 'magic_get_multichain_public_address',
+  Sign7702Authorization = 'magic_wallet_sign_7702_authorization',
 }
 
 // Methods to not route if connected to third party wallet
