@@ -2,10 +2,8 @@ import {
   JsonRpcError,
   JsonRpcRequestPayload,
   LocalStorageKeys,
-  MagicMessageEvent,
-  MagicOutgoingWindowMessage,
   MagicPayloadMethod,
-  MagicThirdPartyWalletRequestEvent,
+  MagicThirdPartyWalletRequest,
   MagicUserMetadata,
   ThirdPartyWalletEvents,
 } from '@magic-sdk/types';
@@ -222,7 +220,7 @@ export class ThirdPartyWalletsModule extends BaseModule {
     });
   }
 
-  public handleIframeThirdPartyWalletRequest(event: MagicThirdPartyWalletRequestEvent) {
+  public handleIframeThirdPartyWalletRequest(event: MagicThirdPartyWalletRequest) {
     // TODO: sanitize/validate the payload
 
     this.magicWidgetRequest(event.payload)

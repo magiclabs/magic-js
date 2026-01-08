@@ -5,11 +5,10 @@ import {
   MagicMessageEvent,
   MagicMessageRequest,
   SDKWarningCode,
-  MagicThirdPartyWalletRequestEvent,
+  MagicThirdPartyWalletRequest,
   MagicThirdPartyWalletEventPayload,
   MagicThirdPartyWalletResponse,
   MagicThirdPartyWalletUpdate,
-  JsonRpcResponsePayload,
 } from '@magic-sdk/types';
 import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
@@ -45,7 +44,7 @@ export abstract class ViewController {
     }
   }, INITIAL_HEARTBEAT_DELAY);
 
-  protected thirdPartyWalletRequestHandler: (event: MagicThirdPartyWalletRequestEvent) => any = () => {};
+  protected thirdPartyWalletRequestHandler: (event: MagicThirdPartyWalletRequest) => any = () => {};
 
   /**
    * Create an instance of `ViewController`
@@ -233,7 +232,7 @@ export abstract class ViewController {
     });
   }
 
-  public onThirdPartyWalletRequest(handler: (event: MagicThirdPartyWalletRequestEvent) => any) {
+  public onThirdPartyWalletRequest(handler: (event: MagicThirdPartyWalletRequest) => any) {
     this.thirdPartyWalletRequestHandler = handler;
   }
 

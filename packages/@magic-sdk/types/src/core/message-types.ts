@@ -43,7 +43,7 @@ export interface MagicMessageEvent extends Partial<MessageEvent> {
   data: MagicMessageResponse;
 }
 
-export interface MagicThirdPartyWalletRequestEvent {
+export interface MagicThirdPartyWalletRequest {
   msgType: MagicIncomingWindowMessage.MAGIC_THIRD_PARTY_WALLET_REQUEST;
   payload: JsonRpcRequestPayload;
 }
@@ -56,8 +56,10 @@ export interface MagicThirdPartyWalletResponse {
 export interface MagicThirdPartyWalletUpdate {
   msgType: `${MagicOutgoingWindowMessage.MAGIC_THIRD_PARTY_WALLET_UPDATE}-${string}`;
   details: {
-    account?: string;
-    chainId?: number;
+    address: `0x${string}` | undefined;
+    addresses: readonly `0x${string}`[] | undefined;
+    chain: { id: number; name: string; [key: string]: unknown } | undefined;
+    updatedField: 'chain' | 'address';
   };
 }
 

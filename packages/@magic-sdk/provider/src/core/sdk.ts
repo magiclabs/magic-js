@@ -1,7 +1,6 @@
 import {
   EthNetworkConfiguration,
-  MagicMessageEvent,
-  MagicThirdPartyWalletRequestEvent,
+  MagicThirdPartyWalletRequest,
   QueryParameters,
   SupportedLocale,
 } from '@magic-sdk/types';
@@ -223,7 +222,7 @@ export class SDKBase {
       controller.init();
 
       // Register the handler for third party wallet requests from the iframe
-      controller.onThirdPartyWalletRequest((event: MagicThirdPartyWalletRequestEvent) =>
+      controller.onThirdPartyWalletRequest((event: MagicThirdPartyWalletRequest) =>
         this.thirdPartyWallets.handleIframeThirdPartyWalletRequest(event),
       );
 
