@@ -2,8 +2,8 @@ import { Extension, MagicRPCError, SDKBase, ViewController } from '@magic-sdk/pr
 import {
   JsonRpcRequestPayload,
   LocalStorageKeys,
-  MagicOutgoingWindowMessage,
   MagicPayloadMethod,
+  MagicThirdPartyWalletUpdate,
   RPCErrorCode,
 } from '@magic-sdk/types';
 import { getAccount, GetAccountReturnType, getConnectorClient, reconnect, watchAccount } from '@wagmi/core';
@@ -309,14 +309,24 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
         if (account.address && account.address !== storedAddress) {
           localStorage.setItem(LocalStorageKeys.ADDRESS, account.address);
           this.sdk.rpcProvider.emit('accountsChanged', [account.address]);
-          this.postWalletUpdate(account);
+          this.dispatchWalletUpdate({
+            chain: account.chain,
+            address: account.address,
+            addresses: account.addresses,
+            updatedField: 'address',
+          });
         }
 
         // Chain changed
         if (account.chainId && account.chainId.toString() !== storedChainId) {
           localStorage.setItem(LocalStorageKeys.CHAIN_ID, account.chainId.toString());
           this.sdk.rpcProvider.emit('chainChanged', account.chainId);
-          this.postWalletUpdate(account);
+          this.dispatchWalletUpdate({
+            chain: account.chain,
+            address: account.address,
+            addresses: account.addresses,
+            updatedField: 'chain',
+          });
         }
       },
     });
@@ -343,12 +353,9 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
     }
   }
 
-  private async postWalletUpdate(account: GetAccountReturnType) {
+  private async dispatchWalletUpdate(details: MagicThirdPartyWalletUpdate['details']) {
     try {
-      ((this.sdk as any).overlay as ViewController).postThirdPartyWalletUpdate({
-        account: account.address,
-        chainId: account.chainId,
-      });
+      ((this.sdk as any).overlay as ViewController).postThirdPartyWalletUpdate(details);
     } catch (error) {
       console.error('Failed to post third party wallet event:', error);
     }
