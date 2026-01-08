@@ -20,11 +20,11 @@
   "target": "browser",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.mjs",
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/cjs/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/es/index.mjs",
-      "types": "./dist/types/index.d.ts",
+      "types": "./dist/cjs/types/index.d.ts",
       "require": "./dist/cjs/index.js"
     }
   },
@@ -58,8 +58,8 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^31.0.0",
-    "@magic-sdk/types": "^25.2.0",
+    "@magic-sdk/provider": "32.0.0-canary.979.20831511014.0",
+    "@magic-sdk/types": "26.0.0-canary.979.20831511014.0",
     "@pandacss/dev": "^0.35.0",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",

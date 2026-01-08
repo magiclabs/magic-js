@@ -190,6 +190,7 @@ export default [
         tsconfig: './tsconfig.json',
         declaration: true,
         declarationDir: './dist/types',
+        outDir: './dist/types',
       }),
     ],
     onwarn(warning, warn) {
