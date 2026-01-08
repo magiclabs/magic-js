@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node-script
 import pLimit from 'p-limit';
 import isCI from 'is-ci';
+import execa from 'execa';
 import { build, createTemporaryTSConfigFile, emitTypes } from '../../utils/esbuild';
 import { runAsyncProcess } from '../../utils/run-async-process';
 
@@ -15,6 +16,10 @@ function getExternalsFromPkgJson(pkgJson: any): string[] {
   return defaultExternals.filter(dep => !excludes.includes(dep));
 }
 
+function getAliasesFromPkgJson(pkgJson: any): Record<string, string> {
+  return pkgJson.esbuildAliases || {};
+}
+
 async function cjs(watch?: boolean) {
   const pkgJson = require(`${process.cwd()}/package.json`);
   await build({
@@ -23,6 +28,7 @@ async function cjs(watch?: boolean) {
     target: pkgJson.target,
     output: pkgJson.exports?.require ?? pkgJson.main,
     externals: getExternalsFromPkgJson(pkgJson),
+    aliases: getAliasesFromPkgJson(pkgJson),
     sourcemap: true,
   });
 }
@@ -36,6 +42,7 @@ async function esm(watch?: boolean) {
       target: pkgJson.target,
       output: pkgJson.module,
       externals: getExternalsFromPkgJson(pkgJson),
+      aliases: getAliasesFromPkgJson(pkgJson),
       sourcemap: true,
     }),
 
@@ -43,8 +50,9 @@ async function esm(watch?: boolean) {
       watch,
       format: 'esm',
       target: pkgJson.target,
-      output: pkgJson?.exports?.import,
+      output: pkgJson?.exports?.import ?? pkgJson?.exports?.['.']?.import,
       externals: getExternalsFromPkgJson(pkgJson),
+      aliases: getAliasesFromPkgJson(pkgJson),
       sourcemap: true,
     }),
   ]);
@@ -56,8 +64,10 @@ async function cdn(watch?: boolean) {
   if (pkgJson.cdnGlobalName) {
     // For CDN targets outside of `magic-sdk` itself,
     // we assume `magic-sdk` & `@magic-sdk/provider` are external/global.
+    // Also externalize peerDependencies since consumers must provide them.
     const isMagicSDK = process.cwd().endsWith('packages/magic-sdk');
-    const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/provider'];
+    const peerDeps = Object.keys(pkgJson.peerDependencies || {});
+    const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/provider', ...peerDeps];
     const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/provider': 'Magic' };
 
     await build({
@@ -82,6 +92,7 @@ async function reactNativeBareHybridExtension(watch?: boolean) {
     target: pkgJson.target,
     output: pkgJson['react-native-bare'],
     externals: getExternalsFromPkgJson(pkgJson),
+    aliases: getAliasesFromPkgJson(pkgJson),
     sourcemap: true,
   });
 }
@@ -95,11 +106,21 @@ async function reactNativeExpoHybridExtension(watch?: boolean) {
     target: pkgJson.target,
     output: pkgJson['react-native-expo'],
     externals: getExternalsFromPkgJson(pkgJson),
+    aliases: getAliasesFromPkgJson(pkgJson),
     sourcemap: true,
   });
 }
 
 async function main() {
+  const pkgJson = require(`${process.cwd()}/package.json`);
+
+  // If package has useCustomBuild: true, run its own build script instead
+  if (pkgJson.useCustomBuild && pkgJson.scripts?.build) {
+    console.log(`Using custom build for ${pkgJson.name}`);
+    await execa('yarn', ['build'], { stdio: 'inherit', cwd: process.cwd() });
+    return;
+  }
+
   await createTemporaryTSConfigFile();
 
   if (process.env.DEV_SERVER) {
