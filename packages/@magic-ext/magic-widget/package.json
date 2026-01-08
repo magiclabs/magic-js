@@ -1,7 +1,7 @@
 {
   "name": "@magic-ext/magic-widget",
   "useCustomBuild": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Magic SDK Widget Extension with React components.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
