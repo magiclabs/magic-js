@@ -64,8 +64,10 @@ async function cdn(watch?: boolean) {
   if (pkgJson.cdnGlobalName) {
     // For CDN targets outside of `magic-sdk` itself,
     // we assume `magic-sdk` & `@magic-sdk/provider` are external/global.
+    // Also externalize peerDependencies since consumers must provide them.
     const isMagicSDK = process.cwd().endsWith('packages/magic-sdk');
-    const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/provider'];
+    const peerDeps = Object.keys(pkgJson.peerDependencies || {});
+    const externals = isMagicSDK ? ['none'] : ['magic-sdk', '@magic-sdk/provider', ...peerDeps];
     const globals = isMagicSDK ? undefined : { 'magic-sdk': 'Magic', '@magic-sdk/provider': 'Magic' };
 
     await build({
