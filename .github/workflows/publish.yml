@@ -14,20 +14,16 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     name: Build
-    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    if: "!contains(github.event.head_commit.message, 'skip-release')"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           token: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
-          fetch-depth: 1
-
-      - name: Prepare repository
-        run: git fetch --unshallow --tags
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'yarn'
 
       - name: Install dependencies
@@ -37,13 +33,10 @@ jobs:
 
       - name: Apply semver updates (if any)
         run: |
-          export AUTO_DEBUG=all
           AUTO_VERSION=$(yarn auto version)
 
-          EXIT_CODE=$?
-
-          if [[ $EXIT_CODE -ne 0 || -z "$AUTO_VERSION" ]]; then
-            echo "Unable to bump version successfully."
+          if [[ -z "$AUTO_VERSION" ]]; then
+            echo "Unable to bump version successfully." >&2
             exit 1
           fi
 
@@ -77,7 +70,7 @@ jobs:
     needs: build
     environment: production
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
         with:
           token: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
 
@@ -85,9 +78,9 @@ jobs:
         run: git fetch --unshallow --tags
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'yarn'
 
       - name: Install dependencies
@@ -102,4 +95,4 @@ jobs:
           path: packages
 
       - name: Create Release
-        run: yarn auto shipit -vv
+        run: yarn auto shipit -v
