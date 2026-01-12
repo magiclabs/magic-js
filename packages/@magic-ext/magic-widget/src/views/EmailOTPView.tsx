@@ -26,7 +26,6 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
   };
 
   useEffect(() => {
-    console.log('emailLoginStatus', emailLoginStatus);
     if (emailLoginStatus === 'otp_sent') {
       setIsResending(false);
       setOtpRetries(3);
