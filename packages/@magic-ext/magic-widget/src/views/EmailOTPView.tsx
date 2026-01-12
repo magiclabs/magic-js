@@ -15,7 +15,8 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
   const { submitOTP, cancelLogin, resendEmailOTP } = useEmailLogin();
   const { emailLoginStatus, email, error } = state;
   const [isResending, setIsResending] = useState(false);
-  const [otpRetries, setOtpRetries] = useState(2);
+  const [showResendButton, setShowResendButton] = useState(false);
+  const [otpRetries, setOtpRetries] = useState(3);
 
   const isVerifying = emailLoginStatus === 'verifying_otp';
   const isSuccess = emailLoginStatus === 'success';
@@ -25,15 +26,25 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
   };
 
   useEffect(() => {
+    console.log('emailLoginStatus', emailLoginStatus);
     if (emailLoginStatus === 'otp_sent') {
       setIsResending(false);
-      setOtpRetries(2);
+      setOtpRetries(3);
+    }
+    if (emailLoginStatus === 'invalid_otp') {
+      const newOtpRetries = otpRetries - 1;
+      setOtpRetries(newOtpRetries);
+      setShowResendButton(newOtpRetries <= 0);
+    }
+    if (emailLoginStatus === 'expired_otp') {
+      setShowResendButton(true);
     }
   }, [emailLoginStatus]);
 
   const handleResend = () => {
     setIsResending(true);
     resendEmailOTP();
+    setShowResendButton(false);
   };
 
   return (
@@ -71,7 +82,7 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
           errorMessage={isResending ? '' : (error ?? '')}
         >
           <VerifyPincode.RetryContent>
-            {otpRetries === 0 && <Button variant="text" onPress={handleResend} label="Request a new code" />}
+            {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}
           </VerifyPincode.RetryContent>
         </VerifyPincode>
       </VStack>
