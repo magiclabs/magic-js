@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Run linter and package audit
     container:
-      image: node:22-slim
+      image: node:24-slim
     steps:
       - uses: actions/checkout@v6
 
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Run tests
     container:
-      image: node:22-slim
+      image: node:24-slim
     steps:
       - uses: actions/checkout@v6
 
