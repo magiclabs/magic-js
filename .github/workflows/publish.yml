@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Build
-    if: "!contains(github.event.head_commit.message, 'skip-release')"
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
     outputs:
       version_bumped: ${{ steps.version-check.outputs.version_bumped }}
     steps:
@@ -27,7 +27,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 22
           cache: 'yarn'
 
       - name: Install dependencies
@@ -43,12 +43,12 @@ jobs:
           if [[ $EXIT_CODE -eq 0 && -n "$AUTO_VERSION" ]]; then
             echo "Auto Version: $AUTO_VERSION"
             echo "version_bumped=true" >> $GITHUB_OUTPUT
-            if [[ $AUTO_VERSION ]]; then
+            elif [[ $AUTO_VERSION ]]; then
               yarn lerna version "$AUTO_VERSION" --no-git-tag-version --no-push --yes
             fi
           elif [[ $EXIT_CODE -eq 0 ]]; then
-            echo "No version bump needed, terminating workflow."
-            exit 0
+            echo "No version bump needed, continuing..."
+            echo "version_bumped=false" >> $GITHUB_OUTPUT
           else
             echo "Unable to bump version successfully." && exit 1
           fi
@@ -85,7 +85,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 22
           cache: 'yarn'
 
       - name: Install dependencies
