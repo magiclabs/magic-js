@@ -38,7 +38,7 @@ jobs:
       - name: Apply semver updates (if any)
         id: version-check
         run: |
-          AUTO_VERSION=$(yarn auto version 2>&1)
+          AUTO_VERSION=$(yarn auto version)
           EXIT_CODE=$?
           if [[ $EXIT_CODE -eq 0 && -n "$AUTO_VERSION" ]]; then
             echo "Auto Version: $AUTO_VERSION"
