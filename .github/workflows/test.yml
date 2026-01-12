@@ -8,7 +8,7 @@ on:
       - "master"
   pull_request:
   merge_group:
-    types: [checks_requested]
+   types: [checks_requested]
 
 jobs:
   lint:
@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: "yarn"
+          cache: 'yarn'
       - run: |
           yarn -v
           yarn
@@ -48,7 +48,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: "yarn"
+          cache: 'yarn'
       - run: |
           yarn -v
           yarn
