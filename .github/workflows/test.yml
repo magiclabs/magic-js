@@ -8,12 +8,12 @@ on:
       - "master"
   pull_request:
   merge_group:
-   types: [checks_requested]
+    types: [checks_requested]
 
 jobs:
   lint:
     runs-on: ubuntu-22.04
-    name: Run linter and package audit
+    name: Run linter, build, and package audit
     container:
       image: node:22-slim
     steps:
@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: 'yarn'
+          cache: "yarn"
       - run: |
           yarn -v
           yarn
@@ -48,7 +48,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: 'yarn'
+          cache: "yarn"
       - run: |
           yarn -v
           yarn
