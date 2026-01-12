@@ -179,6 +179,7 @@ export enum LoginWithEmailOTPEventOnReceived {
   InvalidRecoveryCode = 'invalid-recovery-code',
   RecoveryCodeSuccess = 'recovery-code-success',
   LoginThrottled = 'login-throttled',
+  MaxAttemptsReached = 'max-attempts-reached',
 }
 
 export enum DeviceVerificationEventEmit {
@@ -290,6 +291,7 @@ export type LoginWithEmailOTPEventHandlers = {
   [LoginWithEmailOTPEventOnReceived.RecoveryCodeSentHandle]: () => void;
   [LoginWithEmailOTPEventOnReceived.InvalidRecoveryCode]: () => void;
   [LoginWithEmailOTPEventOnReceived.RecoveryCodeSuccess]: () => void;
+  [LoginWithEmailOTPEventOnReceived.MaxAttemptsReached]: () => void;
   [AuthEventOnReceived.IDTokenCreated]: (idToken: string) => void;
   [WalletEventOnReceived.WalletInfoFetched]: () => void;
 
