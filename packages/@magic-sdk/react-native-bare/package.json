@@ -19,7 +19,7 @@
   "types": "./dist/types/index.d.ts",
   "dependencies": {
     "@aveq-research/localforage-asyncstorage-driver": "^3.0.1",
-    "@magic-sdk/provider": "^31.2.0",
+    "@magic-sdk/provider": "33.1.0-canary.964.20943602575.0",
     "@magic-sdk/types": "^25.2.0",
     "@react-native-async-storage/async-storage": "^2.1.2",
     "@types/lodash": "^4.14.158",
