@@ -7,6 +7,7 @@ const KEY = getKeyAlias('refreshToken');
 let cachedRefreshToken: string | null = null;
 
 export const setRefreshTokenInKeychain = async (rt: string) => {
+  console.log('Setting refresh token in keychain', { cachedRefreshToken, rt });
   // Skip write if token hasn't changed
   if (cachedRefreshToken === rt) {
     return true;
@@ -26,6 +27,7 @@ export const setRefreshTokenInKeychain = async (rt: string) => {
 };
 
 export const getRefreshTokenInKeychain = async (): Promise<string | null> => {
+  console.log('Getting refresh token in keychain', { cachedRefreshToken });
   // Return cached value if available
   if (cachedRefreshToken !== null) {
     return cachedRefreshToken;
@@ -33,6 +35,7 @@ export const getRefreshTokenInKeychain = async (): Promise<string | null> => {
 
   try {
     const keychainEntry = await Keychain.getGenericPassword({ service: SERVICE });
+    console.log('Keychain entry', { keychainEntry });
     if (!keychainEntry) return null;
 
     cachedRefreshToken = keychainEntry.password;

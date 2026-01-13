@@ -56,6 +56,7 @@ export const getDpop = async (): Promise<string | null> => {
     // 6. Convert Signature (Toaster expects Raw R|S)
     const signatureB64 = derToRawSignature(signatureBase64);
 
+    console.log('DPoP generated', { dpop: `${signingInput}.${signatureB64}` });
     return `${signingInput}.${signatureB64}`;
   } catch (error) {
     console.error('DPoP Generation Error:', error);

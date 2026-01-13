@@ -12,5 +12,6 @@ const KEY_SUFFIX_MAP = {
  */
 export function getKeyAlias(key: keyof typeof KEY_SUFFIX_MAP): string {
   const appId = DeviceInfo.getBundleId();
+  console.log('Getting key alias', { appId, key, alias: `${appId}.${KEY_SUFFIX_MAP[key]}` });
   return `${appId}.${KEY_SUFFIX_MAP[key]}`;
 }
