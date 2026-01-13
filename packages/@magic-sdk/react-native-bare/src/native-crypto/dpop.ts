@@ -4,7 +4,7 @@ import { spkiToJwk } from './utils/jwk';
 import { ALG, TYP } from './constants';
 import { derToRawSignature } from './utils/der';
 import { DpopClaims, DpopHeader } from './types';
-import DeviceCrypto, { AccessLevel } from 'react-native-device-crypto';
+import DeviceCrypto, { AccessLevel } from '@magiclabs/react-native-device-crypto';
 import { getKeyAlias } from './utils/key-alias';
 
 const KEY_ALIAS = getKeyAlias('dpop');

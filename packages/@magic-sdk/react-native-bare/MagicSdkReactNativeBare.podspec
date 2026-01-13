@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => package["repository"]["url"].gsub(/.git$/, ''), :tag => "#{s.version}" }
 
   # This is a pure JavaScript package
-  # Native dependencies (react-native-keychain, react-native-device-crypto) will be 
+  # Native dependencies (react-native-keychain, @magiclabs/react-native-device-crypto) will be 
   # automatically linked via React Native autolinking when this package is installed
   
   s.dependency "React-Core"

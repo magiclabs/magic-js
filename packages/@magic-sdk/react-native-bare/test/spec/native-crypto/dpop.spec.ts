@@ -1,5 +1,5 @@
-// Mock react-native-device-crypto before any imports
-jest.mock('react-native-device-crypto', () => ({
+// Mock @magiclabs/react-native-device-crypto before any imports
+jest.mock('@magiclabs/react-native-device-crypto', () => ({
   __esModule: true,
   default: {
     getOrCreateAsymmetricKey: jest.fn(),
@@ -17,7 +17,7 @@ jest.mock('react-native-uuid', () => ({
 
 // react-native-device-info is already mocked in test/mocks.ts
 
-import DeviceCrypto from 'react-native-device-crypto';
+import DeviceCrypto from '@magiclabs/react-native-device-crypto';
 import { getDpop, deleteDpop } from '../../../src/native-crypto/dpop';
 import { uint8ArrayToBase64 } from '../../../src/native-crypto/utils/uint8';
 

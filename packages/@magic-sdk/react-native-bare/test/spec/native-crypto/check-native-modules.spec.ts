@@ -46,7 +46,7 @@ describe('checkNativeModules', () => {
     expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('react-native-keychain'));
   });
 
-  it('should log a warning when react-native-device-crypto is missing', () => {
+  it('should log a warning when @magiclabs/react-native-device-crypto is missing', () => {
     mockNativeModules.RNKeychainManager = {};
     mockNativeModules.DeviceCrypto = undefined;
 
@@ -54,7 +54,7 @@ describe('checkNativeModules', () => {
     checkNativeModules();
 
     expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
-    expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('react-native-device-crypto'));
+    expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('@magiclabs/react-native-device-crypto'));
   });
 
   it('should log a warning when both native modules are missing', () => {
@@ -66,7 +66,7 @@ describe('checkNativeModules', () => {
 
     expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
     expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('react-native-keychain'));
-    expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('react-native-device-crypto'));
+    expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('@magiclabs/react-native-device-crypto'));
   });
 
   it('should only log warning once even if called multiple times', () => {
@@ -137,6 +137,6 @@ describe('checkNativeModules', () => {
     checkNativeModules();
 
     expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('npm install react-native-keychain'));
-    expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('npm install react-native-device-crypto'));
+    expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('npm install @magiclabs/react-native-device-crypto'));
   });
 });

@@ -13,9 +13,9 @@ const REQUIRED_NATIVE_MODULES: NativeModuleCheck[] = [
     packageName: 'react-native-keychain',
   },
   {
-    name: 'react-native-device-crypto',
+    name: '@magiclabs/react-native-device-crypto',
     nativeModuleName: 'DeviceCrypto',
-    packageName: 'react-native-device-crypto',
+    packageName: '@magiclabs/react-native-device-crypto',
   },
 ];
 
@@ -26,7 +26,7 @@ let hasWarned = false;
  * Checks if all required native modules are properly installed and linked.
  * Logs a warning if any native module is missing.
  *
- * Note: Some native modules (like react-native-device-crypto) require hardware
+ * Note: Some native modules (like @magiclabs/react-native-device-crypto) require hardware
  * features (e.g., Secure Enclave) that are not available in simulators/emulators.
  * The SDK will continue to work but certain security features may be degraded.
  */
@@ -72,7 +72,7 @@ ${moduleList}
 
 The SDK will continue to work, but some security features may not function properly.
 
-Note: If you're running in a simulator/emulator, some native modules (like react-native-device-crypto) 
+Note: If you're running in a simulator/emulator, some native modules (like @magiclabs/react-native-device-crypto) 
 require hardware features (Secure Enclave) that are only available on physical devices.
 
 If you're on a physical device and see this warning, please ensure the packages are installed and linked:
