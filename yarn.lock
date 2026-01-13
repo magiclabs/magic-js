@@ -3318,7 +3318,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@^31.0.0, @magic-sdk/provider@^31.2.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+"@magic-sdk/provider@npm:^29.5.0":
+  version: 29.5.0
+  resolution: "@magic-sdk/provider@npm:29.5.0"
+  dependencies:
+    "@magic-sdk/types": ^24.21.0
+    eventemitter3: ^4.0.4
+  peerDependencies:
+    localforage: ^1.7.4
+  checksum: 649c87650f5745989d95cf979844a390bbbdc1c6f990fbdf99102f50acf10f3ee119261fd91baaf75bcc8d6ff046fdc84c222e714b01803817ea18f6ddc9706b
+  languageName: node
+  linkType: hard
+
+"@magic-sdk/provider@npm:^31.0.0, @magic-sdk/provider@npm:^31.2.0":
+  version: 31.2.0
+  resolution: "@magic-sdk/provider@npm:31.2.0"
+  dependencies:
+    "@magic-sdk/types": ^25.2.0
+    eventemitter3: ^4.0.4
+  peerDependencies:
+    localforage: ^1.7.4
+  checksum: 82228f33dab5a4a3fecbe526805ba00630b40e2ca10a1d42a8cb0528c4db108bf69fbcad8ef56e31d28585335b159cc9179a78a72e77a65d2723273809a24feb
+  languageName: node
+  linkType: hard
+
+"@magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
@@ -3332,19 +3356,37 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@npm:^29.5.0":
-  version: 29.5.0
-  resolution: "@magic-sdk/provider@npm:29.5.0"
+"@magic-sdk/react-native-bare@npm:^32.2.0":
+  version: 32.2.0
+  resolution: "@magic-sdk/react-native-bare@npm:32.2.0"
   dependencies:
-    "@magic-sdk/types": ^24.21.0
-    eventemitter3: ^4.0.4
-  peerDependencies:
+    "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
+    "@magic-sdk/provider": ^31.2.0
+    "@magic-sdk/types": ^25.2.0
+    "@react-native-async-storage/async-storage": ^2.1.2
+    "@types/lodash": ^4.14.158
+    buffer: ~5.6.0
     localforage: ^1.7.4
-  checksum: 649c87650f5745989d95cf979844a390bbbdc1c6f990fbdf99102f50acf10f3ee119261fd91baaf75bcc8d6ff046fdc84c222e714b01803817ea18f6ddc9706b
+    lodash: ^4.17.19
+    process: ~0.11.10
+    react-native-device-info: ^10.3.0
+    react-native-event-listeners: ^1.0.7
+    regenerator-runtime: 0.13.9
+    tslib: ^2.0.3
+    whatwg-url: ~8.1.0
+  peerDependencies:
+    "@react-native-async-storage/async-storage": ">=1.15.5"
+    "@react-native-community/netinfo": ">=9.0.0"
+    react: ">=16"
+    react-native: ">=0.60"
+    react-native-device-info: ">=10.3.0"
+    react-native-safe-area-context: ">=4.4.1"
+    react-native-webview: ">=12.4.0"
+  checksum: 70e3d2ce072eff9a4344d80721e02c5167a5d0c549bece83b46f4e5ae09722ac57f6e46b5a485629ed199baab3fc5214f1d2039d3789fb64b89631dab3354e19
   languageName: node
   linkType: hard
 
-"@magic-sdk/react-native-bare@^32.2.0, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
+"@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
   dependencies:
@@ -3381,7 +3423,35 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-expo@^32.2.0, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
+"@magic-sdk/react-native-expo@npm:^32.2.0":
+  version: 32.2.0
+  resolution: "@magic-sdk/react-native-expo@npm:32.2.0"
+  dependencies:
+    "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
+    "@magic-sdk/provider": ^31.2.0
+    "@magic-sdk/types": ^25.2.0
+    "@react-native-async-storage/async-storage": ^1.15.5
+    "@types/lodash": ^4.14.158
+    buffer: ~5.6.0
+    expo-application: ^5.0.1
+    localforage: ^1.7.4
+    lodash: ^4.17.19
+    process: ~0.11.10
+    react-native-event-listeners: ^1.0.7
+    tslib: ^2.0.3
+    whatwg-url: ~8.1.0
+  peerDependencies:
+    "@react-native-community/netinfo": ">=9.0.0"
+    expo: "*"
+    react: ">=17"
+    react-native: ">=0.60"
+    react-native-safe-area-context: ">=4.4.1"
+    react-native-webview: ">=12.4.0"
+  checksum: 0dae629e94c958df7943a10b81616f6ab76032206e2efe5436eab93cdd392e10be2a54556db68e7f3cab55b4aceddcd6ba4bfa5fa0bf8da07d795d3bab872b43
+  languageName: node
+  linkType: hard
+
+"@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
@@ -3421,18 +3491,25 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/types@^25.2.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
-  version: 0.0.0-use.local
-  resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
-  languageName: unknown
-  linkType: soft
-
 "@magic-sdk/types@npm:^24.21.0, @magic-sdk/types@npm:^24.22.0":
   version: 24.22.0
   resolution: "@magic-sdk/types@npm:24.22.0"
   checksum: c2512e91d9d44e04dba51ac94a60297ac724c5a99360c6f6c448a54e720ff957647c549d325e9226ecdaf16ee670298febb79317395b6fd0c1490d393870dc3d
   languageName: node
   linkType: hard
+
+"@magic-sdk/types@npm:^25.2.0":
+  version: 25.2.0
+  resolution: "@magic-sdk/types@npm:25.2.0"
+  checksum: 0be0807ac561efc182d5b7d72809b14b00421b9c7344ed41f8a8afc02e46aca4236f602409430d79a92777f60873938d7c0a45e15638decebca0729fa230ba5c
+  languageName: node
+  linkType: hard
+
+"@magic-sdk/types@workspace:packages/@magic-sdk/types":
+  version: 0.0.0-use.local
+  resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
+  languageName: unknown
+  linkType: soft
 
 "@motionone/animation@npm:^10.15.1, @motionone/animation@npm:^10.18.0":
   version: 10.18.0
