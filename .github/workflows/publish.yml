@@ -12,16 +12,20 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Build
     if: "!contains(github.event.head_commit.message, 'skip-release')"
+    outputs:
+      version_bumped: ${{ steps.version-check.outputs.version_bumped }}
     steps:
       - uses: actions/checkout@v6
         with:
           token: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: 'yarn'
@@ -32,20 +36,21 @@ jobs:
           yarn install --immutable
 
       - name: Apply semver updates (if any)
+        id: version-check
         run: |
           AUTO_VERSION=$(yarn auto version)
-
-          if [[ -z "$AUTO_VERSION" ]]; then
-            echo "Unable to bump version successfully." >&2
-            exit 1
-          fi
-
-          echo "Auto Version: $AUTO_VERSION"
-
-          if [[ $AUTO_VERSION == pre* ]]; then
-            yarn lerna version "$AUTO_VERSION" --no-git-tag-version --no-push --yes --preid "$GITHUB_REF"
+          EXIT_CODE=$?
+          if [[ $EXIT_CODE -eq 0 && -n "$AUTO_VERSION" ]]; then
+            echo "Auto Version: $AUTO_VERSION"
+            echo "version_bumped=true" >> $GITHUB_OUTPUT
+            if [[ $AUTO_VERSION ]]; then
+              yarn lerna version "$AUTO_VERSION" --no-git-tag-version --no-push --yes
+            fi
+          elif [[ $EXIT_CODE -eq 0 ]]; then
+            echo "No version bump needed, terminating workflow."
+            exit 0
           else
-            yarn lerna version "$AUTO_VERSION" --no-git-tag-version --no-push --yes
+            echo "Unable to bump version successfully." && exit 1
           fi
 
       - name: Build
@@ -62,23 +67,23 @@ jobs:
           overwrite: true
 
   publish:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Publish
     permissions:
       contents: read
       id-token: write
     needs: build
+    if: needs.build.outputs.version_bumped == 'true'
     environment: production
     steps:
       - uses: actions/checkout@v6
         with:
           token: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
-
-      - name: Prepare repository
-        run: git fetch --unshallow --tags
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: 'yarn'
@@ -95,4 +100,4 @@ jobs:
           path: packages
 
       - name: Create Release
-        run: yarn auto shipit -v
+        run: yarn auto shipit

@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/ed25519",
-  "version": "22.2.0",
+  "version": "24.0.0",
   "description": "magic ed25519 extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",

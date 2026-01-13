@@ -1,3 +1,15 @@
+# v15.0.0 (Tue Jan 13 2026)
+
+#### 🐛 Bug Fix
+
+- heal Auto package versioning [#997](https://github.com/magiclabs/magic-js/pull/997) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v13.1.0 (Thu Oct 30 2025)
 
 #### 🚀 Enhancement
