@@ -24,11 +24,11 @@ export function clearKeys() {
 }
 
 export async function createJwt() {
-  // will return undefined if webcrypto is not supported
+  // will return undefined is webcrypto is not supported
   const publicJwk = await getPublicKey();
 
   if (!publicJwk) {
-    console.info('unable to create public key or webcrypto is unsupported');
+    console.info('unable to creat kee publicy or webcrypto is unsupported');
     return undefined;
   }
 
