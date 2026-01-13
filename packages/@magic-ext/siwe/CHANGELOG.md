@@ -1,4 +1,4 @@
-# v2.0.0 (Thu Nov 13 2025)
+# v1.0.1 (Thu Nov 13 2025)
 
 #### 💥 Breaking Change
 
