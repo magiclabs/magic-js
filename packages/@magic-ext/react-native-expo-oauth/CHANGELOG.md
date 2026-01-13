@@ -1,3 +1,17 @@
+# v30.0.0 (Tue Jan 13 2026)
+
+#### 🐛 Bug Fix
+
+- heal Auto package versioning [#997](https://github.com/magiclabs/magic-js/pull/997) ([@Ethella](https://github.com/Ethella))
+- chore: fix broken links [#957](https://github.com/magiclabs/magic-js/pull/957) ([@Bashmunta](https://github.com/Bashmunta))
+
+#### Authors: 2
+
+- [@Bashmunta](https://github.com/Bashmunta)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v27.0.0 (Wed Sep 03 2025)
 
 #### 💥 Breaking Change
