@@ -82,6 +82,11 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
           dispatch({ type: 'LOGIN_ERROR', error: 'Too many login attempts. Please try again later.' });
         });
 
+        // Max attempts reached
+        handle.on(LoginWithEmailOTPEventOnReceived.MaxAttemptsReached, () => {
+          dispatch({ type: 'EMAIL_OTP_MAX_ATTEMPTS_REACHED' });
+        });
+
         // ==========================================
         // Device Verification Events
         // ==========================================
