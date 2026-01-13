@@ -2,7 +2,7 @@ name: Canary
 on:
   pull_request:
     branches:
-      - 'master'
+      - "master"
   merge_group:
     types: [checks_requested]
 
@@ -23,10 +23,10 @@ jobs:
           fetch-tags: true
 
       - name: Setup node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: 'yarn'
+          node-version: 22
+          cache: "yarn"
 
       - name: Install dependencies
         run: |
@@ -60,10 +60,10 @@ jobs:
           fetch-tags: true
 
       - name: Setup node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: 'yarn'
+          node-version: 22
+          cache: "yarn"
 
       - name: Install dependencies
         run: |
