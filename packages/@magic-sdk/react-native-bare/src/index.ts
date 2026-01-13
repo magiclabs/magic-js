@@ -40,7 +40,7 @@ export * from '@magic-sdk/types';
 export const Magic = createSDK(SDKBaseReactNative, {
   platform: 'react-native',
   sdkName: '@magic-sdk/react-native-bare',
-  version: process.env.BARE_REACT_NATIVE_VERSION!,
+  version: '34.1.0',
   bundleId: getBundleId(),
   defaultEndpoint: 'https://box.magic.link/',
   ViewController: ReactNativeWebViewController,
