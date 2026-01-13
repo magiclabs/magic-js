@@ -3318,6 +3318,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-sdk/provider@npm:33.1.0-canary.964.20943602575.0":
+  version: 33.1.0-canary.964.20943602575.0
+  resolution: "@magic-sdk/provider@npm:33.1.0-canary.964.20943602575.0"
+  dependencies:
+    "@magic-sdk/types": ^25.2.0
+    eventemitter3: ^4.0.4
+  peerDependencies:
+    localforage: ^1.7.4
+  checksum: 30e4546e24297a243f74a72e3e002acda90076dff5a49c4f86d773a589cc84391e46c3b0023635ff933b9bb3384aa7f1108d38b5c116701114a8e9cb629d8c8a
+  languageName: node
+  linkType: hard
+
 "@magic-sdk/provider@npm:^29.5.0":
   version: 29.5.0
   resolution: "@magic-sdk/provider@npm:29.5.0"
@@ -3391,7 +3403,7 @@ __metadata:
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
   dependencies:
     "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
-    "@magic-sdk/provider": ^31.2.0
+    "@magic-sdk/provider": 33.1.0-canary.964.20943602575.0
     "@magic-sdk/types": ^25.2.0
     "@magiclabs/react-native-device-crypto": ^0.1.1
     "@react-native-async-storage/async-storage": ^2.1.2
