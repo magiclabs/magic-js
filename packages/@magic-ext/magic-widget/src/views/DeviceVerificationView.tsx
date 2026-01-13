@@ -4,12 +4,11 @@ import { Text, Button, IcoShield, LoadingSpinner, IcoCheckmarkCircleFill } from 
 import { css } from '../../styled-system/css';
 import { token } from '../../styled-system/tokens';
 import { useEmailLogin } from '../context/EmailLoginContext';
-import { WidgetAction, WidgetState } from '../reducer';
+import { WidgetState } from '../reducer';
 import WidgetHeader from '../components/WidgetHeader';
 
 interface DeviceVerificationViewProps {
   state: WidgetState;
-  dispatch: React.Dispatch<WidgetAction>;
 }
 
 const iconContainerStyle = css({
@@ -19,12 +18,11 @@ const iconContainerStyle = css({
   transform: 'translate(-50%, -50%)',
 });
 
-export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationViewProps) => {
+export const DeviceVerificationView = ({ state }: DeviceVerificationViewProps) => {
   const { cancelLogin, retryDeviceVerification } = useEmailLogin();
   const { emailLoginStatus, email, error } = state;
 
-  const isWaiting =
-    emailLoginStatus === 'device_needs_approval' || emailLoginStatus === 'device_verification_sent';
+  const isWaiting = emailLoginStatus === 'device_needs_approval' || emailLoginStatus === 'device_verification_sent';
   const isApproved = emailLoginStatus === 'device_approved';
   const isExpired = emailLoginStatus === 'device_verification_expired';
 
@@ -71,14 +69,12 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
           )}
         </VStack>
 
-        {/* Error message */}
-        {(error && !isExpired) ? (
+        {error && !isExpired ? (
           <Text variant="error" size="sm" styles={{ textAlign: 'center' }}>
             {error}
           </Text>
         ) : null}
 
-        {/* Action buttons */}
         {isExpired && (
           <VStack gap={3} w="full" maxW="300px">
             <Button variant="primary" label="Resend Verification" onPress={retryDeviceVerification} />
@@ -91,7 +87,7 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
             <Text fontColor="text.quaternary" size="sm" styles={{ textAlign: 'center' }}>
               Waiting for approval...
             </Text>
-            <Button variant="text" size="sm" label="Cancel" textStyle="neutral" onPress={cancelLogin}/>
+            <Button variant="text" size="sm" label="Cancel" textStyle="neutral" onPress={cancelLogin} />
           </VStack>
         )}
       </VStack>

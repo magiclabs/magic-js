@@ -25,19 +25,10 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
   };
 
   useEffect(() => {
-    console.log('emailLoginStatus', emailLoginStatus);
     if (emailLoginStatus === 'otp_sent') {
       setIsResending(false);
     }
-    // if (emailLoginStatus === 'invalid_otp') {
-    //   const newOtpRetries = otpRetries - 1;
-    //   setOtpRetries(newOtpRetries);
-    //   setShowResendButton(newOtpRetries <= 0);
-    // }
-    if (emailLoginStatus === 'expired_otp') {
-      setShowResendButton(true);
-    }
-    if (emailLoginStatus === 'max_attempts_reached') {
+    if (emailLoginStatus === 'expired_otp' || emailLoginStatus === 'max_attempts_reached') {
       setShowResendButton(true);
     }
   }, [emailLoginStatus]);
@@ -56,9 +47,9 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
           <IcoEmail width={60} height={60} color={token('colors.brand.base')} />
           <VStack gap={0}>
             <Text.H4
+              fontWeight="normal"
               styles={{
                 textAlign: 'center',
-                fontWeight: 'normal',
               }}
             >
               Please enter the code sent to
