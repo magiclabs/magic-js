@@ -65,6 +65,7 @@ export type WidgetAction =
   | { type: 'MFA_INVALID' }
   | { type: 'LOST_DEVICE' }
   | { type: 'RECOVERY_CODE_VERIFYING' }
+  | { type: 'RECOVERY_CODE_INVALID' }
   | { type: 'LOST_RECOVERY_CODE' }
   | { type: 'LOGIN_SUCCESS' }
   | { type: 'RESET_EMAIL_ERROR' }
@@ -196,6 +197,13 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
         ...state,
         emailLoginStatus: 'recovery_code_verifying',
         error: undefined,
+      };
+
+    case 'RECOVERY_CODE_INVALID':
+      return {
+        ...state,
+        emailLoginStatus: 'recovery_code',
+        error: 'Invalid recovery code. Please try again.',
       };
 
     case 'LOST_RECOVERY_CODE':

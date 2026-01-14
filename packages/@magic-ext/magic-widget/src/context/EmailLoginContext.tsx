@@ -124,6 +124,14 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
         });
 
         // ==========================================
+        // Recovery Code Events
+        // ==========================================
+
+        handle.on(LoginWithEmailOTPEventOnReceived.InvalidRecoveryCode, () => {
+          dispatch({ type: 'RECOVERY_CODE_INVALID' });
+        });
+
+        // ==========================================
         // Handle Promise Resolution
         // ==========================================
 
