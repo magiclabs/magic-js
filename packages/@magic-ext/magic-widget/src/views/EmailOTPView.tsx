@@ -1,7 +1,6 @@
-import { Button, IcoEmail, LoadingSpinner, Text, VerifyPincode } from '@magiclabs/ui-components';
-import { css } from '@styled/css';
+import { Button, EmailWbr, IcoEmail, Text, VerifyPincode } from '@magiclabs/ui-components';
 import React, { useEffect, useState } from 'react';
-import { Box, VStack } from '../../styled-system/jsx';
+import { VStack } from '../../styled-system/jsx';
 import { token } from '../../styled-system/tokens';
 import WidgetHeader from '../components/WidgetHeader';
 import { useEmailLogin } from '../context/EmailLoginContext';
@@ -12,17 +11,11 @@ interface EmailOTPViewProps {
   dispatch: React.Dispatch<WidgetAction>;
 }
 
-const iconContainerStyle = css({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-});
-
 export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
   const { submitOTP, cancelLogin, resendEmailOTP } = useEmailLogin();
   const { emailLoginStatus, email, error } = state;
   const [isResending, setIsResending] = useState(false);
+  const [showResendButton, setShowResendButton] = useState(false);
 
   const isVerifying = emailLoginStatus === 'verifying_otp';
   const isSuccess = emailLoginStatus === 'success';
@@ -35,62 +28,55 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
     if (emailLoginStatus === 'otp_sent') {
       setIsResending(false);
     }
+    if (emailLoginStatus === 'expired_otp' || emailLoginStatus === 'max_attempts_reached') {
+      setShowResendButton(true);
+    }
   }, [emailLoginStatus]);
 
-  const onResend = () => {
+  const handleResend = () => {
     setIsResending(true);
     resendEmailOTP();
+    setShowResendButton(false);
   };
 
   return (
     <>
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
-      <VStack gap={6} pt={4} px={6} alignItems="center">
-        {/* Icon */}
-        <Box position="relative" h={20} w={20}>
-          {(isVerifying || isResending) && <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />}
-          <Box className={iconContainerStyle}>
-            <IcoEmail width={32} height={32} color={token('colors.brand.base')} />
-          </Box>
-        </Box>
-
-        {/* Title and description */}
-        <VStack gap={1} alignItems="center" w="full">
-          <Text.H4 styles={{ textAlign: 'center' }}>Check your email</Text.H4>
-          <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
-            Enter the 6-digit code sent to
-          </Text>
-          <Box w="full" style={{ wordBreak: 'break-word' }}>
-            <Text fontWeight="semibold" styles={{ textAlign: 'center' }}>
-              {email}
-            </Text>
-          </Box>
+      <VStack>
+        <VStack gap={6}>
+          <IcoEmail width={60} height={60} color={token('colors.brand.base')} />
+          <VStack gap={0}>
+            <Text.H4
+              fontWeight="normal"
+              styles={{
+                textAlign: 'center',
+              }}
+            >
+              Please enter the code sent to
+            </Text.H4>
+            <Text.H4
+              styles={{
+                textAlign: 'center',
+              }}
+            >
+              {email && <EmailWbr email={email} />}
+            </Text.H4>
+          </VStack>
         </VStack>
 
         <VerifyPincode
           originName="email"
           pinLength={6}
-          isPending={false} // we show loading spinner in the header
+          isPending={isVerifying || isResending}
           isSuccess={isSuccess}
           onChange={onChangeOtp}
           onComplete={submitOTP}
           errorMessage={isResending ? '' : (error ?? '')}
-        />
-
-        {/* Resend button */}
-        <VStack gap={1} alignItems="center">
-          <Text fontColor="text.tertiary" size="sm">
-            Didn't receive a code?
-          </Text>
-          <Button
-            label="Resend"
-            variant="text"
-            textStyle="neutral"
-            onPress={onResend}
-            disabled={isVerifying || isResending}
-            size="sm"
-          />
-        </VStack>
+        >
+          <VerifyPincode.RetryContent>
+            {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}
+          </VerifyPincode.RetryContent>
+        </VerifyPincode>
       </VStack>
     </>
   );

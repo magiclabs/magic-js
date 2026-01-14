@@ -22,6 +22,7 @@ export type EmailLoginStatus =
   | 'verifying_otp'
   | 'invalid_otp'
   | 'expired_otp'
+  | 'max_attempts_reached'
   | 'device_needs_approval'
   | 'device_verification_sent'
   | 'device_verification_expired'
@@ -53,6 +54,7 @@ export type WidgetAction =
   | { type: 'EMAIL_OTP_SENT' }
   | { type: 'EMAIL_OTP_INVALID' }
   | { type: 'EMAIL_OTP_EXPIRED' }
+  | { type: 'EMAIL_OTP_MAX_ATTEMPTS_REACHED' }
   | { type: 'EMAIL_OTP_VERIFYING' }
   | { type: 'DEVICE_NEEDS_APPROVAL' }
   | { type: 'DEVICE_VERIFICATION_SENT' }
@@ -63,6 +65,7 @@ export type WidgetAction =
   | { type: 'MFA_INVALID' }
   | { type: 'LOST_DEVICE' }
   | { type: 'RECOVERY_CODE_VERIFYING' }
+  | { type: 'RECOVERY_CODE_INVALID' }
   | { type: 'LOST_RECOVERY_CODE' }
   | { type: 'LOGIN_SUCCESS' }
   | { type: 'RESET_EMAIL_ERROR' }
@@ -120,6 +123,13 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
         ...state,
         emailLoginStatus: 'expired_otp',
         error: 'Code expired. Please request a new one.',
+      };
+
+    case 'EMAIL_OTP_MAX_ATTEMPTS_REACHED':
+      return {
+        ...state,
+        emailLoginStatus: 'max_attempts_reached',
+        error: 'Max attempts reached. Please request a new code.',
       };
 
     case 'DEVICE_NEEDS_APPROVAL':
@@ -187,6 +197,13 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
         ...state,
         emailLoginStatus: 'recovery_code_verifying',
         error: undefined,
+      };
+
+    case 'RECOVERY_CODE_INVALID':
+      return {
+        ...state,
+        emailLoginStatus: 'recovery_code',
+        error: 'Invalid recovery code. Please try again.',
       };
 
     case 'LOST_RECOVERY_CODE':

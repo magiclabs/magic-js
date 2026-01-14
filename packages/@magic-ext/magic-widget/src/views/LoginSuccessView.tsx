@@ -1,5 +1,5 @@
 import React from 'react';
-import { VStack, Box } from '../../styled-system/jsx';
+import { VStack } from '../../styled-system/jsx';
 import { Text, IcoCheckmarkCircleFill } from '@magiclabs/ui-components';
 import { token } from '../../styled-system/tokens';
 import { WidgetState } from '../reducer';
@@ -15,22 +15,10 @@ export const LoginSuccessView = ({ state }: LoginSuccessViewProps) => {
   return (
     <>
       <WidgetHeader showHeaderText={false} />
-      <VStack gap={6} pt={4} alignItems="center" px={4}>
-        {/* Success icon */}
-        <Box
-          w={20}
-          h={20}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <IcoCheckmarkCircleFill width={64} height={64}               color={token('colors.brand.base')}
- />
-        </Box>
+      <VStack gap={6}>
+        <IcoCheckmarkCircleFill width={60} height={60} color={token('colors.brand.base')} />
 
-        {/* Title and description */}
-        <VStack gap={1} alignItems="center">
-          <Text.H4>Welcome!</Text.H4>
+        <VStack gap={1}>
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
             You have successfully logged in
           </Text>

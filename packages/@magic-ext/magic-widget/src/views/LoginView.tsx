@@ -19,6 +19,10 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
   const { primary, social } = config?.authProviders ?? {};
   const hasEmailProvider = primary?.includes('email');
   const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
+  const enabledWalletProviders = Object.values(ThirdPartyWallets).filter(
+    provider => provider !== ThirdPartyWallets.WALLETCONNECT,
+  );
+  const showDivider = socialProviders.length > 0 && enabledWalletProviders.length > 0;
 
   const handleProviderSelect = (provider: ThirdPartyWallets) => {
     dispatch({ type: 'SELECT_WALLET', provider });
@@ -31,10 +35,10 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
   return (
     <>
       <WidgetHeader />
-      <VStack gap={10} mt={2}>
+      <VStack w="full" gap={10} mt={2} px={7}>
         {config?.theme.assetUri && <img src={config.theme.assetUri} alt="Logo" width={80} height={80} />}
 
-        <VStack alignItems="center" width="full" gap={4} px={6}>
+        <VStack width="full" gap={4}>
           {hasEmailProvider && <EmailInput />}
           {socialProviders.length > 0 && (
             <SocialProviders
@@ -44,25 +48,29 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
             />
           )}
 
-          <HStack mb={3} w="full">
-            <Divider color="surface.quaternary" />
-            <Text aria-label="or" fontColor="text.tertiary">
-              or
-            </Text>
-            <Divider color="surface.quaternary" />
-          </HStack>
+          {showDivider && (
+            <HStack mb={3} w="full">
+              <Divider color="surface.quaternary" />
+              <Text aria-label="or" fontColor="text.tertiary">
+                or
+              </Text>
+              <Divider color="surface.quaternary" />
+            </HStack>
+          )}
 
-          <HStack gap={2} w="full">
-            {Object.values(ThirdPartyWallets).map(provider => (
-              <ProviderButton
-                key={provider}
-                hideLabel={Object.values(ThirdPartyWallets).length > 1}
-                label={WALLET_METADATA[provider].displayName}
-                Icon={WALLET_METADATA[provider].Icon}
-                onPress={() => handleProviderSelect(provider)}
-              />
-            ))}
-          </HStack>
+          {enabledWalletProviders.length > 0 && (
+            <HStack gap={2} w="full">
+              {enabledWalletProviders.map(provider => (
+                <ProviderButton
+                  key={provider}
+                  hideLabel={enabledWalletProviders.length > 1}
+                  label={WALLET_METADATA[provider].displayName}
+                  Icon={WALLET_METADATA[provider].Icon}
+                  onPress={() => handleProviderSelect(provider)}
+                />
+              ))}
+            </HStack>
+          )}
         </VStack>
       </VStack>
     </>
