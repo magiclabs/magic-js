@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/web3modal-ethers5",
-  "version": "3.2.0",
+  "version": "5.0.0",
   "description": "magic web3modal ethers 5 extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
