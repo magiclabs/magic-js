@@ -3,17 +3,20 @@ import { Box, VStack } from '@styled/jsx';
 import { token } from '@styled/tokens';
 import React from 'react';
 import WidgetHeader from 'src/components/WidgetHeader';
-import { useEmailLogin } from 'src/context';
 import { getExtensionInstance } from 'src/extension';
+import { WidgetAction } from 'src/reducer';
 
-export const LostRecoveryCode = () => {
-  const { cancelLogin } = useEmailLogin();
+export const LostRecoveryCode = ({ dispatch }: { dispatch: React.Dispatch<WidgetAction> }) => {
   const config = getExtensionInstance().getConfig();
   const { appName } = config?.theme ?? {};
 
+  const handleBack = () => {
+    dispatch({ type: 'LOST_DEVICE' });
+  };
+
   return (
     <>
-      <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
+      <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
       <VStack gap={6} pt={4} px={6} alignItems="center">
         <Box position="relative" h={20} w={20} display="flex" alignItems="center" justifyContent="center">
           <Box

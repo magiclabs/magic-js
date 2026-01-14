@@ -25,15 +25,12 @@ export const MFAView = ({ state, dispatch }: MFAViewProps) => {
   return (
     <>
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
-      <VStack gap={6}>
-        <IcoLockLocked width={60} height={60} color={token('colors.brand.base')} />
-
-        <VStack gap={1} alignItems="center" w="full">
-          <Box w="full" style={{ wordBreak: 'break-word' }}>
-            <Text.H4 styles={{ textAlign: 'center', fontWeight: 'normal' }}>
-              Please enter the 6-digit code from your authenticator app.
-            </Text.H4>
-          </Box>
+      <VStack>
+        <VStack gap={6}>
+          <IcoLockLocked width={60} height={60} color={token('colors.brand.base')} />
+          <Text.H4 styles={{ textAlign: 'center', fontWeight: 'normal' }}>
+            Please enter the 6-digit code from your authenticator app.
+          </Text.H4>
         </VStack>
 
         <VerifyPincode
@@ -46,16 +43,14 @@ export const MFAView = ({ state, dispatch }: MFAViewProps) => {
           errorMessage={error ?? ''}
         />
 
-        <VStack gap={2} alignItems="center">
-          <Button
-            label="I lost my device"
-            variant="text"
-            textStyle="neutral"
-            onPress={lostDevice}
-            disabled={isVerifying}
-            size="sm"
-          />
-        </VStack>
+        <Button
+          label="I lost my device"
+          variant="text"
+          textStyle="neutral"
+          onPress={lostDevice}
+          disabled={isVerifying}
+          size="sm"
+        />
       </VStack>
     </>
   );

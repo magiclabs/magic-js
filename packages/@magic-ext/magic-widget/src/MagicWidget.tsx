@@ -56,7 +56,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
       case 'recovery_code':
         return <RecoveryCodeView state={state} dispatch={dispatch} />;
       case 'lost_recovery_code':
-        return <LostRecoveryCode />;
+        return <LostRecoveryCode dispatch={dispatch} />;
       case 'login_success':
         return <LoginSuccessView state={state} />;
 

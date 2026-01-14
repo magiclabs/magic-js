@@ -20,7 +20,7 @@ const iconContainerStyle = css({
 });
 
 export const RecoveryCodeView = ({ state, dispatch }: RecoveryCodeViewProps) => {
-  const { cancelLogin, submitRecoveryCode } = useEmailLogin();
+  const { submitRecoveryCode } = useEmailLogin();
   const { emailLoginStatus, error } = state;
 
   const isVerifying = emailLoginStatus === 'recovery_code_verifying';
@@ -37,9 +37,13 @@ export const RecoveryCodeView = ({ state, dispatch }: RecoveryCodeViewProps) => 
     dispatch({ type: 'LOST_RECOVERY_CODE' });
   };
 
+  const handleBack = () => {
+    dispatch({ type: 'MFA_REQUIRED' });
+  };
+
   return (
     <>
-      <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
+      <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
 
       <VStack gap={6} pt={4} px={6} alignItems="center">
         <Box position="relative" h={20} w={20}>
