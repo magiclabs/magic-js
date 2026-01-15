@@ -21,7 +21,7 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
   const { primary, social } = config?.authProviders ?? {};
   const hasEmailProvider = primary?.includes('email');
   const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
-  const showDivider = socialProviders.length > 0 && wallets.length > 0;
+  const showDivider = (hasEmailProvider || socialProviders.length > 0) && wallets.length > 0;
 
   const handleProviderSelect = (provider: ThirdPartyWallets) => {
     dispatch({ type: 'SELECT_WALLET', provider });
@@ -62,7 +62,7 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
               {wallets.map(provider => (
                 <ProviderButton
                   key={provider}
-                  hideLabel={wallets.length > 1}
+                  hideLabel={wallets.length > 1 || !showDivider}
                   label={WALLET_METADATA[provider].displayName}
                   Icon={WALLET_METADATA[provider].Icon}
                   onPress={() => handleProviderSelect(provider)}
