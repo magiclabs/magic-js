@@ -1,4 +1,4 @@
-import { OAuthProvider, ProviderMetadata, ThirdPartyWallets } from './types';
+import { OAuthProvider, ProviderMetadata, ThirdPartyWallet, ThirdPartyWallets } from './types';
 import {
   LogoWalletConnect,
   WltMetamask,
@@ -19,7 +19,7 @@ import {
   LogoTelegram,
 } from '@magiclabs/ui-components';
 
-export const WALLET_METADATA: Record<ThirdPartyWallets, ProviderMetadata> = {
+export const WALLET_METADATA: Record<ThirdPartyWallet, ProviderMetadata> = {
   [ThirdPartyWallets.WALLETCONNECT]: { displayName: 'WalletConnect', Icon: LogoWalletConnect },
   [ThirdPartyWallets.METAMASK]: { displayName: 'MetaMask', Icon: WltMetamask },
   [ThirdPartyWallets.COINBASE]: { displayName: 'Coinbase Wallet', Icon: WltCoinbase },

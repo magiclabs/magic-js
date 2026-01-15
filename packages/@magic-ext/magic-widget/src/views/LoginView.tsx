@@ -3,12 +3,14 @@ import { Text } from '@magiclabs/ui-components';
 import { Divider, HStack, VStack } from '../../styled-system/jsx';
 import { ProviderButton } from '../components/ProviderButton';
 import { WALLET_METADATA } from '../constants';
-import { OAuthProvider, ThirdPartyWallets } from '../types';
+import { OAuthProvider, ThirdPartyWallet } from '../types';
 import { WidgetAction } from '../reducer';
 import { EmailInput } from 'src/components/EmailInput';
 import { SocialProviders } from 'src/components/SocialProviders';
 import WidgetHeader from 'src/components/WidgetHeader';
 import { getExtensionInstance } from 'src/extension';
+import { useWidgetConfig } from '../context/WidgetConfigContext';
+import { Flex } from '@styled/jsx/flex';
 
 interface LoginViewProps {
   dispatch: React.Dispatch<WidgetAction>;
@@ -16,15 +18,13 @@ interface LoginViewProps {
 
 export const LoginView = ({ dispatch }: LoginViewProps) => {
   const config = getExtensionInstance().getConfig();
+  const { wallets } = useWidgetConfig();
   const { primary, social } = config?.authProviders ?? {};
   const hasEmailProvider = primary?.includes('email');
   const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
-  const enabledWalletProviders = Object.values(ThirdPartyWallets).filter(
-    provider => provider !== ThirdPartyWallets.WALLETCONNECT,
-  );
-  const showDivider = socialProviders.length > 0 && enabledWalletProviders.length > 0;
+  const showDivider = (hasEmailProvider || socialProviders.length > 0) && wallets.length > 0;
 
-  const handleProviderSelect = (provider: ThirdPartyWallets) => {
+  const handleProviderSelect = (provider: ThirdPartyWallet) => {
     dispatch({ type: 'SELECT_WALLET', provider });
   };
 
@@ -58,18 +58,18 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
             </HStack>
           )}
 
-          {enabledWalletProviders.length > 0 && (
-            <HStack gap={2} w="full">
-              {enabledWalletProviders.map(provider => (
+          {wallets.length > 0 && (
+            <Flex gap={2} w="full" direction={showDivider ? 'row' : 'column'} justify="center">
+              {wallets.map(provider => (
                 <ProviderButton
                   key={provider}
-                  hideLabel={enabledWalletProviders.length > 1}
+                  hideLabel={wallets.length > 1 && showDivider}
                   label={WALLET_METADATA[provider].displayName}
                   Icon={WALLET_METADATA[provider].Icon}
                   onPress={() => handleProviderSelect(provider)}
                 />
               ))}
-            </HStack>
+            </Flex>
           )}
         </VStack>
       </VStack>

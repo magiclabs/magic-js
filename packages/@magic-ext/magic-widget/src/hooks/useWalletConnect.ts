@@ -1,6 +1,6 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useConnect, useAccount, useDisconnect } from 'wagmi';
-import { ThirdPartyWallets } from '../types';
+import { ThirdPartyWallet } from '../types';
 import { CONNECTOR_IDS, CONNECTOR_NAME_PATTERNS } from '../wagmi/connectors';
 
 export interface UseWalletConnectResult {
@@ -14,7 +14,7 @@ export interface UseWalletConnectResult {
   disconnect: () => void;
 }
 
-export function useWalletConnect(provider: ThirdPartyWallets): UseWalletConnectResult {
+export function useWalletConnect(provider: ThirdPartyWallet): UseWalletConnectResult {
   const { connect, connectors, isPending } = useConnect();
   const { address, isConnected, connector: activeConnector } = useAccount();
   const { disconnect } = useDisconnect();

@@ -6,12 +6,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LoginView } from './views/LoginView';
 import { WalletPendingView } from './views/WalletPendingView';
 import { widgetReducer, initialState, WidgetAction, WidgetState } from './reducer';
-import { OAuthProvider, ThirdPartyWallets } from './types';
+import { MagicWidgetProps, OAuthProvider, ThirdPartyWallet } from './types';
 import { wagmiConfig } from './wagmi/config';
 import { OAuthPendingView } from './views/OAuthPendingView';
 import AdditionalProvidersView from './views/AdditionalProvidersView';
 import { getExtensionInstance } from './extension';
 import { EmailLoginProvider } from './context/EmailLoginContext';
+import { WidgetConfigProvider } from './context/WidgetConfigContext';
 import { EmailOTPView } from './views/EmailOTPView';
 import { DeviceVerificationView } from './views/DeviceVerificationView';
 import { LoginSuccessView } from './views/LoginSuccessView';
@@ -42,7 +43,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
       case 'login':
         return <LoginView dispatch={dispatch} />;
       case 'wallet_pending':
-        return <WalletPendingView provider={state.selectedProvider as ThirdPartyWallets} dispatch={dispatch} />;
+        return <WalletPendingView provider={state.selectedProvider as ThirdPartyWallet} dispatch={dispatch} />;
       case 'oauth_pending':
         return <OAuthPendingView provider={state.selectedProvider as OAuthProvider} dispatch={dispatch} />;
       case 'additional_providers':
@@ -78,41 +79,125 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
   );
 }
 
-// Main widget component - no props needed, everything is internal
-export function MagicWidget() {
+// Styles for modal mode
+const modalBackdropStyles: React.CSSProperties = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backdropFilter: 'blur(0.375rem)',
+  WebkitBackdropFilter: 'blur(0.375rem)', // Safari support
+  display: 'flex',
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+  paddingTop: '15vh', // Slightly above center
+  zIndex: 9999,
+};
+
+const modalContentStyles: React.CSSProperties = {
+  position: 'relative',
+};
+
+// Main widget component
+export function MagicWidget({
+  displayMode = 'inline',
+  isOpen = true,
+  onClose,
+  closeOnSuccess = false,
+  closeOnClickOutside = false,
+  wallets = [],
+  onSuccess,
+  onError,
+}: MagicWidgetProps) {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
-  const [isConfigLoading, setIsConfigLoading] = useState(true);
+  // Check if config is already cached to avoid unnecessary loading state
+  const [isConfigLoading, setIsConfigLoading] = useState(() => {
+    return getExtensionInstance().getConfig() === null;
+  });
 
   useEffect(() => {
     injectCSS();
-    getExtensionInstance()
-      .fetchConfig()
-      .then(() => setIsConfigLoading(false))
-      .catch(err => {
-        console.error('Failed to fetch config:', err);
-        setIsConfigLoading(false); // Still show widget on error
-      });
-  }, []);
+    // Only fetch if not already cached
+    if (isConfigLoading) {
+      getExtensionInstance()
+        .fetchConfig()
+        .then(() => setIsConfigLoading(false))
+        .catch(err => {
+          console.error('Failed to fetch config:', err);
+          setIsConfigLoading(false); // Still show widget on error
+        });
+    }
+  }, [isConfigLoading]);
+
+  // Reset to login view when modal is opened
+  useEffect(() => {
+    if (isOpen) {
+      dispatch({ type: 'GO_TO_LOGIN' });
+    }
+  }, [isOpen]);
+
+  if (!isOpen) {
+    return null;
+  }
+
+  const isModal = displayMode === 'modal';
+
+  // Handle backdrop click for closeOnClickOutside
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Only close if clicking the backdrop itself, not the content
+    if (closeOnClickOutside && e.target === e.currentTarget && onClose) {
+      onClose();
+    }
+  };
 
   if (isConfigLoading) {
-    return (
+    const loadingContent = (
       <Modal>
         <VStack alignItems="center" justifyContent="center" height="300px">
           <LoadingSpinner />
         </VStack>
       </Modal>
     );
+
+    if (isModal) {
+      return (
+        <div style={modalBackdropStyles} onClick={handleBackdropClick}>
+          <div style={modalContentStyles}>{loadingContent}</div>
+        </div>
+      );
+    }
+
+    return loadingContent;
   }
 
-  return (
-    <WagmiProvider config={wagmiConfig}>
-      <QueryClientProvider client={queryClient}>
-        <div id="magic-widget-container">
-          <WidgetContent state={state} dispatch={dispatch} />
-        </div>
-      </QueryClientProvider>
-    </WagmiProvider>
+  const widgetContent = (
+    <WidgetConfigProvider
+      wallets={wallets}
+      onSuccess={onSuccess}
+      onError={onError}
+      onClose={onClose}
+      closeOnSuccess={closeOnSuccess}
+    >
+      <WagmiProvider config={wagmiConfig}>
+        <QueryClientProvider client={queryClient}>
+          <div id="magic-widget-container">
+            <WidgetContent state={state} dispatch={dispatch} />
+          </div>
+        </QueryClientProvider>
+      </WagmiProvider>
+    </WidgetConfigProvider>
   );
+
+  if (isModal) {
+    return (
+      <div style={modalBackdropStyles} onClick={handleBackdropClick}>
+        <div style={modalContentStyles}>{widgetContent}</div>
+      </div>
+    );
+  }
+
+  return widgetContent;
 }
 
 // Placeholder - will be replaced with actual CSS at build time

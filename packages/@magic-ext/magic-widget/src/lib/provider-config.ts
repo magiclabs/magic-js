@@ -1,9 +1,9 @@
-import { LoginProvider, ProviderConfig, ThirdPartyWallets, OAuthProvider } from '../types';
+import { LoginProvider, ProviderConfig, ThirdPartyWallet, OAuthProvider } from '../types';
 import { OAUTH_METADATA, WALLET_METADATA } from '../constants';
 
 export function getProviderConfig(provider: LoginProvider): ProviderConfig {
   const isOAuth = Object.values(OAuthProvider).includes(provider as OAuthProvider);
-  const metadata = isOAuth ? OAUTH_METADATA[provider as OAuthProvider] : WALLET_METADATA[provider as ThirdPartyWallets];
+  const metadata = isOAuth ? OAUTH_METADATA[provider as OAuthProvider] : WALLET_METADATA[provider as ThirdPartyWallet];
 
   const { displayName, Icon } = metadata;
 

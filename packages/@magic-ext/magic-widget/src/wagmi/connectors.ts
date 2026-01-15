@@ -1,9 +1,9 @@
-import { ThirdPartyWallets } from '../types';
+import { ThirdPartyWallet, ThirdPartyWallets } from '../types';
 
 /**
- * Map ThirdPartyWallets enum to wagmi connector IDs
+ * Map wallet types to wagmi connector IDs
  */
-export const CONNECTOR_IDS: Record<ThirdPartyWallets, string> = {
+export const CONNECTOR_IDS: Record<ThirdPartyWallet, string> = {
   [ThirdPartyWallets.METAMASK]: 'metaMaskSDK',
   [ThirdPartyWallets.COINBASE]: 'coinbaseWalletSDK',
   [ThirdPartyWallets.WALLETCONNECT]: 'walletConnect',
@@ -14,7 +14,7 @@ export const CONNECTOR_IDS: Record<ThirdPartyWallets, string> = {
 /**
  * Alternative names to match connectors by name if ID doesn't match
  */
-export const CONNECTOR_NAME_PATTERNS: Record<ThirdPartyWallets, string> = {
+export const CONNECTOR_NAME_PATTERNS: Record<ThirdPartyWallet, string> = {
   [ThirdPartyWallets.METAMASK]: 'metamask',
   [ThirdPartyWallets.COINBASE]: 'coinbase',
   [ThirdPartyWallets.WALLETCONNECT]: 'walletconnect',

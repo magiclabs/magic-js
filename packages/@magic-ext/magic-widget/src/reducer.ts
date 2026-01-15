@@ -1,6 +1,6 @@
 // Widget view state machine
 
-import { LoginProvider, OAuthProvider, ThirdPartyWallets } from './types';
+import { LoginProvider, OAuthProvider, ThirdPartyWallet } from './types';
 
 export type View =
   | 'login'
@@ -74,7 +74,7 @@ export type WidgetAction =
   | { type: 'SELECT_PROVIDER'; provider: OAuthProvider }
   | { type: 'GO_TO_ADDITIONAL_PROVIDERS' }
   // Wallet flow
-  | { type: 'SELECT_WALLET'; provider: ThirdPartyWallets };
+  | { type: 'SELECT_WALLET'; provider: ThirdPartyWallet };
 
 export const initialState: WidgetState = {
   view: 'login',

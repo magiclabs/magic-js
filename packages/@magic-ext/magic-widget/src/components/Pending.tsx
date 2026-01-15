@@ -24,7 +24,7 @@ const centeredIconClass = css({
 export const Pending = ({ onPressBack, title, description, Icon, isPending, errorMessage }: PendingProps) => {
   return (
     <>
-      <WidgetHeader onPressBack={onPressBack} showHeaderText={false} />
+      <WidgetHeader onPressBack={isPending ? onPressBack : undefined} showHeaderText={false} />
       <VStack gap={6} pt={4}>
         <Box position="relative" h={20} w={20}>
           {isPending && <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />}
