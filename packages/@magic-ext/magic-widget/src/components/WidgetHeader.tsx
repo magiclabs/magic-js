@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Header, IcoArrowLeft, IcoDismiss, Page, Text } from '@magiclabs/ui-components';
+import { useWidgetConfig } from '../context/WidgetConfigContext';
 
 type WidgetHeaderProps = {
   showHeaderText?: boolean;
@@ -7,10 +8,7 @@ type WidgetHeaderProps = {
 };
 
 export default function WidgetHeader({ showHeaderText = true, onPressBack }: WidgetHeaderProps) {
-  const handleClose = () => {
-    // TODO: Need to determine what this behavior should be/if it should exist at all
-    console.log('Close widget');
-  };
+  const { handleClose } = useWidgetConfig();
 
   return (
     <Header position="relative">
@@ -30,13 +28,15 @@ export default function WidgetHeader({ showHeaderText = true, onPressBack }: Wid
           </Text>
         </Header.Content>
       )}
-      <Header.RightAction>
-        <Button size="sm" variant="neutral" onPress={handleClose}>
-          <Button.TrailingIcon>
-            <IcoDismiss />
-          </Button.TrailingIcon>
-        </Button>
-      </Header.RightAction>
+      {handleClose && (
+        <Header.RightAction>
+          <Button size="sm" variant="neutral" onPress={handleClose}>
+            <Button.TrailingIcon>
+              <IcoDismiss />
+            </Button.TrailingIcon>
+          </Button>
+        </Header.RightAction>
+      )}
     </Header>
   );
 }

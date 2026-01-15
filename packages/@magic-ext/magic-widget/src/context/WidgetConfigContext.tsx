@@ -8,6 +8,8 @@ interface WidgetConfigContextValue {
   handleSuccess: (result: LoginResult) => void;
   /** Call when login fails */
   handleError: (error: Error) => void;
+  /** Call to close the widget. Undefined if onClose prop wasn't provided. */
+  handleClose?: () => void;
 }
 
 const WidgetConfigContext = createContext<WidgetConfigContextValue | null>(null);
@@ -16,7 +18,13 @@ interface WidgetConfigProviderProps extends MagicWidgetProps {
   children: ReactNode;
 }
 
-export function WidgetConfigProvider({ children, wallets = [], onSuccess, onError }: WidgetConfigProviderProps) {
+export function WidgetConfigProvider({
+  children,
+  wallets = [],
+  onSuccess,
+  onError,
+  onClose,
+}: WidgetConfigProviderProps) {
   const handleSuccess = useCallback(
     (result: LoginResult) => {
       onSuccess?.(result);
@@ -31,10 +39,17 @@ export function WidgetConfigProvider({ children, wallets = [], onSuccess, onErro
     [onError],
   );
 
+  const handleClose = onClose
+    ? () => {
+        onClose();
+      }
+    : undefined;
+
   const value: WidgetConfigContextValue = {
     wallets,
     handleSuccess,
     handleError,
+    handleClose,
   };
 
   return <WidgetConfigContext.Provider value={value}>{children}</WidgetConfigContext.Provider>;

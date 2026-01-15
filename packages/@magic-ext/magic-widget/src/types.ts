@@ -106,6 +106,18 @@ export type LoginResult = EmailLoginResult | OAuthLoginResult | WalletLoginResul
 
 export interface MagicWidgetProps {
   /**
+   * Whether the widget modal is open. Defaults to true.
+   * @example isOpen={showLogin}
+   */
+  isOpen?: boolean;
+
+  /**
+   * Callback fired when the widget is closed (e.g., user clicks X button).
+   * @example onClose={() => setShowLogin(false)}
+   */
+  onClose?: () => void;
+
+  /**
    * Third-party wallets to display. None enabled by default.
    * Accepts constants or string literals: 'metamask', 'walletconnect', 'coinbase', 'phantom', 'rabby'
    * @example wallets={['metamask', 'coinbase']}

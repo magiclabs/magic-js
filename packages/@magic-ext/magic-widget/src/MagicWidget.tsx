@@ -80,7 +80,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
 }
 
 // Main widget component
-export function MagicWidget({ wallets = [], onSuccess, onError }: MagicWidgetProps) {
+export function MagicWidget({ isOpen = true, onClose, wallets = [], onSuccess, onError }: MagicWidgetProps) {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
   const [isConfigLoading, setIsConfigLoading] = useState(true);
 
@@ -95,6 +95,10 @@ export function MagicWidget({ wallets = [], onSuccess, onError }: MagicWidgetPro
       });
   }, []);
 
+  if (!isOpen) {
+    return null;
+  }
+
   if (isConfigLoading) {
     return (
       <Modal>
@@ -106,7 +110,7 @@ export function MagicWidget({ wallets = [], onSuccess, onError }: MagicWidgetPro
   }
 
   return (
-    <WidgetConfigProvider wallets={wallets} onSuccess={onSuccess} onError={onError}>
+    <WidgetConfigProvider wallets={wallets} onSuccess={onSuccess} onError={onError} onClose={onClose}>
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <div id="magic-widget-container">
