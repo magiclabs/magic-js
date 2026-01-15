@@ -1,9 +1,9 @@
 import React, { createContext, useContext, ReactNode, useCallback } from 'react';
-import { LoginResult, MagicWidgetProps, ThirdPartyWallets } from '../types';
+import { LoginResult, MagicWidgetProps, ThirdPartyWallet } from '../types';
 
 interface WidgetConfigContextValue {
   /** Third-party wallets to display */
-  wallets: ThirdPartyWallets[];
+  wallets: ThirdPartyWallet[];
   /** Call when login succeeds */
   handleSuccess: (result: LoginResult) => void;
   /** Call when login fails */
@@ -16,12 +16,7 @@ interface WidgetConfigProviderProps extends MagicWidgetProps {
   children: ReactNode;
 }
 
-export function WidgetConfigProvider({
-  children,
-  wallets = [],
-  onSuccess,
-  onError,
-}: WidgetConfigProviderProps) {
+export function WidgetConfigProvider({ children, wallets = [], onSuccess, onError }: WidgetConfigProviderProps) {
   const handleSuccess = useCallback(
     (result: LoginResult) => {
       onSuccess?.(result);

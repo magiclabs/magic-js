@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LoginView } from './views/LoginView';
 import { WalletPendingView } from './views/WalletPendingView';
 import { widgetReducer, initialState, WidgetAction, WidgetState } from './reducer';
-import { MagicWidgetProps, OAuthProvider, ThirdPartyWallets } from './types';
+import { MagicWidgetProps, OAuthProvider, ThirdPartyWallet } from './types';
 import { wagmiConfig } from './wagmi/config';
 import { OAuthPendingView } from './views/OAuthPendingView';
 import AdditionalProvidersView from './views/AdditionalProvidersView';
@@ -43,7 +43,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
       case 'login':
         return <LoginView dispatch={dispatch} />;
       case 'wallet_pending':
-        return <WalletPendingView provider={state.selectedProvider as ThirdPartyWallets} dispatch={dispatch} />;
+        return <WalletPendingView provider={state.selectedProvider as ThirdPartyWallet} dispatch={dispatch} />;
       case 'oauth_pending':
         return <OAuthPendingView provider={state.selectedProvider as OAuthProvider} dispatch={dispatch} />;
       case 'additional_providers':

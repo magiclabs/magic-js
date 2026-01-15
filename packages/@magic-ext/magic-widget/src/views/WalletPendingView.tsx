@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { getProviderConfig } from '../lib/provider-config';
 import { WidgetAction } from '../reducer';
-import { ThirdPartyWallets } from '../types';
+import { ThirdPartyWallet } from '../types';
 import { useWalletConnect } from '../hooks/useWalletConnect';
 import { useSiweLogin } from '../hooks/useSiweLogin';
 import { Pending } from 'src/components/Pending';
 
 interface WalletPendingViewProps {
-  provider: ThirdPartyWallets;
+  provider: ThirdPartyWallet;
   dispatch: React.Dispatch<WidgetAction>;
 }
 

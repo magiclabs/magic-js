@@ -3,7 +3,7 @@ import { Text } from '@magiclabs/ui-components';
 import { Divider, HStack, VStack } from '../../styled-system/jsx';
 import { ProviderButton } from '../components/ProviderButton';
 import { WALLET_METADATA } from '../constants';
-import { OAuthProvider, ThirdPartyWallets } from '../types';
+import { OAuthProvider, ThirdPartyWallet } from '../types';
 import { WidgetAction } from '../reducer';
 import { EmailInput } from 'src/components/EmailInput';
 import { SocialProviders } from 'src/components/SocialProviders';
@@ -23,7 +23,7 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
   const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
   const showDivider = (hasEmailProvider || socialProviders.length > 0) && wallets.length > 0;
 
-  const handleProviderSelect = (provider: ThirdPartyWallets) => {
+  const handleProviderSelect = (provider: ThirdPartyWallet) => {
     dispatch({ type: 'SELECT_WALLET', provider });
   };
 

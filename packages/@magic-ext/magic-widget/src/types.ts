@@ -1,12 +1,19 @@
 import { ComponentType } from 'react';
 
-export enum ThirdPartyWallets {
-  METAMASK = 'metamask',
-  WALLETCONNECT = 'walletconnect',
-  COINBASE = 'coinbase',
-  PHANTOM = 'phantom',
-  RABBY = 'rabby',
-}
+/**
+ * Available third-party wallet providers.
+ * Use these constants or pass string literals directly: 'metamask', 'coinbase', etc.
+ */
+export const ThirdPartyWallets = {
+  METAMASK: 'metamask',
+  WALLETCONNECT: 'walletconnect',
+  COINBASE: 'coinbase',
+  PHANTOM: 'phantom',
+  RABBY: 'rabby',
+} as const;
+
+/** Type representing valid third-party wallet values */
+export type ThirdPartyWallet = (typeof ThirdPartyWallets)[keyof typeof ThirdPartyWallets];
 
 export interface ProviderMetadata {
   displayName: string;
@@ -33,7 +40,7 @@ export enum OAuthProvider {
   TELEGRAM = 'telegram',
 }
 
-export type LoginProvider = OAuthProvider | ThirdPartyWallets;
+export type LoginProvider = OAuthProvider | ThirdPartyWallet;
 
 export interface ProviderConfig {
   title: string;
@@ -100,9 +107,11 @@ export type LoginResult = EmailLoginResult | OAuthLoginResult | WalletLoginResul
 export interface MagicWidgetProps {
   /**
    * Third-party wallets to display. None enabled by default.
+   * Accepts constants or string literals: 'metamask', 'walletconnect', 'coinbase', 'phantom', 'rabby'
+   * @example wallets={['metamask', 'coinbase']}
    * @example wallets={[ThirdPartyWallets.METAMASK, ThirdPartyWallets.COINBASE]}
    */
-  wallets?: ThirdPartyWallets[];
+  wallets?: ThirdPartyWallet[];
 
   /**
    * Callback fired when login succeeds.
