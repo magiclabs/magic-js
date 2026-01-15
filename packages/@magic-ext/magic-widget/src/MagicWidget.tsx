@@ -6,12 +6,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LoginView } from './views/LoginView';
 import { WalletPendingView } from './views/WalletPendingView';
 import { widgetReducer, initialState, WidgetAction, WidgetState } from './reducer';
-import { OAuthProvider, ThirdPartyWallets } from './types';
+import { MagicWidgetProps, OAuthProvider, ThirdPartyWallets } from './types';
 import { wagmiConfig } from './wagmi/config';
 import { OAuthPendingView } from './views/OAuthPendingView';
 import AdditionalProvidersView from './views/AdditionalProvidersView';
 import { getExtensionInstance } from './extension';
 import { EmailLoginProvider } from './context/EmailLoginContext';
+import { WidgetConfigProvider } from './context/WidgetConfigContext';
 import { EmailOTPView } from './views/EmailOTPView';
 import { DeviceVerificationView } from './views/DeviceVerificationView';
 import { LoginSuccessView } from './views/LoginSuccessView';
@@ -78,8 +79,8 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
   );
 }
 
-// Main widget component - no props needed, everything is internal
-export function MagicWidget() {
+// Main widget component
+export function MagicWidget({ wallets = [] }: MagicWidgetProps) {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
   const [isConfigLoading, setIsConfigLoading] = useState(true);
 
@@ -105,13 +106,15 @@ export function MagicWidget() {
   }
 
   return (
-    <WagmiProvider config={wagmiConfig}>
-      <QueryClientProvider client={queryClient}>
-        <div id="magic-widget-container">
-          <WidgetContent state={state} dispatch={dispatch} />
-        </div>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <WidgetConfigProvider wallets={wallets}>
+      <WagmiProvider config={wagmiConfig}>
+        <QueryClientProvider client={queryClient}>
+          <div id="magic-widget-container">
+            <WidgetContent state={state} dispatch={dispatch} />
+          </div>
+        </QueryClientProvider>
+      </WagmiProvider>
+    </WidgetConfigProvider>
   );
 }
 

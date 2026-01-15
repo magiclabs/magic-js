@@ -40,3 +40,11 @@ export interface ProviderConfig {
   description: string;
   Icon: ComponentType<{ width?: number; height?: number; className?: string }>;
 }
+
+export interface MagicWidgetProps {
+  /**
+   * Third-party wallets to display. None enabled by default.
+   * @example wallets={[ThirdPartyWallets.METAMASK, ThirdPartyWallets.COINBASE]}
+   */
+  wallets?: ThirdPartyWallets[];
+}
