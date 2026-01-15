@@ -24,12 +24,19 @@ export function WidgetConfigProvider({
   onSuccess,
   onError,
   onClose,
+  closeOnSuccess = false,
 }: WidgetConfigProviderProps) {
   const handleSuccess = useCallback(
     (result: LoginResult) => {
       onSuccess?.(result);
+      if (closeOnSuccess && onClose) {
+        // Delay closing so users can see the success screen
+        setTimeout(() => {
+          onClose();
+        }, 2000);
+      }
     },
-    [onSuccess],
+    [onSuccess, closeOnSuccess, onClose],
   );
 
   const handleError = useCallback(

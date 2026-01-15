@@ -104,6 +104,8 @@ export function MagicWidget({
   displayMode = 'inline',
   isOpen = true,
   onClose,
+  closeOnSuccess = false,
+  closeOnClickOutside = false,
   wallets = [],
   onSuccess,
   onError,
@@ -128,6 +130,14 @@ export function MagicWidget({
 
   const isModal = displayMode === 'modal';
 
+  // Handle backdrop click for closeOnClickOutside
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Only close if clicking the backdrop itself, not the content
+    if (closeOnClickOutside && e.target === e.currentTarget && onClose) {
+      onClose();
+    }
+  };
+
   if (isConfigLoading) {
     const loadingContent = (
       <Modal>
@@ -139,7 +149,7 @@ export function MagicWidget({
 
     if (isModal) {
       return (
-        <div style={modalBackdropStyles}>
+        <div style={modalBackdropStyles} onClick={handleBackdropClick}>
           <div style={modalContentStyles}>{loadingContent}</div>
         </div>
       );
@@ -149,7 +159,13 @@ export function MagicWidget({
   }
 
   const widgetContent = (
-    <WidgetConfigProvider wallets={wallets} onSuccess={onSuccess} onError={onError} onClose={onClose}>
+    <WidgetConfigProvider
+      wallets={wallets}
+      onSuccess={onSuccess}
+      onError={onError}
+      onClose={onClose}
+      closeOnSuccess={closeOnSuccess}
+    >
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <div id="magic-widget-container">
@@ -162,7 +178,7 @@ export function MagicWidget({
 
   if (isModal) {
     return (
-      <div style={modalBackdropStyles}>
+      <div style={modalBackdropStyles} onClick={handleBackdropClick}>
         <div style={modalContentStyles}>{widgetContent}</div>
       </div>
     );

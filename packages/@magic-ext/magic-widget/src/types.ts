@@ -133,6 +133,20 @@ export interface MagicWidgetProps {
   onClose?: () => void;
 
   /**
+   * Automatically call onClose after successful login (with a 2 second delay to show success screen).
+   * Defaults to false.
+   * @example closeOnSuccess={true}
+   */
+  closeOnSuccess?: boolean;
+
+  /**
+   * Close the modal when clicking the backdrop. Only applies when displayMode="modal".
+   * Defaults to false.
+   * @example closeOnClickOutside={true}
+   */
+  closeOnClickOutside?: boolean;
+
+  /**
    * Third-party wallets to display. None enabled by default.
    * Accepts constants or string literals: 'metamask', 'walletconnect', 'coinbase', 'phantom', 'rabby'
    * @example wallets={['metamask', 'coinbase']}
