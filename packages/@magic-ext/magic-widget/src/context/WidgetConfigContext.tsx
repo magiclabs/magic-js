@@ -1,9 +1,13 @@
-import React, { createContext, useContext, ReactNode } from 'react';
-import { MagicWidgetProps, ThirdPartyWallets } from '../types';
+import React, { createContext, useContext, ReactNode, useCallback } from 'react';
+import { LoginResult, MagicWidgetProps, ThirdPartyWallets } from '../types';
 
 interface WidgetConfigContextValue {
   /** Third-party wallets to display */
   wallets: ThirdPartyWallets[];
+  /** Call when login succeeds */
+  handleSuccess: (result: LoginResult) => void;
+  /** Call when login fails */
+  handleError: (error: Error) => void;
 }
 
 const WidgetConfigContext = createContext<WidgetConfigContextValue | null>(null);
@@ -12,9 +16,30 @@ interface WidgetConfigProviderProps extends MagicWidgetProps {
   children: ReactNode;
 }
 
-export function WidgetConfigProvider({ children, wallets = [] }: WidgetConfigProviderProps) {
+export function WidgetConfigProvider({
+  children,
+  wallets = [],
+  onSuccess,
+  onError,
+}: WidgetConfigProviderProps) {
+  const handleSuccess = useCallback(
+    (result: LoginResult) => {
+      onSuccess?.(result);
+    },
+    [onSuccess],
+  );
+
+  const handleError = useCallback(
+    (error: Error) => {
+      onError?.(error);
+    },
+    [onError],
+  );
+
   const value: WidgetConfigContextValue = {
     wallets,
+    handleSuccess,
+    handleError,
   };
 
   return <WidgetConfigContext.Provider value={value}>{children}</WidgetConfigContext.Provider>;

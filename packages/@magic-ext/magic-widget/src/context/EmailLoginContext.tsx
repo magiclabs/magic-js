@@ -7,6 +7,7 @@ import {
   LoginWithEmailOTPEventEmit,
   LoginWithEmailOTPEventOnReceived,
 } from '@magic-sdk/types';
+import { useWidgetConfig } from './WidgetConfigContext';
 
 // Type for the login handle returned by loginWithEmailOTP
 type EmailOTPHandle = ReturnType<ReturnType<typeof getExtensionInstance>['loginWithEmailOTP']>;
@@ -40,6 +41,8 @@ interface EmailLoginProviderProps {
 }
 
 export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderProps) {
+  const { handleSuccess, handleError } = useWidgetConfig();
+
   // Store the current login handle
   const handleRef = useRef<EmailOTPHandle | null>(null);
   const emailRef = useRef<string | null>(null);
@@ -139,19 +142,24 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
           .then(didToken => {
             if (didToken) {
               dispatch({ type: 'LOGIN_SUCCESS' });
+              handleSuccess({ method: 'email', didToken });
             }
           })
           .catch(error => {
-            dispatch({ type: 'LOGIN_ERROR', error: error?.message || 'Login failed' });
+            const errorInstance = error instanceof Error ? error : new Error(error?.message || 'Login failed');
+            dispatch({ type: 'LOGIN_ERROR', error: errorInstance.message });
+            handleError(errorInstance);
           });
       } catch (error) {
+        const errorInstance = error instanceof Error ? error : new Error('Failed to start login');
         dispatch({
           type: 'LOGIN_ERROR',
-          error: error instanceof Error ? error.message : 'Failed to start login',
+          error: errorInstance.message,
         });
+        handleError(errorInstance);
       }
     },
-    [dispatch],
+    [dispatch, handleSuccess, handleError],
   );
 
   /**

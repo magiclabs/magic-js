@@ -80,7 +80,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
 }
 
 // Main widget component
-export function MagicWidget({ wallets = [] }: MagicWidgetProps) {
+export function MagicWidget({ wallets = [], onSuccess, onError }: MagicWidgetProps) {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
   const [isConfigLoading, setIsConfigLoading] = useState(true);
 
@@ -106,7 +106,7 @@ export function MagicWidget({ wallets = [] }: MagicWidgetProps) {
   }
 
   return (
-    <WidgetConfigProvider wallets={wallets}>
+    <WidgetConfigProvider wallets={wallets} onSuccess={onSuccess} onError={onError}>
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <div id="magic-widget-container">
