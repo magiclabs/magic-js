@@ -79,8 +79,35 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
   );
 }
 
+// Styles for modal mode
+const modalBackdropStyles: React.CSSProperties = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backdropFilter: 'blur(0.375rem)',
+  WebkitBackdropFilter: 'blur(0.375rem)', // Safari support
+  display: 'flex',
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+  paddingTop: '15vh', // Slightly above center
+  zIndex: 9999,
+};
+
+const modalContentStyles: React.CSSProperties = {
+  position: 'relative',
+};
+
 // Main widget component
-export function MagicWidget({ isOpen = true, onClose, wallets = [], onSuccess, onError }: MagicWidgetProps) {
+export function MagicWidget({
+  displayMode = 'inline',
+  isOpen = true,
+  onClose,
+  wallets = [],
+  onSuccess,
+  onError,
+}: MagicWidgetProps) {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
   const [isConfigLoading, setIsConfigLoading] = useState(true);
 
@@ -99,17 +126,29 @@ export function MagicWidget({ isOpen = true, onClose, wallets = [], onSuccess, o
     return null;
   }
 
+  const isModal = displayMode === 'modal';
+
   if (isConfigLoading) {
-    return (
+    const loadingContent = (
       <Modal>
         <VStack alignItems="center" justifyContent="center" height="300px">
           <LoadingSpinner />
         </VStack>
       </Modal>
     );
+
+    if (isModal) {
+      return (
+        <div style={modalBackdropStyles}>
+          <div style={modalContentStyles}>{loadingContent}</div>
+        </div>
+      );
+    }
+
+    return loadingContent;
   }
 
-  return (
+  const widgetContent = (
     <WidgetConfigProvider wallets={wallets} onSuccess={onSuccess} onError={onError} onClose={onClose}>
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
@@ -120,6 +159,16 @@ export function MagicWidget({ isOpen = true, onClose, wallets = [], onSuccess, o
       </WagmiProvider>
     </WidgetConfigProvider>
   );
+
+  if (isModal) {
+    return (
+      <div style={modalBackdropStyles}>
+        <div style={modalContentStyles}>{widgetContent}</div>
+      </div>
+    );
+  }
+
+  return widgetContent;
 }
 
 // Placeholder - will be replaced with actual CSS at build time

@@ -4,6 +4,7 @@ export {
   ThirdPartyWallets,
   OAuthProvider,
   type ThirdPartyWallet,
+  type DisplayMode,
   type MagicWidgetProps,
   type LoginResult,
   type EmailLoginResult,

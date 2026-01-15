@@ -104,7 +104,22 @@ export interface WalletLoginResult {
  */
 export type LoginResult = EmailLoginResult | OAuthLoginResult | WalletLoginResult;
 
+/**
+ * How the widget is displayed on the page.
+ * - 'inline': Rendered in the document flow (default)
+ * - 'modal': Positioned as a modal dialog, slightly above center
+ */
+export type DisplayMode = 'inline' | 'modal';
+
 export interface MagicWidgetProps {
+  /**
+   * How the widget is displayed on the page. Defaults to 'inline'.
+   * - 'inline': Rendered in the document flow
+   * - 'modal': Positioned as a modal dialog with backdrop
+   * @example displayMode="modal"
+   */
+  displayMode?: DisplayMode;
+
   /**
    * Whether the widget modal is open. Defaults to true.
    * @example isOpen={showLogin}

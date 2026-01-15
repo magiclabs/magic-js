@@ -10,6 +10,7 @@ import { SocialProviders } from 'src/components/SocialProviders';
 import WidgetHeader from 'src/components/WidgetHeader';
 import { getExtensionInstance } from 'src/extension';
 import { useWidgetConfig } from '../context/WidgetConfigContext';
+import { Flex } from '@styled/jsx/flex';
 
 interface LoginViewProps {
   dispatch: React.Dispatch<WidgetAction>;
@@ -58,17 +59,17 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
           )}
 
           {wallets.length > 0 && (
-            <HStack gap={2} w="full">
+            <Flex gap={2} w="full" direction={showDivider ? 'row' : 'column'} justify="center">
               {wallets.map(provider => (
                 <ProviderButton
                   key={provider}
-                  hideLabel={wallets.length > 1 || !showDivider}
+                  hideLabel={wallets.length > 1 && showDivider}
                   label={WALLET_METADATA[provider].displayName}
                   Icon={WALLET_METADATA[provider].Icon}
                   onPress={() => handleProviderSelect(provider)}
                 />
               ))}
-            </HStack>
+            </Flex>
           )}
         </VStack>
       </VStack>
