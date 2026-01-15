@@ -111,18 +111,31 @@ export function MagicWidget({
   onError,
 }: MagicWidgetProps) {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
-  const [isConfigLoading, setIsConfigLoading] = useState(true);
+  // Check if config is already cached to avoid unnecessary loading state
+  const [isConfigLoading, setIsConfigLoading] = useState(() => {
+    return getExtensionInstance().getConfig() === null;
+  });
 
   useEffect(() => {
     injectCSS();
-    getExtensionInstance()
-      .fetchConfig()
-      .then(() => setIsConfigLoading(false))
-      .catch(err => {
-        console.error('Failed to fetch config:', err);
-        setIsConfigLoading(false); // Still show widget on error
-      });
-  }, []);
+    // Only fetch if not already cached
+    if (isConfigLoading) {
+      getExtensionInstance()
+        .fetchConfig()
+        .then(() => setIsConfigLoading(false))
+        .catch(err => {
+          console.error('Failed to fetch config:', err);
+          setIsConfigLoading(false); // Still show widget on error
+        });
+    }
+  }, [isConfigLoading]);
+
+  // Reset to login view when modal is opened
+  useEffect(() => {
+    if (isOpen) {
+      dispatch({ type: 'GO_TO_LOGIN' });
+    }
+  }, [isOpen]);
 
   if (!isOpen) {
     return null;
