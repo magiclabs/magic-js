@@ -20,7 +20,6 @@ export class WalletModule extends BaseModule {
   /* Prompt Magic's Login Form */
   public connectWithUI(options?: ConnectWithUIOptions) {
     const promiEvent = createPromiEvent<string[], ConnectWithUiEvents>(async (resolve, reject) => {
-      console.log('test')
       try {
         const loginRequestPayload = createJsonRpcRequestPayload(MagicPayloadMethod.Login, [
           {
