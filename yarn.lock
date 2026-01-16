@@ -3318,6 +3318,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-sdk/provider@^33.0.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+  version: 0.0.0-use.local
+  resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
+  dependencies:
+    "@babel/plugin-transform-modules-commonjs": ^7.9.6
+    "@magic-sdk/types": ^25.2.0
+    eventemitter3: ^4.0.4
+    localforage: ^1.7.4
+    tslib: ^2.3.1
+  peerDependencies:
+    localforage: ^1.7.4
+  languageName: unknown
+  linkType: soft
+
 "@magic-sdk/provider@npm:^29.5.0":
   version: 29.5.0
   resolution: "@magic-sdk/provider@npm:29.5.0"
@@ -3341,20 +3355,6 @@ __metadata:
   checksum: 82228f33dab5a4a3fecbe526805ba00630b40e2ca10a1d42a8cb0528c4db108bf69fbcad8ef56e31d28585335b159cc9179a78a72e77a65d2723273809a24feb
   languageName: node
   linkType: hard
-
-"@magic-sdk/provider@workspace:packages/@magic-sdk/provider":
-  version: 0.0.0-use.local
-  resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
-  dependencies:
-    "@babel/plugin-transform-modules-commonjs": ^7.9.6
-    "@magic-sdk/types": ^25.2.0
-    eventemitter3: ^4.0.4
-    localforage: ^1.7.4
-    tslib: ^2.3.1
-  peerDependencies:
-    localforage: ^1.7.4
-  languageName: unknown
-  linkType: soft
 
 "@magic-sdk/react-native-bare@npm:^32.2.0":
   version: 32.2.0
@@ -3491,6 +3491,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-sdk/types@^27.0.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
+  version: 0.0.0-use.local
+  resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
+  languageName: unknown
+  linkType: soft
+
 "@magic-sdk/types@npm:^24.21.0, @magic-sdk/types@npm:^24.22.0":
   version: 24.22.0
   resolution: "@magic-sdk/types@npm:24.22.0"
@@ -3504,12 +3510,6 @@ __metadata:
   checksum: 0be0807ac561efc182d5b7d72809b14b00421b9c7344ed41f8a8afc02e46aca4236f602409430d79a92777f60873938d7c0a45e15638decebca0729fa230ba5c
   languageName: node
   linkType: hard
-
-"@magic-sdk/types@workspace:packages/@magic-sdk/types":
-  version: 0.0.0-use.local
-  resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
-  languageName: unknown
-  linkType: soft
 
 "@motionone/animation@npm:^10.15.1, @motionone/animation@npm:^10.18.0":
   version: 10.18.0
@@ -14518,8 +14518,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
-    "@magic-sdk/provider": ^31.2.0
-    "@magic-sdk/types": ^25.2.0
+    "@magic-sdk/provider": ^33.0.0
+    "@magic-sdk/types": ^27.0.0
     localforage: ^1.7.4
   languageName: unknown
   linkType: soft
