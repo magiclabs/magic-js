@@ -1,3 +1,15 @@
+# v33.0.1 (Fri Jan 16 2026)
+
+#### 🐛 Bug Fix
+
+- fix type for user metadata [#1003](https://github.com/magiclabs/magic-js/pull/1003) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v33.0.0 (Tue Jan 13 2026)
 
 #### 🐛 Bug Fix
