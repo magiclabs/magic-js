@@ -1,3 +1,16 @@
+# (Fri Jan 16 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.0.1`, `@magic-sdk/types@27.0.1`
+  - fix type for user metadata [#1003](https://github.com/magiclabs/magic-js/pull/1003) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Jan 13 2026)
 
 #### 💥 Breaking Change
