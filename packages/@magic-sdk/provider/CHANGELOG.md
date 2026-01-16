@@ -1,3 +1,22 @@
+# v33.0.0 (Tue Jan 13 2026)
+
+#### 🐛 Bug Fix
+
+- heal Auto package versioning [#997](https://github.com/magiclabs/magic-js/pull/997) ([@Ethella](https://github.com/Ethella))
+- docs: fix typos [#963](https://github.com/magiclabs/magic-js/pull/963) ([@ANtutov](https://github.com/ANtutov) [@Ethella](https://github.com/Ethella))
+- Fix typos in AuthModule and web-crypto utility [#942](https://github.com/magiclabs/magic-js/pull/942) ([@sashass1315](https://github.com/sashass1315) [@Ethella](https://github.com/Ethella))
+- create a random number generator for RN [#971](https://github.com/magiclabs/magic-js/pull/971) ([@Ethella](https://github.com/Ethella))
+- Make `RPCProviderModule` compatible with `viem` `EIP1193Provider` [#931](https://github.com/magiclabs/magic-js/pull/931) ([@johanneskares](https://github.com/johanneskares) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- [@ANtutov](https://github.com/ANtutov)
+- [@sashass1315](https://github.com/sashass1315)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Johannes Kares ([@johanneskares](https://github.com/johanneskares))
+
+---
+
 # v31.1.0 (Thu Oct 30 2025)
 
 #### 🐛 Bug Fix

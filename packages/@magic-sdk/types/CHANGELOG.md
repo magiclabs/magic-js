@@ -1,3 +1,17 @@
+# v27.0.0 (Tue Jan 13 2026)
+
+#### 🐛 Bug Fix
+
+- heal Auto package versioning [#997](https://github.com/magiclabs/magic-js/pull/997) ([@Ethella](https://github.com/Ethella))
+- adds max attempts event [#992](https://github.com/magiclabs/magic-js/pull/992) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v25.2.0 (Mon Nov 10 2025)
 
 #### 🚀 Enhancement

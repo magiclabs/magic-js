@@ -3,6 +3,8 @@ on:
   pull_request:
     branches:
       - 'master'
+  merge_group:
+    types: [checks_requested]
 
 env:
   GH_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
@@ -11,14 +13,17 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Build
     if: "!contains(github.event.head_commit.message, 'skip-release')"
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: 'yarn'
@@ -42,7 +47,7 @@ jobs:
           overwrite: true
 
   create_canary:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Canary
     permissions:
       contents: read
@@ -50,9 +55,12 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: 'yarn'
@@ -69,4 +77,4 @@ jobs:
           path: packages
 
       - name: Create Canary Release
-        run: yarn auto canary -v
+        run: yarn auto canary
