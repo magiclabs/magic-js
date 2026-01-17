@@ -3807,7 +3807,7 @@ __metadata:
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
     "@babel/plugin-transform-modules-commonjs": ^7.9.6
-    "@magic-sdk/types": ^25.2.0
+    "@magic-sdk/types": ^27.1.0
     eventemitter3: ^4.0.4
     localforage: ^1.7.4
     tslib: ^2.3.1
