@@ -6,6 +6,7 @@ import {
   JsonRpcResponsePayload,
   ProviderEnableEvents,
   MagicPayloadMethod,
+  routeToMagicMethods,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createInvalidArgumentError, MagicRPCError, createSynchronousWeb3MethodWarning } from '../core/sdk-exceptions';
@@ -42,33 +43,46 @@ export class RPCProviderModule extends BaseModule implements TypedEmitter {
     }
 
     if (Array.isArray(payload)) {
-      this.overlay
-        .post(
-          MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST,
-          payload.map(p => {
-            const standardizedPayload = standardizeJsonRpcRequestPayload(p);
-            this.prefixPayloadMethodForTestMode(standardizedPayload);
-            return standardizedPayload;
-          }),
-        )
-        .then(batchResponse => {
-          (onRequestComplete as JsonRpcBatchRequestCallback)(
-            null,
-            batchResponse.map(response => ({
-              ...response.payload,
-              error: response.hasError ? new MagicRPCError(response.payload.error) : null,
-            })),
-          );
-        });
-    } else {
-      const finalPayload = standardizeJsonRpcRequestPayload(payload);
-      this.prefixPayloadMethodForTestMode(finalPayload);
-      this.overlay.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, finalPayload).then(response => {
-        (onRequestComplete as JsonRpcRequestCallback)(
-          response.hasError ? new MagicRPCError(response.payload.error) : null,
-          response.payload,
-        );
+      const standardizedPayloads = payload.map(p => {
+        const standardizedPayload = standardizeJsonRpcRequestPayload(p);
+        return standardizedPayload;
       });
+
+      const requestPromises = standardizedPayloads.map(p =>
+        this.request(p)
+          .then(result => ({
+            jsonrpc: p.jsonrpc ?? '2.0',
+            id: p.id ?? null,
+            result,
+            error: null,
+          }))
+          .catch(error => ({
+            jsonrpc: p.jsonrpc ?? '2.0',
+            id: p.id ?? null,
+            error,
+          })),
+      );
+
+      Promise.all(requestPromises).then(batchResponse => {
+        (onRequestComplete as JsonRpcBatchRequestCallback)(null, batchResponse);
+      });
+    } else {
+      this.request(standardizeJsonRpcRequestPayload(payload))
+        .then(result => {
+          (onRequestComplete as JsonRpcRequestCallback)(null, {
+            jsonrpc: payload.jsonrpc ?? '2.0',
+            id: payload.id ?? null,
+            result,
+            error: null,
+          });
+        })
+        .catch(error => {
+          (onRequestComplete as JsonRpcRequestCallback)(error, {
+            jsonrpc: payload.jsonrpc ?? '2.0',
+            id: payload.id ?? null,
+            error,
+          });
+        });
     }
   }
 
