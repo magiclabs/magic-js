@@ -129,13 +129,12 @@ export class ThirdPartyWalletsModule extends BaseModule {
     });
   }
 
-  private formatWeb3modalGetInfoResponse() {
+  private formatWeb3modalGetInfoResponse(): MagicUserMetadata {
     // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
     const walletType = this.sdk.web3modal.modal.getWalletInfo()?.name;
     // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
-    const userAddress = this.sdk.web3modal.modal.getAddress();
+    const userAddress = this.sdk.web3modal.modal.getAddress() as string;
     return {
-      publicAddress: userAddress as string,
       email: null,
       issuer: `did:ethr:${userAddress}`,
       phoneNumber: null,
@@ -143,6 +142,12 @@ export class ThirdPartyWalletsModule extends BaseModule {
       recoveryFactors: [] as [],
       walletType: walletType || 'web3modal',
       firstLoginAt: null,
+      wallets: {
+        ethereum: {
+          publicAddress: userAddress,
+          subAccounts: [],
+        },
+      },
     };
   }
 
