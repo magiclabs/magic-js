@@ -3631,8 +3631,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/magic-widget@workspace:packages/@magic-ext/magic-widget"
   dependencies:
-    "@magic-sdk/provider": 34.0.0-canary.979.20968799405.0
-    "@magic-sdk/types": 28.0.0-canary.979.20968799405.0
+    "@magic-sdk/provider": 34.0.0-canary.979.21085311128.0
+    "@magic-sdk/types": 28.0.0-canary.979.21085311128.0
     "@magiclabs/ui-components": ^1.49.0
     "@pandacss/dev": ^0.35.0
     "@reown/appkit": 1.8.14
@@ -3816,15 +3816,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@npm:34.0.0-canary.979.20968799405.0":
-  version: 34.0.0-canary.979.20968799405.0
-  resolution: "@magic-sdk/provider@npm:34.0.0-canary.979.20968799405.0"
+"@magic-sdk/provider@npm:34.0.0-canary.979.21085311128.0":
+  version: 34.0.0-canary.979.21085311128.0
+  resolution: "@magic-sdk/provider@npm:34.0.0-canary.979.21085311128.0"
   dependencies:
     "@magic-sdk/types": ^25.2.0
     eventemitter3: ^4.0.4
   peerDependencies:
     localforage: ^1.7.4
-  checksum: 8d5c3ae80556a39256c1d7e7d8642e4c92cd33f6a7145b3cb37b485d04f02e62fa0bb341c2527fdf3cd929ad89053b29185ceca9fef22efaaddca94a6181d292
+  checksum: 0101943e658832e366b4bf7cd1742be4125a0aec5f6206daa687df966c060c16c1baaadc45a8c696efc95bd5c642e1c48185fa3115e03d3ccadd83c72d8ba4b9
   languageName: node
   linkType: hard
 
@@ -3993,10 +3993,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/types@npm:28.0.0-canary.979.20968799405.0":
-  version: 28.0.0-canary.979.20968799405.0
-  resolution: "@magic-sdk/types@npm:28.0.0-canary.979.20968799405.0"
-  checksum: bd7a67864867accd38e22247b8249f3c73440a6994f603e8d4523ca47ea20e1188b6a7389e264a6f716cdcbfdf5f675b18d156c4375f924eff7bae36acb7b4af
+"@magic-sdk/types@npm:28.0.0-canary.979.21085311128.0":
+  version: 28.0.0-canary.979.21085311128.0
+  resolution: "@magic-sdk/types@npm:28.0.0-canary.979.21085311128.0"
+  checksum: 2785758a8b34619c51fcbc2ba77b8344e80666c9b1bd2722d8f47077c969c0d8cec4984eaca41b350613040a5fcb4eaa9502e1f09169c486f4cda879b9e14a03
   languageName: node
   linkType: hard
 
