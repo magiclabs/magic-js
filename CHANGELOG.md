@@ -1,3 +1,17 @@
+# (Sat Jan 17 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@33.1.0`, `@magic-sdk/types@27.1.0`, `magic-sdk@33.1.0`
+  - 7702 authorization api [#991](https://github.com/magiclabs/magic-js/pull/991) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Fri Jan 16 2026)
 
 #### 🐛 Bug Fix
