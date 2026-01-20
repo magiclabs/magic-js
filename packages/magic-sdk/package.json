@@ -29,7 +29,7 @@
     ]
   },
   "dependencies": {
-    "@magic-sdk/provider": "^33.1.0",
+    "@magic-sdk/provider": "^33.1.1",
     "@magic-sdk/types": "^27.1.0",
     "localforage": "^1.7.4"
   },
