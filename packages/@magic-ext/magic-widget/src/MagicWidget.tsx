@@ -1,4 +1,4 @@
-import { Footer, LoadingSpinner, Modal } from '@magiclabs/ui-components';
+import { Footer, LoadingSpinner, Modal, useCustomVars } from '@magiclabs/ui-components';
 import { VStack } from '../styled-system/jsx';
 import React, { useEffect, useReducer, useState } from 'react';
 import { WagmiProvider } from 'wagmi';
@@ -19,6 +19,7 @@ import { LoginSuccessView } from './views/LoginSuccessView';
 import { MFAView } from './views/MfaView';
 import { RecoveryCodeView } from './views/RecoveryCode';
 import { LostRecoveryCode } from './views/LostRecoveryCode';
+import { ClientTheme } from './types/client-config';
 
 // Create a query client for react-query
 const queryClient = new QueryClient();
@@ -115,6 +116,8 @@ export function MagicWidget({
   const [isConfigLoading, setIsConfigLoading] = useState(() => {
     return getExtensionInstance().getConfig() === null;
   });
+  const { setColors, setRadius } = useCustomVars({});
+  const [clientTheme, setClientTheme] = useState<ClientTheme | null>(null);
 
   useEffect(() => {
     injectCSS();
@@ -122,13 +125,38 @@ export function MagicWidget({
     if (isConfigLoading) {
       getExtensionInstance()
         .fetchConfig()
-        .then(() => setIsConfigLoading(false))
+        .then(clientConfig => {
+          setClientTheme(clientConfig.theme);
+          setIsConfigLoading(false);
+        })
         .catch(err => {
           console.error('Failed to fetch config:', err);
           setIsConfigLoading(false); // Still show widget on error
         });
     }
   }, [isConfigLoading]);
+
+  useEffect(() => {
+    if (!clientTheme) return;
+
+    const setClientTheme = async () => {
+      try {
+        const colorMode = clientTheme.themeColor === 'dark' ? 'dark' : 'light';
+        const { textColor, buttonColor, buttonRadius, containerRadius, backgroundColor, neutralColor } = clientTheme;
+        document.documentElement.setAttribute('data-color-mode', colorMode);
+        if (textColor) setColors('text', textColor);
+        if (buttonRadius) setRadius('button', buttonRadius);
+        if (containerRadius) setRadius('container', containerRadius);
+        if (backgroundColor) setColors('surface', backgroundColor);
+        if (neutralColor) setColors('neutral', neutralColor);
+        if (buttonColor) setColors('brand', buttonColor);
+      } catch (e) {
+        console.error('Error setting client theme', e);
+      }
+    };
+
+    setClientTheme();
+  }, [clientTheme]);
 
   // Reset to login view when modal is opened
   useEffect(() => {
