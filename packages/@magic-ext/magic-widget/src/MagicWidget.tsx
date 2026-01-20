@@ -110,6 +110,7 @@ export function MagicWidget({
   wallets = [],
   onSuccess,
   onError,
+  onReady,
 }: MagicWidgetProps) {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
   // Check if config is already cached to avoid unnecessary loading state
@@ -131,10 +132,13 @@ export function MagicWidget({
         })
         .catch(err => {
           console.error('Failed to fetch config:', err);
-          setIsConfigLoading(false); // Still show widget on error
+          setIsConfigLoading(false);
+          onReady?.();
         });
+    } else {
+      onReady?.();
     }
-  }, [isConfigLoading]);
+  }, []);
 
   useEffect(() => {
     if (!clientTheme) return;
@@ -150,6 +154,7 @@ export function MagicWidget({
         if (backgroundColor) setColors('surface', backgroundColor);
         if (neutralColor) setColors('neutral', neutralColor);
         if (buttonColor) setColors('brand', buttonColor);
+        onReady?.();
       } catch (e) {
         console.error('Error setting client theme', e);
       }
@@ -179,25 +184,7 @@ export function MagicWidget({
     }
   };
 
-  if (isConfigLoading) {
-    const loadingContent = (
-      <Modal>
-        <VStack alignItems="center" justifyContent="center" height="300px">
-          <LoadingSpinner />
-        </VStack>
-      </Modal>
-    );
-
-    if (isModal) {
-      return (
-        <div style={modalBackdropStyles} onClick={handleBackdropClick}>
-          <div style={modalContentStyles}>{loadingContent}</div>
-        </div>
-      );
-    }
-
-    return loadingContent;
-  }
+  if (isConfigLoading) return null;
 
   const widgetContent = (
     <WidgetConfigProvider
