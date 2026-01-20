@@ -1,3 +1,30 @@
+# v33.1.0 (Sat Jan 17 2026)
+
+#### 🚀 Enhancement
+
+- 7702 authorization api [#991](https://github.com/magiclabs/magic-js/pull/991) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.0.0 (Tue Jan 13 2026)
+
+#### 🐛 Bug Fix
+
+- heal Auto package versioning [#997](https://github.com/magiclabs/magic-js/pull/997) ([@Ethella](https://github.com/Ethella))
+- docs: fixes broken paths to files [#959](https://github.com/magiclabs/magic-js/pull/959) ([@andrewshab3](https://github.com/andrewshab3) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- andrewshab ([@andrewshab3](https://github.com/andrewshab3))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v31.0.0 (Fri Oct 03 2025)
 
 #### 💥 Breaking Change
