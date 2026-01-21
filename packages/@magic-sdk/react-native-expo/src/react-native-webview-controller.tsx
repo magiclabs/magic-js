@@ -10,6 +10,9 @@ import { EventRegister } from 'react-native-event-listeners';
 /* global NodeJS */
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
+import { getRefreshTokenInSecureStore, setRefreshTokenInSecureStore } from './native-crypto/keychain';
+import { getDpop } from './native-crypto/dpop';
+import { checkNativeModules } from './native-crypto/check-native-modules';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -86,6 +89,10 @@ export class ReactNativeWebViewController extends ViewController {
     const [show, setShow] = useState(false);
     const [mountOverlay, setMountOverlay] = useState(true);
     const isConnected = useInternetConnection();
+
+    useEffect(() => {
+      checkNativeModules();
+    }, []);
 
     useEffect(() => {
       this.isConnectedToInternet = isConnected;
@@ -286,6 +293,27 @@ export class ReactNativeWebViewController extends ViewController {
       AsyncStorage.setItem(LAST_MESSAGE_TIME, new Date().toISOString());
     } else {
       throw createModalNotReadyError();
+    }
+  }
+
+  async persistMagicEventRefreshToken(event: MagicMessageEvent) {
+    if (!event?.data?.rt) {
+      return;
+    }
+
+    await setRefreshTokenInSecureStore(event.data.rt);
+  }
+
+  // Overrides parent method to retrieve refresh token from keychain while creating a request
+  async getRT(): Promise<string | null> {
+    return await getRefreshTokenInSecureStore();
+  }
+
+  async getJWT(): Promise<string | null> {
+    try {
+      return await getDpop();
+    } catch (e) {
+      return null;
     }
   }
 

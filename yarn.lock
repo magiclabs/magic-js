@@ -3468,14 +3468,17 @@ __metadata:
     expo: ^52.0.44
     expo-application: ^5.0.1
     expo-modules-core: ^2.2.3
+    expo-secure-store: ~14.0.1
     jest-expo: ~52.0.6
     localforage: ^1.7.4
     lodash: ^4.17.19
     process: ~0.11.10
     react: ^19.1.0
     react-native: ^0.78.2
+    react-native-device-crypto: ^0.1.7
     react-native-event-listeners: ^1.0.7
     react-native-safe-area-context: ^5.3.0
+    react-native-uuid: ^2.0.3
     react-native-webview: ^13.13.5
     react-test-renderer: ^19.1.0
     regenerator-runtime: 0.13.9
@@ -3484,8 +3487,10 @@ __metadata:
   peerDependencies:
     "@react-native-community/netinfo": ">=9.0.0"
     expo: "*"
+    expo-secure-store: ~14.0.1
     react: ">=17"
     react-native: ">=0.60"
+    react-native-device-crypto: ^0.1.7
     react-native-safe-area-context: ">=4.4.1"
     react-native-webview: ">=12.4.0"
   languageName: unknown
@@ -10445,6 +10450,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-secure-store@npm:~14.0.1":
+  version: 14.0.1
+  resolution: "expo-secure-store@npm:14.0.1"
+  peerDependencies:
+    expo: "*"
+  checksum: a38f4fc06ba1ff334c930a433fbc12c49e3af63e32687bd4bcfa0130da2aefa55ab721a5ce248387962399f2d7a13b6979ae3c81363d076376dbfa6bc4584dad
+  languageName: node
+  linkType: hard
+
 "expo-web-browser@npm:14.0.2":
   version: 14.0.2
   resolution: "expo-web-browser@npm:14.0.2"
@@ -17347,6 +17361,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-device-crypto@npm:^0.1.7":
+  version: 0.1.7
+  resolution: "react-native-device-crypto@npm:0.1.7"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: dc1fae91223074b8a4ddc4206f9b00490696389d3f40c1e2c071e7592119890951cd13bf7a9b4c302e8caa72a0a5fcbb0efdedf752ba87d35a24cfc09b507522
+  languageName: node
+  linkType: hard
+
 "react-native-device-info@npm:^10.3.0":
   version: 10.4.0
   resolution: "react-native-device-info@npm:10.4.0"
@@ -17384,6 +17408,13 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 21f18b1286fc7bc6f38f864b7468848c16c58106ae429633e8f655dabb80571beba19ac8aa8bc5e1b2e926d75afddd7ded919a56450aa00c36d56f7fb421f782
+  languageName: node
+  linkType: hard
+
+"react-native-uuid@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "react-native-uuid@npm:2.0.3"
+  checksum: e47774481feaed5d38f75fb4b03f5189c03e7452038f1b0fa56677add8a8bdef64ec7ad5e83f9fa761d8788cac5c8e554ade07e82a2818145337df7c883e2124
   languageName: node
   linkType: hard
 
