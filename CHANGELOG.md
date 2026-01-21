@@ -1,3 +1,96 @@
+# (Tue Jan 20 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.1.1`
+  - fix types version [#1004](https://github.com/magiclabs/magic-js/pull/1004) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Sat Jan 17 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/provider@33.1.0`, `@magic-sdk/types@27.1.0`, `magic-sdk@33.1.0`
+  - 7702 authorization api [#991](https://github.com/magiclabs/magic-js/pull/991) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Jan 16 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.0.1`, `@magic-sdk/types@27.0.1`
+  - fix type for user metadata [#1003](https://github.com/magiclabs/magic-js/pull/1003) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Tue Jan 13 2026)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/siwe@3.0.0`
+  - Add siwe extension [#951](https://github.com/magiclabs/magic-js/pull/951) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- remove stderr [#996](https://github.com/magiclabs/magic-js/pull/996) ([@Ethella](https://github.com/Ethella))
+- docs(README): remove duplicate row [#953](https://github.com/magiclabs/magic-js/pull/953) ([@operagxsasha](https://github.com/operagxsasha) [@Ethella](https://github.com/Ethella))
+- replace -vv with -v [#978](https://github.com/magiclabs/magic-js/pull/978) ([@Ethella](https://github.com/Ethella))
+- fixing script [#977](https://github.com/magiclabs/magic-js/pull/977) ([@Ethella](https://github.com/Ethella))
+- add more debugging [#976](https://github.com/magiclabs/magic-js/pull/976) ([@Ethella](https://github.com/Ethella))
+- reduce checkout depth [#975](https://github.com/magiclabs/magic-js/pull/975) ([@Ethella](https://github.com/Ethella))
+- Fix id collision [#974](https://github.com/magiclabs/magic-js/pull/974) ([@Ethella](https://github.com/Ethella))
+- remove canary workflow in merge queue check [#973](https://github.com/magiclabs/magic-js/pull/973) ([@Ethella](https://github.com/Ethella))
+- Fix id collision [#972](https://github.com/magiclabs/magic-js/pull/972) ([@Ethella](https://github.com/Ethella))
+- Bump node-forge from 1.3.1 to 1.3.2 [#965](https://github.com/magiclabs/magic-js/pull/965) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@magic-ext/algorand@28.0.0`, `@magic-ext/aptos@16.0.0`, `@magic-ext/avalanche@28.0.0`, `@magic-ext/bitcoin@28.0.0`, `@magic-ext/conflux@26.0.0`, `@magic-ext/cosmos@28.0.0`, `@magic-ext/ed25519@24.0.0`, `@magic-ext/farcaster@5.0.0`, `@magic-ext/flow@28.0.0`, `@magic-ext/gdkms@16.0.0`, `@magic-ext/harmony@28.0.0`, `@magic-ext/icon@28.0.0`, `@magic-ext/kadena@5.0.0`, `@magic-ext/near@28.0.0`, `@magic-ext/oauth2@15.0.0`, `@magic-ext/oidc@16.0.0`, `@magic-ext/polkadot@28.0.0`, `@magic-ext/react-native-bare-oauth@30.0.0`, `@magic-ext/react-native-expo-oauth@30.0.0`, `@magic-ext/siwe@3.0.0`, `@magic-ext/solana@30.0.0`, `@magic-ext/sui@5.0.0`, `@magic-ext/taquito@25.0.0`, `@magic-ext/terra@25.0.0`, `@magic-ext/tezos@28.0.0`, `@magic-ext/web3modal-ethers5@5.0.0`, `@magic-ext/webauthn@27.0.0`, `@magic-ext/zilliqa@28.0.0`, `@magic-sdk/provider@33.0.0`, `@magic-sdk/react-native-bare@34.0.0`, `@magic-sdk/react-native-expo@34.0.0`, `@magic-sdk/types@27.0.0`, `magic-sdk@33.0.0`
+  - heal Auto package versioning [#997](https://github.com/magiclabs/magic-js/pull/997) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/zilliqa@28.0.0`
+  - Jerry/emb 145 fix GitHub quota exceeded in magic js [#994](https://github.com/magiclabs/magic-js/pull/994) ([@Ethella](https://github.com/Ethella))
+- `@magic-sdk/types@27.0.0`
+  - adds max attempts event [#992](https://github.com/magiclabs/magic-js/pull/992) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-sdk/provider@33.0.0`
+  - docs: fix typos [#963](https://github.com/magiclabs/magic-js/pull/963) ([@ANtutov](https://github.com/ANtutov) [@Ethella](https://github.com/Ethella))
+  - Fix typos in AuthModule and web-crypto utility [#942](https://github.com/magiclabs/magic-js/pull/942) ([@sashass1315](https://github.com/sashass1315) [@Ethella](https://github.com/Ethella))
+  - create a random number generator for RN [#971](https://github.com/magiclabs/magic-js/pull/971) ([@Ethella](https://github.com/Ethella))
+  - Make `RPCProviderModule` compatible with `viem` `EIP1193Provider` [#931](https://github.com/magiclabs/magic-js/pull/931) ([@johanneskares](https://github.com/johanneskares) [@Ethella](https://github.com/Ethella))
+- `magic-sdk@33.0.0`
+  - docs: fixes broken paths to files [#959](https://github.com/magiclabs/magic-js/pull/959) ([@andrewshab3](https://github.com/andrewshab3) [@Ethella](https://github.com/Ethella))
+- `@magic-ext/react-native-expo-oauth@30.0.0`
+  - chore: fix broken links [#957](https://github.com/magiclabs/magic-js/pull/957) ([@Bashmunta](https://github.com/Bashmunta))
+- `@magic-ext/siwe@3.0.0`
+  - updates siwe readme [#962](https://github.com/magiclabs/magic-js/pull/962) ([@joshuascan](https://github.com/joshuascan))
+  - manual version bump [#961](https://github.com/magiclabs/magic-js/pull/961) ([@joshuascan](https://github.com/joshuascan))
+  - Update SIWE extension version [#960](https://github.com/magiclabs/magic-js/pull/960) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 9
+
+- [@ANtutov](https://github.com/ANtutov)
+- [@Bashmunta](https://github.com/Bashmunta)
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@operagxsasha](https://github.com/operagxsasha)
+- [@sashass1315](https://github.com/sashass1315)
+- andrewshab ([@andrewshab3](https://github.com/andrewshab3))
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Johannes Kares ([@johanneskares](https://github.com/johanneskares))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Thu Nov 13 2025)
 
 #### 💥 Breaking Change
