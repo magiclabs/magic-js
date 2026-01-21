@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useAccount, useDisconnect } from 'wagmi';
-import { VStack, Box } from '../../styled-system/jsx';
-import { QRCode, Text, LoadingSpinner } from '@magiclabs/ui-components';
+import { VStack, } from '../../styled-system/jsx';
+import { QRCode, Text, Skeleton } from '@magiclabs/ui-components';
 import { WidgetAction } from '../reducer';
 import { WALLET_METADATA } from '../constants';
 import { ThirdPartyWallets } from '../types';
@@ -10,6 +10,7 @@ import { EthereumProvider } from '@walletconnect/ethereum-provider';
 import { projectId, networks } from '../wagmi/config';
 import { setWalletConnectProvider } from '../wagmi/walletconnect-provider';
 import type { Address } from 'viem';
+import { Center } from '@styled/jsx/center';
 
 interface WalletConnectViewProps {
   dispatch: React.Dispatch<WidgetAction>;
@@ -117,18 +118,6 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
     dispatch({ type: 'GO_TO_LOGIN' });
   };
 
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (providerRef.current) {
-        providerRef.current.disconnect().catch(() => {
-          // Ignore cleanup errors
-        });
-        setWalletConnectProvider(null);
-      }
-    };
-  }, []);
-
   // Show error state
   if (errorMessage) {
     return (
@@ -147,32 +136,27 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
     );
   }
 
-  // Show loading state while waiting for URI
-  if (!uri) {
-    return (
-      <>
-        <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
-        <VStack gap={6} pt={4} alignItems="center">
-          <Box position="relative" h={20} w={20}>
-            <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />
-          </Box>
-          <VStack gap={2} alignItems="center">
-            <Text.H4>Connecting to {displayName}</Text.H4>
-            <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
-              Preparing QR code...
-            </Text>
-          </VStack>
-        </VStack>
-      </>
-    );
-  }
-
-  // Show QR code
   return (
     <>
       <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
       <VStack gap={6} pt={4} alignItems="center">
-        <QRCode value={uri} size={200} />
+        {uri ? (
+          <QRCode
+            eyeRadius={8}
+            value={uri}
+            qrStyle="dots"
+            size={262}
+            logoHeight={64}
+            logoWidth={64}
+            logoPadding={16}
+            style={{ borderRadius: 16 }}
+            quietZone={12}
+          />
+        ) : (
+          <Center width="294px" height="294px">
+            <Skeleton width={286} height={286} borderRadius={16} backgroundColor="surface.secondary" />
+          </Center>
+        )}
         <VStack gap={2} alignItems="center">
           <Text.H4>Scan with your wallet</Text.H4>
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>

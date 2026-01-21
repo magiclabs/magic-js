@@ -4,6 +4,7 @@ import { WidgetAction, WidgetState } from '../reducer';
 import { ThirdPartyWallet, ThirdPartyWallets } from '../types';
 import { useWalletConnect } from '../hooks/useWalletConnect';
 import { useSiweLogin } from '../hooks/useSiweLogin';
+import { getWalletConnectProvider } from '../wagmi/walletconnect-provider';
 import { Pending } from 'src/components/Pending';
 
 interface WalletPendingViewProps {
@@ -73,12 +74,15 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
 
   // Once wallet is connected to the SELECTED provider with a stable address, initiate SIWE login
   // Only attempt SIWE if:
-  // 1. We're connected to the selected provider with an address (or WalletConnect with stored address)
+  // 1. We're connected to the selected provider with an address (or WalletConnect with stored address and provider)
   // 2. We haven't already attempted SIWE for this specific address
   // 3. We're not currently in a loading state (prevents double-calls during reconnection)
   useEffect(() => {
-    const shouldAttemptSiwe =
-      (isWalletConnect && address) || (isConnectedToSelectedProvider && address);
+    // For WalletConnect, ensure the provider is available and session is active
+    const wcProvider = isWalletConnect ? getWalletConnectProvider() : null;
+    const isWcReady = isWalletConnect && address && wcProvider && wcProvider.session;
+    const shouldAttemptSiwe = isWcReady || (isConnectedToSelectedProvider && address);
+    
     if (shouldAttemptSiwe && siweAttemptedForAddress !== address && !isSiweLoading) {
       setSiweAttemptedForAddress(address);
       setErrorMessage(null); // Clear any previous errors
@@ -108,16 +112,22 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
   }, [isConnectedToSelectedProvider, address, siweAttemptedForAddress, isSiweLoading, performSiweLogin, provider, isWalletConnect]);
 
   useEffect(() => {
-    if (walletError && connectionAttempted) {
+    // Ignore walletError for WalletConnect since we're using EthereumProvider directly, not wagmi
+    if (walletError && connectionAttempted && !isWalletConnect) {
       setErrorMessage(walletError.message);
     }
-  }, [walletError, connectionAttempted]);
+  }, [walletError, connectionAttempted, isWalletConnect]);
 
   useEffect(() => {
     if (siweError && siweAttemptedForAddress) {
+      const errorMsg = (siweError.message || '').toLowerCase();
+      // Ignore "connector not connected" errors for WalletConnect since we use EthereumProvider directly
+      if (isWalletConnect && (errorMsg.includes('connector not connected') || errorMsg.includes('connectornotconnectederror'))) {
+        return;
+      }
       setErrorMessage(siweError.message);
     }
-  }, [siweError, siweAttemptedForAddress]);
+  }, [siweError, siweAttemptedForAddress, isWalletConnect]);
 
   // Show spinner until SIWE is complete or there's an error
   // For WalletConnect, skip isWalletPending since connection is handled in WalletConnectView
