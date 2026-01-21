@@ -3802,7 +3802,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@^33.1.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+"@magic-sdk/provider@^33.1.1, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
@@ -20184,7 +20184,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
-    "@magic-sdk/provider": ^33.1.0
+    "@magic-sdk/provider": ^33.1.1
     "@magic-sdk/types": ^27.1.0
     localforage: ^1.7.4
   languageName: unknown
