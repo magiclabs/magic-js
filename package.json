@@ -84,7 +84,8 @@
     ]
   },
   "resolutions": {
-    "@rollup/plugin-commonjs": "^17.0.0"
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@walletconnect/logger/pino": "10.0.0"
   },
   "repository": "magiclabs/magic-js",
   "author": "Magic Labs <team@magic.link>",

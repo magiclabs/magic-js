@@ -78,21 +78,29 @@ try {
 const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
 
 // External dependencies - not bundled by us, resolved by consumer's bundler
-const external = [
-  'react',
-  'react-dom',
-  'react-dom/client',
-  'react/jsx-runtime',
-  '@magic-sdk/provider',
-  // Wagmi stack - too complex to bundle, consumer's bundler handles it
-  'wagmi',
-  'viem',
-  '@wagmi/core',
-  '@tanstack/react-query',
-  '@reown/appkit',
-  '@reown/appkit/networks',
-  '@reown/appkit-adapter-wagmi',
-];
+const external = (id) => {
+  // Externalize specific packages and their subpaths
+  if (
+    id === 'react' ||
+    id === 'react-dom' ||
+    id === 'react-dom/client' ||
+    id === 'react/jsx-runtime' ||
+    id === '@magic-sdk/provider' ||
+    id === 'wagmi' ||
+    id.startsWith('wagmi/') ||
+    id === 'viem' ||
+    id === '@wagmi/core' ||
+    id === '@tanstack/react-query' ||
+    id === '@reown/appkit' ||
+    id === '@reown/appkit/networks' ||
+    id === '@reown/appkit-adapter-wagmi' ||
+    id === '@walletconnect/ethereum-provider' ||
+    id.startsWith('@walletconnect/')
+  ) {
+    return true;
+  }
+  return false;
+};
 
 // Alias for @styled/* paths
 const aliasPlugin = {

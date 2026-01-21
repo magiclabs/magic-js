@@ -19,6 +19,7 @@ import { LoginSuccessView } from './views/LoginSuccessView';
 import { MFAView } from './views/MfaView';
 import { RecoveryCodeView } from './views/RecoveryCode';
 import { LostRecoveryCode } from './views/LostRecoveryCode';
+import { WalletConnectView } from './views/WalletConnectView';
 import { ClientTheme } from './types/client-config';
 
 // Create a query client for react-query
@@ -44,7 +45,9 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
       case 'login':
         return <LoginView dispatch={dispatch} />;
       case 'wallet_pending':
-        return <WalletPendingView provider={state.selectedProvider as ThirdPartyWallet} dispatch={dispatch} />;
+        return <WalletPendingView provider={state.selectedProvider as ThirdPartyWallet} state={state} dispatch={dispatch} />;
+      case 'walletconnect_pending':
+        return <WalletConnectView dispatch={dispatch} />;
       case 'oauth_pending':
         return <OAuthPendingView provider={state.selectedProvider as OAuthProvider} dispatch={dispatch} />;
       case 'additional_providers':

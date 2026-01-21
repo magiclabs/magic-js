@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { useSignMessage, useChainId } from 'wagmi';
 import { getExtensionInstance } from '../extension';
 import { useWidgetConfig } from '../context/WidgetConfigContext';
+import { getWalletConnectProvider } from '../wagmi/walletconnect-provider';
 
 export interface UseSiweLoginResult {
   performSiweLogin: (address: string, chainId?: number) => Promise<string>;
@@ -39,7 +40,19 @@ export function useSiweLogin(): UseSiweLoginResult {
         });
 
         // Step 2: Sign the message with the connected wallet
-        const signature = await signMessageAsync({ message });
+        // Use WalletConnect provider if available, otherwise use wagmi's signMessageAsync
+        let signature: string;
+        const wcProvider = getWalletConnectProvider();
+        if (wcProvider && wcProvider.accounts && wcProvider.accounts[0]?.toLowerCase() === address.toLowerCase()) {
+          // Use WalletConnect provider for signing
+          signature = await wcProvider.request({
+            method: 'personal_sign',
+            params: [message, address],
+          });
+        } else {
+          // Use wagmi's signMessageAsync (for other wallets)
+          signature = await signMessageAsync({ message });
+        }
 
         // Step 3: Send the signed message to Magic backend for verification
         await extension.login({ message, signature });
