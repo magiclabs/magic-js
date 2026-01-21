@@ -6,7 +6,10 @@ export interface ClientTheme {
   buttonRadius: string | undefined;
   containerRadius: string | undefined;
   backgroundColor: `#${string}` | undefined;
+  neutralColor: `#${string}` | undefined;
   themeColor: 'auto' | 'dark' | 'light';
+  customBrandingType: 1 | 2;
+  isDefaultAsset?: boolean;
 }
 
 export interface ClientConfig {

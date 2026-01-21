@@ -1,4 +1,4 @@
-import { Footer, LoadingSpinner, Modal } from '@magiclabs/ui-components';
+import { Footer, LoadingSpinner, Modal, useCustomVars } from '@magiclabs/ui-components';
 import { VStack } from '../styled-system/jsx';
 import React, { useEffect, useReducer, useState } from 'react';
 import { WagmiProvider } from 'wagmi';
@@ -19,6 +19,7 @@ import { LoginSuccessView } from './views/LoginSuccessView';
 import { MFAView } from './views/MfaView';
 import { RecoveryCodeView } from './views/RecoveryCode';
 import { LostRecoveryCode } from './views/LostRecoveryCode';
+import { ClientTheme } from './types/client-config';
 
 // Create a query client for react-query
 const queryClient = new QueryClient();
@@ -69,7 +70,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
 
   return (
     <EmailLoginProvider dispatch={dispatch}>
-      <Modal>
+      <Modal removeTopOffset>
         <VStack alignItems="center" width="full">
           {renderView()}
           <Footer />
@@ -109,12 +110,15 @@ export function MagicWidget({
   wallets = [],
   onSuccess,
   onError,
+  onReady,
 }: MagicWidgetProps) {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
   // Check if config is already cached to avoid unnecessary loading state
   const [isConfigLoading, setIsConfigLoading] = useState(() => {
     return getExtensionInstance().getConfig() === null;
   });
+  const { setColors, setRadius } = useCustomVars({});
+  const [clientTheme, setClientTheme] = useState<ClientTheme | null>(null);
 
   useEffect(() => {
     injectCSS();
@@ -122,13 +126,39 @@ export function MagicWidget({
     if (isConfigLoading) {
       getExtensionInstance()
         .fetchConfig()
-        .then(() => setIsConfigLoading(false))
+        .then(clientConfig => {
+          setClientTheme(clientConfig.theme);
+          setIsConfigLoading(false);
+        })
         .catch(err => {
           console.error('Failed to fetch config:', err);
-          setIsConfigLoading(false); // Still show widget on error
+          setIsConfigLoading(false);
         });
     }
-  }, [isConfigLoading]);
+  }, []);
+
+  useEffect(() => {
+    if (!clientTheme) return;
+
+    const setClientTheme = async () => {
+      try {
+        const colorMode = clientTheme.themeColor === 'dark' ? 'dark' : 'light';
+        const { textColor, buttonColor, buttonRadius, containerRadius, backgroundColor, neutralColor } = clientTheme;
+        document.documentElement.setAttribute('data-color-mode', colorMode);
+        if (textColor) setColors('text', textColor);
+        if (buttonRadius) setRadius('button', buttonRadius);
+        if (containerRadius) setRadius('container', containerRadius);
+        if (backgroundColor) setColors('surface', backgroundColor);
+        if (neutralColor) setColors('neutral', neutralColor);
+        if (buttonColor) setColors('brand', buttonColor);
+        onReady?.();
+      } catch (e) {
+        console.error('Error setting client theme', e);
+      }
+    };
+
+    setClientTheme();
+  }, [clientTheme]);
 
   // Reset to login view when modal is opened
   useEffect(() => {
@@ -151,25 +181,7 @@ export function MagicWidget({
     }
   };
 
-  if (isConfigLoading) {
-    const loadingContent = (
-      <Modal>
-        <VStack alignItems="center" justifyContent="center" height="300px">
-          <LoadingSpinner />
-        </VStack>
-      </Modal>
-    );
-
-    if (isModal) {
-      return (
-        <div style={modalBackdropStyles} onClick={handleBackdropClick}>
-          <div style={modalContentStyles}>{loadingContent}</div>
-        </div>
-      );
-    }
-
-    return loadingContent;
-  }
+  if (isConfigLoading) return null;
 
   const widgetContent = (
     <WidgetConfigProvider

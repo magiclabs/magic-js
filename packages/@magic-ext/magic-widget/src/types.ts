@@ -171,4 +171,11 @@ export interface MagicWidgetProps {
    * @example onError={(error) => console.error(error.message)}
    */
   onError?: (error: Error) => void;
+
+  /**
+   * Callback fired when the widget has finished initializing and is ready to display.
+   * Use this to hide your custom loading UI.
+   * @example onReady={() => setIsLoading(false)}
+   */
+  onReady?: () => void;
 }
