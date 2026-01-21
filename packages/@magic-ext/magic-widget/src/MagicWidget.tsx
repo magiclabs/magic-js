@@ -70,7 +70,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
 
   return (
     <EmailLoginProvider dispatch={dispatch}>
-      <Modal>
+      <Modal removeTopOffset>
         <VStack alignItems="center" width="full">
           {renderView()}
           <Footer />
