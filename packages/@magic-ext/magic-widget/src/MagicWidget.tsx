@@ -133,10 +133,7 @@ export function MagicWidget({
         .catch(err => {
           console.error('Failed to fetch config:', err);
           setIsConfigLoading(false);
-          onReady?.();
         });
-    } else {
-      onReady?.();
     }
   }, []);
 
