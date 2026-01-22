@@ -3318,7 +3318,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@^33.1.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+"@magic-sdk/provider@^33.1.1, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
@@ -14518,7 +14518,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
-    "@magic-sdk/provider": ^33.1.0
+    "@magic-sdk/provider": ^33.1.1
     "@magic-sdk/types": ^27.1.0
     localforage: ^1.7.4
   languageName: unknown
@@ -20237,9 +20237,9 @@ resolve@~1.7.1:
   linkType: hard
 
 "undici@npm:^6.18.2":
-  version: 6.21.2
-  resolution: "undici@npm:6.21.2"
-  checksum: 4d7227910bfee0703ea5c5c9d4343bcb2a80d2ce2eb64698b6fb8cc48852e29f7c7c623126161a5073fd594c9040ae7e7ecc8e093fe6e84a9394dd2595754ec5
+  version: 6.23.0
+  resolution: "undici@npm:6.23.0"
+  checksum: f0953920330375e76d1614381af07da9d7c21ad3244d0785b3f7bd4072635c20a1f432ef3a129baa3e4a92278ce32e9ea2ca8b5f0e0554a5739222af332c08fe
   languageName: node
   linkType: hard
 
