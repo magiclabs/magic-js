@@ -1,6 +1,6 @@
 import React from 'react';
 import { VStack, Box } from '../../styled-system/jsx';
-import { IcoCheckmarkCircleFill, LoadingSpinner, Text } from '@magiclabs/ui-components';
+import { IcoCheckmarkCircleFill, IcoDismissCircleFill, LoadingSpinner, Text } from '@magiclabs/ui-components';
 import { css } from '../../styled-system/css';
 import { token } from '../../styled-system/tokens';
 import WidgetHeader from 'src/components/WidgetHeader';
@@ -24,12 +24,19 @@ const centeredIconClass = css({
 export const Pending = ({ onPressBack, title, description, Icon, isPending, errorMessage }: PendingProps) => {
   return (
     <>
-      <WidgetHeader onPressBack={isPending ? onPressBack : undefined} showHeaderText={false} />
+      <WidgetHeader onPressBack={isPending || errorMessage ? onPressBack : undefined} showHeaderText={false} />
       <VStack gap={6} pt={4}>
         <Box position="relative" h={20} w={20}>
           {isPending && <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />}
           {isPending ? (
             <Icon width={36} height={36} className={centeredIconClass} />
+          ) : errorMessage ? (
+            <IcoDismissCircleFill
+              width={36}
+              height={36}
+              color={token('colors.negative.darker')}
+              className={centeredIconClass}
+            />
           ) : (
             <IcoCheckmarkCircleFill
               width={36}
