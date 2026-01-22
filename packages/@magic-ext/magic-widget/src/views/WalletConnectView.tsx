@@ -49,12 +49,6 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
         chains: chainIds,
         optionalChains: chainIds,
         showQrModal: false, // We handle the QR code display ourselves
-        metadata: {
-          name: 'Magic',
-          description: 'Magic Wallet',
-          url: 'https://magic.link',
-          icons: ['https://magic.link/favicon.ico'],
-        },
       });
 
       providerRef.current = provider;
