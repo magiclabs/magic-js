@@ -1,12 +1,13 @@
 // Widget view state machine
 
-import { LoginProvider, OAuthProvider, ThirdPartyWallet } from './types';
+import { LoginProvider, OAuthProvider, ThirdPartyWallet, ThirdPartyWallets } from './types';
 
 export type View =
   | 'login'
   | 'otp'
   | 'additional_providers'
   | 'wallet_pending'
+  | 'walletconnect_pending'
   | 'oauth_pending'
   | 'email_otp_pending'
   | 'device_verification'
@@ -41,6 +42,7 @@ export interface WidgetState {
   // Data passed between views
   email?: string;
   selectedProvider?: LoginProvider;
+  walletAddress?: string; // For WalletConnect when using EthereumProvider directly
   error?: string;
   // Email login flow state
   emailLoginStatus?: EmailLoginStatus;
@@ -74,7 +76,8 @@ export type WidgetAction =
   | { type: 'SELECT_PROVIDER'; provider: OAuthProvider }
   | { type: 'GO_TO_ADDITIONAL_PROVIDERS' }
   // Wallet flow
-  | { type: 'SELECT_WALLET'; provider: ThirdPartyWallet };
+  | { type: 'SELECT_WALLET'; provider: ThirdPartyWallet }
+  | { type: 'WALLETCONNECT_CONNECTED'; address: string };
 
 export const initialState: WidgetState = {
   view: 'login',
@@ -85,7 +88,13 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
   switch (action.type) {
     // Navigation
     case 'GO_TO_LOGIN':
-      return { ...initialState };
+      return {
+        ...initialState,
+        selectedProvider: undefined,
+        walletAddress: undefined,
+        email: undefined,
+        error: undefined,
+      };
 
     // Email OTP flow
     case 'EMAIL_OTP_START':
@@ -236,8 +245,16 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
       };
 
     // Wallet flow
-    case 'SELECT_WALLET':
-      return { ...state, view: 'wallet_pending', selectedProvider: action.provider, error: undefined };
+    case 'SELECT_WALLET': {
+      const isWalletConnect =
+        action.provider === ThirdPartyWallets.WALLETCONNECT ||
+        action.provider.toLowerCase() === 'walletconnect';
+      const walletView = isWalletConnect ? 'walletconnect_pending' : 'wallet_pending';
+      return { ...state, view: walletView, selectedProvider: action.provider, error: undefined };
+    }
+
+    case 'WALLETCONNECT_CONNECTED':
+      return { ...state, view: 'wallet_pending', walletAddress: action.address, selectedProvider: ThirdPartyWallets.WALLETCONNECT };
 
     // OAuth flow
     case 'SELECT_PROVIDER':

@@ -19,6 +19,7 @@ import { LoginSuccessView } from './views/LoginSuccessView';
 import { MFAView } from './views/MfaView';
 import { RecoveryCodeView } from './views/RecoveryCode';
 import { LostRecoveryCode } from './views/LostRecoveryCode';
+import { WalletConnectView } from './views/WalletConnectView';
 import { ClientTheme } from './types/client-config';
 
 // Create a query client for react-query
@@ -37,16 +38,39 @@ function injectCSS() {
 }
 
 // The actual widget content
-function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: React.Dispatch<WidgetAction> }) {
+function WidgetContent({ state, dispatch, showFooterLogo }: { state: WidgetState; dispatch: React.Dispatch<WidgetAction>; showFooterLogo: boolean }) {
   // Render the current view
   const renderView = () => {
     switch (state.view) {
       case 'login':
         return <LoginView dispatch={dispatch} />;
       case 'wallet_pending':
-        return <WalletPendingView provider={state.selectedProvider as ThirdPartyWallet} dispatch={dispatch} />;
+        // Only render if we have a valid selectedProvider
+        if (!state.selectedProvider) {
+          return <LoginView dispatch={dispatch} />;
+        }
+        return (
+          <WalletPendingView
+            key={`wallet-${state.selectedProvider}`}
+            provider={state.selectedProvider as ThirdPartyWallet}
+            state={state}
+            dispatch={dispatch}
+          />
+        );
+      case 'walletconnect_pending':
+        return <WalletConnectView key="walletconnect" dispatch={dispatch} />;
       case 'oauth_pending':
-        return <OAuthPendingView provider={state.selectedProvider as OAuthProvider} dispatch={dispatch} />;
+        // Only render if we have a valid selectedProvider
+        if (!state.selectedProvider) {
+          return <LoginView dispatch={dispatch} />;
+        }
+        return (
+          <OAuthPendingView
+            key={`oauth-${state.selectedProvider}`}
+            provider={state.selectedProvider as OAuthProvider}
+            dispatch={dispatch}
+          />
+        );
       case 'additional_providers':
         return <AdditionalProvidersView dispatch={dispatch} />;
       case 'email_otp_pending':
@@ -73,7 +97,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
       <Modal removeTopOffset>
         <VStack alignItems="center" width="full">
           {renderView()}
-          <Footer />
+          <Footer showLogo={showFooterLogo} />
         </VStack>
       </Modal>
     </EmailLoginProvider>
@@ -119,6 +143,7 @@ export function MagicWidget({
   });
   const { setColors, setRadius } = useCustomVars({});
   const [clientTheme, setClientTheme] = useState<ClientTheme | null>(null);
+  const [showFooterLogo, setShowFooterLogo] = useState(false);
 
   useEffect(() => {
     injectCSS();
@@ -128,6 +153,7 @@ export function MagicWidget({
         .fetchConfig()
         .then(clientConfig => {
           setClientTheme(clientConfig.theme);
+          setShowFooterLogo(clientConfig.theme.customBrandingType !== 2);
           setIsConfigLoading(false);
         })
         .catch(err => {
@@ -160,12 +186,19 @@ export function MagicWidget({
     setClientTheme();
   }, [clientTheme]);
 
-  // Reset to login view when modal is opened
+  // Reset to login view when modal is closed or opened
+  const prevIsOpenRef = React.useRef(isOpen);
   useEffect(() => {
-    if (isOpen) {
+    // Reset when modal closes (to prevent stale state on reopen)
+    if (!isOpen && prevIsOpenRef.current) {
       dispatch({ type: 'GO_TO_LOGIN' });
     }
-  }, [isOpen]);
+    // Reset when modal opens (ensures clean state)
+    if (isOpen && !prevIsOpenRef.current) {
+      dispatch({ type: 'GO_TO_LOGIN' });
+    }
+    prevIsOpenRef.current = isOpen;
+  }, [isOpen, dispatch]);
 
   if (!isOpen) {
     return null;
@@ -194,7 +227,7 @@ export function MagicWidget({
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <div id="magic-widget-container">
-            <WidgetContent state={state} dispatch={dispatch} />
+            <WidgetContent state={state} dispatch={dispatch} showFooterLogo={showFooterLogo} />
           </div>
         </QueryClientProvider>
       </WagmiProvider>
