@@ -1,14 +1,16 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import { useAccount, useDisconnect } from 'wagmi';
-import { VStack, } from '../../styled-system/jsx';
+import { VStack } from '../../styled-system/jsx';
 import { QRCode, Text, Skeleton } from '@magiclabs/ui-components';
 import { WidgetAction } from '../reducer';
 import { WALLET_METADATA } from '../constants';
 import { ThirdPartyWallets } from '../types';
 import WidgetHeader from '../components/WidgetHeader';
 import { EthereumProvider } from '@walletconnect/ethereum-provider';
-import { projectId, networks } from '../wagmi/config';
+import { projectId, networks, wagmiAdapter } from '../wagmi/config';
 import { setWalletConnectProvider } from '../wagmi/walletconnect-provider';
+import { isMobile } from '../utils/device';
+import { createAppKit } from '@reown/appkit';
 import type { Address } from 'viem';
 import { Center } from '@styled/jsx/center';
 
@@ -26,10 +28,45 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
   const [connectionAttempted, setConnectionAttempted] = useState(false);
   const [wcAddress, setWcAddress] = useState<Address | null>(null);
 
-  const { displayName, Icon } = WALLET_METADATA[ThirdPartyWallets.WALLETCONNECT];
+  const { Icon } = WALLET_METADATA[ThirdPartyWallets.WALLETCONNECT];
 
-  // Initiate connection on mount using Ethereum provider directly
-  const initiateConnection = useCallback(async () => {
+  // Detect mobile synchronously
+  const isMobileDevice = typeof window !== 'undefined' && isMobile();
+
+  // Create AppKit instance for mobile (only create if mobile)
+  const appKit = useMemo(() => {
+    if (typeof window === 'undefined') return null;
+    if (!isMobileDevice) return null;
+    return createAppKit({
+      adapters: [wagmiAdapter],
+      networks: networks,
+      projectId: projectId,
+    });
+  }, [isMobileDevice]);
+
+  // Mobile connection flow using AppKit modal
+  const initiateMobileConnection = useCallback(() => {
+    if (connectionAttempted || !appKit) return;
+
+    setConnectionAttempted(true);
+    setErrorMessage(null);
+
+    try {
+      // If already connected to a different wallet, disconnect first
+      if (isConnected) {
+        disconnect();
+      }
+
+      // Open AppKit modal for wallet selection
+      appKit.open();
+    } catch (err) {
+      const error = err as Error;
+      setErrorMessage(error?.message || 'Failed to open wallet selection');
+    }
+  }, [connectionAttempted, appKit, isConnected, disconnect]);
+
+  // Desktop connection flow using EthereumProvider (existing implementation)
+  const initiateDesktopConnection = useCallback(async () => {
     if (connectionAttempted) return;
 
     setConnectionAttempted(true);
@@ -87,27 +124,44 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
     }
   }, [connectionAttempted, isConnected, disconnect, dispatch]);
 
+  // Initiate connection based on device type
   useEffect(() => {
-    initiateConnection();
-  }, [initiateConnection]);
+    if (isMobileDevice) {
+      initiateMobileConnection();
+    } else {
+      initiateDesktopConnection();
+    }
+  }, [isMobileDevice, initiateMobileConnection, initiateDesktopConnection]);
 
-  // When connection is established, transition to WalletPendingView for SIWE
+  // For mobile: Listen for connection via wagmi (AppKit connects through wagmi)
   useEffect(() => {
-    if (wcAddress) {
+    if (isMobileDevice && isConnected && address) {
+      // AppKit connected through wagmi, transition to WalletPendingView
+      dispatch({ type: 'WALLETCONNECT_CONNECTED', address: address });
+    }
+  }, [isMobileDevice, isConnected, address, dispatch]);
+
+  // For desktop: When connection is established via EthereumProvider, transition to WalletPendingView for SIWE
+  useEffect(() => {
+    if (!isMobileDevice && wcAddress) {
       // Store the provider reference for SIWE signing
       // Pass the address through the action
       dispatch({ type: 'WALLETCONNECT_CONNECTED', address: wcAddress });
     }
-  }, [wcAddress, dispatch]);
+  }, [isMobileDevice, wcAddress, dispatch]);
 
   const handleBack = () => {
-    // Cleanup provider on back
+    // Cleanup provider on back (desktop only)
     if (providerRef.current) {
       providerRef.current.disconnect().catch(() => {
         // Ignore cleanup errors
       });
       providerRef.current = null;
       setWalletConnectProvider(null);
+    }
+    // Close AppKit modal if open (mobile)
+    if (appKit) {
+      appKit.close();
     }
     dispatch({ type: 'GO_TO_LOGIN' });
   };
@@ -130,6 +184,25 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
     );
   }
 
+  // Mobile: Show loading state while AppKit modal is open
+  if (isMobileDevice) {
+    return (
+      <>
+        <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
+        <VStack gap={6} pt={4} alignItems="center">
+          <Icon width={60} height={60} />
+          <VStack gap={2} alignItems="center">
+            <Text.H4>Select your wallet</Text.H4>
+            <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
+              Choose a wallet app to connect
+            </Text>
+          </VStack>
+        </VStack>
+      </>
+    );
+  }
+
+  // Desktop: Show custom QR code (existing behavior)
   return (
     <>
       <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
