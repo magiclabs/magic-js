@@ -18,8 +18,9 @@ export const OAuthPendingView = ({ provider, dispatch }: OAuthPendingViewProps) 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Trigger OAuth login on mount
+  // Only trigger if we have a valid provider
   useEffect(() => {
-    if (!loginAttempted) {
+    if (!loginAttempted && provider) {
       setLoginAttempted(true);
 
       performOAuthLogin(provider as ExtensionOAuthProvider).catch(err => {

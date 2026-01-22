@@ -45,11 +45,32 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
       case 'login':
         return <LoginView dispatch={dispatch} />;
       case 'wallet_pending':
-        return <WalletPendingView provider={state.selectedProvider as ThirdPartyWallet} state={state} dispatch={dispatch} />;
+        // Only render if we have a valid selectedProvider
+        if (!state.selectedProvider) {
+          return <LoginView dispatch={dispatch} />;
+        }
+        return (
+          <WalletPendingView
+            key={`wallet-${state.selectedProvider}`}
+            provider={state.selectedProvider as ThirdPartyWallet}
+            state={state}
+            dispatch={dispatch}
+          />
+        );
       case 'walletconnect_pending':
-        return <WalletConnectView dispatch={dispatch} />;
+        return <WalletConnectView key="walletconnect" dispatch={dispatch} />;
       case 'oauth_pending':
-        return <OAuthPendingView provider={state.selectedProvider as OAuthProvider} dispatch={dispatch} />;
+        // Only render if we have a valid selectedProvider
+        if (!state.selectedProvider) {
+          return <LoginView dispatch={dispatch} />;
+        }
+        return (
+          <OAuthPendingView
+            key={`oauth-${state.selectedProvider}`}
+            provider={state.selectedProvider as OAuthProvider}
+            dispatch={dispatch}
+          />
+        );
       case 'additional_providers':
         return <AdditionalProvidersView dispatch={dispatch} />;
       case 'email_otp_pending':
@@ -163,12 +184,19 @@ export function MagicWidget({
     setClientTheme();
   }, [clientTheme]);
 
-  // Reset to login view when modal is opened
+  // Reset to login view when modal is closed or opened
+  const prevIsOpenRef = React.useRef(isOpen);
   useEffect(() => {
-    if (isOpen) {
+    // Reset when modal closes (to prevent stale state on reopen)
+    if (!isOpen && prevIsOpenRef.current) {
       dispatch({ type: 'GO_TO_LOGIN' });
     }
-  }, [isOpen]);
+    // Reset when modal opens (ensures clean state)
+    if (isOpen && !prevIsOpenRef.current) {
+      dispatch({ type: 'GO_TO_LOGIN' });
+    }
+    prevIsOpenRef.current = isOpen;
+  }, [isOpen, dispatch]);
 
   if (!isOpen) {
     return null;

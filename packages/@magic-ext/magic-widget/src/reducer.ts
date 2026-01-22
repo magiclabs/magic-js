@@ -88,7 +88,13 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
   switch (action.type) {
     // Navigation
     case 'GO_TO_LOGIN':
-      return { ...initialState };
+      return {
+        ...initialState,
+        selectedProvider: undefined,
+        walletAddress: undefined,
+        email: undefined,
+        error: undefined,
+      };
 
     // Email OTP flow
     case 'EMAIL_OTP_START':

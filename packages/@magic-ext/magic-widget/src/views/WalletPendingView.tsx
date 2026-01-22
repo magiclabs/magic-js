@@ -14,6 +14,10 @@ interface WalletPendingViewProps {
 }
 
 export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingViewProps) => {
+  // Only proceed if we're actually in the wallet_pending view
+  if (state.view !== 'wallet_pending') {
+    return null;
+  }
   const {
     connectWallet,
     isPending: isWalletPending,
@@ -37,8 +41,9 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
 
   // Initiate wallet connection on mount (only if not already connected to the SELECTED provider)
   // Skip for WalletConnect since it's already connected via EthereumProvider
+  // Only trigger if we have a valid provider AND we're in the wallet_pending view
   useEffect(() => {
-    if (!connectionAttempted && !isWalletConnect) {
+    if (!connectionAttempted && !isWalletConnect && provider && state.view === 'wallet_pending') {
       setConnectionAttempted(true);
 
       // Only skip wallet connection if already connected to the SAME wallet type
@@ -78,6 +83,11 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
   // 2. We haven't already attempted SIWE for this specific address
   // 3. We're not currently in a loading state (prevents double-calls during reconnection)
   useEffect(() => {
+    // Only attempt SIWE if we're actually in the wallet_pending view
+    if (state.view !== 'wallet_pending') {
+      return;
+    }
+    
     // For WalletConnect, ensure the provider is available and session is active
     const wcProvider = isWalletConnect ? getWalletConnectProvider() : null;
     const isWcReady = isWalletConnect && address && wcProvider && wcProvider.session;
