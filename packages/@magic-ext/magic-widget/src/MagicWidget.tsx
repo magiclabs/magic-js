@@ -38,7 +38,7 @@ function injectCSS() {
 }
 
 // The actual widget content
-function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: React.Dispatch<WidgetAction> }) {
+function WidgetContent({ state, dispatch, showFooterLogo }: { state: WidgetState; dispatch: React.Dispatch<WidgetAction>; showFooterLogo: boolean }) {
   // Render the current view
   const renderView = () => {
     switch (state.view) {
@@ -97,7 +97,7 @@ function WidgetContent({ state, dispatch }: { state: WidgetState; dispatch: Reac
       <Modal removeTopOffset>
         <VStack alignItems="center" width="full">
           {renderView()}
-          <Footer />
+          <Footer showLogo={showFooterLogo} />
         </VStack>
       </Modal>
     </EmailLoginProvider>
@@ -143,6 +143,7 @@ export function MagicWidget({
   });
   const { setColors, setRadius } = useCustomVars({});
   const [clientTheme, setClientTheme] = useState<ClientTheme | null>(null);
+  const [showFooterLogo, setShowFooterLogo] = useState(false);
 
   useEffect(() => {
     injectCSS();
@@ -152,6 +153,7 @@ export function MagicWidget({
         .fetchConfig()
         .then(clientConfig => {
           setClientTheme(clientConfig.theme);
+          setShowFooterLogo(clientConfig.theme.customBrandingType !== 2);
           setIsConfigLoading(false);
         })
         .catch(err => {
@@ -225,7 +227,7 @@ export function MagicWidget({
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <div id="magic-widget-container">
-            <WidgetContent state={state} dispatch={dispatch} />
+            <WidgetContent state={state} dispatch={dispatch} showFooterLogo={showFooterLogo} />
           </div>
         </QueryClientProvider>
       </WagmiProvider>

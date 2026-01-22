@@ -177,7 +177,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
         <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
         <VStack gap={6} pt={4} alignItems="center">
           <Icon width={60} height={60} />
-          <VStack gap={2} alignItems="center">
+          <VStack gap={2} alignItems="center" px={7}>
             <Text.H4>Connection Failed</Text.H4>
             <Text variant="error" styles={{ textAlign: 'center' }}>
               {errorMessage}
@@ -195,7 +195,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
         <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
         <VStack gap={6} pt={4} alignItems="center">
           <Icon width={60} height={60} />
-          <VStack gap={2} alignItems="center">
+          <VStack gap={2} alignItems="center" px={7}>
             <Text.H4>Select your wallet</Text.H4>
             <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
               Choose a wallet app to connect
@@ -229,7 +229,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
             <Skeleton width={286} height={286} borderRadius={16} backgroundColor="surface.secondary" />
           </Center>
         )}
-        <VStack gap={2} alignItems="center">
+        <VStack gap={2} alignItems="center" px={7}>
           <Text.H4>Scan with your wallet</Text.H4>
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
             Open your mobile wallet and scan this QR code to connect

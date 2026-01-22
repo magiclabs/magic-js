@@ -1,4 +1,5 @@
 import { ComponentType } from 'react';
+import { OAuthRedirectResult } from './extension';
 
 /**
  * Available third-party wallet providers.
@@ -74,10 +75,10 @@ export interface EmailLoginResult {
  */
 export interface OAuthLoginResult {
   method: 'oauth';
-  /** The DID token for authentication */
-  didToken: string;
   /** OAuth provider information */
-  oauth: OAuthUserInfo;
+  oauth: OAuthRedirectResult['oauth'];
+  /** Magic user metadata */
+  magic: OAuthRedirectResult['magic'];
 }
 
 /**

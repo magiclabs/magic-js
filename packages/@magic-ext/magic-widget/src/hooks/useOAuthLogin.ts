@@ -33,13 +33,8 @@ export function useOAuthLogin(): UseOAuthLoginResult {
         setIsLoading(false);
         handleSuccess({
           method: 'oauth',
-          didToken: oauthResult.magic.idToken,
-          oauth: {
-            provider: oauthResult.oauth.provider,
-            name: oauthResult.oauth.userInfo.name,
-            email: oauthResult.oauth.userInfo.email,
-            picture: oauthResult.oauth.userInfo.picture,
-          },
+          magic: oauthResult.magic,
+          oauth: oauthResult.oauth,
         });
 
         return oauthResult;
