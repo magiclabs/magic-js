@@ -218,9 +218,9 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
             qrStyle="dots"
             size={262}
             logoImage={WALLETCONNECT_LOGO_DATA_URL}
-            logoHeight={64}
-            logoWidth={64}
-            logoPadding={16}
+            logoHeight={52}
+            logoWidth={52}
+            logoPadding={12}
             style={{ borderRadius: 16 }}
             quietZone={12}
           />
