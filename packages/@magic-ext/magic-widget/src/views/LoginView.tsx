@@ -35,7 +35,7 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
   return (
     <>
       <WidgetHeader />
-      <VStack w="full" gap={10} mt={2} px={7} flex={1}>
+      <VStack w="full" gap={10} mt={2} px={7}>
         {config?.theme.assetUri && <img src={config.theme.assetUri} alt="Logo" width={80} height={80} />}
 
         <VStack width="full" maxWidth='25rem' gap={4}>
