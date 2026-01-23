@@ -45,7 +45,7 @@
     "@styled/patterns": "./styled-system/patterns"
   },
   "dependencies": {
-    "@magiclabs/ui-components": "^1.49.1",
+    "@magiclabs/ui-components": "^1.49.2",
     "@reown/appkit": "1.8.14",
     "@reown/appkit-adapter-wagmi": "1.8.14",
     "@tanstack/react-query": "^5.0.0",

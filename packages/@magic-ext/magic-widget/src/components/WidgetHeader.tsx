@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Header, IcoArrowLeft, IcoDismiss, Page, Text } from '@magiclabs/ui-components';
+import { Button, Header, IcoArrowLeft, IcoDismiss, Text } from '@magiclabs/ui-components';
 import { useWidgetConfig } from '../context/WidgetConfigContext';
 
 type WidgetHeaderProps = {

@@ -1,4 +1,4 @@
-import { Footer, LoadingSpinner, Modal, useCustomVars } from '@magiclabs/ui-components';
+import { Footer, Modal, useCustomVars } from '@magiclabs/ui-components';
 import { VStack } from '../styled-system/jsx';
 import React, { useEffect, useReducer, useState } from 'react';
 import { WagmiProvider } from 'wagmi';
@@ -21,6 +21,8 @@ import { RecoveryCodeView } from './views/RecoveryCode';
 import { LostRecoveryCode } from './views/LostRecoveryCode';
 import { WalletConnectView } from './views/WalletConnectView';
 import { ClientTheme } from './types/client-config';
+import { css } from '@styled/css';
+import { useMediaQuery } from './hooks/useMediaQuery';
 
 // Create a query client for react-query
 const queryClient = new QueryClient();
@@ -38,7 +40,9 @@ function injectCSS() {
 }
 
 // The actual widget content
-function WidgetContent({ state, dispatch, showFooterLogo }: { state: WidgetState; dispatch: React.Dispatch<WidgetAction>; showFooterLogo: boolean }) {
+function WidgetContent({ state, dispatch, showFooterLogo, isModal }: { state: WidgetState; dispatch: React.Dispatch<WidgetAction>; showFooterLogo: boolean; isModal: boolean }) {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
   // Render the current view
   const renderView = () => {
     switch (state.view) {
@@ -94,8 +98,8 @@ function WidgetContent({ state, dispatch, showFooterLogo }: { state: WidgetState
 
   return (
     <EmailLoginProvider dispatch={dispatch}>
-      <Modal removeTopOffset>
-        <VStack alignItems="center" width="full">
+      <Modal isWidget fullscreen={isModal && isMobile}>
+        <VStack width="full" minWidth="380px">
           {renderView()}
           <Footer showLogo={showFooterLogo} />
         </VStack>
@@ -116,7 +120,6 @@ const modalBackdropStyles: React.CSSProperties = {
   display: 'flex',
   alignItems: 'flex-start',
   justifyContent: 'center',
-  paddingTop: '15vh', // Slightly above center
   zIndex: 9999,
 };
 
@@ -227,7 +230,7 @@ export function MagicWidget({
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <div id="magic-widget-container">
-            <WidgetContent state={state} dispatch={dispatch} showFooterLogo={showFooterLogo} />
+            <WidgetContent state={state} dispatch={dispatch} showFooterLogo={showFooterLogo} isModal={isModal} />
           </div>
         </QueryClientProvider>
       </WagmiProvider>
@@ -236,7 +239,7 @@ export function MagicWidget({
 
   if (isModal) {
     return (
-      <div style={modalBackdropStyles} onClick={handleBackdropClick}>
+      <div style={modalBackdropStyles} className={css({ '@media (min-width: 769px)': { paddingTop: '15vh' } })} onClick={handleBackdropClick}>
         <div style={modalContentStyles}>{widgetContent}</div>
       </div>
     );
