@@ -17,10 +17,8 @@ export const OAuthPendingView = ({ provider, dispatch }: OAuthPendingViewProps) 
   const [loginAttempted, setLoginAttempted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Trigger OAuth login on mount
-  // Only trigger if we have a valid provider
   useEffect(() => {
-    if (!loginAttempted && provider) {
+    if (!loginAttempted) {
       setLoginAttempted(true);
 
       performOAuthLogin(provider as ExtensionOAuthProvider).catch(err => {
@@ -61,7 +59,6 @@ export const OAuthPendingView = ({ provider, dispatch }: OAuthPendingViewProps) 
     }
   }, [oauthError, loginAttempted]);
 
-  // Show spinner until OAuth is complete or there's an error
   const isPending = !errorMessage && (isLoading || (!isSuccess && !oauthError));
 
   return (

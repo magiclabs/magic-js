@@ -1,6 +1,3 @@
-// Mobile device detection utility
-// Based on farcaster's implementation
-
 export function isAndroid(): boolean {
   return typeof navigator !== 'undefined' && /android/i.test(navigator.userAgent);
 }

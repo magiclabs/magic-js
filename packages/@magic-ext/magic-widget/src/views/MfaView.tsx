@@ -1,10 +1,10 @@
 import { Button, IcoLockLocked, Text, VerifyPincode } from '@magiclabs/ui-components';
-import { Box, VStack } from '@styled/jsx';
+import { VStack } from '@styled/jsx';
 import { token } from '@styled/tokens';
 import React from 'react';
-import WidgetHeader from 'src/components/WidgetHeader';
-import { useEmailLogin } from 'src/context';
-import { WidgetAction, WidgetState } from 'src/reducer';
+import WidgetHeader from '../components/WidgetHeader';
+import { useEmailLogin } from '../context';
+import { WidgetAction, WidgetState } from '../reducer';
 
 interface MFAViewProps {
   state: WidgetState;

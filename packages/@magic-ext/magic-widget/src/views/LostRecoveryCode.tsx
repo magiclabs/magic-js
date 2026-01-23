@@ -2,9 +2,9 @@ import { IcoLockLocked, Text } from '@magiclabs/ui-components';
 import { VStack } from '@styled/jsx';
 import { token } from '@styled/tokens';
 import React from 'react';
-import WidgetHeader from 'src/components/WidgetHeader';
-import { getExtensionInstance } from 'src/extension';
-import { WidgetAction } from 'src/reducer';
+import WidgetHeader from '../components/WidgetHeader';
+import { getExtensionInstance } from '../extension';
+import { WidgetAction } from '../reducer';
 
 export const LostRecoveryCode = ({ dispatch }: { dispatch: React.Dispatch<WidgetAction> }) => {
   const config = getExtensionInstance().getConfig();

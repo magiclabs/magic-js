@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@styled/css';
-import { Box, Stack, VStack } from '../../styled-system/jsx';
+import { Box, Stack, VStack } from '@styled/jsx';
 import { OAuthProvider } from 'src/types';
 import { WidgetAction } from 'src/reducer';
 import WidgetHeader from 'src/components/WidgetHeader';

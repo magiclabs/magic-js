@@ -24,7 +24,6 @@ import { ClientTheme } from './types/client-config';
 import { css } from '@styled/css';
 import { useMediaQuery } from './hooks/useMediaQuery';
 
-// Create a query client for react-query
 const queryClient = new QueryClient();
 
 // Inject CSS into document head (only once)
@@ -39,17 +38,24 @@ function injectCSS() {
   cssInjected = true;
 }
 
-// The actual widget content
-function WidgetContent({ state, dispatch, showFooterLogo, isModal }: { state: WidgetState; dispatch: React.Dispatch<WidgetAction>; showFooterLogo: boolean; isModal: boolean }) {
+function WidgetContent({
+  state,
+  dispatch,
+  showFooterLogo,
+  isModal,
+}: {
+  state: WidgetState;
+  dispatch: React.Dispatch<WidgetAction>;
+  showFooterLogo: boolean;
+  isModal: boolean;
+}) {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  // Render the current view
   const renderView = () => {
     switch (state.view) {
       case 'login':
         return <LoginView dispatch={dispatch} />;
       case 'wallet_pending':
-        // Only render if we have a valid selectedProvider
         if (!state.selectedProvider) {
           return <LoginView dispatch={dispatch} />;
         }
@@ -64,7 +70,6 @@ function WidgetContent({ state, dispatch, showFooterLogo, isModal }: { state: Wi
       case 'walletconnect_pending':
         return <WalletConnectView key="walletconnect" dispatch={dispatch} />;
       case 'oauth_pending':
-        // Only render if we have a valid selectedProvider
         if (!state.selectedProvider) {
           return <LoginView dispatch={dispatch} />;
         }
@@ -89,8 +94,6 @@ function WidgetContent({ state, dispatch, showFooterLogo, isModal }: { state: Wi
         return <LostRecoveryCode dispatch={dispatch} />;
       case 'login_success':
         return <LoginSuccessView state={state} />;
-
-      // Add more views here as you implement them
       default:
         return <LoginView dispatch={dispatch} />;
     }
@@ -108,7 +111,6 @@ function WidgetContent({ state, dispatch, showFooterLogo, isModal }: { state: Wi
   );
 }
 
-// Styles for modal mode
 const modalBackdropStyles: React.CSSProperties = {
   position: 'fixed',
   top: 0,
@@ -127,7 +129,6 @@ const modalContentStyles: React.CSSProperties = {
   position: 'relative',
 };
 
-// Main widget component
 export function MagicWidget({
   displayMode = 'inline',
   isOpen = true,
@@ -239,7 +240,11 @@ export function MagicWidget({
 
   if (isModal) {
     return (
-      <div style={modalBackdropStyles} className={css({ '@media (min-width: 769px)': { paddingTop: '15vh' } })} onClick={handleBackdropClick}>
+      <div
+        style={modalBackdropStyles}
+        className={css({ '@media (min-width: 769px)': { paddingTop: '15vh' } })}
+        onClick={handleBackdropClick}
+      >
         <div style={modalContentStyles}>{widgetContent}</div>
       </div>
     );

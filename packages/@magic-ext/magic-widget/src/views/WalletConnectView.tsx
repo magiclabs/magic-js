@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import { useAccount, useDisconnect } from 'wagmi';
-import { VStack } from '../../styled-system/jsx';
+import { VStack, Center } from '@styled/jsx';
 import { QRCode, Text, Skeleton } from '@magiclabs/ui-components';
 import { WidgetAction } from '../reducer';
 import { WALLET_METADATA } from '../constants';
@@ -12,7 +12,6 @@ import { setWalletConnectProvider } from '../wagmi/walletconnect-provider';
 import { isMobile } from '../utils/device';
 import { createAppKit } from '@reown/appkit';
 import type { Address } from 'viem';
-import { Center } from '@styled/jsx/center';
 
 // WalletConnect logo as data URL (base64 encoded SVG)
 const WALLETCONNECT_LOGO_DATA_URL =
@@ -34,7 +33,6 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
 
   const { Icon } = WALLET_METADATA[ThirdPartyWallets.WALLETCONNECT];
 
-  // Detect mobile synchronously
   const isMobileDevice = typeof window !== 'undefined' && isMobile();
 
   // Create AppKit instance for mobile (only create if mobile)
@@ -69,7 +67,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
     }
   }, [connectionAttempted, appKit, isConnected, disconnect]);
 
-  // Desktop connection flow using EthereumProvider (existing implementation)
+  // Desktop connection flow using EthereumProvider
   const initiateDesktopConnection = useCallback(async () => {
     if (connectionAttempted) return;
 
@@ -89,21 +87,18 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
         projectId,
         chains: chainIds,
         optionalChains: chainIds,
-        showQrModal: false, // We handle the QR code display ourselves
+        showQrModal: false,
       });
 
       providerRef.current = provider;
-      setWalletConnectProvider(provider); // Store for SIWE signing
+      setWalletConnectProvider(provider);
 
-      // Listen for display_uri event to get QR code
       provider.on('display_uri', (uri: string) => {
         setUri(uri);
       });
 
-      // Connect
       await provider.connect();
 
-      // Get connected address
       const accounts = provider.accounts;
       if (accounts && accounts.length > 0) {
         setWcAddress(accounts[0] as Address);
@@ -148,14 +143,11 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
   // For desktop: When connection is established via EthereumProvider, transition to WalletPendingView for SIWE
   useEffect(() => {
     if (!isMobileDevice && wcAddress) {
-      // Store the provider reference for SIWE signing
-      // Pass the address through the action
       dispatch({ type: 'WALLETCONNECT_CONNECTED', address: wcAddress });
     }
   }, [isMobileDevice, wcAddress, dispatch]);
 
   const handleBack = () => {
-    // Cleanup provider on back (desktop only)
     if (providerRef.current) {
       providerRef.current.disconnect().catch(() => {
         // Ignore cleanup errors
@@ -163,14 +155,12 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
       providerRef.current = null;
       setWalletConnectProvider(null);
     }
-    // Close AppKit modal if open (mobile)
     if (appKit) {
       appKit.close();
     }
     dispatch({ type: 'GO_TO_LOGIN' });
   };
 
-  // Show error state
   if (errorMessage) {
     return (
       <>
@@ -178,7 +168,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
         <VStack gap={6} pt={4} alignItems="center">
           <Icon width={60} height={60} />
           <VStack gap={2} alignItems="center" px={7}>
-            <Text.H4>Connection Failed</Text.H4>
+            <Text.H4 styles={{ textAlign: 'center' }}>Connection Failed</Text.H4>
             <Text variant="error" styles={{ textAlign: 'center' }}>
               {errorMessage}
             </Text>
@@ -188,7 +178,6 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
     );
   }
 
-  // Mobile: Show loading state while AppKit modal is open
   if (isMobileDevice) {
     return (
       <>
@@ -196,7 +185,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
         <VStack gap={6} pt={4} alignItems="center">
           <Icon width={60} height={60} />
           <VStack gap={2} alignItems="center" px={7}>
-            <Text.H4>Select your wallet</Text.H4>
+            <Text.H4 styles={{ textAlign: 'center' }}>Select your wallet</Text.H4>
             <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
               Choose a wallet app to connect
             </Text>
@@ -206,7 +195,6 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
     );
   }
 
-  // Desktop: Show custom QR code (existing behavior)
   return (
     <>
       <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
@@ -230,7 +218,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
           </Center>
         )}
         <VStack gap={2} alignItems="center" px={7}>
-          <Text.H4>Scan with your wallet</Text.H4>
+          <Text.H4 styles={{ textAlign: 'center' }}>Scan with your wallet</Text.H4>
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
             Open your mobile wallet and scan this QR code to connect
           </Text>

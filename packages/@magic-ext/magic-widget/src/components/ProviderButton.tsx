@@ -1,6 +1,6 @@
 import { ButtonContainer, Text } from '@magiclabs/ui-components';
-import { css } from '../../styled-system/css';
-import { Flex } from '../../styled-system/jsx';
+import { css } from '@styled/css';
+import { Flex } from '@styled/jsx';
 import React, { ElementType } from 'react';
 
 interface ProviderButtonProps {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { VStack } from '../../styled-system/jsx';
+import { VStack } from '@styled/jsx';
 import { Text, IcoCheckmarkCircleFill } from '@magiclabs/ui-components';
-import { token } from '../../styled-system/tokens';
+import { token } from '@styled/tokens';
 import { WidgetState } from '../reducer';
 import WidgetHeader from '../components/WidgetHeader';
 

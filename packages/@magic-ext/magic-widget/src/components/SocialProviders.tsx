@@ -3,8 +3,8 @@ import { ProviderButton } from './ProviderButton';
 import { OAUTH_METADATA } from '../constants';
 import { OAuthProvider } from '../types';
 import { IcoKebab } from '@magiclabs/ui-components';
-import { css } from '../../styled-system/css';
-import { HStack } from '../../styled-system/jsx';
+import { css } from '@styled/css';
+import { HStack } from '@styled/jsx';
 import { WidgetAction } from 'src/reducer';
 
 interface SocialProvidersProps {

@@ -19,6 +19,7 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
   if (state.view !== 'wallet_pending') {
     return null;
   }
+
   const {
     connectWallet,
     isPending: isWalletPending,
@@ -31,13 +32,11 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
   // For WalletConnect, use the stored address from state (from EthereumProvider or AppKit)
   // For other wallets, use the address from wagmi connector
   const isWalletConnect = provider === ThirdPartyWallets.WALLETCONNECT;
-  const address = isWalletConnect ? (state.walletAddress || wagmiAddress) : wagmiAddress;
+  const address = isWalletConnect ? state.walletAddress || wagmiAddress : wagmiAddress;
   const { performSiweLogin, isLoading: isSiweLoading, error: siweError, isSuccess: isSiweSuccess } = useSiweLogin();
   const { title, description, Icon } = getProviderConfig(provider);
 
-  // Track whether we've attempted connection and SIWE
   const [connectionAttempted, setConnectionAttempted] = useState(false);
-  // Track which address we've attempted SIWE for (to handle reconnections)
   const [siweAttemptedForAddress, setSiweAttemptedForAddress] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -89,7 +88,7 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
     if (state.view !== 'wallet_pending') {
       return;
     }
-    
+
     // For WalletConnect, check if ready for SIWE:
     // - Desktop: EthereumProvider with active session
     // - Mobile AppKit: Connected via wagmi with address from state (no WalletConnect provider stored)
@@ -98,10 +97,10 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
     // Mobile AppKit WalletConnect: has address from state, connected via wagmi, but no WalletConnect provider
     const isWcMobileReady = isWalletConnect && address && state.walletAddress && isConnected && !wcProvider;
     const shouldAttemptSiwe = isWcDesktopReady || isWcMobileReady || (isConnectedToSelectedProvider && address);
-    
+
     if (shouldAttemptSiwe && siweAttemptedForAddress !== address && !isSiweLoading) {
       setSiweAttemptedForAddress(address);
-      setErrorMessage(null); // Clear any previous errors
+      setErrorMessage(null);
       performSiweLogin(address).catch(err => {
         const errorMessage = (err?.message || '').toLowerCase();
 
@@ -125,7 +124,17 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
         setErrorMessage(err?.message || 'SIWE login failed');
       });
     }
-  }, [isConnectedToSelectedProvider, address, siweAttemptedForAddress, isSiweLoading, performSiweLogin, provider, isWalletConnect, state.walletAddress, isConnected]);
+  }, [
+    isConnectedToSelectedProvider,
+    address,
+    siweAttemptedForAddress,
+    isSiweLoading,
+    performSiweLogin,
+    provider,
+    isWalletConnect,
+    state.walletAddress,
+    isConnected,
+  ]);
 
   useEffect(() => {
     // Ignore walletError for WalletConnect since we're using EthereumProvider directly, not wagmi
@@ -138,7 +147,10 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
     if (siweError && siweAttemptedForAddress) {
       const errorMsg = (siweError.message || '').toLowerCase();
       // Ignore "connector not connected" errors for WalletConnect since we use EthereumProvider directly
-      if (isWalletConnect && (errorMsg.includes('connector not connected') || errorMsg.includes('connectornotconnectederror'))) {
+      if (
+        isWalletConnect &&
+        (errorMsg.includes('connector not connected') || errorMsg.includes('connectornotconnectederror'))
+      ) {
         return;
       }
       setErrorMessage(siweError.message);

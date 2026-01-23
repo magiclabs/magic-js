@@ -1,11 +1,11 @@
 import React, { FormEvent, useState } from 'react';
 import { isSanctionedEmail, isValidEmail } from 'src/lib/validators';
 import { Button, Text, TextInput, IcoEmail, IcoArrowRight } from '@magiclabs/ui-components';
-import { Box } from '../../styled-system/jsx';
-import { vstack } from '../../styled-system/patterns';
-import { token } from '../../styled-system/tokens';
 import { RpcErrorMessage } from 'src/types';
 import { useEmailLogin } from '../context/EmailLoginContext';
+import { vstack } from '@styled/patterns';
+import { Box } from '@styled/jsx';
+import { token } from '@styled/tokens';
 
 export const EmailInput = () => {
   const { startEmailLogin } = useEmailLogin();
@@ -24,7 +24,6 @@ export const EmailInput = () => {
       setError(RpcErrorMessage.SanEmail);
       return;
     }
-    // TODO: Add logging, or handle errors on relayer side?
 
     setDisabled(true);
     setIsValidating(true);
@@ -39,12 +38,7 @@ export const EmailInput = () => {
 
   return (
     <form onSubmit={handleSubmit} className={vstack({ w: 'full' })}>
-      <Box
-        style={{
-          width: '100%',
-          maxWidth: '25rem',
-        }}
-      >
+      <Box w="full" maxW="25rem">
         <TextInput aria-label="email input" value={email} onChange={handleInput} placeholder="Email address">
           <TextInput.TypeIcon>
             <IcoEmail />
