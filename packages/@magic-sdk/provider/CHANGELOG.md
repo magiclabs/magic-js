@@ -1,3 +1,15 @@
+# v33.1.1 (Tue Jan 20 2026)
+
+#### 🐛 Bug Fix
+
+- fix types version [#1004](https://github.com/magiclabs/magic-js/pull/1004) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v33.1.0 (Sat Jan 17 2026)
 
 #### 🚀 Enhancement
