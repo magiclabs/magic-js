@@ -35,10 +35,10 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
   return (
     <>
       <WidgetHeader />
-      <VStack w="full" gap={10} mt={2} px={7}>
+      <VStack w="full" gap={10} mt={2} px={7} flex={1}>
         {config?.theme.assetUri && <img src={config.theme.assetUri} alt="Logo" width={80} height={80} />}
 
-        <VStack width="full" gap={4}>
+        <VStack width="full" maxWidth='25rem' gap={4}>
           {hasEmailProvider && <EmailInput />}
           {socialProviders.length > 0 && (
             <SocialProviders

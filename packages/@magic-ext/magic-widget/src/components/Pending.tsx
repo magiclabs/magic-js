@@ -48,7 +48,7 @@ export const Pending = ({ onPressBack, title, description, Icon, isPending, erro
         </Box>
 
         <VStack gap={2} px={7}>
-          <Text.H4>{title}</Text.H4>
+          <Text.H4 styles={{ textAlign: 'center' }}>{title}</Text.H4>
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
             {description}
           </Text>
