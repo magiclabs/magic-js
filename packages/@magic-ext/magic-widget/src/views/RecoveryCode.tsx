@@ -2,9 +2,9 @@ import { Button, Callout, IcoLockLocked, LoadingSpinner, Text, TextInput } from 
 import { Center, VStack } from '@styled/jsx';
 import { token } from '@styled/tokens';
 import React, { useEffect } from 'react';
-import WidgetHeader from 'src/components/WidgetHeader';
-import { useEmailLogin } from 'src/context';
-import { WidgetAction, WidgetState } from 'src/reducer';
+import WidgetHeader from '../components/WidgetHeader';
+import { useEmailLogin } from '../context';
+import { WidgetAction, WidgetState } from '../reducer';
 
 interface RecoveryCodeViewProps {
   state: WidgetState;

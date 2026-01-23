@@ -9,7 +9,6 @@ export interface UseWalletConnectResult {
   error: Error | null;
   address: `0x${string}` | undefined;
   isConnected: boolean;
-  /** Whether the currently connected wallet matches the selected provider */
   isConnectedToSelectedProvider: boolean;
   disconnect: () => void;
 }
@@ -42,11 +41,10 @@ export function useWalletConnect(provider: ThirdPartyWallet): UseWalletConnectRe
       const connectorId = CONNECTOR_IDS[provider];
       const namePattern = CONNECTOR_NAME_PATTERNS[provider];
 
-      // Find connector - be more specific about matching
       // First try exact ID match
       const connectorById = connectors.find(c => c.id === connectorId);
 
-      // If no exact ID match, try name pattern (but be strict - must start with or equal the pattern)
+      // If no exact ID match, try name pattern
       const connectorByName = connectors.find(c => {
         const nameLower = c.name.toLowerCase();
         return nameLower === namePattern || nameLower.startsWith(namePattern);

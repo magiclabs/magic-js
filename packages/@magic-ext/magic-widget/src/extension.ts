@@ -6,7 +6,7 @@ import {
   MagicThirdPartyWalletUpdate,
   RPCErrorCode,
 } from '@magic-sdk/types';
-import { getAccount, GetAccountReturnType, getConnectorClient, reconnect, watchAccount } from '@wagmi/core';
+import { getAccount, getConnectorClient, reconnect, watchAccount } from '@wagmi/core';
 import { ClientConfig } from './types/client-config';
 import { wagmiConfig } from './wagmi/config';
 

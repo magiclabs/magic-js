@@ -226,8 +226,6 @@ export class ThirdPartyWalletsModule extends BaseModule {
   }
 
   public handleIframeThirdPartyWalletRequest(event: MagicThirdPartyWalletRequest) {
-    // TODO: sanitize/validate the payload
-
     this.magicWidgetRequest(event.payload)
       .then(response => {
         this.overlay.postThirdPartyWalletResponse({

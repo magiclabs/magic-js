@@ -1,8 +1,8 @@
 import React from 'react';
-import { VStack, Box } from '../../styled-system/jsx';
+import { Box, VStack } from '@styled/jsx';
 import { IcoCheckmarkCircleFill, IcoDismissCircleFill, LoadingSpinner, Text } from '@magiclabs/ui-components';
-import { css } from '../../styled-system/css';
-import { token } from '../../styled-system/tokens';
+import { css } from '@styled/css';
+import { token } from '@styled/tokens';
 import WidgetHeader from 'src/components/WidgetHeader';
 
 interface PendingProps {

@@ -1,10 +1,10 @@
 import { Button, EmailWbr, IcoEmail, Text, VerifyPincode } from '@magiclabs/ui-components';
 import React, { useEffect, useState } from 'react';
-import { VStack } from '../../styled-system/jsx';
-import { token } from '../../styled-system/tokens';
 import WidgetHeader from '../components/WidgetHeader';
 import { useEmailLogin } from '../context/EmailLoginContext';
 import { WidgetAction, WidgetState } from '../reducer';
+import { VStack } from '@styled/jsx';
+import { token } from '@styled/tokens';
 
 interface EmailOTPViewProps {
   state: WidgetState;
@@ -71,7 +71,7 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
           isSuccess={isSuccess}
           onChange={onChangeOtp}
           onComplete={submitOTP}
-          errorMessage={isResending ? '' : (error ?? '')}
+          errorMessage={isResending ? '' : error ?? ''}
         >
           <VerifyPincode.RetryContent>
             {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}

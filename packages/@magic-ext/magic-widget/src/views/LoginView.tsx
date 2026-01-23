@@ -1,16 +1,15 @@
 import React from 'react';
 import { Text } from '@magiclabs/ui-components';
-import { Divider, HStack, VStack } from '../../styled-system/jsx';
+import { Divider, Flex, HStack, VStack } from '@styled/jsx';
 import { ProviderButton } from '../components/ProviderButton';
 import { WALLET_METADATA } from '../constants';
 import { OAuthProvider, ThirdPartyWallet } from '../types';
 import { WidgetAction } from '../reducer';
-import { EmailInput } from 'src/components/EmailInput';
-import { SocialProviders } from 'src/components/SocialProviders';
-import WidgetHeader from 'src/components/WidgetHeader';
-import { getExtensionInstance } from 'src/extension';
+import { EmailInput } from '../components/EmailInput';
+import { SocialProviders } from '../components/SocialProviders';
+import WidgetHeader from '../components/WidgetHeader';
+import { getExtensionInstance } from '../extension';
 import { useWidgetConfig } from '../context/WidgetConfigContext';
-import { Flex } from '@styled/jsx/flex';
 
 interface LoginViewProps {
   dispatch: React.Dispatch<WidgetAction>;
@@ -38,7 +37,7 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
       <VStack w="full" gap={10} mt={2} px={7}>
         {config?.theme.assetUri && <img src={config.theme.assetUri} alt="Logo" width={80} height={80} />}
 
-        <VStack width="full" maxWidth='25rem' gap={4}>
+        <VStack width="full" maxWidth="25rem" gap={4}>
           {hasEmailProvider && <EmailInput />}
           {socialProviders.length > 0 && (
             <SocialProviders

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { VStack, Box, HStack } from '../../styled-system/jsx';
+import { VStack, Box, HStack } from '@styled/jsx';
 import { Text, IcoShield, IcoEdit } from '@magiclabs/ui-components';
-import { css } from '../../styled-system/css';
-import { token } from '../../styled-system/tokens';
+import { css } from '@styled/css';
+import { token } from '@styled/tokens';
 import { useEmailLogin } from '../context/EmailLoginContext';
 import { WidgetAction, WidgetState } from '../reducer';
 import WidgetHeader from '../components/WidgetHeader';

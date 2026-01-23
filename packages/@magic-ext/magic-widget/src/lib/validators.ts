@@ -1,14 +1,5 @@
-/**
- * List of restricted domains that should be blocked
- * @type {Array<string>}
- */
 const restrictedDomains: Array<string> = ['.cu', '.ir', '.kp', '.sy', '.gob.ve'];
 
-/**
- * Function to check if an email belongs to a sanctioned domain
- * @param {string} email - The email address to be checked
- * @returns {boolean} - Returns true if the email is allowed, false otherwise
- */
 export function isSanctionedEmail(email: string): boolean {
   if (!email) {
     return false;
@@ -24,9 +15,6 @@ export function isSanctionedEmail(email: string): boolean {
   return false;
 }
 
-/**
- * Returns `true` if the given `source` is an email address, `false` otherwise.
- */
 export function isValidEmail(source?: string | null) {
   if (!source) return false;
 

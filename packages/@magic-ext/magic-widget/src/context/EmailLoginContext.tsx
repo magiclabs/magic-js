@@ -9,27 +9,17 @@ import {
 } from '@magic-sdk/types';
 import { useWidgetConfig } from './WidgetConfigContext';
 
-// Type for the login handle returned by loginWithEmailOTP
 type EmailOTPHandle = ReturnType<ReturnType<typeof getExtensionInstance>['loginWithEmailOTP']>;
 
 interface EmailLoginContextValue {
-  /** Start the email OTP login flow */
   startEmailLogin: (email: string) => void;
-  /** Submit the OTP code for verification */
   submitOTP: (otp: string) => void;
-  /** Submit the TOTP code for MFA verification */
   submitMFA: (totp: string) => void;
-  /** Lost device */
   lostDevice: () => void;
-  /** Submit recovery code for verification */
   submitRecoveryCode: (recoveryCode: string) => void;
-  /** Cancel the current login flow */
   cancelLogin: () => void;
-  /** Retry device verification */
   retryDeviceVerification: () => void;
-  /** Resend the email OTP */
   resendEmailOTP: () => void;
-  /** Current email being used for login */
   email: string | null;
 }
 
@@ -43,7 +33,6 @@ interface EmailLoginProviderProps {
 export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderProps) {
   const { handleSuccess, handleError } = useWidgetConfig();
 
-  // Store the current login handle
   const handleRef = useRef<EmailOTPHandle | null>(null);
   const emailRef = useRef<string | null>(null);
 
