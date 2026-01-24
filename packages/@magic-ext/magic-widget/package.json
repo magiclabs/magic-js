@@ -33,9 +33,6 @@
       "@magic-sdk/provider",
       "react",
       "react-dom"
-    ],
-    "exclude": [
-      "@magiclabs/ui-components"
     ]
   },
   "esbuildAliases": {
@@ -55,8 +52,8 @@
     "wagmi": "^2.17.2"
   },
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@magic-sdk/provider": "^33.1.1",
@@ -66,10 +63,10 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "@types/react": ">=18.0.0",
+    "@types/react-dom": ">=18.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
     "rollup": "^4.18.0",
     "tslib": "^2.6.3"
   }
