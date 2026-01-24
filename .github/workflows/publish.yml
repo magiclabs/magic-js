@@ -25,7 +25,7 @@ jobs:
           fetch-tags: true
 
       - name: Setup node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'yarn'
@@ -83,7 +83,7 @@ jobs:
           fetch-tags: true
 
       - name: Setup node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'yarn'
