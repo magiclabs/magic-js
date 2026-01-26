@@ -5,6 +5,7 @@ import { createExtensionNotInitializedError, MagicExtensionError, MagicExtension
 import { createPromiEvent, encodeJSON, decodeJSON, storage, isPromiEvent } from '../util';
 import { MagicPayloadMethod, JsonRpcRequestPayload } from '@magic-sdk/types';
 import type { EventsDefinition } from '../util/events';
+import type { PromiEvent } from '../util/promise-tools';
 
 const sdkAccessFields = ['request', 'overlay', 'sdk'];
 
@@ -64,13 +65,43 @@ export abstract class BaseExtension<TName extends string, TConfig extends any = 
    */
   protected requestThirdPartyWallets<ResultType = any, Events extends EventsDefinition = void>(
     payload: Partial<JsonRpcRequestPayload>,
-  ) {
+  ): PromiEvent<
+    ResultType,
+    Events extends void
+      ? {
+          done: (result: ResultType) => void;
+          error: (reason: any) => void;
+          settled: () => void;
+          'closed-by-user': () => void;
+        }
+      : Events & {
+          done: (result: ResultType) => void;
+          error: (reason: any) => void;
+          settled: () => void;
+          'closed-by-user': () => void;
+        }
+  > {
     return super.requestThirdPartyWallets<ResultType, Events>(payload);
   }
 
   protected requestOverlay<ResultType = any, Events extends EventsDefinition = void>(
     payload: Partial<JsonRpcRequestPayload>,
-  ) {
+  ): PromiEvent<
+    ResultType,
+    Events extends void
+      ? {
+          done: (result: ResultType) => void;
+          error: (reason: any) => void;
+          settled: () => void;
+          'closed-by-user': () => void;
+        }
+      : Events & {
+          done: (result: ResultType) => void;
+          error: (reason: any) => void;
+          settled: () => void;
+          'closed-by-user': () => void;
+        }
+  > {
     return super.requestOverlay<ResultType, Events>(payload);
   }
 
