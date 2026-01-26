@@ -90,6 +90,7 @@ export abstract class BaseExtension<TName extends string, TConfig extends any = 
   public init(sdk: SDKBase) {
     if (this.__is_initialized__) return;
     console.log('init', this.name);
+    console.log(this.__sdk_access_field_descriptors__);
     // Replace original property descriptors
     // for SDK access fields post-initialization.
     sdkAccessFields.forEach(prop => {
