@@ -3,9 +3,7 @@ import { BaseModule } from './base-module';
 import { SDKBase, MagicSDKAdditionalConfiguration, MagicSDKExtensionsOption } from '../core/sdk';
 import { createExtensionNotInitializedError, MagicExtensionError, MagicExtensionWarning } from '../core/sdk-exceptions';
 import { createPromiEvent, encodeJSON, decodeJSON, storage, isPromiEvent } from '../util';
-import { MagicPayloadMethod, JsonRpcRequestPayload } from '@magic-sdk/types';
-import type { EventsDefinition } from '../util/events';
-import type { PromiEvent } from '../util/promise-tools';
+import { MagicPayloadMethod } from '@magic-sdk/types';
 
 const sdkAccessFields = ['request', 'overlay', 'sdk'];
 
@@ -56,54 +54,6 @@ export abstract class BaseExtension<TName extends string, TConfig extends any = 
     standardizeJsonRpcRequestPayload,
     storage,
   };
-
-  /**
-   * Explicitly redeclare inherited protected methods for TypeScript type checking.
-   * These methods are inherited from BaseModule but need to be redeclared here
-   * so TypeScript recognizes them when checking BaseExtension type constraints.
-   * The actual implementation comes from BaseModule via inheritance.
-   */
-  protected requestThirdPartyWallets<ResultType = any, Events extends EventsDefinition = void>(
-    payload: Partial<JsonRpcRequestPayload>,
-  ): PromiEvent<
-    ResultType,
-    Events extends void
-      ? {
-          done: (result: ResultType) => void;
-          error: (reason: any) => void;
-          settled: () => void;
-          'closed-by-user': () => void;
-        }
-      : Events & {
-          done: (result: ResultType) => void;
-          error: (reason: any) => void;
-          settled: () => void;
-          'closed-by-user': () => void;
-        }
-  > {
-    return super.requestThirdPartyWallets<ResultType, Events>(payload);
-  }
-
-  protected requestOverlay<ResultType = any, Events extends EventsDefinition = void>(
-    payload: Partial<JsonRpcRequestPayload>,
-  ): PromiEvent<
-    ResultType,
-    Events extends void
-      ? {
-          done: (result: ResultType) => void;
-          error: (reason: any) => void;
-          settled: () => void;
-          'closed-by-user': () => void;
-        }
-      : Events & {
-          done: (result: ResultType) => void;
-          error: (reason: any) => void;
-          settled: () => void;
-          'closed-by-user': () => void;
-        }
-  > {
-    return super.requestOverlay<ResultType, Events>(payload);
-  }
 
   constructor() {
     super(undefined as any);

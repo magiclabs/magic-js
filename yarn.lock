@@ -3871,8 +3871,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/magic-widget@workspace:packages/@magic-ext/magic-widget"
   dependencies:
-    "@magic-sdk/provider": ^33.1.1
-    "@magic-sdk/types": ^27.1.0
+    "@magic-sdk/provider": 33.2.0-canary.979.21301081034.0
+    "@magic-sdk/types": 27.2.0-canary.979.21301081034.0
     "@magiclabs/ui-components": ^1.49.2
     "@pandacss/dev": ^0.35.0
     "@reown/appkit": 1.8.14
@@ -4057,6 +4057,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-sdk/provider@npm:33.2.0-canary.979.21301081034.0":
+  version: 33.2.0-canary.979.21301081034.0
+  resolution: "@magic-sdk/provider@npm:33.2.0-canary.979.21301081034.0"
+  dependencies:
+    "@magic-sdk/types": 27.2.0-canary.979.21301081034.0
+    eventemitter3: ^4.0.4
+  peerDependencies:
+    localforage: ^1.7.4
+  checksum: c88d1e5ee762a6eaf773a4f5eb61d64eebc3b72aadc9c91598fc71fbec9a598f25b56fd369cba4a8fae15059deac7dd0ed01a9ca3a42fa30823a26b01f419e9b
+  languageName: node
+  linkType: hard
+
 "@magic-sdk/provider@npm:^29.5.0":
   version: 29.5.0
   resolution: "@magic-sdk/provider@npm:29.5.0"
@@ -4221,6 +4233,13 @@ __metadata:
   resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
   languageName: unknown
   linkType: soft
+
+"@magic-sdk/types@npm:27.2.0-canary.979.21301081034.0":
+  version: 27.2.0-canary.979.21301081034.0
+  resolution: "@magic-sdk/types@npm:27.2.0-canary.979.21301081034.0"
+  checksum: 3cd714c6527eb8d66e7568a9a99f63d310f523d5559d6d39039d23f82941937ded65bed306a228a6e81f9f94ab55dfd098d90675c48d65104b2ac9aea1dc7ada
+  languageName: node
+  linkType: hard
 
 "@magic-sdk/types@npm:^24.21.0, @magic-sdk/types@npm:^24.22.0":
   version: 24.22.0
