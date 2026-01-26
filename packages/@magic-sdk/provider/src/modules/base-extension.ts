@@ -67,6 +67,7 @@ export abstract class BaseExtension<TName extends string, TConfig extends any = 
       const sourceIndex = allDescriptors.findIndex(x => Boolean(x));
       const isPrototypeField = sourceIndex > 0;
       const descriptor = allDescriptors[sourceIndex];
+      console.log('descriptor', descriptor);
 
       /* istanbul ignore else */
       if (descriptor) {
