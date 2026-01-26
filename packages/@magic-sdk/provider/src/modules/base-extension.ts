@@ -17,9 +17,8 @@ function getPrototypeChain<T extends BaseExtension<string>>(instance: T) {
 
   while (currentProto && currentProto !== BaseModule.prototype) {
     currentProto = Object.getPrototypeOf(currentProto);
-    
-    protos.push(currentProto);
 
+    protos.push(currentProto);
   }
 
   return protos;
@@ -90,7 +89,7 @@ export abstract class BaseExtension<TName extends string, TConfig extends any = 
    */
   public init(sdk: SDKBase) {
     if (this.__is_initialized__) return;
-
+    console.log('init', this.name);
     // Replace original property descriptors
     // for SDK access fields post-initialization.
     sdkAccessFields.forEach(prop => {
