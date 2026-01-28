@@ -63,25 +63,25 @@
     "wagmi": "^2.0.0"
   },
   "devDependencies": {
-    "@reown/appkit": "1.8.14",
-    "@reown/appkit-adapter-wagmi": "1.8.14",
-    "@tanstack/react-query": "^5.0.0",
-    "@wagmi/core": "^2.21.2",
-    "@walletconnect/ethereum-provider": "^2.23.4",
-    "viem": "^2.37.9",
-    "wagmi": "^2.17.2",
     "@magic-sdk/provider": "33.2.0-canary.979.21371557770.0",
     "@magic-sdk/types": "27.2.0-canary.979.21371557770.0",
     "@pandacss/dev": "^0.35.0",
+    "@reown/appkit": "1.8.14",
+    "@reown/appkit-adapter-wagmi": "1.8.14",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@tanstack/react-query": "^5.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@wagmi/core": "^2.21.2",
+    "@walletconnect/ethereum-provider": "^2.23.4",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "rollup": "^4.18.0",
-    "tslib": "^2.6.3"
+    "tslib": "^2.6.3",
+    "viem": "^2.37.9",
+    "wagmi": "^2.17.2"
   }
 }
