@@ -49,18 +49,18 @@
     "@styled/patterns": "./styled-system/patterns"
   },
   "dependencies": {
-    "@magiclabs/ui-components": "^1.49.2"
-  },
-  "peerDependencies": {
+    "@magiclabs/ui-components": "^1.49.2",
     "@reown/appkit": "^1.8.0",
     "@reown/appkit-adapter-wagmi": "^1.8.0",
-    "@tanstack/react-query": "^5.0.0",
     "@wagmi/core": "^2.0.0",
     "@walletconnect/ethereum-provider": "^2.23.0",
+    "wagmi": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
-    "viem": "^2.0.0",
-    "wagmi": "^2.0.0"
+    "viem": "^2.0.0"
   },
   "devDependencies": {
     "@magic-sdk/provider": "33.2.0-canary.979.21371557770.0",
