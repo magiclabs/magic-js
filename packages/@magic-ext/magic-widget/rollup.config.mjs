@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import replace from '@rollup/plugin-replace';
+import terser from '@rollup/plugin-terser';
 import { readFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve as pathResolve, join } from 'path';
 import { execSync } from 'child_process';
@@ -147,6 +148,7 @@ const plugins = [
     tsconfig: './tsconfig.json',
     declaration: false,
   }),
+  terser(),
 ];
 
 export default [
@@ -200,6 +202,7 @@ export default [
         declarationDir: './dist/types',
         outDir: './dist/types',
       }),
+      terser(),
     ],
     onwarn(warning, warn) {
       if (warning.code === 'CIRCULAR_DEPENDENCY') return;
