@@ -146,9 +146,6 @@ const plugins = [
   }),
   typescript({
     tsconfig: './tsconfig.json',
-    declaration: true,
-    declarationDir: './dist/types',
-    outDir: './dist/types',
   }),
   terser(),
 ];

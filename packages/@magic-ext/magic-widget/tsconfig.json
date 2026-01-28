@@ -2,9 +2,14 @@
   "extends": "../../../tsconfig.settings.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "rootDir": "./src",
     "paths": {
       "@styled/*": ["./styled-system/*"]
-    }
+    },
+    "noEmit": false,
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "emitDeclarationOnly": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "styled-system/**/*.ts", "styled-system/**/*.js"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

@@ -12,7 +12,7 @@
   "scripts": {
     "prepare": "panda codegen",
     "build:css": "panda cssgen --outfile dist/styles.css",
-    "build": "rollup -c rollup.config.mjs"
+    "build": "rollup -c rollup.config.mjs && tsc"
   },
   "files": [
     "dist"
