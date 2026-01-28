@@ -18,14 +18,13 @@
     "dist"
   ],
   "target": "browser",
-  "main": "./dist/cjs/index.js",
+  "type": "module",
   "module": "./dist/es/index.mjs",
-  "types": "./dist/cjs/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/es/index.mjs",
-      "types": "./dist/cjs/types/index.d.ts",
-      "require": "./dist/cjs/index.js"
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/es/index.mjs"
     }
   },
   "externals": {

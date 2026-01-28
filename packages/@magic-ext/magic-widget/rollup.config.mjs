@@ -146,68 +146,28 @@ const plugins = [
   }),
   typescript({
     tsconfig: './tsconfig.json',
-    declaration: false,
+    declaration: true,
+    declarationDir: './dist/types',
+    outDir: './dist/types',
   }),
   terser(),
 ];
 
-export default [
-  // ESM build
-  {
-    input: 'src/index.ts',
-    output: {
-      file: pkg.module,
-      format: 'esm',
-      sourcemap: false,
-      inlineDynamicImports: true,
-    },
-    external,
-    plugins,
-    onwarn(warning, warn) {
-      // Suppress circular dependency warnings from third-party libs
-      if (warning.code === 'CIRCULAR_DEPENDENCY') return;
-      // Suppress "this" rewrite warnings
-      if (warning.code === 'THIS_IS_UNDEFINED') return;
-      warn(warning);
-    },
+export default {
+  input: 'src/index.ts',
+  output: {
+    file: pkg.module,
+    format: 'esm',
+    sourcemap: false,
+    inlineDynamicImports: true,
   },
-  // CJS build
-  {
-    input: 'src/index.ts',
-    output: {
-      file: pkg.main,
-      format: 'cjs',
-      sourcemap: false,
-      exports: 'named',
-      inlineDynamicImports: true,
-    },
-    external,
-    plugins: [
-      aliasPlugin,
-      replace({
-        preventAssignment: true,
-        values: {
-          MAGIC_WIDGET_CSS: JSON.stringify(cssContent),
-        },
-      }),
-      resolve({
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs'],
-      }),
-      commonjs({
-        transformMixedEsModules: true,
-      }),
-      typescript({
-        tsconfig: './tsconfig.json',
-        declaration: true,
-        declarationDir: './dist/types',
-        outDir: './dist/types',
-      }),
-      terser(),
-    ],
-    onwarn(warning, warn) {
-      if (warning.code === 'CIRCULAR_DEPENDENCY') return;
-      if (warning.code === 'THIS_IS_UNDEFINED') return;
-      warn(warning);
-    },
+  external,
+  plugins,
+  onwarn(warning, warn) {
+    // Suppress circular dependency warnings from third-party libs
+    if (warning.code === 'CIRCULAR_DEPENDENCY') return;
+    // Suppress "this" rewrite warnings
+    if (warning.code === 'THIS_IS_UNDEFINED') return;
+    warn(warning);
   },
-];
+};
