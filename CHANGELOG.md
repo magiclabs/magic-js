@@ -1,3 +1,41 @@
+# (Thu Jan 29 2026)
+
+#### 🚀 Enhancement
+
+- Bump axios from 1.6.7 to 1.13.2 [#1010](https://github.com/magiclabs/magic-js/pull/1010) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump h3 from 1.11.1 to 1.15.5 [#1002](https://github.com/magiclabs/magic-js/pull/1002) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@magic-sdk/provider@33.2.0`, `@magic-sdk/react-native-bare@34.1.0`
+  - feat: implement keychain for rt [#964](https://github.com/magiclabs/magic-js/pull/964) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- Keep resolving dependent bot [#1015](https://github.com/magiclabs/magic-js/pull/1015) ([@Ethella](https://github.com/Ethella))
+- Bump form-data from 4.0.0 to 4.0.5 [#1011](https://github.com/magiclabs/magic-js/pull/1011) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- remove stderr [#996](https://github.com/magiclabs/magic-js/pull/996) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/web3modal-ethers5@5.1.0`
+  - downgrade node 22 [#1012](https://github.com/magiclabs/magic-js/pull/1012) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/aptos@16.1.0`, `@magic-sdk/react-native-expo@34.1.0`
+  - bump versions [#985](https://github.com/magiclabs/magic-js/pull/985) ([@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### ⚠️ Pushed to `master`
+
+- `@magic-ext/algorand@28.1.0`, `@magic-ext/aptos@16.1.0`, `@magic-ext/avalanche@28.1.0`, `@magic-ext/bitcoin@28.1.0`, `@magic-ext/conflux@26.1.0`, `@magic-ext/cosmos@28.1.0`, `@magic-ext/ed25519@24.1.0`, `@magic-ext/farcaster@5.1.0`, `@magic-ext/flow@28.1.0`, `@magic-ext/gdkms@16.1.0`, `@magic-ext/harmony@28.1.0`, `@magic-ext/icon@28.1.0`, `@magic-ext/kadena@5.1.0`, `@magic-ext/near@28.1.0`, `@magic-ext/oauth2@15.1.0`, `@magic-ext/oidc@16.1.0`, `@magic-ext/polkadot@28.1.0`, `@magic-ext/react-native-bare-oauth@30.1.0`, `@magic-ext/react-native-expo-oauth@30.1.0`, `@magic-ext/siwe@3.1.0`, `@magic-ext/solana@30.1.0`, `@magic-ext/sui@5.1.0`, `@magic-ext/taquito@25.1.0`, `@magic-ext/terra@25.1.0`, `@magic-ext/tezos@28.1.0`, `@magic-ext/web3modal-ethers5@5.1.0`, `@magic-ext/webauthn@27.1.0`, `@magic-ext/zilliqa@28.1.0`, `@magic-sdk/provider@33.2.0`, `@magic-sdk/react-native-bare@34.1.0`, `@magic-sdk/react-native-expo@34.1.0`, `@magic-sdk/types@27.2.0`, `magic-sdk@33.2.0`
+  - Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### 🔩 Dependency Updates
+
+- Bump @solana/web3.js from 1.87.2 to 1.87.7 [#1013](https://github.com/magiclabs/magic-js/pull/1013) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump undici from 6.21.2 to 6.23.0 [#1000](https://github.com/magiclabs/magic-js/pull/1000) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump lodash from 4.17.21 to 4.17.23 [#1006](https://github.com/magiclabs/magic-js/pull/1006) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Tue Jan 20 2026)
 
 #### 🐛 Bug Fix

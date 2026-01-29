@@ -1,3 +1,20 @@
+# v34.1.0 (Thu Jan 29 2026)
+
+#### 🚀 Enhancement
+
+- feat: implement keychain for rt [#964](https://github.com/magiclabs/magic-js/pull/964) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v34.0.0 (Tue Jan 13 2026)
 
 #### 🐛 Bug Fix
