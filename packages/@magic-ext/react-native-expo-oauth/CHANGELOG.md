@@ -1,3 +1,16 @@
+# v30.2.0 (Thu Jan 29 2026)
+
+#### 🚀 Enhancement
+
+- feat: Magic Widget extension [#979](https://github.com/magiclabs/magic-js/pull/979) ([@joshuascan](https://github.com/joshuascan) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v30.1.0 (Thu Jan 29 2026)
 
 #### ⚠️ Pushed to `master`
