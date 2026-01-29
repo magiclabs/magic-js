@@ -3756,12 +3756,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magic-sdk/types@workspace:packages/@magic-sdk/types":
-  version: 0.0.0-use.local
-  resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
-  languageName: unknown
-  linkType: soft
-
 "@magiclabs/react-native-device-crypto@npm:^0.1.1":
   version: 0.1.1
   resolution: "@magiclabs/react-native-device-crypto@npm:0.1.1"
