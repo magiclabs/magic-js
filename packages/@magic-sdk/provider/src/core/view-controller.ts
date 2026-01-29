@@ -34,12 +34,9 @@ export abstract class ViewController {
   protected isConnectedToInternet = true;
   protected lastPongTime: null | number = null;
   protected heartbeatIntervalTimer: ReturnType<typeof setInterval> | null = null;
-  /* istanbul ignore next */
+
   protected heartbeatDebounce = debounce(() => {
-    // Only do this for web now
-    if (this.endpoint === 'https://auth.magic.link/') {
       this.heartBeatCheck();
-    }
   }, INITIAL_HEARTBEAT_DELAY);
 
   /**
@@ -91,6 +88,7 @@ export abstract class ViewController {
       if (!this.isConnectedToInternet) {
         const error = createModalNotReadyError();
         reject(error);
+        return;
       }
 
       if (!(await this.checkRelayerExistsInDOM())) {
@@ -158,7 +156,6 @@ export abstract class ViewController {
     // We cannot effectively cover this function because it never gets reference
     // by value. The functionality of this callback is tested within
     // `initMessageListener`.
-    /* istanbul ignore next */
     const listener = (event: MagicMessageEvent) => {
       if (event.data.msgType === `${msgType}-${this.parameters}`) boundHandler(event);
     };
@@ -200,7 +197,6 @@ export abstract class ViewController {
    * Sends periodic pings to check the connection.
    * If no pong is received or it’s stale, the iframe is reloaded.
    */
-  /* istanbul ignore next */
   private heartBeatCheck() {
     let firstPing = true;
 
@@ -214,34 +210,39 @@ export abstract class ViewController {
     };
 
     this.heartbeatIntervalTimer = setInterval(async () => {
-      // If no pong has ever been received.
-      if (!this.lastPongTime) {
-        if (!firstPing) {
-          // On subsequent ping with no previous pong response, reload the iframe.
-          this.reloadRelayer();
-          firstPing = true;
-          return;
+      try {
+        // If no pong has ever been received.
+        if (!this.lastPongTime) {
+          if (!firstPing) {
+            // On subsequent ping with no previous pong response, reload the iframe.
+            this.reloadRelayer();
+            firstPing = true;
+            return;
+          }
+        } else {
+          // If we have a pong, check how long ago it was received.
+          const timeSinceLastPong = Date.now() - this.lastPongTime;
+          if (timeSinceLastPong > PING_INTERVAL * 2) {
+            // If the pong is too stale, reload the iframe.
+            this.reloadRelayer();
+            firstPing = true;
+            return;
+          }
         }
-      } else {
-        // If we have a pong, check how long ago it was received.
-        const timeSinceLastPong = Date.now() - this.lastPongTime;
-        if (timeSinceLastPong > PING_INTERVAL * 2) {
-          // If the pong is too stale, reload the iframe.
-          this.reloadRelayer();
-          firstPing = true;
-          return;
-        }
-      }
 
-      // Send a new ping message and update the counter.
-      await sendPing();
-      firstPing = false;
+        // Send a new ping message and update the counter.
+        await sendPing();
+        firstPing = false;
+      } catch {
+        // _post failed (e.g. iframe gone); reload to recover.
+        this.reloadRelayer();
+        firstPing = true;
+      }
     }, PING_INTERVAL);
   }
 
   // Debounce revival mechanism
   // Kill any existing PingPong interval
-  /* istanbul ignore next */
   protected stopHeartBeat() {
     this.heartbeatDebounce();
     this.lastPongTime = null;
