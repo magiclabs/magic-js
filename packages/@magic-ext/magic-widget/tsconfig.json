@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
+    "lib": ["es2022", "dom"],
     "paths": {
       "@styled/*": ["./styled-system/*"]
     },
