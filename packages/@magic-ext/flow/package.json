@@ -28,7 +28,7 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^31.2.0",
+    "@magic-sdk/provider": "^33.1.0",
     "@onflow/fcl": "^1.4.1",
     "@onflow/types": "^1.1.0"
   },

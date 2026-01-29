@@ -1,0 +1,17 @@
+{
+  "extends": "../../../tsconfig.settings.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "lib": ["es2022", "dom"],
+    "paths": {
+      "@styled/*": ["./styled-system/*"]
+    },
+    "noEmit": false,
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "emitDeclarationOnly": true,
+    "sourceMap": false
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

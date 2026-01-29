@@ -5,6 +5,10 @@ import {
   MagicMessageEvent,
   MagicMessageRequest,
   SDKWarningCode,
+  MagicThirdPartyWalletRequest,
+  MagicThirdPartyWalletEventPayload,
+  MagicThirdPartyWalletResponse,
+  MagicThirdPartyWalletUpdate,
 } from '@magic-sdk/types';
 import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
@@ -39,6 +43,8 @@ export abstract class ViewController {
       this.heartBeatCheck();
   }, INITIAL_HEARTBEAT_DELAY);
 
+  protected thirdPartyWalletRequestHandler: (event: MagicThirdPartyWalletRequest) => any = () => {};
+
   /**
    * Create an instance of `ViewController`
    *
@@ -57,7 +63,7 @@ export abstract class ViewController {
   }
 
   protected abstract init(): void;
-  protected abstract _post(data: MagicMessageRequest): Promise<void>;
+  protected abstract _post(data: MagicMessageRequest | MagicThirdPartyWalletEventPayload): Promise<void>;
   protected abstract hideOverlay(): void;
   protected abstract showOverlay(): void;
   protected abstract checkRelayerExistsInDOM(): Promise<boolean>;
@@ -140,6 +146,57 @@ export abstract class ViewController {
     });
   }
 
+  public async postThirdPartyWalletResponse(response: MagicThirdPartyWalletResponse['response']): Promise<void> {
+    return createPromise(async (resolve, reject) => {
+      if (!this.isConnectedToInternet) {
+        const error = createModalNotReadyError();
+        reject(error);
+      }
+
+      if (!(await this.checkRelayerExistsInDOM())) {
+        this.isReadyForRequest = false;
+        await this.reloadRelayer();
+      }
+
+      if (!this.isReadyForRequest) {
+        await this.waitForReady();
+      }
+
+      const msg = {
+        msgType: `${MagicOutgoingWindowMessage.MAGIC_THIRD_PARTY_WALLET_RESPONSE}-${this.parameters}`,
+        response,
+      } as MagicThirdPartyWalletResponse;
+
+      await this._post(msg);
+      resolve();
+    });
+  }
+
+  public async postThirdPartyWalletUpdate(details: MagicThirdPartyWalletUpdate['details']): Promise<void> {
+    return createPromise(async (resolve, reject) => {
+      if (!this.isConnectedToInternet) {
+        const error = createModalNotReadyError();
+        reject(error);
+      }
+
+      if (!(await this.checkRelayerExistsInDOM())) {
+        this.isReadyForRequest = false;
+        await this.reloadRelayer();
+      }
+
+      if (!this.isReadyForRequest) {
+        await this.waitForReady();
+      }
+
+      const msg = {
+        msgType: `${MagicOutgoingWindowMessage.MAGIC_THIRD_PARTY_WALLET_UPDATE}-${this.parameters}`,
+        details,
+      } as MagicThirdPartyWalletUpdate;
+
+      await this._post(msg);
+      resolve();
+    });
+  }
   /**
    * Listen for events received with the given `msgType`.
    *
@@ -172,6 +229,10 @@ export abstract class ViewController {
         unsubscribe();
       });
     });
+  }
+
+  public onThirdPartyWalletRequest(handler: (event: MagicThirdPartyWalletRequest) => any) {
+    this.thirdPartyWalletRequestHandler = handler;
   }
 
   /**
