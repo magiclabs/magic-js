@@ -57,3 +57,30 @@ test('Applies `null` or `undefined` results explicitly', () => {
   expect(response1.hasResult).toBe(true);
   expect(response2.hasResult).toBe(false);
 });
+
+test('hasResult returns true when result is 0', () => {
+  const payload = createSourcePayload();
+  const response = new JsonRpcResponse(payload);
+  response.applyResult(0);
+  
+  expect(response.hasResult).toBe(true);
+  expect((response as any)._result).toBe(0);
+});
+
+test('hasResult returns true when result is empty string', () => {
+  const payload = createSourcePayload();
+  const response = new JsonRpcResponse(payload);
+  response.applyResult('');
+  
+  expect(response.hasResult).toBe(true);
+  expect((response as any)._result).toBe('');
+});
+
+test('hasResult returns true when result is false', () => {
+  const payload = createSourcePayload();
+  const response = new JsonRpcResponse(payload);
+  response.applyResult(false);
+  
+  expect(response.hasResult).toBe(true);
+  expect((response as any)._result).toBe(false);
+});

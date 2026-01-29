@@ -105,10 +105,13 @@ test('Emits "settled" event upon Promise reject', done => {
     });
 });
 
-test('Emits ClosedByUser when UserEventsOnReceived.ClosedByUser is emitted', done => {
-  const promiEvent = createPromiEvent(resolve => setTimeout(() => resolve('ok'), 100));
+test('Emits ClosedByUser event when UserEventsOnReceived.ClosedByUser is received', done => {
+  const promiEvent = createPromiEvent(resolve => resolve(true));
+
   promiEvent.on(UserEventsEmit.ClosedByUser, () => {
     done();
   });
-  promiEvent.emit(UserEventsOnReceived.ClosedByUser);
+
+  // Simulate receiving the ClosedByUser event from the iframe
+  (promiEvent as any).emit(UserEventsOnReceived.ClosedByUser);
 });

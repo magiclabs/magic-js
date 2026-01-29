@@ -2,6 +2,12 @@ import { JsonRpcError, JsonRpcRequestPayload, RPCErrorCode } from '@magic-sdk/ty
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
 import * as webCrypto from '../../../../../src/util/web-crypto';
 
+jest.mock('../../../../../src/util/web-crypto', () => ({
+  clearKeys: jest.fn(),
+}));
+
+import { clearKeys } from '../../../../../src/util/web-crypto';
+
 function createSourcePayload(): JsonRpcRequestPayload {
   return {
     jsonrpc: '2.0',
@@ -20,6 +26,8 @@ function createJsonRcpError(): JsonRpcError {
 
 beforeEach(() => {
   jest.restoreAllMocks();
+  jest.clearAllMocks();
+  (clearKeys as jest.Mock).mockReset();
 });
 
 test('Add a formatted error to the response with `JsonRpcError` object as argument', () => {
@@ -54,17 +62,42 @@ test('Apply `null` or `undefined` errors explicitly', () => {
   expect(response2.hasError).toBe(false);
 });
 
-test('Calls clearKeys when hasError is accessed with DpopInvalidated error', () => {
+test('Does not call clearKeys when error code is not DpopInvalidated', () => {
   const payload = createSourcePayload();
-  const clearKeysSpy = jest.spyOn(webCrypto, 'clearKeys').mockImplementation(() => {});
+  const otherError: JsonRpcError = {
+    message: 'Some other error',
+    code: RPCErrorCode.InternalError,
+  };
 
-  const response = new JsonRpcResponse(payload).applyError({
-    code: RPCErrorCode.DpopInvalidated,
+  const response = new JsonRpcResponse(payload);
+  response.applyError(otherError);
+
+  // Accessing hasError should not trigger clearKeys for non-DPOP errors
+  expect(response.hasError).toBe(true);
+  expect(clearKeys).not.toHaveBeenCalled();
+});
+
+test('Calls clearKeys when DpopInvalidated error is encountered', () => {
+  const payload = createSourcePayload();
+  const dpopError: JsonRpcError = {
     message: 'DPOP invalidated',
-  });
+    code: RPCErrorCode.DpopInvalidated,
+  };
+
+  const response = new JsonRpcResponse(payload);
+  response.applyError(dpopError);
+
+  // Accessing hasError should trigger clearKeys
+  expect(response.hasError).toBe(true);
+  expect(clearKeys).toHaveBeenCalledTimes(1);
+});
+
+test('Does not call clearKeys when error exists but has no code property', () => {
+  const payload = createSourcePayload();
+  const response = new JsonRpcResponse(payload);
+  // Apply an error-like object without a code property
+  response.applyError({ message: 'Some error' } as any);
 
   expect(response.hasError).toBe(true);
-  expect(clearKeysSpy).toHaveBeenCalledTimes(1);
-
-  clearKeysSpy.mockRestore();
+  expect(clearKeys).not.toHaveBeenCalled();
 });
