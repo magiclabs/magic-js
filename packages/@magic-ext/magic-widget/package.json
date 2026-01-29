@@ -1,0 +1,82 @@
+{
+  "name": "@magic-ext/magic-widget",
+  "useCustomBuild": true,
+  "version": "0.1.0",
+  "description": "Magic SDK Widget Extension with React components.",
+  "author": "Magic <team@magic.link> (https://magic.link/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magiclabs/magic-js"
+  },
+  "scripts": {
+    "prepare": "panda codegen",
+    "build:css": "panda cssgen --outfile dist/styles.css",
+    "build": "rollup -c rollup.config.mjs && tsc"
+  },
+  "files": [
+    "dist"
+  ],
+  "target": "browser",
+  "type": "module",
+  "module": "./dist/es/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/es/index.mjs"
+    }
+  },
+  "externals": {
+    "include": [
+      "@magic-sdk/provider",
+      "@reown/appkit",
+      "@reown/appkit-adapter-wagmi",
+      "@tanstack/react-query",
+      "@wagmi/core",
+      "@walletconnect/ethereum-provider",
+      "react",
+      "react-dom",
+      "viem",
+      "wagmi"
+    ]
+  },
+  "esbuildAliases": {
+    "@styled/css": "./styled-system/css",
+    "@styled/jsx": "./styled-system/jsx",
+    "@styled/tokens": "./styled-system/tokens",
+    "@styled/patterns": "./styled-system/patterns"
+  },
+  "dependencies": {
+    "@magiclabs/ui-components": "^1.49.2",
+    "@reown/appkit": "^1.8.0",
+    "@reown/appkit-adapter-wagmi": "^1.8.0",
+    "@wagmi/core": "^2.0.0",
+    "@walletconnect/ethereum-provider": "^2.23.0",
+    "wagmi": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "viem": "^2.0.0"
+  },
+  "devDependencies": {
+    "@magic-sdk/provider": "^33.1.0",
+    "@magic-sdk/types": "^27.1.0",
+    "@pandacss/dev": "^0.35.0",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@tanstack/react-query": "^5.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "rollup": "^4.18.0",
+    "tslib": "^2.6.3",
+    "viem": "^2.37.9"
+  }
+}

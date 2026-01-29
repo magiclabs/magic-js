@@ -28,7 +28,7 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^29.5.0"
+    "@magic-sdk/provider": "^33.1.0"
   },
   "peerDependencies": {
     "@hashgraph/sdk": "^2.31.0"

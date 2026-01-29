@@ -103,3 +103,16 @@ test('Emits "settled" event upon Promise reject', done => {
       /* noop */
     });
 });
+
+test('Emits ClosedByUser event when UserEventsOnReceived.ClosedByUser is received', done => {
+  const { UserEventsOnReceived, UserEventsEmit } = require('@magic-sdk/types');
+  const promiEvent = createPromiEvent(resolve => resolve(true));
+
+  promiEvent.on(UserEventsEmit.ClosedByUser, () => {
+    done();
+  });
+
+  // Simulate receiving the ClosedByUser event from the iframe
+  // The handler should emit UserEventsEmit.ClosedByUser
+  (promiEvent as any).emit(UserEventsOnReceived.ClosedByUser);
+});

@@ -28,7 +28,7 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^31.2.0"
+    "@magic-sdk/provider": "^33.1.0"
   },
   "dependencies": {
     "@solana/web3.js": "^1.87.2"

@@ -95,6 +95,9 @@ export class IframeController extends ViewController {
         if (event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_PONG)) {
           // Mark the Pong time
           this.lastPongTime = Date.now();
+        } else if (event.data.msgType.includes(MagicIncomingWindowMessage.MAGIC_THIRD_PARTY_WALLET_REQUEST)) {
+          this.thirdPartyWalletRequestHandler(event.data);
+          return;
         }
 
         if (event.data && this.messageHandlers.size) {

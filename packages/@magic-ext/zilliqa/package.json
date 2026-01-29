@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^31.2.0"
+    "@magic-sdk/provider": "^33.1.0"
   }
 }

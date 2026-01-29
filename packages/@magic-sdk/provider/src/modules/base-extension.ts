@@ -17,9 +17,8 @@ function getPrototypeChain<T extends BaseExtension<string>>(instance: T) {
 
   while (currentProto && currentProto !== BaseModule.prototype) {
     currentProto = Object.getPrototypeOf(currentProto);
-    
-    protos.push(currentProto);
 
+    protos.push(currentProto);
   }
 
   return protos;
