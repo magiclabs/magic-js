@@ -41,6 +41,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
     if (typeof window === 'undefined') return null;
     if (!isMobileDevice) return null;
     const ext = getExtensionInstance();
+    console.log('ext', ext);
     return createAppKit({
       adapters: [ext.wagmiAdapter],
       networks: networks,
