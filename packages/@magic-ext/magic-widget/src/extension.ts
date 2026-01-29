@@ -7,8 +7,10 @@ import {
   RPCErrorCode,
 } from '@magic-sdk/types';
 import { getAccount, getConnectorClient, reconnect, watchAccount } from '@wagmi/core';
+import type { Config } from '@wagmi/core';
+import type { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { ClientConfig } from './types/client-config';
-import { wagmiConfig } from './wagmi/config';
+import { createWagmiConfig } from './wagmi/config';
 
 enum SiwePayloadMethod {
   GenerateNonce = 'magic_siwe_generate_nonce',
@@ -150,17 +152,30 @@ export function getExtensionInstance(): MagicWidgetExtension {
   return extensionInstance;
 }
 
+export interface MagicWidgetExtensionOptions {
+  /** Reown (WalletConnect) project ID. Uses a default if not provided. */
+  projectId?: string;
+}
+
 export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
   name = 'magicWidget' as const;
   config = {};
+
+  public readonly projectId: string;
+  public readonly wagmiConfig: Config;
+  public readonly wagmiAdapter: WagmiAdapter;
 
   private clientConfig: ClientConfig | null = null;
   private configPromise: Promise<ClientConfig> | null = null;
   private eventsListenerAdded = false;
   private reconnectPromise: Promise<void> | null = null;
 
-  constructor() {
+  constructor(options?: MagicWidgetExtensionOptions) {
     super();
+    const { projectId, wagmiAdapter, wagmiConfig } = createWagmiConfig(options?.projectId);
+    this.projectId = projectId;
+    this.wagmiAdapter = wagmiAdapter;
+    this.wagmiConfig = wagmiConfig;
   }
 
   /**
@@ -186,7 +201,7 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
       return this.reconnectPromise;
     }
 
-    const account = getAccount(wagmiConfig);
+    const account = getAccount(this.wagmiConfig);
 
     if (account.isConnected) {
       this.setupEip1193EventListeners();
@@ -201,10 +216,10 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
     // Trigger wagmi reconnection
     this.reconnectPromise = (async () => {
       try {
-        await reconnect(wagmiConfig);
+        await reconnect(this.wagmiConfig);
 
         // After reconnect, check if we're connected
-        const newAccount = getAccount(wagmiConfig);
+        const newAccount = getAccount(this.wagmiConfig);
         if (newAccount.isConnected) {
           this.setupEip1193EventListeners();
         }
@@ -252,12 +267,12 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
       // First, ensure wagmi is reconnected (handles page refresh scenario)
       await this.restoreWalletConnection();
 
-      const account = getAccount(wagmiConfig);
+      const account = getAccount(this.wagmiConfig);
       if (!account.isConnected || !account.connector) {
         return null;
       }
 
-      const client = await getConnectorClient(wagmiConfig);
+      const client = await getConnectorClient(this.wagmiConfig);
       return client;
     } catch (error) {
       console.error('Failed to get wallet provider:', error);
@@ -292,7 +307,7 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
     this.eventsListenerAdded = true;
 
     // Watch for account/chain changes using wagmi's watchAccount
-    const unwatch = watchAccount(wagmiConfig, {
+    const unwatch = watchAccount(this.wagmiConfig, {
       onChange: (account, prevAccount) => {
         const storedAddress = localStorage.getItem(LocalStorageKeys.ADDRESS);
         const storedChainId = localStorage.getItem(LocalStorageKeys.CHAIN_ID);

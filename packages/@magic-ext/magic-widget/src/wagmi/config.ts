@@ -2,15 +2,20 @@ import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { mainnet, sepolia } from '@reown/appkit/networks';
 import type { AppKitNetwork } from '@reown/appkit/networks';
 
-// Reown project ID
-export const projectId = '141e0e0e531b47a47d662bca4eb70fae';
+const DEFAULT_PROJECT_ID = 'ce9c27dd61e602ccdc9c536b6d624c63';
 
 export const networks = [mainnet, sepolia] as [AppKitNetwork, ...AppKitNetwork[]];
 
-export const wagmiAdapter = new WagmiAdapter({
-  projectId,
-  networks,
-});
+export function createWagmiConfig(projectId?: string) {
+  const resolvedProjectId = projectId ?? DEFAULT_PROJECT_ID;
+  const wagmiAdapter = new WagmiAdapter({
+    projectId: resolvedProjectId,
+    networks,
+  });
 
-export const wagmiConfig = wagmiAdapter.wagmiConfig;
-
+  return {
+    projectId: resolvedProjectId,
+    wagmiAdapter,
+    wagmiConfig: wagmiAdapter.wagmiConfig,
+  };
+}

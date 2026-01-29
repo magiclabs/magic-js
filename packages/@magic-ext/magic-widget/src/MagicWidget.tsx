@@ -7,7 +7,6 @@ import { LoginView } from './views/LoginView';
 import { WalletPendingView } from './views/WalletPendingView';
 import { widgetReducer, initialState, WidgetAction, WidgetState } from './reducer';
 import { MagicWidgetProps, OAuthProvider, ThirdPartyWallet } from './types';
-import { wagmiConfig } from './wagmi/config';
 import { OAuthPendingView } from './views/OAuthPendingView';
 import AdditionalProvidersView from './views/AdditionalProvidersView';
 import { getExtensionInstance } from './extension';
@@ -228,7 +227,7 @@ export function MagicWidget({
       onClose={onClose}
       closeOnSuccess={closeOnSuccess}
     >
-      <WagmiProvider config={wagmiConfig}>
+      <WagmiProvider config={getExtensionInstance().wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <div id="magic-widget-container">
             <WidgetContent state={state} dispatch={dispatch} showFooterLogo={showFooterLogo} isModal={isModal} />

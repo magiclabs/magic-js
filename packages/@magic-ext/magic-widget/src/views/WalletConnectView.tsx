@@ -7,7 +7,8 @@ import { WALLET_METADATA } from '../constants';
 import { ThirdPartyWallets } from '../types';
 import WidgetHeader from '../components/WidgetHeader';
 import { EthereumProvider } from '@walletconnect/ethereum-provider';
-import { projectId, networks, wagmiAdapter } from '../wagmi/config';
+import { networks } from '../wagmi/config';
+import { getExtensionInstance } from '../extension';
 import { setWalletConnectProvider } from '../wagmi/walletconnect-provider';
 import { isMobile } from '../utils/device';
 import { createAppKit } from '@reown/appkit';
@@ -39,10 +40,11 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
   const appKit = useMemo(() => {
     if (typeof window === 'undefined') return null;
     if (!isMobileDevice) return null;
+    const ext = getExtensionInstance();
     return createAppKit({
-      adapters: [wagmiAdapter],
+      adapters: [ext.wagmiAdapter],
       networks: networks,
-      projectId: projectId,
+      projectId: ext.projectId,
     });
   }, [isMobileDevice]);
 
@@ -84,7 +86,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
       // Initialize Ethereum provider
       const chainIds = networks.map(n => Number(n.id)) as [number, ...number[]];
       const provider = await EthereumProvider.init({
-        projectId,
+        projectId: getExtensionInstance().projectId,
         chains: chainIds,
         optionalChains: chainIds,
         showQrModal: false,
