@@ -25,15 +25,42 @@ export enum UserEventsOnReceived {
   ClosedByUser = 'closed-by-user-on-received',
 }
 
+export interface ChainWalletInfo {
+  publicAddress: string | null;
+  subAccounts: Array<{ name: string; publicAddress: string }>;
+}
+
 export interface MagicUserMetadata {
   issuer: string | null;
-  publicAddress: string | null;
   email: string | null;
   phoneNumber: string | null;
   isMfaEnabled: boolean;
   recoveryFactors: [RecoveryFactor] | [];
   walletType: string;
   firstLoginAt: string | null;
+  wallets: {
+    ethereum?: ChainWalletInfo;
+    algorand?: ChainWalletInfo;
+    aptos?: ChainWalletInfo;
+    avalancheX?: ChainWalletInfo;
+    bitcoin?: ChainWalletInfo;
+    conflux?: ChainWalletInfo;
+    cosmos?: ChainWalletInfo;
+    flow?: ChainWalletInfo;
+    harmony?: ChainWalletInfo;
+    hedera?: ChainWalletInfo;
+    icon?: ChainWalletInfo;
+    kadena?: ChainWalletInfo;
+    near?: ChainWalletInfo;
+    polkadot?: ChainWalletInfo;
+    solana?: ChainWalletInfo;
+    sui?: ChainWalletInfo;
+    taquito?: ChainWalletInfo;
+    terra?: ChainWalletInfo;
+    tezos?: ChainWalletInfo;
+    zilliqa?: ChainWalletInfo;
+    [chain: string]: ChainWalletInfo | undefined;
+  };
 }
 
 export enum RecoveryFactorEventOnReceived {
@@ -71,7 +98,7 @@ export type RecoveryFactorEventHandlers = {
   [RecoveryFactorEventOnReceived.RecoveryFactorAlreadyExists]: () => void;
   [RecoveryFactorEventOnReceived.MalformedPhoneNumber]: () => void;
   [RecoveryFactorEventOnReceived.InvalidOtpCode]: () => void;
-  [RecoveryFactorEventOnReceived.RecoveryFactorUpdated]: (updatedFactor: { type: string, value: string }) => void;
+  [RecoveryFactorEventOnReceived.RecoveryFactorUpdated]: (updatedFactor: { type: string; value: string }) => void;
   [RecoveryFactorEventOnReceived.RecoveryFactorDeleted]: () => void;
 } & RecencyCheckEventHandlers;
 

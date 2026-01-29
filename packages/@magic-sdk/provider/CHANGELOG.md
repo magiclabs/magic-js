@@ -1,3 +1,40 @@
+# v33.1.1 (Tue Jan 20 2026)
+
+#### 🐛 Bug Fix
+
+- fix types version [#1004](https://github.com/magiclabs/magic-js/pull/1004) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.1.0 (Sat Jan 17 2026)
+
+#### 🚀 Enhancement
+
+- 7702 authorization api [#991](https://github.com/magiclabs/magic-js/pull/991) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.0.1 (Fri Jan 16 2026)
+
+#### 🐛 Bug Fix
+
+- fix type for user metadata [#1003](https://github.com/magiclabs/magic-js/pull/1003) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v33.0.0 (Tue Jan 13 2026)
 
 #### 🐛 Bug Fix

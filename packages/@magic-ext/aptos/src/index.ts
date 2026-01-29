@@ -1,8 +1,8 @@
 import { MultichainExtension } from '@magic-sdk/provider';
 
-// @ts-ignore
 import { AptosClient, BCS, TxnBuilderTypes, Types, getAddressFromAccountOrAddress } from 'aptos';
-import { AccountInfo, SignMessagePayload, SignMessageResponse } from '@aptos-labs/wallet-adapter-core';
+import { AccountInfo } from '@aptos-labs/wallet-adapter-core';
+import { AptosSignMessageInput, AptosSignMessageOutput } from '@aptos-labs/wallet-standard';
 import { AptosConfig, AptosPayloadMethod } from './type';
 import { APTOS_PAYLOAD_TYPE } from './constants';
 
@@ -106,8 +106,8 @@ export class AptosExtension extends MultichainExtension<'aptos'> {
     );
   };
 
-  signMessage = async (address: string, message: SignMessagePayload): Promise<SignMessageResponse> => {
-    return this.request<SignMessageResponse>(
+  signMessage = async (address: string, message: AptosSignMessageInput): Promise<AptosSignMessageOutput> => {
+    return this.request<AptosSignMessageOutput>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignMessage, [
         {
           address,
@@ -117,7 +117,7 @@ export class AptosExtension extends MultichainExtension<'aptos'> {
     );
   };
 
-  signMessageAndVerify = async (address: string, message: SignMessagePayload): Promise<boolean> => {
+  signMessageAndVerify = async (address: string, message: AptosSignMessageInput): Promise<boolean> => {
     return this.request<boolean>(
       this.utils.createJsonRpcRequestPayload(AptosPayloadMethod.AptosSignMessageAndVerify, [
         {

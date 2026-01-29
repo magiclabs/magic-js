@@ -4,6 +4,35 @@ import { AptosExtension } from '../../src';
 import { AptosPayloadMethod } from '../../src/type';
 import { TextEncoder, TextDecoder } from 'util';
 
+// Mock AptosClient to avoid network calls
+const mockRawTransaction = new TxnBuilderTypes.RawTransaction(
+  TxnBuilderTypes.AccountAddress.fromHex('0x8293d5e05544c6e53c47fc19ae071c26a60e0ccbd8a12eb5b2c9d348c85227b6'),
+  BigInt(0),
+  new TxnBuilderTypes.TransactionPayloadEntryFunction(
+    TxnBuilderTypes.EntryFunction.natural(
+      '0x1::coin',
+      'transfer',
+      [TxnBuilderTypes.StructTag.fromString('0x1::aptos_coin::AptosCoin')],
+      [],
+    ),
+  ),
+  BigInt(2000),
+  BigInt(1),
+  BigInt(Math.floor(Date.now() / 1000) + 600),
+  new TxnBuilderTypes.ChainId(2),
+);
+
+jest.mock('aptos', () => {
+  const actual = jest.requireActual('aptos');
+  return {
+    ...actual,
+    AptosClient: jest.fn().mockImplementation(() => ({
+      generateTransaction: jest.fn().mockResolvedValue(mockRawTransaction),
+      generateRawTransaction: jest.fn().mockResolvedValue(mockRawTransaction),
+    })),
+  };
+});
+
 const APTOS_NODE_URL = 'https://fullnode.testnet.aptoslabs.com';
 
 const SAMPLE_ADDRESS = '0x8293d5e05544c6e53c47fc19ae071c26a60e0ccbd8a12eb5b2c9d348c85227b6';
@@ -36,7 +65,7 @@ beforeAll(() => {
 })
 
 beforeEach(() => {
-  jest.resetAllMocks();
+  jest.clearAllMocks();
 });
 
 test('Construct GetAccount request with `aptos_getAccount`', async () => {
