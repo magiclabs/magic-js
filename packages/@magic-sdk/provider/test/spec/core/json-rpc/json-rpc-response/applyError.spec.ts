@@ -1,5 +1,6 @@
 import { JsonRpcError, JsonRpcRequestPayload, RPCErrorCode } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
+import * as webCrypto from '../../../../../src/util/web-crypto';
 
 function createSourcePayload(): JsonRpcRequestPayload {
   return {
@@ -51,4 +52,19 @@ test('Apply `null` or `undefined` errors explicitly', () => {
   expect((response2 as any)._error).toBe(undefined);
   expect(response1.hasError).toBe(false);
   expect(response2.hasError).toBe(false);
+});
+
+test('Calls clearKeys when hasError is accessed with DpopInvalidated error', () => {
+  const payload = createSourcePayload();
+  const clearKeysSpy = jest.spyOn(webCrypto, 'clearKeys').mockImplementation(() => {});
+
+  const response = new JsonRpcResponse(payload).applyError({
+    code: RPCErrorCode.DpopInvalidated,
+    message: 'DPOP invalidated',
+  });
+
+  expect(response.hasError).toBe(true);
+  expect(clearKeysSpy).toHaveBeenCalledTimes(1);
+
+  clearKeysSpy.mockRestore();
 });

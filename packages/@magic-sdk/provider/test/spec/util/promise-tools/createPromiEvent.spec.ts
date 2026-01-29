@@ -1,3 +1,4 @@
+import { UserEventsEmit, UserEventsOnReceived } from '@magic-sdk/types';
 import { createPromiEvent } from '../../../../src/util/promise-tools';
 import { TypedEmitter } from '../../../../src/util/events';
 
@@ -102,4 +103,12 @@ test('Emits "settled" event upon Promise reject', done => {
     .catch(() => {
       /* noop */
     });
+});
+
+test('Emits ClosedByUser when UserEventsOnReceived.ClosedByUser is emitted', done => {
+  const promiEvent = createPromiEvent(resolve => setTimeout(() => resolve('ok'), 100));
+  promiEvent.on(UserEventsEmit.ClosedByUser, () => {
+    done();
+  });
+  promiEvent.emit(UserEventsOnReceived.ClosedByUser);
 });

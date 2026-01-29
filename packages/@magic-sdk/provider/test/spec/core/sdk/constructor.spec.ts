@@ -85,6 +85,21 @@ test('Initialize `MagicSDK` with custom Web3 network', () => {
   assertModuleInstanceTypes(magic);
 });
 
+test('Initialize `MagicSDK` with custom network object (rpcUrl, chainId, chainType)', () => {
+  const Ctor = createMagicSDKCtor();
+  const customNetwork = {
+    rpcUrl: 'https://rpc.example.com',
+    chainId: 1,
+    chainType: 'eth' as const,
+  };
+  const magic = new Ctor(TEST_API_KEY, { network: customNetwork });
+
+  expect(magic.apiKey).toBe(TEST_API_KEY);
+  const expectedNetworkHash = `${TEST_API_KEY}_https://rpc.example.com_1_eth`;
+  expect((magic as any).networkHash).toBe(expectedNetworkHash);
+  assertModuleInstanceTypes(magic);
+});
+
 test('Initialize `MagicSDK` with custom locale', () => {
   const Ctor = createMagicSDKCtor();
   const magic = new Ctor(TEST_API_KEY, { locale: 'pl_PL' });

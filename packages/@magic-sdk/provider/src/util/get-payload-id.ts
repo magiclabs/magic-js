@@ -5,6 +5,7 @@ function* createIntGenerator(): Generator<number, number, void> {
 
   while (true) {
     if (index < Number.MAX_SAFE_INTEGER) yield ++index;
+    /* istanbul ignore else -- edge case: reset after MAX_SAFE_INTEGER, impractical to test */
     else index = 0;
   }
 }
