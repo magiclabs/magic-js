@@ -1,3 +1,20 @@
+# v16.1.0 (Thu Jan 29 2026)
+
+#### 🐛 Bug Fix
+
+- bump versions [#985](https://github.com/magiclabs/magic-js/pull/985) ([@Ethella](https://github.com/Ethella) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v16.0.0 (Tue Jan 13 2026)
 
 #### 🐛 Bug Fix
