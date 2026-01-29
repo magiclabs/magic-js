@@ -10,6 +10,9 @@ on:
   merge_group:
    types: [checks_requested]
 
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 jobs:
   lint:
     runs-on: ubuntu-latest
