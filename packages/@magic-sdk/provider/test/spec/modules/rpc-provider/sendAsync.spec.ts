@@ -451,3 +451,29 @@ test('Async, with batch payload having null id in success response', done => {
   magic.rpcProvider.sendAsync([payload1, payload2], onRequestComplete);
 });
 
+test('Async, with batch payload having null jsonrpc in success response', done => {
+  const magic = createMagicSDK();
+
+  const payload1 = { method: 'eth_call', params: ['hello world'] };
+  const payload2 = { method: 'eth_call', params: ['goodbye world'] };
+
+  let callCount = 0;
+  const postStub = jest.fn().mockImplementation((msgType, requestPayload: any) => {
+    callCount++;
+    // Mutate to null so response builder hits p.jsonrpc ?? '2.0' branch
+    requestPayload.jsonrpc = null;
+    const response = new JsonRpcResponse(requestPayload);
+    return Promise.resolve(response.applyResult(`test${callCount}`));
+  });
+  magic.rpcProvider.overlay.post = postStub;
+
+  const onRequestComplete = jest.fn((_, responses) => {
+    expect(_).toBe(null);
+    expect(responses.length).toBe(2);
+    expect(responses[0].jsonrpc).toBe('2.0');
+    expect(responses[1].jsonrpc).toBe('2.0');
+    done();
+  });
+  magic.rpcProvider.sendAsync([payload1, payload2], onRequestComplete);
+});
+
