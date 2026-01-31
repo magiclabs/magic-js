@@ -2,8 +2,8 @@ import { magicPreset } from '@magiclabs/ui-components/presets';
 import { defineConfig } from '@pandacss/dev';
 
 export default defineConfig({
-  // Whether to use css reset
-  preflight: true,
+  // Disable css reset to avoid overriding host site styles
+  preflight: false,
   // Minify the generated css
   minify: true,
   // Hash all classnames
