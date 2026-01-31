@@ -19,7 +19,7 @@
   "types": "./dist/types/index.d.ts",
   "dependencies": {
     "@aveq-research/localforage-asyncstorage-driver": "^3.0.1",
-    "@magic-sdk/provider": "^31.2.0",
+    "@magic-sdk/provider": "^33.3.1-canary.1018.21526736144.0",
     "@magic-sdk/types": "^25.2.0",
     "@react-native-async-storage/async-storage": "^2.1.2",
     "@types/lodash": "^4.14.158",
@@ -40,7 +40,7 @@
     "@react-native/babel-preset": "^0.79.0",
     "@testing-library/react-native": "^13.2.0",
     "react": "~19.1.0",
-    "react-native": "~0.78.1",
+    "react-native": "^0.83.1",
     "react-native-device-info": "^10.3.0",
     "react-native-keychain": "^10.0.0",
     "react-native-safe-area-context": "5.3.0",

@@ -131,6 +131,14 @@ These are packages Magic JS SDK uses internally to work seamlessly across platfo
 | [`@magic-sdk/types`](https://www.npmjs.com/package/@magic-sdk/types)       | [CHANGELOG](./packages/@magic-sdk/types/CHANGELOG.md)    | Core typings shared between JavaScript entry-points of Magic SDK.        |
 | [`@magic-sdk/provider`](https://www.npmjs.com/package/@magic-sdk/provider) | [CHANGELOG](./packages/@magic-sdk/provider/CHANGELOG.md) | Core business logic shared between JavaScript entry-points of Magic SDK. |
 
+## Development requirements
+
+When developing in this monorepo (e.g. after cloning and running `yarn`):
+
+- **Node.js** – LTS or current (see [packageManager](package.json) for the project’s Yarn version).
+- **Yarn** – v3.6.0 (use [Corepack](https://nodejs.org/api/corepack.html) or install Yarn 3).
+- **Python 3.8+** – Required by node-gyp when building optional native dependencies (e.g. `bufferutil`, `utf-8-validate`). If you use an older Python, installs can still succeed because those builds are skipped via `dependenciesMeta`; only upgrade Python if you need to build other native addons.
+
 ## 🚦 Testing
 
 Run tests for all packages

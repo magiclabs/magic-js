@@ -96,7 +96,7 @@ test('Initialize `MagicSDK` with custom network object', () => {
 
   expect(magic.apiKey).toBe(TEST_API_KEY);
   expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
-  expect(magic.networkHash).toBe(`${TEST_API_KEY}_https://custom.rpc.url_12345_eth`);
+  expect((magic as any).networkHash).toBe(`${TEST_API_KEY}_https://custom.rpc.url_12345_eth`);
   assertModuleInstanceTypes(magic);
 });
 

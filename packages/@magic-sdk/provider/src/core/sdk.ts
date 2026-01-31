@@ -57,6 +57,7 @@ function getNetworkHash(apiKey: string, network?: EthNetworkConfiguration, extCo
     // Custom network, not necessarily eth.
     return `${apiKey}_${network.rpcUrl}_${network.chainId}_${network.chainType}`;
   }
+  /* istanbul ignore next -- unreachable under valid EthNetworkConfiguration */
   return `${apiKey}_unknown`;
 }
 

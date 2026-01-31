@@ -1,5 +1,6 @@
 import { JsonRpcError, JsonRpcRequestPayload, RPCErrorCode } from '@magic-sdk/types';
 import { JsonRpcResponse } from '../../../../../src/core/json-rpc';
+import * as webCrypto from '../../../../../src/util/web-crypto';
 
 jest.mock('../../../../../src/util/web-crypto', () => ({
   clearKeys: jest.fn(),
@@ -96,7 +97,7 @@ test('Does not call clearKeys when error exists but has no code property', () =>
   const response = new JsonRpcResponse(payload);
   // Apply an error-like object without a code property
   response.applyError({ message: 'Some error' } as any);
-  
+
   expect(response.hasError).toBe(true);
   expect(clearKeys).not.toHaveBeenCalled();
 });
