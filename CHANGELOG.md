@@ -1,3 +1,21 @@
+# (Sat Jan 31 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/magic-widget@0.2.1`
+  - fix magic widget css reset [#1021](https://github.com/magiclabs/magic-js/pull/1021) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🔩 Dependency Updates
+
+- Bump eslint from 9.24.0 to 9.26.0 [#1016](https://github.com/magiclabs/magic-js/pull/1016) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Thu Jan 29 2026)
 
 #### 🚀 Enhancement

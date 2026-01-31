@@ -1,3 +1,15 @@
+# v0.2.1 (Sat Jan 31 2026)
+
+#### 🐛 Bug Fix
+
+- fix magic widget css reset [#1021](https://github.com/magiclabs/magic-js/pull/1021) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v0.2.0 (Thu Jan 29 2026)
 
 #### 🚀 Enhancement
