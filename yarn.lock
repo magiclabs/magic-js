@@ -3430,40 +3430,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-ext/magic-widget@workspace:packages/@magic-ext/magic-widget":
-  version: 0.0.0-use.local
-  resolution: "@magic-ext/magic-widget@workspace:packages/@magic-ext/magic-widget"
-  dependencies:
-    "@magic-sdk/provider": ^33.3.0
-    "@magic-sdk/types": ^27.3.0
-    "@magiclabs/ui-components": ^1.49.2
-    "@pandacss/dev": ^0.35.0
-    "@reown/appkit": ^1.8.0
-    "@reown/appkit-adapter-wagmi": ^1.8.0
-    "@rollup/plugin-commonjs": ^26.0.1
-    "@rollup/plugin-node-resolve": ^15.2.3
-    "@rollup/plugin-replace": ^5.0.5
-    "@rollup/plugin-terser": ^0.4.4
-    "@rollup/plugin-typescript": ^11.1.6
-    "@tanstack/react-query": ^5.0.0
-    "@types/react": ^18.0.0
-    "@types/react-dom": ^18.0.0
-    "@wagmi/core": ^2.0.0
-    "@walletconnect/ethereum-provider": ^2.23.0
-    react: ^18.0.0
-    react-dom: ^18.0.0
-    rollup: ^4.18.0
-    tslib: ^2.6.3
-    viem: ^2.37.9
-    wagmi: ^2.0.0
-  peerDependencies:
-    "@tanstack/react-query": ^5.0.0
-    react: ">=18.0.0"
-    react-dom: ">=18.0.0"
-    viem: ^2.0.0
-  languageName: unknown
-  linkType: soft
-
 "@magic-ext/near@workspace:packages/@magic-ext/near":
   version: 0.0.0-use.local
   resolution: "@magic-ext/near@workspace:packages/@magic-ext/near"
@@ -3579,6 +3545,40 @@ __metadata:
   resolution: "@magic-ext/tezos@workspace:packages/@magic-ext/tezos"
   dependencies:
     "@magic-sdk/provider": ^33.3.0
+  languageName: unknown
+  linkType: soft
+
+"@magic-ext/wallet-kit@workspace:packages/@magic-ext/wallet-kit":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/wallet-kit@workspace:packages/@magic-ext/wallet-kit"
+  dependencies:
+    "@magic-sdk/provider": ^33.3.0
+    "@magic-sdk/types": ^27.3.0
+    "@magiclabs/ui-components": ^1.49.2
+    "@pandacss/dev": ^0.35.0
+    "@reown/appkit": ^1.8.0
+    "@reown/appkit-adapter-wagmi": ^1.8.0
+    "@rollup/plugin-commonjs": ^26.0.1
+    "@rollup/plugin-node-resolve": ^15.2.3
+    "@rollup/plugin-replace": ^5.0.5
+    "@rollup/plugin-terser": ^0.4.4
+    "@rollup/plugin-typescript": ^11.1.6
+    "@tanstack/react-query": ^5.0.0
+    "@types/react": ^18.0.0
+    "@types/react-dom": ^18.0.0
+    "@wagmi/core": ^2.0.0
+    "@walletconnect/ethereum-provider": ^2.23.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+    rollup: ^4.18.0
+    tslib: ^2.6.3
+    viem: ^2.37.9
+    wagmi: ^2.0.0
+  peerDependencies:
+    "@tanstack/react-query": ^5.0.0
+    react: ">=18.0.0"
+    react-dom: ">=18.0.0"
+    viem: ^2.0.0
   languageName: unknown
   linkType: soft
 
