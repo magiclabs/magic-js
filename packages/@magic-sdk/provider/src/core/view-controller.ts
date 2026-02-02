@@ -212,7 +212,7 @@ export abstract class ViewController {
   ): RemoveEventListenerFunction {
     const boundHandler = handler.bind(window);
 
-    // We cannot effectively cover this function because it never gets reference
+    // We cannot effectively cover this function because it never gets referenced
     // by value. The functionality of this callback is tested within
     // `initMessageListener`.
     /* istanbul ignore next */
