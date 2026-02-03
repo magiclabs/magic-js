@@ -1,4 +1,9 @@
-import { EthNetworkConfiguration, QueryParameters, SupportedLocale } from '@magic-sdk/types';
+import {
+  EthNetworkConfiguration,
+  MagicThirdPartyWalletRequest,
+  QueryParameters,
+  SupportedLocale,
+} from '@magic-sdk/types';
 import { coerce, satisfies } from '../util/semver';
 import { encodeJSON } from '../util/base64-json';
 import {
@@ -215,6 +220,11 @@ export class SDKBase {
       // @ts-ignore - We don't want to expose this method to the user, but we
       // need to invoke it here so that the `ViewController` is ready for use.
       controller.init();
+
+      // Register the handler for third party wallet requests from the iframe
+      controller.onThirdPartyWalletRequest((event: MagicThirdPartyWalletRequest) =>
+        this.thirdPartyWallets.handleIframeThirdPartyWalletRequest(event),
+      );
 
       SDKBase.__overlays__.set(this.parameters, controller);
     }

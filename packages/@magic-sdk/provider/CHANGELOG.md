@@ -1,3 +1,28 @@
+# v33.3.1 (Tue Feb 03 2026)
+
+#### 🐛 Bug Fix
+
+- fix name for request override [#1024](https://github.com/magiclabs/magic-js/pull/1024) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.3.0 (Thu Jan 29 2026)
+
+#### 🚀 Enhancement
+
+- feat: Magic Widget extension [#979](https://github.com/magiclabs/magic-js/pull/979) ([@joshuascan](https://github.com/joshuascan) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v33.2.0 (Thu Jan 29 2026)
 
 #### 🚀 Enhancement

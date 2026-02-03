@@ -1,3 +1,63 @@
+# (Tue Feb 03 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.3.1`
+  - fix name for request override [#1024](https://github.com/magiclabs/magic-js/pull/1024) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Tue Feb 03 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.2.0`
+  - rename widget package [#1022](https://github.com/magiclabs/magic-js/pull/1022) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Sat Jan 31 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/magic-widget@0.2.1`
+  - fix magic widget css reset [#1021](https://github.com/magiclabs/magic-js/pull/1021) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🔩 Dependency Updates
+
+- Bump eslint from 9.24.0 to 9.26.0 [#1016](https://github.com/magiclabs/magic-js/pull/1016) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Thu Jan 29 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/magic-widget@0.2.0`
+  - rename prettierrc [#1017](https://github.com/magiclabs/magic-js/pull/1017) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-ext/algorand@28.2.0`, `@magic-ext/aptos@16.2.0`, `@magic-ext/avalanche@28.2.0`, `@magic-ext/bitcoin@28.2.0`, `@magic-ext/conflux@26.2.0`, `@magic-ext/cosmos@28.2.0`, `@magic-ext/ed25519@24.2.0`, `@magic-ext/evm@1.1.0`, `@magic-ext/farcaster@5.2.0`, `@magic-ext/flow@28.2.0`, `@magic-ext/gdkms@16.2.0`, `@magic-ext/harmony@28.2.0`, `@magic-ext/hedera@2.1.0`, `@magic-ext/icon@28.2.0`, `@magic-ext/kadena@5.2.0`, `@magic-ext/magic-widget@0.2.0`, `@magic-ext/near@28.2.0`, `@magic-ext/oauth2@15.2.0`, `@magic-ext/oidc@16.2.0`, `@magic-ext/polkadot@28.2.0`, `@magic-ext/react-native-bare-oauth@30.2.0`, `@magic-ext/react-native-expo-oauth@30.2.0`, `@magic-ext/siwe@3.2.0`, `@magic-ext/solana@30.2.0`, `@magic-ext/sui@5.2.0`, `@magic-ext/taquito@25.2.0`, `@magic-ext/terra@25.2.0`, `@magic-ext/tezos@28.2.0`, `@magic-ext/webauthn@27.2.0`, `@magic-ext/zilliqa@28.2.0`, `@magic-sdk/provider@33.3.0`, `@magic-sdk/types@27.3.0`, `magic-sdk@33.3.0`
+  - feat: Magic Widget extension [#979](https://github.com/magiclabs/magic-js/pull/979) ([@joshuascan](https://github.com/joshuascan) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Thu Jan 29 2026)
 
 #### 🚀 Enhancement
