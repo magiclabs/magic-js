@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/flow",
-  "version": "28.2.0",
+  "version": "28.2.1",
   "description": "magic flow extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,7 +28,7 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^33.3.0",
+    "@magic-sdk/provider": "^33.3.1",
     "@onflow/fcl": "^1.4.1",
     "@onflow/types": "^1.1.0"
   },

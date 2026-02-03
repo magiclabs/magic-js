@@ -1,7 +1,7 @@
 {
   "name": "@magic-ext/wallet-kit",
   "useCustomBuild": true,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Magic SDK Wallet Kit Extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -62,7 +62,7 @@
     "viem": "^2.0.0"
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^33.3.0",
+    "@magic-sdk/provider": "^33.3.1",
     "@magic-sdk/types": "^27.3.0",
     "@pandacss/dev": "^0.35.0",
     "@rollup/plugin-commonjs": "^26.0.1",
