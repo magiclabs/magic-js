@@ -1,3 +1,16 @@
+# (Tue Feb 03 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.2.0`
+  - rename widget package [#1022](https://github.com/magiclabs/magic-js/pull/1022) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Sat Jan 31 2026)
 
 #### 🐛 Bug Fix
