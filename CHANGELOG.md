@@ -1,5 +1,18 @@
 # (Tue Feb 03 2026)
 
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.3.1`
+  - fix name for request override [#1024](https://github.com/magiclabs/magic-js/pull/1024) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Tue Feb 03 2026)
+
 #### 🚀 Enhancement
 
 - `@magic-ext/wallet-kit@0.2.0`

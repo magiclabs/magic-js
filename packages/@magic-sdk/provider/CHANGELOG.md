@@ -1,3 +1,15 @@
+# v33.3.1 (Tue Feb 03 2026)
+
+#### 🐛 Bug Fix
+
+- fix name for request override [#1024](https://github.com/magiclabs/magic-js/pull/1024) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v33.3.0 (Thu Jan 29 2026)
 
 #### 🚀 Enhancement
