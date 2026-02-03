@@ -136,29 +136,29 @@ Nonce: ${nonce}
 Issued At: ${issuedAt}`;
 }
 
-let extensionInstance: MagicWidgetExtension | null = null;
+let extensionInstance: WalletKitExtension | null = null;
 
 /**
- * Get the initialized MagicWidgetExtension instance.
+ * Get the initialized WalletKitExtension instance.
  * Used internally by React components to access SIWE methods.
  * @throws Error if extension hasn't been initialized yet
  */
-export function getExtensionInstance(): MagicWidgetExtension {
+export function getExtensionInstance(): WalletKitExtension {
   if (!extensionInstance) {
     throw new Error(
-      'MagicWidgetExtension has not been initialized. Make sure to create a Magic instance with MagicWidgetExtension before rendering MagicWidget.',
+      'WalletKitExtension has not been initialized. Make sure to create a Magic instance with WalletKitExtension before rendering MagicWidget.',
     );
   }
   return extensionInstance;
 }
 
-export interface MagicWidgetExtensionOptions {
+export interface WalletKitExtensionOptions {
   /** Reown (WalletConnect) project ID. Uses a default if not provided. */
   projectId?: string;
 }
 
-export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
-  name = 'magicWidget' as const;
+export class WalletKitExtension extends Extension.Internal<'walletKit'> {
+  name = 'walletKit' as const;
   config = {};
 
   public readonly projectId: string;
@@ -170,7 +170,7 @@ export class MagicWidgetExtension extends Extension.Internal<'magicWidget'> {
   private eventsListenerAdded = false;
   private reconnectPromise: Promise<void> | null = null;
 
-  constructor(options?: MagicWidgetExtensionOptions) {
+  constructor(options?: WalletKitExtensionOptions) {
     super();
     const { projectId, wagmiAdapter, wagmiConfig } = createWagmiConfig(options?.projectId);
     this.projectId = projectId;

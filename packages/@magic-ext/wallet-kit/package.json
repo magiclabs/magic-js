@@ -1,8 +1,8 @@
 {
-  "name": "@magic-ext/magic-widget",
+  "name": "@magic-ext/wallet-kit",
   "useCustomBuild": true,
-  "version": "0.2.1",
-  "description": "Magic SDK Widget Extension with React components.",
+  "version": "0.1.0",
+  "description": "Magic SDK Wallet Kit Extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
   "repository": {

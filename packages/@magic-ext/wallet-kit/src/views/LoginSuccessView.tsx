@@ -15,8 +15,8 @@ export const LoginSuccessView = ({ state }: LoginSuccessViewProps) => {
   return (
     <>
       <WidgetHeader showHeaderText={false} />
-      <VStack gap={6}>
-        <IcoCheckmarkCircleFill width={60} height={60} color={token('colors.brand.base')} />
+      <VStack gap={8}>
+        <IcoCheckmarkCircleFill width={40} height={40} color={token('colors.brand.base')} />
 
         <VStack gap={1}>
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
