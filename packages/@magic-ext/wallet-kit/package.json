@@ -18,6 +18,7 @@
     "dist"
   ],
   "target": "browser",
+  "type": "module",
   "module": "./dist/es/index.mjs",
   "types": "./dist/types/index.d.ts",
   "exports": {
