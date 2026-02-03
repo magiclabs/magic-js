@@ -201,8 +201,8 @@ export class ThirdPartyWalletsModule extends BaseModule {
 
     if (isEthRequest || SIGN_REQUESTS.includes(payload.method as string)) {
       return createPromiEvent<unknown>((resolve, reject) => {
-        // @ts-expect-error Property 'magicWidget' does not exist on type 'SDKBase'.
-        this.sdk.magicWidget
+        // @ts-expect-error Property 'walletKit' does not exist on type 'SDKBase'.
+        this.sdk.walletKit
           .walletRequest(payload)
           .then(resolve)
           .catch((error: unknown) => reject(new MagicRPCError(error as JsonRpcError)));
@@ -215,8 +215,8 @@ export class ThirdPartyWalletsModule extends BaseModule {
   private magicWidgetLogout(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean> {
     return createPromiEvent<boolean>(async resolve => {
       try {
-        // @ts-expect-error Property 'magicWidget' does not exist on type 'SDKBase'.
-        this.sdk.magicWidget.clearConnectedState();
+        // @ts-expect-error Property 'walletKit' does not exist on type 'SDKBase'.
+        this.sdk.walletKit.clearConnectedState();
       } catch (error) {
         console.error(error);
       }
