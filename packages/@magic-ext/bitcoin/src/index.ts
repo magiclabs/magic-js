@@ -15,6 +15,7 @@ export class BitcoinExtension extends MultichainExtension<'bitcoin'> {
   }
 
   public async signTransaction(txn: string, inputIndex: number) {
+    console.log('signTransaction', txn, inputIndex);
     return this.request(
       this.utils.createJsonRpcRequestPayload(BitcoinPayloadMethod.BitcoinSignTransaction, [txn, inputIndex]),
     );
