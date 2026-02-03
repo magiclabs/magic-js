@@ -3558,12 +3558,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@^33.1.1, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+"@magic-sdk/provider@^33.2.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
     "@babel/plugin-transform-modules-commonjs": ^7.9.6
-    "@magic-sdk/types": ^27.1.0
+    "@magic-sdk/types": ^27.2.0
     eventemitter3: ^4.0.4
     localforage: ^1.7.4
     tslib: ^2.3.1
@@ -3736,7 +3736,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/types@^27.1.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
+"@magic-sdk/types@^27.2.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
   languageName: unknown
@@ -12211,15 +12211,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^7.0.1":
-  version: 7.0.4
-  resolution: "husky@npm:7.0.4"
-  bin:
-    husky: lib/bin.js
-  checksum: c6ec4af63da2c9522da8674a20ad9b48362cc92704896cc8a58c6a2a39d797feb2b806f93fbd83a6d653fbdceb2c3b6e0b602c6b2e8565206ffc2882ef7db9e9
-  languageName: node
-  linkType: hard
-
 "iconv-lite@npm:0.6.3, iconv-lite@npm:^0.6.2":
   version: 0.6.3
   resolution: "iconv-lite@npm:0.6.3"
@@ -14788,7 +14779,6 @@ __metadata:
     fs-extra: ^10.0.0
     globals: ^15.12.0
     gzip-size: ^6.0.0
-    husky: ^7.0.1
     inquirer: ^8.1.2
     is-ci: ^3.0.0
     jest: ^29.7.0
@@ -14821,8 +14811,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
-    "@magic-sdk/provider": ^33.1.1
-    "@magic-sdk/types": ^27.1.0
+    "@magic-sdk/provider": ^33.2.0
+    "@magic-sdk/types": ^27.2.0
     localforage: ^1.7.4
   languageName: unknown
   linkType: soft
