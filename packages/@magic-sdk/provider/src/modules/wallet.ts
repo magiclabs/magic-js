@@ -1,7 +1,5 @@
 import {
-  GasApiResponse,
   MagicPayloadMethod,
-  GaslessTransactionRequest,
   ConnectWithUIOptions,
   ConnectWithUiEvents,
   ShowUIPromiEvents,
@@ -71,12 +69,6 @@ export class WalletModule extends BaseModule {
 
   public showBalances() {
     return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowBalances));
-  }
-
-  public sendGaslessTransaction(address: string, transaction: GaslessTransactionRequest) {
-    return this.request<GasApiResponse>(
-      createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [address, transaction]),
-    );
   }
 
   /**
