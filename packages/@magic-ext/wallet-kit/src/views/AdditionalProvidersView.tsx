@@ -5,7 +5,7 @@ import { OAuthProvider } from 'src/types';
 import { WidgetAction } from 'src/reducer';
 import WidgetHeader from 'src/components/WidgetHeader';
 import { ProviderButton } from 'src/components/ProviderButton';
-import { OAUTH_METADATA } from 'src/constants';
+import { OAUTH_METADATA, DARK_MODE_ICON_OVERRIDES } from 'src/constants';
 import { getExtensionInstance } from 'src/extension';
 
 interface AdditionalProvidersViewProps {
@@ -14,6 +14,7 @@ interface AdditionalProvidersViewProps {
 
 export default function AdditionalProvidersView({ dispatch }: AdditionalProvidersViewProps) {
   const config = getExtensionInstance().getConfig();
+  const isDarkMode = config?.theme.themeColor === 'dark';
   const socialProviders = (config?.authProviders?.social ?? []) as OAuthProvider[];
 
   const handleProviderLogin = (provider: OAuthProvider) => {
@@ -50,7 +51,7 @@ export default function AdditionalProvidersView({ dispatch }: AdditionalProvider
               <ProviderButton
                 key={provider}
                 label={OAUTH_METADATA[provider].displayName}
-                Icon={OAUTH_METADATA[provider].Icon}
+                Icon={(isDarkMode && DARK_MODE_ICON_OVERRIDES[provider]) || OAUTH_METADATA[provider].Icon}
                 onPress={() => handleProviderLogin(provider)}
               />
             ))}
