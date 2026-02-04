@@ -6,6 +6,7 @@ import { useEmailLogin } from '../context/EmailLoginContext';
 import { vstack } from '@styled/patterns';
 import { Box } from '@styled/jsx';
 import { token } from '@styled/tokens';
+import { getExtensionInstance } from 'src/extension';
 
 export const EmailInput = () => {
   const { startEmailLogin } = useEmailLogin();
@@ -13,6 +14,8 @@ export const EmailInput = () => {
   const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [disabled, setDisabled] = useState(true);
+  const config = getExtensionInstance().getConfig();
+  const isDarkMode = config?.theme.themeColor === 'dark';
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -41,7 +44,7 @@ export const EmailInput = () => {
       <Box w="full" maxW="25rem">
         <TextInput aria-label="email input" value={email} onChange={handleInput} placeholder="Email address">
           <TextInput.TypeIcon>
-            <IcoEmail />
+            <IcoEmail {...(isDarkMode ? { color: token('colors.ink.70') } : {})} />
           </TextInput.TypeIcon>
           <TextInput.ActionIcon onClick={() => {}}>
             <Button
