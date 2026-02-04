@@ -29,7 +29,7 @@
     "expo-web-browser": "14.0.2"
   },
   "devDependencies": {
-    "@magic-sdk/react-native-expo": "^32.2.0",
+    "@magic-sdk/react-native-expo": "^34.1.0",
     "@magic-sdk/types": "^27.3.0",
     "@react-native-async-storage/async-storage": "^2.1.2",
     "@types/crypto-js": "~4.2.0"
