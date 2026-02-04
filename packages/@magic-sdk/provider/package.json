@@ -1,6 +1,6 @@
 {
   "name": "@magic-sdk/provider",
-  "version": "33.2.0",
+  "version": "33.3.1",
   "description": "Core business logic for Magic SDK packages.",
   "author": "Magic Labs <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,11 +28,14 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.9.6",
+    "localforage": "^1.7.4",
     "tslib": "^2.3.1"
   },
   "dependencies": {
-    "@magic-sdk/types": "^27.2.0",
-    "eventemitter3": "^4.0.4",
+    "@magic-sdk/types": "^27.3.0",
+    "eventemitter3": "^4.0.4"
+  },
+  "peerDependencies": {
     "localforage": "^1.7.4"
   },
   "gitHead": "1ef062ea699d48d5e9a9375a93b7c147632b05ca"
