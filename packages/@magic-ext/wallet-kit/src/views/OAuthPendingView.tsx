@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getProviderConfig } from '../lib/provider-config';
 import { WidgetAction } from '../reducer';
 import { OAuthProvider } from '../types';
@@ -14,12 +14,12 @@ interface OAuthPendingViewProps {
 export const OAuthPendingView = ({ provider, dispatch }: OAuthPendingViewProps) => {
   const { title, description, Icon } = getProviderConfig(provider);
   const { performOAuthLogin, isLoading, error: oauthError, isSuccess } = useOAuthLogin();
-  const [loginAttempted, setLoginAttempted] = useState(false);
+  const loginAttempted = useRef(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!loginAttempted) {
-      setLoginAttempted(true);
+    if (!loginAttempted.current) {
+      loginAttempted.current = true;
 
       performOAuthLogin(provider as ExtensionOAuthProvider).catch(err => {
         const errorMessage = (err?.message || '').toLowerCase();
@@ -41,10 +41,10 @@ export const OAuthPendingView = ({ provider, dispatch }: OAuthPendingViewProps) 
         setErrorMessage(err?.message || 'OAuth login failed');
       });
     }
-  }, [loginAttempted, performOAuthLogin, provider, dispatch]);
+  }, [performOAuthLogin, provider, dispatch]);
 
   useEffect(() => {
-    if (oauthError && loginAttempted) {
+    if (oauthError && loginAttempted.current) {
       const errorMessage = (oauthError.message || '').toLowerCase();
       // Don't show user cancellation as an error
       if (
@@ -57,7 +57,7 @@ export const OAuthPendingView = ({ provider, dispatch }: OAuthPendingViewProps) 
         setErrorMessage(oauthError.message);
       }
     }
-  }, [oauthError, loginAttempted]);
+  }, [oauthError]);
 
   const isPending = !errorMessage && (isLoading || (!isSuccess && !oauthError));
 

@@ -3554,7 +3554,7 @@ __metadata:
   dependencies:
     "@magic-sdk/provider": ^33.3.1
     "@magic-sdk/types": ^27.3.0
-    "@magiclabs/ui-components": ^1.49.2
+    "@magiclabs/ui-components": ^1.49.3
     "@pandacss/dev": ^0.35.0
     "@reown/appkit": ^1.8.0
     "@reown/appkit-adapter-wagmi": ^1.8.0
@@ -3709,9 +3709,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magiclabs/ui-components@npm:^1.49.2":
-  version: 1.49.2
-  resolution: "@magiclabs/ui-components@npm:1.49.2"
+"@magiclabs/ui-components@npm:^1.49.3":
+  version: 1.49.3
+  resolution: "@magiclabs/ui-components@npm:1.49.3"
   dependencies:
     create-slots: ^0.6.1
     react-aria: ^3.33.1
@@ -3721,7 +3721,7 @@ __metadata:
     "@pandacss/dev": ^0.35.0
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: a8432fe5bed9713f5203f82847d5b3e136f751cc0b77adc01abf84d7ee69bd140bdb51a9f034357b0e5ed6fba9cb228b64e4de94ac264b27c3994309c3bfe61c
+  checksum: 060b9dc4177cdbf6a4f5835f036205c72796e1806a8402ba24efb1b9ed02cd3354998ec0deabc5bcf1e12ec6ddfe6e17e5fa5d1d0293b304c00f74de3f79bc77
   languageName: node
   linkType: hard
 

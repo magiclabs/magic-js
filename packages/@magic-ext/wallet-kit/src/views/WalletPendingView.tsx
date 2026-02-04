@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { getProviderConfig } from '../lib/provider-config';
 import { WidgetAction, WidgetState } from '../reducer';
@@ -36,16 +36,16 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
   const { performSiweLogin, isLoading: isSiweLoading, error: siweError, isSuccess: isSiweSuccess } = useSiweLogin();
   const { title, description, Icon } = getProviderConfig(provider);
 
-  const [connectionAttempted, setConnectionAttempted] = useState(false);
-  const [siweAttemptedForAddress, setSiweAttemptedForAddress] = useState<string | null>(null);
+  const connectionAttempted = useRef(false);
+  const siweAttemptedForAddress = useRef<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Initiate wallet connection on mount (only if not already connected to the SELECTED provider)
   // Skip for WalletConnect since it's already connected via EthereumProvider
   // Only trigger if we have a valid provider AND we're in the wallet_pending view
   useEffect(() => {
-    if (!connectionAttempted && !isWalletConnect && provider && state.view === 'wallet_pending') {
-      setConnectionAttempted(true);
+    if (!connectionAttempted.current && !isWalletConnect && provider && state.view === 'wallet_pending') {
+      connectionAttempted.current = true;
 
       // Only skip wallet connection if already connected to the SAME wallet type
       // If connected to a different wallet, we need to switch
@@ -76,7 +76,7 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
         setErrorMessage(err?.message || 'Failed to connect wallet');
       });
     }
-  }, [connectionAttempted, connectWallet, isConnectedToSelectedProvider, address, provider, isWalletConnect]);
+  }, [connectWallet, isConnectedToSelectedProvider, address, provider, isWalletConnect]);
 
   // Once wallet is connected to the SELECTED provider with a stable address, initiate SIWE login
   // Only attempt SIWE if:
@@ -98,8 +98,8 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
     const isWcMobileReady = isWalletConnect && address && state.walletAddress && isConnected && !wcProvider;
     const shouldAttemptSiwe = isWcDesktopReady || isWcMobileReady || (isConnectedToSelectedProvider && address);
 
-    if (shouldAttemptSiwe && siweAttemptedForAddress !== address && !isSiweLoading) {
-      setSiweAttemptedForAddress(address);
+    if (shouldAttemptSiwe && siweAttemptedForAddress.current !== address && !isSiweLoading) {
+      siweAttemptedForAddress.current = address;
       setErrorMessage(null);
       performSiweLogin(address).catch(err => {
         const errorMessage = (err?.message || '').toLowerCase();
@@ -127,7 +127,6 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
   }, [
     isConnectedToSelectedProvider,
     address,
-    siweAttemptedForAddress,
     isSiweLoading,
     performSiweLogin,
     provider,
@@ -138,13 +137,13 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
 
   useEffect(() => {
     // Ignore walletError for WalletConnect since we're using EthereumProvider directly, not wagmi
-    if (walletError && connectionAttempted && !isWalletConnect) {
+    if (walletError && connectionAttempted.current && !isWalletConnect) {
       setErrorMessage(walletError.message);
     }
-  }, [walletError, connectionAttempted, isWalletConnect]);
+  }, [walletError, isWalletConnect]);
 
   useEffect(() => {
-    if (siweError && siweAttemptedForAddress) {
+    if (siweError && siweAttemptedForAddress.current) {
       const errorMsg = (siweError.message || '').toLowerCase();
       // Ignore "connector not connected" errors for WalletConnect since we use EthereumProvider directly
       if (
@@ -155,7 +154,7 @@ export const WalletPendingView = ({ provider, state, dispatch }: WalletPendingVi
       }
       setErrorMessage(siweError.message);
     }
-  }, [siweError, siweAttemptedForAddress, isWalletConnect]);
+  }, [siweError, isWalletConnect]);
 
   // Show spinner until SIWE is complete or there's an error
   // For WalletConnect, skip isWalletPending since connection is handled in WalletConnectView
