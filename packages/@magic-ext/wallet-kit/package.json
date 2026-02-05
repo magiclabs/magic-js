@@ -1,7 +1,7 @@
 {
   "name": "@magic-ext/wallet-kit",
   "useCustomBuild": true,
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Magic SDK Wallet Kit Extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
