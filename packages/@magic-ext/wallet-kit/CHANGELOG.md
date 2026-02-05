@@ -1,3 +1,15 @@
+# v0.2.3 (Thu Feb 05 2026)
+
+#### 🐛 Bug Fix
+
+- fix dark mode icons for oauth pending view [#1029](https://github.com/magiclabs/magic-js/pull/1029) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v0.2.2 (Thu Feb 05 2026)
 
 #### 🐛 Bug Fix

@@ -2,6 +2,19 @@
 
 #### 🐛 Bug Fix
 
+- `@magic-ext/wallet-kit@0.2.3`
+  - fix dark mode icons for oauth pending view [#1029](https://github.com/magiclabs/magic-js/pull/1029) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Thu Feb 05 2026)
+
+#### 🐛 Bug Fix
+
 - update frontend token [#1027](https://github.com/magiclabs/magic-js/pull/1027) ([@Ethella](https://github.com/Ethella))
 - `@magic-ext/wallet-kit@0.2.2`
   - Fix styling issues for widget [#1028](https://github.com/magiclabs/magic-js/pull/1028) ([@joshuascan](https://github.com/joshuascan))
