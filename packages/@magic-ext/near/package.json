@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/near",
-  "version": "28.2.1",
+  "version": "28.2.2",
   "description": "magic near extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^33.3.1"
+    "@magic-sdk/provider": "^33.3.2"
   }
 }
