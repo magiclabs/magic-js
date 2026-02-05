@@ -1,3 +1,27 @@
+# (Thu Feb 05 2026)
+
+#### 🐛 Bug Fix
+
+- update frontend token [#1027](https://github.com/magiclabs/magic-js/pull/1027) ([@Ethella](https://github.com/Ethella))
+- `@magic-ext/wallet-kit@0.2.2`
+  - Fix styling issues for widget [#1028](https://github.com/magiclabs/magic-js/pull/1028) ([@joshuascan](https://github.com/joshuascan))
+- `@magic-ext/react-native-bare-oauth@30.2.1`, `@magic-ext/react-native-expo-oauth@30.2.1`, `@magic-ext/solana@30.2.2`, `@magic-sdk/react-native-bare@34.1.1`, `@magic-sdk/react-native-expo@34.1.1`
+  - Optimize dependencies [#1026](https://github.com/magiclabs/magic-js/pull/1026) ([@Ethella](https://github.com/Ethella))
+- `@magic-sdk/provider@33.3.2`, `@magic-sdk/types@27.3.1`
+  - deprecate send_gaslessTransaction ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- `@magic-ext/algorand@28.2.2`, `@magic-ext/aptos@16.2.2`, `@magic-ext/avalanche@28.2.2`, `@magic-ext/bitcoin@28.2.2`, `@magic-ext/conflux@26.2.2`, `@magic-ext/cosmos@28.2.2`, `@magic-ext/ed25519@24.2.2`, `@magic-ext/evm@1.1.2`, `@magic-ext/farcaster@5.2.2`, `@magic-ext/flow@28.2.2`, `@magic-ext/gdkms@16.2.2`, `@magic-ext/harmony@28.2.2`, `@magic-ext/hedera@2.1.2`, `@magic-ext/icon@28.2.2`, `@magic-ext/kadena@5.2.2`, `@magic-ext/near@28.2.2`, `@magic-ext/oauth2@15.2.2`, `@magic-ext/oidc@16.2.2`, `@magic-ext/polkadot@28.2.2`, `@magic-ext/react-native-bare-oauth@30.2.1`, `@magic-ext/react-native-expo-oauth@30.2.1`, `@magic-ext/siwe@3.2.2`, `@magic-ext/solana@30.2.2`, `@magic-ext/sui@5.2.2`, `@magic-ext/taquito@25.2.2`, `@magic-ext/terra@25.2.2`, `@magic-ext/tezos@28.2.2`, `@magic-ext/wallet-kit@0.2.2`, `@magic-ext/webauthn@27.2.2`, `@magic-ext/zilliqa@28.2.2`, `@magic-sdk/provider@33.3.2`, `@magic-sdk/types@27.3.1`, `magic-sdk@33.3.2`
+  - Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Feb 03 2026)
 
 #### 🐛 Bug Fix

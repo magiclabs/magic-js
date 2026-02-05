@@ -1,3 +1,19 @@
+# v33.3.2 (Thu Feb 05 2026)
+
+#### 🐛 Bug Fix
+
+- deprecate send_gaslessTransaction ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v33.3.1 (Tue Feb 03 2026)
 
 #### 🐛 Bug Fix

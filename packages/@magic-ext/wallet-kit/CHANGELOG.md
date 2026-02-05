@@ -1,3 +1,20 @@
+# v0.2.2 (Thu Feb 05 2026)
+
+#### 🐛 Bug Fix
+
+- Fix styling issues for widget [#1028](https://github.com/magiclabs/magic-js/pull/1028) ([@joshuascan](https://github.com/joshuascan))
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v0.2.0 (Tue Feb 03 2026)
 
 #### 🚀 Enhancement
