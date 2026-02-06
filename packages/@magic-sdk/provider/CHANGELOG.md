@@ -1,3 +1,15 @@
+# v33.4.0 (Fri Feb 06 2026)
+
+#### 🚀 Enhancement
+
+- adds send 7702 transaction [#1030](https://github.com/magiclabs/magic-js/pull/1030) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v33.3.2 (Thu Feb 05 2026)
 
 #### 🐛 Bug Fix
