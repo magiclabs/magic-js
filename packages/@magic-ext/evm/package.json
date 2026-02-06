@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/evm",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "magic evm extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -29,7 +29,7 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^33.3.2",
-    "@magic-sdk/types": "^27.3.1"
+    "@magic-sdk/provider": "^33.4.0",
+    "@magic-sdk/types": "^27.4.0"
   }
 }
