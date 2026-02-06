@@ -472,7 +472,7 @@
 - Merge branch 'master' into PDEEXP-1544-Implement-magic_auth_recover_account_provider ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
 - feat: implement transition from recover account to update email flow events ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
 - feat: add tests for recover account ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
-- fix: add condition for test mode ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+- fix: add condition for testMode ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
 - fix: update method name ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
 - feat: implement recover account method ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
 
@@ -2315,7 +2315,7 @@
 
 #### 🚀 Enhancement
 
-- Add test-mode prefix to Ethereum RPC methods [#181](https://github.com/magiclabs/magic-js/pull/181) ([@smithki](https://github.com/smithki))
+- Add testMode/eth prefix to Ethereum RPC methods [#181](https://github.com/magiclabs/magic-js/pull/181) ([@smithki](https://github.com/smithki))
 
 #### Authors: 1
 
