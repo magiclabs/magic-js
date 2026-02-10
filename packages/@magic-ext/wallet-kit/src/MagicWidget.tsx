@@ -19,6 +19,9 @@ import { MFAView } from './views/MfaView';
 import { RecoveryCodeView } from './views/RecoveryCode';
 import { LostRecoveryCode } from './views/LostRecoveryCode';
 import { WalletConnectView } from './views/WalletConnectView';
+import { FarcasterPendingView } from './views/FarcasterPendingView';
+import { FarcasterSuccessView } from './views/FarcasterSuccessView';
+import { FarcasterFailedView } from './views/FarcasterFailedView';
 import { ClientTheme } from './types/client-config';
 import { css } from '@styled/css';
 import { useMediaQuery } from './hooks/useMediaQuery';
@@ -93,6 +96,12 @@ function WidgetContent({
         return <LostRecoveryCode dispatch={dispatch} />;
       case 'login_success':
         return <LoginSuccessView state={state} />;
+      case 'farcaster_pending':
+        return <FarcasterPendingView state={state} dispatch={dispatch} />;
+      case 'farcaster_success':
+        return <FarcasterSuccessView state={state} />;
+      case 'farcaster_failed':
+        return <FarcasterFailedView state={state} dispatch={dispatch} />;
       default:
         return <LoginView dispatch={dispatch} />;
     }
@@ -135,6 +144,7 @@ export function MagicWidget({
   closeOnSuccess = false,
   closeOnClickOutside = false,
   wallets = [],
+  enableFarcaster = false,
   onSuccess,
   onError,
   onReady,
@@ -222,6 +232,7 @@ export function MagicWidget({
   const widgetContent = (
     <WidgetConfigProvider
       wallets={wallets}
+      enableFarcaster={enableFarcaster}
       onSuccess={onSuccess}
       onError={onError}
       onClose={onClose}

@@ -10,5 +10,6 @@ export {
   type EmailLoginResult,
   type OAuthLoginResult,
   type WalletLoginResult,
+  type FarcasterLoginResult,
   type OAuthUserInfo,
 } from './types';

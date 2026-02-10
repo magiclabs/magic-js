@@ -14,7 +14,10 @@ export type View =
   | 'mfa_pending'
   | 'recovery_code'
   | 'lost_recovery_code'
-  | 'login_success';
+  | 'login_success'
+  | 'farcaster_pending'
+  | 'farcaster_success'
+  | 'farcaster_failed';
 
 export type EmailLoginStatus =
   | 'idle'
@@ -46,6 +49,9 @@ export interface WidgetState {
   error?: string;
   // Email login flow state
   emailLoginStatus?: EmailLoginStatus;
+  // Farcaster flow state
+  farcasterUrl?: string;
+  farcasterUsername?: string;
 }
 
 export type WidgetAction =
@@ -77,7 +83,12 @@ export type WidgetAction =
   | { type: 'GO_TO_ADDITIONAL_PROVIDERS' }
   // Wallet flow
   | { type: 'SELECT_WALLET'; provider: ThirdPartyWallet }
-  | { type: 'WALLETCONNECT_CONNECTED'; address: string };
+  | { type: 'WALLETCONNECT_CONNECTED'; address: string }
+  // Farcaster flow
+  | { type: 'SELECT_FARCASTER' }
+  | { type: 'FARCASTER_CHANNEL_RECEIVED'; url: string }
+  | { type: 'FARCASTER_SUCCESS'; username?: string }
+  | { type: 'FARCASTER_FAILED'; error?: string };
 
 export const initialState: WidgetState = {
   view: 'login',
@@ -262,6 +273,19 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
 
     case 'GO_TO_ADDITIONAL_PROVIDERS':
       return { ...state, view: 'additional_providers', error: undefined };
+
+    // Farcaster flow
+    case 'SELECT_FARCASTER':
+      return { ...state, view: 'farcaster_pending', farcasterUrl: undefined, farcasterUsername: undefined, error: undefined };
+
+    case 'FARCASTER_CHANNEL_RECEIVED':
+      return { ...state, farcasterUrl: action.url };
+
+    case 'FARCASTER_SUCCESS':
+      return { ...state, view: 'farcaster_success', farcasterUsername: action.username, error: undefined };
+
+    case 'FARCASTER_FAILED':
+      return { ...state, view: 'farcaster_failed', error: action.error || 'Farcaster login failed' };
 
     default:
       return state;

@@ -1,5 +1,6 @@
 import { Extension, MagicRPCError, SDKBase, ViewController } from '@magic-sdk/provider';
 import {
+  FarcasterLoginEventEmit,
   JsonRpcRequestPayload,
   LocalStorageKeys,
   MagicPayloadMethod,
@@ -26,6 +27,68 @@ enum OAuthPayloadMethod {
 enum ClientPayloadMethod {
   GetConfig = 'magic_client_get_config',
 }
+
+enum FarcasterPayloadMethod {
+  FarcasterShowQR = 'farcaster_show_QR',
+}
+
+export interface CreateChannelAPIResponse {
+  channelToken: string;
+  url: string;
+  nonce: string;
+}
+
+type Hex = `0x${string}`;
+
+export interface StatusAPIResponse {
+  state: 'pending' | 'completed';
+  nonce: string;
+  url: string;
+  message?: string;
+  signature?: Hex;
+  fid?: number;
+  username?: string;
+  bio?: string;
+  displayName?: string;
+  pfpUrl?: string;
+  verifications?: Hex[];
+  custody?: Hex;
+}
+
+interface AuthClientErrorOpts {
+  message: string;
+  cause: Error | AuthClientError;
+  presentable: boolean;
+}
+
+type AuthClientErrorCode =
+  | 'unauthenticated'
+  | 'unauthorized'
+  | 'bad_request'
+  | 'bad_request.validation_failure'
+  | 'not_found'
+  | 'not_implemented'
+  | 'unavailable'
+  | 'unknown';
+
+declare class AuthClientError extends Error {
+  readonly errCode: AuthClientErrorCode;
+  readonly presentable: boolean;
+  constructor(errCode: AuthClientErrorCode, context: Partial<AuthClientErrorOpts> | string | Error);
+}
+
+const FarcasterLoginEventOnReceived = {
+  OpenChannel: 'channel',
+  Success: 'success',
+  Failed: 'failed',
+} as const;
+
+export type FarcasterLoginEventHandlers = {
+  [FarcasterLoginEventOnReceived.OpenChannel]: (channel: CreateChannelAPIResponse) => void;
+  [FarcasterLoginEventOnReceived.Success]: (data: StatusAPIResponse) => void;
+  [FarcasterLoginEventOnReceived.Failed]: (error: AuthClientError) => void;
+  [FarcasterLoginEventEmit.Cancel]: () => void;
+};
 
 export type OAuthProvider =
   | 'google'
@@ -470,5 +533,29 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
    */
   public loginWithEmailOTP(email: string) {
     return this.sdk.auth.loginWithEmailOTP({ email, showUI: false, deviceCheckUI: false });
+  }
+
+  /**
+   * Login with Farcaster (whitelabel mode - no built-in UI).
+   * Returns a PromiEvent that emits 'channel', 'success', and 'failed' events.
+   */
+  public loginWithFarcaster() {
+    const payload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
+      {
+        data: {
+          showUI: false,
+          domain: window.location.host,
+          siweUri: window.location.origin,
+        },
+      },
+    ]);
+
+    const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
+
+    handle.on(FarcasterLoginEventEmit.Cancel, () => {
+      this.createIntermediaryEvent(FarcasterLoginEventEmit.Cancel, payload.id as string)();
+    });
+
+    return handle;
   }
 }
