@@ -200,7 +200,7 @@ export interface MagicWidgetProps {
   /**
    * Enable Farcaster login as a social provider option.
    * When true, a Farcaster button appears alongside other social providers.
-   * @example <MagicWidget farcaster />
+   * @example <MagicWidget enableFarcaster />
    */
-  farcaster?: boolean;
+  enableFarcaster?: boolean;
 }

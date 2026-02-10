@@ -144,7 +144,7 @@ export function MagicWidget({
   closeOnSuccess = false,
   closeOnClickOutside = false,
   wallets = [],
-  farcaster = false,
+  enableFarcaster = false,
   onSuccess,
   onError,
   onReady,
@@ -232,7 +232,7 @@ export function MagicWidget({
   const widgetContent = (
     <WidgetConfigProvider
       wallets={wallets}
-      farcaster={farcaster}
+      enableFarcaster={enableFarcaster}
       onSuccess={onSuccess}
       onError={onError}
       onClose={onClose}

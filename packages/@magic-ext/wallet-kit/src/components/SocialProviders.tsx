@@ -12,18 +12,18 @@ interface SocialProvidersProps {
   providers: OAuthProvider[];
   onPress: (provider: OAuthProvider) => void;
   dispatch: React.Dispatch<WidgetAction>;
-  farcaster?: boolean;
+  enableFarcaster?: boolean;
 }
 
 const MAX_VISIBLE_PROVIDERS = 5;
 const IcoEllipsis = () => <IcoKebab className={css({ rotate: '90deg' })} />;
 
-export const SocialProviders = ({ providers, onPress, dispatch, farcaster }: SocialProvidersProps) => {
+export const SocialProviders = ({ providers, onPress, dispatch, enableFarcaster }: SocialProvidersProps) => {
   const config = getExtensionInstance().getConfig();
   const isDarkMode = config?.theme.themeColor === 'dark';
-  const totalProviders = providers.length + (farcaster ? 1 : 0);
+  const totalProviders = providers.length + (enableFarcaster ? 1 : 0);
   const hasOverflow = totalProviders > MAX_VISIBLE_PROVIDERS;
-  const maxOAuthVisible = hasOverflow ? MAX_VISIBLE_PROVIDERS - 1 - (farcaster ? 1 : 0) : providers.length;
+  const maxOAuthVisible = hasOverflow ? MAX_VISIBLE_PROVIDERS - 1 - (enableFarcaster ? 1 : 0) : providers.length;
   const visibleProviders = providers.slice(0, maxOAuthVisible);
   const shouldHideLabel = totalProviders > 1;
 
@@ -42,7 +42,7 @@ export const SocialProviders = ({ providers, onPress, dispatch, farcaster }: Soc
           onPress={() => onPress(provider)}
         />
       ))}
-      {farcaster && (
+      {enableFarcaster && (
         <ProviderButton
           key="farcaster"
           hideLabel={shouldHideLabel}
