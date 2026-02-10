@@ -1,3 +1,15 @@
+# v0.4.0 (Tue Feb 10 2026)
+
+#### 🚀 Enhancement
+
+- adds farcaster to wallet kit [#1031](https://github.com/magiclabs/magic-js/pull/1031) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v0.2.3 (Thu Feb 05 2026)
 
 #### 🐛 Bug Fix

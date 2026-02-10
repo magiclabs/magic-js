@@ -1,3 +1,16 @@
+# (Tue Feb 10 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.4.0`
+  - adds farcaster to wallet kit [#1031](https://github.com/magiclabs/magic-js/pull/1031) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Fri Feb 06 2026)
 
 #### 🚀 Enhancement
