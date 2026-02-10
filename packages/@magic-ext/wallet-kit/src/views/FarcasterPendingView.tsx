@@ -5,6 +5,7 @@ import { WidgetAction, WidgetState } from '../reducer';
 import { useFarcasterLogin } from '../hooks/useFarcasterLogin';
 import WidgetHeader from '../components/WidgetHeader';
 import { FARCASTER_BRAND_COLOR, FARCASTER_LOGO_URL } from '../constants';
+import { copyToClipboard } from '../utils/copy';
 
 interface FarcasterPendingViewProps {
   state: WidgetState;
@@ -22,13 +23,9 @@ export const FarcasterPendingView = ({ state, dispatch }: FarcasterPendingViewPr
 
   const handleCopyLink = async () => {
     if (!farcasterUrl) return;
-    try {
-      await navigator.clipboard.writeText(farcasterUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard API not available
-    }
+    await copyToClipboard(farcasterUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
