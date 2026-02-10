@@ -91,6 +91,23 @@ export interface WalletLoginResult {
 }
 
 /**
+ * Result returned on successful Farcaster login
+ */
+export interface FarcasterLoginResult {
+  method: 'farcaster';
+  /** The DID token for authentication */
+  didToken: string;
+  /** Farcaster user profile data */
+  farcaster: {
+    fid?: number;
+    username?: string;
+    displayName?: string;
+    pfpUrl?: string;
+    bio?: string;
+  };
+}
+
+/**
  * Discriminated union of all login result types.
  * Check the `method` property to determine which fields are available.
  *
@@ -103,7 +120,7 @@ export interface WalletLoginResult {
  *   }
  * }}
  */
-export type LoginResult = EmailLoginResult | OAuthLoginResult | WalletLoginResult;
+export type LoginResult = EmailLoginResult | OAuthLoginResult | WalletLoginResult | FarcasterLoginResult;
 
 /**
  * How the widget is displayed on the page.
@@ -179,4 +196,11 @@ export interface MagicWidgetProps {
    * @example onReady={() => setIsLoading(false)}
    */
   onReady?: () => void;
+
+  /**
+   * Enable Farcaster login as a social provider option.
+   * When true, a Farcaster button appears alongside other social providers.
+   * @example <MagicWidget farcaster />
+   */
+  farcaster?: boolean;
 }

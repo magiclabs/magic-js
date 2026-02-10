@@ -20,6 +20,7 @@ import {
   LogoAppleMono,
   LogoTwitterMono,
   LogoGitHubMono,
+  LogoWarpcast,
 } from '@magiclabs/ui-components';
 
 export const WALLET_METADATA: Record<ThirdPartyWallet, ProviderMetadata> = {
@@ -50,3 +51,14 @@ export const DARK_MODE_ICON_OVERRIDES: Partial<Record<OAuthProvider, ProviderMet
   [OAuthProvider.TWITTER]: LogoTwitterMono,
   [OAuthProvider.GITHUB]: LogoGitHubMono,
 };
+
+export const FARCASTER_METADATA: ProviderMetadata = {
+  displayName: 'Farcaster',
+  Icon: LogoWarpcast,
+};
+
+export const FARCASTER_BRAND_COLOR = '#855DCD';
+
+// Farcaster logo for QR code center image
+export const FARCASTER_LOGO_URL =
+  'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHJ4PSI2IiBmaWxsPSIjODU1RENEIi8+PHBhdGggZD0iTTcuNSA4LjVoMTdWMTBoLTEuNWwxIDMuNWgtLjVhMyAzIDAgMCAwLTMgM3YyaC0ydi0yYTMgMyAwIDAgMC0zLTNoLS41bDEtMy41SDEzLjVsMS0xLjVoM2wxIDEuNWgtMS41bDEgMy41SC4wMDFhMyAzIDAgMCAwLTMgM3YyaC0ydi0yYTMgMyAwIDAgMC0zLTNoLS41bDEtMy41SDcuNVY4LjV6IiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg==';
