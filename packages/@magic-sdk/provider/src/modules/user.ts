@@ -88,6 +88,7 @@ export class UserModule extends BaseModule {
 
   public logout() {
     removeItem(this.localForageIsLoggedInKey);
+    removeItem('rt');
     clearDeviceShares();
 
     return createPromiEvent<boolean, any>(async (resolve, reject) => {
