@@ -68,3 +68,63 @@ export interface Sign7702AuthorizationResponse {
    */
   signature?: string;
 }
+
+/**
+ * Request parameters for sending an EIP-7702 transaction with authorization list
+ */
+export interface Send7702TransactionRequest {
+  /**
+   * The recipient address
+   */
+  to: string;
+
+  /**
+   * The value to send in wei (as hex string)
+   */
+  value?: string;
+
+  /**
+   * The transaction data (calldata)
+   */
+  data?: string;
+
+  /**
+   * Gas limit for the transaction (as hex string)
+   */
+  gas?: string;
+
+  /**
+   * Gas limit for the transaction (alias for gas)
+   */
+  gasLimit?: string;
+
+  /**
+   * Maximum fee per gas for EIP-1559 transactions (as hex string)
+   */
+  maxFeePerGas?: string;
+
+  /**
+   * Maximum priority fee per gas for EIP-1559 transactions (as hex string)
+   */
+  maxPriorityFeePerGas?: string;
+
+  /**
+   * Transaction nonce (if not provided, will be fetched from network)
+   */
+  nonce?: number;
+
+  /**
+   * The list of signed EIP-7702 authorizations to include in the transaction
+   */
+  authorizationList: Sign7702AuthorizationResponse[];
+}
+
+/**
+ * Response from sending an EIP-7702 transaction
+ */
+export interface Send7702TransactionResponse {
+  /**
+   * The transaction hash
+   */
+  transactionHash: string;
+}

@@ -17,11 +17,11 @@ interface LoginViewProps {
 
 export const LoginView = ({ dispatch }: LoginViewProps) => {
   const config = getExtensionInstance().getConfig();
-  const { wallets } = useWidgetConfig();
+  const { wallets, enableFarcaster } = useWidgetConfig();
   const { primary, social } = config?.authProviders ?? {};
   const hasEmailProvider = primary?.includes('email');
   const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
-  const showDivider = (hasEmailProvider || socialProviders.length > 0) && wallets.length > 0;
+  const showDivider = (hasEmailProvider || socialProviders.length > 0 || enableFarcaster) && wallets.length > 0;
 
   const handleProviderSelect = (provider: ThirdPartyWallet) => {
     dispatch({ type: 'SELECT_WALLET', provider });
@@ -39,11 +39,12 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
 
         <VStack width="full" maxWidth="25rem" gap={4}>
           {hasEmailProvider && <EmailInput />}
-          {socialProviders.length > 0 && (
+          {(socialProviders.length > 0 || enableFarcaster) && (
             <SocialProviders
               providers={Object.values(socialProviders)}
               onPress={handleProviderLogin}
               dispatch={dispatch}
+              enableFarcaster={enableFarcaster}
             />
           )}
 

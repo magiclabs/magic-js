@@ -4,6 +4,8 @@ import { LoginResult, MagicWidgetProps, ThirdPartyWallet } from '../types';
 interface WidgetConfigContextValue {
   /** Third-party wallets to display */
   wallets: ThirdPartyWallet[];
+  /** Whether Farcaster login is enabled */
+  enableFarcaster: boolean;
   /** Call when login succeeds */
   handleSuccess: (result: LoginResult) => void;
   /** Call when login fails */
@@ -21,6 +23,7 @@ interface WidgetConfigProviderProps extends MagicWidgetProps {
 export function WidgetConfigProvider({
   children,
   wallets = [],
+  enableFarcaster = false,
   onSuccess,
   onError,
   onClose,
@@ -54,6 +57,7 @@ export function WidgetConfigProvider({
 
   const value: WidgetConfigContextValue = {
     wallets,
+    enableFarcaster,
     handleSuccess,
     handleError,
     handleClose,

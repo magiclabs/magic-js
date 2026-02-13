@@ -17,6 +17,10 @@ import {
   LogoGitLab,
   LogoGoogle,
   LogoTelegram,
+  LogoAppleMono,
+  LogoTwitterMono,
+  LogoGitHubMono,
+  LogoWarpcast,
 } from '@magiclabs/ui-components';
 
 export const WALLET_METADATA: Record<ThirdPartyWallet, ProviderMetadata> = {
@@ -41,3 +45,19 @@ export const OAUTH_METADATA: Record<OAuthProvider, ProviderMetadata> = {
   [OAuthProvider.GITLAB]: { displayName: 'GitLab', Icon: LogoGitLab },
   [OAuthProvider.TELEGRAM]: { displayName: 'Telegram', Icon: LogoTelegram },
 };
+
+export const DARK_MODE_ICON_OVERRIDES: Partial<Record<OAuthProvider, ProviderMetadata['Icon']>> = {
+  [OAuthProvider.APPLE]: LogoAppleMono,
+  [OAuthProvider.TWITTER]: LogoTwitterMono,
+  [OAuthProvider.GITHUB]: LogoGitHubMono,
+};
+
+export const FARCASTER_METADATA: ProviderMetadata = {
+  displayName: 'Farcaster',
+  Icon: LogoWarpcast,
+};
+
+export const FARCASTER_BRAND_COLOR = '#855DCD';
+
+// Farcaster logo for QR code center image
+export const FARCASTER_LOGO_URL = 'https://bafybeidkwvzd7ae6jsi23qztuuhvpextec5qks7dv2weww6c7olgeqqx7q.ipfs.dweb.link';

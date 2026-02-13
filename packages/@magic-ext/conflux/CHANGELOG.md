@@ -1,3 +1,15 @@
+# v26.2.2 (Thu Feb 05 2026)
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v26.2.0 (Thu Jan 29 2026)
 
 #### 🚀 Enhancement
