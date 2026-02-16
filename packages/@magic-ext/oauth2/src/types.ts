@@ -103,6 +103,7 @@ export interface OAuthRedirectConfiguration {
   customData?: string;
   providerParams?: Record<string, string | number | boolean>;
   loginHint?: string;
+  showUI?: boolean;
 }
 
 export interface OAuthVerificationConfiguration {
@@ -117,6 +118,7 @@ export interface OAuthPopupConfiguration {
   loginHint?: string;
   providerParams?: Record<string, string | number | boolean>;
   shouldReturnURI?: boolean;
+  showUI?: boolean;
 }
 
 export enum OAuthErrorCode {

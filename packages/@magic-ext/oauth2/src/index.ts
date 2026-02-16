@@ -9,7 +9,14 @@ import {
   OAuthPopupConfiguration,
   OAuthVerificationConfiguration,
 } from './types';
-import { OAuthPopupEventEmit, OAuthPopupEventHandlers, OAuthPopupEventOnReceived } from '@magic-sdk/types';
+import {
+  OAuthMFAEventEmit,
+  OAuthMFAEventOnReceived,
+  OAuthPopupEventEmit,
+  OAuthPopupEventHandlers,
+  OAuthPopupEventOnReceived,
+  OAuthRedirectEventHandlers,
+} from '@magic-sdk/types';
 
 declare global {
   interface Window {
@@ -37,42 +44,62 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   }
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
-    return this.utils.createPromiEvent<null | string>(async (resolve, reject) => {
-      const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
-        {
-          ...configuration,
-          apiKey: this.sdk.apiKey,
-          platform: 'web',
-        },
-      ]);
+    const { showUI } = configuration;
+    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
+      {
+        ...configuration,
+        apiKey: this.sdk.apiKey,
+        platform: 'web',
+      },
+    ]);
 
-      const result = await this.request<OAuthRedirectStartResult | OAuthRedirectError>(parseRedirectResult);
-      const successResult = result as OAuthRedirectStartResult;
-      const errorResult = result as OAuthRedirectError;
+    const promiEvent = createPromiEvent<null | string, OAuthRedirectEventHandlers>(async (resolve, reject) => {
+      try {
+        const oauthRedirectRequest = this.request<
+          OAuthRedirectStartResult | OAuthRedirectError,
+          OAuthRedirectEventHandlers
+        >(requestPayload);
 
-      if (errorResult.error) {
-        reject(
-          this.createError<OAuthErrorData>(errorResult.error, errorResult.error_description ?? 'An error occurred.', {
-            errorURI: errorResult.error_uri,
-            provider: errorResult.provider,
-          }),
-        );
-      }
-
-      if (successResult?.oauthAuthoriationURI) {
-        const redirectURI = successResult.useMagicServerCallback
-          ? // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-            new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
-          : successResult.oauthAuthoriationURI;
-
-        if (successResult?.shouldReturnURI) {
-          resolve(redirectURI);
-        } else {
-          window.location.href = redirectURI;
+        if (!showUI && oauthRedirectRequest) {
+          this.proxyMFAReceivedEvents(oauthRedirectRequest, promiEvent);
         }
+
+        const result = await oauthRedirectRequest;
+        const successResult = result as OAuthRedirectStartResult;
+        const errorResult = result as OAuthRedirectError;
+
+        if (errorResult.error) {
+          reject(
+            this.createError<OAuthErrorData>(errorResult.error, errorResult.error_description ?? 'An error occurred.', {
+              errorURI: errorResult.error_uri,
+              provider: errorResult.provider,
+            }),
+          );
+          return;
+        }
+
+        if (successResult?.oauthAuthoriationURI) {
+          const redirectURI = successResult.useMagicServerCallback
+            ? // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
+              new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
+            : successResult.oauthAuthoriationURI;
+
+          if (successResult?.shouldReturnURI) {
+            resolve(redirectURI);
+            return;
+          } else {
+            window.location.href = redirectURI;
+          }
+        }
+        resolve(null);
+      } catch (error) {
+        reject(error);
       }
-      resolve(null);
     });
+
+    this.attachMFAEmitHandlers(promiEvent, requestPayload.id as string);
+
+    return promiEvent;
   }
 
   public getRedirectResult(configuration: OAuthVerificationConfiguration = {}) {
@@ -87,6 +114,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   }
 
   public loginWithPopup(configuration: OAuthPopupConfiguration) {
+    const { showUI } = configuration;
     const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
       {
         ...configuration,
@@ -102,15 +130,22 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           requestPayload,
         );
 
+        /**
+         * Attach Event listeners
+         */
         const redirectEvent = (event: MessageEvent) => {
           this.createIntermediaryEvent(OAuthPopupEventEmit.PopupEvent, requestPayload.id as string)(event.data);
         };
 
-        if (configuration.shouldReturnURI) {
+        if (configuration.shouldReturnURI && oauthPopupRequest) {
           oauthPopupRequest.on(OAuthPopupEventOnReceived.PopupUrl, popupUrl => {
             window.addEventListener('message', redirectEvent);
             promiEvent.emit(OAuthPopupEventOnReceived.PopupUrl, popupUrl);
           });
+        }
+
+        if (!showUI && oauthPopupRequest) {
+          this.proxyMFAReceivedEvents(oauthPopupRequest, promiEvent);
         }
 
         const result = await oauthPopupRequest;
@@ -126,11 +161,23 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       }
     });
 
-    promiEvent.on(OAuthPopupEventEmit.Cancel, () => {
-      this.createIntermediaryEvent(OAuthPopupEventEmit.Cancel, requestPayload.id as string)();
-    });
+    this.attachMFAEmitHandlers(promiEvent, requestPayload.id as string);
 
     return promiEvent;
+  }
+
+  private proxyMFAReceivedEvents(source: { on: Function }, target: { emit: Function }) {
+    Object.values(OAuthMFAEventOnReceived).forEach(event => {
+      source.on(event, () => target.emit(event));
+    });
+  }
+
+  private attachMFAEmitHandlers(promiEvent: { on: Function }, requestId: string) {
+    Object.values(OAuthMFAEventEmit).forEach(event => {
+      promiEvent.on(event, (...args: unknown[]) => {
+        this.createIntermediaryEvent(event, requestId)(...args);
+      });
+    });
   }
 
   protected seamlessTelegramLogin() {
