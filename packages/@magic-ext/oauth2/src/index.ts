@@ -15,7 +15,7 @@ import {
   OAuthPopupEventEmit,
   OAuthPopupEventHandlers,
   OAuthPopupEventOnReceived,
-  OAuthRedirectEventHandlers,
+  OAuthGetResultEventHandlers,
 } from '@magic-sdk/types';
 
 declare global {
@@ -44,62 +44,42 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   }
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
-    const { showUI } = configuration;
-    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
-      {
-        ...configuration,
-        apiKey: this.sdk.apiKey,
-        platform: 'web',
-      },
-    ]);
+    return this.utils.createPromiEvent<null | string>(async (resolve, reject) => {
+      const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
+        {
+          ...configuration,
+          apiKey: this.sdk.apiKey,
+          platform: 'web',
+        },
+      ]);
 
-    const promiEvent = createPromiEvent<null | string, OAuthRedirectEventHandlers>(async (resolve, reject) => {
-      try {
-        const oauthRedirectRequest = this.request<
-          OAuthRedirectStartResult | OAuthRedirectError,
-          OAuthRedirectEventHandlers
-        >(requestPayload);
+      const result = await this.request<OAuthRedirectStartResult | OAuthRedirectError>(parseRedirectResult);
+      const successResult = result as OAuthRedirectStartResult;
+      const errorResult = result as OAuthRedirectError;
 
-        if (!showUI && oauthRedirectRequest) {
-          this.proxyMFAReceivedEvents(oauthRedirectRequest, promiEvent);
-        }
-
-        const result = await oauthRedirectRequest;
-        const successResult = result as OAuthRedirectStartResult;
-        const errorResult = result as OAuthRedirectError;
-
-        if (errorResult.error) {
-          reject(
-            this.createError<OAuthErrorData>(errorResult.error, errorResult.error_description ?? 'An error occurred.', {
-              errorURI: errorResult.error_uri,
-              provider: errorResult.provider,
-            }),
-          );
-          return;
-        }
-
-        if (successResult?.oauthAuthoriationURI) {
-          const redirectURI = successResult.useMagicServerCallback
-            ? // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
-              new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
-            : successResult.oauthAuthoriationURI;
-
-          if (successResult?.shouldReturnURI) {
-            resolve(redirectURI);
-            return;
-          } else {
-            window.location.href = redirectURI;
-          }
-        }
-        resolve(null);
-      } catch (error) {
-        reject(error);
+      if (errorResult.error) {
+        reject(
+          this.createError<OAuthErrorData>(errorResult.error, errorResult.error_description ?? 'An error occurred.', {
+            errorURI: errorResult.error_uri,
+            provider: errorResult.provider,
+          }),
+        );
       }
+
+      if (successResult?.oauthAuthoriationURI) {
+        const redirectURI = successResult.useMagicServerCallback
+          ? // @ts-ignore - this.sdk.endpoint is marked protected but we need to access it.
+            new URL(successResult.oauthAuthoriationURI, this.sdk.endpoint).href
+          : successResult.oauthAuthoriationURI;
+
+        if (successResult?.shouldReturnURI) {
+          resolve(redirectURI);
+        } else {
+          window.location.href = redirectURI;
+        }
+      }
+      resolve(null);
     });
-
-    this.attachMFAEmitHandlers(promiEvent, requestPayload.id as string);
-
-    return promiEvent;
   }
 
   public getRedirectResult(configuration: OAuthVerificationConfiguration = {}) {
@@ -110,7 +90,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     const urlWithoutQuery = window.location.origin + window.location.pathname;
     window.history.replaceState(null, '', urlWithoutQuery);
 
-    return getResult.call(this, configuration, queryString);
+    return this.getResult(configuration, queryString);
   }
 
   public loginWithPopup(configuration: OAuthPopupConfiguration) {
@@ -144,8 +124,22 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           });
         }
 
-        if (!showUI && oauthPopupRequest) {
-          this.proxyMFAReceivedEvents(oauthPopupRequest, promiEvent);
+        if (!showUI) {
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, (...args) => {
+            promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle, ...args);
+          });
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, (...args) => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp, ...args);
+          });
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, (...args) => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, ...args);
+          });
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidRecoveryCode, (...args) => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidRecoveryCode, ...args);
+          });
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSuccess, (...args) => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSuccess, ...args);
+          });
         }
 
         const result = await oauthPopupRequest;
@@ -161,23 +155,93 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       }
     });
 
-    this.attachMFAEmitHandlers(promiEvent, requestPayload.id as string);
+    if (!showUI && promiEvent) {
+      promiEvent.on(OAuthMFAEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
+      });
+      promiEvent.on(OAuthMFAEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.LostDevice, requestPayload.id as string)();
+      });
+      promiEvent.on(OAuthMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyRecoveryCode, requestPayload.id as string)(recoveryCode);
+      });
+      promiEvent.on(OAuthMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as any)();
+      });
+    }
 
     return promiEvent;
   }
 
-  private proxyMFAReceivedEvents(source: { on: Function }, target: { emit: Function }) {
-    Object.values(OAuthMFAEventOnReceived).forEach(event => {
-      source.on(event, () => target.emit(event));
-    });
-  }
+  private getResult(configuration: OAuthVerificationConfiguration, queryString: string) {
+    const { showUI } = configuration;
+    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
+      {
+        authorizationResponseParams: queryString,
+        magicApiKey: this.sdk.apiKey,
+        platform: 'web',
+        ...configuration,
+      },
+    ]);
 
-  private attachMFAEmitHandlers(promiEvent: { on: Function }, requestId: string) {
-    Object.values(OAuthMFAEventEmit).forEach(event => {
-      promiEvent.on(event, (...args: unknown[]) => {
-        this.createIntermediaryEvent(event, requestId)(...args);
+    const promiEvent = this.utils.createPromiEvent<OAuthRedirectResult, OAuthGetResultEventHandlers>(
+      async (resolve, reject) => {
+        const getResultRequest = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthGetResultEventHandlers>(
+          requestPayload,
+        );
+
+        if (!showUI) {
+          getResultRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, (...args) => {
+            promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle, ...args);
+          });
+          getResultRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, (...args) => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp, ...args);
+          });
+          getResultRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, (...args) => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, ...args);
+          });
+          getResultRequest.on(OAuthMFAEventOnReceived.InvalidRecoveryCode, (...args) => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidRecoveryCode, ...args);
+          });
+          getResultRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSuccess, (...args) => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSuccess, ...args);
+          });
+        }
+
+        // Parse the result, which may contain an OAuth-formatted error.
+        const resultOrError = await getResultRequest;
+        const maybeResult = resultOrError as OAuthRedirectResult;
+        const maybeError = resultOrError as OAuthRedirectError;
+
+        if (maybeError.error) {
+          reject(
+            this.createError<OAuthErrorData>(maybeError.error, maybeError.error_description ?? 'An error occurred.', {
+              errorURI: maybeError.error_uri,
+              provider: maybeError.provider,
+            }),
+          );
+        }
+
+        resolve(maybeResult);
+      },
+    );
+
+    if (!showUI && promiEvent) {
+      promiEvent.on(OAuthMFAEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
       });
-    });
+      promiEvent.on(OAuthMFAEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.LostDevice, requestPayload.id as string)();
+      });
+      promiEvent.on(OAuthMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyRecoveryCode, requestPayload.id as string)(recoveryCode);
+      });
+      promiEvent.on(OAuthMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as any)();
+      });
+    }
+
+    return promiEvent;
   }
 
   protected seamlessTelegramLogin() {
@@ -205,35 +269,6 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       console.log('Error while loading telegram-web-app script', seamlessLoginError);
     }
   }
-}
-
-function getResult(this: OAuthExtension, configuration: OAuthVerificationConfiguration, queryString: string) {
-  return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
-    const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
-      {
-        authorizationResponseParams: queryString,
-        magicApiKey: this.sdk.apiKey,
-        platform: 'web',
-        ...configuration,
-      },
-    ]);
-
-    // Parse the result, which may contain an OAuth-formatted error.
-    const resultOrError = await this.request<OAuthRedirectResult | OAuthRedirectError>(parseRedirectResult);
-    const maybeResult = resultOrError as OAuthRedirectResult;
-    const maybeError = resultOrError as OAuthRedirectError;
-
-    if (maybeError.error) {
-      reject(
-        this.createError<OAuthErrorData>(maybeError.error, maybeError.error_description ?? 'An error occurred.', {
-          errorURI: maybeError.error_uri,
-          provider: maybeError.provider,
-        }),
-      );
-    }
-
-    resolve(maybeResult);
-  });
 }
 
 export * from './types';

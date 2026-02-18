@@ -5,6 +5,8 @@ import {
   LocalStorageKeys,
   MagicPayloadMethod,
   MagicThirdPartyWalletUpdate,
+  OAuthMFAEventEmit,
+  OAuthPopupEventHandlers,
   RPCErrorCode,
 } from '@magic-sdk/types';
 import { getAccount, getConnectorClient, reconnect, watchAccount } from '@wagmi/core';
@@ -480,27 +482,39 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
 
   /**
    * Login with OAuth popup.
-   * Opens a popup for the specified OAuth provider and returns the result.
+   * Opens a popup for the specified OAuth provider and returns a PromiEvent handle.
+   * The handle emits MFA events when the user has MFA enabled.
    */
-  public async loginWithPopup(provider: OAuthProvider): Promise<OAuthRedirectResult> {
+  public loginWithPopup(provider: OAuthProvider) {
     const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethod.Popup, [
       {
         provider,
+        showUI: false,
         returnTo: window.location.href,
         apiKey: this.sdk.apiKey,
         platform: 'web',
       },
     ]);
 
-    const result = await this.request<OAuthRedirectResult | OAuthRedirectError>(requestPayload);
+    const handle = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthPopupEventHandlers>(requestPayload);
 
-    // Check if the result is an error
-    if ((result as OAuthRedirectError).error) {
-      const errorResult = result as OAuthRedirectError;
-      throw new Error(errorResult.error_description || errorResult.error);
-    }
+    handle.on(OAuthMFAEventEmit.VerifyMFACode, (mfa: string) => {
+      this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
+    });
 
-    return result as OAuthRedirectResult;
+    handle.on(OAuthMFAEventEmit.LostDevice, () => {
+      this.createIntermediaryEvent(OAuthMFAEventEmit.LostDevice, requestPayload.id as string)();
+    });
+
+    handle.on(OAuthMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+      this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyRecoveryCode, requestPayload.id as string)(recoveryCode);
+    });
+
+    handle.on(OAuthMFAEventEmit.Cancel, () => {
+      this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as string)();
+    });
+
+    return handle;
   }
 
   /**

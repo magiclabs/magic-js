@@ -103,13 +103,13 @@ export interface OAuthRedirectConfiguration {
   customData?: string;
   providerParams?: Record<string, string | number | boolean>;
   loginHint?: string;
-  showUI?: boolean;
 }
 
 export interface OAuthVerificationConfiguration {
   lifespan?: number;
   optionalQueryString?: string;
   skipDIDToken?: boolean;
+  showUI?: boolean;
 }
 
 export interface OAuthPopupConfiguration {

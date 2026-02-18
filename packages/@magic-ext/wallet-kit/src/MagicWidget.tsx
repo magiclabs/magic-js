@@ -11,6 +11,7 @@ import { OAuthPendingView } from './views/OAuthPendingView';
 import AdditionalProvidersView from './views/AdditionalProvidersView';
 import { getExtensionInstance } from './extension';
 import { EmailLoginProvider } from './context/EmailLoginContext';
+import { OAuthLoginProvider } from './context/OAuthLoginContext';
 import { WidgetConfigProvider } from './context/WidgetConfigContext';
 import { EmailOTPView } from './views/EmailOTPView';
 import { DeviceVerificationView } from './views/DeviceVerificationView';
@@ -109,12 +110,14 @@ function WidgetContent({
 
   return (
     <EmailLoginProvider dispatch={dispatch}>
-      <Modal isWidget fullscreen={isModal && isMobile}>
-        <VStack width="full" minWidth="380px">
-          {renderView()}
-          <Footer showLogo={showFooterLogo} />
-        </VStack>
-      </Modal>
+      <OAuthLoginProvider dispatch={dispatch}>
+        <Modal isWidget fullscreen={isModal && isMobile}>
+          <VStack width="full" minWidth="380px">
+            {renderView()}
+            <Footer showLogo={showFooterLogo} />
+          </VStack>
+        </Modal>
+      </OAuthLoginProvider>
     </EmailLoginProvider>
   );
 }

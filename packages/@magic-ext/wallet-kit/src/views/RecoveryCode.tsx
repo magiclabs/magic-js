@@ -3,7 +3,7 @@ import { Center, VStack } from '@styled/jsx';
 import { token } from '@styled/tokens';
 import React, { useEffect } from 'react';
 import WidgetHeader from '../components/WidgetHeader';
-import { useEmailLogin } from '../context';
+import { useMfa } from '../hooks/useMfa';
 import { WidgetAction, WidgetState } from '../reducer';
 
 interface RecoveryCodeViewProps {
@@ -12,7 +12,7 @@ interface RecoveryCodeViewProps {
 }
 
 export const RecoveryCodeView = ({ state, dispatch }: RecoveryCodeViewProps) => {
-  const { submitRecoveryCode } = useEmailLogin();
+  const { submitRecoveryCode } = useMfa();
   const { emailLoginStatus, error } = state;
 
   const isVerifying = emailLoginStatus === 'recovery_code_verifying';

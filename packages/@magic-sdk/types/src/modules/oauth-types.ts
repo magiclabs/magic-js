@@ -43,4 +43,4 @@ export type OAuthPopupEventHandlers = {
 } & OAuthMFAEventHandlers;
 
 // Redirect-specific handler type
-export type OAuthRedirectEventHandlers = OAuthMFAEventHandlers;
+export type OAuthGetResultEventHandlers = OAuthMFAEventHandlers;
