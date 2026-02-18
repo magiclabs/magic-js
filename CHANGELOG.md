@@ -1,3 +1,18 @@
+# (Wed Feb 18 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.4.1`
+  - sanitize third party wallet updates [#1036](https://github.com/magiclabs/magic-js/pull/1036) ([@joshuascan](https://github.com/joshuascan))
+  - Remove refresh token when user is logged out [#1033](https://github.com/magiclabs/magic-js/pull/1033) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Feb 10 2026)
 
 #### 🚀 Enhancement
