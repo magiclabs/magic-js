@@ -65,3 +65,19 @@ test('Posts message and resolves successfully', async () => {
   });
   expect(viewController.checkRelayerExistsInDOM).toHaveBeenCalledTimes(1);
 });
+
+test('Strips function properties from details before posting', async () => {
+  const details = {
+    address: '0xabc' as `0x${string}`,
+    addresses: ['0xabc' as `0x${string}`],
+    chain: { id: 1, name: 'Ethereum', extend: () => {} },
+    updatedField: 'address' as const,
+  };
+
+  await viewController.postThirdPartyWalletUpdate(details);
+
+  expect(viewController._post).toHaveBeenCalledWith({
+    msgType: `${MagicOutgoingWindowMessage.MAGIC_THIRD_PARTY_WALLET_UPDATE}-${viewController.parameters}`,
+    details: { address: '0xabc', addresses: ['0xabc'], chain: { id: 1, name: 'Ethereum' }, updatedField: 'address' },
+  });
+});
