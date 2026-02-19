@@ -3568,6 +3568,7 @@ __metadata:
     "@types/react-dom": ^18.0.0
     "@wagmi/core": ^2.0.0
     "@walletconnect/ethereum-provider": ^2.23.0
+    libphonenumber-js: ^1.12.37
     react: ^18.0.0
     react-dom: ^18.0.0
     rollup: ^4.18.0
@@ -18477,6 +18478,13 @@ __metadata:
     sigstore: ^1.4.0
     ssri: ^10.0.1
   checksum: 03bedb65eb2293cfe5039f925ec1041deea698c5ac802bb74f6a0d44ee70529c38c32eea7c722f3a1f1219b54314021ad7f4764f93b66d619bea62ce0759faa0
+  languageName: node
+  linkType: hard
+
+"libphonenumber-js@npm:^1.12.37":
+  version: 1.12.37
+  resolution: "libphonenumber-js@npm:1.12.37"
+  checksum: 43106a6d91fec640181f1140c8f4cea5020f7281f980d006b72980725ae3ae810db3988af151c76419787e8196a0e671e21d40b084d7ab6f3e732a8bce4a262c
   languageName: node
   linkType: hard
 
