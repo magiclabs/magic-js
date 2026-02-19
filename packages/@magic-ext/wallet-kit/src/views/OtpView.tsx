@@ -1,41 +1,48 @@
-import { Button, EmailWbr, IcoEmail, Text, VerifyPincode } from '@magiclabs/ui-components';
+import { Button, EmailWbr, IcoEmail, Text, VerifyPincode, IconSms } from '@magiclabs/ui-components';
 import React, { useEffect, useState } from 'react';
 import WidgetHeader from '../components/WidgetHeader';
 import { useEmailLogin } from '../context/EmailLoginContext';
+import { useSmsLogin } from '../context/SmsLoginContext';
 import { WidgetAction, WidgetState } from '../reducer';
 import { VStack } from '@styled/jsx';
 import { token } from '@styled/tokens';
 
-interface EmailOTPViewProps {
+interface OtpViewProps {
   state: WidgetState;
   dispatch: React.Dispatch<WidgetAction>;
 }
 
-export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
-  const { submitOTP, cancelLogin, resendEmailOTP } = useEmailLogin();
-  const { emailLoginStatus, email, error } = state;
+export const OtpView = ({ state, dispatch }: OtpViewProps) => {
+  const emailLogin = useEmailLogin();
+  const smsLogin = useSmsLogin();
+  const { otpLoginStatus, identifier, error, loginMethod } = state;
   const [isResending, setIsResending] = useState(false);
   const [showResendButton, setShowResendButton] = useState(false);
 
-  const isVerifying = emailLoginStatus === 'verifying_otp';
-  const isSuccess = emailLoginStatus === 'success';
+  const isSms = loginMethod === 'sms';
+  const submitOTP = isSms ? smsLogin.submitOTP : emailLogin.submitOTP;
+  const cancelLogin = isSms ? smsLogin.cancelLogin : emailLogin.cancelLogin;
+  const resendOtp = isSms ? smsLogin.resendSmsOTP : emailLogin.resendEmailOTP;
+
+  const isVerifying = otpLoginStatus === 'verifying_otp';
+  const isSuccess = otpLoginStatus === 'success';
 
   const onChangeOtp = () => {
-    dispatch({ type: 'RESET_EMAIL_ERROR' });
+    dispatch({ type: 'RESET_OTP_ERROR' });
   };
 
   useEffect(() => {
-    if (emailLoginStatus === 'otp_sent') {
+    if (otpLoginStatus === 'otp_sent') {
       setIsResending(false);
     }
-    if (emailLoginStatus === 'expired_otp' || emailLoginStatus === 'max_attempts_reached') {
+    if (otpLoginStatus === 'expired_otp' || otpLoginStatus === 'max_attempts_reached') {
       setShowResendButton(true);
     }
-  }, [emailLoginStatus]);
+  }, [otpLoginStatus]);
 
   const handleResend = () => {
     setIsResending(true);
-    resendEmailOTP();
+    resendOtp();
     setShowResendButton(false);
   };
 
@@ -44,7 +51,11 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
       <VStack>
         <VStack gap={6}>
-          <IcoEmail width={60} height={60} color={token('colors.brand.base')} />
+          {isSms ? (
+            <IconSms width={60} height={60} color={token('colors.brand.base')} />
+          ) : (
+            <IcoEmail width={60} height={60} color={token('colors.brand.base')} />
+          )}
           <VStack gap={0}>
             <Text.H4
               fontWeight="normal"
@@ -59,13 +70,13 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
                 textAlign: 'center',
               }}
             >
-              {email && <EmailWbr email={email} />}
+              {identifier && (isSms ? identifier : <EmailWbr email={identifier} />)}
             </Text.H4>
           </VStack>
         </VStack>
 
         <VerifyPincode
-          originName="email"
+          originName={isSms ? 'sms' : 'email'}
           pinLength={6}
           isPending={isVerifying || isResending}
           isSuccess={isSuccess}
@@ -74,7 +85,7 @@ export const EmailOTPView = ({ state, dispatch }: EmailOTPViewProps) => {
           errorMessage={isResending ? '' : error ?? ''}
         >
           <VerifyPincode.RetryContent>
-            {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}
+            {showResendButton && <Button variant="text" onClick={handleResend} label="Request a new code" />}
           </VerifyPincode.RetryContent>
         </VerifyPincode>
       </VStack>

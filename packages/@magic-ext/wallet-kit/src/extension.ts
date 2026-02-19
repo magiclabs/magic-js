@@ -591,6 +591,13 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   }
 
   /**
+   * Login with SMS OTP
+   */
+  public loginWithSMS(phoneNumber: string) {
+    return this.sdk.auth.loginWithSMS({ phoneNumber, showUI: false });
+  }
+
+  /**
    * Login with Farcaster (whitelabel mode - no built-in UI).
    * Returns a PromiEvent that emits 'channel', 'success', and 'failed' events.
    */
