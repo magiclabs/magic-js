@@ -82,6 +82,21 @@ export class AuthModule extends BaseModule {
         this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.VerifySmsOtp, requestPayload.id as string)(otp);
       });
 
+      handle.on(LoginWithSmsOTPEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
+      });
+
+      handle.on(LoginWithSmsOTPEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.LostDevice, requestPayload.id as string)();
+      });
+
+      handle.on(LoginWithSmsOTPEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(
+          LoginWithSmsOTPEventEmit.VerifyRecoveryCode,
+          requestPayload.id as string,
+        )(recoveryCode);
+      });
+
       handle.on(LoginWithSmsOTPEventEmit.Cancel, () => {
         this.createIntermediaryEvent(LoginWithSmsOTPEventEmit.Cancel, requestPayload.id as string)();
       });
