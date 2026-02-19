@@ -4,8 +4,9 @@ import { Divider, Flex, HStack, VStack } from '@styled/jsx';
 import { ProviderButton } from '../components/ProviderButton';
 import { WALLET_METADATA } from '../constants';
 import { OAuthProvider, ThirdPartyWallet } from '../types';
-import { WidgetAction } from '../reducer';
+import { WidgetAction, WidgetState } from '../reducer';
 import { EmailInput } from '../components/EmailInput';
+import { SmsInput } from '../components/SmsInput';
 import { SocialProviders } from '../components/SocialProviders';
 import WidgetHeader from '../components/WidgetHeader';
 import { getExtensionInstance } from '../extension';
@@ -13,15 +14,18 @@ import { useWidgetConfig } from '../context/WidgetConfigContext';
 
 interface LoginViewProps {
   dispatch: React.Dispatch<WidgetAction>;
+  state: WidgetState;
 }
 
-export const LoginView = ({ dispatch }: LoginViewProps) => {
+export const LoginView = ({ dispatch, state }: LoginViewProps) => {
   const config = getExtensionInstance().getConfig();
   const { wallets, enableFarcaster } = useWidgetConfig();
   const { primary, social } = config?.authProviders ?? {};
   const hasEmailProvider = primary?.includes('email');
+  const hasSmsProvider = primary?.includes('sms');
   const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
-  const showDivider = (hasEmailProvider || socialProviders.length > 0 || enableFarcaster) && wallets.length > 0;
+  const showDivider =
+    (hasEmailProvider || hasSmsProvider || socialProviders.length > 0 || enableFarcaster) && wallets.length > 0;
 
   const handleProviderSelect = (provider: ThirdPartyWallet) => {
     dispatch({ type: 'SELECT_WALLET', provider });
@@ -38,7 +42,20 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
         {config?.theme.assetUri && <img src={config.theme.assetUri} alt="Logo" width={80} height={80} />}
 
         <VStack width="full" maxWidth="25rem" gap={4}>
-          {hasEmailProvider && <EmailInput />}
+          {hasEmailProvider && (
+            <EmailInput
+              error={state.loginMethod === 'email' ? state.error : undefined}
+              isLoading={state.loginMethod === 'email' && state.otpLoginStatus === 'sending'}
+            />
+          )}
+
+          {hasSmsProvider && (
+            <SmsInput
+              error={state.loginMethod === 'sms' ? state.error : undefined}
+              isLoading={state.loginMethod === 'sms' && state.otpLoginStatus === 'sending'}
+            />
+          )}
+
           {(socialProviders.length > 0 || enableFarcaster) && (
             <SocialProviders
               providers={Object.values(socialProviders)}

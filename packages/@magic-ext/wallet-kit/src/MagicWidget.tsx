@@ -12,8 +12,9 @@ import AdditionalProvidersView from './views/AdditionalProvidersView';
 import { getExtensionInstance } from './extension';
 import { EmailLoginProvider } from './context/EmailLoginContext';
 import { OAuthLoginProvider } from './context/OAuthLoginContext';
+import { SmsLoginProvider } from './context/SmsLoginContext';
 import { WidgetConfigProvider } from './context/WidgetConfigContext';
-import { EmailOTPView } from './views/EmailOTPView';
+import { OtpView } from './views/OtpView';
 import { DeviceVerificationView } from './views/DeviceVerificationView';
 import { LoginSuccessView } from './views/LoginSuccessView';
 import { MFAView } from './views/MfaView';
@@ -57,10 +58,10 @@ function WidgetContent({
   const renderView = () => {
     switch (state.view) {
       case 'login':
-        return <LoginView dispatch={dispatch} />;
+        return <LoginView dispatch={dispatch} state={state} />;
       case 'wallet_pending':
         if (!state.selectedProvider) {
-          return <LoginView dispatch={dispatch} />;
+          return <LoginView dispatch={dispatch} state={state} />;
         }
         return (
           <WalletPendingView
@@ -74,7 +75,7 @@ function WidgetContent({
         return <WalletConnectView key="walletconnect" dispatch={dispatch} />;
       case 'oauth_pending':
         if (!state.selectedProvider) {
-          return <LoginView dispatch={dispatch} />;
+          return <LoginView dispatch={dispatch} state={state} />;
         }
         return (
           <OAuthPendingView
@@ -86,8 +87,8 @@ function WidgetContent({
         );
       case 'additional_providers':
         return <AdditionalProvidersView dispatch={dispatch} />;
-      case 'email_otp_pending':
-        return <EmailOTPView state={state} dispatch={dispatch} />;
+      case 'otp_pending':
+        return <OtpView state={state} dispatch={dispatch} />;
       case 'device_verification':
         return <DeviceVerificationView state={state} dispatch={dispatch} />;
       case 'mfa_pending':
@@ -105,20 +106,22 @@ function WidgetContent({
       case 'farcaster_failed':
         return <FarcasterFailedView state={state} dispatch={dispatch} />;
       default:
-        return <LoginView dispatch={dispatch} />;
+        return <LoginView dispatch={dispatch} state={state} />;
     }
   };
 
   return (
     <EmailLoginProvider dispatch={dispatch}>
-      <OAuthLoginProvider dispatch={dispatch}>
-        <Modal isWidget fullscreen={isModal && isMobile}>
-          <VStack width="full" minWidth="380px">
-            {renderView()}
-            <Footer showLogo={showFooterLogo} />
-          </VStack>
-        </Modal>
-      </OAuthLoginProvider>
+      <SmsLoginProvider dispatch={dispatch}>
+        <OAuthLoginProvider dispatch={dispatch}>
+          <Modal isWidget fullscreen={isModal && isMobile}>
+            <VStack width="full" minWidth="380px">
+              {renderView()}
+              <Footer showLogo={showFooterLogo} />
+            </VStack>
+          </Modal>
+        </OAuthLoginProvider>
+      </SmsLoginProvider>
     </EmailLoginProvider>
   );
 }

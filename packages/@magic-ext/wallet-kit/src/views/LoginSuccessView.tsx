@@ -10,7 +10,7 @@ interface LoginSuccessViewProps {
 }
 
 export const LoginSuccessView = ({ state }: LoginSuccessViewProps) => {
-  const { email } = state;
+  const { identifier } = state;
 
   return (
     <>
@@ -22,9 +22,9 @@ export const LoginSuccessView = ({ state }: LoginSuccessViewProps) => {
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
             You have successfully logged in
           </Text>
-          {email && (
+          {identifier && (
             <Text fontWeight="semibold" styles={{ textAlign: 'center' }}>
-              {email}
+              {identifier}
             </Text>
           )}
         </VStack>

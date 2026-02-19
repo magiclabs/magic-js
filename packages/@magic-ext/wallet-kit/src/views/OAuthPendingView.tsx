@@ -20,7 +20,7 @@ export const OAuthPendingView = ({ provider, state, dispatch }: OAuthPendingView
   const Icon = (isDarkMode && DARK_MODE_ICON_OVERRIDES[provider]) || DefaultIcon;
   const { startOAuthLogin } = useOAuthLogin();
   const loginAttempted = useRef(false);
-  const hasError = state.emailLoginStatus === 'error';
+  const hasError = state.otpLoginStatus === 'error';
   const errorMessage = state.error ?? null;
 
   useEffect(() => {

@@ -43,7 +43,7 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
   const startEmailLogin = useCallback(
     (email: string) => {
       emailRef.current = email;
-      dispatch({ type: 'EMAIL_OTP_START', email });
+      dispatch({ type: 'OTP_START', identifier: email, loginMethod: 'email' });
 
       try {
         const extension = getExtensionInstance();
@@ -56,17 +56,17 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
 
         // OTP was sent successfully
         handle.on(LoginWithEmailOTPEventOnReceived.EmailOTPSent, () => {
-          dispatch({ type: 'EMAIL_OTP_SENT' });
+          dispatch({ type: 'OTP_SENT' });
         });
 
         // Invalid OTP entered
         handle.on(LoginWithEmailOTPEventOnReceived.InvalidEmailOtp, () => {
-          dispatch({ type: 'EMAIL_OTP_INVALID' });
+          dispatch({ type: 'OTP_INVALID' });
         });
 
         // OTP has expired
         handle.on(LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp, () => {
-          dispatch({ type: 'EMAIL_OTP_EXPIRED' });
+          dispatch({ type: 'OTP_EXPIRED' });
         });
 
         // Login throttled (too many attempts)
@@ -76,7 +76,7 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
 
         // Max attempts reached
         handle.on(LoginWithEmailOTPEventOnReceived.MaxAttemptsReached, () => {
-          dispatch({ type: 'EMAIL_OTP_MAX_ATTEMPTS_REACHED' });
+          dispatch({ type: 'OTP_MAX_ATTEMPTS_REACHED' });
         });
 
         // ==========================================
@@ -157,7 +157,7 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
   const submitOTP = useCallback(
     (otp: string) => {
       if (handleRef.current) {
-        dispatch({ type: 'EMAIL_OTP_VERIFYING' });
+        dispatch({ type: 'OTP_VERIFYING' });
         handleRef.current.emit(LoginWithEmailOTPEventEmit.VerifyEmailOtp, otp);
       }
     },
