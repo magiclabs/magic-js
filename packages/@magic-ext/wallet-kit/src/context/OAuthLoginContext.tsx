@@ -147,7 +147,6 @@ export function OAuthLoginProvider({ children, dispatch }: OAuthLoginProviderPro
 
   const lostDevice = useCallback(() => {
     if (handleRef.current) {
-      dispatch({ type: 'LOST_DEVICE' });
       handleRef.current.emit(OAuthMFAEventEmit.LostDevice);
     }
   }, [dispatch]);
