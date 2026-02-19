@@ -80,6 +80,7 @@ function WidgetContent({
           <OAuthPendingView
             key={`oauth-${state.selectedProvider}`}
             provider={state.selectedProvider as OAuthProvider}
+            state={state}
             dispatch={dispatch}
           />
         );

@@ -125,30 +125,38 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
         }
 
         if (!showUI) {
-          oauthPopupRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, (...args) => {
-            promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle, ...args);
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle);
           });
-          oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, (...args) => {
-            promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp, ...args);
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp);
           });
-          oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, (...args) => {
-            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, ...args);
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle);
           });
-          oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidRecoveryCode, (...args) => {
-            promiEvent.emit(OAuthMFAEventOnReceived.InvalidRecoveryCode, ...args);
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidRecoveryCode, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidRecoveryCode);
           });
-          oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSuccess, (...args) => {
-            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSuccess, ...args);
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSuccess, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSuccess);
           });
         }
 
         const result = await oauthPopupRequest;
         window.removeEventListener('message', redirectEvent);
 
-        if ((result as OAuthRedirectError).error) {
-          reject(result);
+        const maybeResult = result as OAuthRedirectResult;
+        const maybeError = result as OAuthRedirectError;
+
+        if (maybeError.error) {
+          reject(
+            this.createError<OAuthErrorData>(maybeError.error, maybeError.error_description ?? 'An error occurred.', {
+              errorURI: maybeError.error_uri,
+              provider: maybeError.provider,
+            }),
+          );
         } else {
-          resolve(result as OAuthRedirectResult);
+          resolve(maybeResult);
         }
       } catch (error) {
         reject(error);
@@ -191,20 +199,20 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
         );
 
         if (!showUI) {
-          getResultRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, (...args) => {
-            promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle, ...args);
+          getResultRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle);
           });
-          getResultRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, (...args) => {
-            promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp, ...args);
+          getResultRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp);
           });
-          getResultRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, (...args) => {
-            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, ...args);
+          getResultRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle);
           });
-          getResultRequest.on(OAuthMFAEventOnReceived.InvalidRecoveryCode, (...args) => {
-            promiEvent.emit(OAuthMFAEventOnReceived.InvalidRecoveryCode, ...args);
+          getResultRequest.on(OAuthMFAEventOnReceived.InvalidRecoveryCode, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidRecoveryCode);
           });
-          getResultRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSuccess, (...args) => {
-            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSuccess, ...args);
+          getResultRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSuccess, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSuccess);
           });
         }
 

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { getProviderConfig } from '../lib/provider-config';
-import { WidgetAction } from '../reducer';
+import { WidgetAction, WidgetState } from '../reducer';
 import { OAuthProvider } from '../types';
 import { Pending } from '../components/Pending';
 import { useOAuthLogin } from '../context/OAuthLoginContext';
@@ -9,29 +9,24 @@ import { DARK_MODE_ICON_OVERRIDES } from '../constants';
 
 interface OAuthPendingViewProps {
   provider: OAuthProvider;
+  state: WidgetState;
   dispatch: React.Dispatch<WidgetAction>;
 }
 
-export const OAuthPendingView = ({ provider, dispatch }: OAuthPendingViewProps) => {
+export const OAuthPendingView = ({ provider, state, dispatch }: OAuthPendingViewProps) => {
   const { title, description, Icon: DefaultIcon } = getProviderConfig(provider);
   const config = getExtensionInstance().getConfig();
   const isDarkMode = config?.theme.themeColor === 'dark';
   const Icon = (isDarkMode && DARK_MODE_ICON_OVERRIDES[provider]) || DefaultIcon;
   const { startOAuthLogin } = useOAuthLogin();
   const loginAttempted = useRef(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isPending, setIsPending] = useState(true);
+  const hasError = state.emailLoginStatus === 'error';
+  const errorMessage = state.error ?? null;
 
   useEffect(() => {
     if (!loginAttempted.current) {
       loginAttempted.current = true;
-
-      try {
-        startOAuthLogin(provider as ExtensionOAuthProvider);
-      } catch (err: any) {
-        setErrorMessage(err?.message || 'OAuth login failed');
-        setIsPending(false);
-      }
+      startOAuthLogin(provider as ExtensionOAuthProvider);
     }
   }, [startOAuthLogin, provider]);
 
@@ -41,8 +36,8 @@ export const OAuthPendingView = ({ provider, dispatch }: OAuthPendingViewProps) 
       title={title}
       description={description}
       Icon={Icon}
-      isPending={isPending && !errorMessage}
-      errorMessage={errorMessage}
+      isPending={!hasError}
+      errorMessage={hasError ? errorMessage : null}
     />
   );
 };

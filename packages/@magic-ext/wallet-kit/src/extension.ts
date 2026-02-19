@@ -1,4 +1,4 @@
-import { Extension, MagicRPCError, SDKBase, ViewController } from '@magic-sdk/provider';
+import { createPromiEvent, Extension, MagicRPCError, SDKBase, ViewController } from '@magic-sdk/provider';
 import {
   FarcasterLoginEventEmit,
   JsonRpcRequestPayload,
@@ -6,6 +6,8 @@ import {
   MagicPayloadMethod,
   MagicThirdPartyWalletUpdate,
   OAuthMFAEventEmit,
+  OAuthMFAEventOnReceived,
+  OAuthPopupEventEmit,
   OAuthPopupEventHandlers,
   RPCErrorCode,
 } from '@magic-sdk/types';
@@ -496,25 +498,64 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
       },
     ]);
 
-    const handle = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthPopupEventHandlers>(requestPayload);
+    const promiEvent = createPromiEvent<OAuthRedirectResult, OAuthPopupEventHandlers>(async (resolve, reject) => {
+      try {
+        const oauthPopupRequest = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthPopupEventHandlers>(
+          requestPayload,
+        );
 
-    handle.on(OAuthMFAEventEmit.VerifyMFACode, (mfa: string) => {
-      this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
+        oauthPopupRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, () => {
+          promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle);
+        });
+        oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, () => {
+          promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp);
+        });
+        oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, () => {
+          promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle);
+        });
+        oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidRecoveryCode, () => {
+          promiEvent.emit(OAuthMFAEventOnReceived.InvalidRecoveryCode);
+        });
+        oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSuccess, () => {
+          promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSuccess);
+        });
+
+        const result = await oauthPopupRequest;
+
+        const maybeResult = result as OAuthRedirectResult;
+        const maybeError = result as OAuthRedirectError;
+
+        if (maybeError.error) {
+          reject(
+            this.createError(maybeError.error, maybeError.error_description ?? 'An error occurred.', {
+              errorURI: maybeError.error_uri,
+              provider: maybeError.provider,
+            }),
+          );
+        } else {
+          resolve(maybeResult);
+        }
+      } catch (error) {
+        reject(error);
+      }
     });
 
-    handle.on(OAuthMFAEventEmit.LostDevice, () => {
-      this.createIntermediaryEvent(OAuthMFAEventEmit.LostDevice, requestPayload.id as string)();
-    });
+    if (promiEvent) {
+      promiEvent.on(OAuthMFAEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
+      });
+      promiEvent.on(OAuthMFAEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.LostDevice, requestPayload.id as string)();
+      });
+      promiEvent.on(OAuthMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyRecoveryCode, requestPayload.id as string)(recoveryCode);
+      });
+      promiEvent.on(OAuthMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as string)();
+      });
+    }
 
-    handle.on(OAuthMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
-      this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyRecoveryCode, requestPayload.id as string)(recoveryCode);
-    });
-
-    handle.on(OAuthMFAEventEmit.Cancel, () => {
-      this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as string)();
-    });
-
-    return handle;
+    return promiEvent;
   }
 
   /**

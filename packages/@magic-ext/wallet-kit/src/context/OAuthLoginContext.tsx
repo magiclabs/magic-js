@@ -32,25 +32,35 @@ export function OAuthLoginProvider({ children, dispatch }: OAuthLoginProviderPro
   const startOAuthLogin = useCallback(
     (provider: OAuthProvider) => {
       try {
+        // Clean up any previous handle to prevent leaked listeners and stale dispatches
+        if (handleRef.current) {
+          handleRef.current.removeAllListeners();
+          handleRef.current = null;
+        }
+
         const extension = getExtensionInstance();
         const handle = extension.loginWithPopup(provider);
         handleRef.current = handle;
 
         // MFA Events
         handle.on(OAuthMFAEventOnReceived.MfaSentHandle, () => {
+          if (handleRef.current !== handle) return;
           setIsMfaActive(true);
           dispatch({ type: 'MFA_REQUIRED' });
         });
 
         handle.on(OAuthMFAEventOnReceived.InvalidMfaOtp, () => {
+          if (handleRef.current !== handle) return;
           dispatch({ type: 'MFA_INVALID' });
         });
 
         handle.on(OAuthMFAEventOnReceived.InvalidRecoveryCode, () => {
+          if (handleRef.current !== handle) return;
           dispatch({ type: 'RECOVERY_CODE_INVALID' });
         });
 
         handle.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, () => {
+          if (handleRef.current !== handle) return;
           dispatch({ type: 'LOST_DEVICE' });
         });
 
@@ -61,11 +71,17 @@ export function OAuthLoginProvider({ children, dispatch }: OAuthLoginProviderPro
         // Handle Promise Resolution
         handle
           .then((result: OAuthRedirectResult | OAuthRedirectError) => {
+            if (handleRef.current !== handle) return;
+
             if ((result as OAuthRedirectError).error) {
               const errorResult = result as OAuthRedirectError;
               const errorInstance = new Error(errorResult.error_description || errorResult.error);
               dispatch({ type: 'LOGIN_ERROR', error: errorInstance.message });
               handleError(errorInstance);
+              // Clean up handle and listeners
+              handle.removeAllListeners();
+              handleRef.current = null;
+              setIsMfaActive(false);
               return;
             }
 
@@ -76,8 +92,14 @@ export function OAuthLoginProvider({ children, dispatch }: OAuthLoginProviderPro
               magic: oauthResult.magic,
               oauth: oauthResult.oauth,
             });
+            // Clean up handle and listeners
+            handle.removeAllListeners();
+            handleRef.current = null;
+            setIsMfaActive(false);
           })
           .catch((error: any) => {
+            if (handleRef.current !== handle) return;
+
             const errorInstance = error instanceof Error ? error : new Error(error?.message || 'OAuth login failed');
             const msg = (errorInstance.message || '').toLowerCase();
 
@@ -99,6 +121,10 @@ export function OAuthLoginProvider({ children, dispatch }: OAuthLoginProviderPro
 
             dispatch({ type: 'LOGIN_ERROR', error: errorInstance.message });
             handleError(errorInstance);
+            // Clean up handle and listeners
+            handle.removeAllListeners();
+            handleRef.current = null;
+            setIsMfaActive(false);
           });
       } catch (error) {
         const errorInstance = error instanceof Error ? error : new Error('Failed to start OAuth login');
