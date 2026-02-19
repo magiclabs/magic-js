@@ -164,6 +164,7 @@ export function OAuthLoginProvider({ children, dispatch }: OAuthLoginProviderPro
   const cancelLogin = useCallback(() => {
     if (handleRef.current) {
       handleRef.current.emit(OAuthMFAEventEmit.Cancel);
+      handleRef.current.removeAllListeners();
     }
     handleRef.current = null;
     setIsMfaActive(false);
