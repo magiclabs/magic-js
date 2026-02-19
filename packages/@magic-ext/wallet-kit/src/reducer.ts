@@ -9,7 +9,7 @@ export type View =
   | 'wallet_pending'
   | 'walletconnect_pending'
   | 'oauth_pending'
-  | 'email_otp_pending'
+  | 'otp_pending'
   | 'device_verification'
   | 'mfa_pending'
   | 'recovery_code'
@@ -19,7 +19,7 @@ export type View =
   | 'farcaster_success'
   | 'farcaster_failed';
 
-export type EmailLoginStatus =
+export type OtpLoginStatus =
   | 'idle'
   | 'sending'
   | 'otp_sent'
@@ -42,13 +42,15 @@ export type EmailLoginStatus =
 
 export interface WidgetState {
   view: View;
-  // Data passed between views
-  email?: string;
+  // Data passed between views (email or phone number)
+  identifier?: string;
   selectedProvider?: LoginProvider;
   walletAddress?: string; // For WalletConnect when using EthereumProvider directly
   error?: string;
-  // Email login flow state
-  emailLoginStatus?: EmailLoginStatus;
+  // OTP login flow state (email or SMS)
+  otpLoginStatus?: OtpLoginStatus;
+  // Login method: 'email' or 'sms'
+  loginMethod?: 'email' | 'sms';
   // Farcaster flow state
   farcasterUrl?: string;
   farcasterUsername?: string;
@@ -57,13 +59,13 @@ export interface WidgetState {
 export type WidgetAction =
   // Navigation actions
   | { type: 'GO_TO_LOGIN' }
-  // Email flow
-  | { type: 'EMAIL_OTP_START'; email: string }
-  | { type: 'EMAIL_OTP_SENT' }
-  | { type: 'EMAIL_OTP_INVALID' }
-  | { type: 'EMAIL_OTP_EXPIRED' }
-  | { type: 'EMAIL_OTP_MAX_ATTEMPTS_REACHED' }
-  | { type: 'EMAIL_OTP_VERIFYING' }
+  // OTP flow (email or SMS)
+  | { type: 'OTP_START'; identifier: string; loginMethod?: 'email' | 'sms' }
+  | { type: 'OTP_SENT' }
+  | { type: 'OTP_INVALID' }
+  | { type: 'OTP_EXPIRED' }
+  | { type: 'OTP_MAX_ATTEMPTS_REACHED' }
+  | { type: 'OTP_VERIFYING' }
   | { type: 'DEVICE_NEEDS_APPROVAL' }
   | { type: 'DEVICE_VERIFICATION_SENT' }
   | { type: 'DEVICE_VERIFICATION_EXPIRED' }
@@ -76,7 +78,7 @@ export type WidgetAction =
   | { type: 'RECOVERY_CODE_INVALID' }
   | { type: 'LOST_RECOVERY_CODE' }
   | { type: 'LOGIN_SUCCESS' }
-  | { type: 'RESET_EMAIL_ERROR' }
+  | { type: 'RESET_OTP_ERROR' }
   | { type: 'LOGIN_ERROR'; error: string }
   // OAuth flow
   | { type: 'SELECT_PROVIDER'; provider: OAuthProvider }
@@ -92,7 +94,7 @@ export type WidgetAction =
 
 export const initialState: WidgetState = {
   view: 'login',
-  emailLoginStatus: 'idle',
+  otpLoginStatus: 'idle',
 };
 
 export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetState {
@@ -103,52 +105,53 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
         ...initialState,
         selectedProvider: undefined,
         walletAddress: undefined,
-        email: undefined,
+        identifier: undefined,
         error: undefined,
       };
 
-    // Email OTP flow
-    case 'EMAIL_OTP_START':
+    // OTP flow (email or SMS)
+    case 'OTP_START':
       return {
         ...state,
-        email: action.email,
-        emailLoginStatus: 'sending',
+        identifier: action.identifier,
+        loginMethod: action.loginMethod || 'email',
+        otpLoginStatus: 'sending',
         error: undefined,
       };
 
-    case 'EMAIL_OTP_SENT':
+    case 'OTP_SENT':
       return {
         ...state,
-        view: 'email_otp_pending',
-        emailLoginStatus: 'otp_sent',
+        view: 'otp_pending',
+        otpLoginStatus: 'otp_sent',
         error: undefined,
       };
 
-    case 'EMAIL_OTP_VERIFYING':
+    case 'OTP_VERIFYING':
       return {
         ...state,
-        emailLoginStatus: 'verifying_otp',
+        otpLoginStatus: 'verifying_otp',
         error: undefined,
       };
 
-    case 'EMAIL_OTP_INVALID':
+    case 'OTP_INVALID':
       return {
         ...state,
-        emailLoginStatus: 'invalid_otp',
+        otpLoginStatus: 'invalid_otp',
         error: 'Invalid code. Please try again.',
       };
 
-    case 'EMAIL_OTP_EXPIRED':
+    case 'OTP_EXPIRED':
       return {
         ...state,
-        emailLoginStatus: 'expired_otp',
+        otpLoginStatus: 'expired_otp',
         error: 'Code expired. Please request a new one.',
       };
 
-    case 'EMAIL_OTP_MAX_ATTEMPTS_REACHED':
+    case 'OTP_MAX_ATTEMPTS_REACHED':
       return {
         ...state,
-        emailLoginStatus: 'max_attempts_reached',
+        otpLoginStatus: 'max_attempts_reached',
         error: 'Max attempts reached. Please request a new code.',
       };
 
@@ -156,7 +159,7 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
       return {
         ...state,
         view: 'device_verification',
-        emailLoginStatus: 'device_needs_approval',
+        otpLoginStatus: 'device_needs_approval',
         error: undefined,
       };
 
@@ -164,21 +167,21 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
       return {
         ...state,
         view: 'device_verification',
-        emailLoginStatus: 'device_verification_sent',
+        otpLoginStatus: 'device_verification_sent',
         error: undefined,
       };
 
     case 'DEVICE_VERIFICATION_EXPIRED':
       return {
         ...state,
-        emailLoginStatus: 'device_verification_expired',
+        otpLoginStatus: 'device_verification_expired',
         error: 'Verification link expired. Please try again.',
       };
 
     case 'DEVICE_APPROVED':
       return {
         ...state,
-        emailLoginStatus: 'device_approved',
+        otpLoginStatus: 'device_approved',
         error: undefined,
       };
 
@@ -186,21 +189,21 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
       return {
         ...state,
         view: 'mfa_pending',
-        emailLoginStatus: 'mfa_required',
+        otpLoginStatus: 'mfa_required',
         error: undefined,
       };
 
     case 'MFA_VERIFYING':
       return {
         ...state,
-        emailLoginStatus: 'mfa_verifying',
+        otpLoginStatus: 'mfa_verifying',
         error: undefined,
       };
 
     case 'MFA_INVALID':
       return {
         ...state,
-        emailLoginStatus: 'mfa_invalid',
+        otpLoginStatus: 'mfa_invalid',
         error: 'Invalid code. Please try again.',
       };
 
@@ -208,21 +211,21 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
       return {
         ...state,
         view: 'recovery_code',
-        emailLoginStatus: 'recovery_code',
+        otpLoginStatus: 'recovery_code',
         error: undefined,
       };
 
     case 'RECOVERY_CODE_VERIFYING':
       return {
         ...state,
-        emailLoginStatus: 'recovery_code_verifying',
+        otpLoginStatus: 'recovery_code_verifying',
         error: undefined,
       };
 
     case 'RECOVERY_CODE_INVALID':
       return {
         ...state,
-        emailLoginStatus: 'recovery_code',
+        otpLoginStatus: 'recovery_code',
         error: 'Invalid recovery code. Please try again.',
       };
 
@@ -230,7 +233,7 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
       return {
         ...state,
         view: 'lost_recovery_code',
-        emailLoginStatus: 'lost_recovery_code',
+        otpLoginStatus: 'lost_recovery_code',
         error: undefined,
       };
 
@@ -238,18 +241,18 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
       return {
         ...state,
         view: 'login_success',
-        emailLoginStatus: 'success',
+        otpLoginStatus: 'success',
         error: undefined,
       };
 
     case 'LOGIN_ERROR':
       return {
         ...state,
-        emailLoginStatus: 'error',
+        otpLoginStatus: 'error',
         error: action.error,
       };
 
-    case 'RESET_EMAIL_ERROR':
+    case 'RESET_OTP_ERROR':
       return {
         ...state,
         error: undefined,
