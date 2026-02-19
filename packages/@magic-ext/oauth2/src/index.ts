@@ -245,7 +245,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
         this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyRecoveryCode, requestPayload.id as string)(recoveryCode);
       });
       promiEvent.on(OAuthMFAEventEmit.Cancel, () => {
-        this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as any)();
+        this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as string)();
       });
     }
 
