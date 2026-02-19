@@ -8,6 +8,7 @@ export {
   type MagicWidgetProps,
   type LoginResult,
   type EmailLoginResult,
+  type SmsLoginResult,
   type OAuthLoginResult,
   type WalletLoginResult,
   type FarcasterLoginResult,
