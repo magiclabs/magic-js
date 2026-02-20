@@ -232,7 +232,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   private configPromise: Promise<ClientConfig> | null = null;
   private eventsListenerAdded = false;
   private reconnectPromise: Promise<void> | null = null;
-  private isSilentReauthing = false;
+  private isReauthInProgress = false;
 
   constructor(options?: WalletKitExtensionOptions) {
     super();
@@ -449,8 +449,8 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
    * The wallet's native signing prompt will appear to the user.
    */
   private async performSilentReauth(address: string, chainId: number): Promise<void> {
-    if (this.isSilentReauthing) return;
-    this.isSilentReauthing = true;
+    if (this.isReauthInProgress) return;
+    this.isReauthInProgress = true;
     try {
       const message = await this.generateMessage({ address, chainId });
       const signature = await signMessage(this.wagmiConfig, { message });
@@ -458,7 +458,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
     } catch (err) {
       console.error('Silent SIWE re-auth failed for new account:', err);
     } finally {
-      this.isSilentReauthing = false;
+      this.isReauthInProgress = false;
     }
   }
 
