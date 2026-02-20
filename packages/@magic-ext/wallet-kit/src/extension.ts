@@ -395,7 +395,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
             updatedField: 'address',
           });
           // Re-run SIWE for the new address so the Magic session stays in sync.
-          // This triggers the wallet's native signing prompt silently (no widget UI changes).
+          // This triggers the wallet's native signing prompt without Magic UI.
           this.performSilentReauth(account.address, account.chainId ?? 1);
         }
 
