@@ -1,3 +1,31 @@
+# v27.4.0 (Fri Feb 06 2026)
+
+#### 🚀 Enhancement
+
+- adds send 7702 transaction [#1030](https://github.com/magiclabs/magic-js/pull/1030) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v27.3.1 (Thu Feb 05 2026)
+
+#### 🐛 Bug Fix
+
+- deprecate send_gaslessTransaction ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v27.3.0 (Thu Jan 29 2026)
 
 #### 🚀 Enhancement

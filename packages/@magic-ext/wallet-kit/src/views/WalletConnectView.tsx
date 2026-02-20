@@ -29,7 +29,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
 
   const [uri, setUri] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [connectionAttempted, setConnectionAttempted] = useState(false);
+  const connectionAttempted = useRef(false);
   const [wcAddress, setWcAddress] = useState<Address | null>(null);
 
   const { Icon } = WALLET_METADATA[ThirdPartyWallets.WALLETCONNECT];
@@ -50,9 +50,9 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
 
   // Mobile connection flow using AppKit modal
   const initiateMobileConnection = useCallback(() => {
-    if (connectionAttempted || !appKit) return;
+    if (connectionAttempted.current || !appKit) return;
 
-    setConnectionAttempted(true);
+    connectionAttempted.current = true;
     setErrorMessage(null);
 
     try {
@@ -67,13 +67,13 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
       const error = err as Error;
       setErrorMessage(error?.message || 'Failed to open wallet selection');
     }
-  }, [connectionAttempted, appKit, isConnected, disconnect]);
+  }, [appKit, isConnected, disconnect]);
 
   // Desktop connection flow using EthereumProvider
   const initiateDesktopConnection = useCallback(async () => {
-    if (connectionAttempted) return;
+    if (connectionAttempted.current) return;
 
-    setConnectionAttempted(true);
+    connectionAttempted.current = true;
     setErrorMessage(null);
 
     try {
@@ -123,7 +123,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
 
       setErrorMessage(error?.message || 'Failed to connect wallet');
     }
-  }, [connectionAttempted, isConnected, disconnect, dispatch]);
+  }, [isConnected, disconnect, dispatch]);
 
   // Initiate connection based on device type
   useEffect(() => {

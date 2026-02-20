@@ -190,9 +190,11 @@ export abstract class ViewController {
         await this.waitForReady();
       }
 
+      // Strip non-serializable properties (e.g. functions on chain objects) before postMessage
+      const sanitizedDetails = JSON.parse(JSON.stringify(details, (_, value) => (typeof value === 'function' ? undefined : value)));
       const msg = {
         msgType: `${MagicOutgoingWindowMessage.MAGIC_THIRD_PARTY_WALLET_UPDATE}-${this.parameters}`,
-        details,
+        details: sanitizedDetails,
       } as MagicThirdPartyWalletUpdate;
 
       await this._post(msg);

@@ -1,3 +1,45 @@
+# v33.4.1 (Wed Feb 18 2026)
+
+#### 🐛 Bug Fix
+
+- sanitize third party wallet updates [#1036](https://github.com/magiclabs/magic-js/pull/1036) ([@joshuascan](https://github.com/joshuascan))
+- Remove refresh token when user is logged out [#1033](https://github.com/magiclabs/magic-js/pull/1033) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.4.0 (Fri Feb 06 2026)
+
+#### 🚀 Enhancement
+
+- adds send 7702 transaction [#1030](https://github.com/magiclabs/magic-js/pull/1030) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.3.2 (Thu Feb 05 2026)
+
+#### 🐛 Bug Fix
+
+- deprecate send_gaslessTransaction ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v33.3.1 (Tue Feb 03 2026)
 
 #### 🐛 Bug Fix

@@ -1,12 +1,13 @@
 import { Extension, MagicRPCError, SDKBase, ViewController } from '@magic-sdk/provider';
 import {
+  FarcasterLoginEventEmit,
   JsonRpcRequestPayload,
   LocalStorageKeys,
   MagicPayloadMethod,
   MagicThirdPartyWalletUpdate,
   RPCErrorCode,
 } from '@magic-sdk/types';
-import { getAccount, getConnectorClient, reconnect, watchAccount } from '@wagmi/core';
+import { getAccount, getConnectorClient, reconnect, signMessage, watchAccount } from '@wagmi/core';
 import type { Config } from '@wagmi/core';
 import type { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { ClientConfig } from './types/client-config';
@@ -26,6 +27,68 @@ enum OAuthPayloadMethod {
 enum ClientPayloadMethod {
   GetConfig = 'magic_client_get_config',
 }
+
+enum FarcasterPayloadMethod {
+  FarcasterShowQR = 'farcaster_show_QR',
+}
+
+export interface CreateChannelAPIResponse {
+  channelToken: string;
+  url: string;
+  nonce: string;
+}
+
+type Hex = `0x${string}`;
+
+export interface StatusAPIResponse {
+  state: 'pending' | 'completed';
+  nonce: string;
+  url: string;
+  message?: string;
+  signature?: Hex;
+  fid?: number;
+  username?: string;
+  bio?: string;
+  displayName?: string;
+  pfpUrl?: string;
+  verifications?: Hex[];
+  custody?: Hex;
+}
+
+interface AuthClientErrorOpts {
+  message: string;
+  cause: Error | AuthClientError;
+  presentable: boolean;
+}
+
+type AuthClientErrorCode =
+  | 'unauthenticated'
+  | 'unauthorized'
+  | 'bad_request'
+  | 'bad_request.validation_failure'
+  | 'not_found'
+  | 'not_implemented'
+  | 'unavailable'
+  | 'unknown';
+
+declare class AuthClientError extends Error {
+  readonly errCode: AuthClientErrorCode;
+  readonly presentable: boolean;
+  constructor(errCode: AuthClientErrorCode, context: Partial<AuthClientErrorOpts> | string | Error);
+}
+
+const FarcasterLoginEventOnReceived = {
+  OpenChannel: 'channel',
+  Success: 'success',
+  Failed: 'failed',
+} as const;
+
+export type FarcasterLoginEventHandlers = {
+  [FarcasterLoginEventOnReceived.OpenChannel]: (channel: CreateChannelAPIResponse) => void;
+  [FarcasterLoginEventOnReceived.Success]: (data: StatusAPIResponse) => void;
+  [FarcasterLoginEventOnReceived.Failed]: (error: AuthClientError) => void;
+  [FarcasterLoginEventEmit.Cancel]: () => void;
+};
 
 export type OAuthProvider =
   | 'google'
@@ -169,6 +232,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   private configPromise: Promise<ClientConfig> | null = null;
   private eventsListenerAdded = false;
   private reconnectPromise: Promise<void> | null = null;
+  private isReauthInProgress = false;
 
   constructor(options?: WalletKitExtensionOptions) {
     super();
@@ -330,6 +394,9 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
             addresses: account.addresses,
             updatedField: 'address',
           });
+          // Re-run SIWE for the new address so the Magic session stays in sync.
+          // This triggers the wallet's native signing prompt without Magic UI.
+          this.performSilentReauth(account.address, account.chainId ?? 1);
         }
 
         // Chain changed
@@ -373,6 +440,25 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
       ((this.sdk as any).overlay as ViewController).postThirdPartyWalletUpdate(details);
     } catch (error) {
       console.error('Failed to post third party wallet event:', error);
+    }
+  }
+
+  /**
+   * Silently re-runs the SIWE flow for a new wallet address without any UI changes.
+   * Called when the user switches accounts in their wallet while already signed in.
+   * The wallet's native signing prompt will appear to the user.
+   */
+  private async performSilentReauth(address: string, chainId: number): Promise<void> {
+    if (this.isReauthInProgress) return;
+    this.isReauthInProgress = true;
+    try {
+      const message = await this.generateMessage({ address, chainId });
+      const signature = await signMessage(this.wagmiConfig, { message });
+      await this.login({ message, signature });
+    } catch (err) {
+      console.error('Silent SIWE re-auth failed for new account:', err);
+    } finally {
+      this.isReauthInProgress = false;
     }
   }
 
@@ -470,5 +556,29 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
    */
   public loginWithEmailOTP(email: string) {
     return this.sdk.auth.loginWithEmailOTP({ email, showUI: false, deviceCheckUI: false });
+  }
+
+  /**
+   * Login with Farcaster (whitelabel mode - no built-in UI).
+   * Returns a PromiEvent that emits 'channel', 'success', and 'failed' events.
+   */
+  public loginWithFarcaster() {
+    const payload = this.utils.createJsonRpcRequestPayload(FarcasterPayloadMethod.FarcasterShowQR, [
+      {
+        data: {
+          showUI: false,
+          domain: window.location.host,
+          siweUri: window.location.origin,
+        },
+      },
+    ]);
+
+    const handle = this.request<string, FarcasterLoginEventHandlers>(payload);
+
+    handle.on(FarcasterLoginEventEmit.Cancel, () => {
+      this.createIntermediaryEvent(FarcasterLoginEventEmit.Cancel, payload.id as string)();
+    });
+
+    return handle;
   }
 }
