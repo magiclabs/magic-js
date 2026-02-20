@@ -8,6 +8,7 @@ import {
   OAuthRedirectResult,
   OAuthRedirectStartResult,
 } from './types';
+import { createCryptoChallenge } from './crypto';
 
 export class OAuthExtension extends Extension.Internal<'oauth'> {
   name = 'oauth' as const;
@@ -22,11 +23,16 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   public loginWithPopup(configuration: OAuthRedirectConfiguration) {
     return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
       try {
+        const { codeVerifier, codeChallenge, cryptoChallengeState } = createCryptoChallenge();
+
         const startPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
           {
             ...configuration,
             apiKey: this.sdk.apiKey,
             platform: 'rn',
+            codeChallenge,
+            cryptoChallengeState,
+            // codeVerifier is intentionally NOT sent here — it stays in the SDK closure.
           },
         ]);
 
@@ -54,7 +60,23 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
 
         if (res.type === 'success') {
           const queryString = new URL(res.url).search;
-          resolve(getResult.call(this, queryString.toString()));
+          // Build clientMetadata from closure — codeVerifier and pkceMetadata never left this scope.
+          const clientMetadata = successResult.pkceMetadata
+            ? { codeVerifier, ...successResult.pkceMetadata }
+            : undefined;
+
+          // State verification for the new PKCE path.
+          // The extension generated the state, so it verifies it here — before any RPC call — as CSRF protection.
+          // In the legacy path (no clientMetadata), embedded-wallet handles state verification itself.
+          if (clientMetadata) {
+            const returnedState = new URLSearchParams(queryString).get('state');
+            if (!returnedState || returnedState !== clientMetadata.state) {
+              reject(this.createError<object>('STATE_MISMATCH', 'OAuth state parameter mismatch — request may have been tampered with', {}));
+              return;
+            }
+          }
+
+          resolve(getResult.call(this, queryString.toString(), clientMetadata));
         } else {
           reject(this.createError<object>(res.type, 'User has cancelled the authentication', {}));
         }
@@ -69,13 +91,20 @@ export class OAuthExtension extends Extension.Internal<'oauth'> {
   }
 }
 
-export function getResult(this: OAuthExtension, queryString: string) {
+export function getResult(
+  this: OAuthExtension,
+  queryString: string,
+  clientMetadata?: Record<string, string>,
+) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
     const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
       {
         authorizationResponseParams: queryString,
         magicApiKey: this.sdk.apiKey,
         platform: 'rn',
+        // Forward full metadata from closure (new PKCE path).
+        // When absent, embedded-wallet falls back to its stored metadata (backward compat).
+        ...(clientMetadata ? { clientMetadata } : {}),
       },
     ]);
 

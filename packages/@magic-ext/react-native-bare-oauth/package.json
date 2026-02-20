@@ -26,6 +26,7 @@
     ]
   },
   "dependencies": {
+    "crypto-js": "^4.2.0",
     "react-native-inappbrowser-reborn": "^3.7.0"
   },
   "devDependencies": {

@@ -9,7 +9,10 @@ import {
   OAuthPopupConfiguration,
   OAuthVerificationConfiguration,
 } from './types';
+import { createCryptoChallenge } from './crypto';
 import { OAuthPopupEventEmit, OAuthPopupEventHandlers, OAuthPopupEventOnReceived } from '@magic-sdk/types';
+
+const PKCE_STORAGE_KEY = 'magic_oauth_pkce_verifier';
 
 declare global {
   interface Window {
@@ -38,11 +41,16 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
     return this.utils.createPromiEvent<null | string>(async (resolve, reject) => {
+      const { codeVerifier, codeChallenge, cryptoChallengeState } = createCryptoChallenge();
+
       const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
         {
           ...configuration,
           apiKey: this.sdk.apiKey,
           platform: 'web',
+          codeChallenge,
+          cryptoChallengeState,
+          // codeVerifier is intentionally NOT sent here — it stays in the SDK.
         },
       ]);
 
@@ -56,6 +64,15 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
             errorURI: errorResult.error_uri,
             provider: errorResult.provider,
           }),
+        );
+      }
+
+      if (successResult?.pkceMetadata) {
+        // New path: store codeVerifier + all OAuth metadata at the SDK (parent page) level.
+        // sessionStorage persists across same-tab redirects but never enters the iframe.
+        sessionStorage.setItem(
+          PKCE_STORAGE_KEY,
+          JSON.stringify({ codeVerifier, ...successResult.pkceMetadata }),
         );
       }
 
@@ -162,12 +179,33 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
 
 function getResult(this: OAuthExtension, configuration: OAuthVerificationConfiguration, queryString: string) {
   return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
+    // Retrieve and immediately clear the full PKCE metadata stored at SDK level.
+    const stored = sessionStorage.getItem(PKCE_STORAGE_KEY);
+    sessionStorage.removeItem(PKCE_STORAGE_KEY);
+    // clientMetadata contains { codeVerifier, state, redirectUri, appID, provider }.
+    // Forwarding it lets the embedded-wallet verify handler skip its iframe storage entirely.
+    // When absent (old embedded-wallet path), the handler falls back to its stored metadata.
+    const clientMetadata = stored ? (JSON.parse(stored) as Record<string, string>) : undefined;
+
+    // State verification for the new PKCE path.
+    // The extension generated the state, so it verifies it here — before any RPC call — as CSRF protection.
+    // In the legacy path (no clientMetadata), embedded-wallet handles state verification itself.
+    if (clientMetadata) {
+      const returnedState = new URLSearchParams(queryString).get('state');
+      if (!returnedState || returnedState !== clientMetadata.state) {
+        return reject(
+          this.createError<object>('STATE_MISMATCH', 'OAuth state parameter mismatch — request may have been tampered with', {}),
+        );
+      }
+    }
+
     const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
       {
         authorizationResponseParams: queryString,
         magicApiKey: this.sdk.apiKey,
         platform: 'web',
         ...configuration,
+        ...(clientMetadata ? { clientMetadata } : {}),
       },
     ]);
 
