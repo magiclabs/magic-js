@@ -5,6 +5,7 @@ export enum SmartAccountPayloadMethod {
 
 export interface SmartAccountDelegateParams {
   chainId?: number;
+  sponsored?: boolean;
 }
 
 export interface SmartAccountDelegateResponse {
