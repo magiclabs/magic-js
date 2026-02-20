@@ -1,13 +1,12 @@
-import React, { createContext, useContext, useRef, useCallback, useState, ReactNode } from 'react';
-import { getExtensionInstance } from '../extension';
-import { WidgetAction } from '../reducer';
 import {
   DeviceVerificationEventEmit,
   DeviceVerificationEventOnReceived,
   LoginWithSmsOTPEventEmit,
   LoginWithSmsOTPEventOnReceived,
-  LoginWithEmailOTPEventOnReceived,
 } from '@magic-sdk/types';
+import React, { createContext, ReactNode, useCallback, useContext, useRef, useState } from 'react';
+import { getExtensionInstance } from '../extension';
+import { WidgetAction } from '../reducer';
 import { useWidgetConfig } from './WidgetConfigContext';
 
 type SmsOTPHandle = ReturnType<ReturnType<typeof getExtensionInstance>['loginWithSMS']>;
@@ -87,7 +86,7 @@ export function SmsLoginProvider({ children, dispatch }: SmsLoginProviderProps) 
           dispatch({ type: 'DEVICE_NEEDS_APPROVAL' });
         });
 
-        // Device verification email sent
+        // Device verification sms sent
         handle.on(DeviceVerificationEventOnReceived.DeviceVerificationEmailSent, () => {
           dispatch({ type: 'DEVICE_VERIFICATION_SENT' });
         });
@@ -103,15 +102,14 @@ export function SmsLoginProvider({ children, dispatch }: SmsLoginProviderProps) 
         });
 
         // ==========================================
-        // MFA Events (if enabled)
-        // Note: SMS login uses email OTP events for MFA
+        // MFA Events
         // ==========================================
 
-        handle.on(LoginWithEmailOTPEventOnReceived.MfaSentHandle, () => {
+        handle.on(LoginWithSmsOTPEventOnReceived.MfaSentHandle, () => {
           dispatch({ type: 'MFA_REQUIRED' });
         });
 
-        handle.on(LoginWithEmailOTPEventOnReceived.InvalidMfaOtp, () => {
+        handle.on(LoginWithSmsOTPEventOnReceived.InvalidMfaOtp, () => {
           dispatch({ type: 'MFA_INVALID' });
         });
 
@@ -236,7 +234,7 @@ export function SmsLoginProvider({ children, dispatch }: SmsLoginProviderProps) 
     }
 
     startSmsLogin(phoneNumber);
-  }, [startSmsLogin]);
+  }, [startSmsLogin, dispatch]);
 
   const value: SmsLoginContextValue = {
     startSmsLogin,

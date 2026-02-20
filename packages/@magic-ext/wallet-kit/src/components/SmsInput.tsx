@@ -1,12 +1,11 @@
+import { Button, IcoArrowRight, PhoneInput, Text } from '@magiclabs/ui-components';
+import { Box } from '@styled/jsx';
+import { vstack } from '@styled/patterns';
+import { token } from '@styled/tokens';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 import React, { FormEvent, useState } from 'react';
-import { Button, Text, IconSms, IcoArrowRight, PhoneInput } from '@magiclabs/ui-components';
 import { RpcErrorMessage } from 'src/types';
 import { useSmsLogin } from '../context/SmsLoginContext';
-import { vstack } from '@styled/patterns';
-import { Box, Flex } from '@styled/jsx';
-import { token } from '@styled/tokens';
-import { getExtensionInstance } from 'src/extension';
-import { isValidPhoneNumber } from 'libphonenumber-js';
 
 interface SmsInputProps {
   error?: string;
@@ -17,8 +16,6 @@ export const SmsInput = ({ error: externalError, isLoading }: SmsInputProps) => 
   const { startSmsLogin } = useSmsLogin();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [localError, setLocalError] = useState<string | null>(null);
-  const [disabled, setDisabled] = useState(true);
-  const config = getExtensionInstance().getConfig();
 
   const isPhoneValid = phoneNumber.length > 0 && isValidPhoneNumber(phoneNumber);
 
@@ -33,13 +30,11 @@ export const SmsInput = ({ error: externalError, isLoading }: SmsInputProps) => 
       return;
     }
 
-    setDisabled(true);
     startSmsLogin(phoneNumber);
   };
 
   const handleInput = (value: string) => {
     setLocalError(null);
-    setDisabled(!value.length);
     setPhoneNumber(value.trim());
   };
 
