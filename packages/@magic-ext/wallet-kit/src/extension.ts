@@ -7,7 +7,7 @@ import {
   MagicThirdPartyWalletUpdate,
   RPCErrorCode,
 } from '@magic-sdk/types';
-import { getAccount, getConnectorClient, reconnect, watchAccount } from '@wagmi/core';
+import { getAccount, getConnectorClient, reconnect, signMessage, watchAccount } from '@wagmi/core';
 import type { Config } from '@wagmi/core';
 import type { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { ClientConfig } from './types/client-config';
@@ -232,6 +232,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   private configPromise: Promise<ClientConfig> | null = null;
   private eventsListenerAdded = false;
   private reconnectPromise: Promise<void> | null = null;
+  private isSilentReauthing = false;
 
   constructor(options?: WalletKitExtensionOptions) {
     super();
@@ -393,6 +394,9 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
             addresses: account.addresses,
             updatedField: 'address',
           });
+          // Re-run SIWE for the new address so the Magic session stays in sync.
+          // This triggers the wallet's native signing prompt silently (no widget UI changes).
+          this.performSilentReauth(account.address, account.chainId ?? 1);
         }
 
         // Chain changed
@@ -436,6 +440,25 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
       ((this.sdk as any).overlay as ViewController).postThirdPartyWalletUpdate(details);
     } catch (error) {
       console.error('Failed to post third party wallet event:', error);
+    }
+  }
+
+  /**
+   * Silently re-runs the SIWE flow for a new wallet address without any UI changes.
+   * Called when the user switches accounts in their wallet while already signed in.
+   * The wallet's native signing prompt will appear to the user.
+   */
+  private async performSilentReauth(address: string, chainId: number): Promise<void> {
+    if (this.isSilentReauthing) return;
+    this.isSilentReauthing = true;
+    try {
+      const message = await this.generateMessage({ address, chainId });
+      const signature = await signMessage(this.wagmiConfig, { message });
+      await this.login({ message, signature });
+    } catch (err) {
+      console.error('Silent SIWE re-auth failed for new account:', err);
+    } finally {
+      this.isSilentReauthing = false;
     }
   }
 
