@@ -1,7 +1,7 @@
 import CryptoJS from 'crypto-js';
 
 // In React Native, `window` is undefined; crypto is available at `global.crypto` in Hermes (RN 0.70+).
-// The Math.random fallback activates automatically when native crypto is unavailable.
+// We intentionally do NOT fall back to Math.random; PKCE requires crypto.getRandomValues for secure entropy.
 const HAS_BUILT_IN_CRYPTO =
   typeof global !== 'undefined' && typeof (global as any).crypto?.getRandomValues === 'function';
 
