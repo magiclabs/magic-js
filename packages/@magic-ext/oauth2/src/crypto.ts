@@ -1,4 +1,3 @@
-import sha256 from 'crypto-js/sha256';
 import CryptoJS from 'crypto-js';
 
 const HAS_BUILT_IN_CRYPTO = typeof window !== 'undefined' && !!window.crypto;
@@ -26,6 +25,6 @@ function verifierToBase64URL(input: CryptoJS.lib.WordArray): string {
 export function createCryptoChallenge(): { codeVerifier: string; codeChallenge: string; cryptoChallengeState: string } {
   const cryptoChallengeState = createRandomString(128);
   const codeVerifier = createRandomString(128);
-  const codeChallenge = verifierToBase64URL(sha256(codeVerifier));
+  const codeChallenge = verifierToBase64URL(CryptoJS.SHA256(codeVerifier));
   return { codeVerifier, codeChallenge, cryptoChallengeState };
 }

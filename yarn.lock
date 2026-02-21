@@ -3470,6 +3470,7 @@ __metadata:
   dependencies:
     "@magic-sdk/react-native-bare": ^34.2.1
     "@magic-sdk/types": ^27.4.0
+    "@types/crypto-js": 4.2.0
     crypto-js: ^4.2.0
     react-native-inappbrowser-reborn: ^3.7.0
   peerDependencies:

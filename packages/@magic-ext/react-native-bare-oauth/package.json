@@ -31,7 +31,8 @@
   },
   "devDependencies": {
     "@magic-sdk/react-native-bare": "^34.2.1",
-    "@magic-sdk/types": "^27.4.0"
+    "@magic-sdk/types": "^27.4.0",
+    "@types/crypto-js": "4.2.0"
   },
   "peerDependencies": {
     "@magic-sdk/react-native-bare": ">=13.0.0",
