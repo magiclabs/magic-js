@@ -1,11 +1,11 @@
-import { Button, EmailWbr, IcoEmail, Text, VerifyPincode, IconSms, IcoMessage } from '@magiclabs/ui-components';
+import { Button, EmailWbr, IcoEmail, IcoMessage, Text, VerifyPincode } from '@magiclabs/ui-components';
+import { VStack } from '@styled/jsx';
+import { token } from '@styled/tokens';
 import React, { useEffect, useState } from 'react';
 import WidgetHeader from '../components/WidgetHeader';
 import { useEmailLogin } from '../context/EmailLoginContext';
 import { useSmsLogin } from '../context/SmsLoginContext';
 import { WidgetAction, WidgetState } from '../reducer';
-import { VStack } from '@styled/jsx';
-import { token } from '@styled/tokens';
 
 interface OtpViewProps {
   state: WidgetState;
@@ -85,7 +85,7 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
           errorMessage={isResending ? '' : error ?? ''}
         >
           <VerifyPincode.RetryContent>
-            {showResendButton && <Button variant="text" onClick={handleResend} label="Request a new code" />}
+            {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}
           </VerifyPincode.RetryContent>
         </VerifyPincode>
       </VStack>

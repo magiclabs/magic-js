@@ -6,6 +6,7 @@ import { token } from '@styled/tokens';
 import { useEmailLogin } from '../context/EmailLoginContext';
 import { WidgetAction, WidgetState } from '../reducer';
 import WidgetHeader from '../components/WidgetHeader';
+import { useCancelLogin } from 'src/hooks/useCancelLogin';
 
 interface DeviceVerificationViewProps {
   state: WidgetState;
@@ -13,7 +14,7 @@ interface DeviceVerificationViewProps {
 }
 
 export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationViewProps) => {
-  const { cancelLogin } = useEmailLogin();
+  const { cancelLogin } = useCancelLogin();
   const { otpLoginStatus, identifier, loginMethod } = state;
 
   useEffect(() => {
