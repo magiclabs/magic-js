@@ -94,10 +94,11 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   }
 
   public loginWithPopup(configuration: OAuthPopupConfiguration) {
-    const { showUI } = configuration;
+    const { showMfaModal } = configuration;
     const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
       {
         ...configuration,
+        showUI: showMfaModal,
         returnTo: window.location.href,
         apiKey: this.sdk.apiKey,
         platform: 'web',
@@ -124,7 +125,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           });
         }
 
-        if (!showUI) {
+        if (!showMfaModal) {
           oauthPopupRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, () => {
             promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle);
           });
@@ -163,7 +164,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       }
     });
 
-    if (!showUI && promiEvent) {
+    if (!showMfaModal && promiEvent) {
       promiEvent.on(OAuthMFAEventEmit.VerifyMFACode, (mfa: string) => {
         this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
       });
@@ -182,12 +183,13 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   }
 
   private getResult(configuration: OAuthVerificationConfiguration, queryString: string) {
-    const { showUI } = configuration;
+    const { showMfaModal } = configuration;
     const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
       {
         authorizationResponseParams: queryString,
         magicApiKey: this.sdk.apiKey,
         platform: 'web',
+        showUI: showMfaModal,
         ...configuration,
       },
     ]);
@@ -198,7 +200,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           requestPayload,
         );
 
-        if (!showUI) {
+        if (!showMfaModal) {
           getResultRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, () => {
             promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle);
           });
@@ -234,7 +236,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       },
     );
 
-    if (!showUI && promiEvent) {
+    if (!showMfaModal && promiEvent) {
       promiEvent.on(OAuthMFAEventEmit.VerifyMFACode, (mfa: string) => {
         this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
       });

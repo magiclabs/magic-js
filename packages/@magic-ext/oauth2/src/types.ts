@@ -109,7 +109,7 @@ export interface OAuthVerificationConfiguration {
   lifespan?: number;
   optionalQueryString?: string;
   skipDIDToken?: boolean;
-  showUI?: boolean;
+  showMfaModal?: boolean;
 }
 
 export interface OAuthPopupConfiguration {
@@ -118,7 +118,7 @@ export interface OAuthPopupConfiguration {
   loginHint?: string;
   providerParams?: Record<string, string | number | boolean>;
   shouldReturnURI?: boolean;
-  showUI?: boolean;
+  showMfaModal?: boolean;
 }
 
 export enum OAuthErrorCode {
