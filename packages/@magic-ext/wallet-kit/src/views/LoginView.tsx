@@ -1,12 +1,11 @@
 import React from 'react';
-import { Text } from '@magiclabs/ui-components';
-import { Divider, Flex, HStack, VStack } from '@styled/jsx';
+import { IcoMessage, Text, IcoFingerprintFill } from '@magiclabs/ui-components';
+import { Box, Divider, Flex, HStack, VStack } from '@styled/jsx';
 import { ProviderButton } from '../components/ProviderButton';
 import { WALLET_METADATA } from '../constants';
 import { OAuthProvider, ThirdPartyWallet } from '../types';
 import { WidgetAction, WidgetState } from '../reducer';
 import { EmailInput } from '../components/EmailInput';
-import { SmsInput } from '../components/SmsInput';
 import { SocialProviders } from '../components/SocialProviders';
 import WidgetHeader from '../components/WidgetHeader';
 import { getExtensionInstance } from '../extension';
@@ -20,12 +19,16 @@ interface LoginViewProps {
 export const LoginView = ({ dispatch, state }: LoginViewProps) => {
   const config = getExtensionInstance().getConfig();
   const { wallets, enableFarcaster } = useWidgetConfig();
-  const { primary, social } = config?.authProviders ?? {};
+  const { primary, secondary, social } = config?.authProviders ?? {};
   const hasEmailProvider = primary?.includes('email');
   const hasSmsProvider = primary?.includes('sms');
+  const hasWebAuthnProvider = primary?.includes('webauthn') || secondary?.includes('webauthn');
   const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
+  const hasAlternativeLogin = hasSmsProvider || hasWebAuthnProvider;
+
   const showDivider =
-    (hasEmailProvider || hasSmsProvider || socialProviders.length > 0 || enableFarcaster) && wallets.length > 0;
+    (hasEmailProvider || hasSmsProvider || hasWebAuthnProvider || socialProviders.length > 0 || enableFarcaster) &&
+    wallets.length > 0;
 
   const handleProviderSelect = (provider: ThirdPartyWallet) => {
     dispatch({ type: 'SELECT_WALLET', provider });
@@ -33,6 +36,14 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
 
   const handleProviderLogin = (provider: OAuthProvider) => {
     dispatch({ type: 'SELECT_PROVIDER', provider });
+  };
+
+  const handleSmsClick = () => {
+    dispatch({ type: 'GO_TO_SMS_LOGIN' });
+  };
+
+  const handleWebAuthnClick = () => {
+    dispatch({ type: 'GO_TO_WEBAUTHN_LOGIN' });
   };
 
   return (
@@ -49,11 +60,19 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
             />
           )}
 
-          {hasSmsProvider && (
-            <SmsInput
-              error={state.loginMethod === 'sms' ? state.error : undefined}
-              isLoading={state.loginMethod === 'sms' && state.otpLoginStatus === 'sending'}
-            />
+          {hasAlternativeLogin && (
+            <Flex gap={2} w="full" justify="center">
+              {hasSmsProvider && (
+                <Box flex={1}>
+                  <ProviderButton label="SMS" Icon={IcoMessage} onPress={handleSmsClick} center />
+                </Box>
+              )}
+              {hasWebAuthnProvider && (
+                <Box flex={1}>
+                  <ProviderButton label="Passkey" Icon={IcoFingerprintFill} onPress={handleWebAuthnClick} center />
+                </Box>
+              )}
+            </Flex>
           )}
 
           {(socialProviders.length > 0 || enableFarcaster) && (

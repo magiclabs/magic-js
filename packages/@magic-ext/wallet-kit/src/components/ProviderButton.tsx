@@ -8,9 +8,10 @@ interface ProviderButtonProps {
   Icon: ElementType;
   onPress: () => void;
   hideLabel?: boolean;
+  center?: boolean;
 }
 
-export const ProviderButton = ({ label, Icon, onPress, hideLabel }: ProviderButtonProps) => {
+export const ProviderButton = ({ label, Icon, onPress, hideLabel, center }: ProviderButtonProps) => {
   return (
     <ButtonContainer
       onPress={onPress}
@@ -23,7 +24,7 @@ export const ProviderButton = ({ label, Icon, onPress, hideLabel }: ProviderButt
         _hover: { bg: 'neutral.tertiary' },
       })}
     >
-      <Flex gap={3} w="full" justifyContent={hideLabel ? 'center' : 'flex-start'} alignItems="center">
+      <Flex gap={3} w="full" justifyContent={hideLabel || center ? 'center' : 'flex-start'} alignItems="center">
         <Icon width={24} height={24} />
         {!hideLabel && label && (
           <Text fontWeight="medium" styles={{ lineHeight: '1.5rem' }}>

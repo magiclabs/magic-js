@@ -16,6 +16,12 @@ import type { Config } from '@wagmi/core';
 import type { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { ClientConfig } from './types/client-config';
 import { createWagmiConfig } from './wagmi/config';
+import {
+  transformAssertionForServer,
+  transformNewAssertionForServer,
+  WebAuthnPayloadMethod,
+  WebAuthnSDKErrorCode,
+} from './utils/webauthn';
 
 enum SiwePayloadMethod {
   GenerateNonce = 'magic_siwe_generate_nonce',
@@ -595,6 +601,84 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
    */
   public loginWithSMS(phoneNumber: string) {
     return this.sdk.auth.loginWithSMS({ phoneNumber, showUI: false });
+  }
+
+  /**
+   * Login with WebAuthn (passkey).
+   * Authenticates an existing user with WebAuthn credentials.
+   */
+  public async loginWithWebAuthn(username: string) {
+    if (!window.PublicKeyCredential) {
+      throw this.createError(
+        WebAuthnSDKErrorCode.WebAuthnNotSupported,
+        'WebAuthn is not supported in this device.',
+        {},
+      );
+    }
+
+    const transformedCredentialRequestOptions = await this.request<any>(
+      this.utils.createJsonRpcRequestPayload(WebAuthnPayloadMethod.LoginWithWebAuthn, [{ username }]),
+    );
+
+    let assertion;
+    try {
+      assertion = (await navigator.credentials.get({
+        publicKey: transformedCredentialRequestOptions,
+      })) as PublicKeyCredential;
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Error getting credential';
+      throw this.createError(WebAuthnSDKErrorCode.WebAuthnCreateCredentialError, errorMessage, {});
+    }
+
+    return this.request<string | null>(
+      this.utils.createJsonRpcRequestPayload(WebAuthnPayloadMethod.WebAuthnLoginVerify, [
+        {
+          username,
+          assertion_response: transformAssertionForServer(assertion),
+        },
+      ]),
+    );
+  }
+
+  /**
+   * Register a new user with WebAuthn (passkey).
+   * Creates a new WebAuthn credential for the user.
+   */
+  public async registerNewWebAuthnUser(configuration: { username: string; nickname?: string }) {
+    if (!window.PublicKeyCredential) {
+      throw this.createError(
+        WebAuthnSDKErrorCode.WebAuthnNotSupported,
+        'WebAuthn is not supported in this device.',
+        {},
+      );
+    }
+    const { username, nickname = '' } = configuration;
+
+    const options = await this.request<any>(
+      this.utils.createJsonRpcRequestPayload(WebAuthnPayloadMethod.WebAuthnRegistrationStart, [{ username }]),
+    );
+
+    let credential;
+    try {
+      credential = (await navigator.credentials.create({
+        publicKey: options.credential_options,
+      })) as PublicKeyCredential;
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Error creating credential';
+      throw this.createError(WebAuthnSDKErrorCode.WebAuthnCreateCredentialError, errorMessage, {});
+    }
+
+    return this.request<string | null>(
+      this.utils.createJsonRpcRequestPayload(WebAuthnPayloadMethod.RegisterWithWebAuth, [
+        {
+          id: options.id,
+          nickname,
+          transport: (credential.response as AuthenticatorAttestationResponse).getTransports(),
+          user_agent: navigator.userAgent,
+          registration_response: transformNewAssertionForServer(credential),
+        },
+      ]),
+    );
   }
 
   /**

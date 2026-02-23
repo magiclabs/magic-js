@@ -1,4 +1,4 @@
-import { Button, EmailWbr, IcoEmail, Text, VerifyPincode, IconSms } from '@magiclabs/ui-components';
+import { Button, EmailWbr, IcoEmail, Text, VerifyPincode, IconSms, IcoMessage } from '@magiclabs/ui-components';
 import React, { useEffect, useState } from 'react';
 import WidgetHeader from '../components/WidgetHeader';
 import { useEmailLogin } from '../context/EmailLoginContext';
@@ -52,7 +52,7 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
       <VStack>
         <VStack gap={6}>
           {isSms ? (
-            <IconSms width={60} height={60} color={token('colors.brand.base')} />
+            <IcoMessage width={60} height={60} color={token('colors.brand.base')} />
           ) : (
             <IcoEmail width={60} height={60} color={token('colors.brand.base')} />
           )}

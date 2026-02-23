@@ -12,5 +12,6 @@ export {
   type OAuthLoginResult,
   type WalletLoginResult,
   type FarcasterLoginResult,
+  type WebAuthnLoginResult,
   type OAuthUserInfo,
 } from './types';
