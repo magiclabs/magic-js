@@ -26,6 +26,7 @@
     ]
   },
   "dependencies": {
+    "crypto-js": "^4.2.0",
     "expo-web-browser": "14.0.2"
   },
   "devDependencies": {

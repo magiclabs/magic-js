@@ -3470,6 +3470,8 @@ __metadata:
   dependencies:
     "@magic-sdk/react-native-bare": ^34.2.1
     "@magic-sdk/types": ^27.4.0
+    "@types/crypto-js": 4.2.0
+    crypto-js: ^4.2.0
     react-native-inappbrowser-reborn: ^3.7.0
   peerDependencies:
     "@magic-sdk/react-native-bare": ">=13.0.0"
@@ -3485,6 +3487,7 @@ __metadata:
     "@magic-sdk/types": ^27.4.0
     "@react-native-async-storage/async-storage": ^2.1.2
     "@types/crypto-js": ~4.2.0
+    crypto-js: ^4.2.0
     expo-web-browser: 14.0.2
   peerDependencies:
     "@magic-sdk/react-native-expo": ">=13.0.0"
