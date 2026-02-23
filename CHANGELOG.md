@@ -1,3 +1,16 @@
+# (Fri Feb 20 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.5.0`
+  - adds account switching for external wallets [#1038](https://github.com/magiclabs/magic-js/pull/1038) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Wed Feb 18 2026)
 
 #### 🐛 Bug Fix
