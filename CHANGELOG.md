@@ -1,3 +1,22 @@
+# (Tue Feb 24 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@15.3.2`, `@magic-ext/react-native-bare-oauth@30.3.2`, `@magic-ext/react-native-expo-oauth@30.3.2`
+  - Add PKCE support [#1040](https://github.com/magiclabs/magic-js/pull/1040) ([@Ethella](https://github.com/Ethella))
+
+#### 🔩 Dependency Updates
+
+- Bump bn.js from 5.2.1 to 5.2.3 [#1041](https://github.com/magiclabs/magic-js/pull/1041) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump hono from 4.11.1 to 4.12.0 [#1039](https://github.com/magiclabs/magic-js/pull/1039) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri Feb 20 2026)
 
 #### 🚀 Enhancement
