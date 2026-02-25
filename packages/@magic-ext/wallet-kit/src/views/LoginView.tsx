@@ -1,5 +1,5 @@
 import React from 'react';
-import { IcoMessage, Text, IcoFingerprintFill } from '@magiclabs/ui-components';
+import { IcoMessage, Text } from '@magiclabs/ui-components';
 import { Box, Divider, Flex, HStack, VStack } from '@styled/jsx';
 import { ProviderButton } from '../components/ProviderButton';
 import { WALLET_METADATA } from '../constants';
@@ -22,12 +22,11 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
   const { primary, secondary, social } = config?.authProviders ?? {};
   const hasEmailProvider = primary?.includes('email');
   const hasSmsProvider = primary?.includes('sms');
-  const hasWebAuthnProvider = primary?.includes('webauthn') || secondary?.includes('webauthn');
   const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
-  const hasAlternativeLogin = hasSmsProvider || hasWebAuthnProvider;
+  const hasAlternativeLogin = hasSmsProvider;
 
   const showDivider =
-    (hasEmailProvider || hasSmsProvider || hasWebAuthnProvider || socialProviders.length > 0 || enableFarcaster) &&
+    (hasEmailProvider || hasSmsProvider || socialProviders.length > 0 || enableFarcaster) &&
     wallets.length > 0;
 
   const handleProviderSelect = (provider: ThirdPartyWallet) => {
@@ -40,10 +39,6 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
 
   const handleSmsClick = () => {
     dispatch({ type: 'GO_TO_SMS_LOGIN' });
-  };
-
-  const handleWebAuthnClick = () => {
-    dispatch({ type: 'GO_TO_WEBAUTHN_LOGIN' });
   };
 
   return (
@@ -65,11 +60,6 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
               {hasSmsProvider && (
                 <Box flex={1}>
                   <ProviderButton label="SMS" Icon={IcoMessage} onPress={handleSmsClick} center />
-                </Box>
-              )}
-              {hasWebAuthnProvider && (
-                <Box flex={1}>
-                  <ProviderButton label="Passkey" Icon={IcoFingerprintFill} onPress={handleWebAuthnClick} center />
                 </Box>
               )}
             </Flex>

@@ -6,7 +6,6 @@ export type View =
   | 'login'
   | 'otp'
   | 'sms_login'
-  | 'webauthn_login'
   | 'additional_providers'
   | 'wallet_pending'
   | 'walletconnect_pending'
@@ -51,8 +50,8 @@ export interface WidgetState {
   error?: string;
   // OTP login flow state (email or SMS)
   otpLoginStatus?: OtpLoginStatus;
-  // Login method: 'email', 'sms', or 'webauthn'
-  loginMethod?: 'email' | 'sms' | 'webauthn';
+  // Login method: 'email' or 'sms'
+  loginMethod?: 'email' | 'sms';
   // Farcaster flow state
   farcasterUrl?: string;
   farcasterUsername?: string;
@@ -62,9 +61,8 @@ export type WidgetAction =
   // Navigation actions
   | { type: 'GO_TO_LOGIN' }
   | { type: 'GO_TO_SMS_LOGIN' }
-  | { type: 'GO_TO_WEBAUTHN_LOGIN' }
-  // OTP flow (email, SMS, or WebAuthn)
-  | { type: 'OTP_START'; identifier: string; loginMethod?: 'email' | 'sms' | 'webauthn' }
+  // OTP flow (email or SMS)
+  | { type: 'OTP_START'; identifier: string; loginMethod?: 'email' | 'sms' }
   | { type: 'OTP_SENT' }
   | { type: 'OTP_INVALID' }
   | { type: 'OTP_EXPIRED' }
@@ -117,13 +115,6 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
       return {
         ...state,
         view: 'sms_login',
-        error: undefined,
-      };
-
-    case 'GO_TO_WEBAUTHN_LOGIN':
-      return {
-        ...state,
-        view: 'webauthn_login',
         error: undefined,
       };
 

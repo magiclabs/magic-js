@@ -118,15 +118,6 @@ export interface FarcasterLoginResult {
 }
 
 /**
- * Result returned on successful WebAuthn login
- */
-export interface WebAuthnLoginResult {
-  method: 'webauthn';
-  /** The DID token for authentication */
-  didToken: string;
-}
-
-/**
  * Discriminated union of all login result types.
  * Check the `method` property to determine which fields are available.
  *
@@ -144,8 +135,7 @@ export type LoginResult =
   | SmsLoginResult
   | OAuthLoginResult
   | WalletLoginResult
-  | FarcasterLoginResult
-  | WebAuthnLoginResult;
+  | FarcasterLoginResult;
 
 /**
  * How the widget is displayed on the page.
