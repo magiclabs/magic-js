@@ -233,6 +233,8 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   private eventsListenerAdded = false;
   private reconnectPromise: Promise<void> | null = null;
   private isReauthInProgress = false;
+  private onAccountChangedCallback?: (result: { method: 'wallet'; walletAddress: string }) => void;
+  private onAccountChangedErrorCallback?: (error: Error) => void;
 
   constructor(options?: WalletKitExtensionOptions) {
     super();
@@ -448,6 +450,14 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
    * Called when the user switches accounts in their wallet while already signed in.
    * The wallet's native signing prompt will appear to the user.
    */
+  public setAccountChangedCallbacks(
+    onAccountChanged?: (result: { method: 'wallet'; walletAddress: string }) => void,
+    onError?: (error: Error) => void,
+  ) {
+    this.onAccountChangedCallback = onAccountChanged;
+    this.onAccountChangedErrorCallback = onError;
+  }
+
   private async performSilentReauth(address: string, chainId: number): Promise<void> {
     if (this.isReauthInProgress) return;
     this.isReauthInProgress = true;
@@ -455,8 +465,11 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
       const message = await this.generateMessage({ address, chainId });
       const signature = await signMessage(this.wagmiConfig, { message });
       await this.login({ message, signature });
+      this.onAccountChangedCallback?.({ method: 'wallet', walletAddress: address });
     } catch (err) {
-      console.error('Silent SIWE re-auth failed for new account:', err);
+      const error = err instanceof Error ? err : new Error('Re-auth failed');
+      console.error('Silent SIWE re-auth failed for new account:', error);
+      this.onAccountChangedErrorCallback?.(error);
     } finally {
       this.isReauthInProgress = false;
     }

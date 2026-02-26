@@ -191,6 +191,13 @@ export interface MagicWidgetProps {
   onError?: (error: Error) => void;
 
   /**
+   * Callback fired when the user switches to a different wallet account while already signed in.
+   * The new SIWE session has been verified before this fires.
+   * @example onAccountChanged={(result) => updateUI(result.walletAddress)}
+   */
+  onAccountChanged?: (result: WalletLoginResult) => void;
+
+  /**
    * Callback fired when the widget has finished initializing and is ready to display.
    * Use this to hide your custom loading UI.
    * @example onReady={() => setIsLoading(false)}
