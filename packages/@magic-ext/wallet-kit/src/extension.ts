@@ -220,6 +220,9 @@ export interface WalletKitExtensionOptions {
   projectId?: string;
 }
 
+/** Shape passed to the onAccountChanged callback. */
+type AccountChangedResult = { method: 'wallet'; walletAddress: string };
+
 export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   name = 'walletKit' as const;
   config = {};
@@ -233,6 +236,8 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   private eventsListenerAdded = false;
   private reconnectPromise: Promise<void> | null = null;
   private isReauthInProgress = false;
+  private onAccountChangedCallback?: (result: AccountChangedResult) => void;
+  private onAccountChangedErrorCallback?: (error: Error) => void;
 
   constructor(options?: WalletKitExtensionOptions) {
     super();
@@ -372,7 +377,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
 
     // Watch for account/chain changes using wagmi's watchAccount
     const unwatch = watchAccount(this.wagmiConfig, {
-      onChange: (account, prevAccount) => {
+      onChange: (account) => {
         const storedAddress = localStorage.getItem(LocalStorageKeys.ADDRESS);
         const storedChainId = localStorage.getItem(LocalStorageKeys.CHAIN_ID);
 
@@ -448,6 +453,14 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
    * Called when the user switches accounts in their wallet while already signed in.
    * The wallet's native signing prompt will appear to the user.
    */
+  public setAccountChangedCallbacks(
+    onAccountChanged?: (result: AccountChangedResult) => void,
+    onError?: (error: Error) => void,
+  ) {
+    this.onAccountChangedCallback = onAccountChanged;
+    this.onAccountChangedErrorCallback = onError;
+  }
+
   private async performSilentReauth(address: string, chainId: number): Promise<void> {
     if (this.isReauthInProgress) return;
     this.isReauthInProgress = true;
@@ -455,8 +468,11 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
       const message = await this.generateMessage({ address, chainId });
       const signature = await signMessage(this.wagmiConfig, { message });
       await this.login({ message, signature });
+      this.onAccountChangedCallback?.({ method: 'wallet', walletAddress: address });
     } catch (err) {
-      console.error('Silent SIWE re-auth failed for new account:', err);
+      const error = err instanceof Error ? err : new Error(String(err), { cause: err });
+      console.error('SIWE re-auth failed for new account:', error);
+      this.onAccountChangedErrorCallback?.(error);
     } finally {
       this.isReauthInProgress = false;
     }
