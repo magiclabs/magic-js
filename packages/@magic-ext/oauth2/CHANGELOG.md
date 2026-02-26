@@ -1,3 +1,15 @@
+# v15.3.2 (Tue Feb 24 2026)
+
+#### 🐛 Bug Fix
+
+- Add PKCE support [#1040](https://github.com/magiclabs/magic-js/pull/1040) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v15.2.2 (Thu Feb 05 2026)
 
 #### ⚠️ Pushed to `master`
