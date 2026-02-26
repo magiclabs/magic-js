@@ -179,6 +179,7 @@ export function MagicWidget({
 
   useEffect(() => {
     getExtensionInstance().setAccountChangedCallbacks(onAccountChanged, onError);
+    return () => getExtensionInstance().setAccountChangedCallbacks(undefined, undefined);
   }, [onAccountChanged, onError]);
 
   useEffect(() => {

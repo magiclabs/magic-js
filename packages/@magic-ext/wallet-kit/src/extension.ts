@@ -220,6 +220,9 @@ export interface WalletKitExtensionOptions {
   projectId?: string;
 }
 
+/** Shape passed to the onAccountChanged callback. */
+type AccountChangedResult = { method: 'wallet'; walletAddress: string };
+
 export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   name = 'walletKit' as const;
   config = {};
@@ -233,7 +236,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   private eventsListenerAdded = false;
   private reconnectPromise: Promise<void> | null = null;
   private isReauthInProgress = false;
-  private onAccountChangedCallback?: (result: { method: 'wallet'; walletAddress: string }) => void;
+  private onAccountChangedCallback?: (result: AccountChangedResult) => void;
   private onAccountChangedErrorCallback?: (error: Error) => void;
 
   constructor(options?: WalletKitExtensionOptions) {
@@ -374,7 +377,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
 
     // Watch for account/chain changes using wagmi's watchAccount
     const unwatch = watchAccount(this.wagmiConfig, {
-      onChange: (account, prevAccount) => {
+      onChange: (account) => {
         const storedAddress = localStorage.getItem(LocalStorageKeys.ADDRESS);
         const storedChainId = localStorage.getItem(LocalStorageKeys.CHAIN_ID);
 
@@ -451,7 +454,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
    * The wallet's native signing prompt will appear to the user.
    */
   public setAccountChangedCallbacks(
-    onAccountChanged?: (result: { method: 'wallet'; walletAddress: string }) => void,
+    onAccountChanged?: (result: AccountChangedResult) => void,
     onError?: (error: Error) => void,
   ) {
     this.onAccountChangedCallback = onAccountChanged;
@@ -467,8 +470,8 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
       await this.login({ message, signature });
       this.onAccountChangedCallback?.({ method: 'wallet', walletAddress: address });
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('Re-auth failed');
-      console.error('Silent SIWE re-auth failed for new account:', error);
+      const error = err instanceof Error ? err : new Error(String(err), { cause: err });
+      console.error('SIWE re-auth failed for new account:', error);
       this.onAccountChangedErrorCallback?.(error);
     } finally {
       this.isReauthInProgress = false;
