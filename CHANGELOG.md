@@ -1,3 +1,16 @@
+# (Thu Feb 26 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.6.0`
+  - adds account changed handler [#1044](https://github.com/magiclabs/magic-js/pull/1044) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Feb 24 2026)
 
 #### 🐛 Bug Fix
