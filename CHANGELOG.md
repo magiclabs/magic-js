@@ -1,3 +1,22 @@
+# (Fri Feb 27 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@15.4.0`, `@magic-ext/wallet-kit@0.7.0`, `@magic-sdk/types@27.5.0`
+  - feat: add mfa events to oauth flows [#1035](https://github.com/magiclabs/magic-js/pull/1035) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🔩 Dependency Updates
+
+- Bump rollup from 4.56.0 to 4.59.0 [#1045](https://github.com/magiclabs/magic-js/pull/1045) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump hono from 4.12.0 to 4.12.2 [#1043](https://github.com/magiclabs/magic-js/pull/1043) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Thu Feb 26 2026)
 
 #### 🚀 Enhancement
