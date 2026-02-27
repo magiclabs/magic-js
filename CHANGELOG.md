@@ -1,5 +1,18 @@
 # (Fri Feb 27 2026)
 
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@15.4.1`
+  - adds pkce to localStorage [#1046](https://github.com/magiclabs/magic-js/pull/1046) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Feb 27 2026)
+
 #### 🚀 Enhancement
 
 - `@magic-ext/oauth2@15.4.0`, `@magic-ext/wallet-kit@0.7.0`, `@magic-sdk/types@27.5.0`

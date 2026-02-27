@@ -1,3 +1,15 @@
+# v15.4.1 (Fri Feb 27 2026)
+
+#### 🐛 Bug Fix
+
+- adds pkce to localStorage [#1046](https://github.com/magiclabs/magic-js/pull/1046) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v15.4.0 (Fri Feb 27 2026)
 
 #### 🚀 Enhancement
