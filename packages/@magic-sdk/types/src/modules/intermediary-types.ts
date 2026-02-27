@@ -29,7 +29,7 @@ import {
   RecoveryFactorEventEmit,
   RecoveryFactorEventOnReceived,
 } from './user-types';
-import { OAuthPopupEventEmit, OAuthPopupEventOnReceived } from './oauth-types';
+import { OAuthMFAEventEmit, OAuthMFAEventOnReceived, OAuthPopupEventEmit, OAuthPopupEventOnReceived } from './oauth-types';
 
 export type IntermediaryEvents =
   // EmailOTP
@@ -76,5 +76,7 @@ export type IntermediaryEvents =
   | `${RecoverAccountEventOnReceived}`
   | `${RecoverAccountEventEmit}`
   // OAuth Events
+  | `${OAuthMFAEventEmit}`
+  | `${OAuthMFAEventOnReceived}`
   | `${OAuthPopupEventEmit}`
   | `${OAuthPopupEventOnReceived}`;

@@ -3,7 +3,7 @@ import { VStack } from '@styled/jsx';
 import { token } from '@styled/tokens';
 import React from 'react';
 import WidgetHeader from '../components/WidgetHeader';
-import { useEmailLogin } from '../context';
+import { useMfa } from '../hooks/useMfa';
 import { WidgetAction, WidgetState } from '../reducer';
 
 interface MFAViewProps {
@@ -12,7 +12,7 @@ interface MFAViewProps {
 }
 
 export const MFAView = ({ state, dispatch }: MFAViewProps) => {
-  const { submitMFA, cancelLogin, lostDevice } = useEmailLogin();
+  const { submitMFA, cancelLogin, lostDevice } = useMfa();
   const { emailLoginStatus, error } = state;
 
   const isVerifying = emailLoginStatus === 'mfa_verifying';
