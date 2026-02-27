@@ -1,3 +1,15 @@
+# v27.5.0 (Fri Feb 27 2026)
+
+#### 🚀 Enhancement
+
+- feat: add mfa events to oauth flows [#1035](https://github.com/magiclabs/magic-js/pull/1035) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v27.4.0 (Fri Feb 06 2026)
 
 #### 🚀 Enhancement
