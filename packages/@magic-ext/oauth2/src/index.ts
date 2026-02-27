@@ -78,6 +78,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
         // New path: store codeVerifier + all OAuth metadata at the SDK (parent page) level.
         // sessionStorage persists across same-tab redirects but never enters the iframe.
         sessionStorage.setItem(PKCE_STORAGE_KEY, JSON.stringify({ codeVerifier, ...successResult.pkceMetadata }));
+        localStorage.setItem(PKCE_STORAGE_KEY, JSON.stringify({ codeVerifier, ...successResult.pkceMetadata }));
       }
 
       if (successResult?.oauthAuthoriationURI) {
@@ -213,8 +214,18 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
 
     const promiEvent = this.utils.createPromiEvent<OAuthRedirectResult, OAuthGetResultEventHandlers>(
       async (resolve, reject) => {
+        if (!clientMetadata) {
+          return reject(
+            this.createError<object>(
+              'MISSING_PKCE_METADATA',
+              'OAuth session metadata not found — the session may have expired or storage was cleared',
+              {},
+            ),
+          );
+        }
+
         if (hasStateMismatch) {
-          reject(
+          return reject(
             this.createError<object>(
               'STATE_MISMATCH',
               'OAuth state parameter mismatch — request may have been tampered with',
@@ -313,13 +324,19 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   } {
     let hasStateMismatch = false;
     // Retrieve and immediately clear the full PKCE metadata stored at SDK level.
-    const stored = sessionStorage.getItem(PKCE_STORAGE_KEY);
+    const storedInSession = sessionStorage.getItem(PKCE_STORAGE_KEY);
+    const storedInLocal = localStorage.getItem(PKCE_STORAGE_KEY);
     sessionStorage.removeItem(PKCE_STORAGE_KEY);
+    localStorage.removeItem(PKCE_STORAGE_KEY);
 
     // clientMetadata contains { codeVerifier, state, redirectUri, appID, provider }.
     // Forwarding it lets the embedded-wallet verify handler skip its iframe storage entirely.
     // When absent (old embedded-wallet path), the handler falls back to its stored metadata.
-    const clientMetadata = stored ? (JSON.parse(stored) as Record<string, string>) : undefined;
+    const clientMetadata = storedInSession
+      ? (JSON.parse(storedInSession) as Record<string, string>)
+      : storedInLocal
+        ? (JSON.parse(storedInLocal) as Record<string, string>)
+        : undefined;
 
     // State verification for the new PKCE path.
     // The extension generated the state, so it verifies it here — before any RPC call — as CSRF protection.
