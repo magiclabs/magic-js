@@ -151,6 +151,7 @@ export function MagicWidget({
   enableFarcaster = false,
   onSuccess,
   onError,
+  onAccountChanged,
   onReady,
 }: MagicWidgetProps) {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
@@ -179,6 +180,11 @@ export function MagicWidget({
         });
     }
   }, []);
+
+  useEffect(() => {
+    getExtensionInstance().setAccountChangedCallbacks(onAccountChanged, onError);
+    return () => getExtensionInstance().setAccountChangedCallbacks(undefined, undefined);
+  }, [onAccountChanged, onError]);
 
   useEffect(() => {
     if (!clientTheme) return;

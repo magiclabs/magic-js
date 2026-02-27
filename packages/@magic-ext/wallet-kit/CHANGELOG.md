@@ -1,3 +1,15 @@
+# v0.6.0 (Thu Feb 26 2026)
+
+#### 🚀 Enhancement
+
+- adds account changed handler [#1044](https://github.com/magiclabs/magic-js/pull/1044) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v0.5.0 (Fri Feb 20 2026)
 
 #### 🚀 Enhancement
