@@ -3508,6 +3508,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/smart-account@workspace:packages/@magic-ext/smart-account":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/smart-account@workspace:packages/@magic-ext/smart-account"
+  dependencies:
+    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/types": ^27.4.0
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/solana@workspace:packages/@magic-ext/solana":
   version: 0.0.0-use.local
   resolution: "@magic-ext/solana@workspace:packages/@magic-ext/solana"
