@@ -5,8 +5,8 @@ on:
       - 'master'
 
 env:
-  GITHUB_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
-  GH_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.FRONTEND_GH_TOKEN }}
+  GH_TOKEN: ${{ secrets.FRONTEND_GH_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   NPM_CONFIG_PROVENANCE: true
 
@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          token: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
+          token: ${{ secrets.FRONTEND_GH_TOKEN }}
           fetch-depth: 0
           fetch-tags: true
 
@@ -78,7 +78,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          token: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
+          token: ${{ secrets.FRONTEND_GH_TOKEN }}
           fetch-depth: 0
           fetch-tags: true
 

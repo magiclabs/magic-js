@@ -69,3 +69,33 @@ test('Initialize `JsonRpcResponse` instance if argument is a `JsonRpcBatchReques
   expect((response as any)._result).toBe(undefined);
   expect((response as any)._error).toBe(undefined);
 });
+
+test('Initialize JsonRpcResponse with request payload missing jsonrpc', () => {
+  const payload = {
+    id: 1,
+    method: 'eth_accounts',
+    params: [],
+  };
+
+  const response = new JsonRpcResponse(payload);
+
+  expect((response as any)._jsonrpc).toBe(undefined);
+  expect((response as any)._id).toBe(1);
+  expect((response as any)._result).toBe(undefined);
+  expect((response as any)._error).toBe(undefined);
+});
+
+test('Initialize JsonRpcResponse with request payload missing id', () => {
+  const payload = {
+    jsonrpc: '2.0',
+    method: 'eth_accounts',
+    params: [],
+  };
+
+  const response = new JsonRpcResponse(payload);
+
+  expect((response as any)._jsonrpc).toBe('2.0');
+  expect((response as any)._id).toBe(undefined);
+  expect((response as any)._result).toBe(undefined);
+  expect((response as any)._error).toBe(undefined);
+});

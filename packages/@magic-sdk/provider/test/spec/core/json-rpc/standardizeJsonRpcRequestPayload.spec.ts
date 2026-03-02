@@ -60,3 +60,11 @@ test('Calling upon the same payload twice does not mutate the payload ID', () =>
   standardizeJsonRpcRequestPayload(originalPayload);
   expect(originalPayload.id).toBe(savedID);
 });
+
+test('Handles null values for jsonrpc, method, and params', () => {
+  const payload: any = { jsonrpc: null, method: null, params: null };
+  const result = standardizeJsonRpcRequestPayload(payload);
+  expect(result.jsonrpc).toBe('2.0');
+  expect(result.method).toBe('noop');
+  expect(result.params).toEqual([]);
+});

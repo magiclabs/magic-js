@@ -351,3 +351,86 @@ test('Does not call thirdPartyWallet requestOverride if method is mc_login', () 
     .mockImplementation(() => Promise.resolve({}));
   expect(spy).toBeCalledTimes(0);
 });
+
+test('Ignores events with different payload ID', done => {
+  const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
+
+  const { baseModule } = createBaseModule(
+    jest.fn().mockImplementation(
+      () =>
+        new Promise(resolve => {
+          setTimeout(() => {
+            resolve(response);
+          }, 1000);
+        }),
+    ),
+  );
+
+  baseModule
+    .request(requestPayload)
+    .on('hello_e', () => {
+      done.fail('Should not emit event for different payload ID');
+    })
+    .then(() => {
+      setTimeout(() => {
+        done();
+      }, 100);
+    });
+
+  window.postMessage(
+    {
+      msgType: MSG_TYPES().MAGIC_HANDLE_EVENT,
+      response: { id: 999, result: { event: 'hello_e', params: ['world'] } },
+    },
+    '*',
+  );
+});
+
+test('Ignores events when result.event is missing', done => {
+  const response = new JsonRpcResponse(requestPayload).applyResult('hello world');
+
+  const { baseModule } = createBaseModule(
+    jest.fn().mockImplementation(
+      () =>
+        new Promise(resolve => {
+          setTimeout(() => {
+            resolve(response);
+          }, 1000);
+        }),
+    ),
+  );
+
+  baseModule
+    .request(requestPayload)
+    .on('hello_f', () => {
+      done.fail('Should not emit event when result.event is missing');
+    })
+    .then(() => {
+      setTimeout(() => {
+        done();
+      }, 100);
+    });
+
+  window.postMessage(
+    {
+      msgType: MSG_TYPES().MAGIC_HANDLE_EVENT,
+      response: { id: requestPayload.id, result: { params: ['world'] } },
+    },
+    '*',
+  );
+});
+
+test('Handles rejection from overlay.post', async () => {
+  const networkError = new Error('Network error');
+  const { baseModule } = createBaseModule(jest.fn().mockImplementation(() => Promise.reject(networkError)));
+  await expect(() => baseModule.request(requestPayload)).rejects.toThrow(networkError);
+});
+
+test('Handles rejection from thirdPartyWallet requestOverride', async () => {
+  mockLocalStorage();
+  const networkError = new Error('Network error');
+  const { baseModule } = createBaseModule(jest.fn().mockImplementation(() => Promise.resolve(new JsonRpcResponse(requestPayload).applyResult('test'))));
+  baseModule.sdk.thirdPartyWallets.isConnected = true;
+  jest.spyOn(baseModule.sdk.thirdPartyWallets, 'requestOverride').mockImplementation(() => Promise.reject(networkError));
+  await expect(() => baseModule.request(requestPayload)).rejects.toThrow(networkError);
+});
