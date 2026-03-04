@@ -1,15 +1,16 @@
+import { Text } from '@magiclabs/ui-components';
+import { Divider, Flex, HStack, VStack } from '@styled/jsx';
 import React from 'react';
-import { IcoMessage, Text } from '@magiclabs/ui-components';
-import { Box, Divider, Flex, HStack, VStack } from '@styled/jsx';
-import { ProviderButton } from '../components/ProviderButton';
-import { WALLET_METADATA } from '../constants';
-import { OAuthProvider, ThirdPartyWallet } from '../types';
-import { WidgetAction, WidgetState } from '../reducer';
 import { EmailInput } from '../components/EmailInput';
+import { ProviderButton } from '../components/ProviderButton';
 import { SocialProviders } from '../components/SocialProviders';
 import WidgetHeader from '../components/WidgetHeader';
-import { getExtensionInstance } from '../extension';
+import { WALLET_METADATA } from '../constants';
 import { useWidgetConfig } from '../context/WidgetConfigContext';
+import { getExtensionInstance } from '../extension';
+import { WidgetAction, WidgetState } from '../reducer';
+import { OAuthProvider, ThirdPartyWallet } from '../types';
+import { ContinueWithSmsButton } from 'src/components/ContinueWithSmsButton';
 
 interface LoginViewProps {
   dispatch: React.Dispatch<WidgetAction>;
@@ -26,8 +27,7 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
   const hasAlternativeLogin = hasSmsProvider;
 
   const showDivider =
-    (hasEmailProvider || hasSmsProvider || socialProviders.length > 0 || enableFarcaster) &&
-    wallets.length > 0;
+    (hasEmailProvider || hasSmsProvider || socialProviders.length > 0 || enableFarcaster) && wallets.length > 0;
 
   const handleProviderSelect = (provider: ThirdPartyWallet) => {
     dispatch({ type: 'SELECT_WALLET', provider });
@@ -57,11 +57,7 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
 
           {hasAlternativeLogin && (
             <Flex gap={2} w="full" justify="center">
-              {hasSmsProvider && (
-                <Box flex={1}>
-                  <ProviderButton label="SMS" Icon={IcoMessage} onPress={handleSmsClick} center />
-                </Box>
-              )}
+              {hasSmsProvider && <ContinueWithSmsButton onClick={handleSmsClick} />}
             </Flex>
           )}
 

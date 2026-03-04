@@ -3571,6 +3571,7 @@ __metadata:
     libphonenumber-js: ^1.12.37
     react: ^18.0.0
     react-dom: ^18.0.0
+    react-international-phone: ^4.8.0
     rollup: ^4.18.0
     tslib: ^2.6.3
     viem: ^2.37.9
@@ -22886,6 +22887,15 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
   checksum: ab36ef12c54f281de3ac275dfcaa446f5b0370ebc56cee49f2ea17d7ae3ede810714198dd56162442b1494bbe8b9d0ed672b666f7b07e973cf102f7d827431d7
+  languageName: node
+  linkType: hard
+
+"react-international-phone@npm:^4.8.0":
+  version: 4.8.0
+  resolution: "react-international-phone@npm:4.8.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 06868c01efa10b5e9537ca323768dbe10c3d3323a04903302e082ad4230067c6508703c79dcd40f183a2c2717e462e16dccf103bf60471f29cbbcc93b0d92a97
   languageName: node
   linkType: hard
 

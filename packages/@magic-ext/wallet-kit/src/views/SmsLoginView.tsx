@@ -1,6 +1,6 @@
-import { ButtonContainer, IcoMessage, LoadingSpinner, PhoneInput, Text } from '@magiclabs/ui-components';
+import { ButtonContainer, IcoMessage, IcoPhone, LoadingSpinner, Text } from '@magiclabs/ui-components';
 import { css } from '@styled/css';
-import { Flex, Spacer, VStack } from '@styled/jsx';
+import { Flex, HStack, Spacer, VStack } from '@styled/jsx';
 import { token } from '@styled/tokens';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import React, { useState } from 'react';
@@ -8,6 +8,7 @@ import { RpcErrorMessage } from 'src/types';
 import WidgetHeader from '../components/WidgetHeader';
 import { useSmsLogin } from '../context/SmsLoginContext';
 import { WidgetState } from '../reducer';
+import PhoneInput from 'src/components/PhoneInput';
 
 interface SmsLoginViewProps {
   state: WidgetState;
@@ -50,38 +51,22 @@ export const SmsLoginView = ({ state }: SmsLoginViewProps) => {
       <WidgetHeader onPressBack={cancelLogin} />
       <VStack w="full" gap={10} mt={2} px={7}>
         <VStack gap={10}>
-          <IcoMessage width={60} height={60} color={token('colors.ink.70')} />
+          <IcoPhone width={60} height={60} color={token('colors.brand.base')} />
           <Text.H4
-            fontWeight="normal"
+            fontWeight="medium"
             styles={{
               textAlign: 'center',
             }}
           >
-            Please enter phone number
+            Enter phone number
           </Text.H4>
         </VStack>
 
-        <PhoneInput onChange={handlePhoneChange} autoFocus={false} errorMessage={displayError} />
-
-        <ButtonContainer
-          onPress={handleSubmit}
-          borderRadius={14}
-          className={css({
-            w: 'full',
-            px: 4,
-            py: 3,
-            bg: 'neutral.primary',
-            _hover: { bg: 'neutral.tertiary' },
-            _disabled: { opacity: 0.5 },
-          })}
-          disabled={!isPhoneValid || isLoading}
-        >
-          <Flex gap={3} w="full" justifyContent={'center'} alignItems="center">
-            <Text fontWeight="medium" styles={{ lineHeight: '1.5rem' }}>
-              Continue
-            </Text>
-          </Flex>
-        </ButtonContainer>
+        <PhoneInput
+          onChange={handlePhoneChange}
+          onSubmit={handleSubmit}
+          containerStyles={{ width: '100%' }}
+        />
       </VStack>
     </>
   );

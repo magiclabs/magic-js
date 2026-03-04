@@ -54,6 +54,7 @@
     "@wagmi/core": "^2.0.0",
     "@walletconnect/ethereum-provider": "^2.23.0",
     "libphonenumber-js": "^1.12.37",
+    "react-international-phone": "^4.8.0",
     "wagmi": "^2.0.0"
   },
   "peerDependencies": {

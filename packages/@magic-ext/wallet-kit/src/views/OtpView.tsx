@@ -1,11 +1,13 @@
-import { Button, EmailWbr, IcoEmail, IcoMessage, Text, VerifyPincode } from '@magiclabs/ui-components';
-import { VStack } from '@styled/jsx';
+import { Button, EmailWbr, IcoEmail, IcoMessage, IcoPhone, Text, VerifyPincode } from '@magiclabs/ui-components';
+import { Box, VStack } from '@styled/jsx';
 import { token } from '@styled/tokens';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import parsePhoneNumber from 'libphonenumber-js';
 import WidgetHeader from '../components/WidgetHeader';
 import { useEmailLogin } from '../context/EmailLoginContext';
 import { useSmsLogin } from '../context/SmsLoginContext';
 import { WidgetAction, WidgetState } from '../reducer';
+import { css } from '@styled/css';
 
 interface OtpViewProps {
   state: WidgetState;
@@ -27,6 +29,16 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
   const isVerifying = otpLoginStatus === 'verifying_otp';
   const isSuccess = otpLoginStatus === 'success';
 
+  const formattedIdentifier = useMemo(() => {
+    if (!identifier || !isSms) return identifier;
+    try {
+      const phoneNumber = parsePhoneNumber(identifier);
+      return phoneNumber ? phoneNumber.formatInternational() : identifier;
+    } catch {
+      return identifier;
+    }
+  }, [identifier, isSms]);
+
   const onChangeOtp = () => {
     dispatch({ type: 'RESET_OTP_ERROR' });
   };
@@ -46,13 +58,22 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
     setShowResendButton(false);
   };
 
+  // Add space in the center of 6 digit OTP when using SMS
+  const pincodeWrapperClassName = isSms
+    ? css({
+        '& div:has(input):nth-of-type(3)': {
+          marginRight: '16px',
+        },
+      })
+    : undefined;
+
   return (
     <>
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
       <VStack>
         <VStack gap={6}>
           {isSms ? (
-            <IcoMessage width={60} height={60} color={token('colors.brand.base')} />
+            <IcoPhone width={60} height={60} color={token('colors.brand.base')} />
           ) : (
             <IcoEmail width={60} height={60} color={token('colors.brand.base')} />
           )}
@@ -70,24 +91,26 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
                 textAlign: 'center',
               }}
             >
-              {identifier && (isSms ? identifier : <EmailWbr email={identifier} />)}
+              {identifier && (isSms ? formattedIdentifier : <EmailWbr email={identifier} />)}
             </Text.H4>
           </VStack>
         </VStack>
 
-        <VerifyPincode
-          originName={isSms ? 'sms' : 'email'}
-          pinLength={6}
-          isPending={isVerifying || isResending}
-          isSuccess={isSuccess}
-          onChange={onChangeOtp}
-          onComplete={submitOTP}
-          errorMessage={isResending ? '' : error ?? ''}
-        >
-          <VerifyPincode.RetryContent>
-            {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}
-          </VerifyPincode.RetryContent>
-        </VerifyPincode>
+        <Box className={pincodeWrapperClassName}>
+          <VerifyPincode
+            originName={isSms ? 'sms' : 'email'}
+            pinLength={6}
+            isPending={isVerifying || isResending}
+            isSuccess={isSuccess}
+            onChange={onChangeOtp}
+            onComplete={submitOTP}
+            errorMessage={isResending ? '' : error ?? ''}
+          >
+            <VerifyPincode.RetryContent>
+              {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}
+            </VerifyPincode.RetryContent>
+          </VerifyPincode>
+        </Box>
       </VStack>
     </>
   );
