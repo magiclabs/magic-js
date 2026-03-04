@@ -1,3 +1,67 @@
+# (Fri Feb 27 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@15.4.1`
+  - adds pkce to localStorage [#1046](https://github.com/magiclabs/magic-js/pull/1046) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Feb 27 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@15.4.0`, `@magic-ext/wallet-kit@0.7.0`, `@magic-sdk/types@27.5.0`
+  - feat: add mfa events to oauth flows [#1035](https://github.com/magiclabs/magic-js/pull/1035) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🔩 Dependency Updates
+
+- Bump rollup from 4.56.0 to 4.59.0 [#1045](https://github.com/magiclabs/magic-js/pull/1045) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump hono from 4.12.0 to 4.12.2 [#1043](https://github.com/magiclabs/magic-js/pull/1043) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Feb 26 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.6.0`
+  - adds account changed handler [#1044](https://github.com/magiclabs/magic-js/pull/1044) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Tue Feb 24 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@15.3.2`, `@magic-ext/react-native-bare-oauth@30.3.2`, `@magic-ext/react-native-expo-oauth@30.3.2`
+  - Add PKCE support [#1040](https://github.com/magiclabs/magic-js/pull/1040) ([@Ethella](https://github.com/Ethella))
+
+#### 🔩 Dependency Updates
+
+- Bump bn.js from 5.2.1 to 5.2.3 [#1041](https://github.com/magiclabs/magic-js/pull/1041) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump hono from 4.11.1 to 4.12.0 [#1039](https://github.com/magiclabs/magic-js/pull/1039) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri Feb 20 2026)
 
 #### 🚀 Enhancement

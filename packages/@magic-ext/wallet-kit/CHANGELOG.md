@@ -1,3 +1,27 @@
+# v0.7.0 (Fri Feb 27 2026)
+
+#### 🚀 Enhancement
+
+- feat: add mfa events to oauth flows [#1035](https://github.com/magiclabs/magic-js/pull/1035) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v0.6.0 (Thu Feb 26 2026)
+
+#### 🚀 Enhancement
+
+- adds account changed handler [#1044](https://github.com/magiclabs/magic-js/pull/1044) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v0.5.0 (Fri Feb 20 2026)
 
 #### 🚀 Enhancement

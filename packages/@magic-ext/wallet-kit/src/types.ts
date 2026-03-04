@@ -200,10 +200,18 @@ export interface MagicWidgetProps {
   onSuccess?: (result: LoginResult) => void;
 
   /**
-   * Callback fired when login fails
+   * Callback fired when login fails, or when a silent re-auth triggered by an
+   * account switch fails (e.g. the user rejects the signing prompt).
    * @example onError={(error) => console.error(error.message)}
    */
   onError?: (error: Error) => void;
+
+  /**
+   * Callback fired when the user switches to a different wallet account while already signed in.
+   * The new SIWE session has been verified before this fires.
+   * @example onAccountChanged={(result) => updateUI(result.walletAddress)}
+   */
+  onAccountChanged?: (result: WalletLoginResult) => void;
 
   /**
    * Callback fired when the widget has finished initializing and is ready to display.
