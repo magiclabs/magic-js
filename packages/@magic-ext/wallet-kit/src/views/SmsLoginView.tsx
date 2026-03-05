@@ -1,6 +1,5 @@
-import { ButtonContainer, IcoMessage, IcoPhone, LoadingSpinner, Text } from '@magiclabs/ui-components';
-import { css } from '@styled/css';
-import { Flex, HStack, Spacer, VStack } from '@styled/jsx';
+import { IcoPhone, LoadingSpinner, PhoneInput, Text } from '@magiclabs/ui-components';
+import { Spacer, VStack } from '@styled/jsx';
 import { token } from '@styled/tokens';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import React, { useState } from 'react';
@@ -8,7 +7,6 @@ import { RpcErrorMessage } from 'src/types';
 import WidgetHeader from '../components/WidgetHeader';
 import { useSmsLogin } from '../context/SmsLoginContext';
 import { WidgetState } from '../reducer';
-import PhoneInput from 'src/components/PhoneInput';
 
 interface SmsLoginViewProps {
   state: WidgetState;
@@ -20,7 +18,7 @@ export const SmsLoginView = ({ state }: SmsLoginViewProps) => {
   const [localError, setLocalError] = useState<string | null>(null);
   const isLoading = state.loginMethod === 'sms' && state.otpLoginStatus === 'sending';
 
-  const isPhoneValid = phoneNumber.length > 0 && isValidPhoneNumber(phoneNumber);
+  const disableSubmit = () => !(phoneNumber.length > 0 && isValidPhoneNumber(phoneNumber));
   const displayError = (state.loginMethod === 'sms' ? state.error : undefined) || localError || undefined;
 
   const handlePhoneChange = (phone: string) => {
@@ -65,7 +63,10 @@ export const SmsLoginView = ({ state }: SmsLoginViewProps) => {
         <PhoneInput
           onChange={handlePhoneChange}
           onSubmit={handleSubmit}
+          disableSubmit={disableSubmit}
           containerStyles={{ width: '100%' }}
+          errorMessage={displayError}
+          showPlaceholder
         />
       </VStack>
     </>

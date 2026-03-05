@@ -41,6 +41,7 @@ export const MFAView = ({ state, dispatch }: MFAViewProps) => {
           onChange={onChangeOtp}
           onComplete={submitMFA}
           errorMessage={error ?? ''}
+          grouped
         />
 
         <Button

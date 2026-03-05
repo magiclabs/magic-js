@@ -58,15 +58,6 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
     setShowResendButton(false);
   };
 
-  // Add space in the center of 6 digit OTP when using SMS
-  const pincodeWrapperClassName = isSms
-    ? css({
-        '& div:has(input):nth-of-type(3)': {
-          marginRight: '16px',
-        },
-      })
-    : undefined;
-
   return (
     <>
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
@@ -96,21 +87,20 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
           </VStack>
         </VStack>
 
-        <Box className={pincodeWrapperClassName}>
-          <VerifyPincode
-            originName={isSms ? 'sms' : 'email'}
-            pinLength={6}
-            isPending={isVerifying || isResending}
-            isSuccess={isSuccess}
-            onChange={onChangeOtp}
-            onComplete={submitOTP}
-            errorMessage={isResending ? '' : error ?? ''}
-          >
-            <VerifyPincode.RetryContent>
-              {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}
-            </VerifyPincode.RetryContent>
-          </VerifyPincode>
-        </Box>
+        <VerifyPincode
+          originName={isSms ? 'sms' : 'email'}
+          pinLength={6}
+          isPending={isVerifying || isResending}
+          isSuccess={isSuccess}
+          onChange={onChangeOtp}
+          onComplete={submitOTP}
+          errorMessage={isResending ? '' : error ?? ''}
+          grouped
+        >
+          <VerifyPincode.RetryContent>
+            {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}
+          </VerifyPincode.RetryContent>
+        </VerifyPincode>
       </VStack>
     </>
   );
