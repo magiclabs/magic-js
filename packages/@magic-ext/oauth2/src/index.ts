@@ -18,6 +18,8 @@ import {
   OAuthGetResultEventHandlers,
 } from '@magic-sdk/types';
 import { createCryptoChallenge } from './crypto';
+import { storageWrite, storageRead, storageRemove } from './storage';
+import { logger } from './logger';
 
 const PKCE_STORAGE_KEY = 'magic_oauth_pkce_verifier';
 
@@ -76,9 +78,19 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
 
       if (successResult?.pkceMetadata) {
         // New path: store codeVerifier + all OAuth metadata at the SDK (parent page) level.
-        // sessionStorage persists across same-tab redirects but never enters the iframe.
-        sessionStorage.setItem(PKCE_STORAGE_KEY, JSON.stringify({ codeVerifier, ...successResult.pkceMetadata }));
-        localStorage.setItem(PKCE_STORAGE_KEY, JSON.stringify({ codeVerifier, ...successResult.pkceMetadata }));
+        // Written to sessionStorage, localStorage, and IndexedDB for maximum durability.
+        const writeResult = await storageWrite(
+          PKCE_STORAGE_KEY,
+          JSON.stringify({ codeVerifier, ...successResult.pkceMetadata }),
+        );
+
+        const logPayload = {
+          pkce: {
+            provider: configuration.provider,
+            storageLayers: writeResult,
+          },
+        };
+        logger.info('oauth2.pkce.stored', logPayload);
       }
 
       if (successResult?.oauthAuthoriationURI) {
@@ -199,21 +211,15 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
 
   private getResult(configuration: OAuthVerificationConfiguration, queryString: string) {
     const { showMfaModal } = configuration;
-    const { hasStateMismatch, clientMetadata } = this.retrievePKCEMetadata(queryString);
-
-    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
-      {
-        authorizationResponseParams: queryString,
-        magicApiKey: this.sdk.apiKey,
-        platform: 'web',
-        showUI: showMfaModal,
-        ...configuration,
-        ...(clientMetadata ? { clientMetadata } : {}),
-      },
-    ]);
+    // requestPayload is assigned inside the async callback once PKCE metadata is retrieved.
+    // It is only accessed by the MFA intermediary closures below, which cannot fire until
+    // the server sends an MFA challenge — always after requestPayload has been assigned.
+    let requestPayload: ReturnType<typeof this.utils.createJsonRpcRequestPayload>;
 
     const promiEvent = this.utils.createPromiEvent<OAuthRedirectResult, OAuthGetResultEventHandlers>(
       async (resolve, reject) => {
+        const { hasStateMismatch, clientMetadata } = await this.retrievePKCEMetadata(queryString);
+
         if (!clientMetadata) {
           return reject(
             this.createError<object>(
@@ -233,6 +239,17 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
             ),
           );
         }
+
+        requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
+          {
+            authorizationResponseParams: queryString,
+            magicApiKey: this.sdk.apiKey,
+            platform: 'web',
+            showUI: showMfaModal,
+            ...configuration,
+            clientMetadata,
+          },
+        ]);
 
         const getResultRequest = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthGetResultEventHandlers>(
           requestPayload,
@@ -318,25 +335,36 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     }
   }
 
-  private retrievePKCEMetadata(queryString: string): {
+  private async retrievePKCEMetadata(queryString: string): Promise<{
     clientMetadata?: Record<string, string>;
     hasStateMismatch: boolean;
-  } {
+  }> {
     let hasStateMismatch = false;
     // Retrieve and immediately clear the full PKCE metadata stored at SDK level.
-    const storedInSession = sessionStorage.getItem(PKCE_STORAGE_KEY);
-    const storedInLocal = localStorage.getItem(PKCE_STORAGE_KEY);
-    sessionStorage.removeItem(PKCE_STORAGE_KEY);
-    localStorage.removeItem(PKCE_STORAGE_KEY);
+    // Reads from sessionStorage → localStorage → IndexedDB (first non-null wins).
+    const { value: stored, source: storageSource } = await storageRead(PKCE_STORAGE_KEY);
+    await storageRemove(PKCE_STORAGE_KEY);
 
     // clientMetadata contains { codeVerifier, state, redirectUri, appID, provider }.
     // Forwarding it lets the embedded-wallet verify handler skip its iframe storage entirely.
     // When absent (old embedded-wallet path), the handler falls back to its stored metadata.
-    const clientMetadata = storedInSession
-      ? (JSON.parse(storedInSession) as Record<string, string>)
-      : storedInLocal
-        ? (JSON.parse(storedInLocal) as Record<string, string>)
-        : undefined;
+    const clientMetadata = stored ? (JSON.parse(stored) as Record<string, string>) : undefined;
+
+    if (!clientMetadata) {
+      logger.error('oauth2.pkce.missing', {
+        pkce: {
+          storageSource,
+          referrer: typeof document !== 'undefined' ? document.referrer : undefined,
+        },
+      });
+    } else {
+      logger.info('oauth2.pkce.retrieved', {
+        pkce: {
+          storageSource,
+          provider: clientMetadata.provider,
+        },
+      });
+    }
 
     // State verification for the new PKCE path.
     // The extension generated the state, so it verifies it here — before any RPC call — as CSRF protection.
@@ -345,6 +373,13 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       const returnedState = new URLSearchParams(queryString).get('state');
       if (!returnedState || returnedState !== clientMetadata.state) {
         hasStateMismatch = true;
+        logger.error('oauth2.pkce.state_mismatch', {
+          pkce: {
+            storageSource,
+            provider: clientMetadata.provider,
+            hasReturnedState: !!returnedState,
+          },
+        });
       }
     }
 
