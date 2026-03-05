@@ -25,9 +25,13 @@
   "externals": {
     "include": [
       "@magic-sdk/provider"
+    ],
+    "exclude": [
+      "@datadog/browser-logs"
     ]
   },
   "dependencies": {
+    "@datadog/browser-logs": "^5.0.0",
     "crypto-js": "^4.2.0"
   },
   "devDependencies": {
