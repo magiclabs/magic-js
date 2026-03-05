@@ -88,11 +88,11 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           pkce: {
             provider: configuration.provider,
             storageLayers: writeResult,
-            allLayersSucceeded: writeResult.sessionStorage && writeResult.localStorage && writeResult.indexedDB,
+            allLayersSucceeded: writeResult.sessionStorage && writeResult.localStorage && writeResult.indexedDB && writeResult.cookie,
           },
         });
 
-        if (!writeResult.sessionStorage || !writeResult.localStorage || !writeResult.indexedDB) {
+        if (!writeResult.sessionStorage || !writeResult.localStorage || !writeResult.indexedDB || !writeResult.cookie) {
           logger.warn('oauth2.pkce.partial_write', {
             pkce: {
               provider: configuration.provider,

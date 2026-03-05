@@ -8,15 +8,15 @@
  * (starts with "pub...") before deploying.
  */
 
-// TODO: replace with the real Magic Datadog browser client token
-const DATADOG_CLIENT_TOKEN = '__DATADOG_CLIENT_TOKEN__';
+// Temporary Datadog client token for the oauth2 extension.
+const DATADOG_CLIENT_TOKEN = 'pub6843da41b336b49cfed0626f60a8ff68';
 const DATADOG_INTAKE_URL = 'https://browser-intake-datadoghq.com/api/v2/logs';
 const SERVICE = 'magic-oauth2-extension';
 
 export type LogContext = Record<string, unknown>;
 
 function send(status: 'info' | 'warn' | 'error', message: string, context: LogContext = {}): void {
-  if (typeof fetch === 'undefined' || !DATADOG_CLIENT_TOKEN || DATADOG_CLIENT_TOKEN === '__DATADOG_CLIENT_TOKEN__') {
+  if (typeof fetch === 'undefined') {
     return;
   }
 
