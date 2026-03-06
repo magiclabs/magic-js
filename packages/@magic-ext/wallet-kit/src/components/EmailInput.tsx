@@ -8,33 +8,39 @@ import { Box } from '@styled/jsx';
 import { token } from '@styled/tokens';
 import { getExtensionInstance } from 'src/extension';
 
-export const EmailInput = () => {
+interface EmailInputProps {
+  error?: string;
+  isLoading?: boolean;
+}
+
+export const EmailInput = ({ error: externalError, isLoading }: EmailInputProps) => {
   const { startEmailLogin } = useEmailLogin();
   const [email, setEmail] = useState('');
-  const [isValidating, setIsValidating] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [localError, setLocalError] = useState<string | null>(null);
   const [disabled, setDisabled] = useState(true);
   const config = getExtensionInstance().getConfig();
   const isDarkMode = config?.theme.themeColor === 'dark';
+
+  // Use external error if available, otherwise fall back to local error
+  const displayError = externalError || localError;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!isValidEmail(email)) {
-      setError(RpcErrorMessage.MalformedEmail);
+      setLocalError(RpcErrorMessage.MalformedEmail);
       return;
     } else if (isSanctionedEmail(email)) {
-      setError(RpcErrorMessage.SanEmail);
+      setLocalError(RpcErrorMessage.SanEmail);
       return;
     }
 
     setDisabled(true);
-    setIsValidating(true);
     startEmailLogin(email);
   };
 
   const handleInput = (e: string) => {
-    setError(null);
+    setLocalError(null);
     setDisabled(!e.length);
     setEmail(e.trim());
   };
@@ -52,7 +58,7 @@ export const EmailInput = () => {
               variant="text"
               textStyle="neutral"
               disabled={disabled}
-              validating={isValidating}
+              validating={isLoading}
               type="submit"
             >
               <Button.LeadingIcon color={token('colors.text.tertiary')}>
@@ -62,9 +68,9 @@ export const EmailInput = () => {
           </TextInput.ActionIcon>
         </TextInput>
       </Box>
-      {error && (
+      {displayError && (
         <Text variant="error" size="sm" styles={{ textAlign: 'center' }}>
-          {error}
+          {displayError}
         </Text>
       )}
     </form>

@@ -3557,7 +3557,7 @@ __metadata:
   dependencies:
     "@magic-sdk/provider": ^33.5.0
     "@magic-sdk/types": ^27.5.0
-    "@magiclabs/ui-components": ^1.49.3
+    "@magiclabs/ui-components": ^1.50.0
     "@pandacss/dev": ^0.35.0
     "@reown/appkit": ^1.8.0
     "@reown/appkit-adapter-wagmi": ^1.8.0
@@ -3571,8 +3571,10 @@ __metadata:
     "@types/react-dom": ^18.0.0
     "@wagmi/core": ^2.0.0
     "@walletconnect/ethereum-provider": ^2.23.0
+    libphonenumber-js: ^1.12.37
     react: ^18.0.0
     react-dom: ^18.0.0
+    react-international-phone: ^4.8.0
     rollup: ^4.18.0
     tslib: ^2.6.3
     viem: ^2.37.9
@@ -3712,9 +3714,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magiclabs/ui-components@npm:^1.49.3":
-  version: 1.49.3
-  resolution: "@magiclabs/ui-components@npm:1.49.3"
+"@magiclabs/ui-components@npm:^1.50.0":
+  version: 1.50.0
+  resolution: "@magiclabs/ui-components@npm:1.50.0"
   dependencies:
     create-slots: ^0.6.1
     react-aria: ^3.33.1
@@ -3724,7 +3726,7 @@ __metadata:
     "@pandacss/dev": ^0.35.0
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 060b9dc4177cdbf6a4f5835f036205c72796e1806a8402ba24efb1b9ed02cd3354998ec0deabc5bcf1e12ec6ddfe6e17e5fa5d1d0293b304c00f74de3f79bc77
+  checksum: b7a8918daec6060e6cfa380542836404a4433cfddf018d5d6161360fbfdd6504652944ac78bda3ef9b0b62719af3d814d3e83af06e8e554e289edebc1f575bdf
   languageName: node
   linkType: hard
 
@@ -18483,6 +18485,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"libphonenumber-js@npm:^1.12.37":
+  version: 1.12.37
+  resolution: "libphonenumber-js@npm:1.12.37"
+  checksum: 43106a6d91fec640181f1140c8f4cea5020f7281f980d006b72980725ae3ae810db3988af151c76419787e8196a0e671e21d40b084d7ab6f3e732a8bce4a262c
+  languageName: node
+  linkType: hard
+
 "lie@npm:3.1.1":
   version: 3.1.1
   resolution: "lie@npm:3.1.1"
@@ -22881,6 +22890,15 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
   checksum: ab36ef12c54f281de3ac275dfcaa446f5b0370ebc56cee49f2ea17d7ae3ede810714198dd56162442b1494bbe8b9d0ed672b666f7b07e973cf102f7d827431d7
+  languageName: node
+  linkType: hard
+
+"react-international-phone@npm:^4.8.0":
+  version: 4.8.0
+  resolution: "react-international-phone@npm:4.8.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 06868c01efa10b5e9537ca323768dbe10c3d3323a04903302e082ad4230067c6508703c79dcd40f183a2c2717e462e16dccf103bf60471f29cbbcc93b0d92a97
   languageName: node
   linkType: hard
 
