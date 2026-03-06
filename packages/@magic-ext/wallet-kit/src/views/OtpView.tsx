@@ -95,7 +95,6 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
           onChange={onChangeOtp}
           onComplete={submitOTP}
           errorMessage={isResending ? '' : error ?? ''}
-          grouped
         >
           <VerifyPincode.RetryContent>
             {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}
