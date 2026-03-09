@@ -1,27 +1,33 @@
-import React from 'react';
 import { Text } from '@magiclabs/ui-components';
 import { Divider, Flex, HStack, VStack } from '@styled/jsx';
-import { ProviderButton } from '../components/ProviderButton';
-import { WALLET_METADATA } from '../constants';
-import { OAuthProvider, ThirdPartyWallet } from '../types';
-import { WidgetAction } from '../reducer';
+import React from 'react';
+import { ContinueWithSmsButton } from 'src/components/ContinueWithSmsButton';
 import { EmailInput } from '../components/EmailInput';
+import { ProviderButton } from '../components/ProviderButton';
 import { SocialProviders } from '../components/SocialProviders';
 import WidgetHeader from '../components/WidgetHeader';
-import { getExtensionInstance } from '../extension';
+import { WALLET_METADATA } from '../constants';
 import { useWidgetConfig } from '../context/WidgetConfigContext';
+import { getExtensionInstance } from '../extension';
+import { WidgetAction, WidgetState } from '../reducer';
+import { OAuthProvider, ThirdPartyWallet } from '../types';
 
 interface LoginViewProps {
   dispatch: React.Dispatch<WidgetAction>;
+  state: WidgetState;
 }
 
-export const LoginView = ({ dispatch }: LoginViewProps) => {
+export const LoginView = ({ dispatch, state }: LoginViewProps) => {
   const config = getExtensionInstance().getConfig();
   const { wallets, enableFarcaster } = useWidgetConfig();
   const { primary, social } = config?.authProviders ?? {};
   const hasEmailProvider = primary?.includes('email');
+  const hasSmsProvider = primary?.includes('sms');
   const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
-  const showDivider = (hasEmailProvider || socialProviders.length > 0 || enableFarcaster) && wallets.length > 0;
+  const hasAlternativeLogin = hasSmsProvider;
+
+  const showDivider =
+    (hasEmailProvider || hasSmsProvider || socialProviders.length > 0 || enableFarcaster) && wallets.length > 0;
 
   const handleProviderSelect = (provider: ThirdPartyWallet) => {
     dispatch({ type: 'SELECT_WALLET', provider });
@@ -31,6 +37,10 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
     dispatch({ type: 'SELECT_PROVIDER', provider });
   };
 
+  const handleSmsClick = () => {
+    dispatch({ type: 'GO_TO_SMS_LOGIN' });
+  };
+
   return (
     <>
       <WidgetHeader />
@@ -38,7 +48,19 @@ export const LoginView = ({ dispatch }: LoginViewProps) => {
         {config?.theme.assetUri && <img src={config.theme.assetUri} alt="Logo" width={80} height={80} />}
 
         <VStack width="full" maxWidth="25rem" gap={4}>
-          {hasEmailProvider && <EmailInput />}
+          {hasEmailProvider && (
+            <EmailInput
+              error={state.loginMethod === 'email' ? state.error : undefined}
+              isLoading={state.loginMethod === 'email' && state.otpLoginStatus === 'sending'}
+            />
+          )}
+
+          {hasAlternativeLogin && (
+            <Flex gap={2} w="full" justify="center">
+              {hasSmsProvider && <ContinueWithSmsButton onClick={handleSmsClick} />}
+            </Flex>
+          )}
+
           {(socialProviders.length > 0 || enableFarcaster) && (
             <SocialProviders
               providers={Object.values(socialProviders)}

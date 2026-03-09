@@ -13,10 +13,10 @@ interface RecoveryCodeViewProps {
 
 export const RecoveryCodeView = ({ state, dispatch }: RecoveryCodeViewProps) => {
   const { submitRecoveryCode } = useMfa();
-  const { emailLoginStatus, error } = state;
+  const { otpLoginStatus, error } = state;
 
-  const isVerifying = emailLoginStatus === 'recovery_code_verifying';
-  const isSuccess = emailLoginStatus === 'success';
+  const isVerifying = otpLoginStatus === 'recovery_code_verifying';
+  const isSuccess = otpLoginStatus === 'success';
 
   useEffect(() => {
     if (isSuccess) {
@@ -25,7 +25,7 @@ export const RecoveryCodeView = ({ state, dispatch }: RecoveryCodeViewProps) => 
   }, [isSuccess]);
 
   const onChangeOtp = (recoveryCode: string) => {
-    dispatch({ type: 'RESET_EMAIL_ERROR' });
+    dispatch({ type: 'RESET_OTP_ERROR' });
 
     if (recoveryCode.length === 8) {
       submitRecoveryCode(recoveryCode);

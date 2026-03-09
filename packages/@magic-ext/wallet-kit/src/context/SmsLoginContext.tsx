@@ -1,82 +1,80 @@
-import React, { createContext, useContext, useRef, useCallback, ReactNode } from 'react';
-import { getExtensionInstance } from '../extension';
-import { WidgetAction } from '../reducer';
 import {
   DeviceVerificationEventEmit,
   DeviceVerificationEventOnReceived,
-  LoginWithEmailOTPEventEmit,
-  LoginWithEmailOTPEventOnReceived,
+  LoginWithSmsOTPEventEmit,
+  LoginWithSmsOTPEventOnReceived,
 } from '@magic-sdk/types';
+import React, { createContext, ReactNode, useCallback, useContext, useRef, useState } from 'react';
+import { getExtensionInstance } from '../extension';
+import { WidgetAction } from '../reducer';
 import { useWidgetConfig } from './WidgetConfigContext';
 
-type EmailOTPHandle = ReturnType<ReturnType<typeof getExtensionInstance>['loginWithEmailOTP']>;
+type SmsOTPHandle = ReturnType<ReturnType<typeof getExtensionInstance>['loginWithSMS']>;
 
-interface EmailLoginContextValue {
-  startEmailLogin: (email: string) => void;
+interface SmsLoginContextValue {
+  startSmsLogin: (phoneNumber: string) => void;
   submitOTP: (otp: string) => void;
   submitMFA: (totp: string) => void;
   lostDevice: () => void;
   submitRecoveryCode: (recoveryCode: string) => void;
   cancelLogin: () => void;
   retryDeviceVerification: () => void;
-  resendEmailOTP: () => void;
-  email: string | null;
+  resendSmsOTP: () => void;
+  phoneNumber: string | null;
+  isSmsLoginActive: boolean;
 }
 
-const EmailLoginContext = createContext<EmailLoginContextValue | null>(null);
+const SmsLoginContext = createContext<SmsLoginContextValue | null>(null);
 
-interface EmailLoginProviderProps {
+interface SmsLoginProviderProps {
   children: ReactNode;
   dispatch: React.Dispatch<WidgetAction>;
 }
 
-export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderProps) {
+export function SmsLoginProvider({ children, dispatch }: SmsLoginProviderProps) {
   const { handleSuccess, handleError } = useWidgetConfig();
 
-  const handleRef = useRef<EmailOTPHandle | null>(null);
-  const emailRef = useRef<string | null>(null);
+  const handleRef = useRef<SmsOTPHandle | null>(null);
+  const phoneNumberRef = useRef<string | null>(null);
+  const [isSmsLoginActive, setIsSmsLoginActive] = useState(false);
 
   /**
-   * Start the email OTP login flow
+   * Start the SMS OTP login flow
    * Sets up all event listeners and manages state transitions
    */
-  const startEmailLogin = useCallback(
-    (email: string) => {
-      emailRef.current = email;
-      dispatch({ type: 'OTP_START', identifier: email, loginMethod: 'email' });
+  const startSmsLogin = useCallback(
+    (phoneNumber: string) => {
+      phoneNumberRef.current = phoneNumber;
+      setIsSmsLoginActive(true);
+      dispatch({ type: 'OTP_START', identifier: phoneNumber, loginMethod: 'sms' });
 
       try {
         const extension = getExtensionInstance();
-        const handle = extension.loginWithEmailOTP(email);
+        const handle = extension.loginWithSMS(phoneNumber);
         handleRef.current = handle;
 
         // ==========================================
-        // Email OTP Events
+        // SMS OTP Events
         // ==========================================
 
         // OTP was sent successfully
-        handle.on(LoginWithEmailOTPEventOnReceived.EmailOTPSent, () => {
+        handle.on(LoginWithSmsOTPEventOnReceived.SmsOTPSent, () => {
           dispatch({ type: 'OTP_SENT' });
         });
 
         // Invalid OTP entered
-        handle.on(LoginWithEmailOTPEventOnReceived.InvalidEmailOtp, () => {
+        handle.on(LoginWithSmsOTPEventOnReceived.InvalidSmsOtp, () => {
           dispatch({ type: 'OTP_INVALID' });
         });
 
         // OTP has expired
-        handle.on(LoginWithEmailOTPEventOnReceived.ExpiredEmailOtp, () => {
+        handle.on(LoginWithSmsOTPEventOnReceived.ExpiredSmsOtp, () => {
           dispatch({ type: 'OTP_EXPIRED' });
         });
 
         // Login throttled (too many attempts)
-        handle.on(LoginWithEmailOTPEventOnReceived.LoginThrottled, () => {
+        handle.on(LoginWithSmsOTPEventOnReceived.LoginThrottled, () => {
           dispatch({ type: 'LOGIN_ERROR', error: 'Too many login attempts. Please try again later.' });
-        });
-
-        // Max attempts reached
-        handle.on(LoginWithEmailOTPEventOnReceived.MaxAttemptsReached, () => {
-          dispatch({ type: 'OTP_MAX_ATTEMPTS_REACHED' });
         });
 
         // ==========================================
@@ -88,7 +86,7 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
           dispatch({ type: 'DEVICE_NEEDS_APPROVAL' });
         });
 
-        // Device verification email sent
+        // Device verification sms sent
         handle.on(DeviceVerificationEventOnReceived.DeviceVerificationEmailSent, () => {
           dispatch({ type: 'DEVICE_VERIFICATION_SENT' });
         });
@@ -104,14 +102,14 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
         });
 
         // ==========================================
-        // MFA Events (if enabled)
+        // MFA Events
         // ==========================================
 
-        handle.on(LoginWithEmailOTPEventOnReceived.MfaSentHandle, () => {
+        handle.on(LoginWithSmsOTPEventOnReceived.MfaSentHandle, () => {
           dispatch({ type: 'MFA_REQUIRED' });
         });
 
-        handle.on(LoginWithEmailOTPEventOnReceived.InvalidMfaOtp, () => {
+        handle.on(LoginWithSmsOTPEventOnReceived.InvalidMfaOtp, () => {
           dispatch({ type: 'MFA_INVALID' });
         });
 
@@ -119,7 +117,7 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
         // Recovery Code Events
         // ==========================================
 
-        handle.on(LoginWithEmailOTPEventOnReceived.InvalidRecoveryCode, () => {
+        handle.on(LoginWithSmsOTPEventOnReceived.InvalidRecoveryCode, () => {
           dispatch({ type: 'RECOVERY_CODE_INVALID' });
         });
 
@@ -131,7 +129,7 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
           .then(didToken => {
             if (didToken) {
               dispatch({ type: 'LOGIN_SUCCESS' });
-              handleSuccess({ method: 'email', didToken });
+              handleSuccess({ method: 'sms', didToken });
             }
           })
           .catch(error => {
@@ -158,7 +156,7 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
     (otp: string) => {
       if (handleRef.current) {
         dispatch({ type: 'OTP_VERIFYING' });
-        handleRef.current.emit(LoginWithEmailOTPEventEmit.VerifyEmailOtp, otp);
+        handleRef.current.emit(LoginWithSmsOTPEventEmit.VerifySmsOtp, otp);
       }
     },
     [dispatch],
@@ -171,7 +169,7 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
     (totp: string) => {
       if (handleRef.current) {
         dispatch({ type: 'MFA_VERIFYING' });
-        handleRef.current.emit(LoginWithEmailOTPEventEmit.VerifyMFACode, totp);
+        handleRef.current.emit(LoginWithSmsOTPEventEmit.VerifyMFACode, totp);
       }
     },
     [dispatch],
@@ -183,7 +181,7 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
   const lostDevice = useCallback(() => {
     if (handleRef.current) {
       dispatch({ type: 'LOST_DEVICE' });
-      handleRef.current.emit(LoginWithEmailOTPEventEmit.LostDevice);
+      handleRef.current.emit(LoginWithSmsOTPEventEmit.LostDevice);
     }
   }, [dispatch]);
 
@@ -194,7 +192,7 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
     (recoveryCode: string) => {
       if (handleRef.current) {
         dispatch({ type: 'RECOVERY_CODE_VERIFYING' });
-        handleRef.current.emit(LoginWithEmailOTPEventEmit.VerifyRecoveryCode, recoveryCode);
+        handleRef.current.emit(LoginWithSmsOTPEventEmit.VerifyRecoveryCode, recoveryCode);
       }
     },
     [dispatch],
@@ -205,10 +203,11 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
    */
   const cancelLogin = useCallback(() => {
     if (handleRef.current) {
-      handleRef.current.emit(LoginWithEmailOTPEventEmit.Cancel);
+      handleRef.current.emit(LoginWithSmsOTPEventEmit.Cancel);
     }
     handleRef.current = null;
-    emailRef.current = null;
+    phoneNumberRef.current = null;
+    setIsSmsLoginActive(false);
     dispatch({ type: 'GO_TO_LOGIN' });
   }, [dispatch]);
 
@@ -221,45 +220,46 @@ export function EmailLoginProvider({ children, dispatch }: EmailLoginProviderPro
     }
   }, []);
 
-  const resendEmailOTP = useCallback(() => {
-    const email = emailRef.current;
+  const resendSmsOTP = useCallback(() => {
+    const phoneNumber = phoneNumberRef.current;
 
     if (handleRef.current) {
-      handleRef.current.emit(LoginWithEmailOTPEventEmit.Cancel);
+      handleRef.current.emit(LoginWithSmsOTPEventEmit.Cancel);
     }
     handleRef.current = null;
-    emailRef.current = null;
+    phoneNumberRef.current = null;
 
-    if (!email) {
-      return dispatch({ type: 'LOGIN_ERROR', error: 'Internal error: No email found' });
+    if (!phoneNumber) {
+      return dispatch({ type: 'LOGIN_ERROR', error: 'Internal error: No phone number found' });
     }
 
-    startEmailLogin(email);
-  }, [startEmailLogin]);
+    startSmsLogin(phoneNumber);
+  }, [startSmsLogin, dispatch]);
 
-  const value: EmailLoginContextValue = {
-    startEmailLogin,
+  const value: SmsLoginContextValue = {
+    startSmsLogin,
     submitOTP,
     submitMFA,
     lostDevice,
     submitRecoveryCode,
     cancelLogin,
     retryDeviceVerification,
-    resendEmailOTP,
-    email: emailRef.current,
+    resendSmsOTP,
+    phoneNumber: phoneNumberRef.current,
+    isSmsLoginActive,
   };
 
-  return <EmailLoginContext.Provider value={value}>{children}</EmailLoginContext.Provider>;
+  return <SmsLoginContext.Provider value={value}>{children}</SmsLoginContext.Provider>;
 }
 
 /**
- * Hook to access the email login context
- * @throws Error if used outside of EmailLoginProvider
+ * Hook to access the SMS login context
+ * @throws Error if used outside of SmsLoginProvider
  */
-export function useEmailLogin(): EmailLoginContextValue {
-  const context = useContext(EmailLoginContext);
+export function useSmsLogin(): SmsLoginContextValue {
+  const context = useContext(SmsLoginContext);
   if (!context) {
-    throw new Error('useEmailLogin must be used within an EmailLoginProvider');
+    throw new Error('useSmsLogin must be used within a SmsLoginProvider');
   }
   return context;
 }

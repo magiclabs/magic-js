@@ -24,6 +24,7 @@ export interface ProviderMetadata {
 export enum RpcErrorMessage {
   MalformedEmail = 'Invalid params: Please provide a valid email address.',
   SanEmail = 'We are unable to create an account with that email.',
+  InvalidPhoneNumber = 'Invalid params: Invalid phone number.',
 }
 
 export enum OAuthProvider {
@@ -66,6 +67,15 @@ export interface OAuthUserInfo {
  */
 export interface EmailLoginResult {
   method: 'email';
+  /** The DID token for authentication */
+  didToken: string;
+}
+
+/**
+ * Result returned on successful SMS login
+ */
+export interface SmsLoginResult {
+  method: 'sms';
   /** The DID token for authentication */
   didToken: string;
 }
@@ -120,7 +130,12 @@ export interface FarcasterLoginResult {
  *   }
  * }}
  */
-export type LoginResult = EmailLoginResult | OAuthLoginResult | WalletLoginResult | FarcasterLoginResult;
+export type LoginResult =
+  | EmailLoginResult
+  | SmsLoginResult
+  | OAuthLoginResult
+  | WalletLoginResult
+  | FarcasterLoginResult;
 
 /**
  * How the widget is displayed on the page.

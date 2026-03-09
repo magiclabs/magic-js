@@ -13,13 +13,13 @@ interface MFAViewProps {
 
 export const MFAView = ({ state, dispatch }: MFAViewProps) => {
   const { submitMFA, cancelLogin, lostDevice } = useMfa();
-  const { emailLoginStatus, error } = state;
+  const { otpLoginStatus, error } = state;
 
-  const isVerifying = emailLoginStatus === 'mfa_verifying';
-  const isSuccess = emailLoginStatus === 'success';
+  const isVerifying = otpLoginStatus === 'mfa_verifying';
+  const isSuccess = otpLoginStatus === 'success';
 
   const onChangeOtp = () => {
-    dispatch({ type: 'RESET_EMAIL_ERROR' });
+    dispatch({ type: 'RESET_OTP_ERROR' });
   };
 
   return (

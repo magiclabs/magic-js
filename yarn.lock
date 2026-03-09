@@ -3557,7 +3557,7 @@ __metadata:
   dependencies:
     "@magic-sdk/provider": ^33.5.0
     "@magic-sdk/types": ^27.5.0
-    "@magiclabs/ui-components": ^1.49.3
+    "@magiclabs/ui-components": ^1.50.0
     "@pandacss/dev": ^0.35.0
     "@reown/appkit": ^1.8.0
     "@reown/appkit-adapter-wagmi": ^1.8.0
@@ -3571,6 +3571,7 @@ __metadata:
     "@types/react-dom": ^18.0.0
     "@wagmi/core": ^2.0.0
     "@walletconnect/ethereum-provider": ^2.23.0
+    libphonenumber-js: ^1.12.37
     react: ^18.0.0
     react-dom: ^18.0.0
     rollup: ^4.18.0
@@ -3712,9 +3713,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magiclabs/ui-components@npm:^1.49.3":
-  version: 1.49.3
-  resolution: "@magiclabs/ui-components@npm:1.49.3"
+"@magiclabs/ui-components@npm:^1.50.0":
+  version: 1.50.0
+  resolution: "@magiclabs/ui-components@npm:1.50.0"
   dependencies:
     create-slots: ^0.6.1
     react-aria: ^3.33.1
@@ -3724,7 +3725,7 @@ __metadata:
     "@pandacss/dev": ^0.35.0
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 060b9dc4177cdbf6a4f5835f036205c72796e1806a8402ba24efb1b9ed02cd3354998ec0deabc5bcf1e12ec6ddfe6e17e5fa5d1d0293b304c00f74de3f79bc77
+  checksum: b7a8918daec6060e6cfa380542836404a4433cfddf018d5d6161360fbfdd6504652944ac78bda3ef9b0b62719af3d814d3e83af06e8e554e289edebc1f575bdf
   languageName: node
   linkType: hard
 
@@ -18480,6 +18481,13 @@ __metadata:
     sigstore: ^1.4.0
     ssri: ^10.0.1
   checksum: 03bedb65eb2293cfe5039f925ec1041deea698c5ac802bb74f6a0d44ee70529c38c32eea7c722f3a1f1219b54314021ad7f4764f93b66d619bea62ce0759faa0
+  languageName: node
+  linkType: hard
+
+"libphonenumber-js@npm:^1.12.37":
+  version: 1.12.37
+  resolution: "libphonenumber-js@npm:1.12.37"
+  checksum: 43106a6d91fec640181f1140c8f4cea5020f7281f980d006b72980725ae3ae810db3988af151c76419787e8196a0e671e21d40b084d7ab6f3e732a8bce4a262c
   languageName: node
   linkType: hard
 
