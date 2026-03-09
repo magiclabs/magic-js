@@ -1,6 +1,7 @@
 import { Text } from '@magiclabs/ui-components';
 import { Divider, Flex, HStack, VStack } from '@styled/jsx';
 import React from 'react';
+import { ContinueWithSmsButton } from 'src/components/ContinueWithSmsButton';
 import { EmailInput } from '../components/EmailInput';
 import { ProviderButton } from '../components/ProviderButton';
 import { SocialProviders } from '../components/SocialProviders';
@@ -10,7 +11,6 @@ import { useWidgetConfig } from '../context/WidgetConfigContext';
 import { getExtensionInstance } from '../extension';
 import { WidgetAction, WidgetState } from '../reducer';
 import { OAuthProvider, ThirdPartyWallet } from '../types';
-import { ContinueWithSmsButton } from 'src/components/ContinueWithSmsButton';
 
 interface LoginViewProps {
   dispatch: React.Dispatch<WidgetAction>;
@@ -20,7 +20,7 @@ interface LoginViewProps {
 export const LoginView = ({ dispatch, state }: LoginViewProps) => {
   const config = getExtensionInstance().getConfig();
   const { wallets, enableFarcaster } = useWidgetConfig();
-  const { primary, secondary, social } = config?.authProviders ?? {};
+  const { primary, social } = config?.authProviders ?? {};
   const hasEmailProvider = primary?.includes('email');
   const hasSmsProvider = primary?.includes('sms');
   const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
