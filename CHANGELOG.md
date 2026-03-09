@@ -1,5 +1,18 @@
 # (Mon Mar 09 2026)
 
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.6.1`
+  - adds additional prefixes to passthrough logic [#1052](https://github.com/magiclabs/magic-js/pull/1052) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Mon Mar 09 2026)
+
 #### 🚀 Enhancement
 
 - `@magic-ext/wallet-kit@0.8.0`, `@magic-sdk/provider@33.6.0`, `@magic-sdk/types@27.6.0`
