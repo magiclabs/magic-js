@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/icon",
-  "version": "28.4.0",
+  "version": "28.5.0",
   "description": "magic icon extension",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -28,6 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^33.5.0"
+    "@magic-sdk/provider": "^33.6.0"
   }
 }
