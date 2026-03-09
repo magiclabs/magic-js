@@ -1,3 +1,21 @@
+# (Mon Mar 09 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.8.0`, `@magic-sdk/provider@33.6.0`, `@magic-sdk/types@27.6.0`
+  - Sherzodbakhodirov/emb 253 implement sms for wallet kit [#1047](https://github.com/magiclabs/magic-js/pull/1047) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- deprecate send_gaslessTransaction [#1025](https://github.com/magiclabs/magic-js/pull/1025) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Fri Feb 27 2026)
 
 #### 🐛 Bug Fix

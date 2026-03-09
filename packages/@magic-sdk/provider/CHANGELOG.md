@@ -1,3 +1,15 @@
+# v33.6.0 (Mon Mar 09 2026)
+
+#### 🚀 Enhancement
+
+- Sherzodbakhodirov/emb 253 implement sms for wallet kit [#1047](https://github.com/magiclabs/magic-js/pull/1047) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v33.4.1 (Wed Feb 18 2026)
 
 #### 🐛 Bug Fix
