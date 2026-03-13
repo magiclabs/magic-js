@@ -21,7 +21,7 @@ export enum MagicOutgoingWindowMessage {
   MAGIC_PING = 'MAGIC_PING',
 }
 
-/** The shape of responding window message data from the Magic iframe context. */
+/** The shape of request window message data to the Magic iframe context. */
 export interface MagicMessageRequest {
   msgType: string;
   payload: JsonRpcRequestPayload | JsonRpcRequestPayload[];
@@ -30,7 +30,7 @@ export interface MagicMessageRequest {
   deviceShare?: string;
 }
 
-/** The shape of responding window message data from the Magic iframe context. */
+/** The shape of response window message data from the Magic iframe context. */
 export interface MagicMessageResponse<ResultType = any> {
   msgType: string;
   response: Partial<JsonRpcError> & Partial<JsonRpcResponsePayload<ResultType>>;
