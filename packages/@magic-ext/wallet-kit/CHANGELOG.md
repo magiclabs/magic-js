@@ -1,3 +1,51 @@
+# v0.8.0 (Mon Mar 09 2026)
+
+#### 🚀 Enhancement
+
+- Sherzodbakhodirov/emb 253 implement sms for wallet kit [#1047](https://github.com/magiclabs/magic-js/pull/1047) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v0.7.0 (Fri Feb 27 2026)
+
+#### 🚀 Enhancement
+
+- feat: add mfa events to oauth flows [#1035](https://github.com/magiclabs/magic-js/pull/1035) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v0.6.0 (Thu Feb 26 2026)
+
+#### 🚀 Enhancement
+
+- adds account changed handler [#1044](https://github.com/magiclabs/magic-js/pull/1044) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v0.5.0 (Fri Feb 20 2026)
+
+#### 🚀 Enhancement
+
+- adds account switching for external wallets [#1038](https://github.com/magiclabs/magic-js/pull/1038) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v0.4.0 (Tue Feb 10 2026)
 
 #### 🚀 Enhancement

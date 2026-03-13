@@ -1,3 +1,126 @@
+# (Mon Mar 09 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.6.1`
+  - adds additional prefixes to passthrough logic [#1052](https://github.com/magiclabs/magic-js/pull/1052) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Mon Mar 09 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.8.0`, `@magic-sdk/provider@33.6.0`, `@magic-sdk/types@27.6.0`
+  - Sherzodbakhodirov/emb 253 implement sms for wallet kit [#1047](https://github.com/magiclabs/magic-js/pull/1047) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- deprecate send_gaslessTransaction [#1025](https://github.com/magiclabs/magic-js/pull/1025) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Feb 27 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@15.4.1`
+  - adds pkce to localStorage [#1046](https://github.com/magiclabs/magic-js/pull/1046) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Feb 27 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@15.4.0`, `@magic-ext/wallet-kit@0.7.0`, `@magic-sdk/types@27.5.0`
+  - feat: add mfa events to oauth flows [#1035](https://github.com/magiclabs/magic-js/pull/1035) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🔩 Dependency Updates
+
+- Bump rollup from 4.56.0 to 4.59.0 [#1045](https://github.com/magiclabs/magic-js/pull/1045) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump hono from 4.12.0 to 4.12.2 [#1043](https://github.com/magiclabs/magic-js/pull/1043) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Feb 26 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.6.0`
+  - adds account changed handler [#1044](https://github.com/magiclabs/magic-js/pull/1044) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Tue Feb 24 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/oauth2@15.3.2`, `@magic-ext/react-native-bare-oauth@30.3.2`, `@magic-ext/react-native-expo-oauth@30.3.2`
+  - Add PKCE support [#1040](https://github.com/magiclabs/magic-js/pull/1040) ([@Ethella](https://github.com/Ethella))
+
+#### 🔩 Dependency Updates
+
+- Bump bn.js from 5.2.1 to 5.2.3 [#1041](https://github.com/magiclabs/magic-js/pull/1041) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump hono from 4.11.1 to 4.12.0 [#1039](https://github.com/magiclabs/magic-js/pull/1039) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Fri Feb 20 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.5.0`
+  - adds account switching for external wallets [#1038](https://github.com/magiclabs/magic-js/pull/1038) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Wed Feb 18 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.4.1`
+  - sanitize third party wallet updates [#1036](https://github.com/magiclabs/magic-js/pull/1036) ([@joshuascan](https://github.com/joshuascan))
+  - Remove refresh token when user is logged out [#1033](https://github.com/magiclabs/magic-js/pull/1033) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Feb 10 2026)
 
 #### 🚀 Enhancement

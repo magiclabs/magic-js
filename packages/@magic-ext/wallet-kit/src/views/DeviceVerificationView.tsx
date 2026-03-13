@@ -6,6 +6,7 @@ import { token } from '@styled/tokens';
 import { useEmailLogin } from '../context/EmailLoginContext';
 import { WidgetAction, WidgetState } from '../reducer';
 import WidgetHeader from '../components/WidgetHeader';
+import { useCancelLogin } from 'src/hooks/useCancelLogin';
 
 interface DeviceVerificationViewProps {
   state: WidgetState;
@@ -13,14 +14,17 @@ interface DeviceVerificationViewProps {
 }
 
 export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationViewProps) => {
-  const { cancelLogin } = useEmailLogin();
-  const { emailLoginStatus, email } = state;
+  const { cancelLogin } = useCancelLogin();
+  const { otpLoginStatus, identifier, loginMethod } = state;
 
   useEffect(() => {
-    if (emailLoginStatus === 'device_approved') {
-      dispatch({ type: 'EMAIL_OTP_SENT' });
+    if (otpLoginStatus === 'device_approved') {
+      dispatch({ type: 'OTP_SENT' });
     }
-  }, [emailLoginStatus]);
+  }, [otpLoginStatus]);
+
+  // For SMS login, device verification is done via SMS, not email
+  const isSms = loginMethod === 'sms';
 
   return (
     <>
@@ -51,7 +55,7 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
                 fontWeight: '600',
               }}
             >
-              {email}
+              {isSms ? 'your phone' : identifier}
             </Text>
             <button className={css({ cursor: 'pointer' })} onClick={cancelLogin}>
               <IcoEdit height={18} width={18} color={token('colors.brand.base')} />

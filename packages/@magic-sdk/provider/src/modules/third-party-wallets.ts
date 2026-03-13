@@ -196,7 +196,8 @@ export class ThirdPartyWalletsModule extends BaseModule {
   /* Magic Widget Methods */
 
   private magicWidgetRequest(payload: Partial<JsonRpcRequestPayload>) {
-    const isEthRequest = payload.method?.startsWith('eth_');
+    const ethRpcPrefixes = ['eth_', 'wallet_', 'net_', 'web3_'];
+    const isEthRequest = ethRpcPrefixes.some(prefix => payload.method?.startsWith(prefix));
     const SIGN_REQUESTS = ['personal_sign'];
 
     if (isEthRequest || SIGN_REQUESTS.includes(payload.method as string)) {

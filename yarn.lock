@@ -3299,7 +3299,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/algorand@workspace:packages/@magic-ext/algorand"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3308,7 +3308,7 @@ __metadata:
   resolution: "@magic-ext/aptos@workspace:packages/@magic-ext/aptos"
   dependencies:
     "@aptos-labs/wallet-adapter-core": ^7.10.1
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
     aptos: ^1.22.1
   peerDependencies:
     "@aptos-labs/wallet-adapter-core": ^7.10.1
@@ -3320,7 +3320,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/avalanche@workspace:packages/@magic-ext/avalanche"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3328,7 +3328,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/bitcoin@workspace:packages/@magic-ext/bitcoin"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3336,7 +3336,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/conflux@workspace:packages/@magic-ext/conflux"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3344,7 +3344,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/cosmos@workspace:packages/@magic-ext/cosmos"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3352,7 +3352,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/ed25519@workspace:packages/@magic-ext/ed25519"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3360,8 +3360,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/evm@workspace:packages/@magic-ext/evm"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
-    "@magic-sdk/types": ^27.4.0
+    "@magic-sdk/provider": ^33.6.0
+    "@magic-sdk/types": ^27.6.0
   languageName: unknown
   linkType: soft
 
@@ -3369,8 +3369,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/farcaster@workspace:packages/@magic-ext/farcaster"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
-    "@magic-sdk/types": ^27.4.0
+    "@magic-sdk/provider": ^33.6.0
+    "@magic-sdk/types": ^27.6.0
   languageName: unknown
   linkType: soft
 
@@ -3378,7 +3378,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/flow@workspace:packages/@magic-ext/flow"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
     "@onflow/fcl": ^1.4.1
     "@onflow/types": ^1.1.0
   peerDependencies:
@@ -3391,8 +3391,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/gdkms@workspace:packages/@magic-ext/gdkms"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
-    "@magic-sdk/types": ^27.4.0
+    "@magic-sdk/provider": ^33.6.0
+    "@magic-sdk/types": ^27.6.0
   languageName: unknown
   linkType: soft
 
@@ -3400,7 +3400,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/harmony@workspace:packages/@magic-ext/harmony"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3408,7 +3408,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/hedera@workspace:packages/@magic-ext/hedera"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   peerDependencies:
     "@hashgraph/sdk": ^2.31.0
   languageName: unknown
@@ -3418,7 +3418,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/icon@workspace:packages/@magic-ext/icon"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3426,7 +3426,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/kadena@workspace:packages/@magic-ext/kadena"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3434,7 +3434,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/near@workspace:packages/@magic-ext/near"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3442,7 +3442,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/oauth2@workspace:packages/@magic-ext/oauth2"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
     "@types/crypto-js": 4.2.0
     crypto-js: ^4.2.0
   languageName: unknown
@@ -3452,7 +3452,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/oidc@workspace:packages/@magic-ext/oidc"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3460,7 +3460,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/polkadot@workspace:packages/@magic-ext/polkadot"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3468,8 +3468,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-bare-oauth@workspace:packages/@magic-ext/react-native-bare-oauth"
   dependencies:
-    "@magic-sdk/react-native-bare": ^34.2.0
-    "@magic-sdk/types": ^27.4.0
+    "@magic-sdk/react-native-bare": ^34.4.0
+    "@magic-sdk/types": ^27.6.0
+    "@types/crypto-js": 4.2.0
+    crypto-js: ^4.2.0
     react-native-inappbrowser-reborn: ^3.7.0
   peerDependencies:
     "@magic-sdk/react-native-bare": ">=13.0.0"
@@ -3481,10 +3483,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/react-native-expo-oauth@workspace:packages/@magic-ext/react-native-expo-oauth"
   dependencies:
-    "@magic-sdk/react-native-expo": ^34.2.0
-    "@magic-sdk/types": ^27.4.0
+    "@magic-sdk/react-native-expo": ^34.4.0
+    "@magic-sdk/types": ^27.6.0
     "@react-native-async-storage/async-storage": ^2.1.2
     "@types/crypto-js": ~4.2.0
+    crypto-js: ^4.2.0
     expo-web-browser: 14.0.2
   peerDependencies:
     "@magic-sdk/react-native-expo": ">=13.0.0"
@@ -3497,7 +3500,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/siwe@workspace:packages/@magic-ext/siwe"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
     ethers: ^6.0.0
     siwe: ^3.0.0
   peerDependencies:
@@ -3518,7 +3521,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/solana@workspace:packages/@magic-ext/solana"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
     "@solana/web3.js": ^1.87.2
   peerDependencies:
     "@solana/web3.js": ^1.87.2
@@ -3529,7 +3532,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/sui@workspace:packages/@magic-ext/sui"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3537,7 +3540,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/taquito@workspace:packages/@magic-ext/taquito"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3545,7 +3548,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/terra@workspace:packages/@magic-ext/terra"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3553,7 +3556,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/tezos@workspace:packages/@magic-ext/tezos"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3561,9 +3564,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/wallet-kit@workspace:packages/@magic-ext/wallet-kit"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
-    "@magic-sdk/types": ^27.4.0
-    "@magiclabs/ui-components": ^1.49.3
+    "@magic-sdk/provider": ^33.6.0
+    "@magic-sdk/types": ^27.6.0
+    "@magiclabs/ui-components": ^1.50.0
     "@pandacss/dev": ^0.35.0
     "@reown/appkit": ^1.8.0
     "@reown/appkit-adapter-wagmi": ^1.8.0
@@ -3577,6 +3580,7 @@ __metadata:
     "@types/react-dom": ^18.0.0
     "@wagmi/core": ^2.0.0
     "@walletconnect/ethereum-provider": ^2.23.0
+    libphonenumber-js: ^1.12.37
     react: ^18.0.0
     react-dom: ^18.0.0
     rollup: ^4.18.0
@@ -3595,7 +3599,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/webauthn@workspace:packages/@magic-ext/webauthn"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
@@ -3603,16 +3607,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@magic-ext/zilliqa@workspace:packages/@magic-ext/zilliqa"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
+    "@magic-sdk/provider": ^33.6.0
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/provider@^33.4.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
+"@magic-sdk/provider@^33.6.0, @magic-sdk/provider@workspace:packages/@magic-sdk/provider":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/provider@workspace:packages/@magic-sdk/provider"
   dependencies:
     "@babel/plugin-transform-modules-commonjs": ^7.9.6
-    "@magic-sdk/types": ^27.4.0
+    "@magic-sdk/types": ^27.6.0
     eventemitter3: ^4.0.4
     localforage: ^1.7.4
     tslib: ^2.3.1
@@ -3621,13 +3625,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-bare@^34.2.0, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
+"@magic-sdk/react-native-bare@^34.4.0, @magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-bare@workspace:packages/@magic-sdk/react-native-bare"
   dependencies:
     "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
-    "@magic-sdk/provider": ^33.4.0
-    "@magic-sdk/types": ^27.4.0
+    "@magic-sdk/provider": ^33.6.0
+    "@magic-sdk/types": ^27.6.0
     "@magiclabs/react-native-device-crypto": ^0.1.1
     "@react-native-async-storage/async-storage": ^2.1.2
     "@react-native-community/netinfo": ">11.0.0"
@@ -3662,13 +3666,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/react-native-expo@^34.2.0, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
+"@magic-sdk/react-native-expo@^34.4.0, @magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/react-native-expo@workspace:packages/@magic-sdk/react-native-expo"
   dependencies:
     "@aveq-research/localforage-asyncstorage-driver": ^3.0.1
-    "@magic-sdk/provider": ^33.4.0
-    "@magic-sdk/types": ^27.4.0
+    "@magic-sdk/provider": ^33.6.0
+    "@magic-sdk/types": ^27.6.0
     "@react-native-async-storage/async-storage": ^1.15.5
     "@react-native-community/netinfo": ">11.0.0"
     "@react-native/assets-registry": ^0.78.2
@@ -3702,7 +3706,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@magic-sdk/types@^27.4.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
+"@magic-sdk/types@^27.6.0, @magic-sdk/types@workspace:packages/@magic-sdk/types":
   version: 0.0.0-use.local
   resolution: "@magic-sdk/types@workspace:packages/@magic-sdk/types"
   languageName: unknown
@@ -3718,9 +3722,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magiclabs/ui-components@npm:^1.49.3":
-  version: 1.49.3
-  resolution: "@magiclabs/ui-components@npm:1.49.3"
+"@magiclabs/ui-components@npm:^1.50.0":
+  version: 1.50.0
+  resolution: "@magiclabs/ui-components@npm:1.50.0"
   dependencies:
     create-slots: ^0.6.1
     react-aria: ^3.33.1
@@ -3730,7 +3734,7 @@ __metadata:
     "@pandacss/dev": ^0.35.0
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 060b9dc4177cdbf6a4f5835f036205c72796e1806a8402ba24efb1b9ed02cd3354998ec0deabc5bcf1e12ec6ddfe6e17e5fa5d1d0293b304c00f74de3f79bc77
+  checksum: b7a8918daec6060e6cfa380542836404a4433cfddf018d5d6161360fbfdd6504652944ac78bda3ef9b0b62719af3d814d3e83af06e8e554e289edebc1f575bdf
   languageName: node
   linkType: hard
 
@@ -7866,177 +7870,177 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm-eabi@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-android-arm-eabi@npm:4.56.0"
+"@rollup/rollup-android-arm-eabi@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-android-arm-eabi@npm:4.59.0"
   conditions: os=android & cpu=arm
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm64@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-android-arm64@npm:4.56.0"
+"@rollup/rollup-android-arm64@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-android-arm64@npm:4.59.0"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-arm64@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-darwin-arm64@npm:4.56.0"
+"@rollup/rollup-darwin-arm64@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-darwin-arm64@npm:4.59.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-x64@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-darwin-x64@npm:4.56.0"
+"@rollup/rollup-darwin-x64@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-darwin-x64@npm:4.59.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-freebsd-arm64@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-freebsd-arm64@npm:4.56.0"
+"@rollup/rollup-freebsd-arm64@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-freebsd-arm64@npm:4.59.0"
   conditions: os=freebsd & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-freebsd-x64@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-freebsd-x64@npm:4.56.0"
+"@rollup/rollup-freebsd-x64@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-freebsd-x64@npm:4.59.0"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-gnueabihf@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.56.0"
+"@rollup/rollup-linux-arm-gnueabihf@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.59.0"
   conditions: os=linux & cpu=arm & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-musleabihf@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.56.0"
+"@rollup/rollup-linux-arm-musleabihf@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.59.0"
   conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-gnu@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.56.0"
+"@rollup/rollup-linux-arm64-gnu@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.59.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-musl@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.56.0"
+"@rollup/rollup-linux-arm64-musl@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.59.0"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-loong64-gnu@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-loong64-gnu@npm:4.56.0"
+"@rollup/rollup-linux-loong64-gnu@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-loong64-gnu@npm:4.59.0"
   conditions: os=linux & cpu=loong64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-loong64-musl@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-loong64-musl@npm:4.56.0"
+"@rollup/rollup-linux-loong64-musl@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-loong64-musl@npm:4.59.0"
   conditions: os=linux & cpu=loong64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-ppc64-gnu@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-ppc64-gnu@npm:4.56.0"
+"@rollup/rollup-linux-ppc64-gnu@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-ppc64-gnu@npm:4.59.0"
   conditions: os=linux & cpu=ppc64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-ppc64-musl@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-ppc64-musl@npm:4.56.0"
+"@rollup/rollup-linux-ppc64-musl@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-ppc64-musl@npm:4.59.0"
   conditions: os=linux & cpu=ppc64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-riscv64-gnu@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.56.0"
+"@rollup/rollup-linux-riscv64-gnu@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.59.0"
   conditions: os=linux & cpu=riscv64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-riscv64-musl@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-riscv64-musl@npm:4.56.0"
+"@rollup/rollup-linux-riscv64-musl@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-riscv64-musl@npm:4.59.0"
   conditions: os=linux & cpu=riscv64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-s390x-gnu@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.56.0"
+"@rollup/rollup-linux-s390x-gnu@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.59.0"
   conditions: os=linux & cpu=s390x & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-gnu@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.56.0"
+"@rollup/rollup-linux-x64-gnu@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.59.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-musl@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-linux-x64-musl@npm:4.56.0"
+"@rollup/rollup-linux-x64-musl@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-linux-x64-musl@npm:4.59.0"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-openbsd-x64@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-openbsd-x64@npm:4.56.0"
+"@rollup/rollup-openbsd-x64@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-openbsd-x64@npm:4.59.0"
   conditions: os=openbsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-openharmony-arm64@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-openharmony-arm64@npm:4.56.0"
+"@rollup/rollup-openharmony-arm64@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-openharmony-arm64@npm:4.59.0"
   conditions: os=openharmony & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-arm64-msvc@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.56.0"
+"@rollup/rollup-win32-arm64-msvc@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.59.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-ia32-msvc@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.56.0"
+"@rollup/rollup-win32-ia32-msvc@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.59.0"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-x64-gnu@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-win32-x64-gnu@npm:4.56.0"
+"@rollup/rollup-win32-x64-gnu@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-win32-x64-gnu@npm:4.59.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-x64-msvc@npm:4.56.0":
-  version: 4.56.0
-  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.56.0"
+"@rollup/rollup-win32-x64-msvc@npm:4.59.0":
+  version: 4.59.0
+  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.59.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -11591,9 +11595,9 @@ __metadata:
   linkType: hard
 
 "bn.js@npm:^5.2.0, bn.js@npm:^5.2.1":
-  version: 5.2.1
-  resolution: "bn.js@npm:5.2.1"
-  checksum: 3dd8c8d38055fedfa95c1d5fc3c99f8dd547b36287b37768db0abab3c239711f88ff58d18d155dd8ad902b0b0cee973747b7ae20ea12a09473272b0201c9edd3
+  version: 5.2.3
+  resolution: "bn.js@npm:5.2.3"
+  checksum: b024fa4ab260670ca0d99f3ffee96a09ba9662f3ae28e01f4d54072bca945724cca1fac53588892c87a909ef8bc91367c442cadc35568d55999adbc221a6f012
   languageName: node
   linkType: hard
 
@@ -16207,9 +16211,9 @@ __metadata:
   linkType: hard
 
 "hono@npm:^4.10.3":
-  version: 4.11.1
-  resolution: "hono@npm:4.11.1"
-  checksum: afd3ceb3506b42cd9b753aaa33bdce82b8eca0558b928b5f9b22f32eb67e3cbddaa27ee96d3affe6787084b2caca05bbb0f3f8f17d6fd9e9ae534131054cfb8e
+  version: 4.12.2
+  resolution: "hono@npm:4.12.2"
+  checksum: 5f137ea2d931041f3b3334e56441cc17e527fa6bbc5ff61d557d1c25d736067d264351069ef697fb7bccde6e4aaef299be9b763df5dd61746ff2dfc4abbf20c8
   languageName: node
   linkType: hard
 
@@ -18489,6 +18493,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"libphonenumber-js@npm:^1.12.37":
+  version: 1.12.37
+  resolution: "libphonenumber-js@npm:1.12.37"
+  checksum: 43106a6d91fec640181f1140c8f4cea5020f7281f980d006b72980725ae3ae810db3988af151c76419787e8196a0e671e21d40b084d7ab6f3e732a8bce4a262c
+  languageName: node
+  linkType: hard
+
 "lie@npm:3.1.1":
   version: 3.1.1
   resolution: "lie@npm:3.1.1"
@@ -19230,8 +19241,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "magic-sdk@workspace:packages/magic-sdk"
   dependencies:
-    "@magic-sdk/provider": ^33.4.0
-    "@magic-sdk/types": ^27.4.0
+    "@magic-sdk/provider": ^33.6.0
+    "@magic-sdk/types": ^27.6.0
     localforage: ^1.7.4
   languageName: unknown
   linkType: soft
@@ -23671,34 +23682,34 @@ resolve@~1.7.1:
   linkType: hard
 
 "rollup@npm:^4.18.0":
-  version: 4.56.0
-  resolution: "rollup@npm:4.56.0"
+  version: 4.59.0
+  resolution: "rollup@npm:4.59.0"
   dependencies:
-    "@rollup/rollup-android-arm-eabi": 4.56.0
-    "@rollup/rollup-android-arm64": 4.56.0
-    "@rollup/rollup-darwin-arm64": 4.56.0
-    "@rollup/rollup-darwin-x64": 4.56.0
-    "@rollup/rollup-freebsd-arm64": 4.56.0
-    "@rollup/rollup-freebsd-x64": 4.56.0
-    "@rollup/rollup-linux-arm-gnueabihf": 4.56.0
-    "@rollup/rollup-linux-arm-musleabihf": 4.56.0
-    "@rollup/rollup-linux-arm64-gnu": 4.56.0
-    "@rollup/rollup-linux-arm64-musl": 4.56.0
-    "@rollup/rollup-linux-loong64-gnu": 4.56.0
-    "@rollup/rollup-linux-loong64-musl": 4.56.0
-    "@rollup/rollup-linux-ppc64-gnu": 4.56.0
-    "@rollup/rollup-linux-ppc64-musl": 4.56.0
-    "@rollup/rollup-linux-riscv64-gnu": 4.56.0
-    "@rollup/rollup-linux-riscv64-musl": 4.56.0
-    "@rollup/rollup-linux-s390x-gnu": 4.56.0
-    "@rollup/rollup-linux-x64-gnu": 4.56.0
-    "@rollup/rollup-linux-x64-musl": 4.56.0
-    "@rollup/rollup-openbsd-x64": 4.56.0
-    "@rollup/rollup-openharmony-arm64": 4.56.0
-    "@rollup/rollup-win32-arm64-msvc": 4.56.0
-    "@rollup/rollup-win32-ia32-msvc": 4.56.0
-    "@rollup/rollup-win32-x64-gnu": 4.56.0
-    "@rollup/rollup-win32-x64-msvc": 4.56.0
+    "@rollup/rollup-android-arm-eabi": 4.59.0
+    "@rollup/rollup-android-arm64": 4.59.0
+    "@rollup/rollup-darwin-arm64": 4.59.0
+    "@rollup/rollup-darwin-x64": 4.59.0
+    "@rollup/rollup-freebsd-arm64": 4.59.0
+    "@rollup/rollup-freebsd-x64": 4.59.0
+    "@rollup/rollup-linux-arm-gnueabihf": 4.59.0
+    "@rollup/rollup-linux-arm-musleabihf": 4.59.0
+    "@rollup/rollup-linux-arm64-gnu": 4.59.0
+    "@rollup/rollup-linux-arm64-musl": 4.59.0
+    "@rollup/rollup-linux-loong64-gnu": 4.59.0
+    "@rollup/rollup-linux-loong64-musl": 4.59.0
+    "@rollup/rollup-linux-ppc64-gnu": 4.59.0
+    "@rollup/rollup-linux-ppc64-musl": 4.59.0
+    "@rollup/rollup-linux-riscv64-gnu": 4.59.0
+    "@rollup/rollup-linux-riscv64-musl": 4.59.0
+    "@rollup/rollup-linux-s390x-gnu": 4.59.0
+    "@rollup/rollup-linux-x64-gnu": 4.59.0
+    "@rollup/rollup-linux-x64-musl": 4.59.0
+    "@rollup/rollup-openbsd-x64": 4.59.0
+    "@rollup/rollup-openharmony-arm64": 4.59.0
+    "@rollup/rollup-win32-arm64-msvc": 4.59.0
+    "@rollup/rollup-win32-ia32-msvc": 4.59.0
+    "@rollup/rollup-win32-x64-gnu": 4.59.0
+    "@rollup/rollup-win32-x64-msvc": 4.59.0
     "@types/estree": 1.0.8
     fsevents: ~2.3.2
   dependenciesMeta:
@@ -23756,7 +23767,7 @@ resolve@~1.7.1:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 7e7d9418b62e7c8bfdc362190ded527cf3c708fcee664f5aece753249e492b3ddd4226c1b8bb7fb0ecbe20f03eb5db0ea8856e58b971b1f075e2676414f2495d
+  checksum: c2427c6907f05bb98c92064c1660bbeaebb11f3022ec853635e6a994f8e1d39ed18ccee8d70b219954787dca0a2eb3082941bd2c3e054071eec2569acc1c1509
   languageName: node
   linkType: hard
 

@@ -74,6 +74,16 @@ export interface OAuthRedirectStartResult {
   oauthAuthoriationURI?: string;
   useMagicServerCallback?: boolean;
   shouldReturnURI?: boolean;
+  /**
+   * Present in the new client-PKCE path. The extension stores this alongside
+   * codeVerifier at the SDK level and forwards it in the verify call.
+   */
+  pkceMetadata?: {
+    state: string;
+    redirectUri: string;
+    appID: string;
+    provider: string;
+  };
 }
 
 export interface OAuthRedirectResult {
@@ -109,6 +119,7 @@ export interface OAuthVerificationConfiguration {
   lifespan?: number;
   optionalQueryString?: string;
   skipDIDToken?: boolean;
+  showMfaModal?: boolean;
 }
 
 export interface OAuthPopupConfiguration {
@@ -117,6 +128,7 @@ export interface OAuthPopupConfiguration {
   loginHint?: string;
   providerParams?: Record<string, string | number | boolean>;
   shouldReturnURI?: boolean;
+  showMfaModal?: boolean;
 }
 
 export enum OAuthErrorCode {

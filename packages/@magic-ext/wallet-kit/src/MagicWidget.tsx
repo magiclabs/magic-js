@@ -11,14 +11,17 @@ import { OAuthPendingView } from './views/OAuthPendingView';
 import AdditionalProvidersView from './views/AdditionalProvidersView';
 import { getExtensionInstance } from './extension';
 import { EmailLoginProvider } from './context/EmailLoginContext';
+import { OAuthLoginProvider } from './context/OAuthLoginContext';
+import { SmsLoginProvider } from './context/SmsLoginContext';
 import { WidgetConfigProvider } from './context/WidgetConfigContext';
-import { EmailOTPView } from './views/EmailOTPView';
+import { OtpView } from './views/OtpView';
 import { DeviceVerificationView } from './views/DeviceVerificationView';
 import { LoginSuccessView } from './views/LoginSuccessView';
 import { MFAView } from './views/MfaView';
 import { RecoveryCodeView } from './views/RecoveryCode';
 import { LostRecoveryCode } from './views/LostRecoveryCode';
 import { WalletConnectView } from './views/WalletConnectView';
+import { SmsLoginView } from './views/SmsLoginView';
 import { FarcasterPendingView } from './views/FarcasterPendingView';
 import { FarcasterSuccessView } from './views/FarcasterSuccessView';
 import { FarcasterFailedView } from './views/FarcasterFailedView';
@@ -56,10 +59,12 @@ function WidgetContent({
   const renderView = () => {
     switch (state.view) {
       case 'login':
-        return <LoginView dispatch={dispatch} />;
+        return <LoginView dispatch={dispatch} state={state} />;
+      case 'sms_login':
+        return <SmsLoginView state={state} />;
       case 'wallet_pending':
         if (!state.selectedProvider) {
-          return <LoginView dispatch={dispatch} />;
+          return <LoginView dispatch={dispatch} state={state} />;
         }
         return (
           <WalletPendingView
@@ -73,19 +78,20 @@ function WidgetContent({
         return <WalletConnectView key="walletconnect" dispatch={dispatch} />;
       case 'oauth_pending':
         if (!state.selectedProvider) {
-          return <LoginView dispatch={dispatch} />;
+          return <LoginView dispatch={dispatch} state={state} />;
         }
         return (
           <OAuthPendingView
             key={`oauth-${state.selectedProvider}`}
             provider={state.selectedProvider as OAuthProvider}
+            state={state}
             dispatch={dispatch}
           />
         );
       case 'additional_providers':
         return <AdditionalProvidersView dispatch={dispatch} />;
-      case 'email_otp_pending':
-        return <EmailOTPView state={state} dispatch={dispatch} />;
+      case 'otp_pending':
+        return <OtpView state={state} dispatch={dispatch} />;
       case 'device_verification':
         return <DeviceVerificationView state={state} dispatch={dispatch} />;
       case 'mfa_pending':
@@ -103,18 +109,22 @@ function WidgetContent({
       case 'farcaster_failed':
         return <FarcasterFailedView state={state} dispatch={dispatch} />;
       default:
-        return <LoginView dispatch={dispatch} />;
+        return <LoginView dispatch={dispatch} state={state} />;
     }
   };
 
   return (
     <EmailLoginProvider dispatch={dispatch}>
-      <Modal isWidget fullscreen={isModal && isMobile}>
-        <VStack width="full" minWidth="380px">
-          {renderView()}
-          <Footer showLogo={showFooterLogo} />
-        </VStack>
-      </Modal>
+      <SmsLoginProvider dispatch={dispatch}>
+        <OAuthLoginProvider dispatch={dispatch}>
+          <Modal isWidget fullscreen={isModal && isMobile}>
+            <VStack width="full" minWidth="380px">
+              {renderView()}
+              <Footer showLogo={showFooterLogo} />
+            </VStack>
+          </Modal>
+        </OAuthLoginProvider>
+      </SmsLoginProvider>
     </EmailLoginProvider>
   );
 }
@@ -147,6 +157,7 @@ export function MagicWidget({
   enableFarcaster = false,
   onSuccess,
   onError,
+  onAccountChanged,
   onReady,
 }: MagicWidgetProps) {
   const [state, dispatch] = useReducer(widgetReducer, initialState);
@@ -175,6 +186,11 @@ export function MagicWidget({
         });
     }
   }, []);
+
+  useEffect(() => {
+    getExtensionInstance().setAccountChangedCallbacks(onAccountChanged, onError);
+    return () => getExtensionInstance().setAccountChangedCallbacks(undefined, undefined);
+  }, [onAccountChanged, onError]);
 
   useEffect(() => {
     if (!clientTheme) return;

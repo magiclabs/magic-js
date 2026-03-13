@@ -1,13 +1,17 @@
-import { Extension, MagicRPCError, SDKBase, ViewController } from '@magic-sdk/provider';
+import { createPromiEvent, Extension, MagicRPCError, SDKBase, ViewController } from '@magic-sdk/provider';
 import {
   FarcasterLoginEventEmit,
   JsonRpcRequestPayload,
   LocalStorageKeys,
   MagicPayloadMethod,
   MagicThirdPartyWalletUpdate,
+  OAuthMFAEventEmit,
+  OAuthMFAEventOnReceived,
+  OAuthPopupEventEmit,
+  OAuthPopupEventHandlers,
   RPCErrorCode,
 } from '@magic-sdk/types';
-import { getAccount, getConnectorClient, reconnect, watchAccount } from '@wagmi/core';
+import { getAccount, getConnectorClient, reconnect, signMessage, watchAccount } from '@wagmi/core';
 import type { Config } from '@wagmi/core';
 import type { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { ClientConfig } from './types/client-config';
@@ -220,6 +224,9 @@ export interface WalletKitExtensionOptions {
   projectId?: string;
 }
 
+/** Shape passed to the onAccountChanged callback. */
+type AccountChangedResult = { method: 'wallet'; walletAddress: string };
+
 export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   name = 'walletKit' as const;
   config = {};
@@ -232,6 +239,9 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   private configPromise: Promise<ClientConfig> | null = null;
   private eventsListenerAdded = false;
   private reconnectPromise: Promise<void> | null = null;
+  private isReauthInProgress = false;
+  private onAccountChangedCallback?: (result: AccountChangedResult) => void;
+  private onAccountChangedErrorCallback?: (error: Error) => void;
 
   constructor(options?: WalletKitExtensionOptions) {
     super();
@@ -371,7 +381,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
 
     // Watch for account/chain changes using wagmi's watchAccount
     const unwatch = watchAccount(this.wagmiConfig, {
-      onChange: (account, prevAccount) => {
+      onChange: (account) => {
         const storedAddress = localStorage.getItem(LocalStorageKeys.ADDRESS);
         const storedChainId = localStorage.getItem(LocalStorageKeys.CHAIN_ID);
 
@@ -393,6 +403,9 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
             addresses: account.addresses,
             updatedField: 'address',
           });
+          // Re-run SIWE for the new address so the Magic session stays in sync.
+          // This triggers the wallet's native signing prompt without Magic UI.
+          this.performSilentReauth(account.address, account.chainId ?? 1);
         }
 
         // Chain changed
@@ -440,6 +453,36 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
   }
 
   /**
+   * Silently re-runs the SIWE flow for a new wallet address without any UI changes.
+   * Called when the user switches accounts in their wallet while already signed in.
+   * The wallet's native signing prompt will appear to the user.
+   */
+  public setAccountChangedCallbacks(
+    onAccountChanged?: (result: AccountChangedResult) => void,
+    onError?: (error: Error) => void,
+  ) {
+    this.onAccountChangedCallback = onAccountChanged;
+    this.onAccountChangedErrorCallback = onError;
+  }
+
+  private async performSilentReauth(address: string, chainId: number): Promise<void> {
+    if (this.isReauthInProgress) return;
+    this.isReauthInProgress = true;
+    try {
+      const message = await this.generateMessage({ address, chainId });
+      const signature = await signMessage(this.wagmiConfig, { message });
+      await this.login({ message, signature });
+      this.onAccountChangedCallback?.({ method: 'wallet', walletAddress: address });
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err), { cause: err });
+      console.error('SIWE re-auth failed for new account:', error);
+      this.onAccountChangedErrorCallback?.(error);
+    } finally {
+      this.isReauthInProgress = false;
+    }
+  }
+
+  /**
    * Generate a nonce for SIWE message construction.
    * This calls the Magic backend to get a unique nonce.
    */
@@ -480,27 +523,78 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
 
   /**
    * Login with OAuth popup.
-   * Opens a popup for the specified OAuth provider and returns the result.
+   * Opens a popup for the specified OAuth provider and returns a PromiEvent handle.
+   * The handle emits MFA events when the user has MFA enabled.
    */
-  public async loginWithPopup(provider: OAuthProvider): Promise<OAuthRedirectResult> {
+  public loginWithPopup(provider: OAuthProvider) {
     const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethod.Popup, [
       {
         provider,
+        showUI: false,
         returnTo: window.location.href,
         apiKey: this.sdk.apiKey,
         platform: 'web',
       },
     ]);
 
-    const result = await this.request<OAuthRedirectResult | OAuthRedirectError>(requestPayload);
+    const promiEvent = createPromiEvent<OAuthRedirectResult, OAuthPopupEventHandlers>(async (resolve, reject) => {
+      try {
+        const oauthPopupRequest = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthPopupEventHandlers>(
+          requestPayload,
+        );
 
-    // Check if the result is an error
-    if ((result as OAuthRedirectError).error) {
-      const errorResult = result as OAuthRedirectError;
-      throw new Error(errorResult.error_description || errorResult.error);
+        oauthPopupRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, () => {
+          promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle);
+        });
+        oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, () => {
+          promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp);
+        });
+        oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, () => {
+          promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle);
+        });
+        oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidRecoveryCode, () => {
+          promiEvent.emit(OAuthMFAEventOnReceived.InvalidRecoveryCode);
+        });
+        oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSuccess, () => {
+          promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSuccess);
+        });
+
+        const result = await oauthPopupRequest;
+
+        const maybeResult = result as OAuthRedirectResult;
+        const maybeError = result as OAuthRedirectError;
+
+        if (maybeError.error) {
+          reject(
+            this.createError(maybeError.error, maybeError.error_description ?? 'An error occurred.', {
+              errorURI: maybeError.error_uri,
+              provider: maybeError.provider,
+            }),
+          );
+        } else {
+          resolve(maybeResult);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    if (promiEvent) {
+      promiEvent.on(OAuthMFAEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
+      });
+      promiEvent.on(OAuthMFAEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.LostDevice, requestPayload.id as string)();
+      });
+      promiEvent.on(OAuthMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyRecoveryCode, requestPayload.id as string)(recoveryCode);
+      });
+      promiEvent.on(OAuthMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as string)();
+      });
     }
 
-    return result as OAuthRedirectResult;
+    return promiEvent;
   }
 
   /**
@@ -533,6 +627,13 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
    */
   public loginWithEmailOTP(email: string) {
     return this.sdk.auth.loginWithEmailOTP({ email, showUI: false, deviceCheckUI: false });
+  }
+
+  /**
+   * Login with SMS OTP
+   */
+  public loginWithSMS(phoneNumber: string) {
+    return this.sdk.auth.loginWithSMS({ phoneNumber, showUI: false });
   }
 
   /**
