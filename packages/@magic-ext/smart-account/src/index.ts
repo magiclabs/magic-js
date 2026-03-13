@@ -1,18 +1,20 @@
 import { Extension } from '@magic-sdk/provider';
 import {
   SmartAccountPayloadMethod,
+  SmartAccountConfig,
   SmartAccountDelegateParams,
   SmartAccountDelegateResponse,
   SmartAccountSendTransactionParams,
   SmartAccountSendTransactionResponse,
 } from './types';
 
-export class SmartAccountExtension extends Extension.Internal<'smartAccount'> {
+export class SmartAccountExtension extends Extension.Internal<'smartAccount', SmartAccountConfig> {
   name = 'smartAccount' as const;
-  config = {};
+  config: SmartAccountConfig;
 
-  constructor() {
+  constructor(config: SmartAccountConfig) {
     super();
+    this.config = config;
   }
 
   public delegate(params?: SmartAccountDelegateParams): Promise<SmartAccountDelegateResponse> {

@@ -3,9 +3,13 @@ export enum SmartAccountPayloadMethod {
   SendTransaction = 'magic_smart_account_send_transaction',
 }
 
+export interface SmartAccountConfig {
+  alchemyApiKey: string;
+  paymasterPolicyId?: string;
+}
+
 export interface SmartAccountDelegateParams {
   chainId?: number;
-  sponsored?: boolean;
 }
 
 export interface SmartAccountDelegateResponse {
@@ -20,22 +24,13 @@ export interface SmartAccountCallInput {
   value?: string;
 }
 
-export interface SmartAccountTokenRequest {
-  address: string;
-  amount?: string;
-}
-
 export interface SmartAccountSendTransactionParams {
   chainId: number;
   calls: SmartAccountCallInput[];
-  sourceChainIds?: number[];
-  tokenRequests?: SmartAccountTokenRequest[];
-  sponsored?: boolean;
 }
 
 export interface SmartAccountSendTransactionResponse {
-  intentId: string;
-  fillHash: string | undefined;
-  claimHashes: string[];
-  targetChainId: number;
+  id: string;
+  transactionHash: string | undefined;
+  chainId: number;
 }
