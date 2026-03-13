@@ -1,4 +1,4 @@
-import { Extension } from '@magic-sdk/provider';
+import { createPromiEvent, Extension } from '@magic-sdk/provider';
 import {
   OAuthErrorData,
   OAuthRedirectError,
@@ -9,6 +9,17 @@ import {
   OAuthPopupConfiguration,
   OAuthVerificationConfiguration,
 } from './types';
+import {
+  OAuthMFAEventEmit,
+  OAuthMFAEventOnReceived,
+  OAuthPopupEventEmit,
+  OAuthPopupEventHandlers,
+  OAuthPopupEventOnReceived,
+  OAuthGetResultEventHandlers,
+} from '@magic-sdk/types';
+import { createCryptoChallenge } from './crypto';
+
+const PKCE_STORAGE_KEY = 'magic_oauth_pkce_verifier';
 
 declare global {
   interface Window {
@@ -37,11 +48,16 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
     return this.utils.createPromiEvent<null | string>(async (resolve, reject) => {
+      const { codeVerifier, codeChallenge, cryptoChallengeState } = createCryptoChallenge();
+
       const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
         {
           ...configuration,
           apiKey: this.sdk.apiKey,
           platform: 'web',
+          codeChallenge,
+          cryptoChallengeState,
+          // codeVerifier is intentionally NOT sent here — it stays in the SDK.
         },
       ]);
 
@@ -56,6 +72,13 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
             provider: errorResult.provider,
           }),
         );
+      }
+
+      if (successResult?.pkceMetadata) {
+        // New path: store codeVerifier + all OAuth metadata at the SDK (parent page) level.
+        // sessionStorage persists across same-tab redirects but never enters the iframe.
+        sessionStorage.setItem(PKCE_STORAGE_KEY, JSON.stringify({ codeVerifier, ...successResult.pkceMetadata }));
+        localStorage.setItem(PKCE_STORAGE_KEY, JSON.stringify({ codeVerifier, ...successResult.pkceMetadata }));
       }
 
       if (successResult?.oauthAuthoriationURI) {
@@ -82,19 +105,191 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     const urlWithoutQuery = window.location.origin + window.location.pathname;
     window.history.replaceState(null, '', urlWithoutQuery);
 
-    return getResult.call(this, configuration, queryString);
+    return this.getResult(configuration, queryString);
   }
 
   public loginWithPopup(configuration: OAuthPopupConfiguration) {
+    const { showMfaModal } = configuration;
     const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Popup, [
       {
         ...configuration,
+        showUI: showMfaModal,
+        returnTo: window.location.href,
         apiKey: this.sdk.apiKey,
         platform: 'web',
       },
     ]);
 
-    return this.request<OAuthRedirectResult | OAuthRedirectError>(requestPayload);
+    const promiEvent = createPromiEvent<OAuthRedirectResult, OAuthPopupEventHandlers>(async (resolve, reject) => {
+      try {
+        const oauthPopupRequest = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthPopupEventHandlers>(
+          requestPayload,
+        );
+
+        /**
+         * Attach Event listeners
+         */
+        const redirectEvent = (event: MessageEvent) => {
+          this.createIntermediaryEvent(OAuthPopupEventEmit.PopupEvent, requestPayload.id as string)(event.data);
+        };
+
+        if (configuration.shouldReturnURI && oauthPopupRequest) {
+          oauthPopupRequest.on(OAuthPopupEventOnReceived.PopupUrl, popupUrl => {
+            window.addEventListener('message', redirectEvent);
+            promiEvent.emit(OAuthPopupEventOnReceived.PopupUrl, popupUrl);
+          });
+        }
+
+        if (!showMfaModal) {
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle);
+          });
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp);
+          });
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle);
+          });
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidRecoveryCode, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidRecoveryCode);
+          });
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSuccess, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSuccess);
+          });
+        }
+
+        const result = await oauthPopupRequest;
+        window.removeEventListener('message', redirectEvent);
+
+        const maybeResult = result as OAuthRedirectResult;
+        const maybeError = result as OAuthRedirectError;
+
+        if (maybeError.error) {
+          reject(
+            this.createError<OAuthErrorData>(maybeError.error, maybeError.error_description ?? 'An error occurred.', {
+              errorURI: maybeError.error_uri,
+              provider: maybeError.provider,
+            }),
+          );
+        } else {
+          resolve(maybeResult);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    if (!showMfaModal && promiEvent) {
+      promiEvent.on(OAuthMFAEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
+      });
+      promiEvent.on(OAuthMFAEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.LostDevice, requestPayload.id as string)();
+      });
+      promiEvent.on(OAuthMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyRecoveryCode, requestPayload.id as string)(recoveryCode);
+      });
+      promiEvent.on(OAuthMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as string)();
+      });
+    }
+
+    return promiEvent;
+  }
+
+  private getResult(configuration: OAuthVerificationConfiguration, queryString: string) {
+    const { showMfaModal } = configuration;
+    const { hasStateMismatch, clientMetadata } = this.retrievePKCEMetadata(queryString);
+
+    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
+      {
+        authorizationResponseParams: queryString,
+        magicApiKey: this.sdk.apiKey,
+        platform: 'web',
+        showUI: showMfaModal,
+        ...configuration,
+        ...(clientMetadata ? { clientMetadata } : {}),
+      },
+    ]);
+
+    const promiEvent = this.utils.createPromiEvent<OAuthRedirectResult, OAuthGetResultEventHandlers>(
+      async (resolve, reject) => {
+        if (!clientMetadata) {
+          return reject(
+            this.createError<object>(
+              'MISSING_PKCE_METADATA',
+              'OAuth session metadata not found — the session may have expired or storage was cleared',
+              {},
+            ),
+          );
+        }
+
+        if (hasStateMismatch) {
+          return reject(
+            this.createError<object>(
+              'STATE_MISMATCH',
+              'OAuth state parameter mismatch — request may have been tampered with',
+              {},
+            ),
+          );
+        }
+
+        const getResultRequest = this.request<OAuthRedirectResult | OAuthRedirectError, OAuthGetResultEventHandlers>(
+          requestPayload,
+        );
+
+        if (!showMfaModal) {
+          getResultRequest.on(OAuthMFAEventOnReceived.MfaSentHandle, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.MfaSentHandle);
+          });
+          getResultRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp);
+          });
+          getResultRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle);
+          });
+          getResultRequest.on(OAuthMFAEventOnReceived.InvalidRecoveryCode, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.InvalidRecoveryCode);
+          });
+          getResultRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSuccess, () => {
+            promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSuccess);
+          });
+        }
+
+        // Parse the result, which may contain an OAuth-formatted error.
+        const resultOrError = await getResultRequest;
+        const maybeResult = resultOrError as OAuthRedirectResult;
+        const maybeError = resultOrError as OAuthRedirectError;
+
+        if (maybeError.error) {
+          reject(
+            this.createError<OAuthErrorData>(maybeError.error, maybeError.error_description ?? 'An error occurred.', {
+              errorURI: maybeError.error_uri,
+              provider: maybeError.provider,
+            }),
+          );
+        }
+
+        resolve(maybeResult);
+      },
+    );
+
+    if (!showMfaModal && promiEvent) {
+      promiEvent.on(OAuthMFAEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
+      });
+      promiEvent.on(OAuthMFAEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.LostDevice, requestPayload.id as string)();
+      });
+      promiEvent.on(OAuthMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.VerifyRecoveryCode, requestPayload.id as string)(recoveryCode);
+      });
+      promiEvent.on(OAuthMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as string)();
+      });
+    }
+
+    return promiEvent;
   }
 
   protected seamlessTelegramLogin() {
@@ -122,35 +317,39 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       console.log('Error while loading telegram-web-app script', seamlessLoginError);
     }
   }
-}
 
-function getResult(this: OAuthExtension, configuration: OAuthVerificationConfiguration, queryString: string) {
-  return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
-    const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Verify, [
-      {
-        authorizationResponseParams: queryString,
-        magicApiKey: this.sdk.apiKey,
-        platform: 'web',
-        ...configuration,
-      },
-    ]);
+  private retrievePKCEMetadata(queryString: string): {
+    clientMetadata?: Record<string, string>;
+    hasStateMismatch: boolean;
+  } {
+    let hasStateMismatch = false;
+    // Retrieve and immediately clear the full PKCE metadata stored at SDK level.
+    const storedInSession = sessionStorage.getItem(PKCE_STORAGE_KEY);
+    const storedInLocal = localStorage.getItem(PKCE_STORAGE_KEY);
+    sessionStorage.removeItem(PKCE_STORAGE_KEY);
+    localStorage.removeItem(PKCE_STORAGE_KEY);
 
-    // Parse the result, which may contain an OAuth-formatted error.
-    const resultOrError = await this.request<OAuthRedirectResult | OAuthRedirectError>(parseRedirectResult);
-    const maybeResult = resultOrError as OAuthRedirectResult;
-    const maybeError = resultOrError as OAuthRedirectError;
+    // clientMetadata contains { codeVerifier, state, redirectUri, appID, provider }.
+    // Forwarding it lets the embedded-wallet verify handler skip its iframe storage entirely.
+    // When absent (old embedded-wallet path), the handler falls back to its stored metadata.
+    const clientMetadata = storedInSession
+      ? (JSON.parse(storedInSession) as Record<string, string>)
+      : storedInLocal
+        ? (JSON.parse(storedInLocal) as Record<string, string>)
+        : undefined;
 
-    if (maybeError.error) {
-      reject(
-        this.createError<OAuthErrorData>(maybeError.error, maybeError.error_description ?? 'An error occurred.', {
-          errorURI: maybeError.error_uri,
-          provider: maybeError.provider,
-        }),
-      );
+    // State verification for the new PKCE path.
+    // The extension generated the state, so it verifies it here — before any RPC call — as CSRF protection.
+    // In the legacy path (no clientMetadata), embedded-wallet handles state verification itself.
+    if (clientMetadata) {
+      const returnedState = new URLSearchParams(queryString).get('state');
+      if (!returnedState || returnedState !== clientMetadata.state) {
+        hasStateMismatch = true;
+      }
     }
 
-    resolve(maybeResult);
-  });
+    return { clientMetadata, hasStateMismatch };
+  }
 }
 
 export * from './types';

@@ -2,30 +2,31 @@ name: Canary
 on:
   pull_request:
     branches:
-      - 'master'
+      - "master"
   merge_group:
     types: [checks_requested]
 
 env:
-  GH_TOKEN: ${{ secrets.ARI_ADMIN_PAT_TOKEN }}
+  GH_TOKEN: ${{ secrets.FRONTEND_GH_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   NPM_CONFIG_PROVENANCE: true
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Build
-    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    if: "!contains(github.event.head_commit.message, 'skip-release')"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          fetch-tags: true
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Install dependencies
         run: |
@@ -46,22 +47,23 @@ jobs:
           overwrite: true
 
   create_canary:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Canary
     permissions:
       contents: read
       id-token: write
     needs: build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          fetch-tags: true
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Install dependencies
         run: |
@@ -75,4 +77,4 @@ jobs:
           path: packages
 
       - name: Create Canary Release
-        run: yarn auto canary -v
+        run: yarn auto canary

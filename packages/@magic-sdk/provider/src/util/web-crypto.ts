@@ -28,7 +28,7 @@ export async function createJwt() {
   const publicJwk = await getPublicKey();
 
   if (!publicJwk) {
-    console.info('unable to create public key or webcrypto is unsupported');
+    console.info('unable to creat kee publicy or webcrypto is unsupported');
     return undefined;
   }
 

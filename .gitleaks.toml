@@ -1,0 +1,33 @@
+title = "MagicJs Gitleaks Configuration"
+
+[extend]
+# Extend the default gitleaks configuration
+useDefault = true
+
+# Global allowlist to exclude specific exact strings from secret detection
+# These stopwords match against the extracted secret value itself
+[[allowlists]]
+description = "Exclude known test values, examples, and false positives"
+stopwords = [
+  "",
+]
+
+# Additional global allowlist for file paths that should be ignored
+[[allowlists]]
+description = "Exclude common non-secret files"
+paths = [
+  '''\.gitleaks\.toml$''',
+  '''package-lock\.json$''',
+  '''yarn\.lock$''',
+  '''poetry\.lock$''',
+]
+
+# Add more allowlists as needed for specific use cases
+# Example: Exclude specific commits or paths for a particular rule
+# [[allowlists]]
+# targetRules = ["generic-api-key"]
+# description = "Exclude test fixtures for API key detection"
+# paths = [
+#   '''tests/fixtures/.*\.json$''',
+#   '''testdata/.*$''',
+# ]

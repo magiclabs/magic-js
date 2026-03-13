@@ -48,7 +48,6 @@ describe('format web3modal getinfo response', () => {
     const response = magic.thirdPartyWallets.formatWeb3modalGetInfoResponse();
 
     expect(response).toEqual({
-      publicAddress: '0x1234567890',
       email: null,
       firstLoginAt: null,
       issuer: 'did:ethr:0x1234567890',
@@ -56,6 +55,12 @@ describe('format web3modal getinfo response', () => {
       isMfaEnabled: false,
       recoveryFactors: [],
       walletType: 'Magic',
+      wallets: {
+        ethereum: {
+          publicAddress: '0x1234567890',
+          subAccounts: [],
+        },
+      },
     });
   });
 });

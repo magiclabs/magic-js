@@ -10,17 +10,18 @@ on:
   merge_group:
    types: [checks_requested]
 
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 jobs:
   lint:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Run linter and package audit
-    container:
-      image: node:22-slim
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: 'yarn'
@@ -37,15 +38,13 @@ jobs:
         run: yarn audit --groups dependencies || true
 
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Run tests
-    container:
-      image: node:22-slim
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: 'yarn'

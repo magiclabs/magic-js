@@ -1,3 +1,179 @@
+# v33.6.1 (Mon Mar 09 2026)
+
+#### 🐛 Bug Fix
+
+- adds additional prefixes to passthrough logic [#1052](https://github.com/magiclabs/magic-js/pull/1052) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.6.0 (Mon Mar 09 2026)
+
+#### 🚀 Enhancement
+
+- Sherzodbakhodirov/emb 253 implement sms for wallet kit [#1047](https://github.com/magiclabs/magic-js/pull/1047) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v33.4.1 (Wed Feb 18 2026)
+
+#### 🐛 Bug Fix
+
+- sanitize third party wallet updates [#1036](https://github.com/magiclabs/magic-js/pull/1036) ([@joshuascan](https://github.com/joshuascan))
+- Remove refresh token when user is logged out [#1033](https://github.com/magiclabs/magic-js/pull/1033) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.4.0 (Fri Feb 06 2026)
+
+#### 🚀 Enhancement
+
+- adds send 7702 transaction [#1030](https://github.com/magiclabs/magic-js/pull/1030) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.3.2 (Thu Feb 05 2026)
+
+#### 🐛 Bug Fix
+
+- deprecate send_gaslessTransaction ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v33.3.1 (Tue Feb 03 2026)
+
+#### 🐛 Bug Fix
+
+- fix name for request override [#1024](https://github.com/magiclabs/magic-js/pull/1024) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.3.0 (Thu Jan 29 2026)
+
+#### 🚀 Enhancement
+
+- feat: Magic Widget extension [#979](https://github.com/magiclabs/magic-js/pull/979) ([@joshuascan](https://github.com/joshuascan) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.2.0 (Thu Jan 29 2026)
+
+#### 🚀 Enhancement
+
+- feat: implement keychain for rt [#964](https://github.com/magiclabs/magic-js/pull/964) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v33.1.1 (Tue Jan 20 2026)
+
+#### 🐛 Bug Fix
+
+- fix types version [#1004](https://github.com/magiclabs/magic-js/pull/1004) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.1.0 (Sat Jan 17 2026)
+
+#### 🚀 Enhancement
+
+- 7702 authorization api [#991](https://github.com/magiclabs/magic-js/pull/991) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.0.1 (Fri Jan 16 2026)
+
+#### 🐛 Bug Fix
+
+- fix type for user metadata [#1003](https://github.com/magiclabs/magic-js/pull/1003) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v33.0.0 (Tue Jan 13 2026)
+
+#### 🐛 Bug Fix
+
+- heal Auto package versioning [#997](https://github.com/magiclabs/magic-js/pull/997) ([@Ethella](https://github.com/Ethella))
+- docs: fix typos [#963](https://github.com/magiclabs/magic-js/pull/963) ([@ANtutov](https://github.com/ANtutov) [@Ethella](https://github.com/Ethella))
+- Fix typos in AuthModule and web-crypto utility [#942](https://github.com/magiclabs/magic-js/pull/942) ([@sashass1315](https://github.com/sashass1315) [@Ethella](https://github.com/Ethella))
+- create a random number generator for RN [#971](https://github.com/magiclabs/magic-js/pull/971) ([@Ethella](https://github.com/Ethella))
+- Make `RPCProviderModule` compatible with `viem` `EIP1193Provider` [#931](https://github.com/magiclabs/magic-js/pull/931) ([@johanneskares](https://github.com/johanneskares) [@Ethella](https://github.com/Ethella))
+
+#### Authors: 4
+
+- [@ANtutov](https://github.com/ANtutov)
+- [@sashass1315](https://github.com/sashass1315)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Johannes Kares ([@johanneskares](https://github.com/johanneskares))
+
+---
+
+# v31.1.0 (Thu Oct 30 2025)
+
+#### 🐛 Bug Fix
+
+- chore: fix some comments [#948](https://github.com/magiclabs/magic-js/pull/948) ([@letreturn](https://github.com/letreturn))
+
+#### Authors: 1
+
+- [@letreturn](https://github.com/letreturn)
+
+---
+
 # v31.0.0 (Fri Oct 03 2025)
 
 #### 💥 Breaking Change

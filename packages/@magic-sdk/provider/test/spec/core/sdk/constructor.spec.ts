@@ -85,6 +85,21 @@ test('Initialize `MagicSDK` with custom Web3 network', () => {
   assertModuleInstanceTypes(magic);
 });
 
+test('Initialize `MagicSDK` with custom network object', () => {
+  const Ctor = createMagicSDKCtor();
+  const customNetwork = {
+    rpcUrl: 'https://custom.rpc.url',
+    chainId: 12345,
+    chainType: 'eth',
+  };
+  const magic = new Ctor(TEST_API_KEY, { network: customNetwork });
+
+  expect(magic.apiKey).toBe(TEST_API_KEY);
+  expect(magic.endpoint).toBe(MAGIC_RELAYER_FULL_URL);
+  expect(magic.networkHash).toBe(`${TEST_API_KEY}_https://custom.rpc.url_12345_eth`);
+  assertModuleInstanceTypes(magic);
+});
+
 test('Initialize `MagicSDK` with custom locale', () => {
   const Ctor = createMagicSDKCtor();
   const magic = new Ctor(TEST_API_KEY, { locale: 'pl_PL' });
@@ -396,4 +411,29 @@ test('Initialize `MagicSDK` with skipDIDToken', () => {
 
   assertEncodedQueryParams(magic.parameters, { authConfig });
   assertModuleInstanceTypes(magic);
+});
+
+test('Registers onThirdPartyWalletRequest handler on ViewController', () => {
+  // Clear the static overlay cache to ensure a fresh controller is created
+  const { SDKBase } = require('../../../../src/core/sdk');
+  SDKBase.__overlays__.clear();
+
+  const Ctor = createMagicSDKCtor();
+  const magic = new Ctor(TEST_API_KEY);
+
+  // Access overlay to trigger initialization (this creates the controller)
+  const overlay = magic.overlay;
+
+  // Verify onThirdPartyWalletRequest was called during initialization
+  expect((overlay as any).onThirdPartyWalletRequest).toHaveBeenCalledTimes(1);
+  
+  // Verify it was called with a function
+  const handlerCall = (overlay as any).onThirdPartyWalletRequest.mock.calls[0][0];
+  expect(typeof handlerCall).toBe('function');
+  
+  // Verify the handler calls thirdPartyWallets.handleIframeThirdPartyWalletRequest
+  const mockEvent = { payload: { method: 'eth_accounts', params: [], id: 1, jsonrpc: '2.0' } };
+  const handleIframeSpy = jest.spyOn(magic.thirdPartyWallets, 'handleIframeThirdPartyWalletRequest');
+  handlerCall(mockEvent);
+  expect(handleIframeSpy).toHaveBeenCalledWith(mockEvent);
 });

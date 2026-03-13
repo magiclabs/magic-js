@@ -1,12 +1,15 @@
 import {
+  JsonRpcError,
   JsonRpcRequestPayload,
   LocalStorageKeys,
   MagicPayloadMethod,
+  MagicThirdPartyWalletRequest,
   MagicUserMetadata,
   ThirdPartyWalletEvents,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { PromiEvent, createPromiEvent } from '../util';
+import { MagicRPCError } from '../core/sdk-exceptions';
 
 export class ThirdPartyWalletsModule extends BaseModule {
   public eventListeners: { event: ThirdPartyWalletEvents; callback: (payloadId: string) => Promise<void> }[] = [];
@@ -39,6 +42,8 @@ export class ThirdPartyWalletsModule extends BaseModule {
     switch (localStorage.getItem(LocalStorageKeys.PROVIDER)) {
       case 'web3modal':
         return this.web3modalRequest(payload);
+      case 'magic-widget':
+        return this.magicWidgetRequest(payload);
       // Fallback to default request
       default:
         this.resetThirdPartyWalletState();
@@ -52,6 +57,8 @@ export class ThirdPartyWalletsModule extends BaseModule {
     switch (localStorage.getItem(LocalStorageKeys.PROVIDER)) {
       case 'web3modal':
         return this.web3modalIsLoggedIn();
+      case 'magic-widget':
+        return super.requestOverlay(payload);
       default:
         this.resetThirdPartyWalletState();
         return super.request(payload);
@@ -62,6 +69,8 @@ export class ThirdPartyWalletsModule extends BaseModule {
     switch (localStorage.getItem(LocalStorageKeys.PROVIDER)) {
       case 'web3modal':
         return this.web3modalGetInfo();
+      case 'magic-widget':
+        return super.requestOverlay(payload);
       default:
         this.resetThirdPartyWalletState();
         return super.request(payload);
@@ -74,6 +83,9 @@ export class ThirdPartyWalletsModule extends BaseModule {
     switch (provider) {
       case 'web3modal': {
         return this.web3modalLogout();
+      }
+      case 'magic-widget': {
+        return this.magicWidgetLogout(payload);
       }
       default:
         return super.request(payload);
@@ -117,13 +129,12 @@ export class ThirdPartyWalletsModule extends BaseModule {
     });
   }
 
-  private formatWeb3modalGetInfoResponse() {
+  private formatWeb3modalGetInfoResponse(): MagicUserMetadata {
     // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
     const walletType = this.sdk.web3modal.modal.getWalletInfo()?.name;
     // @ts-expect-error Property 'web3modal' does not exist on type 'SDKBase'.
-    const userAddress = this.sdk.web3modal.modal.getAddress();
+    const userAddress = this.sdk.web3modal.modal.getAddress() as string;
     return {
-      publicAddress: userAddress as string,
       email: null,
       issuer: `did:ethr:${userAddress}`,
       phoneNumber: null,
@@ -131,6 +142,12 @@ export class ThirdPartyWalletsModule extends BaseModule {
       recoveryFactors: [] as [],
       walletType: walletType || 'web3modal',
       firstLoginAt: null,
+      wallets: {
+        ethereum: {
+          publicAddress: userAddress,
+          subAccounts: [],
+        },
+      },
     };
   }
 
@@ -174,5 +191,60 @@ export class ThirdPartyWalletsModule extends BaseModule {
       }
       resolve(true);
     });
+  }
+
+  /* Magic Widget Methods */
+
+  private magicWidgetRequest(payload: Partial<JsonRpcRequestPayload>) {
+    const ethRpcPrefixes = ['eth_', 'wallet_', 'net_', 'web3_'];
+    const isEthRequest = ethRpcPrefixes.some(prefix => payload.method?.startsWith(prefix));
+    const SIGN_REQUESTS = ['personal_sign'];
+
+    if (isEthRequest || SIGN_REQUESTS.includes(payload.method as string)) {
+      return createPromiEvent<unknown>((resolve, reject) => {
+        // @ts-expect-error Property 'walletKit' does not exist on type 'SDKBase'.
+        this.sdk.walletKit
+          .walletRequest(payload)
+          .then(resolve)
+          .catch((error: unknown) => reject(new MagicRPCError(error as JsonRpcError)));
+      });
+    }
+
+    return super.requestOverlay(payload);
+  }
+
+  private magicWidgetLogout(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean> {
+    return createPromiEvent<boolean>(async resolve => {
+      try {
+        // @ts-expect-error Property 'walletKit' does not exist on type 'SDKBase'.
+        this.sdk.walletKit.clearConnectedState();
+      } catch (error) {
+        console.error(error);
+      }
+
+      return super.requestOverlay(payload);
+    });
+  }
+
+  public handleIframeThirdPartyWalletRequest(event: MagicThirdPartyWalletRequest) {
+    this.magicWidgetRequest(event.payload)
+      .then(response => {
+        this.overlay.postThirdPartyWalletResponse({
+          id: event.payload.id,
+          jsonrpc: '2.0',
+          result: response,
+        });
+      })
+      .catch(error => {
+        this.overlay.postThirdPartyWalletResponse({
+          id: event.payload.id,
+          jsonrpc: '2.0',
+          error: {
+            code: error.code || -32603,
+            message: error.message || 'Internal error',
+            data: error.data,
+          },
+        });
+      });
   }
 }

@@ -1,10 +1,12 @@
 import {
-  GasApiResponse,
   MagicPayloadMethod,
-  GaslessTransactionRequest,
   ConnectWithUIOptions,
   ConnectWithUiEvents,
   ShowUIPromiEvents,
+  Sign7702AuthorizationRequest,
+  Sign7702AuthorizationResponse,
+  Send7702TransactionRequest,
+  Send7702TransactionResponse,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -71,9 +73,54 @@ export class WalletModule extends BaseModule {
     return this.request<boolean>(createJsonRpcRequestPayload(MagicPayloadMethod.ShowBalances));
   }
 
-  public sendGaslessTransaction(address: string, transaction: GaslessTransactionRequest) {
-    return this.request<GasApiResponse>(
-      createJsonRpcRequestPayload(MagicPayloadMethod.SendGaslessTransaction, [address, transaction]),
+  /**
+   * Sign an EIP-7702 authorization to delegate the EOA to a smart contract implementation.
+   * This enables account abstraction features for externally owned accounts.
+   *
+   * @param params - The authorization parameters including contractAddress, chainId, and optional nonce
+   * @returns Promise resolving to the signed authorization with signature components (v, r, s)
+   *
+   * @example
+   * ```typescript
+   * const authorization = await magic.wallet.sign7702Authorization({
+   *   contractAddress: '0x000000004F43C49e93C970E84001853a70923B03',
+   *   chainId: 1,
+   *   nonce: 0
+   * });
+   * ```
+   */
+  public sign7702Authorization(params: Sign7702AuthorizationRequest) {
+    return this.request<Sign7702AuthorizationResponse>(
+      createJsonRpcRequestPayload(MagicPayloadMethod.Sign7702Authorization, [params]),
+    );
+  }
+
+  /**
+   * Send an EIP-7702 (Type-4) transaction with an authorization list.
+   * This allows executing transactions with delegated smart contract implementations.
+   *
+   * @param params - The transaction parameters including to, value, data, gas settings, and authorizationList
+   * @returns Promise resolving to the transaction hash
+   *
+   * @example
+   * ```typescript
+   * // First, sign the authorization
+   * const auth = await magic.wallet.sign7702Authorization({
+   *   contractAddress: '0x000000004F43C49e93C970E84001853a70923B03',
+   *   chainId: 1,
+   * });
+   *
+   * // Then, send the transaction with the authorization
+   * const { transactionHash } = await magic.wallet.send7702Transaction({
+   *   to: '0x...',
+   *   data: '0x...',
+   *   authorizationList: [auth],
+   * });
+   * ```
+   */
+  public send7702Transaction(params: Send7702TransactionRequest) {
+    return this.request<Send7702TransactionResponse>(
+      createJsonRpcRequestPayload(MagicPayloadMethod.Send7702Transaction, [params]),
     );
   }
 }

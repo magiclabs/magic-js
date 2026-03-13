@@ -1,3 +1,149 @@
+# v27.6.0 (Mon Mar 09 2026)
+
+#### 🚀 Enhancement
+
+- Sherzodbakhodirov/emb 253 implement sms for wallet kit [#1047](https://github.com/magiclabs/magic-js/pull/1047) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v27.5.0 (Fri Feb 27 2026)
+
+#### 🚀 Enhancement
+
+- feat: add mfa events to oauth flows [#1035](https://github.com/magiclabs/magic-js/pull/1035) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v27.4.0 (Fri Feb 06 2026)
+
+#### 🚀 Enhancement
+
+- adds send 7702 transaction [#1030](https://github.com/magiclabs/magic-js/pull/1030) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v27.3.1 (Thu Feb 05 2026)
+
+#### 🐛 Bug Fix
+
+- deprecate send_gaslessTransaction ([@Ethella](https://github.com/Ethella))
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v27.3.0 (Thu Jan 29 2026)
+
+#### 🚀 Enhancement
+
+- feat: Magic Widget extension [#979](https://github.com/magiclabs/magic-js/pull/979) ([@joshuascan](https://github.com/joshuascan) [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v27.2.0 (Thu Jan 29 2026)
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:magiclabs/magic-js ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# v27.1.0 (Sat Jan 17 2026)
+
+#### 🚀 Enhancement
+
+- 7702 authorization api [#991](https://github.com/magiclabs/magic-js/pull/991) ([@Ethella](https://github.com/Ethella) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v27.0.1 (Fri Jan 16 2026)
+
+#### 🐛 Bug Fix
+
+- fix type for user metadata [#1003](https://github.com/magiclabs/magic-js/pull/1003) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v27.0.0 (Tue Jan 13 2026)
+
+#### 🐛 Bug Fix
+
+- heal Auto package versioning [#997](https://github.com/magiclabs/magic-js/pull/997) ([@Ethella](https://github.com/Ethella))
+- adds max attempts event [#992](https://github.com/magiclabs/magic-js/pull/992) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v25.2.0 (Mon Nov 10 2025)
+
+#### 🚀 Enhancement
+
+- feat: add custom logo types to loginWithEmailOtp [#955](https://github.com/magiclabs/magic-js/pull/955) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v25.1.0 (Thu Oct 30 2025)
+
+#### 🚀 Enhancement
+
+- feat: implement event listener for oauth popup [#952](https://github.com/magiclabs/magic-js/pull/952) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@Ethella](https://github.com/Ethella))
+
+#### 🐛 Bug Fix
+
+- chore: fix typos [#945](https://github.com/magiclabs/magic-js/pull/945) ([@Galoretka](https://github.com/Galoretka))
+
+#### Authors: 3
+
+- [@Galoretka](https://github.com/Galoretka)
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v25.0.0 (Wed Sep 03 2025)
 
 #### 🐛 Bug Fix

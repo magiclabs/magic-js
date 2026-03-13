@@ -1,9 +1,3 @@
-export type GasApiResponse = {
-  request_id: string;
-  state: string;
-  success: boolean;
-};
-
 export type AccessListEntry = { address: string; storageKeys: Array<string> };
 
 /**
@@ -11,81 +5,126 @@ export type AccessListEntry = { address: string; storageKeys: Array<string> };
  */
 export type AccessList = Array<AccessListEntry>;
 
-export interface GaslessTransactionRequest {
+export enum WalletEventOnReceived {
+  WalletInfoFetched = 'Wallet/wallet-info-fetched',
+}
+
+/**
+ * Request parameters for EIP-7702 authorization signing
+ */
+export interface Sign7702AuthorizationRequest {
   /**
-   *  The transaction type.
+   * The smart contract implementation address the EOA delegates to
    */
-  type?: number;
+  contractAddress: string;
 
   /**
-   *  The target of the transaction.
+   * The chain ID for the network (use 0 for universal cross-chain authorization)
    */
-  to?: string;
+  chainId: number;
 
   /**
-   *  The sender of the transaction.
+   * The nonce for the EOA account (transaction count)
    */
-  from?: string;
-
-  /**
-   *  The nonce of the transaction, used to prevent replay attacks.
-   */
-
   nonce?: number;
+}
 
+/**
+ * Response from EIP-7702 authorization signing
+ */
+export interface Sign7702AuthorizationResponse {
   /**
-   *  The maximum amount of gas to allow this transaction to consume.
+   * The contract address that was authorized
    */
-  gasLimit?: bigint;
+  contractAddress: string;
 
   /**
-   *  The gas price to use for legacy transactions or transactions on
-   *  legacy networks.
-   *
-   *  Most of the time the ``max*FeePerGas`` is preferred.
+   * The chain ID for the authorization
    */
-  gasPrice?: bigint;
+  chainId: number;
 
   /**
-   *  The [[link-eip-1559]] maximum priority fee to pay per gas.
+   * The nonce used in the authorization
    */
-  maxPriorityFeePerGas?: bigint;
+  nonce: number;
 
   /**
-   *  The [[link-eip-1559]] maximum total fee to pay per gas. The actual
-   *  value used is protocol enforced to be the block's base fee.
+   * The v component of the signature (recovery id)
    */
-  maxFeePerGas?: bigint;
+  v: number;
 
   /**
-   *  The transaction data.
+   * The r component of the signature
+   */
+  r: string;
+
+  /**
+   * The s component of the signature
+   */
+  s: string;
+
+  /**
+   * Optional: Full signature as hex string
+   */
+  signature?: string;
+}
+
+/**
+ * Request parameters for sending an EIP-7702 transaction with authorization list
+ */
+export interface Send7702TransactionRequest {
+  /**
+   * The recipient address
+   */
+  to: string;
+
+  /**
+   * The value to send in wei (as hex string)
+   */
+  value?: string;
+
+  /**
+   * The transaction data (calldata)
    */
   data?: string;
 
   /**
-   *  The transaction value (in wei).
+   * Gas limit for the transaction (as hex string)
    */
-  value?: bigint;
+  gas?: string;
 
   /**
-   *  The chain ID for the network this transaction is valid on.
+   * Gas limit for the transaction (alias for gas)
    */
-  chainId?: bigint;
+  gasLimit?: string;
 
   /**
-   *  The [[link-eip-2930]] access list. Storage slots included in the access
-   *  list are //warmed// by pre-loading them, so their initial cost to
-   *  fetch is guaranteed, but then each additional access is cheaper.
+   * Maximum fee per gas for EIP-1559 transactions (as hex string)
    */
-  accessList?: AccessList;
+  maxFeePerGas?: string;
 
   /**
-   *  A custom object, which can be passed along for network-specific
-   *  values.
+   * Maximum priority fee per gas for EIP-1559 transactions (as hex string)
    */
-  customData?: any;
+  maxPriorityFeePerGas?: string;
+
+  /**
+   * Transaction nonce (if not provided, will be fetched from network)
+   */
+  nonce?: number;
+
+  /**
+   * The list of signed EIP-7702 authorizations to include in the transaction
+   */
+  authorizationList: Sign7702AuthorizationResponse[];
 }
 
-export enum WalletEventOnReceived {
-  WalletInfoFetched = 'Wallet/wallet-info-fetched',
+/**
+ * Response from sending an EIP-7702 transaction
+ */
+export interface Send7702TransactionResponse {
+  /**
+   * The transaction hash
+   */
+  transactionHash: string;
 }

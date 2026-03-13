@@ -11,7 +11,10 @@ export class ZilliqaExtension extends MultichainExtension<'zilliqa'> {
     });
   }
 
-  public sendTransaction = (params: any, toDs: boolean): Promise<any> => {
+  public sendTransaction = (
+    params: any,
+    toDs: boolean
+  ): Promise<any> => {
     if (params.amount) params.amount = typeof params.amount === 'string' ? params.amount : params.amount.toString();
     if (params.gasPrice)
       params.gasPrice = typeof params.gasPrice === 'string' ? params.gasPrice : params.gasPrice.toString();

@@ -26,7 +26,7 @@ const SAMPLE_BCS_TRANSACTION = new TxnBuilderTypes.TransactionPayloadEntryFuncti
   ),
 );
 
-const MOCK_ACCOUTN_INFO = {
+const MOCK_ACCOUNT_INFO = {
   address: SAMPLE_ADDRESS,
   publicKey: 'test-public-key',
 };
@@ -76,7 +76,7 @@ test('Call connect() without config.connect()', async () => {
     }),
   ]);
   magic.user.isLoggedIn = jest.fn().mockReturnValue(Promise.resolve(false));
-  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUTN_INFO));
+  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUNT_INFO));
 
   const aptosWallet = new MagicAptosWallet(magic);
 
@@ -91,7 +91,7 @@ test('Call connect() when a user has already logged in', async () => {
     }),
   ]);
   magic.user.isLoggedIn = jest.fn().mockReturnValue(Promise.resolve(true));
-  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUTN_INFO));
+  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUNT_INFO));
 
   const aptosWallet = new MagicAptosWallet(magic);
 
@@ -99,7 +99,7 @@ test('Call connect() when a user has already logged in', async () => {
   const accountInfo = await aptosWallet.connect();
 
   // Assert
-  expect(accountInfo).toEqual(MOCK_ACCOUTN_INFO);
+  expect(accountInfo).toEqual(MOCK_ACCOUNT_INFO);
 });
 
 test('Call disconnect()', async () => {
@@ -132,7 +132,7 @@ test('Call account()', async () => {
       nodeUrl: APTOS_NODE_URL,
     }),
   ]);
-  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUTN_INFO));
+  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUNT_INFO));
 
   const aptosWallet = new MagicAptosWallet(magic);
 
@@ -141,7 +141,7 @@ test('Call account()', async () => {
 
   // Assert
   expect(magic.aptos.getAccountInfo).toBeCalledTimes(1);
-  expect(accountInfo).toEqual(MOCK_ACCOUTN_INFO);
+  expect(accountInfo).toEqual(MOCK_ACCOUNT_INFO);
 });
 
 test('Call account() when a user has already logged in ', async () => {
@@ -151,7 +151,7 @@ test('Call account() when a user has already logged in ', async () => {
     }),
   ]);
   magic.user.isLoggedIn = jest.fn().mockReturnValue(Promise.resolve(true));
-  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUTN_INFO));
+  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUNT_INFO));
 
   const aptosWallet = new MagicAptosWallet(magic);
 
@@ -161,7 +161,7 @@ test('Call account() when a user has already logged in ', async () => {
 
   // Assert
   expect(magic.aptos.getAccountInfo).toBeCalledTimes(1);
-  expect(accountInfo).toEqual(MOCK_ACCOUTN_INFO);
+  expect(accountInfo).toEqual(MOCK_ACCOUNT_INFO);
 });
 
 test('Call account() without magic', async () => {
@@ -180,7 +180,7 @@ test('Call signTransaction()', async () => {
 
   const mockResult = Uint8Array.from([1, 2, 3]);
 
-  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUTN_INFO));
+  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUNT_INFO));
   magic.aptos.signTransaction = jest.fn().mockReturnValue(Promise.resolve(mockResult));
 
   const aptosWallet = new MagicAptosWallet(magic);
@@ -210,7 +210,7 @@ test('Call signAndSubmitTransaction()', async () => {
 
   const mockResult = { hash: 'test-hash' };
 
-  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUTN_INFO));
+  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUNT_INFO));
   magic.aptos.signAndSubmitTransaction = jest.fn().mockReturnValue(Promise.resolve(mockResult));
 
   const aptosWallet = new MagicAptosWallet(magic);
@@ -240,7 +240,7 @@ test('Call signAndSubmitBCSTransaction()', async () => {
 
   const mockResult = { hash: 'test-hash' };
 
-  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUTN_INFO));
+  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUNT_INFO));
   magic.aptos.signAndSubmitBCSTransaction = jest.fn().mockReturnValue(Promise.resolve(mockResult));
 
   const aptosWallet = new MagicAptosWallet(magic);
@@ -277,7 +277,7 @@ test('Call signMessage()', async () => {
     prefix: 'APTOS',
   };
 
-  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUTN_INFO));
+  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUNT_INFO));
   magic.aptos.signMessage = jest.fn().mockReturnValue(Promise.resolve(mockResult));
 
   const aptosWallet = new MagicAptosWallet(magic);
@@ -315,7 +315,7 @@ test('Call signMessageAndVerify()', async () => {
 
   const mockResult = true;
 
-  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUTN_INFO));
+  magic.aptos.getAccountInfo = jest.fn().mockReturnValue(Promise.resolve(MOCK_ACCOUNT_INFO));
   magic.aptos.signMessageAndVerify = jest.fn().mockReturnValue(Promise.resolve(mockResult));
 
   const aptosWallet = new MagicAptosWallet(magic);
@@ -360,7 +360,7 @@ test('Set up with mainnet and call network()', async () => {
   // Assert
   expect(result).toEqual({
     name: 'mainnet',
-    chainId: '1',
+    chainId: 1,
     url: NODE_URL,
   });
 });
@@ -381,7 +381,7 @@ test('Set up with testnet and call network()', async () => {
   // Assert
   expect(result).toEqual({
     name: 'testnet',
-    chainId: '2',
+    chainId: 2,
     url: NODE_URL,
   });
 });
@@ -402,6 +402,7 @@ test('Set up with devnet and call network()', async () => {
   // Assert
   expect(result).toEqual({
     name: 'devnet',
+    chainId: 34,
     url: NODE_URL,
   });
 });

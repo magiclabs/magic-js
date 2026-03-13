@@ -27,6 +27,7 @@ export class TestViewController extends ViewController {
   public _post = jest.fn();
   public checkRelayerExistsInDOM = jest.fn();
   public reloadRelayer = jest.fn();
+  public onThirdPartyWalletRequest = jest.fn();
 }
 
 export function createViewController(endpoint = MAGIC_RELAYER_FULL_URL) {
@@ -70,7 +71,10 @@ export function createMagicSDKTestMode(environment: { [P in keyof SDKEnvironment
   return new Ctor(TEST_API_KEY, { testMode: true });
 }
 
-export function createMagicSDKWithExtension(environment: { [P in keyof SDKEnvironment]?: any } = {}, extensions:unknown[] = []) {
+export function createMagicSDKWithExtension(
+  environment: { [P in keyof SDKEnvironment]?: any } = {},
+  extensions: unknown[] = [],
+) {
   const Ctor = createMagicSDKCtor(environment);
   return new Ctor(TEST_API_KEY, { extensions });
 }

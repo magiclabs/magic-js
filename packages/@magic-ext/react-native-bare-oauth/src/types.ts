@@ -114,4 +114,11 @@ export interface OAuthRedirectStartResult {
   oauthAuthoriationURI?: string;
   useMagicServerCallback?: boolean;
   shouldReturnURI?: boolean;
+  /** Present in the new client-PKCE path; forwarded with codeVerifier in the verify call. */
+  pkceMetadata?: {
+    state: string;
+    redirectUri: string;
+    appID: string;
+    provider: string;
+  };
 }

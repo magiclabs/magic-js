@@ -1,0 +1,9 @@
+# Gitleaks Ignore File
+# =====================
+# This file contains fingerprints of false positives that should be ignored by Gitleaks
+#
+# Format: <fingerprint>
+# The fingerprint format is: file:ruleID:line
+#
+# Add fingerprints of false positives below this line:
+# ======================================================

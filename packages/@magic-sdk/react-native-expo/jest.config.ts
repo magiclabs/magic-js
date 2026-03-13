@@ -3,7 +3,7 @@ import type { Config } from '@jest/types';
 
 const config: Config.InitialOptions = {
   ...baseJestConfig,
-  preset: 'jest-expo',
+  preset: 'react-native',
   transform: {
     '^.+\\.(js|jsx)$': 'babel-jest',
     '\\.(ts|tsx)$': 'ts-jest',

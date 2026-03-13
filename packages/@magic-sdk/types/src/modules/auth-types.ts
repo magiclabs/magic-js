@@ -93,6 +93,8 @@ export interface LoginWithEmailOTPConfiguration {
    */
   overrides?: {
     variation?: string;
+    appName?: string;
+    assetUrl?: string;
   };
 
   /**
@@ -157,6 +159,9 @@ export enum LoginWithEmailOTPEventEmit {
 
 export enum LoginWithSmsOTPEventEmit {
   VerifySmsOtp = 'verify-sms-otp',
+  VerifyMFACode = 'verify-mfa-code',
+  LostDevice = 'lost-device',
+  VerifyRecoveryCode = 'verify-recovery-code',
   Cancel = 'cancel',
   Retry = 'retry',
 }
@@ -165,6 +170,12 @@ export enum LoginWithSmsOTPEventOnReceived {
   SmsOTPSent = 'sms-otp-sent',
   InvalidSmsOtp = 'invalid-sms-otp',
   ExpiredSmsOtp = 'expired-sms-otp',
+  MfaSentHandle = 'mfa-sent-handle',
+  InvalidMfaOtp = 'invalid-mfa-otp',
+  LoginThrottled = 'login-throttled',
+  RecoveryCodeSentHandle = 'recovery-code-sent-handle',
+  InvalidRecoveryCode = 'invalid-recovery-code',
+  RecoveryCodeSuccess = 'recovery-code-success',
 }
 
 export enum LoginWithEmailOTPEventOnReceived {
@@ -177,6 +188,7 @@ export enum LoginWithEmailOTPEventOnReceived {
   InvalidRecoveryCode = 'invalid-recovery-code',
   RecoveryCodeSuccess = 'recovery-code-success',
   LoginThrottled = 'login-throttled',
+  MaxAttemptsReached = 'max-attempts-reached',
 }
 
 export enum DeviceVerificationEventEmit {
@@ -268,6 +280,9 @@ export type LoginWithMagicLinkEventHandlers = {
 export type LoginWithSmsOTPEventHandlers = {
   // Event sent
   [LoginWithSmsOTPEventEmit.VerifySmsOtp]: (otp: string) => void;
+  [LoginWithSmsOTPEventEmit.VerifyMFACode]: (mfa: string) => void;
+  [LoginWithSmsOTPEventEmit.LostDevice]: () => void;
+  [LoginWithSmsOTPEventEmit.VerifyRecoveryCode]: (recoveryCode: string) => void;
   [LoginWithSmsOTPEventEmit.Cancel]: () => void;
   [LoginWithSmsOTPEventEmit.Retry]: () => void;
 
@@ -275,6 +290,12 @@ export type LoginWithSmsOTPEventHandlers = {
   [LoginWithSmsOTPEventOnReceived.SmsOTPSent]: () => void;
   [LoginWithSmsOTPEventOnReceived.InvalidSmsOtp]: () => void;
   [LoginWithSmsOTPEventOnReceived.ExpiredSmsOtp]: () => void;
+  [LoginWithSmsOTPEventOnReceived.MfaSentHandle]: () => void;
+  [LoginWithSmsOTPEventOnReceived.InvalidMfaOtp]: () => void;
+  [LoginWithSmsOTPEventOnReceived.LoginThrottled]: () => void;
+  [LoginWithSmsOTPEventOnReceived.RecoveryCodeSentHandle]: () => void;
+  [LoginWithSmsOTPEventOnReceived.InvalidRecoveryCode]: () => void;
+  [LoginWithSmsOTPEventOnReceived.RecoveryCodeSuccess]: () => void;
 } & DeviceVerificationEventHandlers;
 
 export type LoginWithEmailOTPEventHandlers = {
@@ -288,6 +309,7 @@ export type LoginWithEmailOTPEventHandlers = {
   [LoginWithEmailOTPEventOnReceived.RecoveryCodeSentHandle]: () => void;
   [LoginWithEmailOTPEventOnReceived.InvalidRecoveryCode]: () => void;
   [LoginWithEmailOTPEventOnReceived.RecoveryCodeSuccess]: () => void;
+  [LoginWithEmailOTPEventOnReceived.MaxAttemptsReached]: () => void;
   [AuthEventOnReceived.IDTokenCreated]: (idToken: string) => void;
   [WalletEventOnReceived.WalletInfoFetched]: () => void;
 
