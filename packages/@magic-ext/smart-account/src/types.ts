@@ -2,10 +2,13 @@ export enum SmartAccountPayloadMethod {
   SendTransaction = 'magic_smart_account_send_transaction',
 }
 
-export interface SmartAccountConfig {
-  alchemyApiKey: string;
+export interface AlchemySmartAccountConfig {
+  provider?: 'alchemy';
+  apiKey: string;
   paymasterPolicyId?: string;
 }
+
+export type SmartAccountConfig = AlchemySmartAccountConfig;
 
 export interface SmartAccountCallInput {
   to: string;
