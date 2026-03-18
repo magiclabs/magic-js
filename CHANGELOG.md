@@ -1,3 +1,21 @@
+# (Wed Mar 18 2026)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/smart-account@1.0.0`
+  - adds smart account extension [#1032](https://github.com/magiclabs/magic-js/pull/1032) ([@joshuascan](https://github.com/joshuascan))
+
+#### 🐛 Bug Fix
+
+- Removal of deepsource adding in gitleaks. [#1051](https://github.com/magiclabs/magic-js/pull/1051) ([@noahyoshida](https://github.com/noahyoshida))
+
+#### Authors: 2
+
+- [@noahyoshida](https://github.com/noahyoshida)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Mon Mar 09 2026)
 
 #### 🐛 Bug Fix
