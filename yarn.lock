@@ -3683,6 +3683,7 @@ __metadata:
     expo: ^54.0.30
     expo-application: ^7.0.8
     expo-modules-core: ^3.0.29
+    expo-web-browser: 14.0.2
     jest-expo: ~54.0.16
     localforage: ^1.7.4
     lodash: ^4.17.19
