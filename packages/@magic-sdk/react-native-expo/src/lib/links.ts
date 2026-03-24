@@ -5,11 +5,17 @@ export const openInBrowser = async (url: string) => {
   const supported = await Linking.canOpenURL(url);
   if (supported) {
     await Linking.openURL(url);
+  } else {
+    console.warn(`Cannot open URL: ${url}`);
   }
 };
 
 export const openInApp = async (url: string) => {
-  await WebBrowser.openBrowserAsync(url, {
-    presentationStyle: WebBrowser.WebBrowserPresentationStyle.PAGE_SHEET, // iOS
-  });
+  try {
+    await WebBrowser.openBrowserAsync(url, {
+      presentationStyle: WebBrowser.WebBrowserPresentationStyle.PAGE_SHEET, // iOS
+    });
+  } catch (e) {
+    await openInBrowser(url);
+  }
 };
