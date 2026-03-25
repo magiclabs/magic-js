@@ -54,7 +54,6 @@ describe('format web3modal getinfo response', () => {
       phoneNumber: null,
       isMfaEnabled: false,
       recoveryFactors: [],
-      walletType: 'Magic',
       wallets: {
         ethereum: {
           publicAddress: '0x1234567890',
