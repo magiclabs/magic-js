@@ -49,11 +49,11 @@ describe('third party wallet requestOverride', () => {
     expect(logoutMock).toBeCalled();
   });
 
-  it('should call web3modalRequest if provider is web3modal', () => {
-    localStorage.setItem('magic_3pw_provider', 'web3modal');
+  it('should call magicWidgetRequest if provider is magic-widget', () => {
+    localStorage.setItem('magic_3pw_provider', 'magic-widget');
     const payload = { method: 'someMethod' };
     const magic = createMagicSDK();
-    const spy = jest.spyOn(magic.thirdPartyWallets, 'web3modalRequest').mockImplementation(() => Promise.resolve({}));
+    const spy = jest.spyOn(magic.thirdPartyWallets, 'magicWidgetRequest').mockImplementation(() => Promise.resolve({}));
     magic.thirdPartyWallets.requestOverride(payload);
     expect(spy).toBeCalled();
   });

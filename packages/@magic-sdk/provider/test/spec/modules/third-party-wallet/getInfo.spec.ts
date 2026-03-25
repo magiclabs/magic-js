@@ -9,11 +9,12 @@ beforeEach(() => {
 });
 
 describe('third party wallet getInfo', () => {
-  it('should call web3modalGetInfo if provider is web3modal', () => {
-    localStorage.setItem('magic_3pw_provider', 'web3modal');
+  it('should call requestOverlay if provider is magic-widget', () => {
+    localStorage.setItem('magic_3pw_provider', 'magic-widget');
     const payload = { method: 'getInfo' };
     const magic = createMagicSDK();
-    const spy = jest.spyOn(magic.thirdPartyWallets, 'web3modalGetInfo').mockImplementation(() => Promise.resolve({}));
+    // @ts-expect-error 'requestOverlay' is protected
+    const spy = jest.spyOn(BaseModule.prototype, 'requestOverlay').mockImplementation(() => Promise.resolve({}));
     magic.thirdPartyWallets.getInfo(payload);
     expect(spy).toHaveBeenCalled();
   });
@@ -26,40 +27,5 @@ describe('third party wallet getInfo', () => {
     BaseModule.prototype.request = requestMock;
     magic.thirdPartyWallets.getInfo(payload);
     expect(requestMock).toHaveBeenCalled();
-  });
-});
-
-describe('format web3modal getinfo response', () => {
-  it('should format the response correctly', () => {
-    const magic = createMagicSDK();
-
-    magic.web3modal = {
-      modal: {
-        getWalletInfo: jest.fn().mockReturnValue({
-          name: 'Magic',
-        }),
-        getAddress: jest.fn().mockReturnValue('0x1234567890'),
-      },
-    };
-
-    console.log(magic.web3modal.modal.getWalletInfo());
-    console.log(magic.web3modal.modal.getAddress());
-
-    const response = magic.thirdPartyWallets.formatWeb3modalGetInfoResponse();
-
-    expect(response).toEqual({
-      email: null,
-      firstLoginAt: null,
-      issuer: 'did:ethr:0x1234567890',
-      phoneNumber: null,
-      isMfaEnabled: false,
-      recoveryFactors: [],
-      wallets: {
-        ethereum: {
-          publicAddress: '0x1234567890',
-          subAccounts: [],
-        },
-      },
-    });
   });
 });
