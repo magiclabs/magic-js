@@ -1,3 +1,17 @@
+# (Wed Mar 25 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.6.2`, `@magic-sdk/types@27.6.1`
+  - Remove wallet type from user metadata [#1062](https://github.com/magiclabs/magic-js/pull/1062) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Wed Mar 18 2026)
 
 #### 💥 Breaking Change
