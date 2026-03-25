@@ -3646,7 +3646,6 @@ __metadata:
     react-native: ~0.78.1
     react-native-device-info: ^10.3.0
     react-native-event-listeners: ^1.0.7
-    react-native-inappbrowser-reborn: ^3.7.0
     react-native-keychain: ^10.0.0
     react-native-safe-area-context: 5.3.0
     react-native-uuid: ^2.0.3
@@ -3684,7 +3683,6 @@ __metadata:
     expo: ^54.0.30
     expo-application: ^7.0.8
     expo-modules-core: ^3.0.29
-    expo-web-browser: 14.0.2
     jest-expo: ~54.0.16
     localforage: ^1.7.4
     lodash: ^4.17.19

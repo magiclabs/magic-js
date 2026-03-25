@@ -10,7 +10,7 @@ import { EventRegister } from 'react-native-event-listeners';
 /* global NodeJS */
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
-import { openInApp, openInBrowser } from './lib/links';
+import { openInBrowser } from './lib/links';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -95,15 +95,9 @@ export class ReactNativeWebViewController extends ViewController {
     useEffect(() => {
       const removeHandler = this.on(MagicIncomingWindowMessage.MAGIC_OPEN_MOBILE_URL, (event: MagicMessageEvent) => {
         const url = event.data.response.result?.url;
-        const type = event.data.response.result?.type ?? 'drawer';
-
         if (!url) return;
 
-        if (type === 'drawer') {
-          openInApp(url);
-        } else {
-          openInBrowser(url);
-        }
+        openInBrowser(url);
       });
 
       return removeHandler;
