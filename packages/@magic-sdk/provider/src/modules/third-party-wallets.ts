@@ -140,7 +140,6 @@ export class ThirdPartyWalletsModule extends BaseModule {
       phoneNumber: null,
       isMfaEnabled: false,
       recoveryFactors: [] as [],
-      walletType: walletType || 'web3modal',
       firstLoginAt: null,
       wallets: {
         ethereum: {
