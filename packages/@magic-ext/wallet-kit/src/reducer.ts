@@ -109,6 +109,7 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
         walletAddress: undefined,
         identifier: undefined,
         error: undefined,
+        farcasterUrl: state.farcasterUrl,
       };
 
     case 'GO_TO_SMS_LOGIN':
@@ -288,7 +289,7 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
 
     // Farcaster flow
     case 'SELECT_FARCASTER':
-      return { ...state, view: 'farcaster_pending', farcasterUrl: undefined, farcasterUsername: undefined, error: undefined };
+      return { ...state, view: 'farcaster_pending', farcasterUsername: undefined, error: undefined };
 
     case 'FARCASTER_CHANNEL_RECEIVED':
       return { ...state, farcasterUrl: action.url };
