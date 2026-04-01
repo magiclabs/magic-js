@@ -1,3 +1,16 @@
+# (Wed Apr 01 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/wallet-kit@0.8.3`
+  - Fix Wallet Kit Farcaster QR code disappearing [#1069](https://github.com/magiclabs/magic-js/pull/1069) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Wed Mar 25 2026)
 
 #### 🐛 Bug Fix
