@@ -18,7 +18,9 @@ export const FarcasterPendingView = ({ state, dispatch }: FarcasterPendingViewPr
   const { farcasterUrl } = state;
 
   useEffect(() => {
-    startFarcasterLogin();
+    if (!farcasterUrl) {
+      startFarcasterLogin();
+    }
   }, []);
 
   const handleCopyLink = async () => {
