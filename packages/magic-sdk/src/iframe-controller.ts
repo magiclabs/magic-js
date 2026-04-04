@@ -55,7 +55,6 @@ export class IframeController extends ViewController {
    * Initializes the underlying `Window.onmessage` event listener.
    */
   protected init() {
-    (this as any).test = 'hello';
     this.iframe = new Promise(resolve => {
       const onload = () => {
         if (!checkForSameSrcInstances(encodeURIComponent(this.parameters))) {
