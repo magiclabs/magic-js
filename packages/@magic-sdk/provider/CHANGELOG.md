@@ -1,3 +1,16 @@
+# v33.6.2 (Wed Mar 25 2026)
+
+#### 🐛 Bug Fix
+
+- Remove wallet type from user metadata [#1062](https://github.com/magiclabs/magic-js/pull/1062) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v33.6.1 (Mon Mar 09 2026)
 
 #### 🐛 Bug Fix

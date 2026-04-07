@@ -36,7 +36,6 @@ export interface MagicUserMetadata {
   phoneNumber: string | null;
   isMfaEnabled: boolean;
   recoveryFactors: [RecoveryFactor] | [];
-  walletType: string;
   firstLoginAt: string | null;
   wallets: {
     ethereum?: ChainWalletInfo;

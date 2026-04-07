@@ -9,13 +9,12 @@ beforeEach(() => {
 });
 
 describe('third party wallet isLoggedIn', () => {
-  it('should call web3modalIsLoggedIn if provider is web3modal', () => {
-    localStorage.setItem('magic_3pw_provider', 'web3modal');
+  it('should call requestOverlay if provider is magic-widget', () => {
+    localStorage.setItem('magic_3pw_provider', 'magic-widget');
     const payload = { method: 'isLoggedIn' };
     const magic = createMagicSDK();
-    const spy = jest
-      .spyOn(magic.thirdPartyWallets, 'web3modalIsLoggedIn')
-      .mockImplementation(() => Promise.resolve({}));
+    // @ts-expect-error 'requestOverlay' is protected
+    const spy = jest.spyOn(BaseModule.prototype, 'requestOverlay').mockImplementation(() => Promise.resolve({}));
     magic.thirdPartyWallets.isLoggedIn(payload);
     expect(spy).toHaveBeenCalled();
   });
