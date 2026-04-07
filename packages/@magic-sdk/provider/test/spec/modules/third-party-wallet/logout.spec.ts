@@ -8,11 +8,11 @@ beforeEach(() => {
 });
 
 describe('third party wallet logout', () => {
-  it('should call web3modal.logout if provider is web3modal', () => {
-    localStorage.setItem('magic_3pw_provider', 'web3modal');
+  it('should call magicWidgetLogout if provider is magic-widget', () => {
+    localStorage.setItem('magic_3pw_provider', 'magic-widget');
     const payload = { method: 'logout' };
     const magic = createMagicSDK();
-    const spy = jest.spyOn(magic.thirdPartyWallets, 'web3modalLogout').mockImplementation(() => Promise.resolve({}));
+    const spy = jest.spyOn(magic.thirdPartyWallets, 'magicWidgetLogout').mockImplementation(() => Promise.resolve({}));
     magic.thirdPartyWallets.logout(payload);
     expect(spy).toHaveBeenCalled();
   });

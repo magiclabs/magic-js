@@ -42,10 +42,6 @@ export type ShowUIPromiEvents = {
   disconnect: () => void;
 };
 
-export interface WalletInfo {
-  walletType: string;
-}
-
 export interface RequestUserInfoScope {
   scope?: {
     email?: 'required' | 'optional';
