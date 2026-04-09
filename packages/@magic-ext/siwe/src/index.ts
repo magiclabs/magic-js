@@ -1,5 +1,5 @@
 import { Extension } from '@magic-sdk/provider';
-import { SiweMessage } from 'siwe';
+import { SiweMessage } from '@signinwithethereum/siwe';
 import { SiwePayloadMethod, SiweGenerateNonceParams, SiweGenerateMessageParams, SiweLoginParams } from './types';
 
 export class SiweExtension extends Extension.Internal<'siwe'> {
@@ -27,6 +27,7 @@ export class SiweExtension extends Extension.Internal<'siwe'> {
       version: '1',
       chainId: params.chainId || 1,
       nonce,
+      issuedAt: new Date().toISOString(),
     });
 
     return siweMessage.prepareMessage();

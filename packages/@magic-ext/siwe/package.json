@@ -28,7 +28,7 @@
     ]
   },
   "dependencies": {
-    "siwe": "^3.0.0"
+    "@signinwithethereum/siwe": "^4.1.0"
   },
   "peerDependencies": {
     "ethers": "^6.0.0"
