@@ -27,6 +27,7 @@ export class SiweExtension extends Extension.Internal<'siwe'> {
       version: '1',
       chainId: params.chainId || 1,
       nonce,
+      issuedAt: new Date().toISOString(),
     });
 
     return siweMessage.prepareMessage();
