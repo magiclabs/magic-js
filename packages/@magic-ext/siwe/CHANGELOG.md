@@ -1,3 +1,15 @@
+# v3.5.4 (Thu Apr 09 2026)
+
+#### 🐛 Bug Fix
+
+- Migrate to @signinwithethereum/siwe [#1074](https://github.com/magiclabs/magic-js/pull/1074) ([@caveman-eth](https://github.com/caveman-eth))
+
+#### Authors: 1
+
+- caveman.eth ([@caveman-eth](https://github.com/caveman-eth))
+
+---
+
 # v3.2.2 (Thu Feb 05 2026)
 
 #### ⚠️ Pushed to `master`
