@@ -1,3 +1,16 @@
+# (Thu Apr 09 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/types@27.6.2`
+  - feat: add mobile url message type [#1061](https://github.com/magiclabs/magic-js/pull/1061) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Wed Apr 01 2026)
 
 #### 🐛 Bug Fix
