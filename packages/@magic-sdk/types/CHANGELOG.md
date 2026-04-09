@@ -1,3 +1,15 @@
+# v27.6.2 (Thu Apr 09 2026)
+
+#### 🐛 Bug Fix
+
+- feat: add mobile url message type [#1061](https://github.com/magiclabs/magic-js/pull/1061) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v27.6.1 (Wed Mar 25 2026)
 
 #### 🐛 Bug Fix
