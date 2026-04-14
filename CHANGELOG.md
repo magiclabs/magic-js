@@ -1,3 +1,16 @@
+# (Tue Apr 14 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/react-native-bare@34.5.0`, `@magic-sdk/react-native-expo@34.5.0`
+  - feat: implement mechanism to open new window via events [#1060](https://github.com/magiclabs/magic-js/pull/1060) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Thu Apr 09 2026)
 
 #### 🐛 Bug Fix

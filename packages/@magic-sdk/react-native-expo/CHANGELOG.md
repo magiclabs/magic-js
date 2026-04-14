@@ -1,3 +1,15 @@
+# v34.5.0 (Tue Apr 14 2026)
+
+#### 🚀 Enhancement
+
+- feat: implement mechanism to open new window via events [#1060](https://github.com/magiclabs/magic-js/pull/1060) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v34.1.1 (Thu Feb 05 2026)
 
 #### 🐛 Bug Fix
