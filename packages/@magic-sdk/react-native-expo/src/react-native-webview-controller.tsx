@@ -3,13 +3,14 @@ import { Linking, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
-import { MagicMessageEvent } from '@magic-sdk/types';
+import { MagicIncomingWindowMessage, MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventRegister } from 'react-native-event-listeners';
 /* global NodeJS */
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
+import { openInBrowser } from './lib/links';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -90,6 +91,17 @@ export class ReactNativeWebViewController extends ViewController {
     useEffect(() => {
       this.isConnectedToInternet = isConnected;
     }, [isConnected]);
+
+    useEffect(() => {
+      const removeHandler = this.on(MagicIncomingWindowMessage.MAGIC_OPEN_MOBILE_URL, (event: MagicMessageEvent) => {
+        const url = event.data.response.result?.url;
+        if (!url) return;
+
+        openInBrowser(url);
+      });
+
+      return removeHandler;
+    }, []);
 
     useEffect(() => {
       // reset lastMessage when webview is first mounted

@@ -3,7 +3,7 @@ import { Linking, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
-import { MagicMessageEvent } from '@magic-sdk/types';
+import { MagicIncomingWindowMessage, MagicMessageEvent } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventRegister } from 'react-native-event-listeners';
@@ -13,6 +13,7 @@ import { useInternetConnection } from './hooks';
 import { getRefreshTokenInKeychain, setRefreshTokenInKeychain } from './native-crypto/keychain';
 import { getDpop } from './native-crypto/dpop';
 import { checkNativeModules } from './native-crypto/check-native-modules';
+import { openInBrowser } from './lib/links';
 
 const MAGIC_PAYLOAD_FLAG_TYPED_ARRAY = 'MAGIC_PAYLOAD_FLAG_TYPED_ARRAY';
 const OPEN_IN_DEVICE_BROWSER = 'open_in_device_browser';
@@ -116,6 +117,17 @@ export class ReactNativeWebViewController extends ViewController {
         setTimeout(() => setMountOverlay(true), 10);
       }
     }, [mountOverlay]);
+
+    useEffect(() => {
+      const removeHandler = this.on(MagicIncomingWindowMessage.MAGIC_OPEN_MOBILE_URL, (event: MagicMessageEvent) => {
+        const url = event.data.response.result?.url;
+        if (!url) return;
+
+        openInBrowser(url);
+      });
+
+      return removeHandler;
+    }, []);
 
     /**
      * Saves a reference to the underlying `<WebView>` node so we can interact
