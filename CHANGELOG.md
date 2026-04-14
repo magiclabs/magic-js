@@ -2,6 +2,19 @@
 
 #### 🐛 Bug Fix
 
+- `@magic-ext/siwe@3.5.4`
+  - Migrate to @signinwithethereum/siwe [#1074](https://github.com/magiclabs/magic-js/pull/1074) ([@caveman-eth](https://github.com/caveman-eth))
+
+#### Authors: 1
+
+- caveman.eth ([@caveman-eth](https://github.com/caveman-eth))
+
+---
+
+# (Thu Apr 09 2026)
+
+#### 🐛 Bug Fix
+
 - `@magic-sdk/types@27.6.2`
   - feat: add mobile url message type [#1061](https://github.com/magiclabs/magic-js/pull/1061) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
 
