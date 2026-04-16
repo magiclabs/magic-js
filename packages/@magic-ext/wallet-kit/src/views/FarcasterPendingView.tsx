@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { VStack, Center } from '@styled/jsx';
 import { QRCode, Text, Skeleton, Button, IcoCopy, IcoCheckmark } from '@magiclabs/ui-components';
 import { WidgetAction, WidgetState } from '../reducer';
 import { useFarcasterLogin } from '../hooks/useFarcasterLogin';
 import WidgetHeader from '../components/WidgetHeader';
+import { Center, VStack } from '../components/Stack';
 import { FARCASTER_BRAND_COLOR, FARCASTER_LOGO_URL } from '../constants';
 import { copyToClipboard } from '../utils/copy';
 
@@ -31,7 +31,7 @@ export const FarcasterPendingView = ({ state, dispatch }: FarcasterPendingViewPr
   return (
     <>
       <WidgetHeader onPressBack={cancel} showHeaderText={false} />
-      <VStack gap={6} pt={4} alignItems="center">
+      <VStack className="gap-6 pt-4 items-center">
         {farcasterUrl ? (
           <QRCode
             eyeRadius={8}
@@ -47,11 +47,11 @@ export const FarcasterPendingView = ({ state, dispatch }: FarcasterPendingViewPr
             quietZone={12}
           />
         ) : (
-          <Center width="294px" height="294px">
+          <Center className="w-[294px] h-[294px]">
             <Skeleton width={286} height={286} borderRadius={16} backgroundColor="surface.secondary" />
           </Center>
         )}
-        <VStack gap={2} alignItems="center" px={7}>
+        <VStack className="gap-2 items-center px-7">
           <Text.H4 styles={{ textAlign: 'center' }}>Sign in with Farcaster</Text.H4>
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
             Scan the QR code with your phone or enter the link on a mobile browser

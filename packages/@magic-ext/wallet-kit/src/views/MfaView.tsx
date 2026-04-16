@@ -1,8 +1,7 @@
 import { Button, IcoLockLocked, Text, VerifyPincode } from '@magiclabs/ui-components';
-import { VStack } from '@styled/jsx';
-import { token } from '@styled/tokens';
 import React from 'react';
 import WidgetHeader from '../components/WidgetHeader';
+import { VStack } from '../components/Stack';
 import { useMfa } from '../hooks/useMfa';
 import { WidgetAction, WidgetState } from '../reducer';
 
@@ -26,8 +25,8 @@ export const MFAView = ({ state, dispatch }: MFAViewProps) => {
     <>
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
       <VStack>
-        <VStack gap={6}>
-          <IcoLockLocked width={60} height={60} color={token('colors.brand.base')} />
+        <VStack className="gap-6">
+          <IcoLockLocked width={60} height={60} color="var(--color-brand-base)" />
           <Text.H4 styles={{ textAlign: 'center', fontWeight: 'normal' }}>
             Please enter the 6-digit code from your authenticator app.
           </Text.H4>

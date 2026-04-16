@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import { VStack, Box, HStack } from '@styled/jsx';
 import { Text, IcoShield, IcoEdit } from '@magiclabs/ui-components';
-import { css } from '@styled/css';
-import { token } from '@styled/tokens';
-import { useEmailLogin } from '../context/EmailLoginContext';
 import { WidgetAction, WidgetState } from '../reducer';
 import WidgetHeader from '../components/WidgetHeader';
+import { HStack, VStack } from '../components/Stack';
 import { useCancelLogin } from 'src/hooks/useCancelLogin';
 
 interface DeviceVerificationViewProps {
@@ -29,8 +26,8 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
   return (
     <>
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
-      <VStack gap={6}>
-        <IcoShield width={60} height={60} color={token('colors.brand.base')} />
+      <VStack className="gap-6">
+        <IcoShield width={60} height={60} color="var(--color-brand-base)" />
         <Text.H4
           styles={{
             textAlign: 'center',
@@ -39,7 +36,7 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
           Please register this device to continue.
         </Text.H4>
 
-        <VStack gap={0}>
+        <VStack className="gap-0">
           <Text
             styles={{
               textAlign: 'center',
@@ -48,7 +45,7 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
           >
             We sent a device registration link to
           </Text>
-          <HStack gap={2}>
+          <HStack className="gap-2">
             <Text
               styles={{
                 textAlign: 'center',
@@ -57,13 +54,13 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
             >
               {isSms ? 'your phone' : identifier}
             </Text>
-            <button className={css({ cursor: 'pointer' })} onClick={cancelLogin}>
-              <IcoEdit height={18} width={18} color={token('colors.brand.base')} />
+            <button className="cursor-pointer" onClick={cancelLogin}>
+              <IcoEdit height={18} width={18} color="var(--color-brand-base)" />
             </button>
           </HStack>
         </VStack>
 
-        <Box mt={4}>
+        <div className="mt-4">
           <Text
             styles={{
               textAlign: 'center',
@@ -71,7 +68,7 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
           >
             This quick one-time approval will help keep your account secure.
           </Text>
-        </Box>
+        </div>
       </VStack>
     </>
   );

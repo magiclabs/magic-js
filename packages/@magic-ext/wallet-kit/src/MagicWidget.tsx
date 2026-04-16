@@ -1,5 +1,4 @@
 import { Footer, Modal, useCustomVars } from '@magiclabs/ui-components';
-import { VStack } from '../styled-system/jsx';
 import React, { useEffect, useReducer, useState } from 'react';
 import { WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -26,7 +25,7 @@ import { FarcasterPendingView } from './views/FarcasterPendingView';
 import { FarcasterSuccessView } from './views/FarcasterSuccessView';
 import { FarcasterFailedView } from './views/FarcasterFailedView';
 import { ClientTheme } from './types/client-config';
-import { css } from '@styled/css';
+import { VStack } from './components/Stack';
 import { useMediaQuery } from './hooks/useMediaQuery';
 
 const queryClient = new QueryClient();
@@ -118,7 +117,7 @@ function WidgetContent({
       <SmsLoginProvider dispatch={dispatch}>
         <OAuthLoginProvider dispatch={dispatch}>
           <Modal isWidget fullscreen={isModal && isMobile}>
-            <VStack width="full" minWidth="380px">
+            <VStack className="w-full min-w-[380px]">
               {renderView()}
               <Footer showLogo={showFooterLogo} />
             </VStack>
@@ -268,7 +267,7 @@ export function MagicWidget({
     return (
       <div
         style={modalBackdropStyles}
-        className={css({ '@media (min-width: 769px)': { paddingTop: '15vh' } })}
+        className="[@media(min-width:769px)]:pt-[15vh]"
         onClick={handleBackdropClick}
       >
         <div style={modalContentStyles}>{widgetContent}</div>

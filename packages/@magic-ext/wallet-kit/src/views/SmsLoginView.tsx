@@ -1,10 +1,9 @@
 import { IcoPhone, LoadingSpinner, PhoneInput, Text } from '@magiclabs/ui-components';
-import { Spacer, VStack } from '@styled/jsx';
-import { token } from '@styled/tokens';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import React, { useState } from 'react';
 import { RpcErrorMessage } from 'src/types';
 import WidgetHeader from '../components/WidgetHeader';
+import { VStack } from '../components/Stack';
 import { useSmsLogin } from '../context/SmsLoginContext';
 import { WidgetState } from '../reducer';
 
@@ -38,7 +37,7 @@ export const SmsLoginView = ({ state }: SmsLoginViewProps) => {
     return (
       <>
         <WidgetHeader onPressBack={cancelLogin} />
-        <Spacer size={'2'} />
+        <div className="h-2" />
         <LoadingSpinner size={60} strokeWidth={6} neutral />
       </>
     );
@@ -47,9 +46,9 @@ export const SmsLoginView = ({ state }: SmsLoginViewProps) => {
   return (
     <>
       <WidgetHeader onPressBack={cancelLogin} />
-      <VStack w="full" gap={10} mt={2} px={7}>
-        <VStack gap={10}>
-          <IcoPhone width={60} height={60} color={token('colors.brand.base')} />
+      <VStack className="w-full gap-10 mt-2 px-7">
+        <VStack className="gap-10">
+          <IcoPhone width={60} height={60} color="var(--color-brand-base)" />
           <Text.H4
             fontWeight="medium"
             styles={{

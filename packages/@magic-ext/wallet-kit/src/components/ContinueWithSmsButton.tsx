@@ -1,7 +1,4 @@
-import { ButtonContainer, IcoMessage, IcoPhone, Text } from '@magiclabs/ui-components';
-import { css } from '@styled/css';
-import { Box, Flex } from '@styled/jsx';
-import { token } from '@styled/tokens';
+import { ButtonContainer, IcoPhone, Text } from '@magiclabs/ui-components';
 import React from 'react';
 import { getExtensionInstance } from '../extension';
 
@@ -10,23 +7,17 @@ export const ContinueWithSmsButton = ({ onClick }: { onClick: () => void }) => {
   const isDarkMode = config?.theme.themeColor === 'dark';
 
   return (
-    <Box flex={1}>
+    <div className="flex-1">
       <ButtonContainer
         onPress={onClick}
         borderRadius={14}
-        className={css({
-          w: 'full',
-          px: 4,
-          py: 3,
-          bg: 'neutral.quaternary',
-          _hover: { bg: 'neutral.tertiary' },
-        })}
+        className="w-full px-4 py-3 bg-neutral-quaternary hover:bg-neutral-tertiary"
       >
-        <Flex gap={3} w="full" justifyContent={'flex-start'} alignItems="center">
-          <IcoPhone width={24} height={24} {...(isDarkMode ? { color: token('colors.ink.70') } : {})} />
+        <div className="flex flex-row items-center gap-3 w-full justify-start">
+          <IcoPhone width={24} height={24} {...(isDarkMode ? { color: '#77767A' } : {})} />
           <Text styles={{ lineHeight: '1.5rem' }}>Continue with SMS</Text>
-        </Flex>
+        </div>
       </ButtonContainer>
-    </Box>
+    </div>
   );
 };
