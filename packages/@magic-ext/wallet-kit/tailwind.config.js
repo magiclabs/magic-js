@@ -7,6 +7,7 @@ export default {
     './src/**/*.{js,jsx,ts,tsx}',
     './node_modules/@magiclabs/ui-components/dist/es/**/*.js',
   ],
+  important: '#magic-widget-container',
   corePlugins: {
     preflight: false,
   },

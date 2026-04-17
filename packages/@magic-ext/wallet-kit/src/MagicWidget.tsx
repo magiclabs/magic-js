@@ -167,6 +167,7 @@ export function MagicWidget({
   const { setColors, setRadius } = useCustomVars({});
   const [clientTheme, setClientTheme] = useState<ClientTheme | null>(null);
   const [showFooterLogo, setShowFooterLogo] = useState(false);
+  const [colorMode, setColorMode] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
     injectCSS();
@@ -196,9 +197,9 @@ export function MagicWidget({
 
     const setClientTheme = async () => {
       try {
-        const colorMode = clientTheme.themeColor === 'dark' ? 'dark' : 'light';
+        const nextColorMode = clientTheme.themeColor === 'dark' ? 'dark' : 'light';
         const { textColor, buttonColor, buttonRadius, containerRadius, backgroundColor, neutralColor } = clientTheme;
-        document.documentElement.setAttribute('data-color-mode', colorMode);
+        setColorMode(nextColorMode);
         if (textColor) setColors('text', textColor);
         if (buttonRadius) setRadius('button', buttonRadius);
         if (containerRadius) setRadius('container', containerRadius);
@@ -256,7 +257,9 @@ export function MagicWidget({
       <WagmiProvider config={getExtensionInstance().wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <div id="magic-widget-container">
-            <WidgetContent state={state} dispatch={dispatch} showFooterLogo={showFooterLogo} isModal={isModal} />
+            <div data-color-mode={colorMode}>
+              <WidgetContent state={state} dispatch={dispatch} showFooterLogo={showFooterLogo} isModal={isModal} />
+            </div>
           </div>
         </QueryClientProvider>
       </WagmiProvider>
