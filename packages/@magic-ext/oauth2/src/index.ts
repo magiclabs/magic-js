@@ -117,10 +117,18 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     // Steam OpenID 2.0 appends openid.* params to the return_to URL. Detect and route to Steam verify.
     const normalizedQuery = queryString.startsWith('?') ? queryString.slice(1) : queryString;
     if (new URLSearchParams(normalizedQuery).get('openid.ns') === 'http://specs.openid.net/auth/2.0') {
+      // Clear any stale PKCE metadata from an earlier abandoned non-Steam attempt so it
+      // doesn't linger past this callback.
+      this.clearPKCEMetadata();
       return this.getSteamResult(normalizedQuery);
     }
 
     return this.getResult(configuration, queryString);
+  }
+
+  private clearPKCEMetadata() {
+    sessionStorage.removeItem(PKCE_STORAGE_KEY);
+    localStorage.removeItem(PKCE_STORAGE_KEY);
   }
 
   private getSteamResult(openidParams: string) {
