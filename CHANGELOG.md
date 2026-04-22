@@ -1,3 +1,16 @@
+# (Wed Apr 22 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@15.6.0`
+  - adds support for steam login [#1079](https://github.com/magiclabs/magic-js/pull/1079) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Apr 14 2026)
 
 #### 🚀 Enhancement
