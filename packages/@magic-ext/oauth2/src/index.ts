@@ -8,6 +8,7 @@ import {
   OAuthRedirectStartResult,
   OAuthPopupConfiguration,
   OAuthVerificationConfiguration,
+  LoginWithIdTokenConfiguration,
 } from './types';
 import {
   OAuthMFAEventEmit,
@@ -290,6 +291,32 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     }
 
     return promiEvent;
+  }
+
+  /**
+   * Log in with a provider ID token, such as a Google One Tap credential.
+   * This is a headless flow — no UI is shown in the embedded wallet iframe.
+   *
+   * @param configuration - The ID token and provider name
+   * @returns Promise resolving to a DID token string
+   *
+   * @example
+   * ```typescript
+   * // In the Google One Tap callback:
+   * function handleCredentialResponse(response) {
+   *   const didToken = await magic.oauth2.loginWithIdToken({
+   *     idToken: response.credential,
+   *     provider: 'google',
+   *   });
+   * }
+   * ```
+   */
+  public loginWithIdToken(configuration: LoginWithIdTokenConfiguration) {
+    const { idToken, provider, lifespan } = configuration;
+    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.LoginWithIdToken, [
+      { idToken, provider, lifespan },
+    ]);
+    return this.request<string | null>(requestPayload);
   }
 
   protected seamlessTelegramLogin() {

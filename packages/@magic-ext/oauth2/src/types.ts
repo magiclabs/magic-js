@@ -5,6 +5,7 @@ export enum OAuthPayloadMethods {
   Verify = 'magic_oauth_login_with_redirect_verify',
   Popup = 'magic_oauth_login_with_popup',
   VerifyTelegramData = 'magic_oauth_verify_telegram_data',
+  LoginWithIdToken = 'magic_oauth_login_with_id_token',
 }
 
 export type OAuthProvider =
@@ -129,6 +130,24 @@ export interface OAuthPopupConfiguration {
   providerParams?: Record<string, string | number | boolean>;
   shouldReturnURI?: boolean;
   showMfaModal?: boolean;
+}
+
+export interface LoginWithIdTokenConfiguration {
+  /**
+   * The raw ID token (JWT) from the identity provider.
+   * For Google One Tap, this is the `credential` field from the callback response.
+   */
+  idToken: string;
+
+  /**
+   * The OAuth provider name (e.g. 'google').
+   */
+  provider: OAuthProvider;
+
+  /**
+   * Optional DID token lifespan in seconds. Defaults to 900 (15 minutes).
+   */
+  lifespan?: number;
 }
 
 export enum OAuthErrorCode {
