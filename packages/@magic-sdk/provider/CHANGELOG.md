@@ -1,3 +1,15 @@
+# v33.6.4 (Thu Apr 23 2026)
+
+#### 🐛 Bug Fix
+
+- add missing error code to types [#1084](https://github.com/magiclabs/magic-js/pull/1084) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v33.6.2 (Wed Mar 25 2026)
 
 #### 🐛 Bug Fix
