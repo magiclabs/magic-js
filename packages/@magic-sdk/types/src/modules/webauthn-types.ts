@@ -1,5 +1,5 @@
 export interface PasskeyResult {
-  // null if skipDidToken is true
+  // null if skipDIDToken is true
   idToken: string | null;
 
   // Info of the device used to authenticate

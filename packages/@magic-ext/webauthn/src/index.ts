@@ -28,9 +28,7 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
     const { username, nickname = '', skipDIDToken, lifespan } = configuration;
 
     const { registrationOptions, registrationToken } = await this.request<any>(
-      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.RegisterPasskeyStart, [
-        { username, skipDIDToken, lifespan },
-      ]),
+      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.RegisterPasskeyStart, [{ username }]),
     );
 
     let credential;
@@ -50,6 +48,8 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
           nickname,
           transport: credential.response.getTransports(),
           userAgent: navigator.userAgent,
+          skipDIDToken,
+          lifespan,
         },
       ]),
     );

@@ -16,7 +16,7 @@ export interface RegisterNewUserConfiguration {
 
 export interface LoginWithWebAuthnConfiguration {
   /**
-   * The username of the user attempting to register.
+   * The username of the user attempting to login.
    * Optional parameter used for legacy users
    */
   username?: string;

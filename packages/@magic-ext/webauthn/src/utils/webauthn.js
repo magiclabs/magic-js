@@ -50,9 +50,9 @@ function b64enc(buf) {
 }
 
 /**
- * Transforms the binary data in the credential into base64 strings
+ * Transforms the binary data in the registration credential into base64 strings
  * for posting to the server.
- * @param {PublicKeyCredential} newAssertion
+ * @param {PublicKeyCredential} cred The registration credential to transform.
  */
 /* istanbul ignore next  */
 export const transformRegistrationForServer = cred => {
@@ -75,7 +75,7 @@ export const transformRegistrationForServer = cred => {
 
 /**
  * Encodes the binary data in the assertion into strings for posting to the server.
- * @param {PublicKeyCredential} newAssertion
+ * @param {PublicKeyCredential} cred
  */
 /* istanbul ignore next  */
 export const transformAssertionForServer = cred => {
