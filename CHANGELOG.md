@@ -1,3 +1,16 @@
+# (Thu Apr 23 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.6.4`, `@magic-sdk/types@27.6.3`
+  - add missing error code to types [#1084](https://github.com/magiclabs/magic-js/pull/1084) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # (Wed Apr 22 2026)
 
 #### 🚀 Enhancement
