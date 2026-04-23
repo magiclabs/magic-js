@@ -1,20 +1,29 @@
 export interface RegisterNewUserConfiguration {
   /**
    * The username of the user attempting to register.
+   * Optional parameter used as display name for the passkey
    */
-  username: string;
+  username?: string;
 
   /**
    * The nickname that the user attempts to set to this webauthn device.
    */
   nickname?: string;
+
+  skipDIDToken?: boolean;
+  lifespan?: number;
 }
 
 export interface LoginWithWebAuthnConfiguration {
   /**
    * The username of the user attempting to register.
+   * Optional parameter used for legacy users
    */
-  username: string;
+  username?: string;
+
+  showMfaModal?: boolean;
+  skipDIDToken?: boolean;
+  lifespan?: number;
 }
 
 export interface UpdateWebAuthnInfoConfiguration {
@@ -30,10 +39,10 @@ export interface UpdateWebAuthnInfoConfiguration {
 }
 
 export enum MagicWebAuthnPayloadMethod {
-  WebAuthnRegistrationStart = 'magic_auth_webauthn_registration_start',
-  RegisterWithWebAuth = 'magic_auth_webauthn_register',
-  LoginWithWebAuthn = 'magic_auth_login_with_web_authn',
-  WebAuthnLoginVerify = 'magic_auth_login_with_webauthn_verify',
+  RegisterPasskeyStart = 'magic_auth_register_passkey_start',
+  RegisterPasskeyVerify = 'magic_auth_register_passkey_verify',
+  LoginWithPasskeyStart = 'magic_auth_login_with_passkey_start',
+  LoginWithPasskeyVerify = 'magic_auth_login_with_passkey_verify',
   GetWebAuthnInfo = 'magic_user_get_webauthn_credentials',
   UpdateWebAuthnInfo = 'magic_user_update_webauthn',
   UnregisterWebAuthDevice = 'magic_user_unregister_webauthn',

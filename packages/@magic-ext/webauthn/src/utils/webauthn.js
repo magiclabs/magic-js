@@ -49,40 +49,27 @@ function b64enc(buf) {
   return fromByteArray(buf).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 }
 
-/* istanbul ignore next  */
-function b64RawEnc(buf) {
-  return fromByteArray(buf).replace(/\+/g, '-').replace(/\//g, '_');
-}
-
-/* istanbul ignore next  */
-function hexEncode(buf) {
-  return Array.from(buf)
-    .map(function (x) {
-      return `0${x.toString(16)}`.substr(-2);
-    })
-    .join('');
-}
-
 /**
  * Transforms the binary data in the credential into base64 strings
  * for posting to the server.
  * @param {PublicKeyCredential} newAssertion
  */
 /* istanbul ignore next  */
-export const transformNewAssertionForServer = newAssertion => {
-  const attObj = new Uint8Array(newAssertion.response.attestationObject);
-  const clientDataJSON = new Uint8Array(newAssertion.response.clientDataJSON);
-  const rawId = new Uint8Array(newAssertion.rawId);
-
-  const registrationClientExtensions = newAssertion.getClientExtensionResults();
-
+export const transformRegistrationForServer = cred => {
   return {
-    id: newAssertion.id,
-    rawId: b64enc(rawId),
-    type: newAssertion.type,
-    attObj: b64enc(attObj),
-    clientData: b64enc(clientDataJSON),
-    registrationClientExtensions: JSON.stringify(registrationClientExtensions),
+    id: cred.id,
+
+    rawId: b64enc(new Uint8Array(cred.rawId)),
+
+    type: cred.type,
+
+    clientExtensionResults: cred.getClientExtensionResults(),
+
+    response: {
+      attestationObject: b64enc(new Uint8Array(cred.response.attestationObject)),
+
+      clientDataJSON: b64enc(new Uint8Array(cred.response.clientDataJSON)),
+    },
   };
 };
 
@@ -91,20 +78,21 @@ export const transformNewAssertionForServer = newAssertion => {
  * @param {PublicKeyCredential} newAssertion
  */
 /* istanbul ignore next  */
-export const transformAssertionForServer = newAssertion => {
-  const authData = new Uint8Array(newAssertion.response.authenticatorData);
-  const clientDataJSON = new Uint8Array(newAssertion.response.clientDataJSON);
-  const rawId = new Uint8Array(newAssertion.rawId);
-  const sig = new Uint8Array(newAssertion.response.signature);
-  const assertionClientExtensions = newAssertion.getClientExtensionResults();
+export const transformAssertionForServer = cred => {
+  const res = cred.response;
 
   return {
-    id: newAssertion.id,
-    rawId: b64enc(rawId),
-    type: newAssertion.type,
-    authData: b64RawEnc(authData),
-    clientData: b64RawEnc(clientDataJSON),
-    signature: hexEncode(sig),
-    assertionClientExtensions: JSON.stringify(assertionClientExtensions),
+    id: cred.id,
+    rawId: b64enc(new Uint8Array(cred.rawId)),
+    type: cred.type,
+
+    clientExtensionResults: cred.getClientExtensionResults(),
+
+    response: {
+      authenticatorData: b64enc(new Uint8Array(res.authenticatorData)),
+      clientDataJSON: b64enc(new Uint8Array(res.clientDataJSON)),
+      signature: b64enc(new Uint8Array(res.signature)),
+      userHandle: res.userHandle ? b64enc(new Uint8Array(res.userHandle)) : null,
+    },
   };
 };

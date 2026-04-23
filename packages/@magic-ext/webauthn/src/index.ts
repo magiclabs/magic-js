@@ -6,7 +6,8 @@ import {
   WebAuthnSDKErrorCode,
   UpdateWebAuthnInfoConfiguration,
 } from './types';
-import { transformAssertionForServer, transformNewAssertionForServer } from './utils/webauthn.js';
+import { transformAssertionForServer, transformRegistrationForServer } from './utils/webauthn.js';
+import { PasskeyResult, PasskeyEventHandlers, PasskeyMFAEventEmit } from '@magic-sdk/types';
 
 export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
   name = 'webauthn' as const;
@@ -24,29 +25,31 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
     if (!window.PublicKeyCredential) {
       throw this.createWebAuthnNotSupportError();
     }
-    const { username, nickname = '' } = configuration;
+    const { username, nickname = '', skipDIDToken, lifespan } = configuration;
 
-    const options = await this.request<any>(
-      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.WebAuthnRegistrationStart, [{ username }]),
+    const { registrationOptions, registrationToken } = await this.request<any>(
+      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.RegisterPasskeyStart, [
+        { username, skipDIDToken, lifespan },
+      ]),
     );
 
     let credential;
     try {
       credential = (await navigator.credentials.create({
-        publicKey: options.credential_options,
+        publicKey: registrationOptions,
       })) as any;
     } catch (err: any) {
       throw this.createWebAuthCreateCredentialError(err);
     }
 
     return this.request<string | null>(
-      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.RegisterWithWebAuth, [
+      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.RegisterPasskeyVerify, [
         {
-          id: options.id,
+          registrationToken,
+          registrationResponse: transformRegistrationForServer(credential),
           nickname,
           transport: credential.response.getTransports(),
-          user_agent: navigator.userAgent,
-          registration_response: transformNewAssertionForServer(credential),
+          userAgent: navigator.userAgent,
         },
       ]),
     );
@@ -56,29 +59,49 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
     if (!window.PublicKeyCredential) {
       throw this.createWebAuthnNotSupportError();
     }
-    const { username } = configuration;
+    const { username, showMfaModal, skipDIDToken, lifespan } = configuration;
 
-    const transformedCredentialRequestOptions = await this.request<any>(
-      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.LoginWithWebAuthn, [{ username }]),
+    const { authenticationToken, authenticationOptions } = await this.request<any>(
+      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.LoginWithPasskeyStart, [{ username }]),
     );
 
     let assertion;
     try {
       assertion = (await navigator.credentials.get({
-        publicKey: transformedCredentialRequestOptions,
+        publicKey: authenticationOptions,
       })) as any;
     } catch (err: any) {
       throw this.createWebAuthCreateCredentialError(err);
     }
 
-    return this.request<string | null>(
-      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.WebAuthnLoginVerify, [
-        {
-          username,
-          assertion_response: transformAssertionForServer(assertion),
-        },
-      ]),
-    );
+    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.LoginWithPasskeyVerify, [
+      {
+        authenticationToken,
+        assertionResponse: transformAssertionForServer(assertion),
+        showUI: showMfaModal,
+        skipDIDToken,
+        lifespan,
+      },
+    ]);
+
+    const handle = this.request<PasskeyResult, PasskeyEventHandlers>(requestPayload);
+
+    if (!showMfaModal) {
+      handle.on(PasskeyMFAEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.VerifyMFACode, requestPayload.id as string)(mfa);
+      });
+      handle.on(PasskeyMFAEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.LostDevice, requestPayload.id as string)();
+      });
+      handle.on(PasskeyMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.VerifyRecoveryCode, requestPayload.id as string)(recoveryCode);
+      });
+      handle.on(PasskeyMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.Cancel, requestPayload.id as any)();
+      });
+    }
+
+    return handle;
   }
 
   public updateInfo(configuration: UpdateWebAuthnInfoConfiguration) {
@@ -125,7 +148,7 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
           nickname,
           transport: credential.response.getTransports(),
           user_agent: navigator.userAgent,
-          registration_response: transformNewAssertionForServer(credential),
+          registration_response: transformRegistrationForServer(credential),
         },
       ]),
     );
