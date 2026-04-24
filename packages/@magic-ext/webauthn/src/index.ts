@@ -6,12 +6,7 @@ import {
   WebAuthnSDKErrorCode,
   UpdateWebAuthnInfoConfiguration,
 } from './types';
-import {
-  PasskeyResult,
-  PasskeyEventHandlers,
-  PasskeyMFAEventEmit,
-  PasskeyMFAEventOnReceived,
-} from '@magic-sdk/types';
+import { PasskeyResult, PasskeyEventHandlers, PasskeyMFAEventEmit, PasskeyMFAEventOnReceived } from '@magic-sdk/types';
 import { toJSON } from './utils/polyfills';
 
 export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
@@ -26,11 +21,11 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
     this.createError(WebAuthnSDKErrorCode.WebAuthnCreateCredentialError, `Error creating credential: ${message}`, {});
   }
 
-  public async registerNewUser(configuration: RegisterNewUserConfiguration) {
+  public async registerNewUser(configuration?: RegisterNewUserConfiguration) {
     if (!window.PublicKeyCredential) {
       throw this.createWebAuthnNotSupportError();
     }
-    const { username, nickname = '', skipDIDToken, lifespan } = configuration;
+    const { username, nickname = '', skipDIDToken, lifespan } = configuration ?? {};
 
     const { registrationOptions, registrationToken } = await this.request<any>(
       this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.RegisterPasskeyStart, [{ username }]),
@@ -60,8 +55,8 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
     );
   }
 
-  public login(configuration: LoginWithWebAuthnConfiguration) {
-    const { username, showMfaModal, skipDIDToken, lifespan } = configuration;
+  public login(configuration?: LoginWithWebAuthnConfiguration) {
+    const { username, showMfaModal, skipDIDToken, lifespan } = configuration ?? {};
 
     let verifyPayloadId: string;
 
