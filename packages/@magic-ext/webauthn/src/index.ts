@@ -6,8 +6,8 @@ import {
   WebAuthnSDKErrorCode,
   UpdateWebAuthnInfoConfiguration,
 } from './types';
-import { transformAssertionForServer, transformRegistrationForServer } from './utils/webauthn.js';
 import { PasskeyResult, PasskeyEventHandlers, PasskeyMFAEventEmit } from '@magic-sdk/types';
+import { toJSON } from './utils/polyfills';
 
 export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
   name = 'webauthn' as const;
@@ -44,7 +44,7 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
       this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.RegisterPasskeyVerify, [
         {
           registrationToken,
-          registrationResponse: transformRegistrationForServer(credential),
+          registrationResponse: toJSON(credential),
           nickname,
           transport: credential.response.getTransports(),
           userAgent: navigator.userAgent,
@@ -77,7 +77,7 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
     const requestPayload = this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.LoginWithPasskeyVerify, [
       {
         authenticationToken,
-        assertionResponse: transformAssertionForServer(assertion),
+        assertionResponse: toJSON(assertion),
         showUI: showMfaModal,
         skipDIDToken,
         lifespan,
@@ -148,7 +148,7 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
           nickname,
           transport: credential.response.getTransports(),
           user_agent: navigator.userAgent,
-          registration_response: transformRegistrationForServer(credential),
+          registration_response: toJSON(credential),
         },
       ]),
     );
