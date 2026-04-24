@@ -1,3 +1,15 @@
+# v27.6.0 (Fri Apr 24 2026)
+
+#### 🚀 Enhancement
+
+- feat: integrate new passkey implementation [#1083](https://github.com/magiclabs/magic-js/pull/1083) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v27.2.2 (Thu Feb 05 2026)
 
 #### ⚠️ Pushed to `master`

@@ -1,3 +1,16 @@
+# (Fri Apr 24 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/webauthn@27.6.0`, `@magic-sdk/types@27.7.0`
+  - feat: integrate new passkey implementation [#1083](https://github.com/magiclabs/magic-js/pull/1083) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Thu Apr 23 2026)
 
 #### 🐛 Bug Fix
