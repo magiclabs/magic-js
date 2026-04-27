@@ -1,3 +1,27 @@
+# v27.7.0 (Fri Apr 24 2026)
+
+#### 🚀 Enhancement
+
+- feat: integrate new passkey implementation [#1083](https://github.com/magiclabs/magic-js/pull/1083) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v27.6.3 (Thu Apr 23 2026)
+
+#### 🐛 Bug Fix
+
+- add missing error code to types [#1084](https://github.com/magiclabs/magic-js/pull/1084) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v27.6.2 (Thu Apr 09 2026)
 
 #### 🐛 Bug Fix

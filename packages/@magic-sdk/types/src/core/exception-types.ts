@@ -28,14 +28,21 @@ export enum RPCErrorCode {
   MagicLinkFailedVerification = -10000,
   MagicLinkExpired = -10001,
   MagicLinkRateLimited = -10002,
-  MagicLinkInvalidRedirectURL = -10006,
   UserAlreadyLoggedIn = -10003,
   UpdateEmailFailed = -10004,
   UserRequestEditEmail = -10005,
+  MagicLinkInvalidRedirectURL = -10006,
   InactiveRecipient = -10010,
   AccessDeniedToUser = -10011,
+  UserRejectedAction = -10012,
+  RequestCancelled = -10014,
   RedirectLoginComplete = -10015,
+  SessionTerminated = -10016,
+  PopupRequestOverriden = -10017,
+  SanEmail = -10018,
   DpopInvalidated = -10019,
+  MaxAttemptsReached = -10031,
+  UserRequiredMfa = -10033,
 }
 
 export type ErrorCode = SDKErrorCode | RPCErrorCode;

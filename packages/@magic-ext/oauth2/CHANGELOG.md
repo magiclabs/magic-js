@@ -1,3 +1,15 @@
+# v15.6.0 (Wed Apr 22 2026)
+
+#### 🚀 Enhancement
+
+- adds support for steam login [#1079](https://github.com/magiclabs/magic-js/pull/1079) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v15.4.1 (Fri Feb 27 2026)
 
 #### 🐛 Bug Fix

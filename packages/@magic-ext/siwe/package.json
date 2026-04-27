@@ -1,6 +1,6 @@
 {
   "name": "@magic-ext/siwe",
-  "version": "3.5.4",
+  "version": "3.6.0",
   "description": "Magic SDK SIWE Extension for Web environments.",
   "author": "Magic <team@magic.link> (https://magic.link/)",
   "license": "MIT",
@@ -34,7 +34,7 @@
     "ethers": "^6.0.0"
   },
   "devDependencies": {
-    "@magic-sdk/provider": "^33.6.3",
+    "@magic-sdk/provider": "^33.7.0",
     "ethers": "^6.0.0"
   }
 }

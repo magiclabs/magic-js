@@ -5,6 +5,7 @@ export enum OAuthPayloadMethods {
   Verify = 'magic_oauth_login_with_redirect_verify',
   Popup = 'magic_oauth_login_with_popup',
   VerifyTelegramData = 'magic_oauth_verify_telegram_data',
+  VerifySteamData = 'magic_oauth_verify_steam_data',
 }
 
 export type OAuthProvider =
@@ -18,7 +19,8 @@ export type OAuthProvider =
   | 'twitter'
   | 'discord'
   | 'twitch'
-  | 'microsoft';
+  | 'microsoft'
+  | 'steam';
 
 type OAuthPopupProvider = OAuthProvider | 'telegram';
 

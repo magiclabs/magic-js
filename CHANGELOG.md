@@ -1,3 +1,42 @@
+# (Fri Apr 24 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/webauthn@27.6.0`, `@magic-sdk/types@27.7.0`
+  - feat: integrate new passkey implementation [#1083](https://github.com/magiclabs/magic-js/pull/1083) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Apr 23 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.6.4`, `@magic-sdk/types@27.6.3`
+  - add missing error code to types [#1084](https://github.com/magiclabs/magic-js/pull/1084) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Wed Apr 22 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@15.6.0`
+  - adds support for steam login [#1079](https://github.com/magiclabs/magic-js/pull/1079) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Apr 14 2026)
 
 #### 🚀 Enhancement
