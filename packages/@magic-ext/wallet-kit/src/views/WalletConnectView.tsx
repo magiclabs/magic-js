@@ -5,7 +5,6 @@ import { WidgetAction } from '../reducer';
 import { WALLET_METADATA } from '../constants';
 import { ThirdPartyWallets } from '../types';
 import WidgetHeader from '../components/WidgetHeader';
-import { Center, VStack } from '../components/Stack';
 import { EthereumProvider } from '@walletconnect/ethereum-provider';
 import { networks } from '../wagmi/config';
 import { getExtensionInstance } from '../extension';
@@ -167,15 +166,15 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
     return (
       <>
         <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
-        <VStack className="gap-6 pt-4 items-center">
+        <div className="flex flex-col items-center gap-6 pt-4">
           <Icon width={60} height={60} />
-          <VStack className="gap-2 items-center px-7">
+          <div className="flex flex-col items-center gap-2 px-7">
             <Text.H4 styles={{ textAlign: 'center' }}>Connection Failed</Text.H4>
             <Text variant="error" styles={{ textAlign: 'center' }}>
               {errorMessage}
             </Text>
-          </VStack>
-        </VStack>
+          </div>
+        </div>
       </>
     );
   }
@@ -184,15 +183,15 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
     return (
       <>
         <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
-        <VStack className="gap-6 pt-4 items-center">
+        <div className="flex flex-col items-center gap-6 pt-4">
           <Icon width={60} height={60} />
-          <VStack className="gap-2 items-center px-7">
+          <div className="flex flex-col items-center gap-2 px-7">
             <Text.H4 styles={{ textAlign: 'center' }}>Select your wallet</Text.H4>
             <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
               Choose a wallet app to connect
             </Text>
-          </VStack>
-        </VStack>
+          </div>
+        </div>
       </>
     );
   }
@@ -200,7 +199,7 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
   return (
     <>
       <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
-      <VStack className="gap-6 pt-4 items-center">
+      <div className="flex flex-col items-center gap-6 pt-4">
         {uri ? (
           <QRCode
             eyeRadius={8}
@@ -215,17 +214,17 @@ export const WalletConnectView = ({ dispatch }: WalletConnectViewProps) => {
             quietZone={12}
           />
         ) : (
-          <Center className="w-[294px] h-[294px]">
+          <div className="flex items-center justify-center w-[294px] h-[294px]">
             <Skeleton width={286} height={286} borderRadius={16} backgroundColor="surface.secondary" />
-          </Center>
+          </div>
         )}
-        <VStack className="gap-2 items-center px-7">
+        <div className="flex flex-col items-center gap-2 px-7">
           <Text.H4 styles={{ textAlign: 'center' }}>Scan with your wallet</Text.H4>
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
             Open your mobile wallet and scan this QR code to connect
           </Text>
-        </VStack>
-      </VStack>
+        </div>
+      </div>
     </>
   );
 };

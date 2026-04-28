@@ -1,7 +1,6 @@
 import { Button, Callout, IcoLockLocked, LoadingSpinner, Text, TextInput } from '@magiclabs/ui-components';
 import React, { useEffect } from 'react';
 import WidgetHeader from '../components/WidgetHeader';
-import { Center, VStack } from '../components/Stack';
 import { useMfa } from '../hooks/useMfa';
 import { WidgetAction, WidgetState } from '../reducer';
 
@@ -42,16 +41,16 @@ export const RecoveryCodeView = ({ state, dispatch }: RecoveryCodeViewProps) => 
   return (
     <>
       <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
-      <VStack>
-        <VStack className="gap-6">
+      <div className="flex flex-col items-center gap-2.5">
+        <div className="flex flex-col items-center gap-6">
           <IcoLockLocked width={60} height={60} color="var(--color-brand-base)" />
           <Text.H4 styles={{ textAlign: 'center', fontWeight: 'normal' }}>Enter your recovery code to log in.</Text.H4>
-        </VStack>
+        </div>
 
         {isVerifying ? (
-          <Center className="h-12">
+          <div className="flex items-center justify-center h-12">
             <LoadingSpinner size={36} strokeWidth={4} />
-          </Center>
+          </div>
         ) : (
           <>
             <TextInput
@@ -79,7 +78,7 @@ export const RecoveryCodeView = ({ state, dispatch }: RecoveryCodeViewProps) => 
             size="sm"
           />
         )}
-      </VStack>
+      </div>
     </>
   );
 };

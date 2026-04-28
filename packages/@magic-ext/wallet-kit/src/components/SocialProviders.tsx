@@ -3,7 +3,6 @@ import { ProviderButton } from './ProviderButton';
 import { OAUTH_METADATA, DARK_MODE_ICON_OVERRIDES, FARCASTER_METADATA } from '../constants';
 import { OAuthProvider } from '../types';
 import { IcoKebab } from '@magiclabs/ui-components';
-import { HStack } from './Stack';
 import { WidgetAction } from 'src/reducer';
 import { getExtensionInstance } from 'src/extension';
 
@@ -31,7 +30,7 @@ export const SocialProviders = ({ providers, onPress, dispatch, enableFarcaster 
   };
 
   return (
-    <HStack className="gap-2 w-full">
+    <div className="flex flex-row items-center gap-2 w-full">
       {visibleProviders.map(provider => (
         <ProviderButton
           key={provider}
@@ -59,6 +58,6 @@ export const SocialProviders = ({ providers, onPress, dispatch, enableFarcaster 
           onPress={handlePressMore}
         />
       )}
-    </HStack>
+    </div>
   );
 };

@@ -19,10 +19,12 @@ try {
   // CSS generation failed, using existing CSS
 }
 
-// Extract CSS variable rules (`:root`, `[data-color-mode=light/dark]`) from
-// @magiclabs/ui-components — these define the theme tokens our utilities use,
-// and the Tailwind preset doesn't inject them on its own.
-function extractVariableRules(css) {
+// Extract rules from @magiclabs/ui-components/styles.css that the Tailwind
+// preset doesn't emit:
+//   - theme variable definitions (`:root`, `[data-color-mode=light/dark]`)
+//   - `text-style-*` typography utilities (registered via a plugin in their
+//     own tailwind config, not exposed through the preset)
+function extractFromUiCss(css) {
   let out = '';
   let depth = 0;
   let start = 0;
@@ -41,7 +43,10 @@ function extractVariableRules(css) {
           (selector.includes(':root') || /\[data-color-mode=(light|dark)\]\s*$/.test(selector) || /^\[data-color-mode=(light|dark)\]$/.test(selector)) &&
           !selector.includes('[data-color-mode=dark] *') &&
           !selector.includes('[data-color-mode=dark],[data-color-mode=dark] *');
-        if (isThemeSelector && body.includes('--color-')) {
+        const isTextStyle = selector
+          .split(',')
+          .every(s => /^\s*\.text-style-[a-z0-9-]+\s*$/.test(s));
+        if ((isThemeSelector && body.includes('--color-')) || isTextStyle) {
           out += `${selector}{${body}}`;
         }
         start = i + 1;
@@ -57,7 +62,7 @@ try {
   let themeVars = '';
   try {
     const uiCss = readFileSync('./node_modules/@magiclabs/ui-components/dist/styles.css', 'utf-8');
-    themeVars = extractVariableRules(uiCss);
+    themeVars = extractFromUiCss(uiCss);
   } catch {
     // ui-components styles.css missing — theme vars won't be inlined
   }

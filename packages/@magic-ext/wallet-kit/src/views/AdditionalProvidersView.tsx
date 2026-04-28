@@ -2,7 +2,6 @@ import React from 'react';
 import { OAuthProvider } from 'src/types';
 import { WidgetAction } from 'src/reducer';
 import WidgetHeader from 'src/components/WidgetHeader';
-import { VStack } from 'src/components/Stack';
 import { ProviderButton } from 'src/components/ProviderButton';
 import { OAUTH_METADATA, DARK_MODE_ICON_OVERRIDES } from 'src/constants';
 import { getExtensionInstance } from 'src/extension';
@@ -27,7 +26,7 @@ export default function AdditionalProvidersView({ dispatch }: AdditionalProvider
   return (
     <>
       <WidgetHeader onPressBack={handlePressBack} showHeaderText={false} />
-      <VStack className="w-full">
+      <div className="flex flex-col items-center gap-2.5 w-full">
         <div
           className="mt-4 mb-2 w-full px-4 overflow-y-auto [scrollbar-width:thin] [&::-webkit-scrollbar]:bg-transparent [&::-webkit-scrollbar-track]:bg-transparent"
           style={{ scrollbarColor: 'rgba(143, 147, 153, 0.4) transparent' }}
@@ -43,7 +42,7 @@ export default function AdditionalProvidersView({ dispatch }: AdditionalProvider
             ))}
           </div>
         </div>
-      </VStack>
+      </div>
     </>
   );
 }

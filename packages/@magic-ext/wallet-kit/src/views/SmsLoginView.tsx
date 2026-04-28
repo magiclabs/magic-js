@@ -3,7 +3,6 @@ import { isValidPhoneNumber } from 'libphonenumber-js';
 import React, { useState } from 'react';
 import { RpcErrorMessage } from 'src/types';
 import WidgetHeader from '../components/WidgetHeader';
-import { VStack } from '../components/Stack';
 import { useSmsLogin } from '../context/SmsLoginContext';
 import { WidgetState } from '../reducer';
 
@@ -46,8 +45,8 @@ export const SmsLoginView = ({ state }: SmsLoginViewProps) => {
   return (
     <>
       <WidgetHeader onPressBack={cancelLogin} />
-      <VStack className="w-full gap-10 mt-2 px-7">
-        <VStack className="gap-10">
+      <div className="flex flex-col items-center w-full gap-10 mt-2 px-7">
+        <div className="flex flex-col items-center gap-10">
           <IcoPhone width={60} height={60} color="var(--color-brand-base)" />
           <Text.H4
             fontWeight="medium"
@@ -57,7 +56,7 @@ export const SmsLoginView = ({ state }: SmsLoginViewProps) => {
           >
             Enter phone number
           </Text.H4>
-        </VStack>
+        </div>
 
         <PhoneInput
           onChange={handlePhoneChange}
@@ -67,7 +66,7 @@ export const SmsLoginView = ({ state }: SmsLoginViewProps) => {
           errorMessage={displayError}
           showPlaceholder
         />
-      </VStack>
+      </div>
     </>
   );
 };

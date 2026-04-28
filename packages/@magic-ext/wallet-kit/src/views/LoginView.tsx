@@ -4,7 +4,6 @@ import { ContinueWithSmsButton } from 'src/components/ContinueWithSmsButton';
 import { EmailInput } from '../components/EmailInput';
 import { ProviderButton } from '../components/ProviderButton';
 import { SocialProviders } from '../components/SocialProviders';
-import { HStack, VStack } from '../components/Stack';
 import WidgetHeader from '../components/WidgetHeader';
 import { WALLET_METADATA } from '../constants';
 import { useWidgetConfig } from '../context/WidgetConfigContext';
@@ -44,10 +43,10 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
   return (
     <>
       <WidgetHeader />
-      <VStack className="w-full gap-10 mt-2 px-7">
+      <div className="flex flex-col items-center w-full gap-10 mt-2 px-7">
         {config?.theme.assetUri && <img src={config.theme.assetUri} alt="Logo" width={80} height={80} />}
 
-        <VStack className="w-full max-w-[25rem] gap-4">
+        <div className="flex flex-col items-center w-full max-w-[25rem] gap-4">
           {hasEmailProvider && (
             <EmailInput
               error={state.loginMethod === 'email' ? state.error : undefined}
@@ -71,13 +70,13 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
           )}
 
           {showDivider && (
-            <HStack className="mb-3 w-full">
+            <div className="flex flex-row items-center gap-2.5 mb-3 w-full">
               <div className="flex-1 h-px bg-surface-quaternary" />
               <Text aria-label="or" fontColor="text.tertiary">
                 or
               </Text>
               <div className="flex-1 h-px bg-surface-quaternary" />
-            </HStack>
+            </div>
           )}
 
           {wallets.length > 0 && (
@@ -95,8 +94,8 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
               ))}
             </div>
           )}
-        </VStack>
-      </VStack>
+        </div>
+      </div>
     </>
   );
 };

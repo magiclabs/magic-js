@@ -1,7 +1,6 @@
 import React from 'react';
 import { IcoCheckmarkCircleFill, IcoDismissCircleFill, LoadingSpinner, Text } from '@magiclabs/ui-components';
 import WidgetHeader from 'src/components/WidgetHeader';
-import { VStack } from 'src/components/Stack';
 
 interface PendingProps {
   onPressBack: () => void;
@@ -18,7 +17,7 @@ export const Pending = ({ onPressBack, title, description, Icon, isPending, erro
   return (
     <>
       <WidgetHeader onPressBack={isPending || errorMessage ? onPressBack : undefined} showHeaderText={false} />
-      <VStack className="gap-6 pt-4">
+      <div className="flex flex-col items-center gap-6 pt-4">
         <div className="relative h-20 w-20">
           {isPending && <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />}
           {isPending ? (
@@ -40,7 +39,7 @@ export const Pending = ({ onPressBack, title, description, Icon, isPending, erro
           )}
         </div>
 
-        <VStack className="gap-2 px-7">
+        <div className="flex flex-col items-center gap-2 px-7">
           <Text.H4 styles={{ textAlign: 'center' }}>{title}</Text.H4>
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
             {description}
@@ -50,8 +49,8 @@ export const Pending = ({ onPressBack, title, description, Icon, isPending, erro
               {errorMessage}
             </Text>
           )}
-        </VStack>
-      </VStack>
+        </div>
+      </div>
     </>
   );
 };

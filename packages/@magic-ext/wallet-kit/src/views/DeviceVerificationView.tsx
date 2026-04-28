@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Text, IcoShield, IcoEdit } from '@magiclabs/ui-components';
 import { WidgetAction, WidgetState } from '../reducer';
 import WidgetHeader from '../components/WidgetHeader';
-import { HStack, VStack } from '../components/Stack';
 import { useCancelLogin } from 'src/hooks/useCancelLogin';
 
 interface DeviceVerificationViewProps {
@@ -26,7 +25,7 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
   return (
     <>
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
-      <VStack className="gap-6">
+      <div className="flex flex-col items-center gap-6">
         <IcoShield width={60} height={60} color="var(--color-brand-base)" />
         <Text.H4
           styles={{
@@ -36,7 +35,7 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
           Please register this device to continue.
         </Text.H4>
 
-        <VStack className="gap-0">
+        <div className="flex flex-col items-center gap-0">
           <Text
             styles={{
               textAlign: 'center',
@@ -45,7 +44,7 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
           >
             We sent a device registration link to
           </Text>
-          <HStack className="gap-2">
+          <div className="flex flex-row items-center gap-2">
             <Text
               styles={{
                 textAlign: 'center',
@@ -57,8 +56,8 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
             <button className="cursor-pointer" onClick={cancelLogin}>
               <IcoEdit height={18} width={18} color="var(--color-brand-base)" />
             </button>
-          </HStack>
-        </VStack>
+          </div>
+        </div>
 
         <div className="mt-4">
           <Text
@@ -69,7 +68,7 @@ export const DeviceVerificationView = ({ state, dispatch }: DeviceVerificationVi
             This quick one-time approval will help keep your account secure.
           </Text>
         </div>
-      </VStack>
+      </div>
     </>
   );
 };

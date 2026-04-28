@@ -1,7 +1,6 @@
 import { IcoLockLocked, Text } from '@magiclabs/ui-components';
 import React from 'react';
 import WidgetHeader from '../components/WidgetHeader';
-import { VStack } from '../components/Stack';
 import { getExtensionInstance } from '../extension';
 import { WidgetAction } from '../reducer';
 
@@ -16,15 +15,15 @@ export const LostRecoveryCode = ({ dispatch }: { dispatch: React.Dispatch<Widget
   return (
     <>
       <WidgetHeader onPressBack={handleBack} showHeaderText={false} />
-      <VStack className="gap-6 px-6">
+      <div className="flex flex-col items-center gap-6 px-6">
         <IcoLockLocked width={60} height={60} color="var(--color-brand-base)" />
-        <VStack>
+        <div className="flex flex-col items-center gap-2.5">
           <Text.H4 styles={{ textAlign: 'center' }}>Contact {appName} support</Text.H4>
           <Text styles={{ textAlign: 'center' }}>
             For help recovering your account, please contact the {appName} support team.
           </Text>
-        </VStack>
-      </VStack>
+        </div>
+      </div>
     </>
   );
 };

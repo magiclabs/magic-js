@@ -2,7 +2,6 @@ import { Button, EmailWbr, IcoEmail, IcoPhone, Text, VerifyPincode } from '@magi
 import React, { useEffect, useMemo, useState } from 'react';
 import parsePhoneNumber from 'libphonenumber-js';
 import WidgetHeader from '../components/WidgetHeader';
-import { VStack } from '../components/Stack';
 import { useEmailLogin } from '../context/EmailLoginContext';
 import { useSmsLogin } from '../context/SmsLoginContext';
 import { WidgetAction, WidgetState } from '../reducer';
@@ -59,14 +58,14 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
   return (
     <>
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
-      <VStack>
-        <VStack className="gap-6">
+      <div className="flex flex-col items-center gap-2.5">
+        <div className="flex flex-col items-center gap-6">
           {isSms ? (
             <IcoPhone width={60} height={60} color="var(--color-brand-base)" />
           ) : (
             <IcoEmail width={60} height={60} color="var(--color-brand-base)" />
           )}
-          <VStack className="gap-0">
+          <div className="flex flex-col items-center gap-0">
             <Text.H4
               fontWeight="normal"
               styles={{
@@ -82,8 +81,8 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
             >
               {identifier && (isSms ? formattedIdentifier : <EmailWbr email={identifier} />)}
             </Text.H4>
-          </VStack>
-        </VStack>
+          </div>
+        </div>
 
         <VerifyPincode
           originName={isSms ? 'sms' : 'email'}
@@ -98,7 +97,7 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
             {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}
           </VerifyPincode.RetryContent>
         </VerifyPincode>
-      </VStack>
+      </div>
     </>
   );
 };

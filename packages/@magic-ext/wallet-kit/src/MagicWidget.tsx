@@ -25,7 +25,6 @@ import { FarcasterPendingView } from './views/FarcasterPendingView';
 import { FarcasterSuccessView } from './views/FarcasterSuccessView';
 import { FarcasterFailedView } from './views/FarcasterFailedView';
 import { ClientTheme } from './types/client-config';
-import { VStack } from './components/Stack';
 import { useMediaQuery } from './hooks/useMediaQuery';
 
 const queryClient = new QueryClient();
@@ -117,10 +116,10 @@ function WidgetContent({
       <SmsLoginProvider dispatch={dispatch}>
         <OAuthLoginProvider dispatch={dispatch}>
           <Modal isWidget fullscreen={isModal && isMobile}>
-            <VStack className="w-full min-w-[380px]">
+            <div className="flex flex-col items-center gap-2.5 w-full min-w-[380px]">
               {renderView()}
               <Footer showLogo={showFooterLogo} />
-            </VStack>
+            </div>
           </Modal>
         </OAuthLoginProvider>
       </SmsLoginProvider>
