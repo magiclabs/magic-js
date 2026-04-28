@@ -1,3 +1,16 @@
+# (Tue Apr 28 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.10.0`
+  - migrate wallet kit to tailwind + steam login support [#1078](https://github.com/magiclabs/magic-js/pull/1078) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Fri Apr 24 2026)
 
 #### 🚀 Enhancement
