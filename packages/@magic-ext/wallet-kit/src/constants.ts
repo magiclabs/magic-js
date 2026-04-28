@@ -21,6 +21,7 @@ import {
   LogoTwitterMono,
   LogoGitHubMono,
   LogoWarpcast,
+  LogoSteam,
 } from '@magiclabs/ui-components';
 
 export const WALLET_METADATA: Record<ThirdPartyWallet, ProviderMetadata> = {
@@ -44,6 +45,7 @@ export const OAUTH_METADATA: Record<OAuthProvider, ProviderMetadata> = {
   [OAuthProvider.DISCORD]: { displayName: 'Discord', Icon: LogoDiscord },
   [OAuthProvider.GITLAB]: { displayName: 'GitLab', Icon: LogoGitLab },
   [OAuthProvider.TELEGRAM]: { displayName: 'Telegram', Icon: LogoTelegram },
+  [OAuthProvider.STEAM]: { displayName: 'Steam', Icon: LogoSteam },
 };
 
 export const DARK_MODE_ICON_OVERRIDES: Partial<Record<OAuthProvider, ProviderMetadata['Icon']>> = {

@@ -14,7 +14,7 @@ export const ContinueWithSmsButton = ({ onClick }: { onClick: () => void }) => {
         className="w-full px-4 py-3 bg-neutral-quaternary hover:bg-neutral-tertiary"
       >
         <div className="flex flex-row items-center gap-3 w-full justify-start">
-          <IcoPhone width={24} height={24} {...(isDarkMode ? { color: '#77767A' } : {})} />
+          <IcoPhone width={24} height={24} {...(isDarkMode ? { color: 'var(--color-ink-70)' } : {})} />
           <Text styles={{ lineHeight: '1.5rem' }}>Continue with SMS</Text>
         </div>
       </ButtonContainer>

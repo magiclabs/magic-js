@@ -47,7 +47,7 @@ export const EmailInput = ({ error: externalError, isLoading }: EmailInputProps)
       <div className="w-full max-w-[25rem]">
         <TextInput aria-label="email input" value={email} onChange={handleInput} placeholder="Email address">
           <TextInput.TypeIcon>
-            <IcoEmail {...(isDarkMode ? { color: '#77767A' } : {})} />
+            <IcoEmail {...(isDarkMode ? { color: 'var(--color-ink-70)' } : {})} />
           </TextInput.TypeIcon>
           <TextInput.ActionIcon onClick={() => {}}>
             <Button

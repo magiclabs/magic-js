@@ -41,7 +41,7 @@
     ]
   },
   "dependencies": {
-    "@magiclabs/ui-components": "^2.2.3",
+    "@magiclabs/ui-components": "^2.3.0",
     "@reown/appkit": "^1.8.0",
     "@reown/appkit-adapter-wagmi": "^1.8.0",
     "@wagmi/core": "^2.0.0",

@@ -3369,7 +3369,7 @@ __metadata:
   dependencies:
     "@magic-sdk/provider": ^33.7.0
     "@magic-sdk/types": ^27.7.0
-    "@magiclabs/ui-components": ^2.2.3
+    "@magiclabs/ui-components": ^2.3.0
     "@reown/appkit": ^1.8.0
     "@reown/appkit-adapter-wagmi": ^1.8.0
     "@rollup/plugin-commonjs": ^26.0.1
@@ -3525,9 +3525,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magiclabs/ui-components@npm:^2.2.3":
-  version: 2.2.3
-  resolution: "@magiclabs/ui-components@npm:2.2.3"
+"@magiclabs/ui-components@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@magiclabs/ui-components@npm:2.3.0"
   dependencies:
     class-variance-authority: ^0.7.1
     clsx: ^2.1.1
@@ -3539,7 +3539,7 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 176442d3cdee960e576253d93738e9ce6afcc0429048388c546e3c299d10e32f6cf6416803d75a33f4d1a391fd8a59c2828d12f07f144aebe04894ecda4da675
+  checksum: b30e800cbbd797ada8f1c8c2d4751dcc13b65020be241f1097f8399d92b98ce441b0b56cbb616661018d48e26861f9bb8805443ba34b24dbd2e9194691ec9b6b
   languageName: node
   linkType: hard
 
