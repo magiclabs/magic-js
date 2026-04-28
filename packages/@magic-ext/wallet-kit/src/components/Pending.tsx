@@ -1,8 +1,5 @@
 import React from 'react';
-import { Box, VStack } from '@styled/jsx';
 import { IcoCheckmarkCircleFill, IcoDismissCircleFill, LoadingSpinner, Text } from '@magiclabs/ui-components';
-import { css } from '@styled/css';
-import { token } from '@styled/tokens';
 import WidgetHeader from 'src/components/WidgetHeader';
 
 interface PendingProps {
@@ -14,19 +11,14 @@ interface PendingProps {
   errorMessage: string | null;
 }
 
-const centeredIconClass = css({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-});
+const centeredIconClass = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2';
 
 export const Pending = ({ onPressBack, title, description, Icon, isPending, errorMessage }: PendingProps) => {
   return (
     <>
       <WidgetHeader onPressBack={isPending || errorMessage ? onPressBack : undefined} showHeaderText={false} />
-      <VStack gap={6} pt={4}>
-        <Box position="relative" h={20} w={20}>
+      <div className="flex flex-col items-center gap-6 pt-4">
+        <div className="relative h-20 w-20">
           {isPending && <LoadingSpinner size={80} strokeWidth={8} neutral progress={40} />}
           {isPending ? (
             <Icon width={36} height={36} className={centeredIconClass} />
@@ -34,20 +26,20 @@ export const Pending = ({ onPressBack, title, description, Icon, isPending, erro
             <IcoDismissCircleFill
               width={36}
               height={36}
-              color={token('colors.negative.darker')}
+              color="var(--color-negative-darker)"
               className={centeredIconClass}
             />
           ) : (
             <IcoCheckmarkCircleFill
               width={36}
               height={36}
-              color={token('colors.brand.base')}
+              color="var(--color-brand-base)"
               className={centeredIconClass}
             />
           )}
-        </Box>
+        </div>
 
-        <VStack gap={2} px={7}>
+        <div className="flex flex-col items-center gap-2 px-7">
           <Text.H4 styles={{ textAlign: 'center' }}>{title}</Text.H4>
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
             {description}
@@ -57,8 +49,8 @@ export const Pending = ({ onPressBack, title, description, Icon, isPending, erro
               {errorMessage}
             </Text>
           )}
-        </VStack>
-      </VStack>
+        </div>
+      </div>
     </>
   );
 };

@@ -1,5 +1,4 @@
 import { Text } from '@magiclabs/ui-components';
-import { Divider, Flex, HStack, VStack } from '@styled/jsx';
 import React from 'react';
 import { ContinueWithSmsButton } from 'src/components/ContinueWithSmsButton';
 import { EmailInput } from '../components/EmailInput';
@@ -44,10 +43,10 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
   return (
     <>
       <WidgetHeader />
-      <VStack w="full" gap={10} mt={2} px={7}>
+      <div className="flex flex-col items-center w-full gap-10 mt-2 px-7">
         {config?.theme.assetUri && <img src={config.theme.assetUri} alt="Logo" width={80} height={80} />}
 
-        <VStack width="full" maxWidth="25rem" gap={4}>
+        <div className="flex flex-col items-center w-full max-w-[25rem] gap-4">
           {hasEmailProvider && (
             <EmailInput
               error={state.loginMethod === 'email' ? state.error : undefined}
@@ -56,9 +55,9 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
           )}
 
           {hasAlternativeLogin && (
-            <Flex gap={2} w="full" justify="center">
+            <div className="flex flex-row gap-2 w-full justify-center">
               {hasSmsProvider && <ContinueWithSmsButton onClick={handleSmsClick} />}
-            </Flex>
+            </div>
           )}
 
           {(socialProviders.length > 0 || enableFarcaster) && (
@@ -71,17 +70,19 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
           )}
 
           {showDivider && (
-            <HStack mb={3} w="full">
-              <Divider color="surface.quaternary" />
+            <div className="flex flex-row items-center gap-2.5 mb-3 w-full">
+              <div className="flex-1 h-px bg-surface-quaternary" />
               <Text aria-label="or" fontColor="text.tertiary">
                 or
               </Text>
-              <Divider color="surface.quaternary" />
-            </HStack>
+              <div className="flex-1 h-px bg-surface-quaternary" />
+            </div>
           )}
 
           {wallets.length > 0 && (
-            <Flex gap={2} w="full" direction={showDivider ? 'row' : 'column'} justify="center">
+            <div
+              className={`flex ${showDivider ? 'flex-row' : 'flex-col'} gap-2 w-full justify-center items-center`}
+            >
               {wallets.map(provider => (
                 <ProviderButton
                   key={provider}
@@ -91,10 +92,10 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
                   onPress={() => handleProviderSelect(provider)}
                 />
               ))}
-            </Flex>
+            </div>
           )}
-        </VStack>
-      </VStack>
+        </div>
+      </div>
     </>
   );
 };

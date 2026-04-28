@@ -1,5 +1,4 @@
 import React from 'react';
-import { VStack } from '@styled/jsx';
 import { Text, IcoCheckmarkCircleFill } from '@magiclabs/ui-components';
 import { WidgetState } from '../reducer';
 import WidgetHeader from '../components/WidgetHeader';
@@ -15,15 +14,15 @@ export const FarcasterSuccessView = ({ state }: FarcasterSuccessViewProps) => {
   return (
     <>
       <WidgetHeader showHeaderText={false} />
-      <VStack gap={8}>
+      <div className="flex flex-col items-center gap-8">
         <IcoCheckmarkCircleFill width={48} height={48} color={FARCASTER_BRAND_COLOR} />
-        <VStack gap={1}>
+        <div className="flex flex-col items-center gap-1">
           <Text.H4 styles={{ textAlign: 'center' }}>You're all set</Text.H4>
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
             Successfully signed in{farcasterUsername ? ` with ${farcasterUsername}` : ''}
           </Text>
-        </VStack>
-      </VStack>
+        </div>
+      </div>
     </>
   );
 };

@@ -1,7 +1,5 @@
 import React, { useMemo } from 'react';
-import { VStack } from '@styled/jsx';
 import { Text, IcoCheckmarkCircleFill } from '@magiclabs/ui-components';
-import { token } from '@styled/tokens';
 import { WidgetState } from '../reducer';
 import WidgetHeader from '../components/WidgetHeader';
 import parsePhoneNumber from 'libphonenumber-js';
@@ -28,10 +26,10 @@ export const LoginSuccessView = ({ state }: LoginSuccessViewProps) => {
   return (
     <>
       <WidgetHeader showHeaderText={false} />
-      <VStack gap={8}>
-        <IcoCheckmarkCircleFill width={40} height={40} color={token('colors.brand.base')} />
+      <div className="flex flex-col items-center gap-8">
+        <IcoCheckmarkCircleFill width={40} height={40} color="var(--color-brand-base)" />
 
-        <VStack gap={1}>
+        <div className="flex flex-col items-center gap-1">
           <Text fontColor="text.tertiary" styles={{ textAlign: 'center' }}>
             You have successfully logged in
           </Text>
@@ -40,8 +38,8 @@ export const LoginSuccessView = ({ state }: LoginSuccessViewProps) => {
               {formattedIdentifier}
             </Text>
           )}
-        </VStack>
-      </VStack>
+        </div>
+      </div>
     </>
   );
 };

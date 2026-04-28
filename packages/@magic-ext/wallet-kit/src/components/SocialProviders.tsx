@@ -3,8 +3,6 @@ import { ProviderButton } from './ProviderButton';
 import { OAUTH_METADATA, DARK_MODE_ICON_OVERRIDES, FARCASTER_METADATA } from '../constants';
 import { OAuthProvider } from '../types';
 import { IcoKebab } from '@magiclabs/ui-components';
-import { css } from '@styled/css';
-import { HStack } from '@styled/jsx';
 import { WidgetAction } from 'src/reducer';
 import { getExtensionInstance } from 'src/extension';
 
@@ -16,7 +14,7 @@ interface SocialProvidersProps {
 }
 
 const MAX_VISIBLE_PROVIDERS = 5;
-const IcoEllipsis = () => <IcoKebab className={css({ rotate: '90deg' })} />;
+const IcoEllipsis = () => <IcoKebab className="rotate-90" />;
 
 export const SocialProviders = ({ providers, onPress, dispatch, enableFarcaster }: SocialProvidersProps) => {
   const config = getExtensionInstance().getConfig();
@@ -32,7 +30,7 @@ export const SocialProviders = ({ providers, onPress, dispatch, enableFarcaster 
   };
 
   return (
-    <HStack gap={2} w="full">
+    <div className="flex flex-row items-center gap-2 w-full">
       {visibleProviders.map(provider => (
         <ProviderButton
           key={provider}
@@ -60,6 +58,6 @@ export const SocialProviders = ({ providers, onPress, dispatch, enableFarcaster 
           onPress={handlePressMore}
         />
       )}
-    </HStack>
+    </div>
   );
 };

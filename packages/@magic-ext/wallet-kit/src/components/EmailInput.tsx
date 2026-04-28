@@ -3,9 +3,6 @@ import { isSanctionedEmail, isValidEmail } from 'src/lib/validators';
 import { Button, Text, TextInput, IcoEmail, IcoArrowRight } from '@magiclabs/ui-components';
 import { RpcErrorMessage } from 'src/types';
 import { useEmailLogin } from '../context/EmailLoginContext';
-import { vstack } from '@styled/patterns';
-import { Box } from '@styled/jsx';
-import { token } from '@styled/tokens';
 import { getExtensionInstance } from 'src/extension';
 
 interface EmailInputProps {
@@ -46,11 +43,11 @@ export const EmailInput = ({ error: externalError, isLoading }: EmailInputProps)
   };
 
   return (
-    <form onSubmit={handleSubmit} className={vstack({ w: 'full' })}>
-      <Box w="full" maxW="25rem">
+    <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
+      <div className="w-full max-w-[25rem]">
         <TextInput aria-label="email input" value={email} onChange={handleInput} placeholder="Email address">
           <TextInput.TypeIcon>
-            <IcoEmail {...(isDarkMode ? { color: token('colors.ink.70') } : {})} />
+            <IcoEmail {...(isDarkMode ? { color: 'var(--color-ink-70)' } : {})} />
           </TextInput.TypeIcon>
           <TextInput.ActionIcon onClick={() => {}}>
             <Button
@@ -61,13 +58,13 @@ export const EmailInput = ({ error: externalError, isLoading }: EmailInputProps)
               validating={isLoading}
               type="submit"
             >
-              <Button.LeadingIcon color={token('colors.text.tertiary')}>
+              <Button.LeadingIcon color="var(--color-text-tertiary)">
                 <IcoArrowRight />
               </Button.LeadingIcon>
             </Button>
           </TextInput.ActionIcon>
         </TextInput>
-      </Box>
+      </div>
       {displayError && (
         <Text variant="error" size="sm" styles={{ textAlign: 'center' }}>
           {displayError}
