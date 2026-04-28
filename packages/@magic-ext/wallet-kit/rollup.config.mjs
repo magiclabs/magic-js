@@ -62,8 +62,9 @@ try {
     // ui-components styles.css missing — theme vars won't be inlined
   }
   cssContent = themeVars + ourCss;
-  // Escape for JS string
-  cssContent = cssContent.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+  // Don't pre-escape backslashes — the replace() plugin runs JSON.stringify
+  // on this value, and double-escaping breaks every Tailwind selector with
+  // `\:` / `\[` / `\]` (the rule silently drops at parse time).
 } catch {
   // Could not read CSS file
 }
