@@ -244,40 +244,40 @@ export function MagicWidget({
 
   if (isConfigLoading) return null;
 
-  const widgetContent = (
-    <WidgetConfigProvider
-      wallets={wallets}
-      enableFarcaster={enableFarcaster}
-      onSuccess={onSuccess}
-      onError={onError}
-      onClose={onClose}
-      closeOnSuccess={closeOnSuccess}
-    >
-      <WagmiProvider config={getExtensionInstance().wagmiConfig}>
-        <QueryClientProvider client={queryClient}>
-          <div id="magic-widget-container">
-            <div data-color-mode={colorMode}>
-              <WidgetContent state={state} dispatch={dispatch} showFooterLogo={showFooterLogo} isModal={isModal} />
-            </div>
-          </div>
-        </QueryClientProvider>
-      </WagmiProvider>
-    </WidgetConfigProvider>
+  const innerContent = (
+    <div data-color-mode={colorMode}>
+      <WidgetContent state={state} dispatch={dispatch} showFooterLogo={showFooterLogo} isModal={isModal} />
+    </div>
   );
 
-  if (isModal) {
-    return (
-      <div
-        style={modalBackdropStyles}
-        className="[@media(min-width:769px)]:pt-[15vh]"
-        onClick={handleBackdropClick}
+  return (
+    <div id="magic-widget-container">
+      <WidgetConfigProvider
+        wallets={wallets}
+        enableFarcaster={enableFarcaster}
+        onSuccess={onSuccess}
+        onError={onError}
+        onClose={onClose}
+        closeOnSuccess={closeOnSuccess}
       >
-        <div style={modalContentStyles}>{widgetContent}</div>
-      </div>
-    );
-  }
-
-  return widgetContent;
+        <WagmiProvider config={getExtensionInstance().wagmiConfig}>
+          <QueryClientProvider client={queryClient}>
+            {isModal ? (
+              <div
+                style={modalBackdropStyles}
+                className="[@media(min-width:769px)]:pt-[15vh]"
+                onClick={handleBackdropClick}
+              >
+                <div style={modalContentStyles}>{innerContent}</div>
+              </div>
+            ) : (
+              innerContent
+            )}
+          </QueryClientProvider>
+        </WagmiProvider>
+      </WidgetConfigProvider>
+    </div>
+  );
 }
 
 // Placeholder - will be replaced with actual CSS at build time
