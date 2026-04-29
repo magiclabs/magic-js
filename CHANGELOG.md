@@ -1,3 +1,17 @@
+# (Wed Apr 29 2026)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/passkey@1.0.0`
+  - feat: duplicate webauthn package as new passkey package [#1085](https://github.com/magiclabs/magic-js/pull/1085) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Apr 28 2026)
 
 #### 🚀 Enhancement
