@@ -301,10 +301,10 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
       return { ...state, view: 'passkey_options', error: undefined };
 
     case 'LOGIN_WITH_PASSKEY':
-      return { ...state, view: 'passkey_pending', passkeyAction: 'login', error: undefined };
+      return { ...state, view: 'passkey_pending', passkeyAction: 'login', otpLoginStatus: 'idle', error: undefined };
 
     case 'REGISTER_PASSKEY':
-      return { ...state, view: 'passkey_pending', passkeyAction: 'register', error: undefined };
+      return { ...state, view: 'passkey_pending', passkeyAction: 'register', otpLoginStatus: 'idle', error: undefined };
 
     // Farcaster flow
     case 'SELECT_FARCASTER':
