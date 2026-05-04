@@ -16,6 +16,8 @@ export type View =
   | 'recovery_code'
   | 'lost_recovery_code'
   | 'login_success'
+  | 'passkey_options'
+  | 'passkey_pending'
   | 'farcaster_pending'
   | 'farcaster_success'
   | 'farcaster_failed';
@@ -52,6 +54,8 @@ export interface WidgetState {
   otpLoginStatus?: OtpLoginStatus;
   // Login method: 'email' or 'sms'
   loginMethod?: 'email' | 'sms';
+  // Passkey flow state
+  passkeyAction?: 'login' | 'register';
   // Farcaster flow state
   farcasterUrl?: string;
   farcasterUsername?: string;
@@ -88,6 +92,10 @@ export type WidgetAction =
   // Wallet flow
   | { type: 'SELECT_WALLET'; provider: ThirdPartyWallet }
   | { type: 'WALLETCONNECT_CONNECTED'; address: string }
+  // Passkey flow
+  | { type: 'SELECT_PASSKEY' }
+  | { type: 'LOGIN_WITH_PASSKEY' }
+  | { type: 'REGISTER_PASSKEY' }
   // Farcaster flow
   | { type: 'SELECT_FARCASTER' }
   | { type: 'FARCASTER_CHANNEL_RECEIVED'; url: string }
@@ -109,6 +117,7 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
         walletAddress: undefined,
         identifier: undefined,
         error: undefined,
+        passkeyAction: undefined,
         farcasterUrl: state.farcasterUrl,
       };
 
@@ -286,6 +295,16 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
 
     case 'GO_TO_ADDITIONAL_PROVIDERS':
       return { ...state, view: 'additional_providers', error: undefined };
+
+    // Passkey flow
+    case 'SELECT_PASSKEY':
+      return { ...state, view: 'passkey_options', error: undefined };
+
+    case 'LOGIN_WITH_PASSKEY':
+      return { ...state, view: 'passkey_pending', passkeyAction: 'login', error: undefined };
+
+    case 'REGISTER_PASSKEY':
+      return { ...state, view: 'passkey_pending', passkeyAction: 'register', error: undefined };
 
     // Farcaster flow
     case 'SELECT_FARCASTER':

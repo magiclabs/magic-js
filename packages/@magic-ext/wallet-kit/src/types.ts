@@ -119,6 +119,22 @@ export interface FarcasterLoginResult {
 }
 
 /**
+ * Result returned on successful Passkey login
+ */
+export interface PasskeyLoginResult {
+  method: 'passkey';
+  /** The DID token for authentication (null if skipDIDToken is true) */
+  didToken: string | null;
+  /** Info of the device used to authenticate */
+  deviceInfo: {
+    id: string;
+    nickname: string;
+    transport: string;
+    userAgent: string;
+  };
+}
+
+/**
  * Discriminated union of all login result types.
  * Check the `method` property to determine which fields are available.
  *
@@ -136,7 +152,8 @@ export type LoginResult =
   | SmsLoginResult
   | OAuthLoginResult
   | WalletLoginResult
-  | FarcasterLoginResult;
+  | FarcasterLoginResult
+  | PasskeyLoginResult;
 
 /**
  * How the widget is displayed on the page.

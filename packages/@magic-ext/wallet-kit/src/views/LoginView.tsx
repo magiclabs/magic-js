@@ -1,6 +1,7 @@
 import { Text } from '@magiclabs/ui-components';
 import React from 'react';
 import { ContinueWithSmsButton } from 'src/components/ContinueWithSmsButton';
+import { ContinueWithPasskeyButton } from 'src/components/ContinueWithPasskeyButton';
 import { EmailInput } from '../components/EmailInput';
 import { ProviderButton } from '../components/ProviderButton';
 import { SocialProviders } from '../components/SocialProviders';
@@ -22,8 +23,9 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
   const { primary, social } = config?.authProviders ?? {};
   const hasEmailProvider = primary?.includes('email');
   const hasSmsProvider = primary?.includes('sms');
+  const hasPasskeyProvider = primary?.includes('webauthn');
   const socialProviders = social?.map(provider => provider as OAuthProvider) ?? [];
-  const hasAlternativeLogin = hasSmsProvider;
+  const hasAlternativeLogin = hasSmsProvider || hasPasskeyProvider;
 
   const showDivider =
     (hasEmailProvider || hasSmsProvider || socialProviders.length > 0 || enableFarcaster) && wallets.length > 0;
@@ -38,6 +40,10 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
 
   const handleSmsClick = () => {
     dispatch({ type: 'GO_TO_SMS_LOGIN' });
+  };
+
+  const handlePasskeyClick = () => {
+    dispatch({ type: 'SELECT_PASSKEY' });
   };
 
   return (
@@ -55,8 +61,9 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
           )}
 
           {hasAlternativeLogin && (
-            <div className="flex flex-row gap-2 w-full justify-center">
+            <div className="flex flex-column gap-2 w-full justify-center">
               {hasSmsProvider && <ContinueWithSmsButton onClick={handleSmsClick} />}
+              {hasPasskeyProvider && <ContinueWithPasskeyButton onClick={handlePasskeyClick} />}
             </div>
           )}
 
@@ -80,9 +87,7 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
           )}
 
           {wallets.length > 0 && (
-            <div
-              className={`flex ${showDivider ? 'flex-row' : 'flex-col'} gap-2 w-full justify-center items-center`}
-            >
+            <div className={`flex ${showDivider ? 'flex-row' : 'flex-col'} gap-2 w-full justify-center items-center`}>
               {wallets.map(provider => (
                 <ProviderButton
                   key={provider}
