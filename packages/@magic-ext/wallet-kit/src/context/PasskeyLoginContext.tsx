@@ -75,14 +75,12 @@ export function PasskeyLoginProvider({ children, dispatch }: PasskeyLoginProvide
 
       handle
         .then(result => {
-          if (result && result.idToken) {
-            dispatch({ type: 'LOGIN_SUCCESS' });
-            handleSuccess({
-              method: 'passkey',
-              didToken: result.idToken,
-              deviceInfo: result.deviceInfo,
-            });
-          }
+          dispatch({ type: 'LOGIN_SUCCESS' });
+          handleSuccess({
+            method: 'passkey',
+            didToken: result.idToken,
+            deviceInfo: result.deviceInfo,
+          });
         })
         .catch(error => {
           const errorInstance = error instanceof Error ? error : new Error(error?.message || 'Passkey login failed');
@@ -153,18 +151,13 @@ export function PasskeyLoginProvider({ children, dispatch }: PasskeyLoginProvide
       // Registration doesn't have event handlers like login
       // It's a simple promise that resolves with the DID token or null
       registerPromise
-        .then(didToken => {
-          if (didToken) {
+        .then(result => {
+          if (result) {
             dispatch({ type: 'LOGIN_SUCCESS' });
             handleSuccess({
               method: 'passkey',
-              didToken,
-              deviceInfo: {
-                id: '',
-                nickname: '',
-                transport: '',
-                userAgent: navigator.userAgent,
-              },
+              didToken: result.idToken,
+              deviceInfo: result.deviceInfo,
             });
           }
         })

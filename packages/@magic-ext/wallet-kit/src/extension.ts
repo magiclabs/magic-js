@@ -772,7 +772,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
       throw error;
     }
 
-    return this.request<string | null>(
+    return this.request<PasskeyResult | null>(
       this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RegisterPasskeyVerify, [
         {
           registrationToken,
