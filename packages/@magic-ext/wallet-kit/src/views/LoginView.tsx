@@ -61,7 +61,7 @@ export const LoginView = ({ dispatch, state }: LoginViewProps) => {
           )}
 
           {hasAlternativeLogin && (
-            <div className="flex flex-column gap-2 w-full justify-center">
+            <div className="flex flex-col gap-2 w-full justify-center">
               {hasSmsProvider && <ContinueWithSmsButton onClick={handleSmsClick} />}
               {hasPasskeyProvider && <ContinueWithPasskeyButton onClick={handlePasskeyClick} />}
             </div>
