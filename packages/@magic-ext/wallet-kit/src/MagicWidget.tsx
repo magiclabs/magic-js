@@ -12,6 +12,7 @@ import { getExtensionInstance } from './extension';
 import { EmailLoginProvider } from './context/EmailLoginContext';
 import { OAuthLoginProvider } from './context/OAuthLoginContext';
 import { SmsLoginProvider } from './context/SmsLoginContext';
+import { PasskeyLoginProvider } from './context/PasskeyLoginContext';
 import { WidgetConfigProvider } from './context/WidgetConfigContext';
 import { OtpView } from './views/OtpView';
 import { DeviceVerificationView } from './views/DeviceVerificationView';
@@ -21,6 +22,9 @@ import { RecoveryCodeView } from './views/RecoveryCode';
 import { LostRecoveryCode } from './views/LostRecoveryCode';
 import { WalletConnectView } from './views/WalletConnectView';
 import { SmsLoginView } from './views/SmsLoginView';
+import { PasskeyOptionsView } from './views/PasskeyOptionsView';
+import { PasskeyRegisterView } from './views/PasskeyRegisterView';
+import { PasskeyPendingView } from './views/PasskeyPendingView';
 import { FarcasterPendingView } from './views/FarcasterPendingView';
 import { FarcasterSuccessView } from './views/FarcasterSuccessView';
 import { FarcasterFailedView } from './views/FarcasterFailedView';
@@ -100,6 +104,12 @@ function WidgetContent({
         return <LostRecoveryCode dispatch={dispatch} />;
       case 'login_success':
         return <LoginSuccessView state={state} />;
+      case 'passkey_options':
+        return <PasskeyOptionsView dispatch={dispatch} />;
+      case 'passkey_register':
+        return <PasskeyRegisterView dispatch={dispatch} />;
+      case 'passkey_pending':
+        return <PasskeyPendingView state={state} dispatch={dispatch} />;
       case 'farcaster_pending':
         return <FarcasterPendingView state={state} dispatch={dispatch} />;
       case 'farcaster_success':
@@ -114,14 +124,16 @@ function WidgetContent({
   return (
     <EmailLoginProvider dispatch={dispatch}>
       <SmsLoginProvider dispatch={dispatch}>
-        <OAuthLoginProvider dispatch={dispatch}>
-          <Modal isWidget fullscreen={isModal && isMobile}>
-            <div className="flex flex-col items-center gap-2.5 w-full min-w-[380px]">
-              {renderView()}
-              <Footer showLogo={showFooterLogo} />
-            </div>
-          </Modal>
-        </OAuthLoginProvider>
+        <PasskeyLoginProvider dispatch={dispatch}>
+          <OAuthLoginProvider dispatch={dispatch}>
+            <Modal isWidget fullscreen={isModal && isMobile}>
+              <div className="flex flex-col items-center gap-2.5 w-full min-w-[380px]">
+                {renderView()}
+                <Footer showLogo={showFooterLogo} />
+              </div>
+            </Modal>
+          </OAuthLoginProvider>
+        </PasskeyLoginProvider>
       </SmsLoginProvider>
     </EmailLoginProvider>
   );
