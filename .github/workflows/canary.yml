@@ -4,7 +4,7 @@ on:
     branches:
       - "master"
   merge_group:
-    types: [checks_requested]
+    types: [ checks_requested ]
 
 env:
   GH_TOKEN: ${{ secrets.FRONTEND_GH_TOKEN }}
@@ -75,6 +75,14 @@ jobs:
         with:
           name: build-output
           path: packages
+
+      - name: Debug npm auth
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          npm whoami --registry=https://registry.npmjs.org/
+          npm view @magic-ext/wallet-kit version --registry=https://registry.npmjs.org/
+          npm view @magic-ext/wallet-kit dist-tags --registry=https://registry.npmjs.org/
+          npm access list collaborators @magic-ext/wallet-kit --registry=https://registry.npmjs.org/
 
       - name: Create Canary Release
         run: yarn auto canary
