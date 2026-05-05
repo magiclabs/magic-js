@@ -7,7 +7,6 @@ import {
   MagicThirdPartyWalletUpdate,
   OAuthMFAEventEmit,
   OAuthMFAEventOnReceived,
-  OAuthPopupEventEmit,
   OAuthPopupEventHandlers,
   PasskeyEventHandlers,
   PasskeyMFAEventEmit,
@@ -15,13 +14,12 @@ import {
   PasskeyResult,
   RPCErrorCode,
 } from '@magic-sdk/types';
-import { getAccount, getConnectorClient, reconnect, signMessage, watchAccount } from '@wagmi/core';
-import type { Config } from '@wagmi/core';
 import type { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
+import type { Config } from '@wagmi/core';
+import { getAccount, getConnectorClient, reconnect, signMessage, watchAccount } from '@wagmi/core';
 import { ClientConfig } from './types/client-config';
-import { createWagmiConfig } from './wagmi/config';
 import { toJSON } from './utils/polyfills';
-import { generateRandomUsername } from './lib/generate-username';
+import { createWagmiConfig } from './wagmi/config';
 
 enum SiwePayloadMethod {
   GenerateNonce = 'magic_siwe_generate_nonce',
