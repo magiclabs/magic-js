@@ -1,3 +1,17 @@
+# (Tue May 05 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.11.0`
+  - Sherzodbakhodirov/emb 506 implement passkey support in wallet kit [#1086](https://github.com/magiclabs/magic-js/pull/1086) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Wed Apr 29 2026)
 
 #### 💥 Breaking Change
