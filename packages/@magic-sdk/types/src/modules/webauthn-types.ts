@@ -3,12 +3,18 @@ export interface PasskeyResult {
   idToken: string | null;
 
   // Info of the device used to authenticate
-  deviceInfo: {
-    id: string;
-    nickname: string;
-    transport: string;
-    userAgent: string;
-  };
+  deviceInfo: DeviceInfo;
+}
+
+export interface DeviceInfo {
+  id: string;
+  nickname: string;
+  transport: string;
+  userAgent: string;
+}
+
+export interface PasskeyMetadata {
+  devicesInfo: DeviceInfo[];
 }
 
 export enum PasskeyMFAEventEmit {
