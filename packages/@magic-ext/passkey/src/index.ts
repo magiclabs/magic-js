@@ -5,7 +5,13 @@ import {
   PasskeySDKErrorCode,
   LoginWithPasskeyConfiguration,
 } from './types';
-import { PasskeyResult, PasskeyEventHandlers, PasskeyMFAEventEmit, PasskeyMFAEventOnReceived } from '@magic-sdk/types';
+import {
+  PasskeyResult,
+  PasskeyEventHandlers,
+  PasskeyMFAEventEmit,
+  PasskeyMFAEventOnReceived,
+  PasskeyMetadata,
+} from '@magic-sdk/types';
 import { toJSON } from './utils/polyfills';
 
 export class PasskeyExtension extends Extension.Internal<'passkey', any> {
@@ -39,7 +45,7 @@ export class PasskeyExtension extends Extension.Internal<'passkey', any> {
       throw this.createPasskeyCreateCredentialError(err);
     }
 
-    return this.request<string | null>(
+    return this.request<PasskeyResult>(
       this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RegisterPasskeyVerify, [
         {
           registrationToken,
@@ -137,6 +143,6 @@ export class PasskeyExtension extends Extension.Internal<'passkey', any> {
 
   public getMetadata() {
     const requestPayload = this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.GetPasskeyInfo, []);
-    return this.request<any[]>(requestPayload);
+    return this.request<PasskeyMetadata>(requestPayload);
   }
 }
