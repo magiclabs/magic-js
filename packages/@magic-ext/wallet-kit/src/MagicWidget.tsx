@@ -23,6 +23,7 @@ import { LostRecoveryCode } from './views/LostRecoveryCode';
 import { WalletConnectView } from './views/WalletConnectView';
 import { SmsLoginView } from './views/SmsLoginView';
 import { PasskeyOptionsView } from './views/PasskeyOptionsView';
+import { PasskeyRegisterView } from './views/PasskeyRegisterView';
 import { PasskeyPendingView } from './views/PasskeyPendingView';
 import { FarcasterPendingView } from './views/FarcasterPendingView';
 import { FarcasterSuccessView } from './views/FarcasterSuccessView';
@@ -105,6 +106,8 @@ function WidgetContent({
         return <LoginSuccessView state={state} />;
       case 'passkey_options':
         return <PasskeyOptionsView dispatch={dispatch} />;
+      case 'passkey_register':
+        return <PasskeyRegisterView dispatch={dispatch} />;
       case 'passkey_pending':
         return <PasskeyPendingView state={state} dispatch={dispatch} />;
       case 'farcaster_pending':

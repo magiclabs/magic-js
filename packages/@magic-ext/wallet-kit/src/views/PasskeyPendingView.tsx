@@ -20,12 +20,12 @@ export const PasskeyPendingView = ({ state, dispatch }: PasskeyPendingViewProps)
     if (!actionAttempted.current) {
       actionAttempted.current = true;
       if (isRegister) {
-        startPasskeyRegister();
+        startPasskeyRegister(state.passkeyUsername);
       } else {
         startPasskeyLogin();
       }
     }
-  }, [startPasskeyLogin, startPasskeyRegister, isRegister]);
+  }, [startPasskeyLogin, startPasskeyRegister, isRegister, state.passkeyUsername]);
 
   return (
     <Pending

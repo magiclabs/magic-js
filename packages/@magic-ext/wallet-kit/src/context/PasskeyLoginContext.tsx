@@ -141,12 +141,12 @@ export function PasskeyLoginProvider({ children, dispatch }: PasskeyLoginProvide
    * Start the passkey registration flow
    * Creates a new passkey for the user
    */
-  const startPasskeyRegister = useCallback(() => {
+  const startPasskeyRegister = useCallback((username?: string) => {
     isActiveRef.current = true;
 
     try {
       const extension = getExtensionInstance();
-      const registerPromise = extension.registerWithPasskey();
+      const registerPromise = extension.registerWithPasskey(username);
 
       // Registration doesn't have event handlers like login
       // It's a simple promise that resolves with the DID token or null

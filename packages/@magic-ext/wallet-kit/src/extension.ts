@@ -750,13 +750,11 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
     return promiEvent;
   }
 
-  public async registerWithPasskey() {
+  public async registerWithPasskey(username?: string) {
     if (!window.PublicKeyCredential) {
       const error = this.createError('PASSKEY_NOT_SUPPORTED', 'Passkey is not supported in this device.', {});
       throw error;
     }
-
-    const username = generateRandomUsername();
 
     const { registrationOptions, registrationToken } = await this.request<any>(
       this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RegisterPasskeyStart, [{ username }]),

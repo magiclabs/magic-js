@@ -17,6 +17,7 @@ export type View =
   | 'lost_recovery_code'
   | 'login_success'
   | 'passkey_options'
+  | 'passkey_register'
   | 'passkey_pending'
   | 'farcaster_pending'
   | 'farcaster_success'
@@ -56,6 +57,7 @@ export interface WidgetState {
   loginMethod?: 'email' | 'sms';
   // Passkey flow state
   passkeyAction?: 'login' | 'register';
+  passkeyUsername?: string;
   // Farcaster flow state
   farcasterUrl?: string;
   farcasterUsername?: string;
@@ -96,6 +98,7 @@ export type WidgetAction =
   | { type: 'SELECT_PASSKEY' }
   | { type: 'LOGIN_WITH_PASSKEY' }
   | { type: 'REGISTER_PASSKEY' }
+  | { type: 'PASSKEY_REGISTER_SUBMIT'; username?: string }
   // Farcaster flow
   | { type: 'SELECT_FARCASTER' }
   | { type: 'FARCASTER_CHANNEL_RECEIVED'; url: string }
@@ -118,6 +121,7 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
         identifier: undefined,
         error: undefined,
         passkeyAction: undefined,
+        passkeyUsername: undefined,
         farcasterUrl: state.farcasterUrl,
       };
 
@@ -304,7 +308,17 @@ export function widgetReducer(state: WidgetState, action: WidgetAction): WidgetS
       return { ...state, view: 'passkey_pending', passkeyAction: 'login', otpLoginStatus: 'idle', error: undefined };
 
     case 'REGISTER_PASSKEY':
-      return { ...state, view: 'passkey_pending', passkeyAction: 'register', otpLoginStatus: 'idle', error: undefined };
+      return { ...state, view: 'passkey_register', error: undefined };
+
+    case 'PASSKEY_REGISTER_SUBMIT':
+      return {
+        ...state,
+        view: 'passkey_pending',
+        passkeyAction: 'register',
+        passkeyUsername: action.username,
+        otpLoginStatus: 'idle',
+        error: undefined,
+      };
 
     // Farcaster flow
     case 'SELECT_FARCASTER':
