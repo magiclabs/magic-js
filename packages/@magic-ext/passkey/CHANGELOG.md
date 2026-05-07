@@ -1,3 +1,15 @@
+# v1.0.1 (Thu May 07 2026)
+
+#### 🐛 Bug Fix
+
+- feat: add type for passkey metadata [#1087](https://github.com/magiclabs/magic-js/pull/1087) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v1.0.0 (Wed Apr 29 2026)
 
 #### 💥 Breaking Change
