@@ -3199,6 +3199,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/google-one-tap@workspace:packages/@magic-ext/google-one-tap":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/google-one-tap@workspace:packages/@magic-ext/google-one-tap"
+  dependencies:
+    "@magic-sdk/provider": ^33.7.0
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/harmony@workspace:packages/@magic-ext/harmony":
   version: 0.0.0-use.local
   resolution: "@magic-ext/harmony@workspace:packages/@magic-ext/harmony"
