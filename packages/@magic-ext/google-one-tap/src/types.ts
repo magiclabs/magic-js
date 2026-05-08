@@ -43,15 +43,16 @@ export interface GoogleOneTapConfig {
 }
 
 /**
- * RPC method enum mirrored from `@magic-ext/oidc`. We hardcode the value here to
- * avoid coupling the One Tap extension package to the OIDC extension package; if
- * the underlying iframe handler ever renames, both packages need updating in lockstep.
+ * Dedicated RPC for the Google One Tap flow. Distinct from `magic_auth_login_with_oidc`:
+ * the One Tap path mints a Magic-shaped fridge access token (no `x-oidc-provider-id`
+ * header sent on subsequent TEE calls), which keeps it isolated from the legacy OIDC
+ * flow's wallet-identity scoping.
  */
 export enum GoogleOneTapPayloadMethod {
-  LoginWithOIDC = 'magic_auth_login_with_oidc',
+  LoginWithGoogleOneTap = 'magic_auth_login_with_google_one_tap',
 }
 
-export interface LoginWithOIDCParams {
+export interface LoginWithGoogleOneTapParams {
   jwt: string;
   providerId: string;
   lifespan?: number;
