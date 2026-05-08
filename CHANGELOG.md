@@ -1,3 +1,16 @@
+# (Thu May 07 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/passkey@1.0.1`, `@magic-sdk/types@27.7.1`
+  - feat: add type for passkey metadata [#1087](https://github.com/magiclabs/magic-js/pull/1087) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # (Tue May 05 2026)
 
 #### 🚀 Enhancement
