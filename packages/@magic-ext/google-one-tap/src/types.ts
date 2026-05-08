@@ -43,17 +43,19 @@ export interface GoogleOneTapConfig {
 }
 
 /**
- * Dedicated RPC for the Google One Tap flow. Distinct from `magic_auth_login_with_oidc`:
- * the One Tap path mints a Magic-shaped fridge access token (no `x-oidc-provider-id`
- * header sent on subsequent TEE calls), which keeps it isolated from the legacy OIDC
- * flow's wallet-identity scoping.
+ * Reuses `magic_auth_login_with_oidc` and disambiguates via `walletIdentityScope: 'magic'`
+ * in the payload, which tells the iframe handler to mint a Magic-shaped fridge token
+ * (wallet keyed on auth_user) instead of the federated default (wallet keyed on issuer/
+ * subject/audience). The default keeps existing OIDC customers' wallets intact; One Tap
+ * is greenfield, so it gets the Magic-keyed shape.
  */
 export enum GoogleOneTapPayloadMethod {
-  LoginWithGoogleOneTap = 'magic_auth_login_with_google_one_tap',
+  LoginWithOIDC = 'magic_auth_login_with_oidc',
 }
 
-export interface LoginWithGoogleOneTapParams {
+export interface LoginWithOIDCParams {
   jwt: string;
   providerId: string;
   lifespan?: number;
+  walletIdentityScope?: 'federated' | 'magic';
 }

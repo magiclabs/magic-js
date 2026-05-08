@@ -1,7 +1,7 @@
 import { Extension } from '@magic-sdk/provider';
 import { loadGsi } from './gsi-loader';
 import type { GoogleCredentialResponse } from './google-types';
-import { GoogleOneTapConfig, GoogleOneTapPayloadMethod, LoginWithGoogleOneTapParams } from './types';
+import { GoogleOneTapConfig, GoogleOneTapPayloadMethod, LoginWithOIDCParams } from './types';
 
 export class GoogleOneTapExtension extends Extension.Internal<'googleOneTap', GoogleOneTapConfig> {
   name = 'googleOneTap' as const;
@@ -42,16 +42,16 @@ export class GoogleOneTapExtension extends Extension.Internal<'googleOneTap', Go
                 return;
               }
 
-              const params: LoginWithGoogleOneTapParams = {
+              const params: LoginWithOIDCParams = {
                 jwt: response.credential,
                 providerId: this.config.magicProviderId,
                 lifespan: this.config.lifespan,
+                walletIdentityScope: 'magic',
               };
 
-              const payload = this.utils.createJsonRpcRequestPayload(
-                GoogleOneTapPayloadMethod.LoginWithGoogleOneTap,
-                [params],
-              );
+              const payload = this.utils.createJsonRpcRequestPayload(GoogleOneTapPayloadMethod.LoginWithOIDC, [
+                params,
+              ]);
 
               this.request<string>(payload).then(resolve, reject);
             },
