@@ -6,13 +6,6 @@ export interface GoogleOneTapConfig {
   googleClientId: string;
 
   /**
-   * The Magic `FederatedIdentityProvider` ID configured for Google as the OIDC
-   * issuer. The Google ID token returned by One Tap is forwarded to Magic and
-   * verified against this provider.
-   */
-  magicProviderId: string;
-
-  /**
    * If true, returning users with a single eligible Google account skip the click
    * and are signed in automatically. Defaults to `false`.
    */
@@ -43,19 +36,17 @@ export interface GoogleOneTapConfig {
 }
 
 /**
- * Reuses `magic_auth_login_with_oidc` and disambiguates via `walletIdentityScope: 'magic'`
- * in the payload, which tells the iframe handler to mint a Magic-shaped fridge token
- * (wallet keyed on auth_user) instead of the federated default (wallet keyed on issuer/
- * subject/audience). The default keeps existing OIDC customers' wallets intact; One Tap
- * is greenfield, so it gets the Magic-keyed shape.
+ * Dedicated RPC for the Google One Tap flow. Distinct from `magic_auth_login_with_oidc`:
+ * the One Tap path hits a Google-specific Toaster verify endpoint that mints a Magic-shaped
+ * fridge token (wallet keyed on the Magic auth_user, no `x-oidc-provider-id` header on
+ * subsequent fridge calls). Existing OIDC customers' wallets and behavior are unaffected.
  */
 export enum GoogleOneTapPayloadMethod {
-  LoginWithOIDC = 'magic_auth_login_with_oidc',
+  LoginWithGoogleOneTap = 'magic_auth_login_with_google_one_tap',
 }
 
-export interface LoginWithOIDCParams {
+export interface LoginWithGoogleOneTapParams {
   jwt: string;
-  providerId: string;
+  googleClientId: string;
   lifespan?: number;
-  walletIdentityScope?: 'federated' | 'magic';
 }
