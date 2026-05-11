@@ -1,5 +1,6 @@
 import { createPromiEvent, Extension } from '@magic-sdk/provider';
 import {
+  LoginWithGoogleIdTokenConfiguration,
   OAuthErrorData,
   OAuthRedirectError,
   OAuthRedirectResult,
@@ -44,6 +45,23 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
   constructor() {
     super();
     this.seamlessTelegramLogin();
+  }
+
+  /**
+   * Verify a Google ID token (e.g. from Google One Tap / GSI) and complete a Magic login.
+   *
+   * Magic does not integrate GSI for you -- the customer owns script loading, prompt
+   * orchestration, FedCM state handling, etc. -- and forwards the resulting Google ID token
+   * to this method. Magic verifies the token (signature, issuer, audience) and issues a
+   * Magic DID token.
+   *
+   * The `googleClientId` must match the `client_id` the customer passed to GSI. Magic enforces
+   * strict audience verification against it to prevent acceptance of tokens minted for a
+   * different Google OAuth client.
+   */
+  public loginWithGoogleIdToken(configuration: LoginWithGoogleIdTokenConfiguration) {
+    const payload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.LoginWithGoogleIdToken, [configuration]);
+    return this.request<string>(payload);
   }
 
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
