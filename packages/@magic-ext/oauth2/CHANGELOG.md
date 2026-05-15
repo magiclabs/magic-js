@@ -1,3 +1,15 @@
+# v15.8.0 (Fri May 15 2026)
+
+#### 🚀 Enhancement
+
+- Google one tap support [#1089](https://github.com/magiclabs/magic-js/pull/1089) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v15.6.0 (Wed Apr 22 2026)
 
 #### 🚀 Enhancement

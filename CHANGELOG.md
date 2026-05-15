@@ -1,3 +1,16 @@
+# (Fri May 15 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@15.8.0`
+  - Google one tap support [#1089](https://github.com/magiclabs/magic-js/pull/1089) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Thu May 07 2026)
 
 #### 🐛 Bug Fix
