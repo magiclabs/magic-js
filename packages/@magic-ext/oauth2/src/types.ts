@@ -6,6 +6,7 @@ export enum OAuthPayloadMethods {
   Popup = 'magic_oauth_login_with_popup',
   VerifyTelegramData = 'magic_oauth_verify_telegram_data',
   VerifySteamData = 'magic_oauth_verify_steam_data',
+  LoginWithGoogleIdToken = 'magic_auth_login_with_google_id_token',
 }
 
 export type OAuthProvider =
@@ -131,6 +132,24 @@ export interface OAuthPopupConfiguration {
   providerParams?: Record<string, string | number | boolean>;
   shouldReturnURI?: boolean;
   showMfaModal?: boolean;
+}
+
+export interface LoginWithGoogleIdTokenConfiguration {
+  /**
+   * The Google ID token (JWT) obtained from a customer-managed Google Identity Services
+   * integration (One Tap, Sign-In Button, programmatic). Magic does not load GSI itself.
+   */
+  jwt: string;
+  /**
+   * The Google Cloud OAuth client ID used to obtain the JWT. Required: Magic enforces strict
+   * audience verification against this value, preventing acceptance of Google JWTs minted
+   * for a different OAuth client.
+   */
+  googleClientId: string;
+  /**
+   * Optional lifespan (in seconds) for the resulting Magic DID token.
+   */
+  lifespan?: number;
 }
 
 export enum OAuthErrorCode {
