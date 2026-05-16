@@ -3339,6 +3339,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@magic-ext/subtensor@workspace:packages/@magic-ext/subtensor":
+  version: 0.0.0-use.local
+  resolution: "@magic-ext/subtensor@workspace:packages/@magic-ext/subtensor"
+  dependencies:
+    "@magic-sdk/provider": ^33.7.1
+  languageName: unknown
+  linkType: soft
+
 "@magic-ext/sui@workspace:packages/@magic-ext/sui":
   version: 0.0.0-use.local
   resolution: "@magic-ext/sui@workspace:packages/@magic-ext/sui"
