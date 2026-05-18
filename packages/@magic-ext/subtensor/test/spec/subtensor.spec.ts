@@ -6,7 +6,9 @@ beforeEach(() => {
 });
 
 function makeMagic() {
-  const magic = createMagicSDKWithExtension({}, [new SubtensorExtension({ rpcUrl: 'wss://entrypoint-finney.opentensor.ai:443' })]);
+  const magic = createMagicSDKWithExtension({}, [
+    new SubtensorExtension({ rpcUrl: 'wss://entrypoint-finney.opentensor.ai:443' }),
+  ]);
   magic.subtensor.request = jest.fn();
   return magic;
 }
@@ -42,10 +44,10 @@ test('addProxy forwards delegate + optional proxyType/delay', () => {
 
 test('addStake forwards hotkey, amount, and optional netuid', () => {
   const magic = makeMagic();
-  magic.subtensor.addStake({ hotkey: '5Hot', amount: 100n, netuid: 7 });
+  magic.subtensor.addStake({ hotkey: '5Hot', amount: BigInt(100), netuid: 7 });
   const payload = (magic.subtensor.request as jest.Mock).mock.calls[0][0];
   expect(payload.method).toBe('subtensor_addStake');
-  expect(payload.params).toEqual({ hotkey: '5Hot', amount: 100n, netuid: 7 });
+  expect(payload.params).toEqual({ hotkey: '5Hot', amount: BigInt(100), netuid: 7 });
 });
 
 test('removeStake forwards hotkey + amount', () => {
@@ -61,7 +63,7 @@ test('moveStake forwards origin/dest hotkeys and amount', () => {
   magic.subtensor.moveStake({
     originHotkey: '5From',
     destHotkey: '5To',
-    amount: 200n,
+    amount: BigInt(200),
     originNetuid: 1,
     destNetuid: 2,
   });
@@ -70,7 +72,7 @@ test('moveStake forwards origin/dest hotkeys and amount', () => {
   expect(payload.params).toEqual({
     originHotkey: '5From',
     destHotkey: '5To',
-    amount: 200n,
+    amount: BigInt(200),
     originNetuid: 1,
     destNetuid: 2,
   });

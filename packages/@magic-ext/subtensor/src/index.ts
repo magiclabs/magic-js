@@ -21,8 +21,8 @@ export class SubtensorExtension extends MultichainExtension<'subtensor'> {
     });
   }
 
-  public getAccount = (): Promise<string> => {
-    return this.request({
+  public getAccount = () => {
+    return this.request<string>({
       id: 42,
       jsonrpc: '2.0',
       method: 'subtensor_getAccount',
@@ -30,8 +30,8 @@ export class SubtensorExtension extends MultichainExtension<'subtensor'> {
     });
   };
 
-  public sendTransaction = (params: TransferParams): Promise<SignedTransactionResult> => {
-    return this.request({
+  public sendTransaction = (params: TransferParams) => {
+    return this.request<SignedTransactionResult>({
       id: 42,
       jsonrpc: '2.0',
       method: 'subtensor_sendTransaction',
@@ -39,8 +39,8 @@ export class SubtensorExtension extends MultichainExtension<'subtensor'> {
     });
   };
 
-  public addProxy = (params: AddProxyParams): Promise<SignedTransactionResult> => {
-    return this.request({
+  public addProxy = (params: AddProxyParams) => {
+    return this.request<SignedTransactionResult>({
       id: 42,
       jsonrpc: '2.0',
       method: 'subtensor_addProxy',
@@ -48,8 +48,8 @@ export class SubtensorExtension extends MultichainExtension<'subtensor'> {
     });
   };
 
-  public addStake = (params: AddStakeParams): Promise<SignedTransactionResult> => {
-    return this.request({
+  public addStake = (params: AddStakeParams) => {
+    return this.request<SignedTransactionResult>({
       id: 42,
       jsonrpc: '2.0',
       method: 'subtensor_addStake',
@@ -57,8 +57,8 @@ export class SubtensorExtension extends MultichainExtension<'subtensor'> {
     });
   };
 
-  public removeStake = (params: RemoveStakeParams): Promise<SignedTransactionResult> => {
-    return this.request({
+  public removeStake = (params: RemoveStakeParams) => {
+    return this.request<SignedTransactionResult>({
       id: 42,
       jsonrpc: '2.0',
       method: 'subtensor_removeStake',
@@ -66,8 +66,8 @@ export class SubtensorExtension extends MultichainExtension<'subtensor'> {
     });
   };
 
-  public moveStake = (params: MoveStakeParams): Promise<SignedTransactionResult> => {
-    return this.request({
+  public moveStake = (params: MoveStakeParams) => {
+    return this.request<SignedTransactionResult>({
       id: 42,
       jsonrpc: '2.0',
       method: 'subtensor_moveStake',
@@ -75,8 +75,8 @@ export class SubtensorExtension extends MultichainExtension<'subtensor'> {
     });
   };
 
-  public signRaw = (payload: Record<string, unknown>): Promise<SignedRawResult> => {
-    return this.request({
+  public signRaw = (payload: Record<string, unknown>) => {
+    return this.request<SignedRawResult>({
       id: 42,
       jsonrpc: '2.0',
       method: 'subtensor_signRaw',
