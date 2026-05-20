@@ -42,6 +42,13 @@ export interface SignedTransactionResult {
   txHash: string;
 }
 
+export interface SignRawParams {
+  /** Hex-encoded data to sign (e.g. '0x...'). */
+  data: string;
+  /** 'bytes' signs raw data; 'payload' treats data as an extrinsic payload. Defaults to 'bytes'. */
+  type?: 'bytes' | 'payload';
+}
+
 export interface SignedRawResult {
   signature: string;
 }

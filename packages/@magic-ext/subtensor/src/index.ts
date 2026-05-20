@@ -5,6 +5,7 @@ import type {
   AddStakeParams,
   MoveStakeParams,
   RemoveStakeParams,
+  SignRawParams,
   SignedRawResult,
   SignedTransactionResult,
   SubtensorConfig,
@@ -75,7 +76,7 @@ export class SubtensorExtension extends MultichainExtension<'subtensor'> {
     });
   };
 
-  public signRaw = (payload: Record<string, unknown>) => {
+  public signRaw = (payload: SignRawParams) => {
     return this.request<SignedRawResult>({
       id: 42,
       jsonrpc: '2.0',
@@ -90,6 +91,7 @@ export type {
   AddStakeParams,
   MoveStakeParams,
   RemoveStakeParams,
+  SignRawParams,
   SignedRawResult,
   SignedTransactionResult,
   SubtensorConfig,
