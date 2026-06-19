@@ -28,9 +28,17 @@ export class PasskeyExtension extends Extension.Internal<'passkey', any> {
 
   private createPasskeyCreateCredentialError(err: any) {
     if (err?.name === 'NotAllowedError') {
-      return this.createError(PasskeySDKErrorCode.PasskeyUserCancelledOrTimeout, 'Passkey operation was cancelled or timed out.', {});
+      return this.createError(
+        PasskeySDKErrorCode.PasskeyUserCancelledOrTimeout,
+        'Passkey operation was cancelled or timed out.',
+        {},
+      );
     }
-    return this.createError(PasskeySDKErrorCode.PasskeyRegisterError, `Error creating credential: ${err?.message ?? err}`, {});
+    return this.createError(
+      PasskeySDKErrorCode.PasskeyRegisterError,
+      `Error creating credential: ${err?.message ?? err}`,
+      {},
+    );
   }
 
   public async registerNewUser(configuration?: RegisterNewUserConfiguration) {
@@ -192,16 +200,16 @@ export class PasskeyExtension extends Extension.Internal<'passkey', any> {
   }
 
   public updatePasskey(configuration: UpdatePasskeyConfiguration) {
-    const { credentialId, nickname } = configuration;
+    const { passkeyId, nickname } = configuration;
     return this.request<DeviceInfo>(
-      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.UpdatePasskey, [{ credentialId, nickname }]),
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.UpdatePasskey, [{ passkeyId, nickname }]),
     );
   }
 
   public removePasskey(configuration: RemovePasskeyConfiguration) {
-    const { credentialId } = configuration;
+    const { passkeyId } = configuration;
     return this.request<boolean>(
-      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RemovePasskey, [{ credentialId }]),
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RemovePasskey, [{ passkeyId }]),
     );
   }
 }

@@ -41,9 +41,9 @@ export interface AddPasskeyConfiguration {
 
 export interface UpdatePasskeyConfiguration {
   /**
-   * The credential ID of the passkey to update.
+   * The passkey ID of the passkey to update.
    */
-  credentialId: string;
+  passkeyId: string;
 
   /**
    * The new nickname for the passkey.
@@ -53,9 +53,9 @@ export interface UpdatePasskeyConfiguration {
 
 export interface RemovePasskeyConfiguration {
   /**
-   * The credential ID of the passkey to remove.
+   * The passkey ID of the passkey to remove.
    */
-  credentialId: string;
+  passkeyId: string;
 }
 
 export enum MagicPasskeyPayloadMethod {
