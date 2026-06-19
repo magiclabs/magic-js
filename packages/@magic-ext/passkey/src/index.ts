@@ -4,6 +4,9 @@ import {
   MagicPasskeyPayloadMethod,
   PasskeySDKErrorCode,
   LoginWithPasskeyConfiguration,
+  AddPasskeyConfiguration,
+  UpdatePasskeyConfiguration,
+  RemovePasskeyConfiguration,
 } from './types';
 import {
   PasskeyResult,
@@ -11,6 +14,7 @@ import {
   PasskeyMFAEventEmit,
   PasskeyMFAEventOnReceived,
   PasskeyMetadata,
+  DeviceInfo,
 } from '@magic-sdk/types';
 import { toJSON } from './utils/polyfills';
 
@@ -19,11 +23,14 @@ export class PasskeyExtension extends Extension.Internal<'passkey', any> {
   config: any = {};
 
   private createPasskeyNotSupportError() {
-    this.createError(PasskeySDKErrorCode.PasskeyNotSupported, 'Passkey is not supported in this device.', {});
+    return this.createError(PasskeySDKErrorCode.PasskeyNotSupported, 'Passkey is not supported in this device.', {});
   }
 
-  private createPasskeyCreateCredentialError(message: string) {
-    this.createError(PasskeySDKErrorCode.PasskeyRegisterError, `Error creating credential: ${message}`, {});
+  private createPasskeyCreateCredentialError(err: any) {
+    if (err?.name === 'NotAllowedError') {
+      return this.createError(PasskeySDKErrorCode.PasskeyUserCancelledOrTimeout, 'Passkey operation was cancelled or timed out.', {});
+    }
+    return this.createError(PasskeySDKErrorCode.PasskeyRegisterError, `Error creating credential: ${err?.message ?? err}`, {});
   }
 
   public async registerNewUser(configuration?: RegisterNewUserConfiguration) {
@@ -33,7 +40,9 @@ export class PasskeyExtension extends Extension.Internal<'passkey', any> {
     const { username, nickname = '', skipDIDToken, lifespan } = configuration ?? {};
 
     const { registrationOptions, registrationToken } = await this.request<any>(
-      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RegisterPasskeyStart, [{ username }]),
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RegisterPasskeyStart, [
+        { ...(username !== undefined ? { username } : {}) },
+      ]),
     );
 
     let credential;
@@ -71,7 +80,9 @@ export class PasskeyExtension extends Extension.Internal<'passkey', any> {
       }
 
       const { authenticationToken, authenticationOptions } = await this.request<any>(
-        this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.LoginWithPasskeyStart, [{ username }]),
+        this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.LoginWithPasskeyStart, [
+          { ...(username !== undefined ? { username } : {}) },
+        ]),
       );
 
       let assertion;
@@ -144,5 +155,53 @@ export class PasskeyExtension extends Extension.Internal<'passkey', any> {
   public getMetadata() {
     const requestPayload = this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.GetPasskeyInfo, []);
     return this.request<PasskeyMetadata>(requestPayload);
+  }
+
+  public async addPasskey(configuration?: AddPasskeyConfiguration) {
+    if (!window.PublicKeyCredential) {
+      throw this.createPasskeyNotSupportError();
+    }
+    const { username, nickname = '' } = configuration ?? {};
+
+    const { registrationOptions, registrationToken } = await this.request<any>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.AddPasskeyStart, [
+        { ...(username !== undefined ? { username } : {}) },
+      ]),
+    );
+
+    let credential;
+    try {
+      credential = (await navigator.credentials.create({
+        publicKey: registrationOptions,
+      })) as any;
+    } catch (err: any) {
+      throw this.createPasskeyCreateCredentialError(err);
+    }
+
+    return this.request<PasskeyResult>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.AddPasskeyVerify, [
+        {
+          registrationToken,
+          registrationResponse: toJSON(credential),
+          nickname,
+          transport: credential.response.getTransports(),
+          userAgent: navigator.userAgent,
+        },
+      ]),
+    );
+  }
+
+  public updatePasskey(configuration: UpdatePasskeyConfiguration) {
+    const { credentialId, nickname } = configuration;
+    return this.request<DeviceInfo>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.UpdatePasskey, [{ credentialId, nickname }]),
+    );
+  }
+
+  public removePasskey(configuration: RemovePasskeyConfiguration) {
+    const { credentialId } = configuration;
+    return this.request<boolean>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RemovePasskey, [{ credentialId }]),
+    );
   }
 }
