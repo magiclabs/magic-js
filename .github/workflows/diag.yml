@@ -28,14 +28,31 @@ jobs:
               onAbuseLimit: () => true,
             },
           });
-          for (let i = 1; i <= 10; i++) {
-            try {
-              const r = await gh.repos.get({ owner: "magiclabs", repo: "magic-js" });
-              console.log(`try ${i} -> OK ${r.status}`);
-            } catch (e) {
-              console.log(`try ${i} -> FAIL status=${e.status} msg=${e.message}`);
+          import https from "node:https";
+
+          async function probe(label, extra) {
+            const client = new GitHub({
+              auth: process.env.TOKEN,
+              previews: ["symmetra-preview"],
+              throttle: { onRateLimit: () => true, onAbuseLimit: () => true },
+              ...extra,
+            });
+            let ok = 0, fail = 0, lastErr = "";
+            for (let i = 0; i < 5; i++) {
+              try { await client.repos.get({ owner: "magiclabs", repo: "magic-js" }); ok++; }
+              catch (e) { fail++; lastErr = e.message; }
             }
+            console.log(`[${label}] ok=${ok} fail=${fail} ${fail ? "lastErr=" + lastErr : ""}`);
           }
+
+          // A) baseline = auto today
+          await probe("baseline (node-fetch@2)", {});
+          // B) use Node 22 built-in fetch (undici) — same modern stack as curl
+          await probe("undici globalThis.fetch", { request: { fetch: globalThis.fetch } });
+          // C) keep node-fetch but disable gzip
+          await probe("node-fetch + identity encoding", { request: { headers: { "accept-encoding": "identity" } } });
+          // D) keep node-fetch but force a no-keepalive agent
+          await probe("node-fetch + keepAlive:false agent", { request: { agent: new https.Agent({ keepAlive: false }) } });
           EOF
           node repro.mjs
 
