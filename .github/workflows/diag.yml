@@ -3,18 +3,28 @@ on:
   workflow_dispatch:
 
 jobs:
-  diag:
+  matrix:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18, 20, 22, 24]
+    name: node-${{ matrix.node }}
     steps:
-      - name: Reproduce with auto's actual octokit client (node-fetch path)
+      - name: Setup node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Baseline repro with auto's octokit@18 stack
         env:
           TOKEN: ${{ secrets.FRONTEND_GH_TOKEN }}
         run: |
+          node --version
           mkdir -p /tmp/repro && cd /tmp/repro
           npm init -y >/dev/null 2>&1
-          # same versions auto@11.3.6 resolves
           npm i @octokit/rest@18.12.0 @octokit/plugin-retry@3.0.9 @octokit/plugin-throttling@3.7.0 >/dev/null 2>&1
-          node --version
+          node -e "console.log('node-fetch:', require('@octokit/request/node_modules/node-fetch/package.json')?.version || require('node-fetch/package.json').version)" 2>/dev/null || true
           cat > repro.mjs <<'EOF'
           import { Octokit } from "@octokit/rest";
           import { retry } from "@octokit/plugin-retry";
@@ -23,64 +33,13 @@ jobs:
           const gh = new GitHub({
             auth: process.env.TOKEN,
             previews: ["symmetra-preview"],
-            throttle: {
-              onRateLimit: () => true,
-              onAbuseLimit: () => true,
-            },
+            throttle: { onRateLimit: () => true, onAbuseLimit: () => true },
           });
-          import https from "node:https";
-
-          async function probe(label, extra) {
-            const client = new GitHub({
-              auth: process.env.TOKEN,
-              previews: ["symmetra-preview"],
-              throttle: { onRateLimit: () => true, onAbuseLimit: () => true },
-              ...extra,
-            });
-            let ok = 0, fail = 0, lastErr = "";
-            for (let i = 0; i < 5; i++) {
-              try { await client.repos.get({ owner: "magiclabs", repo: "magic-js" }); ok++; }
-              catch (e) { fail++; lastErr = e.message; }
-            }
-            console.log(`[${label}] ok=${ok} fail=${fail} ${fail ? "lastErr=" + lastErr : ""}`);
+          let ok = 0, fail = 0, lastErr = "";
+          for (let i = 0; i < 5; i++) {
+            try { await gh.repos.get({ owner: "magiclabs", repo: "magic-js" }); ok++; }
+            catch (e) { fail++; lastErr = e.message; }
           }
-
-          // A) baseline = auto today
-          await probe("baseline (node-fetch@2)", {});
-          // B) use Node 22 built-in fetch (undici) — same modern stack as curl
-          await probe("undici globalThis.fetch", { request: { fetch: globalThis.fetch } });
-          // C) keep node-fetch but disable gzip
-          await probe("node-fetch + identity encoding", { request: { headers: { "accept-encoding": "identity" } } });
-          // D) keep node-fetch but force a no-keepalive agent
-          await probe("node-fetch + keepAlive:false agent", { request: { agent: new https.Agent({ keepAlive: false }) } });
+          console.log(`RESULT node=${process.version} ok=${ok} fail=${fail} ${fail ? "lastErr=" + lastErr : ""}`);
           EOF
           node repro.mjs
-
-      - name: Probe GitHub API as auto would
-        env:
-          TOKEN: ${{ secrets.FRONTEND_GH_TOKEN }}
-        run: |
-          echo "=== repos.get WITH symmetra-preview (auto's exact request), 5 tries ==="
-          for i in 1 2 3 4 5; do
-            curl -sS -o /dev/null \
-              -w "try $i -> HTTP %{http_code}  size=%{size_download}  time=%{time_total}s\n" \
-              -H "Authorization: Bearer $TOKEN" \
-              -H "Accept: application/vnd.github.symmetra-preview+json" \
-              -H "User-Agent: octokit-rest.js/18.12.0" \
-              https://api.github.com/repos/magiclabs/magic-js || echo "try $i -> curl exit $?"
-          done
-
-          echo
-          echo "=== rate_limit (note 'core' + 'graphql' remaining/reset) ==="
-          curl -sS \
-            -H "Authorization: Bearer $TOKEN" \
-            https://api.github.com/rate_limit \
-            | grep -E '"limit"|"remaining"|"used"|"reset"' | head -20
-
-          echo
-          echo "=== response headers only (look for x-ratelimit-*, retry-after) ==="
-          curl -sS -D - -o /dev/null \
-            -H "Authorization: Bearer $TOKEN" \
-            -H "Accept: application/vnd.github.symmetra-preview+json" \
-            https://api.github.com/repos/magiclabs/magic-js \
-            | grep -iE 'http/|x-ratelimit|retry-after|x-github-request-id'
