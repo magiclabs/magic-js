@@ -1,3 +1,25 @@
+# (Mon Jun 29 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/passkey@1.1.0`
+  - feat: implement adding passkey to existing users [#1096](https://github.com/magiclabs/magic-js/pull/1096) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- fix(ci): patch @auto-it/core to disable node-fetch keep-alive reuse [#1103](https://github.com/magiclabs/magic-js/pull/1103) ([@joshuascan](https://github.com/joshuascan))
+- another diagnostic [#1102](https://github.com/magiclabs/magic-js/pull/1102) ([@joshuascan](https://github.com/joshuascan))
+- updates diagnostic [#1101](https://github.com/magiclabs/magic-js/pull/1101) ([@joshuascan](https://github.com/joshuascan))
+- updates diagnostic [#1100](https://github.com/magiclabs/magic-js/pull/1100) ([@joshuascan](https://github.com/joshuascan))
+- adds diag file [#1099](https://github.com/magiclabs/magic-js/pull/1099) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Fri May 15 2026)
 
 #### 🚀 Enhancement

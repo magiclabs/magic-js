@@ -1,3 +1,15 @@
+# v1.1.0 (Mon Jun 29 2026)
+
+#### 🚀 Enhancement
+
+- feat: implement adding passkey to existing users [#1096](https://github.com/magiclabs/magic-js/pull/1096) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v1.0.1 (Thu May 07 2026)
 
 #### 🐛 Bug Fix
