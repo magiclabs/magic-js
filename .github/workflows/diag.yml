@@ -6,6 +6,39 @@ jobs:
   diag:
     runs-on: ubuntu-latest
     steps:
+      - name: Reproduce with auto's actual octokit client (node-fetch path)
+        env:
+          TOKEN: ${{ secrets.FRONTEND_GH_TOKEN }}
+        run: |
+          mkdir -p /tmp/repro && cd /tmp/repro
+          npm init -y >/dev/null 2>&1
+          # same versions auto@11.3.6 resolves
+          npm i @octokit/rest@18.12.0 @octokit/plugin-retry@3.0.9 @octokit/plugin-throttling@3.7.0 >/dev/null 2>&1
+          node --version
+          cat > repro.mjs <<'EOF'
+          import { Octokit } from "@octokit/rest";
+          import { retry } from "@octokit/plugin-retry";
+          import { throttling } from "@octokit/plugin-throttling";
+          const GitHub = Octokit.plugin(retry, throttling);
+          const gh = new GitHub({
+            auth: process.env.TOKEN,
+            previews: ["symmetra-preview"],
+            throttle: {
+              onRateLimit: () => true,
+              onAbuseLimit: () => true,
+            },
+          });
+          for (let i = 1; i <= 10; i++) {
+            try {
+              const r = await gh.repos.get({ owner: "magiclabs", repo: "magic-js" });
+              console.log(`try ${i} -> OK ${r.status}`);
+            } catch (e) {
+              console.log(`try ${i} -> FAIL status=${e.status} msg=${e.message}`);
+            }
+          }
+          EOF
+          node repro.mjs
+
       - name: Probe GitHub API as auto would
         env:
           TOKEN: ${{ secrets.FRONTEND_GH_TOKEN }}
