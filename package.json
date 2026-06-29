@@ -89,5 +89,8 @@
       "released"
     ]
   },
-  "packageManager": "yarn@3.6.0"
+  "packageManager": "yarn@3.6.0",
+  "resolutions": {
+    "@auto-it/core@11.3.6": "patch:@auto-it/core@npm%3A11.3.6#./.yarn/patches/@auto-it-core-npm-11.3.6-910c2457d7.patch"
+  }
 }
