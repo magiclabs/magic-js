@@ -1,3 +1,15 @@
+# v27.9.0 (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
+- feat: add passkey mfa to oauth [#1105](https://github.com/magiclabs/magic-js/pull/1105) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v27.8.0 (Thu Jul 02 2026)
 
 #### 🚀 Enhancement

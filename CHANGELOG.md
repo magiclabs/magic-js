@@ -2,6 +2,19 @@
 
 #### 🚀 Enhancement
 
+- `@magic-ext/oauth2@15.10.0`, `@magic-sdk/types@27.9.0`
+  - feat: add passkey mfa to oauth [#1105](https://github.com/magiclabs/magic-js/pull/1105) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
 - `@magic-ext/passkey@1.2.0`, `@magic-sdk/provider@33.8.0`, `@magic-sdk/types@27.8.0`
   - feat: implement-passkey-as-a-factor [#1104](https://github.com/magiclabs/magic-js/pull/1104) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
 
