@@ -1,3 +1,4 @@
+import { MfaEventHandlers } from './mfa-types';
 import { WalletEventOnReceived } from './wallet-types';
 
 export interface LoginWithMagicLinkConfiguration {
@@ -319,7 +320,8 @@ export type LoginWithEmailOTPEventHandlers = {
   [LoginWithEmailOTPEventEmit.LostDevice]: () => void;
   [LoginWithEmailOTPEventEmit.VerifyRecoveryCode]: (recoveryCode: string) => void;
   [LoginWithEmailOTPEventEmit.Cancel]: () => void;
-} & DeviceVerificationEventHandlers;
+} & DeviceVerificationEventHandlers &
+  MfaEventHandlers;
 
 type DeviceVerificationEventHandlers = {
   // Event Received

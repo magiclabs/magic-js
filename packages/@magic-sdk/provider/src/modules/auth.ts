@@ -20,6 +20,8 @@ import { createJsonRpcRequestPayload } from '../core/json-rpc';
 import { SDKEnvironment } from '../core/sdk-environment';
 import { isMajorVersionAtLeast } from '../util/version-check';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
+import { parseRequestOptionsFromJSON, toJSON } from '../util/polyfills';
+import { MfaEventEmit, MfaEventOnReceived } from '@magic-sdk/types/src/modules/mfa-types';
 
 export const ProductConsolidationMethodRemovalVersions = {
   'magic-sdk': 'v18.0.0',
@@ -117,6 +119,7 @@ export class AuthModule extends BaseModule {
       [{ email, showUI, deviceCheckUI, overrides, lifespan }],
     );
     const handle = this.request<string | null, LoginWithEmailOTPEventHandlers>(requestPayload);
+
     if (!deviceCheckUI && handle) {
       handle.on(DeviceVerificationEventEmit.Retry, () => {
         this.createIntermediaryEvent(DeviceVerificationEventEmit.Retry, requestPayload.id as any)();
@@ -141,7 +144,30 @@ export class AuthModule extends BaseModule {
       handle.on(LoginWithEmailOTPEventEmit.Cancel, () => {
         this.createIntermediaryEvent(LoginWithEmailOTPEventEmit.Cancel, requestPayload.id as any)();
       });
+
+      handle.on(MfaEventEmit.SelectedMfaType, type => {
+        this.createIntermediaryEvent(MfaEventEmit.SelectedMfaType, requestPayload.id as any)(type);
+      });
     }
+
+    handle.on(MfaEventOnReceived.MfaPasskeyOptions, async ({ webauthnOptions }) => {
+      try {
+        const assertionResponse = (await navigator.credentials.get({
+          publicKey: parseRequestOptionsFromJSON(webauthnOptions),
+        })) as any;
+
+        this.createIntermediaryEvent(
+          MfaEventEmit.MfaPasskeyAssertionResponse,
+          requestPayload.id as any,
+        )(toJSON(assertionResponse));
+      } catch (err) {
+        const error = err as Error;
+        this.createIntermediaryEvent(
+          MfaEventEmit.MfaPasskeyAssertionError,
+          requestPayload.id as any,
+        )(error?.message ?? '');
+      }
+    });
 
     return handle;
   }

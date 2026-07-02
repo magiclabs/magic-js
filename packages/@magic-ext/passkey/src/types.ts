@@ -68,6 +68,10 @@ export enum MagicPasskeyPayloadMethod {
   AddPasskeyVerify = 'magic_auth_add_passkey_verify',
   UpdatePasskey = 'magic_auth_update_passkey',
   RemovePasskey = 'magic_auth_remove_passkey',
+  EnablePasskeyMfaStart = 'magic_auth_enable_passkey_mfa_flow_start',
+  EnablePasskeyMfaVerify = 'magic_auth_enable_passkey_mfa_flow_verify',
+  DisablePasskeyMfaStart = 'magic_auth_disable_passkey_mfa_flow_start',
+  DisablePasskeyMfaVerify = 'magic_auth_disable_passkey_mfa_flow_verify',
 }
 
 export enum PasskeySDKErrorCode {

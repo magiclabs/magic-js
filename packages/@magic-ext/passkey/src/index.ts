@@ -212,4 +212,84 @@ export class PasskeyExtension extends Extension.Internal<'passkey', any> {
       this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RemovePasskey, [{ passkeyId }]),
     );
   }
+
+  public enablePasskeyMfa() {
+    if (!window.PublicKeyCredential) {
+      throw this.createPasskeyNotSupportError();
+    }
+
+    const promiEvent = this.utils.createPromiEvent(async (resolve, reject) => {
+      let startResponse;
+
+      try {
+        const response = await this.request(
+          this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.EnablePasskeyMfaStart),
+        );
+        startResponse = response;
+      } catch (e) {
+        // TODO: Handle case where user has no active passkey
+        reject(e);
+      }
+
+      let assertionResponse;
+      try {
+        assertionResponse = (await navigator.credentials.get({
+          publicKey: startResponse.webauthnOptions,
+        })) as any;
+      } catch (err: any) {
+        return reject(this.createPasskeyCreateCredentialError(err));
+      }
+
+      this.request(
+        this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.EnablePasskeyMfaVerify, [
+          {
+            assertionResponse: toJSON(assertionResponse),
+            enrollmentToken: startResponse.enrollmentToken,
+          },
+        ]),
+      );
+
+      resolve(
+        startResponse?.recoveryCodes
+          ? {
+              recoveryCodes: startResponse?.recoveryCodes,
+            }
+          : {},
+      );
+    });
+
+    return promiEvent;
+  }
+
+  public disablePasskeyMfa() {
+    if (!window.PublicKeyCredential) {
+      throw this.createPasskeyNotSupportError();
+    }
+
+    const promiEvent = this.utils.createPromiEvent(async (resolve, reject) => {
+      const { webauthnOptions, disableToken } = await this.request(
+        this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.DisablePasskeyMfaStart),
+      );
+
+      let assertionResponse;
+      try {
+        assertionResponse = (await navigator.credentials.get({
+          publicKey: webauthnOptions,
+        })) as any;
+      } catch (err: any) {
+        return reject(this.createPasskeyCreateCredentialError(err));
+      }
+
+      return this.request(
+        this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.DisablePasskeyMfaVerify, [
+          {
+            assertionResponse: toJSON(assertionResponse),
+            disableToken,
+          },
+        ]),
+      );
+    });
+
+    return promiEvent;
+  }
 }
