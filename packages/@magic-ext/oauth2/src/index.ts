@@ -17,7 +17,10 @@ import {
   OAuthPopupEventHandlers,
   OAuthPopupEventOnReceived,
   OAuthGetResultEventHandlers,
+  MfaEventOnReceived,
+  MfaEventEmit,
 } from '@magic-sdk/types';
+import { parseRequestOptionsFromJSON, toJSON } from './utils/polyfills';
 import { createCryptoChallenge } from './crypto';
 
 const PKCE_STORAGE_KEY = 'magic_oauth_pkce_verifier';
@@ -227,6 +230,24 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           });
         }
 
+        oauthPopupRequest.on(MfaEventOnReceived.MfaPasskeyOptions, async ({ webauthnOptions }) => {
+          try {
+            const assertionResponse = (await navigator.credentials.get({
+              publicKey: parseRequestOptionsFromJSON(webauthnOptions),
+            })) as any;
+            this.createIntermediaryEvent(
+              MfaEventEmit.MfaPasskeyAssertionResponse,
+              requestPayload.id as string,
+            )(toJSON(assertionResponse));
+          } catch (err) {
+            const error = err as Error;
+            this.createIntermediaryEvent(
+              MfaEventEmit.MfaPasskeyAssertionError,
+              requestPayload.id as string,
+            )(error?.message ?? '');
+          }
+        });
+
         const result = await oauthPopupRequest;
         window.removeEventListener('message', redirectEvent);
 
@@ -260,6 +281,9 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       });
       promiEvent.on(OAuthMFAEventEmit.Cancel, () => {
         this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as string)();
+      });
+      promiEvent.on(MfaEventEmit.SelectedMfaType, type => {
+        this.createIntermediaryEvent(MfaEventEmit.SelectedMfaType, requestPayload.id as string)(type);
       });
     }
 
@@ -325,6 +349,24 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           });
         }
 
+        getResultRequest.on(MfaEventOnReceived.MfaPasskeyOptions, async ({ webauthnOptions }) => {
+          try {
+            const assertionResponse = (await navigator.credentials.get({
+              publicKey: parseRequestOptionsFromJSON(webauthnOptions),
+            })) as any;
+            this.createIntermediaryEvent(
+              MfaEventEmit.MfaPasskeyAssertionResponse,
+              requestPayload.id as string,
+            )(toJSON(assertionResponse));
+          } catch (err) {
+            const error = err as Error;
+            this.createIntermediaryEvent(
+              MfaEventEmit.MfaPasskeyAssertionError,
+              requestPayload.id as string,
+            )(error?.message ?? '');
+          }
+        });
+
         // Parse the result, which may contain an OAuth-formatted error.
         const resultOrError = await getResultRequest;
         const maybeResult = resultOrError as OAuthRedirectResult;
@@ -355,6 +397,9 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       });
       promiEvent.on(OAuthMFAEventEmit.Cancel, () => {
         this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as string)();
+      });
+      promiEvent.on(MfaEventEmit.SelectedMfaType, type => {
+        this.createIntermediaryEvent(MfaEventEmit.SelectedMfaType, requestPayload.id as string)(type);
       });
     }
 
