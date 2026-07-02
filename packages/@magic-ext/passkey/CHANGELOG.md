@@ -1,3 +1,15 @@
+# v1.2.0 (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
+- feat: implement-passkey-as-a-factor [#1104](https://github.com/magiclabs/magic-js/pull/1104) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v1.1.0 (Mon Jun 29 2026)
 
 #### 🚀 Enhancement
