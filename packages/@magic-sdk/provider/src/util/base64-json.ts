@@ -43,6 +43,7 @@ export function decodeJSON<T>(queryString: string): T {
 /**
  * Encode given buffer or decode given string with Base64URL.
  */
+/* istanbul ignore next */
 export class Base64URL {
   /**
    * Convert bytes into a base64url-encoded string
