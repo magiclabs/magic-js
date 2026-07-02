@@ -14,6 +14,8 @@ import {
   LoginWithSmsOTPEventEmit,
   LoginWithSmsOTPEventHandlers,
   LoginWithCredentialConfiguration,
+  MfaEventOnReceived,
+  MfaEventEmit,
 } from '@magic-sdk/types';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
@@ -21,7 +23,6 @@ import { SDKEnvironment } from '../core/sdk-environment';
 import { isMajorVersionAtLeast } from '../util/version-check';
 import { createDeprecationWarning } from '../core/sdk-exceptions';
 import { parseRequestOptionsFromJSON, toJSON } from '../util/polyfills';
-import { MfaEventEmit, MfaEventOnReceived } from '@magic-sdk/types/src/modules/mfa-types';
 
 export const ProductConsolidationMethodRemovalVersions = {
   'magic-sdk': 'v18.0.0',
