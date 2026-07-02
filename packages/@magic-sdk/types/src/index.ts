@@ -17,3 +17,4 @@ export * from './modules/wallet-types';
 export * from './modules/common-types';
 export * from './modules/oauth-types';
 export * from './modules/webauthn-types';
+export * from './modules/mfa-types';
