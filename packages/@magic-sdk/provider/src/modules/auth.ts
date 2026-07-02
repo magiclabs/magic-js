@@ -151,24 +151,26 @@ export class AuthModule extends BaseModule {
       });
     }
 
-    handle.on(MfaEventOnReceived.MfaPasskeyOptions, async ({ webauthnOptions }) => {
-      try {
-        const assertionResponse = (await navigator.credentials.get({
-          publicKey: parseRequestOptionsFromJSON(webauthnOptions),
-        })) as any;
+    if (handle) {
+      handle.on(MfaEventOnReceived.MfaPasskeyOptions, async ({ webauthnOptions }) => {
+        try {
+          const assertionResponse = (await navigator.credentials.get({
+            publicKey: parseRequestOptionsFromJSON(webauthnOptions),
+          })) as any;
 
-        this.createIntermediaryEvent(
-          MfaEventEmit.MfaPasskeyAssertionResponse,
-          requestPayload.id as any,
-        )(toJSON(assertionResponse));
-      } catch (err) {
-        const error = err as Error;
-        this.createIntermediaryEvent(
-          MfaEventEmit.MfaPasskeyAssertionError,
-          requestPayload.id as any,
-        )(error?.message ?? '');
-      }
-    });
+          this.createIntermediaryEvent(
+            MfaEventEmit.MfaPasskeyAssertionResponse,
+            requestPayload.id as any,
+          )(toJSON(assertionResponse));
+        } catch (err) {
+          const error = err as Error;
+          this.createIntermediaryEvent(
+            MfaEventEmit.MfaPasskeyAssertionError,
+            requestPayload.id as any,
+          )(error?.message ?? '');
+        }
+      });
+    }
 
     return handle;
   }
