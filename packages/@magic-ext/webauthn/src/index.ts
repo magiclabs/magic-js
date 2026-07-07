@@ -6,7 +6,8 @@ import {
   WebAuthnSDKErrorCode,
   UpdateWebAuthnInfoConfiguration,
 } from './types';
-import { transformAssertionForServer, transformNewAssertionForServer } from './utils/webauthn.js';
+import { PasskeyResult, PasskeyEventHandlers, PasskeyMFAEventEmit, PasskeyMFAEventOnReceived } from '@magic-sdk/types';
+import { toJSON } from './utils/polyfills';
 
 export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
   name = 'webauthn' as const;
@@ -20,65 +21,119 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
     this.createError(WebAuthnSDKErrorCode.WebAuthnCreateCredentialError, `Error creating credential: ${message}`, {});
   }
 
-  public async registerNewUser(configuration: RegisterNewUserConfiguration) {
+  public async registerNewUser(configuration?: RegisterNewUserConfiguration) {
     if (!window.PublicKeyCredential) {
       throw this.createWebAuthnNotSupportError();
     }
-    const { username, nickname = '' } = configuration;
+    const { username, nickname = '', skipDIDToken, lifespan } = configuration ?? {};
 
-    const options = await this.request<any>(
-      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.WebAuthnRegistrationStart, [{ username }]),
+    const { registrationOptions, registrationToken } = await this.request<any>(
+      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.RegisterPasskeyStart, [{ username }]),
     );
 
     let credential;
     try {
       credential = (await navigator.credentials.create({
-        publicKey: options.credential_options,
+        publicKey: registrationOptions,
       })) as any;
     } catch (err: any) {
       throw this.createWebAuthCreateCredentialError(err);
     }
 
     return this.request<string | null>(
-      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.RegisterWithWebAuth, [
+      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.RegisterPasskeyVerify, [
         {
-          id: options.id,
+          registrationToken,
+          registrationResponse: toJSON(credential),
           nickname,
           transport: credential.response.getTransports(),
-          user_agent: navigator.userAgent,
-          registration_response: transformNewAssertionForServer(credential),
+          userAgent: navigator.userAgent,
+          skipDIDToken,
+          lifespan,
         },
       ]),
     );
   }
 
-  public async login(configuration: LoginWithWebAuthnConfiguration) {
-    if (!window.PublicKeyCredential) {
-      throw this.createWebAuthnNotSupportError();
-    }
-    const { username } = configuration;
+  public login(configuration?: LoginWithWebAuthnConfiguration) {
+    const { username, showMfaModal, skipDIDToken, lifespan } = configuration ?? {};
 
-    const transformedCredentialRequestOptions = await this.request<any>(
-      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.LoginWithWebAuthn, [{ username }]),
-    );
+    let verifyPayloadId: string;
 
-    let assertion;
-    try {
-      assertion = (await navigator.credentials.get({
-        publicKey: transformedCredentialRequestOptions,
-      })) as any;
-    } catch (err: any) {
-      throw this.createWebAuthCreateCredentialError(err);
-    }
+    const promiEvent = this.utils.createPromiEvent<PasskeyResult, PasskeyEventHandlers>(async (resolve, reject) => {
+      if (!window.PublicKeyCredential) {
+        return reject(this.createWebAuthnNotSupportError());
+      }
 
-    return this.request<string | null>(
-      this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.WebAuthnLoginVerify, [
+      const { authenticationToken, authenticationOptions } = await this.request<any>(
+        this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.LoginWithPasskeyStart, [{ username }]),
+      );
+
+      let assertion;
+      try {
+        assertion = (await navigator.credentials.get({
+          publicKey: authenticationOptions,
+        })) as any;
+      } catch (err: any) {
+        return reject(this.createWebAuthCreateCredentialError(err));
+      }
+
+      const requestPayload = this.utils.createJsonRpcRequestPayload(MagicWebAuthnPayloadMethod.LoginWithPasskeyVerify, [
         {
-          username,
-          assertion_response: transformAssertionForServer(assertion),
+          authenticationToken,
+          assertionResponse: toJSON(assertion),
+          showUI: showMfaModal,
+          skipDIDToken,
+          lifespan,
         },
-      ]),
-    );
+      ]);
+
+      verifyPayloadId = requestPayload.id as string;
+
+      const loginRequest = this.request<PasskeyResult, PasskeyEventHandlers>(requestPayload);
+
+      if (!showMfaModal) {
+        loginRequest.on(PasskeyMFAEventOnReceived.MfaSentHandle, () => {
+          promiEvent.emit(PasskeyMFAEventOnReceived.MfaSentHandle);
+        });
+        loginRequest.on(PasskeyMFAEventOnReceived.InvalidMfaOtp, () => {
+          promiEvent.emit(PasskeyMFAEventOnReceived.InvalidMfaOtp);
+        });
+        loginRequest.on(PasskeyMFAEventOnReceived.RecoveryCodeSentHandle, () => {
+          promiEvent.emit(PasskeyMFAEventOnReceived.RecoveryCodeSentHandle);
+        });
+        loginRequest.on(PasskeyMFAEventOnReceived.InvalidRecoveryCode, () => {
+          promiEvent.emit(PasskeyMFAEventOnReceived.InvalidRecoveryCode);
+        });
+        loginRequest.on(PasskeyMFAEventOnReceived.RecoveryCodeSuccess, () => {
+          promiEvent.emit(PasskeyMFAEventOnReceived.RecoveryCodeSuccess);
+        });
+      }
+
+      try {
+        const result = await loginRequest;
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    if (!showMfaModal && promiEvent) {
+      promiEvent.on(PasskeyMFAEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.VerifyMFACode, verifyPayloadId)(mfa);
+      });
+      promiEvent.on(PasskeyMFAEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.LostDevice, verifyPayloadId)();
+      });
+      promiEvent.on(PasskeyMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.VerifyRecoveryCode, verifyPayloadId)(recoveryCode);
+      });
+      promiEvent.on(PasskeyMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.Cancel, verifyPayloadId)();
+      });
+    }
+
+    return promiEvent;
   }
 
   public updateInfo(configuration: UpdateWebAuthnInfoConfiguration) {
@@ -125,7 +180,7 @@ export class WebAuthnExtension extends Extension.Internal<'webauthn', any> {
           nickname,
           transport: credential.response.getTransports(),
           user_agent: navigator.userAgent,
-          registration_response: transformNewAssertionForServer(credential),
+          registration_response: toJSON(credential),
         },
       ]),
     );

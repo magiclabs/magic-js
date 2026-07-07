@@ -1,3 +1,157 @@
+# (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@15.10.0`, `@magic-sdk/types@27.9.0`
+  - feat: add passkey mfa to oauth [#1105](https://github.com/magiclabs/magic-js/pull/1105) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/passkey@1.2.0`, `@magic-sdk/provider@33.8.0`, `@magic-sdk/types@27.8.0`
+  - feat: implement-passkey-as-a-factor [#1104](https://github.com/magiclabs/magic-js/pull/1104) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Mon Jun 29 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/passkey@1.1.0`
+  - feat: implement adding passkey to existing users [#1096](https://github.com/magiclabs/magic-js/pull/1096) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- fix(ci): patch @auto-it/core to disable node-fetch keep-alive reuse [#1103](https://github.com/magiclabs/magic-js/pull/1103) ([@joshuascan](https://github.com/joshuascan))
+- another diagnostic [#1102](https://github.com/magiclabs/magic-js/pull/1102) ([@joshuascan](https://github.com/joshuascan))
+- updates diagnostic [#1101](https://github.com/magiclabs/magic-js/pull/1101) ([@joshuascan](https://github.com/joshuascan))
+- updates diagnostic [#1100](https://github.com/magiclabs/magic-js/pull/1100) ([@joshuascan](https://github.com/joshuascan))
+- adds diag file [#1099](https://github.com/magiclabs/magic-js/pull/1099) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri May 15 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@15.8.0`
+  - Google one tap support [#1089](https://github.com/magiclabs/magic-js/pull/1089) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Thu May 07 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/passkey@1.0.1`, `@magic-sdk/types@27.7.1`
+  - feat: add type for passkey metadata [#1087](https://github.com/magiclabs/magic-js/pull/1087) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Tue May 05 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.11.0`
+  - Sherzodbakhodirov/emb 506 implement passkey support in wallet kit [#1086](https://github.com/magiclabs/magic-js/pull/1086) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Wed Apr 29 2026)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/passkey@1.0.0`
+  - feat: duplicate webauthn package as new passkey package [#1085](https://github.com/magiclabs/magic-js/pull/1085) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Tue Apr 28 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/wallet-kit@0.10.0`
+  - migrate wallet kit to tailwind + steam login support [#1078](https://github.com/magiclabs/magic-js/pull/1078) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Fri Apr 24 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/webauthn@27.6.0`, `@magic-sdk/types@27.7.0`
+  - feat: integrate new passkey implementation [#1083](https://github.com/magiclabs/magic-js/pull/1083) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Apr 23 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/provider@33.6.4`, `@magic-sdk/types@27.6.3`
+  - add missing error code to types [#1084](https://github.com/magiclabs/magic-js/pull/1084) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Wed Apr 22 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@15.6.0`
+  - adds support for steam login [#1079](https://github.com/magiclabs/magic-js/pull/1079) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Apr 14 2026)
 
 #### 🚀 Enhancement

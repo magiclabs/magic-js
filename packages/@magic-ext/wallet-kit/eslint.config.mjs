@@ -14,9 +14,7 @@ export default [
       'dist',
       'eslint.config.mjs',
       'jest.config.ts',
-      'panda.config.ts',
-      'postcss.config.cjs',
-      'styled-system',
+      'tailwind.config.js',
     ],
   },
   {

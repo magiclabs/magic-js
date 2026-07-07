@@ -1,12 +1,10 @@
 /* eslint-env node */
-/* global process */
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import replace from '@rollup/plugin-replace';
 import terser from '@rollup/plugin-terser';
 import { readFileSync, existsSync, mkdirSync } from 'fs';
-import { resolve as pathResolve, join } from 'path';
 import { execSync } from 'child_process';
 
 // Ensure dist directory exists
@@ -14,64 +12,64 @@ if (!existsSync('./dist')) {
   mkdirSync('./dist', { recursive: true });
 }
 
-// Generate CSS first
+// Generate CSS with Tailwind, scanning both src and @magiclabs/ui-components dist
 try {
-  execSync('./node_modules/.bin/panda cssgen --outfile dist/styles.css', { stdio: 'inherit' });
+  execSync('./node_modules/.bin/tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify', { stdio: 'inherit' });
 } catch {
   // CSS generation failed, using existing CSS
 }
 
-// Read the CSS to inject
-let cssContent = '';
-try {
-  cssContent = readFileSync('./dist/styles.css', 'utf-8');
-
-  // CRITICAL: Remove @layer wrappers - they lower specificity and lose to Tailwind's preflight
-  function stripLayers(css) {
-    // Remove @layer declarations like "@layer reset, base, tokens;"
-    css = css.replace(/@layer\s+[\w\s,]+;/g, '');
-
-    // Find and unwrap @layer blocks
-    let result = '';
-    let i = 0;
-    while (i < css.length) {
-      // Check for @layer
-      if (css.slice(i, i + 6) === '@layer') {
-        // Skip past @layer and optional name until {
-        let j = i + 6;
-        while (j < css.length && css[j] !== '{') j++;
-        if (j < css.length) {
-          j++; // skip the {
-          // Now find the matching }
-          let braceCount = 1;
-          let start = j;
-          while (j < css.length && braceCount > 0) {
-            if (css[j] === '{') braceCount++;
-            else if (css[j] === '}') braceCount--;
-            j++;
-          }
-          // Extract content without the outer braces
-          result += css.slice(start, j - 1);
-          i = j;
-        } else {
-          result += css[i];
-          i++;
+// Extract rules from @magiclabs/ui-components/styles.css that the Tailwind
+// preset doesn't emit:
+//   - theme variable definitions (`:root`, `[data-color-mode=light/dark]`)
+//   - `text-style-*` typography utilities (registered via a plugin in their
+//     own tailwind config, not exposed through the preset)
+function extractFromUiCss(css) {
+  let out = '';
+  let depth = 0;
+  let start = 0;
+  let selectorEnd = 0;
+  for (let i = 0; i < css.length; i++) {
+    const ch = css[i];
+    if (ch === '{') {
+      if (depth === 0) selectorEnd = i;
+      depth++;
+    } else if (ch === '}') {
+      depth--;
+      if (depth === 0) {
+        const selector = css.slice(start, selectorEnd).trim();
+        const body = css.slice(selectorEnd + 1, i);
+        const isThemeSelector =
+          (selector.includes(':root') || /\[data-color-mode=(light|dark)\]\s*$/.test(selector) || /^\[data-color-mode=(light|dark)\]$/.test(selector)) &&
+          !selector.includes('[data-color-mode=dark] *') &&
+          !selector.includes('[data-color-mode=dark],[data-color-mode=dark] *');
+        const isTextStyle = selector
+          .split(',')
+          .every(s => /^\s*\.text-style-[a-z0-9-]+\s*$/.test(s));
+        if ((isThemeSelector && body.includes('--color-')) || isTextStyle) {
+          out += `${selector}{${body}}`;
         }
-      } else {
-        result += css[i];
-        i++;
+        start = i + 1;
       }
     }
-    return result;
   }
+  return out;
+}
 
-  // Strip layers multiple times to handle nesting
-  cssContent = stripLayers(cssContent);
-  cssContent = stripLayers(cssContent);
-  cssContent = stripLayers(cssContent);
-
-  // Escape for JS string
-  cssContent = cssContent.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+let cssContent = '';
+try {
+  const ourCss = readFileSync('./dist/styles.css', 'utf-8');
+  let themeVars = '';
+  try {
+    const uiCss = readFileSync('./node_modules/@magiclabs/ui-components/dist/styles.css', 'utf-8');
+    themeVars = extractFromUiCss(uiCss);
+  } catch {
+    // ui-components styles.css missing — theme vars won't be inlined
+  }
+  cssContent = themeVars + ourCss;
+  // Don't pre-escape backslashes — the replace() plugin runs JSON.stringify
+  // on this value, and double-escaping breaks every Tailwind selector with
+  // `\:` / `\[` / `\]` (the rule silently drops at parse time).
 } catch {
   // Could not read CSS file
 }
@@ -79,8 +77,7 @@ try {
 const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
 
 // External dependencies - not bundled by us, resolved by consumer's bundler
-const external = (id) => {
-  // Externalize specific packages and their subpaths
+const external = id => {
   if (
     id === 'react' ||
     id === 'react-dom' ||
@@ -103,35 +100,7 @@ const external = (id) => {
   return false;
 };
 
-// Alias for @styled/* paths
-const aliasPlugin = {
-  name: 'styled-alias',
-  resolveId(source) {
-    if (source.startsWith('@styled/')) {
-      // Convert @styled/css -> styled-system/css
-      // Convert @styled/css/cx -> styled-system/css/cx
-      const relativePath = source.replace('@styled/', 'styled-system/');
-      const absolutePath = pathResolve(process.cwd(), relativePath);
-
-      // Try with .js extension
-      if (existsSync(absolutePath + '.js')) {
-        return absolutePath + '.js';
-      }
-
-      // Try as directory with index.js
-      if (existsSync(join(absolutePath, 'index.js'))) {
-        return join(absolutePath, 'index.js');
-      }
-
-      // Return as-is and let resolve plugin handle it
-      return absolutePath;
-    }
-    return null;
-  },
-};
-
 const plugins = [
-  aliasPlugin,
   replace({
     preventAssignment: true,
     values: {
@@ -161,9 +130,7 @@ export default {
   external,
   plugins,
   onwarn(warning, warn) {
-    // Suppress circular dependency warnings from third-party libs
     if (warning.code === 'CIRCULAR_DEPENDENCY') return;
-    // Suppress "this" rewrite warnings
     if (warning.code === 'THIS_IS_UNDEFINED') return;
     warn(warning);
   },

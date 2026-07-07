@@ -1,5 +1,4 @@
 import { Footer, Modal, useCustomVars } from '@magiclabs/ui-components';
-import { VStack } from '../styled-system/jsx';
 import React, { useEffect, useReducer, useState } from 'react';
 import { WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -13,6 +12,7 @@ import { getExtensionInstance } from './extension';
 import { EmailLoginProvider } from './context/EmailLoginContext';
 import { OAuthLoginProvider } from './context/OAuthLoginContext';
 import { SmsLoginProvider } from './context/SmsLoginContext';
+import { PasskeyLoginProvider } from './context/PasskeyLoginContext';
 import { WidgetConfigProvider } from './context/WidgetConfigContext';
 import { OtpView } from './views/OtpView';
 import { DeviceVerificationView } from './views/DeviceVerificationView';
@@ -22,11 +22,13 @@ import { RecoveryCodeView } from './views/RecoveryCode';
 import { LostRecoveryCode } from './views/LostRecoveryCode';
 import { WalletConnectView } from './views/WalletConnectView';
 import { SmsLoginView } from './views/SmsLoginView';
+import { PasskeyOptionsView } from './views/PasskeyOptionsView';
+import { PasskeyRegisterView } from './views/PasskeyRegisterView';
+import { PasskeyPendingView } from './views/PasskeyPendingView';
 import { FarcasterPendingView } from './views/FarcasterPendingView';
 import { FarcasterSuccessView } from './views/FarcasterSuccessView';
 import { FarcasterFailedView } from './views/FarcasterFailedView';
 import { ClientTheme } from './types/client-config';
-import { css } from '@styled/css';
 import { useMediaQuery } from './hooks/useMediaQuery';
 
 const queryClient = new QueryClient();
@@ -102,6 +104,12 @@ function WidgetContent({
         return <LostRecoveryCode dispatch={dispatch} />;
       case 'login_success':
         return <LoginSuccessView state={state} />;
+      case 'passkey_options':
+        return <PasskeyOptionsView dispatch={dispatch} />;
+      case 'passkey_register':
+        return <PasskeyRegisterView dispatch={dispatch} />;
+      case 'passkey_pending':
+        return <PasskeyPendingView state={state} dispatch={dispatch} />;
       case 'farcaster_pending':
         return <FarcasterPendingView state={state} dispatch={dispatch} />;
       case 'farcaster_success':
@@ -116,14 +124,16 @@ function WidgetContent({
   return (
     <EmailLoginProvider dispatch={dispatch}>
       <SmsLoginProvider dispatch={dispatch}>
-        <OAuthLoginProvider dispatch={dispatch}>
-          <Modal isWidget fullscreen={isModal && isMobile}>
-            <VStack width="full" minWidth="380px">
-              {renderView()}
-              <Footer showLogo={showFooterLogo} />
-            </VStack>
-          </Modal>
-        </OAuthLoginProvider>
+        <PasskeyLoginProvider dispatch={dispatch}>
+          <OAuthLoginProvider dispatch={dispatch}>
+            <Modal isWidget fullscreen={isModal && isMobile}>
+              <div className="flex flex-col items-center gap-2.5 w-full min-w-[380px]">
+                {renderView()}
+                <Footer showLogo={showFooterLogo} />
+              </div>
+            </Modal>
+          </OAuthLoginProvider>
+        </PasskeyLoginProvider>
       </SmsLoginProvider>
     </EmailLoginProvider>
   );
@@ -168,6 +178,7 @@ export function MagicWidget({
   const { setColors, setRadius } = useCustomVars({});
   const [clientTheme, setClientTheme] = useState<ClientTheme | null>(null);
   const [showFooterLogo, setShowFooterLogo] = useState(false);
+  const [colorMode, setColorMode] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
     injectCSS();
@@ -197,9 +208,9 @@ export function MagicWidget({
 
     const setClientTheme = async () => {
       try {
-        const colorMode = clientTheme.themeColor === 'dark' ? 'dark' : 'light';
+        const nextColorMode = clientTheme.themeColor === 'dark' ? 'dark' : 'light';
         const { textColor, buttonColor, buttonRadius, containerRadius, backgroundColor, neutralColor } = clientTheme;
-        document.documentElement.setAttribute('data-color-mode', colorMode);
+        setColorMode(nextColorMode);
         if (textColor) setColors('text', textColor);
         if (buttonRadius) setRadius('button', buttonRadius);
         if (containerRadius) setRadius('container', containerRadius);
@@ -245,38 +256,40 @@ export function MagicWidget({
 
   if (isConfigLoading) return null;
 
-  const widgetContent = (
-    <WidgetConfigProvider
-      wallets={wallets}
-      enableFarcaster={enableFarcaster}
-      onSuccess={onSuccess}
-      onError={onError}
-      onClose={onClose}
-      closeOnSuccess={closeOnSuccess}
-    >
-      <WagmiProvider config={getExtensionInstance().wagmiConfig}>
-        <QueryClientProvider client={queryClient}>
-          <div id="magic-widget-container">
-            <WidgetContent state={state} dispatch={dispatch} showFooterLogo={showFooterLogo} isModal={isModal} />
-          </div>
-        </QueryClientProvider>
-      </WagmiProvider>
-    </WidgetConfigProvider>
+  const innerContent = (
+    <div data-color-mode={colorMode}>
+      <WidgetContent state={state} dispatch={dispatch} showFooterLogo={showFooterLogo} isModal={isModal} />
+    </div>
   );
 
-  if (isModal) {
-    return (
-      <div
-        style={modalBackdropStyles}
-        className={css({ '@media (min-width: 769px)': { paddingTop: '15vh' } })}
-        onClick={handleBackdropClick}
+  return (
+    <div id="magic-widget-container">
+      <WidgetConfigProvider
+        wallets={wallets}
+        enableFarcaster={enableFarcaster}
+        onSuccess={onSuccess}
+        onError={onError}
+        onClose={onClose}
+        closeOnSuccess={closeOnSuccess}
       >
-        <div style={modalContentStyles}>{widgetContent}</div>
-      </div>
-    );
-  }
-
-  return widgetContent;
+        <WagmiProvider config={getExtensionInstance().wagmiConfig}>
+          <QueryClientProvider client={queryClient}>
+            {isModal ? (
+              <div
+                style={modalBackdropStyles}
+                className="[@media(min-width:769px)]:pt-[15vh]"
+                onClick={handleBackdropClick}
+              >
+                <div style={modalContentStyles}>{innerContent}</div>
+              </div>
+            ) : (
+              innerContent
+            )}
+          </QueryClientProvider>
+        </WagmiProvider>
+      </WidgetConfigProvider>
+    </div>
+  );
 }
 
 // Placeholder - will be replaced with actual CSS at build time

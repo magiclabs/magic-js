@@ -1,3 +1,63 @@
+# v27.9.0 (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
+- feat: add passkey mfa to oauth [#1105](https://github.com/magiclabs/magic-js/pull/1105) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v27.8.0 (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
+- feat: implement-passkey-as-a-factor [#1104](https://github.com/magiclabs/magic-js/pull/1104) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v27.7.1 (Thu May 07 2026)
+
+#### 🐛 Bug Fix
+
+- feat: add type for passkey metadata [#1087](https://github.com/magiclabs/magic-js/pull/1087) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v27.7.0 (Fri Apr 24 2026)
+
+#### 🚀 Enhancement
+
+- feat: integrate new passkey implementation [#1083](https://github.com/magiclabs/magic-js/pull/1083) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v27.6.3 (Thu Apr 23 2026)
+
+#### 🐛 Bug Fix
+
+- add missing error code to types [#1084](https://github.com/magiclabs/magic-js/pull/1084) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v27.6.2 (Thu Apr 09 2026)
 
 #### 🐛 Bug Fix

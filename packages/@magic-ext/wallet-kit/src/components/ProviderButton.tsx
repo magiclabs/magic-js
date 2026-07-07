@@ -1,6 +1,4 @@
 import { ButtonContainer, Text } from '@magiclabs/ui-components';
-import { css } from '@styled/css';
-import { Flex } from '@styled/jsx';
 import React, { ElementType } from 'react';
 
 interface ProviderButtonProps {
@@ -16,22 +14,18 @@ export const ProviderButton = ({ label, Icon, onPress, hideLabel, center }: Prov
     <ButtonContainer
       onPress={onPress}
       borderRadius={14}
-      className={css({
-        w: 'full',
-        px: 4,
-        py: 3,
-        bg: 'neutral.quaternary',
-        _hover: { bg: 'neutral.tertiary' },
-      })}
+      className="w-full px-4 py-3 bg-neutral-quaternary hover:bg-neutral-tertiary"
     >
-      <Flex gap={3} w="full" justifyContent={hideLabel || center ? 'center' : 'flex-start'} alignItems="center">
+      <div
+        className={`flex flex-row items-center gap-3 w-full ${hideLabel || center ? 'justify-center' : 'justify-start'}`}
+      >
         <Icon width={24} height={24} />
         {!hideLabel && label && (
           <Text fontWeight="medium" styles={{ lineHeight: '1.5rem' }}>
             {label}
           </Text>
         )}
-      </Flex>
+      </div>
     </ButtonContainer>
   );
 };

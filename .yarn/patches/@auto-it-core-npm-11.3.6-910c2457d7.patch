@@ -1,0 +1,22 @@
+diff --git a/dist/git.js b/dist/git.js
+index 4a6c29f30b939850b816c9a620472cfda0cc3450..b29036e42728dca176f83800ff24cd45f3df1835 100644
+--- a/dist/git.js
++++ b/dist/git.js
+@@ -70,7 +70,7 @@ class Git {
+             baseUrl: this.baseUrl,
+             auth: this.options.token,
+             previews: ["symmetra-preview"],
+-            request: { agent: this.options.agent },
++            request: { agent: this.options.agent || new (require("https").Agent)({ keepAlive: false }) },
+             throttle: {
+                 /** Add a wait once rate limit is hit */
+                 onRateLimit: (retryAfter, opts) => {
+@@ -373,7 +373,7 @@ class Git {
+         this.logger.verbose.info("Querying Github using GraphQL:\n", query);
+         const data = await this.github.graphql(query, {
+             baseUrl: this.graphqlBaseUrl,
+-            request: { agent: this.options.agent },
++            request: { agent: this.options.agent || new (require("https").Agent)({ keepAlive: false }) },
+             headers: {
+                 authorization: `token ${this.options.token}`,
+             },

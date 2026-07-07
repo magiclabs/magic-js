@@ -123,4 +123,5 @@ export class WalletModule extends BaseModule {
       createJsonRpcRequestPayload(MagicPayloadMethod.Send7702Transaction, [params]),
     );
   }
+
 }

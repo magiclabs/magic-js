@@ -7,14 +7,18 @@ import {
   MagicThirdPartyWalletUpdate,
   OAuthMFAEventEmit,
   OAuthMFAEventOnReceived,
-  OAuthPopupEventEmit,
   OAuthPopupEventHandlers,
+  PasskeyEventHandlers,
+  PasskeyMFAEventEmit,
+  PasskeyMFAEventOnReceived,
+  PasskeyResult,
   RPCErrorCode,
 } from '@magic-sdk/types';
-import { getAccount, getConnectorClient, reconnect, signMessage, watchAccount } from '@wagmi/core';
-import type { Config } from '@wagmi/core';
 import type { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
+import type { Config } from '@wagmi/core';
+import { getAccount, getConnectorClient, reconnect, signMessage, watchAccount } from '@wagmi/core';
 import { ClientConfig } from './types/client-config';
+import { toJSON } from './utils/polyfills';
 import { createWagmiConfig } from './wagmi/config';
 
 enum SiwePayloadMethod {
@@ -34,6 +38,13 @@ enum ClientPayloadMethod {
 
 enum FarcasterPayloadMethod {
   FarcasterShowQR = 'farcaster_show_QR',
+}
+
+enum MagicPasskeyPayloadMethod {
+  RegisterPasskeyStart = 'magic_auth_register_passkey_start',
+  RegisterPasskeyVerify = 'magic_auth_register_passkey_verify',
+  LoginWithPasskeyStart = 'magic_auth_login_with_passkey_start',
+  LoginWithPasskeyVerify = 'magic_auth_login_with_passkey_verify',
 }
 
 export interface CreateChannelAPIResponse {
@@ -381,7 +392,7 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
 
     // Watch for account/chain changes using wagmi's watchAccount
     const unwatch = watchAccount(this.wagmiConfig, {
-      onChange: (account) => {
+      onChange: account => {
         const storedAddress = localStorage.getItem(LocalStorageKeys.ADDRESS);
         const storedChainId = localStorage.getItem(LocalStorageKeys.CHAIN_ID);
 
@@ -658,5 +669,114 @@ export class WalletKitExtension extends Extension.Internal<'walletKit'> {
     });
 
     return handle;
+  }
+
+  public loginWithPasskey() {
+    let verifyPayloadId: string;
+
+    const promiEvent = this.utils.createPromiEvent<PasskeyResult, PasskeyEventHandlers>(async (resolve, reject) => {
+      if (!window.PublicKeyCredential) {
+        const error = this.createError('PASSKEY_NOT_SUPPORTED', 'Passkey is not supported in this device.', {});
+        return reject(error);
+      }
+
+      const { authenticationToken, authenticationOptions } = await this.request<any>(
+        this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.LoginWithPasskeyStart),
+      );
+
+      let assertion;
+      try {
+        assertion = (await navigator.credentials.get({
+          publicKey: authenticationOptions,
+        })) as any;
+      } catch (err: any) {
+        const error = this.createError('PASSKEY_NOT_SUPPORTED', 'Passkey is not supported in this device.', {});
+        return reject(error);
+      }
+
+      const requestPayload = this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.LoginWithPasskeyVerify, [
+        {
+          authenticationToken,
+          assertionResponse: toJSON(assertion),
+          showUI: false,
+        },
+      ]);
+
+      verifyPayloadId = requestPayload.id as string;
+
+      const loginRequest = this.request<PasskeyResult, PasskeyEventHandlers>(requestPayload);
+
+      loginRequest.on(PasskeyMFAEventOnReceived.MfaSentHandle, () => {
+        promiEvent.emit(PasskeyMFAEventOnReceived.MfaSentHandle);
+      });
+      loginRequest.on(PasskeyMFAEventOnReceived.InvalidMfaOtp, () => {
+        promiEvent.emit(PasskeyMFAEventOnReceived.InvalidMfaOtp);
+      });
+      loginRequest.on(PasskeyMFAEventOnReceived.RecoveryCodeSentHandle, () => {
+        promiEvent.emit(PasskeyMFAEventOnReceived.RecoveryCodeSentHandle);
+      });
+      loginRequest.on(PasskeyMFAEventOnReceived.InvalidRecoveryCode, () => {
+        promiEvent.emit(PasskeyMFAEventOnReceived.InvalidRecoveryCode);
+      });
+      loginRequest.on(PasskeyMFAEventOnReceived.RecoveryCodeSuccess, () => {
+        promiEvent.emit(PasskeyMFAEventOnReceived.RecoveryCodeSuccess);
+      });
+
+      try {
+        const result = await loginRequest;
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    if (promiEvent) {
+      promiEvent.on(PasskeyMFAEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.VerifyMFACode, verifyPayloadId)(mfa);
+      });
+      promiEvent.on(PasskeyMFAEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.LostDevice, verifyPayloadId)();
+      });
+      promiEvent.on(PasskeyMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.VerifyRecoveryCode, verifyPayloadId)(recoveryCode);
+      });
+      promiEvent.on(PasskeyMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.Cancel, verifyPayloadId)();
+      });
+    }
+
+    return promiEvent;
+  }
+
+  public async registerWithPasskey(username?: string) {
+    if (!window.PublicKeyCredential) {
+      const error = this.createError('PASSKEY_NOT_SUPPORTED', 'Passkey is not supported in this device.', {});
+      throw error;
+    }
+
+    const { registrationOptions, registrationToken } = await this.request<any>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RegisterPasskeyStart, [{ username }]),
+    );
+
+    let credential;
+    try {
+      credential = (await navigator.credentials.create({
+        publicKey: registrationOptions,
+      })) as any;
+    } catch (err: any) {
+      const error = this.createError('PASSKEY_REGISTRATION_ERROR', `Error creating credential: ${err.message}`, {});
+      throw error;
+    }
+
+    return this.request<PasskeyResult | null>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RegisterPasskeyVerify, [
+        {
+          registrationToken,
+          registrationResponse: toJSON(credential),
+          transport: credential.response.getTransports(),
+          userAgent: navigator.userAgent,
+        },
+      ]),
+    );
   }
 }

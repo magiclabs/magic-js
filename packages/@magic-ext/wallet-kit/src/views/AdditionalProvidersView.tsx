@@ -1,6 +1,4 @@
 import React from 'react';
-import { css } from '@styled/css';
-import { Box, Stack, VStack } from '@styled/jsx';
 import { OAuthProvider } from 'src/types';
 import { WidgetAction } from 'src/reducer';
 import WidgetHeader from 'src/components/WidgetHeader';
@@ -28,25 +26,12 @@ export default function AdditionalProvidersView({ dispatch }: AdditionalProvider
   return (
     <>
       <WidgetHeader onPressBack={handlePressBack} showHeaderText={false} />
-      <VStack w="full">
-        <Box
-          mt={4}
-          mb={2}
-          overflowY="auto"
-          w="full"
-          px={4}
-          scrollbarWidth="thin"
-          scrollbarColor="rgba(143, 147, 153, 0.4) transparent"
-          className={css({
-            '&::-webkit-scrollbar': {
-              backgroundColor: 'transparent',
-            },
-            '&::-webkit-scrollbar-track': {
-              backgroundColor: 'transparent',
-            },
-          })}
+      <div className="flex flex-col items-center gap-2.5 w-full">
+        <div
+          className="mt-4 mb-2 w-full px-4 overflow-y-auto [scrollbar-width:thin] [&::-webkit-scrollbar]:bg-transparent [&::-webkit-scrollbar-track]:bg-transparent"
+          style={{ scrollbarColor: 'rgba(143, 147, 153, 0.4) transparent' }}
         >
-          <Stack gap={2} maxH="384px" w="full" px={2}>
+          <div className="flex flex-col gap-2 max-h-[384px] w-full px-2">
             {socialProviders.map(provider => (
               <ProviderButton
                 key={provider}
@@ -55,9 +40,9 @@ export default function AdditionalProvidersView({ dispatch }: AdditionalProvider
                 onPress={() => handleProviderLogin(provider)}
               />
             ))}
-          </Stack>
-        </Box>
-      </VStack>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

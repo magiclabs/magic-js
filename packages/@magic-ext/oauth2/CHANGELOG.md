@@ -1,3 +1,39 @@
+# v15.10.0 (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
+- feat: add passkey mfa to oauth [#1105](https://github.com/magiclabs/magic-js/pull/1105) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v15.8.0 (Fri May 15 2026)
+
+#### 🚀 Enhancement
+
+- Google one tap support [#1089](https://github.com/magiclabs/magic-js/pull/1089) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v15.6.0 (Wed Apr 22 2026)
+
+#### 🚀 Enhancement
+
+- adds support for steam login [#1079](https://github.com/magiclabs/magic-js/pull/1079) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v15.4.1 (Fri Feb 27 2026)
 
 #### 🐛 Bug Fix

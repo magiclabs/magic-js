@@ -1,0 +1,295 @@
+import { Extension } from '@magic-sdk/provider';
+import {
+  RegisterNewUserConfiguration,
+  MagicPasskeyPayloadMethod,
+  PasskeySDKErrorCode,
+  LoginWithPasskeyConfiguration,
+  AddPasskeyConfiguration,
+  UpdatePasskeyConfiguration,
+  RemovePasskeyConfiguration,
+} from './types';
+import {
+  PasskeyResult,
+  PasskeyEventHandlers,
+  PasskeyMFAEventEmit,
+  PasskeyMFAEventOnReceived,
+  PasskeyMetadata,
+  DeviceInfo,
+} from '@magic-sdk/types';
+import { toJSON } from './utils/polyfills';
+
+export class PasskeyExtension extends Extension.Internal<'passkey', any> {
+  name = 'passkey' as const;
+  config: any = {};
+
+  private createPasskeyNotSupportError() {
+    return this.createError(PasskeySDKErrorCode.PasskeyNotSupported, 'Passkey is not supported in this device.', {});
+  }
+
+  private createPasskeyCreateCredentialError(err: any) {
+    if (err?.name === 'NotAllowedError') {
+      return this.createError(
+        PasskeySDKErrorCode.PasskeyUserCancelledOrTimeout,
+        'Passkey operation was cancelled or timed out.',
+        {},
+      );
+    }
+    return this.createError(
+      PasskeySDKErrorCode.PasskeyRegisterError,
+      `Error creating credential: ${err?.message ?? err}`,
+      {},
+    );
+  }
+
+  public async registerNewUser(configuration?: RegisterNewUserConfiguration) {
+    if (!window.PublicKeyCredential) {
+      throw this.createPasskeyNotSupportError();
+    }
+    const { username, nickname = '', skipDIDToken, lifespan } = configuration ?? {};
+
+    const { registrationOptions, registrationToken } = await this.request<any>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RegisterPasskeyStart, [
+        { ...(username !== undefined ? { username } : {}) },
+      ]),
+    );
+
+    let credential;
+    try {
+      credential = (await navigator.credentials.create({
+        publicKey: registrationOptions,
+      })) as any;
+    } catch (err: any) {
+      throw this.createPasskeyCreateCredentialError(err);
+    }
+
+    return this.request<PasskeyResult>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RegisterPasskeyVerify, [
+        {
+          registrationToken,
+          registrationResponse: toJSON(credential),
+          nickname,
+          transport: credential.response.getTransports(),
+          userAgent: navigator.userAgent,
+          skipDIDToken,
+          lifespan,
+        },
+      ]),
+    );
+  }
+
+  public login(configuration?: LoginWithPasskeyConfiguration) {
+    const { username, showMfaModal, skipDIDToken, lifespan } = configuration ?? {};
+
+    let verifyPayloadId: string;
+
+    const promiEvent = this.utils.createPromiEvent<PasskeyResult, PasskeyEventHandlers>(async (resolve, reject) => {
+      if (!window.PublicKeyCredential) {
+        return reject(this.createPasskeyNotSupportError());
+      }
+
+      const { authenticationToken, authenticationOptions } = await this.request<any>(
+        this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.LoginWithPasskeyStart, [
+          { ...(username !== undefined ? { username } : {}) },
+        ]),
+      );
+
+      let assertion;
+      try {
+        assertion = (await navigator.credentials.get({
+          publicKey: authenticationOptions,
+        })) as any;
+      } catch (err: any) {
+        return reject(this.createPasskeyCreateCredentialError(err));
+      }
+
+      const requestPayload = this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.LoginWithPasskeyVerify, [
+        {
+          authenticationToken,
+          assertionResponse: toJSON(assertion),
+          showUI: showMfaModal,
+          skipDIDToken,
+          lifespan,
+        },
+      ]);
+
+      verifyPayloadId = requestPayload.id as string;
+
+      const loginRequest = this.request<PasskeyResult, PasskeyEventHandlers>(requestPayload);
+
+      if (!showMfaModal) {
+        loginRequest.on(PasskeyMFAEventOnReceived.MfaSentHandle, () => {
+          promiEvent.emit(PasskeyMFAEventOnReceived.MfaSentHandle);
+        });
+        loginRequest.on(PasskeyMFAEventOnReceived.InvalidMfaOtp, () => {
+          promiEvent.emit(PasskeyMFAEventOnReceived.InvalidMfaOtp);
+        });
+        loginRequest.on(PasskeyMFAEventOnReceived.RecoveryCodeSentHandle, () => {
+          promiEvent.emit(PasskeyMFAEventOnReceived.RecoveryCodeSentHandle);
+        });
+        loginRequest.on(PasskeyMFAEventOnReceived.InvalidRecoveryCode, () => {
+          promiEvent.emit(PasskeyMFAEventOnReceived.InvalidRecoveryCode);
+        });
+        loginRequest.on(PasskeyMFAEventOnReceived.RecoveryCodeSuccess, () => {
+          promiEvent.emit(PasskeyMFAEventOnReceived.RecoveryCodeSuccess);
+        });
+      }
+
+      try {
+        const result = await loginRequest;
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    if (!showMfaModal && promiEvent) {
+      promiEvent.on(PasskeyMFAEventEmit.VerifyMFACode, (mfa: string) => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.VerifyMFACode, verifyPayloadId)(mfa);
+      });
+      promiEvent.on(PasskeyMFAEventEmit.LostDevice, () => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.LostDevice, verifyPayloadId)();
+      });
+      promiEvent.on(PasskeyMFAEventEmit.VerifyRecoveryCode, (recoveryCode: string) => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.VerifyRecoveryCode, verifyPayloadId)(recoveryCode);
+      });
+      promiEvent.on(PasskeyMFAEventEmit.Cancel, () => {
+        this.createIntermediaryEvent(PasskeyMFAEventEmit.Cancel, verifyPayloadId)();
+      });
+    }
+
+    return promiEvent;
+  }
+
+  public getMetadata() {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.GetPasskeyInfo, []);
+    return this.request<PasskeyMetadata>(requestPayload);
+  }
+
+  public async addPasskey(configuration?: AddPasskeyConfiguration) {
+    if (!window.PublicKeyCredential) {
+      throw this.createPasskeyNotSupportError();
+    }
+    const { username, nickname = '' } = configuration ?? {};
+
+    const { registrationOptions, registrationToken } = await this.request<any>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.AddPasskeyStart, [
+        { ...(username !== undefined ? { username } : {}) },
+      ]),
+    );
+
+    let credential;
+    try {
+      credential = (await navigator.credentials.create({
+        publicKey: registrationOptions,
+      })) as any;
+    } catch (err: any) {
+      throw this.createPasskeyCreateCredentialError(err);
+    }
+
+    return this.request<PasskeyResult>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.AddPasskeyVerify, [
+        {
+          registrationToken,
+          registrationResponse: toJSON(credential),
+          nickname,
+          transport: credential.response.getTransports(),
+          userAgent: navigator.userAgent,
+        },
+      ]),
+    );
+  }
+
+  public updatePasskey(configuration: UpdatePasskeyConfiguration) {
+    const { passkeyId, nickname } = configuration;
+    return this.request<DeviceInfo>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.UpdatePasskey, [{ passkeyId, nickname }]),
+    );
+  }
+
+  public removePasskey(configuration: RemovePasskeyConfiguration) {
+    const { passkeyId } = configuration;
+    return this.request<boolean>(
+      this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.RemovePasskey, [{ passkeyId }]),
+    );
+  }
+
+  public enablePasskeyMfa() {
+    if (!window.PublicKeyCredential) {
+      throw this.createPasskeyNotSupportError();
+    }
+
+    const promiEvent = this.utils.createPromiEvent(async (resolve, reject) => {
+      let startResponse;
+
+      try {
+        const response = await this.request(
+          this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.EnablePasskeyMfaStart),
+        );
+        startResponse = response;
+      } catch (e) {
+        // TODO: Handle case where user has no active passkey
+        reject(e);
+      }
+
+      let assertionResponse;
+      try {
+        assertionResponse = (await navigator.credentials.get({
+          publicKey: startResponse.webauthnOptions,
+        })) as any;
+      } catch (err: any) {
+        return reject(this.createPasskeyCreateCredentialError(err));
+      }
+
+      this.request(
+        this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.EnablePasskeyMfaVerify, [
+          {
+            assertionResponse: toJSON(assertionResponse),
+            enrollmentToken: startResponse.enrollmentToken,
+          },
+        ]),
+      );
+
+      resolve(
+        startResponse?.recoveryCodes
+          ? {
+              recoveryCodes: startResponse?.recoveryCodes,
+            }
+          : {},
+      );
+    });
+
+    return promiEvent;
+  }
+
+  public disablePasskeyMfa() {
+    if (!window.PublicKeyCredential) {
+      throw this.createPasskeyNotSupportError();
+    }
+
+    const promiEvent = this.utils.createPromiEvent(async (resolve, reject) => {
+      const { webauthnOptions, disableToken } = await this.request(
+        this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.DisablePasskeyMfaStart),
+      );
+
+      let assertionResponse;
+      try {
+        assertionResponse = (await navigator.credentials.get({
+          publicKey: webauthnOptions,
+        })) as any;
+      } catch (err: any) {
+        return reject(this.createPasskeyCreateCredentialError(err));
+      }
+
+      return this.request(
+        this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.DisablePasskeyMfaVerify, [
+          {
+            assertionResponse: toJSON(assertionResponse),
+            disableToken,
+          },
+        ]),
+      );
+    });
+
+    return promiEvent;
+  }
+}

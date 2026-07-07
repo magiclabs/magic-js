@@ -1,13 +1,10 @@
-import { Button, EmailWbr, IcoEmail, IcoMessage, IcoPhone, Text, VerifyPincode } from '@magiclabs/ui-components';
-import { Box, VStack } from '@styled/jsx';
-import { token } from '@styled/tokens';
+import { Button, EmailWbr, IcoEmail, IcoPhone, Text, VerifyPincode } from '@magiclabs/ui-components';
 import React, { useEffect, useMemo, useState } from 'react';
 import parsePhoneNumber from 'libphonenumber-js';
 import WidgetHeader from '../components/WidgetHeader';
 import { useEmailLogin } from '../context/EmailLoginContext';
 import { useSmsLogin } from '../context/SmsLoginContext';
 import { WidgetAction, WidgetState } from '../reducer';
-import { css } from '@styled/css';
 
 interface OtpViewProps {
   state: WidgetState;
@@ -61,14 +58,14 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
   return (
     <>
       <WidgetHeader onPressBack={cancelLogin} showHeaderText={false} />
-      <VStack>
-        <VStack gap={6}>
+      <div className="flex flex-col items-center gap-2.5">
+        <div className="flex flex-col items-center gap-6">
           {isSms ? (
-            <IcoPhone width={60} height={60} color={token('colors.brand.base')} />
+            <IcoPhone width={60} height={60} color="var(--color-brand-base)" />
           ) : (
-            <IcoEmail width={60} height={60} color={token('colors.brand.base')} />
+            <IcoEmail width={60} height={60} color="var(--color-brand-base)" />
           )}
-          <VStack gap={0}>
+          <div className="flex flex-col items-center gap-0">
             <Text.H4
               fontWeight="normal"
               styles={{
@@ -84,8 +81,8 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
             >
               {identifier && (isSms ? formattedIdentifier : <EmailWbr email={identifier} />)}
             </Text.H4>
-          </VStack>
-        </VStack>
+          </div>
+        </div>
 
         <VerifyPincode
           originName={isSms ? 'sms' : 'email'}
@@ -100,7 +97,7 @@ export const OtpView = ({ state, dispatch }: OtpViewProps) => {
             {showResendButton && <Button variant="text" onPress={handleResend} label="Request a new code" />}
           </VerifyPincode.RetryContent>
         </VerifyPincode>
-      </VStack>
+      </div>
     </>
   );
 };

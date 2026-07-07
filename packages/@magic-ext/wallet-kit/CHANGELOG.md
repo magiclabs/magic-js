@@ -1,3 +1,28 @@
+# v0.11.0 (Tue May 05 2026)
+
+#### 🚀 Enhancement
+
+- Sherzodbakhodirov/emb 506 implement passkey support in wallet kit [#1086](https://github.com/magiclabs/magic-js/pull/1086) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v0.10.0 (Tue Apr 28 2026)
+
+#### 🚀 Enhancement
+
+- migrate wallet kit to tailwind + steam login support [#1078](https://github.com/magiclabs/magic-js/pull/1078) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v0.8.3 (Wed Apr 01 2026)
 
 #### 🐛 Bug Fix

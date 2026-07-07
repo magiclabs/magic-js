@@ -1,5 +1,6 @@
 import { createPromiEvent, Extension } from '@magic-sdk/provider';
 import {
+  LoginWithGoogleIdTokenConfiguration,
   OAuthErrorData,
   OAuthRedirectError,
   OAuthRedirectResult,
@@ -16,7 +17,10 @@ import {
   OAuthPopupEventHandlers,
   OAuthPopupEventOnReceived,
   OAuthGetResultEventHandlers,
+  MfaEventOnReceived,
+  MfaEventEmit,
 } from '@magic-sdk/types';
+import { parseRequestOptionsFromJSON, toJSON } from './utils/polyfills';
 import { createCryptoChallenge } from './crypto';
 
 const PKCE_STORAGE_KEY = 'magic_oauth_pkce_verifier';
@@ -46,17 +50,43 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     this.seamlessTelegramLogin();
   }
 
+  /**
+   * Verify a Google ID token (e.g. from Google One Tap / GSI) and complete a Magic login.
+   *
+   * Magic does not integrate GSI for you -- the customer owns script loading, prompt
+   * orchestration, FedCM state handling, etc. -- and forwards the resulting Google ID token
+   * to this method. Magic verifies the token (signature, issuer, audience) and issues a
+   * Magic DID token.
+   *
+   * The `googleClientId` must match the `client_id` the customer passed to GSI. Magic enforces
+   * strict audience verification against it to prevent acceptance of tokens minted for a
+   * different Google OAuth client.
+   */
+  public loginWithGoogleIdToken(configuration: LoginWithGoogleIdTokenConfiguration) {
+    const payload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.LoginWithGoogleIdToken, [configuration]);
+    return this.request<string>(payload);
+  }
+
   public loginWithRedirect(configuration: OAuthRedirectConfiguration) {
     return this.utils.createPromiEvent<null | string>(async (resolve, reject) => {
-      const { codeVerifier, codeChallenge, cryptoChallengeState } = createCryptoChallenge();
+      // Steam uses OpenID 2.0 — no PKCE, no code exchange, no stored metadata.
+      const isSteam = configuration.provider === 'steam';
+
+      let codeVerifier: string | undefined;
+      const pkceStartPayload: { codeChallenge?: string; cryptoChallengeState?: string } = {};
+      if (!isSteam) {
+        const challenge = createCryptoChallenge();
+        codeVerifier = challenge.codeVerifier;
+        pkceStartPayload.codeChallenge = challenge.codeChallenge;
+        pkceStartPayload.cryptoChallengeState = challenge.cryptoChallengeState;
+      }
 
       const parseRedirectResult = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.Start, [
         {
           ...configuration,
           apiKey: this.sdk.apiKey,
           platform: 'web',
-          codeChallenge,
-          cryptoChallengeState,
+          ...pkceStartPayload,
           // codeVerifier is intentionally NOT sent here — it stays in the SDK.
         },
       ]);
@@ -74,7 +104,7 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
         );
       }
 
-      if (successResult?.pkceMetadata) {
+      if (successResult?.pkceMetadata && codeVerifier) {
         // New path: store codeVerifier + all OAuth metadata at the SDK (parent page) level.
         // sessionStorage persists across same-tab redirects but never enters the iframe.
         sessionStorage.setItem(PKCE_STORAGE_KEY, JSON.stringify({ codeVerifier, ...successResult.pkceMetadata }));
@@ -105,7 +135,49 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
     const urlWithoutQuery = window.location.origin + window.location.pathname;
     window.history.replaceState(null, '', urlWithoutQuery);
 
+    // Steam OpenID 2.0 appends openid.* params to the return_to URL. Detect and route to Steam verify.
+    const normalizedQuery = queryString.startsWith('?') ? queryString.slice(1) : queryString;
+    if (new URLSearchParams(normalizedQuery).get('openid.ns') === 'http://specs.openid.net/auth/2.0') {
+      // Clear any stale PKCE metadata from an earlier abandoned non-Steam attempt so it
+      // doesn't linger past this callback.
+      this.clearPKCEMetadata();
+      return this.getSteamResult(normalizedQuery);
+    }
+
     return this.getResult(configuration, queryString);
+  }
+
+  private clearPKCEMetadata() {
+    sessionStorage.removeItem(PKCE_STORAGE_KEY);
+    localStorage.removeItem(PKCE_STORAGE_KEY);
+  }
+
+  private getSteamResult(openidParams: string) {
+    const requestPayload = this.utils.createJsonRpcRequestPayload(OAuthPayloadMethods.VerifySteamData, [
+      { openidParams },
+    ]);
+
+    return this.utils.createPromiEvent<OAuthRedirectResult>(async (resolve, reject) => {
+      try {
+        const resultOrError = await this.request<OAuthRedirectResult | OAuthRedirectError>(requestPayload);
+        const maybeResult = resultOrError as OAuthRedirectResult;
+        const maybeError = resultOrError as OAuthRedirectError;
+
+        if (maybeError.error) {
+          reject(
+            this.createError<OAuthErrorData>(maybeError.error, maybeError.error_description ?? 'An error occurred.', {
+              errorURI: maybeError.error_uri,
+              provider: maybeError.provider,
+            }),
+          );
+          return;
+        }
+
+        resolve(maybeResult);
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 
   public loginWithPopup(configuration: OAuthPopupConfiguration) {
@@ -158,6 +230,24 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           });
         }
 
+        oauthPopupRequest.on(MfaEventOnReceived.MfaPasskeyOptions, async ({ webauthnOptions }) => {
+          try {
+            const assertionResponse = (await navigator.credentials.get({
+              publicKey: parseRequestOptionsFromJSON(webauthnOptions),
+            })) as any;
+            this.createIntermediaryEvent(
+              MfaEventEmit.MfaPasskeyAssertionResponse,
+              requestPayload.id as string,
+            )(toJSON(assertionResponse));
+          } catch (err) {
+            const error = err as Error;
+            this.createIntermediaryEvent(
+              MfaEventEmit.MfaPasskeyAssertionError,
+              requestPayload.id as string,
+            )(error?.message ?? '');
+          }
+        });
+
         const result = await oauthPopupRequest;
         window.removeEventListener('message', redirectEvent);
 
@@ -191,6 +281,9 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       });
       promiEvent.on(OAuthMFAEventEmit.Cancel, () => {
         this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as string)();
+      });
+      promiEvent.on(MfaEventEmit.SelectedMfaType, type => {
+        this.createIntermediaryEvent(MfaEventEmit.SelectedMfaType, requestPayload.id as string)(type);
       });
     }
 
@@ -256,6 +349,24 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           });
         }
 
+        getResultRequest.on(MfaEventOnReceived.MfaPasskeyOptions, async ({ webauthnOptions }) => {
+          try {
+            const assertionResponse = (await navigator.credentials.get({
+              publicKey: parseRequestOptionsFromJSON(webauthnOptions),
+            })) as any;
+            this.createIntermediaryEvent(
+              MfaEventEmit.MfaPasskeyAssertionResponse,
+              requestPayload.id as string,
+            )(toJSON(assertionResponse));
+          } catch (err) {
+            const error = err as Error;
+            this.createIntermediaryEvent(
+              MfaEventEmit.MfaPasskeyAssertionError,
+              requestPayload.id as string,
+            )(error?.message ?? '');
+          }
+        });
+
         // Parse the result, which may contain an OAuth-formatted error.
         const resultOrError = await getResultRequest;
         const maybeResult = resultOrError as OAuthRedirectResult;
@@ -286,6 +397,9 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
       });
       promiEvent.on(OAuthMFAEventEmit.Cancel, () => {
         this.createIntermediaryEvent(OAuthMFAEventEmit.Cancel, requestPayload.id as string)();
+      });
+      promiEvent.on(MfaEventEmit.SelectedMfaType, type => {
+        this.createIntermediaryEvent(MfaEventEmit.SelectedMfaType, requestPayload.id as string)(type);
       });
     }
 
