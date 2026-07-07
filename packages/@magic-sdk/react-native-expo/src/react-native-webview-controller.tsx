@@ -2,8 +2,8 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Linking, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
-import { MagicIncomingWindowMessage, MagicMessageEvent } from '@magic-sdk/types';
+import { ViewController, createModalNotReadyError, clearKeys } from '@magic-sdk/provider';
+import { MagicIncomingWindowMessage, MagicMessageEvent, RPCErrorCode } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventRegister } from 'react-native-event-listeners';
@@ -244,6 +244,10 @@ export class ReactNativeWebViewController extends ViewController {
         // empty object before passing to the event listener.
 
         data.response = data.response ?? {};
+
+        if (data.response?.error?.code === RPCErrorCode.DpopInvalidated) {
+          clearKeys();
+        }
 
         // Reconstruct event from RN event
         const magicEvent: MagicMessageEvent = { data } as MagicMessageEvent;
