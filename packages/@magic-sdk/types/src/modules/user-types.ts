@@ -39,25 +39,10 @@ export interface MagicUserMetadata {
   firstLoginAt: string | null;
   wallets: {
     ethereum?: ChainWalletInfo;
-    algorand?: ChainWalletInfo;
-    aptos?: ChainWalletInfo;
-    avalancheX?: ChainWalletInfo;
     bitcoin?: ChainWalletInfo;
-    conflux?: ChainWalletInfo;
     cosmos?: ChainWalletInfo;
-    flow?: ChainWalletInfo;
-    harmony?: ChainWalletInfo;
     hedera?: ChainWalletInfo;
-    icon?: ChainWalletInfo;
-    kadena?: ChainWalletInfo;
-    near?: ChainWalletInfo;
-    polkadot?: ChainWalletInfo;
     solana?: ChainWalletInfo;
-    sui?: ChainWalletInfo;
-    taquito?: ChainWalletInfo;
-    terra?: ChainWalletInfo;
-    tezos?: ChainWalletInfo;
-    zilliqa?: ChainWalletInfo;
     [chain: string]: ChainWalletInfo | undefined;
   };
 }
