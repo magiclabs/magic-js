@@ -1,3 +1,39 @@
+# v27.10.0 (Thu Jul 30 2026)
+
+#### 🚀 Enhancement
+
+- Remove deprecated packages [#1108](https://github.com/magiclabs/magic-js/pull/1108) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# v27.9.0 (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
+- feat: add passkey mfa to oauth [#1105](https://github.com/magiclabs/magic-js/pull/1105) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# v27.8.0 (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
+- feat: implement-passkey-as-a-factor [#1104](https://github.com/magiclabs/magic-js/pull/1104) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
 # v27.7.1 (Thu May 07 2026)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,5 @@
+import { MfaEventHandlers } from './mfa-types';
+
 // Shared MFA events reused by both popup and redirect flows
 export enum OAuthMFAEventEmit {
   Cancel = 'cancel',
@@ -40,7 +42,8 @@ export enum OAuthPopupEventEmit {
 export type OAuthPopupEventHandlers = {
   [OAuthPopupEventEmit.PopupEvent]: (eventData: unknown) => void;
   [OAuthPopupEventOnReceived.PopupUrl]: (event: { popupUrl: string; provider: string }) => void;
-} & OAuthMFAEventHandlers;
+} & OAuthMFAEventHandlers &
+  MfaEventHandlers;
 
 // Redirect-specific handler type
-export type OAuthGetResultEventHandlers = OAuthMFAEventHandlers;
+export type OAuthGetResultEventHandlers = OAuthMFAEventHandlers & MfaEventHandlers;

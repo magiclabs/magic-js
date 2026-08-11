@@ -1,8 +1,16 @@
 import { ENCODED_QUERY_PARAMS } from '../../constants';
 import { createReactNativeWebViewController } from '../../factories';
 
+jest.mock('../../../src/native-crypto/dpop', () => ({
+  getDpop: jest.fn().mockImplementation(() => Promise.resolve(null)),
+  deleteDpop: jest.fn().mockImplementation(() => Promise.resolve(undefined)),
+}));
+
 beforeEach(() => {
   jest.resetAllMocks();
+  const { deleteDpop, getDpop } = require('../../../src/native-crypto/dpop');
+  deleteDpop.mockImplementation(() => Promise.resolve(undefined));
+  getDpop.mockImplementation(() => Promise.resolve(null));
 });
 
 const TROLL_GOAT = 'https://troll-goat.magic.link';
@@ -164,6 +172,52 @@ test('Process Typed Array in Solana Payload', done => {
       msgType: `asdf-${ENCODED_QUERY_PARAMS}`,
       response: { result: { rawTransaction: unrecognizedObject } },
     });
+    done();
+  }, 100);
+});
+
+test('Calls deleteDpop when response error code is DpopInvalidated', done => {
+  const { deleteDpop } = require('../../../src/native-crypto/dpop');
+  const viewController = createReactNativeWebViewController(TROLL_GOAT);
+  const onHandlerStub = jest.fn();
+  viewController.messageHandlers.add(onHandlerStub);
+
+  viewController.handleReactNativeWebViewMessage({
+    nativeEvent: {
+      url: `${TROLL_GOAT}/send/?params=${ENCODED_QUERY_PARAMS}`,
+      data: JSON.stringify({
+        msgType: `asdf-${ENCODED_QUERY_PARAMS}`,
+        response: { error: { code: -10019 } },
+      }),
+    },
+  } as any);
+
+  setTimeout(() => {
+    expect(deleteDpop).toHaveBeenCalledTimes(1);
+    done();
+  }, 100);
+});
+
+test('Swallows deleteDpop rejection when response error code is DpopInvalidated', done => {
+  const { deleteDpop } = require('../../../src/native-crypto/dpop');
+  deleteDpop.mockImplementation(() => Promise.reject(new Error('keychain error')));
+
+  const viewController = createReactNativeWebViewController(TROLL_GOAT);
+  viewController.messageHandlers.add(jest.fn());
+
+  viewController.handleReactNativeWebViewMessage({
+    nativeEvent: {
+      url: `${TROLL_GOAT}/send/?params=${ENCODED_QUERY_PARAMS}`,
+      data: JSON.stringify({
+        msgType: `asdf-${ENCODED_QUERY_PARAMS}`,
+        response: { error: { code: -10019 } },
+      }),
+    },
+  } as any);
+
+  // The rejection is caught internally — the promise must not propagate
+  setTimeout(() => {
+    expect(deleteDpop).toHaveBeenCalledTimes(1);
     done();
   }, 100);
 });

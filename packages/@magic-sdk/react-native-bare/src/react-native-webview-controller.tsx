@@ -3,7 +3,7 @@ import { Linking, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ViewController, createModalNotReadyError } from '@magic-sdk/provider';
-import { MagicIncomingWindowMessage, MagicMessageEvent } from '@magic-sdk/types';
+import { MagicIncomingWindowMessage, MagicMessageEvent, RPCErrorCode } from '@magic-sdk/types';
 import { isTypedArray } from 'lodash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventRegister } from 'react-native-event-listeners';
@@ -11,7 +11,7 @@ import { EventRegister } from 'react-native-event-listeners';
 import Global = NodeJS.Global;
 import { useInternetConnection } from './hooks';
 import { getRefreshTokenInKeychain, setRefreshTokenInKeychain } from './native-crypto/keychain';
-import { getDpop } from './native-crypto/dpop';
+import { getDpop, deleteDpop } from './native-crypto/dpop';
 import { checkNativeModules } from './native-crypto/check-native-modules';
 import { openInBrowser } from './lib/links';
 
@@ -233,6 +233,10 @@ export class ReactNativeWebViewController extends ViewController {
         // empty object before passing to the event listener.
 
         data.response = data.response ?? {};
+
+        if (data.response?.error?.code === RPCErrorCode.DpopInvalidated) {
+          deleteDpop().catch(() => {});
+        }
 
         // Reconstruct event from RN event
         const magicEvent: MagicMessageEvent = { data } as MagicMessageEvent;

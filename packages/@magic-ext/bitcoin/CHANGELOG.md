@@ -1,3 +1,15 @@
+# v29.0.0 (Thu Jul 30 2026)
+
+#### 💥 Breaking Change
+
+- btc tee support [#1107](https://github.com/magiclabs/magic-js/pull/1107) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v28.2.2 (Thu Feb 05 2026)
 
 #### ⚠️ Pushed to `master`

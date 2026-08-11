@@ -1,3 +1,15 @@
+# v34.8.1 (Wed Jul 08 2026)
+
+#### 🐛 Bug Fix
+
+- Remove OIDC packages [#1106](https://github.com/magiclabs/magic-js/pull/1106) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
 # v34.5.0 (Tue Apr 14 2026)
 
 #### 🚀 Enhancement

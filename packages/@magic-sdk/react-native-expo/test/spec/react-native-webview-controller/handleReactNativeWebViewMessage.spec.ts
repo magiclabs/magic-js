@@ -1,6 +1,12 @@
 import { ENCODED_QUERY_PARAMS } from '../../constants';
 import { createReactNativeWebViewController } from '../../factories';
 
+const clearKeysMock = jest.fn();
+jest.mock('@magic-sdk/provider', () => ({
+  ...jest.requireActual('@magic-sdk/provider'),
+  clearKeys: (...args: any[]) => clearKeysMock(...args),
+}));
+
 beforeEach(() => {
   jest.resetAllMocks();
 });
@@ -164,6 +170,27 @@ test('Process Typed Array in Solana Payload', done => {
       msgType: `asdf-${ENCODED_QUERY_PARAMS}`,
       response: { result: { rawTransaction: unrecognizedObject } },
     });
+    done();
+  }, 100);
+});
+
+test('Calls clearKeys when response error code is DpopInvalidated', done => {
+  const viewController = createReactNativeWebViewController(TROLL_GOAT);
+  const onHandlerStub = jest.fn();
+  viewController.messageHandlers.add(onHandlerStub);
+
+  viewController.handleReactNativeWebViewMessage({
+    nativeEvent: {
+      url: `${TROLL_GOAT}/send/?params=${ENCODED_QUERY_PARAMS}`,
+      data: JSON.stringify({
+        msgType: `asdf-${ENCODED_QUERY_PARAMS}`,
+        response: { error: { code: -10019 } },
+      }),
+    },
+  } as any);
+
+  setTimeout(() => {
+    expect(clearKeysMock).toHaveBeenCalledTimes(1);
     done();
   }, 100);
 });

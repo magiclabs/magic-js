@@ -1,3 +1,90 @@
+# (Thu Jul 30 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@27.10.0`
+  - Remove deprecated packages [#1108](https://github.com/magiclabs/magic-js/pull/1108) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Thu Jul 30 2026)
+
+#### 💥 Breaking Change
+
+- `@magic-ext/bitcoin@29.0.0`
+  - btc tee support [#1107](https://github.com/magiclabs/magic-js/pull/1107) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
+# (Wed Jul 08 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-sdk/react-native-bare@34.8.1`, `@magic-sdk/react-native-expo@34.8.1`
+  - Remove OIDC packages [#1106](https://github.com/magiclabs/magic-js/pull/1106) ([@Ethella](https://github.com/Ethella))
+
+#### Authors: 1
+
+- Jerry Liu ([@Ethella](https://github.com/Ethella))
+
+---
+
+# (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/oauth2@15.10.0`, `@magic-sdk/types@27.9.0`
+  - feat: add passkey mfa to oauth [#1105](https://github.com/magiclabs/magic-js/pull/1105) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Thu Jul 02 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/passkey@1.2.0`, `@magic-sdk/provider@33.8.0`, `@magic-sdk/types@27.8.0`
+  - feat: implement-passkey-as-a-factor [#1104](https://github.com/magiclabs/magic-js/pull/1104) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### Authors: 1
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+
+---
+
+# (Mon Jun 29 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-ext/passkey@1.1.0`
+  - feat: implement adding passkey to existing users [#1096](https://github.com/magiclabs/magic-js/pull/1096) ([@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov))
+
+#### 🐛 Bug Fix
+
+- fix(ci): patch @auto-it/core to disable node-fetch keep-alive reuse [#1103](https://github.com/magiclabs/magic-js/pull/1103) ([@joshuascan](https://github.com/joshuascan))
+- another diagnostic [#1102](https://github.com/magiclabs/magic-js/pull/1102) ([@joshuascan](https://github.com/joshuascan))
+- updates diagnostic [#1101](https://github.com/magiclabs/magic-js/pull/1101) ([@joshuascan](https://github.com/joshuascan))
+- updates diagnostic [#1100](https://github.com/magiclabs/magic-js/pull/1100) ([@joshuascan](https://github.com/joshuascan))
+- adds diag file [#1099](https://github.com/magiclabs/magic-js/pull/1099) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@sherzod-bakhodirov](https://github.com/sherzod-bakhodirov)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Fri May 15 2026)
 
 #### 🚀 Enhancement
