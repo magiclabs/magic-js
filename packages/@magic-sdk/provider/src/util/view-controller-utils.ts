@@ -2,7 +2,6 @@ import { JsonRpcResponse } from '../core/json-rpc';
 import { JsonRpcRequestPayload, MagicMessageEvent } from '@magic-sdk/types';
 import { getItem, setItem } from './storage';
 import { SDKEnvironment } from '../core/sdk-environment';
-import { getDecryptedDeviceShare } from './device-share-web-crypto';
 import { createJwt } from './web-crypto';
 
 interface StandardizedResponse {
@@ -15,7 +14,6 @@ export interface StandardizedMagicRequest {
   payload: JsonRpcRequestPayload | JsonRpcRequestPayload[];
   jwt?: string;
   rt?: string;
-  deviceShare?: string;
 }
 
 /**

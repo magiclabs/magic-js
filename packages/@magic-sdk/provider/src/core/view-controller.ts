@@ -13,11 +13,6 @@ import {
 import { JsonRpcResponse } from './json-rpc';
 import { createPromise } from '../util/promise-tools';
 import { MagicSDKWarning, createModalNotReadyError } from './sdk-exceptions';
-import {
-  clearDeviceShares,
-  encryptAndPersistDeviceShare,
-  getDecryptedDeviceShare,
-} from '../util/device-share-web-crypto';
 import { standardizeResponse, debounce, StandardizedMagicRequest } from '../util/view-controller-utils';
 import { setItem, getItem } from '../util/storage';
 import { SDKEnvironment } from './sdk-environment';
@@ -54,13 +49,10 @@ export abstract class ViewController {
    * @param endpoint - The URL for the relevant iframe context.
    * @param parameters - The unique, encoded query parameters for the
    * relevant iframe context.
-   * @param networkHash - The hash of the network that this sdk instance is connected to
-   * for multi-chain scenarios
    */
   constructor(
     protected readonly endpoint: string,
     protected readonly parameters: string,
-    protected readonly networkHash: string,
   ) {
     this.listen();
   }
@@ -110,7 +102,7 @@ export abstract class ViewController {
 
       const batchData: JsonRpcResponse[] = [];
       const batchIds = Array.isArray(payload) ? payload.map(p => p.id) : [];
-      const msg = await this.createMagicRequest(`${msgType}-${this.parameters}`, payload, this.networkHash);
+      const msg = await this.createMagicRequest(`${msgType}-${this.parameters}`, payload);
 
       await this._post(msg);
 
@@ -120,12 +112,6 @@ export abstract class ViewController {
       const acknowledgeResponse = (removeEventListener: RemoveEventListenerFunction) => (event: MagicMessageEvent) => {
         const { id, response } = standardizeResponse(payload, event);
         this.persistMagicEventRefreshToken(event);
-        if (response?.payload.error?.message === 'User denied account access.') {
-          clearDeviceShares();
-        } else if (event.data.deviceShare) {
-          const { deviceShare } = event.data;
-          encryptAndPersistDeviceShare(deviceShare, this.networkHash);
-        }
         if (id && response && Array.isArray(payload) && batchIds.includes(id)) {
           batchData.push(response);
 
@@ -323,16 +309,11 @@ export abstract class ViewController {
     await setItem('rt', event.data.rt);
   }
 
-  async createMagicRequest(
-    msgType: string,
-    payload: JsonRpcRequestPayload | JsonRpcRequestPayload[],
-    networkHash: string,
-  ) {
+  async createMagicRequest(msgType: string, payload: JsonRpcRequestPayload | JsonRpcRequestPayload[]) {
     const request: StandardizedMagicRequest = { msgType, payload };
 
     const rt = await this.getRT();
     const jwt = await this.getJWT();
-    const decryptedDeviceShare = await this.getDecryptedDeviceShare(networkHash);
 
     if (jwt) {
       request.jwt = jwt;
@@ -340,11 +321,6 @@ export abstract class ViewController {
 
     if (jwt && rt) {
       request.rt = rt;
-    }
-
-    // Grab the device share if it exists for the network
-    if (decryptedDeviceShare) {
-      request.deviceShare = decryptedDeviceShare;
     }
 
     return request;
@@ -370,9 +346,5 @@ export abstract class ViewController {
 
   async getRT(): Promise<string | null> {
     return await getItem<string>('rt');
-  }
-
-  async getDecryptedDeviceShare(networkHash: string) {
-    return await getDecryptedDeviceShare(networkHash);
   }
 }

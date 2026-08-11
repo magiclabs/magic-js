@@ -24,7 +24,7 @@ import {
 import { getItem, setItem, removeItem } from '../util/storage';
 import { BaseModule } from './base-module';
 import { createJsonRpcRequestPayload } from '../core/json-rpc';
-import { clearDeviceShares } from '../util/device-share-web-crypto';
+import { clearDeviceShares } from '../util/device-share-cleanup';
 import { createPromiEvent } from '../util';
 
 type UserLoggedOutCallback = (loggedOut: boolean) => void;
