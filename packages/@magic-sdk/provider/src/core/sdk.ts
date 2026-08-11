@@ -22,6 +22,7 @@ import { BaseExtension } from '../modules/base-extension';
 import { isEmpty } from '../util/type-guards';
 import { SDKEnvironment, sdkNameToEnvName } from './sdk-environment';
 import { NFTModule } from '../modules/nft';
+import { clearDeviceShares } from '../util/device-share-cleanup';
 
 /**
  * Checks if the given `ext` is compatible with the platform & version of Magic
@@ -37,27 +38,6 @@ function checkExtensionCompat(ext: BaseExtension<string>) {
   // To gracefully support older extensions, we assume
   // compatibility when the `compat` field is missing.
   return true;
-}
-
-/**
- * Generates a network hash of the SDK instance for persisting network specific
- * information on multichain setups
- */
-function getNetworkHash(apiKey: string, network?: EthNetworkConfiguration, extConfig?: any) {
-  if (!network && !extConfig) {
-    return `${apiKey}_eth_mainnet`;
-  }
-  if (extConfig) {
-    return `${apiKey}_${JSON.stringify(extConfig)}`;
-  }
-  if (network) {
-    if (typeof network === 'string') {
-      return `${apiKey}_eth_${network}`;
-    }
-    // Custom network, not necessarily eth.
-    return `${apiKey}_${network.rpcUrl}_${network.chainId}_${network.chainType}`;
-  }
-  return `${apiKey}_unknown`;
 }
 
 /**
@@ -126,7 +106,6 @@ export class SDKBase {
 
   protected readonly endpoint: string;
   protected readonly parameters: string;
-  protected readonly networkHash: string;
   public readonly testMode: boolean;
   public readonly useStorageCache: boolean;
 
@@ -206,7 +185,10 @@ export class SDKBase {
       ...(SDKEnvironment.bundleId ? { bundleId: SDKEnvironment.bundleId } : {}),
       meta: options?.meta,
     });
-    this.networkHash = getNetworkHash(this.apiKey, options?.network, isEmpty(extConfig) ? undefined : extConfig);
+    // Split-key DKMS is retired. Drop any device share left behind by an SDK
+    // version that still cached one, along with its AES key and IV.
+    clearDeviceShares().catch(() => {});
+
     if (!options?.deferPreload) this.preload();
   }
 
@@ -215,7 +197,7 @@ export class SDKBase {
    */
   protected get overlay(): ViewController {
     if (!SDKBase.__overlays__.has(this.parameters)) {
-      const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters, this.networkHash);
+      const controller = new SDKEnvironment.ViewController(this.endpoint, this.parameters);
 
       // @ts-ignore - We don't want to expose this method to the user, but we
       // need to invoke it here so that the `ViewController` is ready for use.
