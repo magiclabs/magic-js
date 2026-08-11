@@ -24,7 +24,7 @@ export function clearKeys() {
 }
 
 export async function createJwt() {
-  // will return undefined is webcrypto is not supported
+  // will return undefined if webcrypto is not supported
   const publicJwk = await getPublicKey();
 
   if (!publicJwk) {
@@ -82,7 +82,7 @@ async function generateWCKP() {
   const { subtle } = window.crypto;
   const kp = await subtle.generateKey(
     EC_GEN_PARAMS,
-    false, // need to export the public key, while keep private key non-extractable
+    false, // need to export the public key, while keeping private key non-extractable
     ['sign'],
   );
 
