@@ -1,4 +1,4 @@
-import { Base64URL } from './base64';
+import { Base64URL } from '@magic-sdk/provider';
 
 function isAuthenticatorAssertionResponse(value: AuthenticatorResponse): value is AuthenticatorAssertionResponse {
   if (typeof value !== 'object') return false;
