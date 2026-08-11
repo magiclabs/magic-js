@@ -7,10 +7,11 @@ export class Base64URL {
    */
   static encode(buffer: ArrayBuffer): string {
     const bytes = new Uint8Array(buffer);
+    const chunkSize = 0x8000;
     const chunks: string[] = [];
 
-    for (let i = 0; i < bytes.length; i += 0x8000) {
-      chunks.push(String.fromCharCode(...bytes.subarray(i, i + 0x8000)));
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+      chunks.push(String.fromCharCode(...bytes.subarray(i, i + chunkSize)));
     }
 
     const base64 = globalThis.btoa(chunks.join(''));

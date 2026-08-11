@@ -49,7 +49,14 @@ export class Base64URL {
    * Convert bytes into a base64url-encoded string
    */
   static encode(buffer: ArrayBuffer): string {
-    const base64 = globalThis.btoa(String.fromCharCode(...new Uint8Array(buffer)));
+    const bytes = new Uint8Array(buffer);
+    const chunkSize = 0x8000;
+    const chunks: string[] = [];
+    
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+      chunks.push(String.fromCharCode(...bytes.subarray(i, i + chunkSize)));
+    }
+    const base64 = globalThis.btoa(chunks.join(''));
 
     return base64.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
   }
