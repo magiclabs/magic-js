@@ -228,7 +228,7 @@ export class PasskeyExtension extends Extension.Internal<'passkey', any> {
         startResponse = response;
       } catch (e) {
         // TODO: Handle case where user has no active passkey
-        reject(e);
+        return reject(e);
       }
 
       let assertionResponse;
@@ -240,14 +240,18 @@ export class PasskeyExtension extends Extension.Internal<'passkey', any> {
         return reject(this.createPasskeyCreateCredentialError(err));
       }
 
-      this.request(
-        this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.EnablePasskeyMfaVerify, [
-          {
-            assertionResponse: toJSON(assertionResponse),
-            enrollmentToken: startResponse.enrollmentToken,
-          },
-        ]),
-      );
+      try {
+        await this.request(
+          this.utils.createJsonRpcRequestPayload(MagicPasskeyPayloadMethod.EnablePasskeyMfaVerify, [
+            {
+              assertionResponse: toJSON(assertionResponse),
+              enrollmentToken: startResponse.enrollmentToken,
+            },
+          ]),
+        );
+      } catch (e) {
+        return reject(e);
+      }
 
       resolve(
         startResponse?.recoveryCodes
