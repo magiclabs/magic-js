@@ -1,3 +1,16 @@
+# v33.10.2 (Wed Aug 12 2026)
+
+#### 🐛 Bug Fix
+
+- chore: fix some comments to improve readability [#1092](https://github.com/magiclabs/magic-js/pull/1092) ([@cuoguojida](https://github.com/cuoguojida) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 2
+
+- [@cuoguojida](https://github.com/cuoguojida)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v33.10.1 (Tue Aug 11 2026)
 
 #### 🐛 Bug Fix

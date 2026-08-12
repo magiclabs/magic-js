@@ -1,3 +1,16 @@
+# v1.4.2 (Wed Aug 12 2026)
+
+#### 🐛 Bug Fix
+
+- fix: declare isPasskeyMfaEnabled in MagicUserMetadata and await passkey MFA enrollment verify [#1110](https://github.com/magiclabs/magic-js/pull/1110) (bo.liu@kraken.com [@bo-magic](https://github.com/bo-magic))
+
+#### Authors: 2
+
+- [@bo-magic](https://github.com/bo-magic)
+- Bo Liu (bo.liu@kraken.com)
+
+---
+
 # v1.4.1 (Tue Aug 11 2026)
 
 #### 🐛 Bug Fix

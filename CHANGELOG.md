@@ -1,3 +1,21 @@
+# (Wed Aug 12 2026)
+
+#### 🐛 Bug Fix
+
+- `@magic-ext/passkey@1.4.2`, `@magic-sdk/types@27.10.1`
+  - fix: declare isPasskeyMfaEnabled in MagicUserMetadata and await passkey MFA enrollment verify [#1110](https://github.com/magiclabs/magic-js/pull/1110) (bo.liu@kraken.com [@bo-magic](https://github.com/bo-magic))
+- `@magic-sdk/provider@33.10.2`
+  - chore: fix some comments to improve readability [#1092](https://github.com/magiclabs/magic-js/pull/1092) ([@cuoguojida](https://github.com/cuoguojida) [@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 4
+
+- [@bo-magic](https://github.com/bo-magic)
+- [@cuoguojida](https://github.com/cuoguojida)
+- Bo Liu (bo.liu@kraken.com)
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Aug 11 2026)
 
 #### 🐛 Bug Fix
