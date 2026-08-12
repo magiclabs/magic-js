@@ -35,6 +35,7 @@ export interface MagicUserMetadata {
   email: string | null;
   phoneNumber: string | null;
   isMfaEnabled: boolean;
+  isPasskeyMfaEnabled: boolean;
   recoveryFactors: [RecoveryFactor] | [];
   firstLoginAt: string | null;
   wallets: {
