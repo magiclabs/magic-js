@@ -72,8 +72,8 @@ export async function createJwt() {
 /**
  * Returns true only when the proof's `iat` claim decodes to a timestamp older
  * than DPOP_PROOF_STALE_AFTER_SECONDS. Anything that cannot be decoded is NOT
- * treated as stale: the persisted `jwt` storage entry doubles as an injection
- * point for tokens this SDK did not mint, and those must pass through untouched.
+ * treated as stale — the caller falls back to passing the token through
+ * untouched. Staleness alone does not authorize a re-mint; see `isOwnDpopProof`.
  */
 export function isDpopProofStale(jwt: string): boolean {
   try {
@@ -87,6 +87,43 @@ export function isDpopProofStale(jwt: string): boolean {
   } catch {
     return false;
   }
+}
+
+/**
+ * True only when `jwt` is a DPoP proof (`typ: 'dpop+jwt'`) whose embedded header
+ * JWK matches the public key this SDK has stored — i.e. a proof we can re-mint
+ * without changing the JWK thumbprint the auth service keys device trust and
+ * refresh-token binding on.
+ *
+ * The `jwt` storage entry is an external injection point (session-persistence
+ * escape hatch): the SDK never writes it. So a stored value may be a non-DPoP
+ * token, or a DPoP proof minted under a *different* keypair (e.g. a natively
+ * injected proof). Re-minting either of those would swap the thumbprint the
+ * server expects — exactly the failure this returning `false` prevents by
+ * leaving such tokens untouched.
+ */
+export async function isOwnDpopProof(jwt: string): Promise<boolean> {
+  try {
+    const headerSegment = jwt.split('.')[0];
+    if (!headerSegment) return false;
+
+    const header = JSON.parse(urlBase64ToStr(headerSegment));
+    if (header?.typ !== 'dpop+jwt' || !header.jwk) return false;
+
+    const storedJwk = await getItem<JsonWebKey>(STORE_KEY_PUBLIC_JWK);
+    return !!storedJwk && jwkPublicKeyMatches(header.jwk, storedJwk);
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * EC public keys are identified by (kty, crv, x, y) — the same members that form
+ * the RFC 7638 JWK thumbprint — so equality across them means an identical
+ * thumbprint. Extra members (e.g. `use`, `kid`) are intentionally ignored.
+ */
+function jwkPublicKeyMatches(a: JsonWebKey, b: JsonWebKey): boolean {
+  return a.kty === b.kty && a.crv === b.crv && a.x === b.x && a.y === b.y;
 }
 
 async function getPublicKey() {
@@ -125,7 +162,13 @@ function strToUrlBase64(str: string) {
 }
 
 function urlBase64ToStr(urlBase64: string) {
-  const base64 = urlBase64.replace(/-/g, '+').replace(/_/g, '/');
+  let base64 = urlBase64.replace(/-/g, '+').replace(/_/g, '/');
+  // `binToUrlBase64` strips `=` padding, but some `atob` implementations reject
+  // unpadded input. Re-pad to a multiple of 4. (A remainder of 1 is never valid
+  // base64; padding still leaves it invalid so `atob` throws — the caller's
+  // try/catch then treats the token as undecodable, which is the safe path.)
+  const remainder = base64.length % 4;
+  if (remainder) base64 += '='.repeat(4 - remainder);
   return decodeURIComponent(
     atob(base64)
       .split('')

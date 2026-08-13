@@ -21,7 +21,7 @@ import {
 import { standardizeResponse, debounce, StandardizedMagicRequest } from '../util/view-controller-utils';
 import { setItem, getItem } from '../util/storage';
 import { SDKEnvironment } from './sdk-environment';
-import { createJwt, isDpopProofStale } from '../util/web-crypto';
+import { createJwt, isDpopProofStale, isOwnDpopProof } from '../util/web-crypto';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -355,14 +355,24 @@ export abstract class ViewController {
     if (SDKEnvironment.platform === 'web') {
       try {
         const jwtFromStorage = await getItem<string>('jwt');
-        if (jwtFromStorage && !isDpopProofStale(jwtFromStorage)) return jwtFromStorage;
 
-        // A stale proof is guaranteed a 401 from the auth service, so re-mint.
-        // createJwt() reuses the persisted keypair (STORE_KEY_PUBLIC_JWK /
-        // STORE_KEY_PRIVATE_KEY) — device trust and refresh-token binding are
-        // keyed on its JWK thumbprint — so only the iat/jti claims change.
-        const newJwt = await createJwt();
-        return newJwt ?? jwtFromStorage;
+        if (jwtFromStorage) {
+          // Re-mint only a stored proof this SDK can safely refresh: our own
+          // DPoP proof (header JWK matches the stored keypair) whose iat has gone
+          // stale. createJwt() reuses that keypair, so the JWK thumbprint the
+          // auth service keys device trust and refresh-token binding on is
+          // unchanged — only iat/jti are fresh. Any other injected value (a
+          // non-DPoP token, or a proof under a different keypair) is passed
+          // through untouched; re-minting it would swap the thumbprint.
+          if ((await isOwnDpopProof(jwtFromStorage)) && isDpopProofStale(jwtFromStorage)) {
+            const newJwt = await createJwt();
+            return newJwt ?? jwtFromStorage;
+          }
+          return jwtFromStorage;
+        }
+
+        // No injected proof present: mint a fresh one for this request.
+        return await createJwt();
       } catch (e) {
         console.error('webcrypto error', e);
         return null;

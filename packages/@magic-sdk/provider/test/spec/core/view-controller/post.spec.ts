@@ -68,7 +68,7 @@ const FAKE_JWT_TOKEN = 'hot tokens';
 const FAKE_DEVICE_SHARE = 'fake device share';
 const FAKE_RT = 'will freshen';
 const FAKE_INJECTED_JWT = 'fake injected jwt';
-let FAKE_STORE: Record<string, string> = {};
+let FAKE_STORE: Record<string, any> = {};
 
 let viewController: TestViewController;
 
@@ -200,16 +200,31 @@ test('Sends payload with rt and an injected jwt when both rt and jwt are saved',
   expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_INJECTED_JWT, rt: FAKE_RT }));
 });
 
-/** Builds a decodable DPoP-shaped jwt whose `iat` is `iatSecondsAgo` in the past. */
-function fakeDpopJwt(iatSecondsAgo: number) {
+// The keypair the SDK has "stored" for these tests, and a different one to stand
+// in for an externally injected proof minted elsewhere.
+const OWN_JWK = { kty: 'EC', crv: 'P-256', x: 'own-x-coordinate', y: 'own-y-coordinate' };
+const FOREIGN_JWK = { kty: 'EC', crv: 'P-256', x: 'foreign-x-coordinate', y: 'foreign-y-coordinate' };
+
+/** Seeds the stored public JWK so `isOwnDpopProof` can recognise our own proofs. */
+function seedStoredKeypair(jwk: object = OWN_JWK) {
+  FAKE_STORE[webCryptoUtils.STORE_KEY_PUBLIC_JWK] = jwk;
+}
+
+/**
+ * Builds a decodable DPoP-shaped jwt whose `iat` is `iatSecondsAgo` in the past.
+ * Defaults to our own keypair and `typ: 'dpop+jwt'`; override `jwk`/`typ` to
+ * simulate an injected token the SDK must not re-mint.
+ */
+function fakeDpopJwt(iatSecondsAgo: number, { jwk = OWN_JWK, typ = 'dpop+jwt' }: { jwk?: object; typ?: string } = {}) {
   const encode = (obj: unknown) =>
     btoa(JSON.stringify(obj)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+/g, '');
-  const header = encode({ typ: 'dpop+jwt', alg: 'ES256' });
+  const header = encode({ typ, alg: 'ES256', jwk });
   const claims = encode({ iat: Math.floor(Date.now() / 1000) - iatSecondsAgo, jti: 'test-jti' });
   return `${header}.${claims}.fake-signature`;
 }
 
 test('Sends the saved jwt while its iat is still fresh', async () => {
+  seedStoredKeypair();
   const freshJwt = fakeDpopJwt(30);
   FAKE_STORE.jwt = freshJwt;
 
@@ -222,7 +237,8 @@ test('Sends the saved jwt while its iat is still fresh', async () => {
   expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: freshJwt }));
 });
 
-test('Re-mints the jwt when the saved one has a stale iat', async () => {
+test('Re-mints the jwt when our own saved proof has a stale iat', async () => {
+  seedStoredKeypair();
   createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
   // older than the auth service's 180s DPOP_PROOF_MAX_AGE — reuse guarantees a 401
   FAKE_STORE.jwt = fakeDpopJwt(200);
@@ -236,7 +252,8 @@ test('Re-mints the jwt when the saved one has a stale iat', async () => {
   expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN }));
 });
 
-test('Falls back to the stale saved jwt when a fresh one cannot be minted', async () => {
+test('Falls back to the stale saved proof when a fresh one cannot be minted', async () => {
+  seedStoredKeypair();
   createJwtStub.mockImplementationOnce(() => Promise.resolve(undefined));
   const staleJwt = fakeDpopJwt(200);
   FAKE_STORE.jwt = staleJwt;
@@ -248,6 +265,39 @@ test('Falls back to the stale saved jwt when a fresh one cannot be minted', asyn
 
   expect(createJwtStub).toHaveBeenCalledTimes(1);
   expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: staleJwt }));
+});
+
+test('Does NOT re-mint a stale proof minted under a different keypair', async () => {
+  // A stale DPoP proof whose JWK is not ours (e.g. natively injected). Re-minting
+  // would swap the thumbprint the server binds device trust / refresh tokens to,
+  // so it must be passed through untouched.
+  seedStoredKeypair();
+  const injectedJwt = fakeDpopJwt(200, { jwk: FOREIGN_JWK });
+  FAKE_STORE.jwt = injectedJwt;
+
+  const { postSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
+  await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, requestPayload());
+
+  expect(createJwtStub).not.toHaveBeenCalled();
+  expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: injectedJwt }));
+});
+
+test('Does NOT re-mint a stale non-DPoP token stored under the jwt key', async () => {
+  // Even with our own key echoed in the header, a non-'dpop+jwt' token is not
+  // something this SDK minted; leave the injected value alone.
+  seedStoredKeypair();
+  const injectedJwt = fakeDpopJwt(200, { typ: 'JWT' });
+  FAKE_STORE.jwt = injectedJwt;
+
+  const { postSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
+  await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, requestPayload());
+
+  expect(createJwtStub).not.toHaveBeenCalled();
+  expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: injectedJwt }));
 });
 
 test('Sends payload without rt if no jwt can be made', async () => {
