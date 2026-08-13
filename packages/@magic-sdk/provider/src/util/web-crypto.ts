@@ -6,6 +6,12 @@ export const STORE_KEY_PUBLIC_JWK = 'STORE_KEY_PUBLIC_JWK';
 const ALGO_NAME = 'ECDSA';
 const ALGO_CURVE = 'P-256';
 
+// The auth service rejects DPoP proofs whose `iat` is older than 180 seconds with
+// zero leeway (DPoPClaims.DPOP_PROOF_MAX_AGE). Stop reusing a proof well before
+// that so network latency and modest client-clock skew can't push a request over
+// the server's limit.
+export const DPOP_PROOF_STALE_AFTER_SECONDS = 120;
+
 const EC_GEN_PARAMS: EcKeyGenParams = {
   name: ALGO_NAME,
   namedCurve: ALGO_CURVE,
@@ -63,6 +69,26 @@ export async function createJwt() {
   return `${jws.protected}.${jws.claims}.${sig}`;
 }
 
+/**
+ * Returns true only when the proof's `iat` claim decodes to a timestamp older
+ * than DPOP_PROOF_STALE_AFTER_SECONDS. Anything that cannot be decoded is NOT
+ * treated as stale: the persisted `jwt` storage entry doubles as an injection
+ * point for tokens this SDK did not mint, and those must pass through untouched.
+ */
+export function isDpopProofStale(jwt: string): boolean {
+  try {
+    const claimsSegment = jwt.split('.')[1];
+    if (!claimsSegment) return false;
+
+    const { iat } = JSON.parse(urlBase64ToStr(claimsSegment));
+    if (typeof iat !== 'number') return false;
+
+    return Math.floor(Date.now() / 1000) - iat > DPOP_PROOF_STALE_AFTER_SECONDS;
+  } catch {
+    return false;
+  }
+}
+
 async function getPublicKey() {
   if (!isWebCryptoSupported()) {
     console.info('webcrypto is not supported');
@@ -96,6 +122,16 @@ async function generateWCKP() {
 
 function strToUrlBase64(str: string) {
   return binToUrlBase64(utf8ToBinaryString(str));
+}
+
+function urlBase64ToStr(urlBase64: string) {
+  const base64 = urlBase64.replace(/-/g, '+').replace(/_/g, '/');
+  return decodeURIComponent(
+    atob(base64)
+      .split('')
+      .map(char => `%${`00${char.charCodeAt(0).toString(16)}`.slice(-2)}`)
+      .join(''),
+  );
 }
 
 function strToUint8(str: string) {

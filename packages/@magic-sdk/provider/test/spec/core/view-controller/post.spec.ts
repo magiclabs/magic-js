@@ -200,6 +200,56 @@ test('Sends payload with rt and an injected jwt when both rt and jwt are saved',
   expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_INJECTED_JWT, rt: FAKE_RT }));
 });
 
+/** Builds a decodable DPoP-shaped jwt whose `iat` is `iatSecondsAgo` in the past. */
+function fakeDpopJwt(iatSecondsAgo: number) {
+  const encode = (obj: unknown) =>
+    btoa(JSON.stringify(obj)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+/g, '');
+  const header = encode({ typ: 'dpop+jwt', alg: 'ES256' });
+  const claims = encode({ iat: Math.floor(Date.now() / 1000) - iatSecondsAgo, jti: 'test-jti' });
+  return `${header}.${claims}.fake-signature`;
+}
+
+test('Sends the saved jwt while its iat is still fresh', async () => {
+  const freshJwt = fakeDpopJwt(30);
+  FAKE_STORE.jwt = freshJwt;
+
+  const { postSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
+  await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, requestPayload());
+
+  expect(createJwtStub).not.toHaveBeenCalled();
+  expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: freshJwt }));
+});
+
+test('Re-mints the jwt when the saved one has a stale iat', async () => {
+  createJwtStub.mockImplementationOnce(() => Promise.resolve(FAKE_JWT_TOKEN));
+  // older than the auth service's 180s DPOP_PROOF_MAX_AGE — reuse guarantees a 401
+  FAKE_STORE.jwt = fakeDpopJwt(200);
+
+  const { postSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
+  await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, requestPayload());
+
+  expect(createJwtStub).toHaveBeenCalledTimes(1);
+  expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: FAKE_JWT_TOKEN }));
+});
+
+test('Falls back to the stale saved jwt when a fresh one cannot be minted', async () => {
+  createJwtStub.mockImplementationOnce(() => Promise.resolve(undefined));
+  const staleJwt = fakeDpopJwt(200);
+  FAKE_STORE.jwt = staleJwt;
+
+  const { postSpy } = stubViewController(viewController, [
+    [MagicIncomingWindowMessage.MAGIC_HANDLE_RESPONSE, responseEvent()],
+  ]);
+  await viewController.post(MagicOutgoingWindowMessage.MAGIC_HANDLE_REQUEST, requestPayload());
+
+  expect(createJwtStub).toHaveBeenCalledTimes(1);
+  expect(postSpy).toHaveBeenCalledWith(expect.objectContaining({ jwt: staleJwt }));
+});
+
 test('Sends payload without rt if no jwt can be made', async () => {
   createJwtStub.mockImplementation(() => Promise.resolve(undefined));
   FAKE_STORE.rt = FAKE_RT;

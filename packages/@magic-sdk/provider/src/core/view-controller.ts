@@ -21,7 +21,7 @@ import {
 import { standardizeResponse, debounce, StandardizedMagicRequest } from '../util/view-controller-utils';
 import { setItem, getItem } from '../util/storage';
 import { SDKEnvironment } from './sdk-environment';
-import { createJwt } from '../util/web-crypto';
+import { createJwt, isDpopProofStale } from '../util/web-crypto';
 
 interface RemoveEventListenerFunction {
   (): void;
@@ -355,10 +355,14 @@ export abstract class ViewController {
     if (SDKEnvironment.platform === 'web') {
       try {
         const jwtFromStorage = await getItem<string>('jwt');
-        if (jwtFromStorage) return jwtFromStorage;
+        if (jwtFromStorage && !isDpopProofStale(jwtFromStorage)) return jwtFromStorage;
 
+        // A stale proof is guaranteed a 401 from the auth service, so re-mint.
+        // createJwt() reuses the persisted keypair (STORE_KEY_PUBLIC_JWK /
+        // STORE_KEY_PRIVATE_KEY) — device trust and refresh-token binding are
+        // keyed on its JWK thumbprint — so only the iat/jti claims change.
         const newJwt = await createJwt();
-        return newJwt;
+        return newJwt ?? jwtFromStorage;
       } catch (e) {
         console.error('webcrypto error', e);
         return null;
