@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    labels:
+      - dependencies
+    groups:
+      # Collapse security-alert PRs into a single grouped PR instead of one-per-CVE.
+      security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+      # Group routine minor/patch version bumps together; majors still open individually.
+      version-minor-patch:
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
