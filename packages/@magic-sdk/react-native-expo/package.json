@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@react-native-community/netinfo": ">11.0.0",
-    "@react-native/assets-registry": "^0.78.2",
+    "@react-native/assets-registry": "^0.87.0",
     "@testing-library/react-native": "^13.2.0",
     "@types/lodash": "^4.14.158",
     "babel-preset-expo": "^13.2.4",
@@ -40,11 +40,11 @@
     "expo-modules-core": "^3.0.29",
     "jest-expo": "~54.0.16",
     "react": "^19.1.0",
-    "react-native": "^0.78.2",
+    "react-native": "^0.87.0",
     "react-native-safe-area-context": "^5.3.0",
     "react-native-webview": "^13.13.5",
     "react-test-renderer": "^19.1.0",
-    "regenerator-runtime": "0.13.9"
+    "regenerator-runtime": "0.14.1"
   },
   "peerDependencies": {
     "@react-native-community/netinfo": ">=9.0.0",
