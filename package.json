@@ -39,7 +39,7 @@
     "chalk": "~4.1.2",
     "ejs": "^3.1.10",
     "enquirer": "^2.3.6",
-    "esbuild": "0.25.2",
+    "esbuild": "0.28.2",
     "eslint": "^9.24.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
