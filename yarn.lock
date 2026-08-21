@@ -11243,6 +11243,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ci-info@npm:^4.1.0":
+  version: 4.4.0
+  resolution: "ci-info@npm:4.4.0"
+  checksum: 3418954c9ca192d4ab7f88637835f8463a327dfcb1d9fdd2434f0aba2715d8b2b0e79fd1a4297cc4a35efc5728f8fd74f3b31cb741c948469a4c07dfe8df3675
+  languageName: node
+  linkType: hard
+
 "citty@npm:^0.1.5, citty@npm:^0.1.6":
   version: 0.1.6
   resolution: "citty@npm:0.1.6"
@@ -15484,7 +15491,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-ci@npm:3.0.1, is-ci@npm:^3.0.0":
+"is-ci@npm:3.0.1":
   version: 3.0.1
   resolution: "is-ci@npm:3.0.1"
   dependencies:
@@ -15492,6 +15499,17 @@ __metadata:
   bin:
     is-ci: bin.js
   checksum: 192c66dc7826d58f803ecae624860dccf1899fc1f3ac5505284c0a5cf5f889046ffeb958fa651e5725d5705c5bcb14f055b79150ea5fcad7456a9569de60260e
+  languageName: node
+  linkType: hard
+
+"is-ci@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "is-ci@npm:4.1.0"
+  dependencies:
+    ci-info: ^4.1.0
+  bin:
+    is-ci: bin.js
+  checksum: f63a9e951262b9f4ccea73f47743efb1bfe87de84b5352dc02966c90bf61c2a9e9426a43ef53fdd18bd5f33616015b97bb5ae89251fb0f573e6cf7a01d036295
   languageName: node
   linkType: hard
 
@@ -17783,7 +17801,7 @@ __metadata:
     globals: ^15.12.0
     gzip-size: ^6.0.0
     inquirer: ^8.1.2
-    is-ci: ^3.0.0
+    is-ci: ^4.1.0
     jest: ^29.7.0
     jest-environment-jsdom: ^29.7.0
     lerna: 8.0.2
