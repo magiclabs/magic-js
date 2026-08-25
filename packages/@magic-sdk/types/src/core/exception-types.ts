@@ -43,6 +43,7 @@ export enum RPCErrorCode {
   DpopInvalidated = -10019,
   MaxAttemptsReached = -10031,
   UserRequiredMfa = -10033,
+  InvalidRecaptcha = -10034,
 }
 
 export type ErrorCode = SDKErrorCode | RPCErrorCode;
