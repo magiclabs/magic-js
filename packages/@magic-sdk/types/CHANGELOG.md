@@ -1,3 +1,15 @@
+# v27.11.0 (Tue Aug 25 2026)
+
+#### 🚀 Enhancement
+
+- add invalid recaptcha error code [#1124](https://github.com/magiclabs/magic-js/pull/1124) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v27.10.1 (Wed Aug 12 2026)
 
 #### 🐛 Bug Fix
