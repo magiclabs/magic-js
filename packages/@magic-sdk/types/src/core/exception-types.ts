@@ -44,6 +44,7 @@ export enum RPCErrorCode {
   MaxAttemptsReached = -10031,
   UserRequiredMfa = -10033,
   InvalidRecaptcha = -10034,
+  LoginThrottled = -10035,
 }
 
 export type ErrorCode = SDKErrorCode | RPCErrorCode;
