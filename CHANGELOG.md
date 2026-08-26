@@ -1,3 +1,16 @@
+# (Wed Aug 26 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@27.12.0`
+  - adds login throttled exception type [#1125](https://github.com/magiclabs/magic-js/pull/1125) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Tue Aug 25 2026)
 
 #### 🚀 Enhancement
