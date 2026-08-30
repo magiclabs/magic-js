@@ -22,6 +22,11 @@ describe('isMajorVersionAtLeast', () => {
     expect(isMajorVersionAtLeast('0', 1)).toBe(false);
   });
 
+  it('should handle version strings prefixed with v', () => {
+    expect(isMajorVersionAtLeast('v19.0.0', 19)).toBe(true);
+    expect(isMajorVersionAtLeast('V18.2.1', 19)).toBe(false);
+  });
+
   it('should handle non-standard version strings correctly', () => {
     expect(isMajorVersionAtLeast('1.beta', 1)).toBe(true);
     expect(isMajorVersionAtLeast('1.alpha', 2)).toBe(false);
