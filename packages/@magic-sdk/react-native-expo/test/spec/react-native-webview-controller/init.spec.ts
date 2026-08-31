@@ -5,17 +5,17 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 
-test("Intializes 'webView' with null", () => {
+test("Initializes 'webView' with null", () => {
   const overlay = createReactNativeWebViewController();
   expect(overlay.webView).toEqual(null);
 });
 
-test("Intializes 'container' with null", () => {
+test("Initializes 'container' with null", () => {
   const overlay = createReactNativeWebViewController();
   expect(overlay.container).toEqual(null);
 });
 
-test("Intializes 'styles' with the result of React Native's StyleSheet.create", () => {
+test("Initializes 'styles' with the result of React Native's StyleSheet.create", () => {
   const stylesheetCreateStub = reactNativeStyleSheetStub();
 
   createReactNativeWebViewController();
