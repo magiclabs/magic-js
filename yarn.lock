@@ -3128,7 +3128,7 @@ __metadata:
     "@tanstack/react-query": ^5.0.0
     "@types/react": ^18.0.0
     "@types/react-dom": ^18.0.0
-    "@wagmi/core": ^2.0.0
+    "@wagmi/core": ^3.6.5
     "@walletconnect/ethereum-provider": ^2.23.0
     libphonenumber-js: ^1.12.37
     react: ^18.0.0
@@ -8881,7 +8881,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/core@npm:2.22.1, @wagmi/core@npm:^2.0.0":
+"@wagmi/core@npm:2.22.1":
   version: 2.22.1
   resolution: "@wagmi/core@npm:2.22.1"
   dependencies:
@@ -8898,6 +8898,29 @@ __metadata:
     typescript:
       optional: true
   checksum: 5f9621024cb2a86825d6d1c62bb0d795f10dc60a16b4cc9ac78c72533889066a00c37ef8582169d5533d7d4061440397b1fa4cf86e69424036759e3413b6a765
+  languageName: node
+  linkType: hard
+
+"@wagmi/core@npm:^3.6.5":
+  version: 3.6.5
+  resolution: "@wagmi/core@npm:3.6.5"
+  dependencies:
+    eventemitter3: 5.0.1
+    mipd: 0.0.7
+    zustand: 5.0.0
+  peerDependencies:
+    "@tanstack/query-core": ">=5.0.0"
+    accounts: ~0.18
+    typescript: ">=5.9.3"
+    viem: 2.x
+  peerDependenciesMeta:
+    "@tanstack/query-core":
+      optional: true
+    accounts:
+      optional: true
+    typescript:
+      optional: true
+  checksum: 9f50d3c12299ac180a8550813ff43ba229c8a5e8b322e84c63d8f12f14dd38854a84ff0f54a4d0d5e8402cdc1d60f2565cbbe7222346d467a10d148d6f6ab2ea
   languageName: node
   linkType: hard
 
