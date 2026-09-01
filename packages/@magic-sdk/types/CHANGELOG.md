@@ -1,3 +1,15 @@
+# v27.13.0 (Tue Sep 01 2026)
+
+#### 🚀 Enhancement
+
+- adds recaptcha unavailable error code [#1127](https://github.com/magiclabs/magic-js/pull/1127) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # v27.12.0 (Wed Aug 26 2026)
 
 #### 🚀 Enhancement

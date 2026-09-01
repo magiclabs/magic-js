@@ -1,3 +1,16 @@
+# (Tue Sep 01 2026)
+
+#### 🚀 Enhancement
+
+- `@magic-sdk/types@27.13.0`
+  - adds recaptcha unavailable error code [#1127](https://github.com/magiclabs/magic-js/pull/1127) ([@joshuascan](https://github.com/joshuascan))
+
+#### Authors: 1
+
+- Josh Scanlan ([@joshuascan](https://github.com/joshuascan))
+
+---
+
 # (Wed Aug 26 2026)
 
 #### 🚀 Enhancement
