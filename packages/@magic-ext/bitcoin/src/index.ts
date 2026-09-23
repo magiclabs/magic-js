@@ -29,7 +29,8 @@ export class BitcoinExtension extends MultichainExtension<'bitcoin'> {
    * broadcast-ready signed transaction.
    *
    * Input and output values are non-negative BTC amounts with at most eight
-   * decimal places. Calculate fees and change in integer satoshis, then convert
+   * decimal places; tiny floating-point arithmetic errors (up to 0.001 sat)
+   * are tolerated. Calculate fees and change in integer satoshis, then convert
    * to BTC for this method. Total outputs must not exceed total inputs; the
    * difference is the fee. There is no minimum or maximum
    * signing fee, and no dust threshold is enforced. The caller must check the
