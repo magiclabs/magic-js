@@ -8,8 +8,8 @@ export enum BitcoinPayloadMethod {
 }
 
 /**
- * A UTXO to spend. `value` is in BTC (not satoshis) and is required: the enclave
- * needs each input's value to compute its segwit (BIP143) sighash. `tx_num` is
+ * A UTXO to spend. `value` is in BTC (not satoshis), with at most eight decimal
+ * places. The enclave needs this value to compute its segwit (BIP143) sighash. `tx_num` is
  * the output index (vout) of the UTXO within its source transaction.
  */
 export interface BitcoinTransactionInput {
@@ -19,7 +19,7 @@ export interface BitcoinTransactionInput {
   address?: string;
 }
 
-/** A transaction output. `value` is in BTC (not satoshis). */
+/** A transaction output. `value` is in BTC with at most eight decimal places. */
 export interface BitcoinTransactionOutput {
   address: string;
   value: number;
