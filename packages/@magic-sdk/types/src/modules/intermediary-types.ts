@@ -66,8 +66,6 @@ export type IntermediaryEvents =
   // Show Settings Events
   | `${RecoveryFactorEventOnReceived}`
   | `${RecoveryFactorEventEmit}`
-  // Nft Checkout Events
-  | `${NftCheckoutIntermediaryEvents}`
   // Farcaster Login Events
   | `${FarcasterLoginEventEmit}`
   // Ui Events
