@@ -104,7 +104,7 @@ export class ThirdPartyWalletsModule extends BaseModule {
   }
 
   private magicWidgetLogout(payload: Partial<JsonRpcRequestPayload>): PromiEvent<boolean> {
-    return createPromiEvent<boolean>(async resolve => {
+    return createPromiEvent<boolean>((resolve, reject) => {
       try {
         // @ts-expect-error Property 'walletKit' does not exist on type 'SDKBase'.
         this.sdk.walletKit.clearConnectedState();
@@ -112,7 +112,7 @@ export class ThirdPartyWalletsModule extends BaseModule {
         console.error(error);
       }
 
-      return super.requestOverlay(payload);
+      super.requestOverlay<boolean>(payload).then(resolve).catch(reject);
     });
   }
 
