@@ -4,16 +4,13 @@ on:
     branches:
       - 'master'
 
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NPM_CONFIG_PROVENANCE: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Build
+    permissions:
+      contents: read
+      pull-requests: read
     if: "!contains(github.event.head_commit.message, 'skip-release')"
     outputs:
       version_bumped: ${{ steps.version-check.outputs.version_bumped }}
@@ -36,6 +33,9 @@ jobs:
 
       - name: Apply semver updates (if any)
         id: version-check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           AUTO_VERSION=$(yarn auto version)
           EXIT_CODE=$?
@@ -101,3 +101,8 @@ jobs:
 
       - name: Create Release
         run: yarn auto shipit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true

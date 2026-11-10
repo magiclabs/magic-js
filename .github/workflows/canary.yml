@@ -6,11 +6,6 @@ on:
   merge_group:
     types: [checks_requested]
 
-env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NPM_CONFIG_PROVENANCE: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -79,3 +74,7 @@ jobs:
 
       - name: Create Canary Release
         run: yarn auto canary
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
