@@ -11,6 +11,7 @@ export enum OAuthMFAEventEmit {
 export enum OAuthMFAEventOnReceived {
   MfaSentHandle = 'mfa-sent-handle',
   InvalidMfaOtp = 'invalid-mfa-otp',
+  LoginThrottled = 'login-throttled',
   RecoveryCodeSentHandle = 'recovery-code-sent-handle',
   InvalidRecoveryCode = 'invalid-recovery-code',
   RecoveryCodeSuccess = 'recovery-code-success',
@@ -25,6 +26,7 @@ type OAuthMFAEventHandlers = {
   // Event Received
   [OAuthMFAEventOnReceived.MfaSentHandle]: () => void;
   [OAuthMFAEventOnReceived.InvalidMfaOtp]: () => void;
+  [OAuthMFAEventOnReceived.LoginThrottled]: (event: { retryAfterSeconds: number }) => void;
   [OAuthMFAEventOnReceived.RecoveryCodeSentHandle]: () => void;
   [OAuthMFAEventOnReceived.InvalidRecoveryCode]: () => void;
   [OAuthMFAEventOnReceived.RecoveryCodeSuccess]: () => void;
