@@ -219,6 +219,9 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           oauthPopupRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, () => {
             promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp);
           });
+          oauthPopupRequest.on(OAuthMFAEventOnReceived.LoginThrottled, event => {
+            promiEvent.emit(OAuthMFAEventOnReceived.LoginThrottled, event);
+          });
           oauthPopupRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, () => {
             promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle);
           });
@@ -337,6 +340,9 @@ export class OAuthExtension extends Extension.Internal<'oauth2'> {
           });
           getResultRequest.on(OAuthMFAEventOnReceived.InvalidMfaOtp, () => {
             promiEvent.emit(OAuthMFAEventOnReceived.InvalidMfaOtp);
+          });
+          getResultRequest.on(OAuthMFAEventOnReceived.LoginThrottled, event => {
+            promiEvent.emit(OAuthMFAEventOnReceived.LoginThrottled, event);
           });
           getResultRequest.on(OAuthMFAEventOnReceived.RecoveryCodeSentHandle, () => {
             promiEvent.emit(OAuthMFAEventOnReceived.RecoveryCodeSentHandle);
